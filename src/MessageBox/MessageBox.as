@@ -23,6 +23,8 @@ class MessageBox extends MovieClip
 	var Message: TextField;
 	var MessageButtons: Array;
 	
+	var proxyMenu: MovieClip;
+	
 	
 	function MessageBox()
 	{
@@ -123,7 +125,7 @@ class MessageBox extends MovieClip
 				MessageContainer._visible = false;
 				MessageContainer.enabled = false;
 				
-				var proxyMenu: MovieClip = _root.createEmptyMovieClip(val, _root.getNextHighestDepth());
+				proxyMenu = _root.createEmptyMovieClip(val, _root.getNextHighestDepth());
 				proxyMenu.loadMovie(val + ".swf");
 			}
 		}

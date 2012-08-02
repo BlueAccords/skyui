@@ -1,48 +1,55 @@
 ﻿import com.greensock.*;
 import com.greensock.easing.*;
+import flash.geom.Transform;
+import flash.geom.ColorTransform;
 
-dynamic class FollowerWheel extends MovieClip
+class FollowerWheel extends MovieClip
 {
 	/* Private Variables */
-	var _nameText: String = "";
-	var _optionText: String = "";
 	var _options: Array;
-	var _side: Number = 0;
-	var _option: Number = 0;
+	var _side: Number = -1;
+	var _option: Number = -1;
+	var SLICE_COLUMN_SIZE: Number = 4;
+	
+	var Left00: MovieClip;
+	var Left01: MovieClip;
+	var Left02: MovieClip;
+	var Left03: MovieClip;
+	
+	var Right00: MovieClip;
+	var Right01: MovieClip;
+	var Right02: MovieClip;
+	var Right03: MovieClip;
+	
+	var Knot: MovieClip;
+	
+	var Name: TextField;
+	var Option: TextField;
 	
 	function FollowerWheel()
 	{
 		super();
 		
-		this._parent._xscale = 0;
-		this._parent._yscale = 0;
-		
 		// 17 is for angle offset, each slice is 35 degrees
-		_options = [[{slice: this.Left00, rotationValue: -20 - 17, option: "Melee/Ranged"},
-					 {slice: this.Left01, rotationValue: -55 - 17, option: "Open Inventory"},
-					 {slice: this.Left02, rotationValue: -90 - 17, option: "Distance"},
-					 {slice: this.Left03, rotationValue: -125 - 17, option: "Backup"}],
-					[{slice: this.Right00, rotationValue: 20 + 17, option: "Aggression"},
-					 {slice: this.Right01, rotationValue: 55 + 17, option: "Use Potion"},
-					 {slice: this.Right02, rotationValue: 90 + 17, option: "Talk"},
-					 {slice: this.Right03, rotationValue: 125 + 17, option: "Wait/Follow"}]
+		_options = [ {slice: Left00, rot: -20 - 17, option: "Melee/Ranged"},
+					 {slice: Left01, rot: -55 - 17, option: "Open Inventory"},
+					 {slice: Left02, rot: -90 - 17, option: "Distance"},
+					 {slice: Left03, rot: -125 - 17, option: "Backup"},
+					 {slice: Right00, rot: 20 + 17, option: "Aggression"},
+					 {slice: Right01, rot: 55 + 17, option: "Use Potion"},
+					 {slice: Right02, rot: 90 + 17, option: "Talk"},
+					 {slice: Right03, rot: 125 + 17, option: "Wait/Follow"}
 					];
 		
-		for(var s = 0; s < _options.length; s++)
+		for(var o = 0; o < _options.length; o++)
 		{
-			for(var o = 0; o < _options[s].length; o++)
-			{
-				_options[s][o].slice.gotoAndStop("Inactive");
-				
-				_options[s][o].slice.side = s;
-				_options[s][o].slice.option = o;
-				
-				_options[s][o].slice.onRollOver = function() {
-					this._parent.SetOption(this.side, this.option);
-				}
-				_options[s][o].slice.onRelease = function() {
-					this._parent.EnterOption(this.side, this.option);
-				}
+			_options[o].slice.gotoAndStop("Inactive");
+			_options[o].slice.option = o;
+			_options[o].slice.onRollOver = function() {
+				this._parent.SelectWheelOption(this.option);
+			}
+			_options[o].slice.onRelease = function() {
+				this._parent.AcceptWheelOption(this.option);
 			}
 		}
 		
@@ -51,11 +58,6 @@ dynamic class FollowerWheel extends MovieClip
 	
 	function onLoad()
 	{
-		skse.Log("Loaded Wheel");
-		SetNameText("Bob the Builder");
-		SetOptionText("Exit");
-		SetOption(0, 0, true);
-		
 		gfx.managers.FocusHandler.instance.setFocus(this, 0);
 	}
 	
@@ -69,27 +71,33 @@ dynamic class FollowerWheel extends MovieClip
 				gfx.io.GameDelegate.call("buttonPress", [0]);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.LEFT) {
-				SetOption(0, _option, false);
+				var deltaOption = _option;
+				if(deltaOption >= SLICE_COLUMN_SIZE)
+					deltaOption -= SLICE_COLUMN_SIZE;
+				SelectWheelOption(deltaOption, false);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.RIGHT) {
-				SetOption(1, _option, false);
+				var deltaOption = _option;
+				if(deltaOption < SLICE_COLUMN_SIZE)
+					deltaOption += SLICE_COLUMN_SIZE;
+				SelectWheelOption(deltaOption, false);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.UP) {
 				var deltaOption = _option;
 				if(deltaOption > 0) {
 					deltaOption--;
-					SetOption(_side, deltaOption, false);
+					SelectWheelOption(deltaOption, false);
 				}
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.DOWN) {
 				var deltaOption = _option;
-				if(deltaOption < 3) {
+				if(deltaOption < _options.length - 1) {
 					deltaOption++;
-					SetOption(_side, deltaOption, false);
+					SelectWheelOption(deltaOption, false);
 				}
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.ENTER) {
-				EnterOption(_side, _option);
+				AcceptWheelOption(_option);
 				bHandledInput = true;
 			}
 		}
@@ -97,36 +105,63 @@ dynamic class FollowerWheel extends MovieClip
 		return bHandledInput;
 	}
 	
-	function EnterOption(side: Number, option: Number)
+	function AcceptWheelOption(option: Number)
 	{
-		skse.Log("Wheel State: s " + side + " o " + option);
-	}
-	
-	function SetNameText(aText: String)
-	{
-		_nameText = aText;
-		this.Name.text = _nameText;
-	}
-	
-	function SetOptionText(aText: String)
-	{
-		_optionText = aText;
-		this.Option.text = _optionText;
-	}
-	
-	function SetOption(side: Number, option: Number, silent: Boolean)
-	{
-		if(side != _side || option != _option) {
-			_options[_side][_option].slice.gotoAndStop("Inactive");
-			TweenMax.to(this.Knot, 0.5, {shortRotation:{_rotation:_options[side][option].rotationValue}, ease:Expo.easeOut});
-			_options[side][option].slice.gotoAndStop("Active");
-			_side = side;
-			_option = option;
-			SetOptionText(_options[side][option].option);
+		if(!_options[option].slice.enabled)
+			return;
 			
-			if(!silent) {
-				gfx.io.GameDelegate.call("PlaySound", ["UIMenuFocus"]);
-			}
+		skse.Log("Wheel State: " + option);
+		skse.SendModEvent("AcceptWheelOption", "", option);
+	}
+	
+	function SetWheelName(aText: String)
+	{
+		this.Name.text = aText;
+	}
+	
+	function SetWheelOptionText(aText: String, option: Number)
+	{
+		_options[option].option = aText;
+	}
+	
+	function SetWheelActor(object: Object)
+	{
+		SetWheelName(object.actorBase.fullName);
+	}
+	
+	function SetWheelOption(aOptionString: String)
+	{
+		var opString = aOptionString.split(":");
+		SetWheelOptionText(opString[1], int(opString[0]));
+	}
+	
+	function SetEnableWheelOption(option: Number, enable: Boolean)
+	{
+		_options[option].slice.enabled = enable;
+		_options[option].slice._visible = enable;
+	}
+	
+	function SelectWheelOption(option: Number, silent: Boolean)
+	{
+		if(option == -1) // Invalid state
+			return;
+			
+		if(option == _option) // Option unchanged
+			return;
+		
+		if(_option != -1) // De-select previous state
+			_options[_option].slice.gotoAndStop("Inactive");
+			
+		TweenMax.to(this.Knot, 0.5, {shortRotation:{_rotation:_options[option].rot}, ease:Expo.easeOut});
+		
+		// Select new state
+		_options[option].slice.gotoAndStop("Active");
+		_option = option;
+		
+		this.Option.text = _options[option].option;
+		
+		if(!silent) {
+			gfx.io.GameDelegate.call("PlaySound", ["UIMenuFocus"]);
 		}
 	}
 }
