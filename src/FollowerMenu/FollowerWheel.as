@@ -110,7 +110,6 @@ class FollowerWheel extends MovieClip
 		if(!_options[option].slice.enabled)
 			return;
 			
-		skse.Log("Wheel State: " + option);
 		skse.SendModEvent("AcceptWheelOption", "", option);
 	}
 	
