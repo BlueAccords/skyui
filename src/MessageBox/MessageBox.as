@@ -109,7 +109,7 @@ class MessageBox extends MovieClip
 	
 	function ProcessMessage(aText)
 	{
-		if(aText.slice(0, 2) == "%%" && aText.slice(aText.length-2, aText.length) == "%%")
+		if(aText.slice(0, 2) == "$$" && aText.slice(aText.length-2, aText.length) == "$$")
 		{
 			var command: String = aText.slice(2, aText.length-2);
 			var key = command.slice(0, command.indexOf("="));

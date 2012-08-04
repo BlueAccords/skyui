@@ -68,7 +68,7 @@ class FollowerWheel extends MovieClip
 		{
 			if (details.navEquivalent == gfx.ui.NavigationCode.TAB) 
 			{
-				gfx.io.GameDelegate.call("buttonPress", [0]);
+				gfx.io.GameDelegate.call("buttonPress", [255]);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.LEFT) {
 				var deltaOption = _option;
@@ -110,7 +110,8 @@ class FollowerWheel extends MovieClip
 		if(!_options[option].slice.enabled)
 			return;
 			
-		skse.SendModEvent("AcceptWheelOption", "", option);
+		//skse.SendModEvent("AcceptWheelOption", "", option);
+		gfx.io.GameDelegate.call("buttonPress", [option]);
 	}
 	
 	function SetWheelName(aText: String)
@@ -128,10 +129,16 @@ class FollowerWheel extends MovieClip
 		SetWheelName(object.actorBase.fullName);
 	}
 	
-	function SetWheelOption(aOptionString: String)
+	function SetWheelOptions()
 	{
-		var opString = aOptionString.split(":");
-		SetWheelOptionText(opString[1], int(opString[0]));
+		var options: Array = arguments;
+		for(var i = 0; i < options.length; i++)
+		{
+			if(options[i].charAt(options[i].length-1) == ' ')
+				options[i] = options[i].substring(0, options[i].length-1);
+				
+			_options[i].option = options[i];
+		}
 	}
 	
 	function SetEnableWheelOption(option: Number, enable: Boolean)

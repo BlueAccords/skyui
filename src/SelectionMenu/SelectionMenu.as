@@ -85,10 +85,11 @@
 	function onItemSelect(event)
 	{
 		if (event.keyboardOrMouse != 0) {
-			if(ItemList.entryList[event.index].formId != undefined)
-				skse.SendModEvent("SelectForm", "", ItemList.entryList[event.index].formId);
+			if(ItemList.entryList[event.index].formId != undefined) {
+				skse.SendModEvent("SelectForm", "", 0, ItemList.entryList[event.index].formId);
+				gfx.io.GameDelegate.call("buttonPress", [1]);
+			}
 		}
-		CloseMenu();
 	}
 
 	function startFadeOut()
@@ -97,11 +98,6 @@
 	}
 
 	function onFadeOutCompletion()
-	{
-		CloseMenu();
-	}
-	
-	function CloseMenu()
 	{
 		gfx.io.GameDelegate.call("buttonPress", [0]);
 	}
