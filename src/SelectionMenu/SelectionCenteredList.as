@@ -1,5 +1,6 @@
 ﻿class SelectionCenteredList extends Shared.CenteredScrollingList
 {
+	var selectStates: Array = ["None", "Selected"];
 	function SelectionCenteredList()
 	{
 		super();
@@ -26,6 +27,11 @@
 				aEntryClip._alpha = 60 - iAlphaMulti * (aEntryClip.clipIndex - iNumTopHalfEntries);
 			else
 				aEntryClip._alpha = 100;
+		}
+		if (aEntryObject == undefined || aEntryObject.selectState == -1)
+			aEntryClip.SelectIndictor.gotoAndStop(selectStates[0]);
+		else {
+			aEntryClip.SelectIndictor.gotoAndStop(selectStates[aEntryObject.selectState]);
 		}
 	}
 		

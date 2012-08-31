@@ -1,8 +1,15 @@
 ﻿class SelectionMenu extends MovieClip
 {
+	var SELECT_MODE_SINGLE: Number = 0;
+	var SELECT_MODE_MULTI: Number = 1;
+	
+	/* Movie Clips */
 	var ItemList: MovieClip;
 	var LeftPanel: MovieClip;
 	var List_mc: MovieClip;
+	
+	/* Modes */
+	var _selectMode: Number = 0;
 
 	function SelectionMenu()
 	{
@@ -20,26 +27,12 @@
 		_parent.gotoAndPlay("startFadeIn");
 	}
 	
-	function SetSelectionMenuFormData(aObject: Object)
-	{
-		if(aObject.forms != undefined)
-		{
-			for(var i = 0; i < aObject.forms.length; i++)
-				aObject.forms[i].text = aObject.forms[i].actorBase.fullName;
-			
-			ItemList.entryList = aObject.forms;
-			ItemList.InvalidateData();
-		}
-	}
-
-	function handleInput(details: gfx.ui.InputDetails, pathToFocus: Array): Boolean
+	private function handleInput(details: gfx.ui.InputDetails, pathToFocus: Array): Boolean
 	{
 		if (!pathToFocus[0].handleInput(details, pathToFocus.slice(1))) 
 		{
 			if (Shared.GlobalFunc.IsKeyPressed(details) && details.navEquivalent == gfx.ui.NavigationCode.TAB) 
-			{
 				startFadeOut();
-			}
 		}
 		return true;
 	}
@@ -54,7 +47,7 @@
 		return ItemList;
 	}
 
-	function setSelectedItem(aiIndex)
+	private function setSelectedItem(aiIndex)
 	{
 		for (var i = 0; i < ItemList.entryList.length; i++) 
 		{
@@ -68,46 +61,107 @@
 		}
 	}
 
-	function onListMoveUp(event)
+	private function onListMoveUp(event)
 	{
 		gfx.io.GameDelegate.call("PlaySound", ["UIMenuFocus"]);
 		if (event.scrollChanged == true) 
 			this.gotoAndPlay("moveUp");
 	}
 
-	function onListMoveDown(event)
+	private function onListMoveDown(event)
 	{
 		gfx.io.GameDelegate.call("PlaySound", ["UIMenuFocus"]);
 		if (event.scrollChanged == true) 
 			this.gotoAndPlay("moveDown");
 	}
 
-	function onItemSelect(event)
-	{
+	private function onItemSelect(event)
+	{				
 		if (event.keyboardOrMouse != 0) {
-			if(ItemList.entryList[event.index].formId != undefined) {
-				skse.SendModEvent("SelectForm", "", 0, ItemList.entryList[event.index].formId);
-				gfx.io.GameDelegate.call("buttonPress", [1]);
-			}
+			SetSelectionMenuEntryByIndex(event.index);
 		}
 	}
-
-	function startFadeOut()
+	
+	private function startFadeOut()
 	{
 		_parent.gotoAndPlay("startFadeOut");
 	}
 
-	function onFadeOutCompletion()
+	private function onFadeOutCompletion()
 	{
-		gfx.io.GameDelegate.call("buttonPress", [0]);
+		var hasSelection: Boolean = false;
+		if(_selectMode == SELECT_MODE_MULTI) {
+			for (var i = 0; i < ItemList.entryList.length; i++) {
+				if (ItemList.entryList[i].selectState != undefined && ItemList.entryList[i].selectState >= 1) {
+					skse.SendModEvent("SelectForm", "", _selectMode, ItemList.entryList[i].formId);
+					hasSelection = true;
+				}
+			}
+			if(hasSelection)
+				skse.SendModEvent("SelectionReady");
+		}
+		gfx.io.GameDelegate.call("buttonPress", [hasSelection ? 1 : 0]);
 	}
 
-	function SetPlatform(aiPlatform: Number, abPS3Switch: Boolean)
+	private function SetPlatform(aiPlatform: Number, abPS3Switch: Boolean)
 	{
 		ItemList.SetPlatform(aiPlatform, abPS3Switch);
 		LeftPanel._x = aiPlatform == 0 ? -90 : -78.2;
 		LeftPanel.gotoAndStop(aiPlatform == 0 ? "Mouse" : "Gamepad");
 	}
+	
+	// @Papyrus
+	public function SetSelectionMenuEntryByIndex(index: Number)
+	{
+		if(_selectMode == SELECT_MODE_MULTI) {
+			if(ItemList.entryList[index].selectState != undefined && ItemList.entryList[index].selectState >= 1) {
+				ItemList.entryList[index].selectState = 0;
+				ItemList.UpdateList();
+			} else {
+				ItemList.entryList[index].selectState = 1;
+				ItemList.UpdateList();
+			}
+		} else if(_selectMode == SELECT_MODE_SINGLE) {
+			if(ItemList.entryList[index].formId != undefined) {
+				skse.SendModEvent("SelectForm", "", _selectMode, ItemList.entryList[index].formId);
+				skse.SendModEvent("SelectionReady");
+				gfx.io.GameDelegate.call("buttonPress", [1]);
+			}
+		}
+	}
+	
+	// @Papyrus
+	public function SetSelectionMenuEntryByForm(aObject: Object)
+	{
+		var index: Number = -1;
+		for (var i = 0; i < ItemList.entryList.length; i++) {
+			if (ItemList.entryList[i].formId != undefined && ItemList.entryList[i].formId == aObject.formId)
+				index = i;
+		}
+		if(index == -1)
+			return;
+		
+		SetSelectionMenuEntryByIndex(index);
+	}
+	
+	// @Papyrus
+	public function SetSelectionMenuFormData(aObject: Object)
+	{
+		if(aObject.forms != undefined)
+		{
+			for(var i = 0; i < aObject.forms.length; i++)
+				aObject.forms[i].text = aObject.forms[i].actorBase.fullName;
+			
+			ItemList.entryList = aObject.forms;
+			ItemList.InvalidateData();
+		}
+	}
+	
+	// @Papyrus
+	public function SetSelectionMenuMode(mode: Number)
+	{
+		if(mode >= 0 && mode <= SELECT_MODE_MULTI)
+			_selectMode = mode;
+	}
 }
-
 

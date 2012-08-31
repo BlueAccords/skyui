@@ -6,39 +6,70 @@ import flash.geom.ColorTransform;
 class FollowerWheel extends MovieClip
 {
 	/* Private Variables */
-	var _options: Array;
-	var _side: Number = -1;
-	var _option: Number = -1;
+	private var _options: Array;
+	private var _side: Number = -1;
+	private var _option: Number = -1;
+	private var _iconSource: String = "";
+	
+	private var _actor: Object;
+	
+	private var _movieLoader: MovieClipLoader;
+	
+	var TOTAL_OPTIONS: Number = 8;
 	var SLICE_COLUMN_SIZE: Number = 4;
 	
-	var Left00: MovieClip;
-	var Left01: MovieClip;
-	var Left02: MovieClip;
-	var Left03: MovieClip;
+	/* Private Scene Clips */
+	private var HealthMeter: MovieClip;
+	private var MagickaMeter: MovieClip;
+	private var StaminaMeter: MovieClip;
 	
-	var Right00: MovieClip;
-	var Right01: MovieClip;
-	var Right02: MovieClip;
-	var Right03: MovieClip;
+	private var Left00: MovieClip;
+	private var Left01: MovieClip;
+	private var Left02: MovieClip;
+	private var Left03: MovieClip;
 	
-	var Knot: MovieClip;
+	private var Right00: MovieClip;
+	private var Right01: MovieClip;
+	private var Right02: MovieClip;
+	private var Right03: MovieClip;
 	
-	var Name: TextField;
-	var Option: TextField;
+	private var Icon0: MovieClip;
+	private var Icon1: MovieClip;
+	private var Icon2: MovieClip;
+	private var Icon3: MovieClip;
+	private var Icon4: MovieClip;
+	private var Icon5: MovieClip;
+	private var Icon6: MovieClip;
+	private var Icon7: MovieClip;
+	
+	private var Knot: MovieClip;
+	
+	private var Name: TextField;
+	private var Option: TextField;
+	
+	private var TextLeft00: TextField;
+	private var TextLeft01: TextField;
+	private var TextLeft02: TextField;
+	private var TextLeft03: TextField;
+	
+	private var TextRight00: TextField;
+	private var TextRight01: TextField;
+	private var TextRight02: TextField;
+	private var TextRight03: TextField;
 	
 	function FollowerWheel()
 	{
 		super();
-		
+				
 		// 17 is for angle offset, each slice is 35 degrees
-		_options = [ {slice: Left00, rot: -20 - 17, option: "Melee/Ranged"},
-					 {slice: Left01, rot: -55 - 17, option: "Open Inventory"},
-					 {slice: Left02, rot: -90 - 17, option: "Distance"},
-					 {slice: Left03, rot: -125 - 17, option: "Backup"},
-					 {slice: Right00, rot: 20 + 17, option: "Aggression"},
-					 {slice: Right01, rot: 55 + 17, option: "Use Potion"},
-					 {slice: Right02, rot: 90 + 17, option: "Talk"},
-					 {slice: Right03, rot: 125 + 17, option: "Wait/Follow"}
+		_options = [ {slice: Left00, label: TextLeft00, rot: -20 - 17, iconData: {icon: Icon0, name: "", size: 32, color: 0xFFFFFF}, option: "Melee/Ranged"},
+					 {slice: Left01, label: TextLeft01, rot: -55 - 17, iconData: {icon: Icon1, name: "", size: 32, color: 0xFFFFFF}, option: "Open Inventory"},
+					 {slice: Left02, label: TextLeft02, rot: -90 - 17, iconData: {icon: Icon2, name: "", size: 32, color: 0xFFFFFF}, option: "Distance"},
+					 {slice: Left03, label: TextLeft03, rot: -125 - 17, iconData: {icon: Icon3, name: "", size: 32, color: 0xFFFFFF}, option: "Backup"},
+					 {slice: Right00, label: TextRight00, rot: 20 + 17, iconData: {icon: Icon4, name: "", size: 32, color: 0xFFFFFF}, option: "Aggression"},
+					 {slice: Right01, label: TextRight01, rot: 55 + 17, iconData: {icon: Icon5, name: "", size: 32, color: 0xFFFFFF}, option: "Use Potion"},
+					 {slice: Right02, label: TextRight02, rot: 90 + 17, iconData: {icon: Icon6, name: "", size: 32, color: 0xFFFFFF}, option: "Talk"},
+					 {slice: Right03, label: TextRight03, rot: 125 + 17, iconData: {icon: Icon7, name: "", size: 32, color: 0xFFFFFF}, option: "Wait/Follow"}
 					];
 		
 		for(var o = 0; o < _options.length; o++)
@@ -46,12 +77,15 @@ class FollowerWheel extends MovieClip
 			_options[o].slice.gotoAndStop("Inactive");
 			_options[o].slice.option = o;
 			_options[o].slice.onRollOver = function() {
-				this._parent.SelectWheelOption(this.option);
+				this._parent.setWheelOption(this.option);
 			}
 			_options[o].slice.onRelease = function() {
-				this._parent.AcceptWheelOption(this.option);
+				this._parent.onWheelOption(this.option);
 			}
 		}
+		
+		_movieLoader = new MovieClipLoader();
+		_movieLoader.addListener(this);
 		
 		gfx.events.EventDispatcher.initialize(this);
 	}
@@ -59,6 +93,7 @@ class FollowerWheel extends MovieClip
 	function onLoad()
 	{
 		gfx.managers.FocusHandler.instance.setFocus(this, 0);
+		setWheelIconSource("skyui/skyui_icons_psychosteve.swf");	
 	}
 	
 	function handleInput(details: gfx.ui.InputDetails, pathToFocus: Array): Boolean
@@ -74,30 +109,34 @@ class FollowerWheel extends MovieClip
 				var deltaOption = _option;
 				if(deltaOption >= SLICE_COLUMN_SIZE)
 					deltaOption -= SLICE_COLUMN_SIZE;
-				SelectWheelOption(deltaOption, false);
+				deltaOption = GetNearestOption(deltaOption, true);
+				setWheelOption(deltaOption, false);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.RIGHT) {
 				var deltaOption = _option;
 				if(deltaOption < SLICE_COLUMN_SIZE)
 					deltaOption += SLICE_COLUMN_SIZE;
-				SelectWheelOption(deltaOption, false);
+				deltaOption = GetNearestOption(deltaOption, true);
+				setWheelOption(deltaOption, false);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.UP) {
 				var deltaOption = _option;
 				if(deltaOption > 0) {
 					deltaOption--;
-					SelectWheelOption(deltaOption, false);
+					deltaOption = GetNearestOption(deltaOption, false);
+					setWheelOption(deltaOption, false);
 				}
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.DOWN) {
 				var deltaOption = _option;
 				if(deltaOption < _options.length - 1) {
 					deltaOption++;
-					SelectWheelOption(deltaOption, false);
+					deltaOption = GetNearestOption(deltaOption, true);
+					setWheelOption(deltaOption, false);
 				}
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.ENTER) {
-				AcceptWheelOption(_option);
+				onWheelOption(_option);
 				bHandledInput = true;
 			}
 		}
@@ -105,7 +144,50 @@ class FollowerWheel extends MovieClip
 		return bHandledInput;
 	}
 	
-	function AcceptWheelOption(option: Number)
+	// @override MovieClipLoader
+	public function onLoadInit(a_clip: MovieClip): Void
+	{
+		if(a_clip == HealthMeter) {
+			a_clip.widget.initNumbers(200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x561818, 0xDF2020, 0xFF3232);
+			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
+			a_clip.widget.initCommit();
+			a_clip.widget.setMeterPercent((_actor.actorValues[24].current / _actor.actorValues[24].maximum) * 100.0, true);
+			a_clip._visible = true;
+			a_clip.widget._visible = true;
+		} else if(a_clip == MagickaMeter) {
+			a_clip.widget.initNumbers(200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x0C016D, 0x284BD7, 0x3366FF);
+			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
+			a_clip.widget.initCommit();
+			a_clip.widget.setMeterPercent((_actor.actorValues[25].current / _actor.actorValues[25].maximum) * 100.0, true);
+			a_clip._visible = true;
+			a_clip.widget._visible = true;
+		} else if(a_clip == StaminaMeter) {
+			a_clip.widget.initNumbers(200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x003300, 0x339966, 0x009900);
+			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
+			a_clip.widget.initCommit();
+			a_clip.widget.setMeterPercent((_actor.actorValues[26].current / _actor.actorValues[26].maximum) * 100.0, true);
+			a_clip._visible = true;
+			a_clip.widget._visible = true;
+		} else {
+			updateIcon(int(a_clip._name.substring(4, _name.length)));
+		}
+	}
+	
+	// @override MovieClipLoader
+	public function onLoadError(a_clip:MovieClip, a_errorCode: String): Void
+	{
+		if(a_clip == HealthMeter) {
+			skse.Log("Failed to load health meter.");
+		} else if(a_clip == MagickaMeter) {
+			skse.Log("Failed to load magicka meter.");
+		} else if(a_clip == StaminaMeter) {
+			skse.Log("Failed to load stamina meter.");
+		}else {
+			unloadIcon(int(a_clip._name.substring(4, _name.length)));
+		}
+	}
+	
+	private function onWheelOption(option: Number)
 	{
 		if(!_options[option].slice.enabled)
 			return;
@@ -114,50 +196,57 @@ class FollowerWheel extends MovieClip
 		gfx.io.GameDelegate.call("buttonPress", [option]);
 	}
 	
-	function SetWheelName(aText: String)
+	private function GetNearestOption(option: Number, top: Boolean): Number
 	{
-		this.Name.text = aText;
-	}
-	
-	function SetWheelOptionText(aText: String, option: Number)
-	{
-		_options[option].option = aText;
-	}
-	
-	function SetWheelActor(object: Object)
-	{
-		SetWheelName(object.actorBase.fullName);
-	}
-	
-	function SetWheelOptions()
-	{
-		var options: Array = arguments;
-		for(var i = 0; i < options.length; i++)
-		{
-			if(options[i].charAt(options[i].length-1) == ' ')
-				options[i] = options[i].substring(0, options[i].length-1);
-				
-			_options[i].option = options[i];
+		var foundDown: Number = -1;
+		var foundUp: Number = -1;
+		var foundOption: Number = -1;
+		
+		// Search Down
+		for(var i = option; i < TOTAL_OPTIONS; i++) {
+			if(_options[i].slice.enabled) {
+				foundDown = i;
+				break;
+			}
 		}
+		// Search Up
+		for(var i = option; i >= 0; --i) {
+			if(_options[i].slice.enabled) {
+				foundUp = i;
+				break;
+			}
+		}
+				
+		if(foundDown != -1 && foundUp != -1) { // Found item on both sides go for nearest
+			var deltaUp = Math.abs(option - foundUp);
+			var deltaDown = Math.abs(option - foundDown);
+			if(deltaDown < deltaUp) {
+				foundOption = foundDown;
+			} else if(deltaUp < deltaDown) {
+				foundOption = foundUp;
+			} else {
+				foundOption = top ? foundDown : foundUp;
+			}
+		} else if(foundDown != -1) {
+			foundOption = foundDown;
+		} else if(foundUp != -1) {
+			foundOption = foundUp;
+		}
+		
+		return foundOption;
 	}
 	
-	function SetEnableWheelOption(option: Number, enable: Boolean)
+	private function setWheelOption(option: Number, silent: Boolean)
 	{
-		_options[option].slice.enabled = enable;
-		_options[option].slice._visible = enable;
-	}
-	
-	function SelectWheelOption(option: Number, silent: Boolean)
-	{
-		if(option == -1) // Invalid state
+		if(option == _option || option == -1)
 			return;
 			
-		if(option == _option) // Option unchanged
+		if(option < 0 || option >= TOTAL_OPTIONS) // Invalid option
 			return;
 		
 		if(_option != -1) // De-select previous state
 			_options[_option].slice.gotoAndStop("Inactive");
-			
+					
 		TweenMax.to(this.Knot, 0.5, {shortRotation:{_rotation:_options[option].rot}, ease:Expo.easeOut});
 		
 		// Select new state
@@ -169,5 +258,170 @@ class FollowerWheel extends MovieClip
 		if(!silent) {
 			gfx.io.GameDelegate.call("PlaySound", ["UIMenuFocus"]);
 		}
+		
+		skse.SendModEvent("SetOption", "", option);
+	}
+	
+	// @Papyrus
+	public function setWheelSelection(option: Number, silent: Number): Void
+	{
+		option = GetNearestOption(option, true);
+		setWheelOption(option, silent >= 1 ? true : false);
+	}
+	
+	// @Papyrus
+	public function setWheelIconSource(a_iconSource: String): Void
+	{
+		if (_iconSource == a_iconSource)
+			return;
+			
+		_iconSource = a_iconSource;		
+		if (_iconSource == "")
+		{
+			for(var i = 0; i < TOTAL_OPTIONS; i++)
+				unloadIcon(i);
+		}
+		else
+		{
+			for(var i = 0; i < TOTAL_OPTIONS; i++)
+				loadIcon(i);
+		}
+	}
+	
+	// @Papyrus
+	public function setWheelActor(object: Object)
+	{
+		_actor = object;
+		this.Name.text = _actor.actorBase.fullName;
+		
+		_movieLoader.loadClip("./widgets/status.swf", HealthMeter);
+		_movieLoader.loadClip("./widgets/status.swf", MagickaMeter);
+		_movieLoader.loadClip("./widgets/status.swf", StaminaMeter);
+	}
+	
+	// @Papyrus
+	public function setWheelText(a_text: String)
+	{
+		this.Name.text = a_text;
+	}
+	
+	// @Papyrus
+	public function setWheelOptions()
+	{
+		var options: Array = arguments;
+		for(var i = 0; i < options.length; i++)
+		{
+			if(options[i].charAt(options[i].length-1) == ' ')
+				options[i] = options[i].substring(0, options[i].length-1);
+				
+			_options[i].option = options[i];
+		}
+	}
+	
+	// @Papyrus
+	public function setWheelOptionLabels()
+	{
+		var options: Array = arguments;
+		for(var i = 0; i < options.length; i++)
+		{
+			if(options[i].charAt(options[i].length-1) == ' ')
+				options[i] = options[i].substring(0, options[i].length-1);
+				
+			_options[i].label.text = options[i];
+		}
+	}
+	
+	// @Papyrus
+	public function setWheelOptionIcons()
+	{
+		var options: Array = arguments;
+		for(var i = 0; i < options.length; i++)
+		{
+			if(options[i].charAt(options[i].length-1) == ' ')
+				options[i] = options[i].substring(0, options[i].length-1);
+				
+			_options[i].iconData.name = options[i];
+			updateIcon(i);
+		}
+	}
+	
+	// @Papyrus
+	public function setWheelOptionIconColors()
+	{
+		var options: Array = arguments;
+		for(var i = 0; i < options.length; i++)
+		{
+			if(options[i].charAt(options[i].length-1) == ' ')
+				options[i] = options[i].substring(0, options[i].length-1);
+				
+			_options[i].iconData.color = options[i];
+			updateIcon(i);
+		}
+	}
+	
+	// @Papyrus
+	function setWheelOptionsEnabled()
+	{
+		var options: Array = arguments;
+		for(var i = 0; i < options.length; i++)
+		{
+			_options[i].slice.enabled = options[i] >= 1 ? true : false;
+			_options[i].slice._visible = options[i] >= 1 ? true : false;
+		}
+	}
+	
+	// @Papyrus
+	public function setWheelOptionText(option: Number, a_text: String)
+	{
+		if(option < 0 || option >= TOTAL_OPTIONS)
+			return;
+			
+		_options[option].option = a_text;
+	}
+	
+	// @Papyrus
+	public function setWheelOptionIcon(option: Number, a_icon: String)
+	{
+		if(option < 0 || option >= TOTAL_OPTIONS)
+			return;
+			
+		_options[option].iconData.name = a_icon;
+		updateIcon(option);
+	}
+	
+	// @Papyrus
+	public function setWheelOptionIconColor(option: Number, a_color: Number)
+	{
+		if(option < 0 || option >= TOTAL_OPTIONS)
+			return;
+			
+		_options[option].iconData.color = a_color;
+		updateIcon(option);
+	}
+	
+	
+	private function loadIcon(option: Number): Void
+	{
+		_movieLoader.loadClip(_iconSource, _options[option].iconData.icon);
+	}
+	
+	private function unloadIcon(option: Number): Void
+	{
+		_movieLoader.unloadClip(_options[option].iconData.icon);
+	}
+	
+	private function updateIcon(option: Number): Void
+	{
+		var iconData = _options[option].iconData;
+		var tf: Transform = new Transform(iconData.icon);
+		var colorTf: ColorTransform = new ColorTransform();
+		colorTf.rgb = iconData.color;
+		tf.colorTransform = colorTf;
+		
+		iconData.icon._width = iconData.icon._height = iconData.size;
+		if(iconData.name != "")
+			iconData.icon.gotoAndStop(iconData.name);
+		else
+			iconData.icon.gotoAndStop(0);
 	}
 }
