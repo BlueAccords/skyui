@@ -21,28 +21,38 @@ event OnInit()
 	_curWidgetID	= 0
 	_widgetCount	= 0
 	
+	RegisterForModEvent("widgetLoaded", "OnWidgetLoad")
+	RegisterForModEvent("widgetWarning", "OnWidgetWarning")
+	
+	; Wait a few seconds until all widgets have registered their callbacks
+	RegisterForSingleUpdate(3)
+endEvent
+
+event OnUpdate()
 	OnGameReload()
 endEvent
 
 event OnGameReload()
-	RegisterForModEvent("widgetLoaded", "OnWidgetLoad")
-	
 	CleanUp()
 	
 	; Load already registered widgets
-	UI.InvokeStringA(HUD_MENU, "_global.WidgetLoader.loadWidgets", _widgetTypes);
+	UI.InvokeStringA(HUD_MENU, "_global.WidgetLoader.loadWidgets", _widgetTypes)
+	
+	SendModEvent("widgetManagerReady")
 endEvent
 
 function CleanUp()
 	_widgetCount = 0
 	int i = 0
+	
 	while (i < _widgets.length)
-		if (_widgets[i] == none)
+		if (_widgets[i] == none || !(_widgets[i].GetFormID() > 0))
+			; Widget no longer exists
+			_widgets[i] = none
 			_widgetTypes[i] = none
 		else
 			_widgetCount += 1
 		endIf
-		
 		i += 1
 	endWhile
 endFunction
@@ -50,7 +60,7 @@ endFunction
 
 ; EVENTS ------------------------------------------------------------------------------------------
 
-event OnWidgetLoad(string a_eventName, String a_strArg, float a_numArg, Form a_sender)
+event OnWidgetLoad(string a_eventName, string a_strArg, float a_numArg, form a_sender)
 	int widgetID = a_strArg as int
 	SKI_WidgetBase client = _widgets[widgetID]
 	
@@ -59,12 +69,23 @@ event OnWidgetLoad(string a_eventName, String a_strArg, float a_numArg, Form a_s
 	endIf
 endEvent
 
+event OnWidgetWarning(string a_eventName, string a_strArg, float a_numArg, form a_sender)
+	int widgetID = a_numArg as int
+	string errorType = a_strArg
+	string errorStr;
+	
+	SKI_WidgetBase client = _widgets[widgetID]
+	errorStr = "WidgetWarning: " + client as string + ": " + errorType
+	
+	Debug.Trace(errorStr)
+endEvent
+
 
 ; FUNCTIONS ---------------------------------------------------------------------------------------
 
 int function RequestWidgetID(SKI_WidgetBase a_client)
 	if (_widgetCount >= 128)
-		return -1 ;TODO 20120919 need to check for these
+		return -1
 	endIf
 
 	int widgetID = NextWidgetID()

@@ -1,29 +1,43 @@
 ﻿class WidgetLoader
 {
-  /* PROPERTIES */
-	
-	public static var skyuiWidgetExtensions: Boolean = false;
-
-
   /* PRIVATE VARIABLES */
 	
 	private static var _widgetContainer: MovieClip;
 	private static var _widgetDirectory: String = "./widgets/";
+	private static var _widgetLoader: MovieClipLoader;
 	
 	
   /* PUBILC FUNCTIONS */
+	
+	public function WidgetLoader()
+	{
+		_widgetLoader = new MovieClipLoader();
+		_widgetLoader.addListener(this);
+		skyui.util.GlobalFunctions.addArrayFunctions();
+	}
+	
+	public function onLoadInit(a_widgetHolder: MovieClip): Void
+	{
+		skse.SendModEvent("widgetLoaded", a_widgetHolder._name);
+	}
+	
+	public function onLoadError(a_widgetHolder:MovieClip, a_errorCode: String): Void
+	{
+		// TODO
+		skse.SendModEvent("widgetWarning", "WidgetLoadFailure", Number(a_widgetHolder._name));
+	}
 	
 	public static function loadWidgets(/* widgetTypes (128) */): Void
 	{
 		skse.Log("WidgetLoader.as: loadWidgets(widgetTypes[] = " + arguments + ")");
 		if (_widgetContainer != undefined) {
-			for(i: String in _widgetContainer)
-				if (i instanceof MovieClip && _root.HUDMovieBaseInstance.HudElements[i] != undefined)
-					delete(_root.HUDMovieBaseInstance.HudElements[i])
-			
-			_widgetContainer.swapDepths(_root.getNextHighestDepth());
-			_widgetContainer.removeMovieClip();
-			_widgetContainer = undefined;
+			for(var i: String in _widgetContainer) {
+				if (_widgetContainer[i] instanceof MovieClip) {
+					_widgetLoader.unloadClip(_widgetContainer[i]);
+					if (_root.HUDMovieBaseInstance.HudElements.hasOwnProperty(i))
+						delete(_root.HUDMovieBaseInstance.HudElements[i]); 
+				}
+			}
 		}
 		
 		for (var i: Number = 0; i < arguments.length; i++)
@@ -37,8 +51,8 @@
 		if (_widgetContainer == undefined)
 			createWidgetContainer();
 		
-		var widget: MovieClip = _widgetContainer.createEmptyMovieClip(a_widgetID, _widgetContainer.getNextHighestDepth());
-		widget.loadMovie(_widgetDirectory + a_widgetType + ".swf");
+		var widgetHolder: MovieClip = _widgetContainer.createEmptyMovieClip(a_widgetID, _widgetContainer.getNextHighestDepth());
+		_widgetLoader.loadClip(_widgetDirectory + a_widgetType + ".swf", widgetHolder);
 	}
 	 
 	 
@@ -46,8 +60,6 @@
   
 	private static function createWidgetContainer(): Void
 	{
-		skyui.util.GlobalFunctions.addArrayFunctions();
-		
 		// -16384 places the WidgetContainer beneath all elements which were added to the stage in Flash.
 		_widgetContainer = _root.createEmptyMovieClip("WidgetContainer", -16384);
 		
