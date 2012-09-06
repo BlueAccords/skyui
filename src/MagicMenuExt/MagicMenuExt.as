@@ -5,6 +5,7 @@ import gfx.ui.NavigationCode;
 import skyui.components.list.ListLayoutManager;
 import skyui.components.list.TabularList;
 import skyui.props.PropertyDataExtender;
+import skyui.util.Defines;
 
 import mx.data.binding.ObjectDumper;
 
@@ -68,15 +69,15 @@ class MagicMenuExt extends ItemMenu
 		itemList.addDataProcessor(new PropertyDataExtender('magicProperties', 'magicIcons', 'magicCompoundProperties', 'translateProperties'));
 		itemList.layout = ListLayoutManager.instance.getLayoutByName("MagicListLayout");
 		
-		inventoryLists.categoryList.entryList.push({bDontHide: true, filterFlag: 0, flag: -257, text: "ALL"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: 2, text: "ALTERATION"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: 4, text: "ILLUSION"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: 8, text: "DESTRUCTION"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: 16, text: "CONJURATION"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: 32, text: "RESTORATION"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: 64, text: "SHOUTS"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: 128, text: "POWERS"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: 256, text: "ACTIVE EFFECTS"});
+		inventoryLists.categoryList.entryList.push({bDontHide: true, filterFlag: 0, flag: Defines.FLAG_MAGIC_ALL, text: "ALL"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_ALTERATION, text: "ALTERATION"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_ILLUSION, text: "ILLUSION"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_DESTRUCTION, text: "DESTRUCTION"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_CONJURATION, text: "CONJURATION"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_RESTORATION, text: "RESTORATION"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_SHOUTS, text: "SHOUTS"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_POWERS, text: "POWERS"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_ACTIVE_EFFECT, text: "ACTIVE EFFECTS"});
 		inventoryLists.categoryList.InvalidateData();
 		_visible = true;
 	}
@@ -85,27 +86,27 @@ class MagicMenuExt extends ItemMenu
 	{
 		var itemInfo = new Object();
 		
-		itemInfo.spellCost = 0;
+		itemInfo.spellCost = spell.trueCost;
 		itemInfo.castTime = spell.castTime;
 				
 		switch(spell.subType) {
-			case 18:
+			case Defines.SPELL_TYPE_ALTERATION:
 			itemInfo.magicSchoolName = "Alteration";
 			itemInfo.type = InventoryDefines.ICT_SPELL;
 			break;
-			case 19:
+			case Defines.SPELL_TYPE_CONJURATION:
 			itemInfo.magicSchoolName = "Conjuration";
 			itemInfo.type = InventoryDefines.ICT_SPELL;
 			break;
-			case 20:
+			case Defines.SPELL_TYPE_DESTRUCTION:
 			itemInfo.magicSchoolName = "Destruction";
 			itemInfo.type = InventoryDefines.ICT_SPELL;
 			break;
-			case 21:
+			case Defines.SPELL_TYPE_ILLUSION:
 			itemInfo.magicSchoolName = "Illusion";
 			itemInfo.type = InventoryDefines.ICT_SPELL;
 			break;
-			case 22:
+			case Defines.SPELL_TYPE_RESTORATION:
 			itemInfo.magicSchoolName = "Restoration";
 			itemInfo.type = InventoryDefines.ICT_SPELL;
 			break;
@@ -114,11 +115,11 @@ class MagicMenuExt extends ItemMenu
 			break;
 		}
 				
-		if(spell.castType == 0) { // Effect
+		if(spell.castType == 0 || spell.isActive) { // Effect
 			itemInfo.name = spell.spellName;
 			itemInfo.negativeEffect = ((spell.effectFlags & 0x04) == 0x04); // Detrimental
 			
-			if(spell.elapsed < spell.duration) { // Remaining time
+			if(spell.duration > spell.elapsed) { // Remaining time
 				itemInfo.timeRemaining = spell.duration - spell.elapsed;
 			}
 			
@@ -160,24 +161,28 @@ class MagicMenuExt extends ItemMenu
 		entry.text = spell.spellName;
 		entry.itemInfo = CreateItemInfo(spell);
 		
-		entry.filterFlag = 128;
+		entry.filterFlag = Defines.FLAG_MAGIC_POWERS;
 		
 		switch(spell.subType) {
-			case 18:	entry.filterFlag = 2;	break;
-			case 19:	entry.filterFlag = 16;	break;
-			case 20:	entry.filterFlag = 8;	break;
-			case 21:	entry.filterFlag = 4;	break;
-			case 22:	entry.filterFlag = 32;	break;
+			case Defines.SPELL_TYPE_ALTERATION:		entry.filterFlag = Defines.FLAG_MAGIC_ALTERATION;	break;
+			case Defines.SPELL_TYPE_CONJURATION:	entry.filterFlag = Defines.FLAG_MAGIC_CONJURATION;	break;
+			case Defines.SPELL_TYPE_DESTRUCTION:	entry.filterFlag = Defines.FLAG_MAGIC_DESTRUCTION;	break;
+			case Defines.SPELL_TYPE_ILLUSION:		entry.filterFlag = Defines.FLAG_MAGIC_ILLUSION;		break;
+			case Defines.SPELL_TYPE_RESTORATION:	entry.filterFlag = Defines.FLAG_MAGIC_RESTORATION;	break;
 		}
-				
-		if(spell.castType == 0) { // Effect
+		
+		if(spell.spellType == 2) {
+			entry.filterFlag = Defines.FLAG_MAGIC_POWERS;
+		}
+		
+		if(spell.castType == 0 || spell.isActive) { // Effect
 			entry.text = spell.effectName;
-			entry.filterFlag = 256;
+			entry.filterFlag = Defines.FLAG_MAGIC_ACTIVE_EFFECT;
 		}
 		
 		if(spell.words != undefined) { // Shout
 			entry.text = spell.fullName;
-			entry.filterFlag = 64;
+			entry.filterFlag = Defines.FLAG_MAGIC_SHOUTS;
 		}
 		
 		// Hidden in UI
@@ -189,20 +194,21 @@ class MagicMenuExt extends ItemMenu
 		if(entry.filterFlag != 0) {
 			inventoryLists.categoryList.entryList[CATEGORY_ALL].filterFlag = 1;
 			switch(entry.filterFlag) {
-				case 2: inventoryLists.categoryList.entryList[CATEGORY_ALTERATION].filterFlag = 1; break;
-				case 4: inventoryLists.categoryList.entryList[CATEGORY_ILLUSION].filterFlag = 1; break;
-				case 8: inventoryLists.categoryList.entryList[CATEGORY_DESTRUCTION].filterFlag = 1; break;
-				case 16: inventoryLists.categoryList.entryList[CATEGORY_CONJURATION].filterFlag = 1; break;
-				case 32: inventoryLists.categoryList.entryList[CATEGORY_RESTORATION].filterFlag = 1; break;
-				case 64: inventoryLists.categoryList.entryList[CATEGORY_SHOUTS].filterFlag = 1; break;
-				case 128: inventoryLists.categoryList.entryList[CATEGORY_POWERS].filterFlag = 1; break;
-				case 256: inventoryLists.categoryList.entryList[CATEGORY_ACTIVE_EFFECTS].filterFlag = 1; break;
+				case Defines.FLAG_MAGIC_ALTERATION: 	inventoryLists.categoryList.entryList[CATEGORY_ALTERATION].filterFlag = 1; break;
+				case Defines.FLAG_MAGIC_ILLUSION: 		inventoryLists.categoryList.entryList[CATEGORY_ILLUSION].filterFlag = 1; break;
+				case Defines.FLAG_MAGIC_DESTRUCTION: 	inventoryLists.categoryList.entryList[CATEGORY_DESTRUCTION].filterFlag = 1; break;
+				case Defines.FLAG_MAGIC_CONJURATION: 	inventoryLists.categoryList.entryList[CATEGORY_CONJURATION].filterFlag = 1; break;
+				case Defines.FLAG_MAGIC_RESTORATION: 	inventoryLists.categoryList.entryList[CATEGORY_RESTORATION].filterFlag = 1; break;
+				case Defines.FLAG_MAGIC_SHOUTS: 		inventoryLists.categoryList.entryList[CATEGORY_SHOUTS].filterFlag = 1; break;
+				case Defines.FLAG_MAGIC_POWERS: 		inventoryLists.categoryList.entryList[CATEGORY_POWERS].filterFlag = 1; break;
+				case Defines.FLAG_MAGIC_ACTIVE_EFFECT: 	inventoryLists.categoryList.entryList[CATEGORY_ACTIVE_EFFECTS].filterFlag = 1; break;
 			}
 		}
 	}
 	
 	public function SetMagicMenuExtActor(aObject: Object): Void
 	{
+		skse.ExtendForm(aObject.formId, aObject, true, true);
 		var spells: Array = new Array();
 		spells = spells.concat(aObject.race.spells, aObject.actorBase.spells, aObject.spells);
 		var shouts: Array = new Array();
@@ -227,6 +233,7 @@ class MagicMenuExt extends ItemMenu
 		
 		for(var i = 0; i < effects.length; i++)
 		{
+			effects[i].isActive = true;
 			var entry: Object = effects[i];
 			DeflateSpellData(entry, effects[i]);
 			inventoryLists.itemList.entryList.push(entry);

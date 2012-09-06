@@ -93,12 +93,12 @@
 		if(_selectMode == SELECT_MODE_MULTI) {
 			for (var i = 0; i < ItemList.entryList.length; i++) {
 				if (ItemList.entryList[i].selectState != undefined && ItemList.entryList[i].selectState >= 1) {
-					skse.SendModEvent("SelectForm", "", _selectMode, ItemList.entryList[i].formId);
+					skse.SendModEvent("SelectionMenu_SelectForm", "", _selectMode, ItemList.entryList[i].formId);
 					hasSelection = true;
 				}
 			}
 			if(hasSelection)
-				skse.SendModEvent("SelectionReady");
+				skse.SendModEvent("SelectionMenu_SelectionReady");
 		}
 		gfx.io.GameDelegate.call("buttonPress", [hasSelection ? 1 : 0]);
 	}
@@ -123,8 +123,8 @@
 			}
 		} else if(_selectMode == SELECT_MODE_SINGLE) {
 			if(ItemList.entryList[index].formId != undefined) {
-				skse.SendModEvent("SelectForm", "", _selectMode, ItemList.entryList[index].formId);
-				skse.SendModEvent("SelectionReady");
+				skse.SendModEvent("SelectionMenu_SelectForm", "", _selectMode, ItemList.entryList[index].formId);
+				skse.SendModEvent("SelectionMenu_SelectionReady");
 				gfx.io.GameDelegate.call("buttonPress", [1]);
 			}
 		}
@@ -150,7 +150,10 @@
 		if(aObject.forms != undefined)
 		{
 			for(var i = 0; i < aObject.forms.length; i++)
+			{
+				skse.ExtendForm(aObject.forms[i].formId, aObject.forms[i], true, false);
 				aObject.forms[i].text = aObject.forms[i].actorBase.fullName;
+			}
 			
 			ItemList.entryList = aObject.forms;
 			ItemList.InvalidateData();

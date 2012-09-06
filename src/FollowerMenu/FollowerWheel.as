@@ -2,6 +2,7 @@
 import com.greensock.easing.*;
 import flash.geom.Transform;
 import flash.geom.ColorTransform;
+import skyui.util.Defines;
 
 class FollowerWheel extends MovieClip
 {
@@ -62,14 +63,14 @@ class FollowerWheel extends MovieClip
 		super();
 				
 		// 17 is for angle offset, each slice is 35 degrees
-		_options = [ {slice: Left00, label: TextLeft00, rot: -20 - 17, iconData: {icon: Icon0, name: "", size: 32, color: 0xFFFFFF}, option: "Melee/Ranged"},
-					 {slice: Left01, label: TextLeft01, rot: -55 - 17, iconData: {icon: Icon1, name: "", size: 32, color: 0xFFFFFF}, option: "Open Inventory"},
-					 {slice: Left02, label: TextLeft02, rot: -90 - 17, iconData: {icon: Icon2, name: "", size: 32, color: 0xFFFFFF}, option: "Distance"},
-					 {slice: Left03, label: TextLeft03, rot: -125 - 17, iconData: {icon: Icon3, name: "", size: 32, color: 0xFFFFFF}, option: "Backup"},
-					 {slice: Right00, label: TextRight00, rot: 20 + 17, iconData: {icon: Icon4, name: "", size: 32, color: 0xFFFFFF}, option: "Aggression"},
-					 {slice: Right01, label: TextRight01, rot: 55 + 17, iconData: {icon: Icon5, name: "", size: 32, color: 0xFFFFFF}, option: "Use Potion"},
-					 {slice: Right02, label: TextRight02, rot: 90 + 17, iconData: {icon: Icon6, name: "", size: 32, color: 0xFFFFFF}, option: "Talk"},
-					 {slice: Right03, label: TextRight03, rot: 125 + 17, iconData: {icon: Icon7, name: "", size: 32, color: 0xFFFFFF}, option: "Wait/Follow"}
+		_options = [ {slice: Left00, label: TextLeft00, rot: -20 - 17, iconData: {icon: Icon0, name: "", size: 32, color: 0xFFFFFF}, option: "$Range"},
+					 {slice: Left01, label: TextLeft01, rot: -55 - 17, iconData: {icon: Icon1, name: "", size: 32, color: 0xFFFFFF}, option: "$Inventory"},
+					 {slice: Left02, label: TextLeft02, rot: -90 - 17, iconData: {icon: Icon2, name: "", size: 32, color: 0xFFFFFF}, option: "$Distance"},
+					 {slice: Left03, label: TextLeft03, rot: -125 - 17, iconData: {icon: Icon3, name: "", size: 32, color: 0xFFFFFF}, option: "$Backup"},
+					 {slice: Right00, label: TextRight00, rot: 20 + 17, iconData: {icon: Icon4, name: "", size: 32, color: 0xFFFFFF}, option: "$Aggression"},
+					 {slice: Right01, label: TextRight01, rot: 55 + 17, iconData: {icon: Icon5, name: "", size: 32, color: 0xFFFFFF}, option: "$Potion"},
+					 {slice: Right02, label: TextRight02, rot: 90 + 17, iconData: {icon: Icon6, name: "", size: 32, color: 0xFFFFFF}, option: "$Talk"},
+					 {slice: Right03, label: TextRight03, rot: 125 + 17, iconData: {icon: Icon7, name: "", size: 32, color: 0xFFFFFF}, option: "$Signal"}
 					];
 		
 		for(var o = 0; o < _options.length; o++)
@@ -103,7 +104,7 @@ class FollowerWheel extends MovieClip
 		{
 			if (details.navEquivalent == gfx.ui.NavigationCode.TAB) 
 			{
-				gfx.io.GameDelegate.call("buttonPress", [255]);
+				closeMenu(255);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.LEFT) {
 				var deltaOption = _option;
@@ -151,21 +152,21 @@ class FollowerWheel extends MovieClip
 			a_clip.widget.initNumbers(200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x561818, 0xDF2020, 0xFF3232);
 			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
 			a_clip.widget.initCommit();
-			a_clip.widget.setMeterPercent((_actor.actorValues[24].current / _actor.actorValues[24].maximum) * 100.0, true);
+			a_clip.widget.setMeterPercent((_actor.actorValues[Defines.ACTORVALUE_HEALTH].current / _actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum) * 100.0, true);
 			a_clip._visible = true;
 			a_clip.widget._visible = true;
 		} else if(a_clip == MagickaMeter) {
 			a_clip.widget.initNumbers(200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x0C016D, 0x284BD7, 0x3366FF);
 			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
 			a_clip.widget.initCommit();
-			a_clip.widget.setMeterPercent((_actor.actorValues[25].current / _actor.actorValues[25].maximum) * 100.0, true);
+			a_clip.widget.setMeterPercent((_actor.actorValues[Defines.ACTORVALUE_MAGICKA].current / _actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum) * 100.0, true);
 			a_clip._visible = true;
 			a_clip.widget._visible = true;
 		} else if(a_clip == StaminaMeter) {
 			a_clip.widget.initNumbers(200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x003300, 0x339966, 0x009900);
 			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
 			a_clip.widget.initCommit();
-			a_clip.widget.setMeterPercent((_actor.actorValues[26].current / _actor.actorValues[26].maximum) * 100.0, true);
+			a_clip.widget.setMeterPercent((_actor.actorValues[Defines.ACTORVALUE_STAMINA].current / _actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum) * 100.0, true);
 			a_clip._visible = true;
 			a_clip.widget._visible = true;
 		} else {
@@ -193,7 +194,7 @@ class FollowerWheel extends MovieClip
 			return;
 			
 		//skse.SendModEvent("AcceptWheelOption", "", option);
-		gfx.io.GameDelegate.call("buttonPress", [option]);
+		closeMenu(option);
 	}
 	
 	private function GetNearestOption(option: Number, top: Boolean): Number
@@ -259,7 +260,14 @@ class FollowerWheel extends MovieClip
 			gfx.io.GameDelegate.call("PlaySound", ["UIMenuFocus"]);
 		}
 		
-		skse.SendModEvent("SetOption", "", option);
+		skse.SendModEvent("XFLWheel_SetOption", "", option);
+	}
+	
+	private function closeMenu(option: Number)
+	{
+		//skse.SendModEvent("MenuClosing", "", 0);
+		gfx.io.GameDelegate.call("buttonPress", [option]);
+		//skse.SendModEvent("MenuClosing", "", 1);
 	}
 	
 	// @Papyrus
@@ -292,6 +300,7 @@ class FollowerWheel extends MovieClip
 	public function setWheelActor(object: Object)
 	{
 		_actor = object;
+		skse.ExtendForm(_actor.formId, _actor, true, false);
 		this.Name.text = _actor.actorBase.fullName;
 		
 		_movieLoader.loadClip("./widgets/status.swf", HealthMeter);
