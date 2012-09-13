@@ -11,14 +11,15 @@ import skyui.components.list.ScrollingList;
 import skyui.components.dialog.BasicDialog;
 import skyui.util.DialogManager;
 import skyui.util.ConfigManager;
+import skyui.util.GlobalFunctions;
 
 
 class OptionChangeDialog extends BasicDialog
 {	
   /* CONSTANTS */
 	
-	public var OPTION_SLIDER = 0;
-	public var OPTION_MENU = 1;
+	public static var MODE_SLIDER = 0;
+	public static var MODE_MENU = 1;
 	
 
   /* PRIVATE VARIABLES */
@@ -33,48 +34,53 @@ class OptionChangeDialog extends BasicDialog
 	public var cancelButton: CrossPlatformButtons;
 	public var defaultButton: CrossPlatformButtons;
 	
+	public var titleTextField: TextField;
 	public var sliderPanel: MovieClip;
 	public var menuList: ScrollingList;
 
 	
   /* PROPERTIES */
 	
-	public var optionType: Number;
+	public var optionMode: Number;
+	public var titleText: String;
+	
+	public var sliderValue: Number;
+	public var sliderDefault: Number;
+	public var sliderMax: Number;
+	public var sliderMin: Number;
+	public var sliderInterval: Number;
+	public var sliderFormatString: String;
+	
+	public var menuOptions: Array;
+	public var menuStartIndex: Number;
+	public var menuDefaultIndex: Number;
 	
 	
-  /* CONSTRUCTORS */
+  /* INITIALIZATION */
   
 	public function OptionChangeDialog()
 	{
 		super();
 	}
 	
-	
-  /* PUBLIC FUNCTIONS */
-	
 	public function onLoad(): Void
 	{
-
 		initButtons();
+
+		titleTextField.textAutoSize = "shrink";
+		titleTextField.SetText(titleText.toUpperCase());
 		
-		sliderPanel.slider.setScrollProperties(0.7, 0, 20);
-		sliderPanel.slider.addEventListener("scroll", this, "onScroll");
-		sliderPanel.slider.position = 50;
-		
-		menuList.addEventListener("itemPress", this, "onMenuListPress");
-		
-		trace("MNEU LIST 11: " + menuList);
-		
-		menuList.listEnumeration = new BasicEnumeration(menuList.entryList);
-		menuList.entryFormatter = new ButtonEntryFormatter(menuList);
-		
-		trace("MNEU LIST 22: " + menuList);
-		
-		for (var i=0; i<10; i++)
-			menuList.entryList.push({text: "Menu option " + i, align: "center", enabled: true, state: "normal"});
-		
-		menuList.InvalidateData();
+		if (optionMode == MODE_SLIDER) {
+			menuList._visible = false;
+			initSlider();
+		}  else {
+			sliderPanel._visible = false;
+			initMenu();
+		}
 	}
+	
+	
+  /* PUBLIC FUNCTIONS */
 	
 	public function onDialogOpening(): Void
 	{
@@ -90,17 +96,6 @@ class OptionChangeDialog extends BasicDialog
 	public function handleInput(details, pathToFocus): Boolean
 	{
 		var bCaught = false;
-
-		if (GlobalFunc.IsKeyPressed(details)) {
-				
-			if (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT) {
-				DialogManager.close();
-				bCaught = true;
-			}
-
-			if (!bCaught)
-				bCaught = pathToFocus[0].handleInput(details, pathToFocus.slice(1));
-		}
 		
 		return bCaught;
 	}
@@ -113,6 +108,14 @@ class OptionChangeDialog extends BasicDialog
 		
 		ButtonEntryFormatter(menuList.entryFormatter).activeEntry = e;
 		menuList.UpdateList();
+	}
+	
+	public function onScroll(event: Object): Void
+	{
+		sliderValue = event.position * sliderInterval;
+		var t = sliderFormatString	? GlobalFunctions.format(sliderFormatString, sliderValue)
+									: t = Math.round(sliderValue * 100) / 100;
+		sliderPanel.valueTextField.SetText(t);
 	}
 	
 	
@@ -132,6 +135,31 @@ class OptionChangeDialog extends BasicDialog
 		_updateButtonID = setInterval(this, "updateButtonPositions", 1);
 	}
 	
+	private function initSlider(): Void
+	{
+		var d = sliderInterval;
+		sliderPanel.slider.setScrollProperties(((sliderMax - sliderMin) / d) / 10, sliderMin / d, sliderMax / d);
+		sliderPanel.slider.addEventListener("scroll", this, "onScroll");
+		sliderPanel.slider.position = sliderValue / d;
+	}
+	
+	private function initMenu(): Void
+	{
+		menuList.addEventListener("itemPress", this, "onMenuListPress");
+		
+		menuList.listEnumeration = new BasicEnumeration(menuList.entryList);
+		menuList.entryFormatter = new ButtonEntryFormatter(menuList);
+		
+		for (var i=0; i<menuOptions.length; i++) {
+			var entry = {text: menuOptions[i], align: "center", enabled: true, state: "normal"};
+			menuList.entryList.push(entry);
+			if (i == menuStartIndex)
+				ButtonEntryFormatter(menuList.entryFormatter).activeEntry = entry;
+		}
+		
+		menuList.InvalidateData();
+	}
+	
 	private function updateButtonPositions(): Void
 	{
 		clearInterval(_updateButtonID);
@@ -144,16 +172,38 @@ class OptionChangeDialog extends BasicDialog
 	
 	private function onCancelPress(): Void
 	{
+		skse.SendModEvent("SKICP_dialogCanceled");
 		DialogManager.close();
 	}
 	
 	private function onConfirmPress(): Void
 	{
+		if (optionMode == MODE_SLIDER)
+			skse.SendModEvent("SKICP_sliderAccepted", null, sliderValue);
+		else
+			skse.SendModEvent("SKICP_menuAccepted", null, getActiveMenuIndex());
 		DialogManager.close();
 	}
 	
 	private function onDefaultPress(): Void
 	{
-		DialogManager.close();
+		if (optionMode == MODE_SLIDER)
+			sliderPanel.slider.position = sliderDefault / sliderInterval;
+		else
+			setActiveMenuIndex(menuDefaultIndex);
+	}
+	
+	// Not so great...
+	private function setActiveMenuIndex(a_index: Number): Void
+	{
+		var e = menuList.entryList[a_index];
+		ButtonEntryFormatter(menuList.entryFormatter).activeEntry = e;
+		menuList.UpdateList();
+	}
+	
+	private function getActiveMenuIndex(): Number
+	{
+		var index = ButtonEntryFormatter(menuList.entryFormatter).activeEntry.itemIndex
+		return (index ? index : -1);
 	}
 }

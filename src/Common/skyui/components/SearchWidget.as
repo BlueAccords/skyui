@@ -1,14 +1,19 @@
 ﻿import gfx.events.EventDispatcher;
 import gfx.managers.FocusHandler;
 import gfx.ui.NavigationCode;
+import gfx.ui.InputDetails;
 import Shared.GlobalFunc;
 
 import skyui.util.ConfigManager;
-import skyui.util.Translator;
 
 
 class skyui.components.SearchWidget extends MovieClip
 {
+  /* CONSTANTS */
+  
+	private static var S_FILTER = "$FILTER";
+	
+	
   /* PRIVATE VARIABLES */
   
 	private var _previousFocus: Object;
@@ -18,7 +23,6 @@ class skyui.components.SearchWidget extends MovieClip
 	private var _bRestoreFocus: Boolean = false;
 	private var _bEnableAutoupdate: Boolean;
 	private var _updateDelay: Number;
-	private var _filterString: String;
 	
 	private var _updateTimerId: Number;
 	
@@ -33,7 +37,7 @@ class skyui.components.SearchWidget extends MovieClip
 	public var isDisabled: Boolean = false;
 	
 	
-  /* CONSTRUCTORS */
+  /* INITIALIZATION */
 	
 	public function SearchWidget()
 	{
@@ -44,9 +48,10 @@ class skyui.components.SearchWidget extends MovieClip
 		{
 			_parent.endInput();
 		};
+		
+		textField.SetText(S_FILTER);
 
 		ConfigManager.registerLoadCallback(this, "onConfigLoad");
-		Translator.registerLoadCallback(this, "onTranslationLoad");
 	}
 	
 	
@@ -66,12 +71,6 @@ class skyui.components.SearchWidget extends MovieClip
 		var config = event.config;
 		_bEnableAutoupdate = config.SearchBox.autoupdate.enable;
 		_updateDelay = config.SearchBox.autoupdate.delay;
-	}
-	
-	public function onTranslationLoad(event): Void
-	{
-		_filterString = Translator.translate("$FILTER");
-		textField.SetText(_filterString);
 	}
 	
 	public function onPress(a_mouseIndex, a_keyboardOrMouse)
@@ -143,16 +142,14 @@ class skyui.components.SearchWidget extends MovieClip
 		if (_currentInput != undefined())
 			dispatchEvent({type: "inputEnd", data: _currentInput});
 		else {
-			textField.SetText(Translator.translate("$FILTER"));
+			textField.SetText(S_FILTER);
 			dispatchEvent({type: "inputEnd", data: ""});
 		}
 	}
 
 	// @GFx
-	public function handleInput(details, pathToFocus): Boolean
+	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
-		var bCaught = false;
-
 		if (GlobalFunc.IsKeyPressed(details)) {
 			
 			if (details.navEquivalent == NavigationCode.ENTER && details.code != 32) {
@@ -163,12 +160,12 @@ class skyui.components.SearchWidget extends MovieClip
 				endInput();
 			}
 
-			if (!bCaught) {
-				bCaught = pathToFocus[0].handleInput(details, pathToFocus.slice(1));
-			}
+			var nextClip = pathToFocus.shift();
+			if (nextClip.handleInput(details, pathToFocus))
+				return true;
 		}
 		
-		return bCaught;
+		return false;
 	}
 	
 	
@@ -183,7 +180,7 @@ class skyui.components.SearchWidget extends MovieClip
 	{
 		var t =  GlobalFunc.StringTrim(textField.text);
 		
-		if (t != undefined && t != "" && t != _filterString) {
+		if (t != undefined && t != "" && t != S_FILTER) {
 			_currentInput = t;
 		} else {
 			_currentInput = undefined;
