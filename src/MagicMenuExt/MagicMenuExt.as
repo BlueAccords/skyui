@@ -69,15 +69,15 @@ class MagicMenuExt extends ItemMenu
 		itemList.addDataProcessor(new PropertyDataExtender('magicProperties', 'magicIcons', 'magicCompoundProperties', 'translateProperties'));
 		itemList.layout = ListLayoutManager.instance.getLayoutByName("MagicListLayout");
 		
-		inventoryLists.categoryList.entryList.push({bDontHide: true, filterFlag: 0, flag: Defines.FLAG_MAGIC_ALL, text: "ALL"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_ALTERATION, text: "ALTERATION"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_ILLUSION, text: "ILLUSION"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_DESTRUCTION, text: "DESTRUCTION"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_CONJURATION, text: "CONJURATION"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_RESTORATION, text: "RESTORATION"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_SHOUTS, text: "SHOUTS"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_POWERS, text: "POWERS"});
-		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_ACTIVE_EFFECT, text: "ACTIVE EFFECTS"});
+		inventoryLists.categoryList.entryList.push({bDontHide: true, filterFlag: 0, flag: Defines.FLAG_MAGIC_ALL, text: "$ALL"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_ALTERATION, text: "$ALTERATION"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_ILLUSION, text: "$ILLUSION"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_DESTRUCTION, text: "$DESTRUCTION"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_CONJURATION, text: "$CONJURATION"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_RESTORATION, text: "$RESTORATION"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_SHOUTS, text: "$SHOUTS"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_POWERS, text: "$POWERS"});
+		inventoryLists.categoryList.entryList.push({bDontHide: false, filterFlag: 0, flag: Defines.FLAG_MAGIC_ACTIVE_EFFECT, text: "$ACTIVE EFFECTS"});
 		inventoryLists.categoryList.InvalidateData();
 		_visible = true;
 	}
@@ -91,23 +91,23 @@ class MagicMenuExt extends ItemMenu
 				
 		switch(spell.subType) {
 			case Defines.SPELL_TYPE_ALTERATION:
-			itemInfo.magicSchoolName = "Alteration";
+			itemInfo.magicSchoolName = "$Alteration";
 			itemInfo.type = InventoryDefines.ICT_SPELL;
 			break;
 			case Defines.SPELL_TYPE_CONJURATION:
-			itemInfo.magicSchoolName = "Conjuration";
+			itemInfo.magicSchoolName = "$Conjuration";
 			itemInfo.type = InventoryDefines.ICT_SPELL;
 			break;
 			case Defines.SPELL_TYPE_DESTRUCTION:
-			itemInfo.magicSchoolName = "Destruction";
+			itemInfo.magicSchoolName = "$Destruction";
 			itemInfo.type = InventoryDefines.ICT_SPELL;
 			break;
 			case Defines.SPELL_TYPE_ILLUSION:
-			itemInfo.magicSchoolName = "Illusion";
+			itemInfo.magicSchoolName = "$Illusion";
 			itemInfo.type = InventoryDefines.ICT_SPELL;
 			break;
 			case Defines.SPELL_TYPE_RESTORATION:
-			itemInfo.magicSchoolName = "Restoration";
+			itemInfo.magicSchoolName = "$Restoration";
 			itemInfo.type = InventoryDefines.ICT_SPELL;
 			break;
 			default:
@@ -126,11 +126,11 @@ class MagicMenuExt extends ItemMenu
 			itemInfo.type = InventoryDefines.ICT_ACTIVE_EFFECT;
 		} else {
 			switch(spell.skillLevel) {
-				case 0:		itemInfo.castLevel = "Novice";		break;
-				case 25:	itemInfo.castLevel = "Apprentice";	break;
-				case 50:	itemInfo.castLevel = "Adept";		break;
-				case 75:
-				case 100:	itemInfo.castLevel = "Master";	break;
+				case 0:		itemInfo.castLevel = "$Novice";		break;
+				case 25:	itemInfo.castLevel = "$Apprentice";	break;
+				case 50:	itemInfo.castLevel = "$Adept";		break;
+				case 75:	itemInfo.castLevel = "$Expert";		break;
+				case 100:	itemInfo.castLevel = "$Master";	break;
 			}
 		}
 		

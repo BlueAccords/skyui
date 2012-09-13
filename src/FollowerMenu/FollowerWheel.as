@@ -63,14 +63,14 @@ class FollowerWheel extends MovieClip
 		super();
 				
 		// 17 is for angle offset, each slice is 35 degrees
-		_options = [ {slice: Left00, label: TextLeft00, rot: -20 - 17, iconData: {icon: Icon0, name: "", size: 32, color: 0xFFFFFF}, option: "$Range"},
-					 {slice: Left01, label: TextLeft01, rot: -55 - 17, iconData: {icon: Icon1, name: "", size: 32, color: 0xFFFFFF}, option: "$Inventory"},
-					 {slice: Left02, label: TextLeft02, rot: -90 - 17, iconData: {icon: Icon2, name: "", size: 32, color: 0xFFFFFF}, option: "$Distance"},
-					 {slice: Left03, label: TextLeft03, rot: -125 - 17, iconData: {icon: Icon3, name: "", size: 32, color: 0xFFFFFF}, option: "$Backup"},
-					 {slice: Right00, label: TextRight00, rot: 20 + 17, iconData: {icon: Icon4, name: "", size: 32, color: 0xFFFFFF}, option: "$Aggression"},
-					 {slice: Right01, label: TextRight01, rot: 55 + 17, iconData: {icon: Icon5, name: "", size: 32, color: 0xFFFFFF}, option: "$Potion"},
+		_options = [ {slice: Left00, label: TextLeft00, rot: -20 - 17, iconData: {icon: Icon0, name: "", size: 32, color: 0xFFFFFF}, option: "$Wait"},
+					 {slice: Left01, label: TextLeft01, rot: -55 - 17, iconData: {icon: Icon1, name: "", size: 32, color: 0xFFFFFF}, option: "$Trade"},
+					 {slice: Left02, label: TextLeft02, rot: -90 - 17, iconData: {icon: Icon2, name: "", size: 32, color: 0xFFFFFF}, option: "$Aggressive"},
+					 {slice: Left03, label: TextLeft03, rot: -125 - 17, iconData: {icon: Icon3, name: "", size: 32, color: 0xFFFFFF}, option: "$More"},
+					 {slice: Right00, label: TextRight00, rot: 20 + 17, iconData: {icon: Icon4, name: "", size: 32, color: 0xFFFFFF}, option: "$Relax"},
+					 {slice: Right01, label: TextRight01, rot: 55 + 17, iconData: {icon: Icon5, name: "", size: 32, color: 0xFFFFFF}, option: "$Stats"},
 					 {slice: Right02, label: TextRight02, rot: 90 + 17, iconData: {icon: Icon6, name: "", size: 32, color: 0xFFFFFF}, option: "$Talk"},
-					 {slice: Right03, label: TextRight03, rot: 125 + 17, iconData: {icon: Icon7, name: "", size: 32, color: 0xFFFFFF}, option: "$Signal"}
+					 {slice: Right03, label: TextRight03, rot: 125 + 17, iconData: {icon: Icon7, name: "", size: 32, color: 0xFFFFFF}, option: "$Exit"}
 					];
 		
 		for(var o = 0; o < _options.length; o++)

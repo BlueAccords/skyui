@@ -152,6 +152,7 @@
 			for(var i = 0; i < aObject.forms.length; i++)
 			{
 				skse.ExtendForm(aObject.forms[i].formId, aObject.forms[i], true, false);
+				skse.ExtendForm(aObject.forms[i].actorBase.formId, aObject.forms[i].actorBase, true, false);
 				aObject.forms[i].text = aObject.forms[i].actorBase.fullName;
 			}
 			
