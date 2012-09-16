@@ -51,6 +51,8 @@ class InventoryMenu extends ItemMenu
 		GameDelegate.addCallBack("DropItem", this, "DropItem");
 		GameDelegate.addCallBack("AttemptChargeItem", this, "AttemptChargeItem");
 		GameDelegate.addCallBack("ItemRotating", this, "ItemRotating");
+		
+		InitExtensions();
 	}
 	
 	// @override ItemMenu
@@ -71,14 +73,25 @@ class InventoryMenu extends ItemMenu
 		var entryFormatter = new InventoryEntryFormatter(itemList);
 		entryFormatter.maxTextLength = 80;
 		itemList.entryFormatter = entryFormatter;
-		itemList.addDataProcessor(new InventoryDataExtender());
-		itemList.addDataProcessor(new PropertyDataExtender("itemProperties", "itemIcons", "itemCompoundProperties", "translateProperties"));
-		itemList.layout = ListLayoutManager.instance.getLayoutByName("ItemListLayout");
+		
+		ListLayoutManager.instance.bind(itemList, "ItemListLayout");
 
 		itemCard.addEventListener("itemPress", this, "onItemCardListPress");
 	}
 
   /* PUBLIC FUNCTIONS */
+
+	// @override ItemMenu
+	public function setConfig(a_config: Object): Void
+	{
+		super.setConfig(a_config);
+		
+		skyui.util.Debug.log("Setting config" + a_config["Properties"]);
+		
+		var itemList: TabularList = inventoryLists.itemList;
+		itemList.addDataProcessor(new InventoryDataExtender());
+		itemList.addDataProcessor(new PropertyDataExtender(a_config["Properties"], "itemProperties", "itemIcons", "itemCompoundProperties"));		
+	}
 
 	// @GFx
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
@@ -115,7 +128,7 @@ class InventoryMenu extends ItemMenu
 
 	private function startMenuFade(): Void
 	{
-		inventoryLists.hideCategoriesList();
+		inventoryLists.hidePanel();
 		ToggleMenuFade();
 		saveIndices();
 		_bMenuClosing = true;

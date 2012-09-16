@@ -19,6 +19,7 @@ import skyui.util.ConfigManager;
 import skyui.util.GlobalFunctions;
 import skyui.util.Translator;
 import skyui.util.DialogManager;
+import skyui.util.Debug;
 
 
 class InventoryLists extends MovieClip
@@ -63,7 +64,7 @@ class InventoryLists extends MovieClip
   /* PROPERTIES */
 
 	public var itemList: TabularList;
-	
+
 	public var categoryList: CategoryList;
 	
 	public var tabBar: TabBar;
@@ -173,6 +174,12 @@ class InventoryLists extends MovieClip
 		columnSelectButton.addEventListener("press", this, "onColumnSelectButtonPress");
 	}
 	
+	public function InitExtensions(): Void
+	{
+		// Delay updates until config is ready
+		itemList.suspended = true;
+	}
+	
 	
   /* PUBLIC FUNCTIONS */
 
@@ -188,9 +195,30 @@ class InventoryLists extends MovieClip
 	// @mixin by Shared.GlobalFunc
 	public var Lock: Function;
 	
+	public function showPanel(a_bPlayBladeSound: Boolean): Void
+	{
+		// Release itemlist for updating
+		itemList.suspended = false;
+		
+		_currentState = TRANSITIONING_TO_SHOW_PANEL;
+		gotoAndPlay("PanelShow");
+
+		dispatchEvent({type:"categoryChange", index:categoryList.selectedIndex});
+
+		if (a_bPlayBladeSound != false)
+			GameDelegate.call("PlaySound",["UIMenuBladeOpenSD"]);
+	}
+
+	public function hidePanel(): Void
+	{
+		_currentState = TRANSITIONING_TO_HIDE_PANEL;
+		gotoAndPlay("PanelHide");
+		GameDelegate.call("PlaySound",["UIMenuBladeCloseSD"]);
+	}
+	
 	public function onFilterChange(): Void
 	{
-		itemList.InvalidateData();
+		itemList.requestInvalidate();
 	}
 	
 	public function enableTabBar(): Void
@@ -294,24 +322,6 @@ class InventoryLists extends MovieClip
 	{
 		categoryList.selectedIndex = _currCategoryIndex;
 	}
-
-	public function showCategoriesList(a_bPlayBladeSound: Boolean): Void
-	{
-		_currentState = TRANSITIONING_TO_SHOW_PANEL;
-		gotoAndPlay("PanelShow");
-
-		dispatchEvent({type:"categoryChange", index:categoryList.selectedIndex});
-
-		if (a_bPlayBladeSound != false)
-			GameDelegate.call("PlaySound",["UIMenuBladeOpenSD"]);
-	}
-
-	public function hideCategoriesList(): Void
-	{
-		_currentState = TRANSITIONING_TO_HIDE_PANEL;
-		gotoAndPlay("PanelHide");
-		GameDelegate.call("PlaySound",["UIMenuBladeCloseSD"]);
-	}
 	
 	public function showItemsList(): Void
 	{
@@ -326,10 +336,10 @@ class InventoryLists extends MovieClip
 		if (categoryList.selectedEntry != undefined) {
 			// Set filter type
 			_typeFilter.changeFilterFlag(categoryList.selectedEntry.flag);
-			itemList.layout.changeFilterFlag(categoryList.selectedEntry.flag);
-		} else {
-			itemList.UpdateList();
+			itemList.layout.changeFilterFlag(categoryList.selectedEntry.flag);			
 		}
+		
+		itemList.requestUpdate();
 		
 		dispatchEvent({type:"itemHighlightChange", index:itemList.selectedIndex});
 
@@ -470,8 +480,9 @@ class InventoryLists extends MovieClip
 		for (var i = 0; i < categoryList.entryList.length; i++)
 			categoryList.entryList[i].filterFlag = categoryList.entryList[i].bDontHide ? 1 : 0;
 
-		// Set filter flag = 1 for non-empty categories with bDontHideOffset=false
 		itemList.InvalidateData();
+
+		// Set filter flag = 1 for non-empty categories with bDontHideOffset=false
 		for (var i = 0; i < itemList.entryList.length; i++) {
 			for (var j = 0; j < categoryList.entryList.length; ++j) {
 				if (categoryList.entryList[j].filterFlag != 0)

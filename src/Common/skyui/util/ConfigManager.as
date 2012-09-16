@@ -9,6 +9,7 @@ class skyui.util.ConfigManager
   /* CONSTANTS */
   
 	private static var CONFIG_PATH = "skyui/config.txt";
+	private static var LOAD_TIMEOUT = 1000;
 	
 	
   /* PRIVATE VARIABLES */
@@ -21,13 +22,19 @@ class skyui.util.ConfigManager
 		NUMERIC: Array.NUMERIC
 	};
 	
+	// Contains names of classes
+	private static var _extConstantTableNames = [];
+	// Contains the actual classes.
 	private static var _extConstantTables = [];
 	
 	private static var _eventDummy: Object;
 	
-	private static var _loaded: Boolean;
+	// 0: Waiting for file, 1: Waiting for override 2: Loaded
+	private static var _loadPhase: Number = 0;
 	
 	private static var _config: Object;
+	
+	private static var _timeoutID: Number;
 	
 	
   /* INITIALIATZION */
@@ -36,9 +43,6 @@ class skyui.util.ConfigManager
   
 	private static function initialize(): Boolean
 	{
-		if (_initialized)
-			return;
-			
 		GlobalFunctions.addArrayFunctions();
 		
 		_eventDummy = {};
@@ -54,14 +58,13 @@ class skyui.util.ConfigManager
 	
   /* PAPYRUS INTERFACE */
   
-  	// Key/value pairs "Section$k§e§y§" / "value"
+  	// Key/value pairs "Section$k$e$y$" / "value"
 	public static var out_overrides = {};
 	public static var in_overrideKeys = [];
 	
 	public static function setExternalOverrideKeys()
 	{
 		in_overrideKeys.splice(0);
-		skse.Log("Called setExternalOverrideKeys");
 		
 		for (var i = 0; i < arguments.length; i++)
 			in_overrideKeys[i] = arguments[i];
@@ -69,15 +72,30 @@ class skyui.util.ConfigManager
 	
 	public static function setExternalOverrideValues()
 	{
-		skse.Log("Called setExternalOverrideValues");
+		// Received overrides before file? This can't be right.
+		if (_loadPhase < 1)
+			return;
 		
 		// Update happens in 2 phases.
 		// First the keys are sent and stored, then the values are sent and immediately processed.
-		for (var i = 0; i < arguments.length; i++)
-			if (in_overrideKeys[i])
-				parseExternalOverride(in_overrideKeys[i], arguments[i]);
+		for (var i = 0; i < arguments.length; i++) {
+			var t = in_overrideKeys[i];
+			if (t && t != "")
+				parseExternalOverride(t, arguments[i]);
+		}
 		
-		_eventDummy.dispatchEvent({type: "configUpdate", config: _config});				
+		if (_loadPhase < 2) {
+			clearInterval(_timeoutID);
+			delete _timeoutID;
+			
+			_loadPhase = 2;
+			skyui.util.Debug.log("Dispatching configLoad");
+			_eventDummy.dispatchEvent({type: "configLoad", config: _config});			
+		} else {
+			// Timeout
+			skyui.util.Debug.log("Dispatching configUpdate");
+			_eventDummy.dispatchEvent({type: "configUpdate", config: _config});
+		}
 	}
 	
 	
@@ -85,13 +103,13 @@ class skyui.util.ConfigManager
   
 	public static function registerLoadCallback(a_scope: Object, a_callBack: String): Void
 	{
-		// Not loaded yet
-		if (!_loaded) {
+		// Not completely loaded yet
+		if (_loadPhase < 2) {
 			_eventDummy.addEventListener("configLoad", a_scope, a_callBack);
 			return;
 		}
 		
-		// Already loaded, generate event instantly.
+		// Already loaded, instantly generate event.
 		a_scope[a_callBack]({type: "configLoad", config: _config});
 	}
 	
@@ -102,6 +120,8 @@ class skyui.util.ConfigManager
 	
 	public static function setConstant(a_name: String, a_value): Void
 	{
+		skyui.util.Debug.log("setConstant setConstant setConstant: " + a_name + " " + a_value);
+		
 		var type = typeof(a_value);
 		if (type != "number" && type != "boolean" && type != "string")
 			return;
@@ -110,13 +130,14 @@ class skyui.util.ConfigManager
 	}
 	
 	
-	public static function addConstantTable(a_tbl: Object): Void
+	public static function addConstantTable(a_name: String): Void
 	{
-		_extConstantTables.push(a_tbl);
+		_extConstantTableNames.push(a_name);
 	}
 	
 	public static function getConstant(a_name: String)
 	{
+		
 		if (_constantTable[a_name] != undefined)
 			return _constantTable[a_name];
 			
@@ -129,8 +150,6 @@ class skyui.util.ConfigManager
 	
 	public static function setOverride(a_section: String, a_key: String, a_value, a_valueStr: String): Void
 	{
-		skse.Log("settingOverride " + a_section + " " + a_key + " " + a_value);
-		
 		// Allow to add new sections
 		if (_config[a_section] == undefined)
 			_config[a_section] = {};
@@ -153,15 +172,13 @@ class skyui.util.ConfigManager
 		// Store value in config
 		loc[a[a.length-1]] = a_value;
 		
-		// Running out of special characters soon... :)
-		// Background: UI functions would try to look up keys.a.b.c, instead of keys["a.b.c"].
-		// So we use a different delimiter, and keys.a§b§c works fine.
-		var replacer = a_key.split(".");
-		a_key = replacer.join("§");
+		// UI functions would try to look up keys.a.b.c, instead of keys["a.b.c"].
+		// . -> $
+		a_key = a_key.split(".").join("$");
 		
 		var ovrKey = a_section + "$" + a_key;
 		out_overrides[ovrKey] = a_valueStr;
-		skse.SendModEvent("SKI_setConfigOverride", ovrKey);
+		skse.SendModEvent("SKICO_setConfigOverride", ovrKey);
 		
 		// If we changed the value of a var, update all recorded references.
 		if (varContainer) {
@@ -175,14 +192,35 @@ class skyui.util.ConfigManager
 		_eventDummy.dispatchEvent({type: "configUpdate", config: _config});
 	}
 	
-	private static function parseExternalOverride(a_key: String, a_valueStr: String)
+	// Provide static accessor to the config to retrieve trivial values
+	public static function getValue(a_section: String, a_key: String): Object
 	{
-		var section = GlobalFunctions.clean(a_key.slice(0, a_key.indexOf("$")));
-		var key = GlobalFunctions.clean(a_key.slice(a_key.indexOf("$") + 1));
+		var a = a_key.split(".");
+		var loc = _config[a_section];
+		for (var j=0; j<a.length; j++) {
+			if (loc[a[j]] == undefined)
+				return null;
+			loc = loc[a[j]];
+		}
+		
+		return loc;
+	}
+
+
+  /* PRIVATE FUNCTIONS */
+  
+	
+	private static function parseExternalOverride(a_key: String, a_valueStr: String): Void
+	{
+		var index =  a_key.indexOf("$");
+		
+		// raw key: section$k$e$y
+		var section = GlobalFunctions.clean(a_key.slice(0, index));
+		var key = GlobalFunctions.clean(a_key.slice(index + 1));
 		var val = parseValueString(GlobalFunctions.clean(a_valueStr), null);
 
-		// Prepare key subsections - external keys use § as separator
-		var a = key.split("§");
+		// Prepare key subsections - external keys use $ as separator
+		var a = key.split("$");
 		var loc = _config[section];
 		
 		var varContainer = null;
@@ -205,30 +243,20 @@ class skyui.util.ConfigManager
 				varLoc[varKey] = val;
 			}
 		}
-		
-		skse.Log("Received external override. section: " + section + " key: " + key + " val: " + val);
-	}
-	
-	// Provide static accessor to the config to retrieve trivial values
-	public static function getValue(a_section: String, a_key: String): Object
-	{
-		var a = a_key.split(".");
-		var loc = _config[a_section];
-		for (var j=0; j<a.length; j++) {
-			if (loc[a[j]] == undefined)
-				return null;
-			loc = loc[a[j]];
-		}
-		
-		return loc;
 	}
 
-
-  /* PRIVATE FUNCTIONS */
-
-	private static function parseData(a_data:Array)
+	private static function parseData(a_data:Array): Void
 	{
 		_config = {};
+		
+		// Resolve constant tables
+		for (var i=0; i<_extConstantTableNames.length; i++) {
+			var a = _extConstantTableNames[i].split(".");
+			var tbl = _global[a[0]];
+			for (var j=1; j<a.length; j++)
+				tbl = tbl[a[j]];
+			_extConstantTables.push(tbl);
+		}
 		
 		var lines = a_data.split("\r\n");
 		if (lines.length == 1)
@@ -245,7 +273,6 @@ class skyui.util.ConfigManager
 			// Section start
 			if (lines[i].charAt(0) == "[") {
 				section = lines[i].slice(1, lines[i].lastIndexOf("]"));
-//				trace("Section: [" + section + "]");
 				
 				if (_config[section] == undefined)
 					_config[section] = {};
@@ -275,16 +302,27 @@ class skyui.util.ConfigManager
 			
 			if (val == undefined)
 				continue;
-			
-//			trace(key + "=" + val + "%");
 
 			// Store val at config.section.a.b.c.d
 			loc[a[a.length-1]] = val;
 		}
 		
-		_loaded = true;
+		_loadPhase = 1;
+		_timeoutID = setInterval(onTimeout, LOAD_TIMEOUT);
 		
-		_eventDummy.dispatchEvent({type: "configLoad", config: _config});
+//		_eventDummy.dispatchEvent({type: "configLoad", config: _config});
+	}
+	
+	private static function onTimeout(): Void
+	{
+		clearInterval(_timeoutID);
+		delete _timeoutID;
+
+		if (_loadPhase < 2) {
+			_loadPhase = 2;
+			skyui.util.Debug.log("Dispatching configLoad (delayed)");
+			_eventDummy.dispatchEvent({type: "configLoad", config: _config});
+		}
 	}
 	
 	private static function parseValueString(a_str: String, a_root: Object, a_loc: Object, a_key: String): Object
@@ -364,7 +402,6 @@ class skyui.util.ConfigManager
 			// A variable might be updated later via overrides, in which case we'd have to re-evaluate previous
 			// expressions that used it. To make that efficient, each variable stores it's references.
 			// Because we can't store pointers, this has to be the object/key pair (aka loc/name).
-			// Only works for scalar values so far.
 			if (a_loc && a_key) {
 				if (a_root.vars[a_str]._refLocs == undefined) {
 					a_root.vars[a_str]._refLocs = [];
