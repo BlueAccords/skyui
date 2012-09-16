@@ -301,6 +301,7 @@ class FollowerWheel extends MovieClip
 	{
 		_actor = object;
 		skse.ExtendForm(_actor.formId, _actor, true, false);
+		skse.ExtendForm(_actor.actorBase.formId, _actor.actorBase, true, false);
 		this.Name.text = _actor.actorBase.fullName;
 		
 		_movieLoader.loadClip("./widgets/status.swf", HealthMeter);
