@@ -1,30 +1,27 @@
 ﻿import skyui.components.list.BasicList;
-import skyui.components.list.IEntryFormatter;
-import skyui.components.list.ButtonEntryFormatter;
+import skyui.components.list.ButtonListEntry;
+import skyui.components.list.ListState;
 
-class ActorValueEntryFormatter extends ButtonEntryFormatter
+class ActorValueEntry extends ButtonListEntry
 {
 	/* PROPERTIES */
 	
 	/* STAGE ELMENTS */
+
+	public var valueField: TextField;
 	
 	/* PUBLIC FUNCTIONS */
-	
-	function ActorValueEntryFormatter(a_list: BasicList)
-	{
-		super(a_list);
-	}
-	
-	public function setEntry(a_entryClip: MovieClip, a_entryObject: Object): Void
-	{
-		super.setEntry(a_entryClip, a_entryObject);
 		
-		if (a_entryClip == undefined || a_entryObject.value == undefined) {
-			a_entryClip.valueField.text = "0";
+	public function setEntry(a_entryObject: Object, a_state: ListState): Void
+	{
+		super.setEntry(a_entryObject, a_state);
+		
+		if (a_entryObject.value == undefined) {
+			valueField.text = "0";
 			return;
 		}
 		
-		a_entryClip.valueField.textAutoSize = "shrink";
+		valueField.textAutoSize = "shrink";
 		
 		var statStr: String;
 		if(a_entryObject.type == undefined)
@@ -39,7 +36,7 @@ class ActorValueEntryFormatter extends ButtonEntryFormatter
 		} else if(a_entryObject.value.base > a_entryObject.value.maximum){ // Net Loss
 			statStr += " <font color=\'#FF0000\'>(" + Math.round(a_entryObject.value.maximum - a_entryObject.value.base) + ")</font>";
 		}
-		a_entryClip.valueField.html = true;
-		a_entryClip.valueField.SetText(statStr, true);
+		valueField.html = true;
+		valueField.SetText(statStr, true);
 	}
 }

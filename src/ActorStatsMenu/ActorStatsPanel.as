@@ -63,15 +63,15 @@ class ActorStatsPanel extends MovieClip
 		super.onLoad();
 		
 		_categoryList.listEnumeration = new BasicEnumeration(_categoryList.entryList);
-		_categoryList.entryFormatter = new CategoryEntryFormatter(_categoryList);
+		//_categoryList.entryFormatter = new CategoryEntryFormatter(_categoryList);
 		
 		_subList.listEnumeration = new BasicEnumeration(_subList.entryList);
-		_subList.entryFormatter = new ButtonEntryFormatter(_subList);
+		//_subList.entryFormatter = new ButtonEntryFormatter(_subList);
 		
 		var listEnumeration = new FilteredEnumeration(_statsList.entryList);
 		listEnumeration.addFilter(_typeFilter);
 		_statsList.listEnumeration = listEnumeration;
-		_statsList.entryFormatter = new ActorValueEntryFormatter(_statsList);
+		//_statsList.entryFormatter = new ActorValueEntryFormatter(_statsList);
 		
 		_typeFilter.addEventListener("filterChange", this, "onFilterChange");
 		
@@ -89,7 +89,7 @@ class ActorStatsPanel extends MovieClip
 		_subList.InvalidateData();
 		
 		//setActorNames("Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5", "Sub 6", "Sub 7", "Sub 8", "Sub 9", "Sub 10", "Sub 11");
-		/*setActorStatsPanelForm({actorBase: {fullName: "Jack"}, formType: 1, actorValues: [{base: 0, current: 0, maximum: 0},
+		setActorStatsPanelForm({actorBase: {fullName: "Jack"}, formType: 1, actorValues: [{base: 0, current: 0, maximum: 0},
 												  {base: 10, current: 1, maximum: 0},
 												  {base: 10, current: 2, maximum: 0},
 												  {base: 10, current: 3, maximum: 0},
@@ -120,7 +120,7 @@ class ActorStatsPanel extends MovieClip
 												  {base: 100, current: 28, maximum: 550},
 												  {base: 100, current: 29, maximum: 560},
 												  {base: 100, current: 30, maximum: 570},
-												  {base: 100, current: 31, maximum: 1000}]});*/
+												  {base: 100, current: 31, maximum: 1000}]});
 				
 		addActorValue("$Health", CATEGORY_FLAG_GENERAL, Defines.ACTORVALUE_HEALTH, "pc");
 		addActorValue("$Magicka", CATEGORY_FLAG_GENERAL, Defines.ACTORVALUE_MAGICKA, "pc");
@@ -171,6 +171,10 @@ class ActorStatsPanel extends MovieClip
 	public function onConfigLoad(event: Object): Void
 	{
 		_config = event.config;
+		
+		var section = _config["Appearance"];
+		_categoryList.listState.iconSource = section.icons.source;
+		
 		_categoryList.InvalidateData();
 		_categoryList.onItemPress(0, 0);
 	}
@@ -253,7 +257,7 @@ class ActorStatsPanel extends MovieClip
 			case STATE_ENTERING_STATS:
 			{
 				if(!_showStats) {
-					if(ButtonEntryFormatter(_subList.entryFormatter).activeEntry == undefined)
+					if(_subList.listState.activeEntry == undefined)
 						return false;
 						
 					GameDelegate.call("PlaySound",["UIMagicSelect"]);
@@ -362,7 +366,7 @@ class ActorStatsPanel extends MovieClip
 	
 	private function updateActorValues()
 	{
-		var object: Object = ButtonEntryFormatter(_subList.entryFormatter).activeEntry;
+		var object: Object = _subList.listState.activeEntry;
 		if(object.formType != undefined) {
 			for(var i = 0; i < _statsList.entryList.length; i++) {
 				_statsList.entryList[i].value = object.actorValues[_statsList.entryList[i].actorValue];
@@ -373,7 +377,7 @@ class ActorStatsPanel extends MovieClip
 		
 	private function selectActor(a_entry: Object): Void
 	{		
-		ButtonEntryFormatter(_subList.entryFormatter).activeEntry = a_entry;
+		_subList.listState.activeEntry = a_entry;
 		_subList.UpdateList();
 		updateActorValues();
 	}
