@@ -8,6 +8,10 @@ class PanelList extends MovieClip
 	private var fadeInDuration: Number;
 	private var fadeOutDuration: Number;
 	private var moveDuration: Number;
+	private var maxEntries: Number;
+	private var paddingBottom: Number;
+	
+	private var mask: MovieClip;
 	
 	/* PRIVATE VARIABLES */
 	private var _actorArray: Array
@@ -18,26 +22,7 @@ class PanelList extends MovieClip
 		super();
 		
 		_actorArray = new Array();
-	}
-	
-	public function onLoad()
-	{
-		/*var entry0: MovieClip = attachMovie("PanelEntry", "entry0", getNextHighestDepth());
-		var entry1: MovieClip = attachMovie("PanelEntry", "entry1", getNextHighestDepth());
-		var entry2: MovieClip = attachMovie("PanelEntry", "entry2", getNextHighestDepth());
-		var entry3: MovieClip = attachMovie("PanelEntry", "entry3", getNextHighestDepth());
-		var entry4: MovieClip = attachMovie("PanelEntry", "entry4", getNextHighestDepth());
-		
-		entry1._y = entry0._height;
-		entry2._y = entry0._height + entry1._height;
-		entry3._y = entry0._height + entry1._height + entry2._height;
-		entry4._y = entry0._height + entry1._height + entry2._height + entry3._height;
-		_parent.background._height = entry0._height + entry1._height + entry2._height + entry3._height + entry4._height + 10;*/
-	}
-	
-	public function get length(): Number
-	{
-		return _actorArray.length;
+		setMask(mask);
 	}
 	
 	public function get actors(): Array
@@ -45,14 +30,19 @@ class PanelList extends MovieClip
 		return _actorArray;
 	}
 	
-	public function get height(): Number
+	public function get totalHeight(): Number
 	{
-		return length * _actorArray[0]._height;
+		return _actorArray.length * _actorArray[0].background._height;
+	}
+	
+	public function get maxHeight(): Number
+	{
+		return _actorArray[0].background._height * maxEntries;
 	}
 	
 	public function addActor(a_actor: Object): MovieClip
 	{
-		var initObject: Object = {index: length,
+		var initObject: Object = {index: _actorArray.length,
 									name: a_actor.actorBase.fullName,
 									health: (a_actor.actorValues[Defines.ACTORVALUE_HEALTH].current / a_actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum) * 100,
 									magicka: (a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum) * 100,
@@ -62,7 +52,7 @@ class PanelList extends MovieClip
 									moveDuration: this.moveDuration
 								  };
 								  
-		var entry: MovieClip = attachMovie("PanelEntry", a_actor.formId, getNextHighestDepth(), initObject);		
+		var entry: MovieClip = attachMovie("PanelEntry", a_actor.formId, getNextHighestDepth(), initObject);
 		_actorArray.push(entry);
 		updateBackground(moveDuration/4);
 		return entry;
@@ -92,6 +82,7 @@ class PanelList extends MovieClip
 	
 	private function updateBackground(duration: Number)
 	{
-		TweenLite.to(_parent.background, duration, {_height:  height + 10, overwrite: "AUTO", easing: Linear.easeNone});
+		TweenLite.to(mask, duration, {_height: Math.min(totalHeight, maxHeight), overwrite: "AUTO", easing: Linear.easeNone});
+		TweenLite.to(_parent.background, duration, {_height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom), overwrite: "AUTO", easing: Linear.easeNone});
 	}
 }

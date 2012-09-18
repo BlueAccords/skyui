@@ -23,6 +23,8 @@ class ActorPanel extends MovieClip
 		content.fadeInDuration = EFFECT_FADE_IN_DURATION;
 		content.fadeOutDuration = ACTOR_FADE_OUT_DURATION;
 		content.moveDuration = ACTOR_MOVE_DURATION;
+		content.maxEntries = 4;
+		content.paddingBottom = 10;
 	}
 	
 	public function onLoad()
@@ -96,9 +98,9 @@ class ActorPanel extends MovieClip
 		content.addActor(actor3);
 		content.addActor(actor4);
 		
-		_global.setTimeout(this,"timeout",3000);
-		_global.setTimeout(this,"timeout2",5000);
-		_global.setTimeout(this,"timeout3",7000);
+		_global.setTimeout(this,"timeout",5000);
+		_global.setTimeout(this,"timeout2",10000);
+		_global.setTimeout(this,"timeout3",15000);
 	}
 	
 	private function timeout()
