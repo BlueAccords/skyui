@@ -1,4 +1,7 @@
-﻿import skyui.util.Defines;
+﻿import com.greensock.TweenLite;
+import com.greensock.easing.Linear;
+
+import skyui.util.Defines;
 
 class PanelList extends MovieClip
 {
@@ -61,7 +64,7 @@ class PanelList extends MovieClip
 								  
 		var entry: MovieClip = attachMovie("PanelEntry", a_actor.formId, getNextHighestDepth(), initObject);		
 		_actorArray.push(entry);
-		_parent.updateBackground(moveDuration/4);
+		updateBackground(moveDuration/4);
 		return entry;
 	}
 	
@@ -80,10 +83,15 @@ class PanelList extends MovieClip
 			for (var i: Number = actorIdx; i < _actorArray.length; i++) {
 				Clip = _actorArray[i];
 				Clip.updatePosition(i);
-				_parent.updateBackground(moveDuration);
+				updateBackground(moveDuration);
 			}
 		} else {
 			_parent._parent.gotoAndPlay("FadeOut");
 		}
+	}
+	
+	private function updateBackground(duration: Number)
+	{
+		TweenLite.to(_parent.background, duration, {_height:  height + 10, overwrite: "AUTO", easing: Linear.easeNone});
 	}
 }

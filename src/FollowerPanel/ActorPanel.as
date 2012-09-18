@@ -1,9 +1,6 @@
 ﻿import gfx.events.EventDispatcher;
 import skyui.util.Defines;
 
-import com.greensock.TweenLite;
-import com.greensock.easing.Linear;
-
 class ActorPanel extends MovieClip
 {	
 	/* CONSTANTS */
@@ -101,6 +98,7 @@ class ActorPanel extends MovieClip
 		
 		_global.setTimeout(this,"timeout",3000);
 		_global.setTimeout(this,"timeout2",5000);
+		_global.setTimeout(this,"timeout3",7000);
 	}
 	
 	private function timeout()
@@ -138,6 +136,11 @@ class ActorPanel extends MovieClip
 		content.actors[1].remove();
 		content.actors[0].remove();
 	}
+	
+	private function timeout3()
+	{
+		content.actors[0].remove();
+	}
 
 	/* PRIVATE FUNCTIONS */
 	function copyObject(obj)
@@ -160,11 +163,6 @@ class ActorPanel extends MovieClip
 	   }
 	
 	   return(o);
-	}
-	
-	private function updateBackground(duration: Number)
-	{
-		TweenLite.to(background, duration, {_height:  content.height + 10, overwrite: "AUTO", easing: Linear.easeNone});
 	}
 }
 
