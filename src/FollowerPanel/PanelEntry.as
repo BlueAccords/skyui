@@ -23,13 +23,13 @@ class PanelEntry extends MovieClip
 	private var magicka: Number = 0;
 	private var stamina: Number = 0;
 	
+	public var fadeInDuration: Number;
 	public var fadeOutDuration: Number;
 	public var moveDuration: Number;
 	
 	public function PanelEntry()
 	{
 		super();
-		
 		_meterLoader = new MovieClipLoader();
 		_meterLoader.addListener(this);
 		
@@ -44,12 +44,8 @@ class PanelEntry extends MovieClip
 		_meterLoader.loadClip("widgets/status.swf", _magickaMeter);
 		_meterLoader.loadClip("widgets/status.swf", _staminaMeter);
 		
-		_y = index * background._height;
-		
-		trace(index);
-		trace(health);
-		trace(magicka);
-		trace(stamina);
+		_y = index * background._height;		
+		TweenLite.from(this, fadeInDuration, {_alpha: 0, overwrite: "AUTO", easing: Linear.easeNone});
 	}
 	
 	private function onLoadInit(a_clip: MovieClip): Void

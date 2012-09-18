@@ -1,8 +1,15 @@
-﻿import skyui.util.Defines;
+﻿import gfx.events.EventDispatcher;
+import skyui.util.Defines;
+
+import com.greensock.TweenLite;
+import com.greensock.easing.Linear;
 
 class ActorPanel extends MovieClip
-{
+{	
 	/* CONSTANTS */
+	static private var EFFECT_FADE_IN_DURATION: Number = 0.25;
+	static private var ACTOR_FADE_OUT_DURATION: Number = 0.75;
+	static private var ACTOR_MOVE_DURATION: Number = 1.00;
 	
 	/* STAGE ELEMENTS */
 	private var content: MovieClip;
@@ -11,18 +18,21 @@ class ActorPanel extends MovieClip
 	/* PUBLIC VARIABLES */
 
 	/* PRIVATE VARIABLES */
-	
+	public var actor1: Object;
 
 	public function ActorPanel()
 	{
-		super();		
+		super();
+		content.fadeInDuration = EFFECT_FADE_IN_DURATION;
+		content.fadeOutDuration = ACTOR_FADE_OUT_DURATION;
+		content.moveDuration = ACTOR_MOVE_DURATION;
 	}
 	
 	public function onLoad()
 	{
 		_parent.gotoAndPlay("FadeIn");
 		
-		var actor1: Object = {actorBase: {fullName: "Jack"}, formType: 1, formId: 1, actorValues: [{base: 0, current: 0, maximum: 0},
+		actor1 = {actorBase: {fullName: "Jack"}, formType: 1, formId: 1, actorValues: [{base: 0, current: 0, maximum: 0},
 												  {base: 10, current: 1, maximum: 0},
 												  {base: 10, current: 2, maximum: 0},
 												  {base: 10, current: 3, maximum: 0},
@@ -90,10 +100,41 @@ class ActorPanel extends MovieClip
 		content.addActor(actor4);
 		
 		_global.setTimeout(this,"timeout",3000);
+		_global.setTimeout(this,"timeout2",5000);
 	}
 	
 	private function timeout()
 	{
+		content.actors[3].remove();
+		content.actors[0].remove();
+		
+		var actor = copyObject(actor1);
+		actor.actorBase.fullName = "Joe";
+		actor.formId = 10;
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].current = 8;
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 10;
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].current = 2;
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 10;
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].current = 1;
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 10;
+		
+		var actor2 = copyObject(actor1);
+		actor2.actorBase.fullName = "Billy";
+		actor2.formId = 12;
+		actor2.actorValues[Defines.ACTORVALUE_HEALTH].current = 8;
+		actor2.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 10;
+		actor2.actorValues[Defines.ACTORVALUE_MAGICKA].current = 2;
+		actor2.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 10;
+		actor2.actorValues[Defines.ACTORVALUE_STAMINA].current = 1;
+		actor2.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 10;
+		
+		content.addActor(actor);
+		content.addActor(actor2);
+	}
+	
+	private function timeout2()
+	{
+		content.actors[2].remove();
 		content.actors[1].remove();
 		content.actors[0].remove();
 	}
@@ -119,6 +160,11 @@ class ActorPanel extends MovieClip
 	   }
 	
 	   return(o);
+	}
+	
+	private function updateBackground(duration: Number)
+	{
+		TweenLite.to(background, duration, {_height:  content.height + 10, overwrite: "AUTO", easing: Linear.easeNone});
 	}
 }
 

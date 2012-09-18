@@ -1,11 +1,10 @@
-﻿import com.greensock.TweenLite;
-import com.greensock.easing.Linear;
-import skyui.util.Defines;
+﻿import skyui.util.Defines;
 
 class PanelList extends MovieClip
 {
-	static private var ACTOR_FADE_OUT_DURATION: Number = 0.75;
-	static private var ACTOR_MOVE_DURATION: Number = 1.00;
+	private var fadeInDuration: Number;
+	private var fadeOutDuration: Number;
+	private var moveDuration: Number;
 	
 	/* PRIVATE VARIABLES */
 	private var _actorArray: Array
@@ -43,6 +42,11 @@ class PanelList extends MovieClip
 		return _actorArray;
 	}
 	
+	public function get height(): Number
+	{
+		return length * _actorArray[0]._height;
+	}
+	
 	public function addActor(a_actor: Object): MovieClip
 	{
 		var initObject: Object = {index: length,
@@ -50,12 +54,14 @@ class PanelList extends MovieClip
 									health: (a_actor.actorValues[Defines.ACTORVALUE_HEALTH].current / a_actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum) * 100,
 									magicka: (a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum) * 100,
 									stamina: (a_actor.actorValues[Defines.ACTORVALUE_STAMINA].current / a_actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum) * 100,
-									fadeOutDuration: ACTOR_FADE_OUT_DURATION,
-									moveDuration: ACTOR_MOVE_DURATION
+									fadeInDuration: this.fadeInDuration,
+									fadeOutDuration: this.fadeOutDuration,
+									moveDuration: this.moveDuration
 								  };
 								  
 		var entry: MovieClip = attachMovie("PanelEntry", a_actor.formId, getNextHighestDepth(), initObject);		
 		_actorArray.push(entry);
+		_parent.updateBackground(moveDuration/4);
 		return entry;
 	}
 	
@@ -74,9 +80,10 @@ class PanelList extends MovieClip
 			for (var i: Number = actorIdx; i < _actorArray.length; i++) {
 				Clip = _actorArray[i];
 				Clip.updatePosition(i);
+				_parent.updateBackground(moveDuration);
 			}
 		} else {
-			_parent.gotoAndPlay("FadeOut");
+			_parent._parent.gotoAndPlay("FadeOut");
 		}
 	}
 }
