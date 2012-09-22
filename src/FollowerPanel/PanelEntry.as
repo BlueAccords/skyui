@@ -34,6 +34,9 @@ class PanelEntry extends MovieClip
 	private var _tweenLite: TweenLite = null;
 	private var _removing: Boolean = false;
 	
+	private var _intervalId: Number;
+	private var _updateInterval: Number = 15000;
+	
 	public function PanelEntry()
 	{
 		super();
@@ -53,6 +56,8 @@ class PanelEntry extends MovieClip
 		
 		_y = index * background._height;		
 		TweenLite.from(this, fadeInDuration, {_alpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		
+		_intervalId = setInterval(this, "onUpdateInterval", _updateInterval);
 	}
 	
 	private function onLoadInit(a_clip: MovieClip): Void
@@ -101,9 +106,11 @@ class PanelEntry extends MovieClip
 	public function update(a_actor: Object): Void
 	{
 		if(_removing) {
-			trace("Restoring: " + a_actor.actorBase.fullName);
+			//trace("Restoring: " + a_actor.actorBase.fullName);
 			restore();
 		}
+		
+		resetTimer();
 		
 		_healthMeter.widget.setMeterPercent((a_actor.actorValues[Defines.ACTORVALUE_HEALTH].current / a_actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum) * 100, false);
 		_magickaMeter.widget.setMeterPercent((a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum) * 100, false);
@@ -133,4 +140,17 @@ class PanelEntry extends MovieClip
 		_removing = true;
 		_tweenLite = TweenLite.to(this, fadeOutDuration, {_alpha: 0, onCompleteScope: _parent, onComplete: _parent.onActorRemoved, onCompleteParams: [this], overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 	}
+	
+	public function resetTimer()
+	{
+		clearInterval(_intervalId);
+		_intervalId = setInterval(this, "onUpdateInterval", _updateInterval);
+	}
+	
+	public function onUpdateInterval()
+	{
+		if(!_removing)
+			remove();
+	}
 }
+

@@ -11,5 +11,5 @@
 	static function SendModEvent(a_eventName:String, a_strArg:String, a_numArg:Number, a_formArg:Number):Void;
 	static function RequestActivePlayerEffects(a_list:Array):Void;
 	static function	ExtendForm(a_formid:Number, a_object:Object, a_extraData:Boolean, a_recursive:Boolean):Void;
-	static function RequestActorValue(a_formid:Number, a_actorValue:Number, a_object:Object):Void;
+	static function RequestActorValues(a_formid:Number, a_actorValues:Array, a_list:Array):Void;
 }

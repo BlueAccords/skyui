@@ -41,6 +41,18 @@ class PanelList extends MovieClip
 		return _actorArray[0].background._height * maxEntries;
 	}
 	
+	public function removeActor(a_actor: Object)
+	{
+		var totalActors: Number = _actorArray.length;
+		for(var i = 0; i < totalActors; i++)
+		{
+			if(_actorArray[i].formId == a_actor.formId) {
+				_actorArray[i].remove();
+				break;
+			}
+		}
+	}
+	
 	public function addActor(a_actor: Object): MovieClip
 	{
 		if(_actorArray.length == 0) // Previously had no items, fadein
