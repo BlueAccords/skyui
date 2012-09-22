@@ -4,7 +4,7 @@ import skyui.util.Defines;
 class ActorPanel extends MovieClip
 {	
 	/* CONSTANTS */
-	static private var EFFECT_FADE_IN_DURATION: Number = 0.25;
+	static private var ACTOR_FADE_IN_DURATION: Number = 0.25;
 	static private var ACTOR_FADE_OUT_DURATION: Number = 0.75;
 	static private var ACTOR_MOVE_DURATION: Number = 1.00;
 	
@@ -13,25 +13,30 @@ class ActorPanel extends MovieClip
 	private var background: MovieClip;
 
 	/* PUBLIC VARIABLES */
+	public var updateInterval: Number = 150;
 
 	/* PRIVATE VARIABLES */
-	public var actor1: Object;
+	private var _actorList: Array;
+	private var _intervalId: Number;
+	
+	// Test List
+	public var _tempList: Array;
 
 	public function ActorPanel()
 	{
 		super();
-		content.fadeInDuration = EFFECT_FADE_IN_DURATION;
+		content.fadeInDuration = ACTOR_FADE_IN_DURATION;
 		content.fadeOutDuration = ACTOR_FADE_OUT_DURATION;
 		content.moveDuration = ACTOR_MOVE_DURATION;
-		content.maxEntries = 4;
+		content.maxEntries = 5;
 		content.paddingBottom = 10;
+		_actorList = new Array();
+		_tempList = new Array();
 	}
 	
 	public function onLoad()
-	{
-		_parent.gotoAndPlay("FadeIn");
-		
-		actor1 = {actorBase: {fullName: "Jack"}, formType: 1, formId: 1, actorValues: [{base: 0, current: 0, maximum: 0},
+	{				
+		var actor = {actorBase: {fullName: "Jack"}, formType: 1, formId: 1, actorValues: [{base: 0, current: 0, maximum: 0},
 												  {base: 10, current: 1, maximum: 0},
 												  {base: 10, current: 2, maximum: 0},
 												  {base: 10, current: 3, maximum: 0},
@@ -63,86 +68,192 @@ class ActorPanel extends MovieClip
 												  {base: 100, current: 29, maximum: 560},
 												  {base: 100, current: 30, maximum: 570},
 												  {base: 100, current: 31, maximum: 1000}]};
-		var actor2 = copyObject(actor1);
-		actor2.actorBase.fullName = "Jill";
-		actor2.formId = 2;
-		actor2.actorValues[Defines.ACTORVALUE_HEALTH].current = 5;
-		actor2.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 10;
-		actor2.actorValues[Defines.ACTORVALUE_MAGICKA].current = 2;
-		actor2.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 10;
-		actor2.actorValues[Defines.ACTORVALUE_STAMINA].current = 7;
-		actor2.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 10;
+		_actorList.push(actor);
 		
-		var actor3 = copyObject(actor1);
-		actor3.actorBase.fullName = "James";
-		actor3.formId = 3;
-		actor3.actorValues[Defines.ACTORVALUE_HEALTH].current = 1;
-		actor3.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 10;
-		actor3.actorValues[Defines.ACTORVALUE_MAGICKA].current = 2;
-		actor3.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 10;
-		actor3.actorValues[Defines.ACTORVALUE_STAMINA].current = 3;
-		actor3.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 10;
+		_tempList.push([{id: Defines.ACTORVALUE_HEALTH, current: actor.actorValues[Defines.ACTORVALUE_HEALTH].current, maximum: actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum, base: actor.actorValues[Defines.ACTORVALUE_HEALTH].base},
+						{id: Defines.ACTORVALUE_MAGICKA, current: actor.actorValues[Defines.ACTORVALUE_MAGICKA].current, maximum: actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum, base: actor.actorValues[Defines.ACTORVALUE_MAGICKA].base},
+						{id: Defines.ACTORVALUE_STAMINA, current: actor.actorValues[Defines.ACTORVALUE_STAMINA].current, maximum: actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum, base: actor.actorValues[Defines.ACTORVALUE_STAMINA].base}]);
 		
-		var actor4 = copyObject(actor1);
-		actor4.actorBase.fullName = "Bill";
-		actor4.formId = 4;
-		actor4.actorValues[Defines.ACTORVALUE_HEALTH].current = 4;
-		actor4.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 10;
-		actor4.actorValues[Defines.ACTORVALUE_MAGICKA].current = 5;
-		actor4.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 10;
-		actor4.actorValues[Defines.ACTORVALUE_STAMINA].current = 6;
-		actor4.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 10;
-		
-		content.addActor(actor1);
-		content.addActor(actor2);
-		content.addActor(actor3);
-		content.addActor(actor4);
-		
-		_global.setTimeout(this,"timeout",5000);
-		_global.setTimeout(this,"timeout2",10000);
-		_global.setTimeout(this,"timeout3",15000);
-	}
-	
-	private function timeout()
-	{
-		content.actors[3].remove();
-		content.actors[0].remove();
-		
-		var actor = copyObject(actor1);
+		actor = copyObject(actor);
 		actor.actorBase.fullName = "Joe";
 		actor.formId = 10;
-		actor.actorValues[Defines.ACTORVALUE_HEALTH].current = 8;
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].current = 100 * Math.random();
 		actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 10;
-		actor.actorValues[Defines.ACTORVALUE_MAGICKA].current = 2;
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].current = 100 * Math.random();
 		actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 10;
-		actor.actorValues[Defines.ACTORVALUE_STAMINA].current = 1;
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].current = 100 * Math.random();
 		actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 10;
 		
-		var actor2 = copyObject(actor1);
-		actor2.actorBase.fullName = "Billy";
-		actor2.formId = 12;
-		actor2.actorValues[Defines.ACTORVALUE_HEALTH].current = 8;
-		actor2.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 10;
-		actor2.actorValues[Defines.ACTORVALUE_MAGICKA].current = 2;
-		actor2.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 10;
-		actor2.actorValues[Defines.ACTORVALUE_STAMINA].current = 1;
-		actor2.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 10;
+		_actorList.push(actor);
 		
-		content.addActor(actor);
-		content.addActor(actor2);
+		_tempList.push([{id: Defines.ACTORVALUE_HEALTH, current: actor.actorValues[Defines.ACTORVALUE_HEALTH].current, maximum: actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum, base: actor.actorValues[Defines.ACTORVALUE_HEALTH].base},
+						{id: Defines.ACTORVALUE_MAGICKA, current: actor.actorValues[Defines.ACTORVALUE_MAGICKA].current, maximum: actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum, base: actor.actorValues[Defines.ACTORVALUE_MAGICKA].base},
+						{id: Defines.ACTORVALUE_STAMINA, current: actor.actorValues[Defines.ACTORVALUE_STAMINA].current, maximum: actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum, base: actor.actorValues[Defines.ACTORVALUE_STAMINA].base}]);
+		
+		actor = copyObject(actor);
+		actor.actorBase.fullName = "Jim";
+		actor.formId = 11;
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].current = 100 * Math.random();
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 100;
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].current = 100 * Math.random();
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 100;
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].current = 100 * Math.random();
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 100;
+		
+		_actorList.push(actor);
+		
+		_tempList.push([{id: Defines.ACTORVALUE_HEALTH, current: actor.actorValues[Defines.ACTORVALUE_HEALTH].current, maximum: actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum, base: actor.actorValues[Defines.ACTORVALUE_HEALTH].base},
+						{id: Defines.ACTORVALUE_MAGICKA, current: actor.actorValues[Defines.ACTORVALUE_MAGICKA].current, maximum: actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum, base: actor.actorValues[Defines.ACTORVALUE_MAGICKA].base},
+						{id: Defines.ACTORVALUE_STAMINA, current: actor.actorValues[Defines.ACTORVALUE_STAMINA].current, maximum: actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum, base: actor.actorValues[Defines.ACTORVALUE_STAMINA].base}]);
+		
+		actor = copyObject(actor);
+		actor.actorBase.fullName = "Jerry";
+		actor.formId = 12;
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].current = 100 * Math.random();
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 100;
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].current = 100 * Math.random();
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 100;
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].current = 100 * Math.random();
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 100;
+		
+		_actorList.push(actor);
+		
+		_tempList.push([{id: Defines.ACTORVALUE_HEALTH, current: actor.actorValues[Defines.ACTORVALUE_HEALTH].current, maximum: actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum, base: actor.actorValues[Defines.ACTORVALUE_HEALTH].base},
+						{id: Defines.ACTORVALUE_MAGICKA, current: actor.actorValues[Defines.ACTORVALUE_MAGICKA].current, maximum: actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum, base: actor.actorValues[Defines.ACTORVALUE_MAGICKA].base},
+						{id: Defines.ACTORVALUE_STAMINA, current: actor.actorValues[Defines.ACTORVALUE_STAMINA].current, maximum: actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum, base: actor.actorValues[Defines.ACTORVALUE_STAMINA].base}]);
+		
+		actor = copyObject(actor);
+		actor.actorBase.fullName = "Sally";
+		actor.formId = 13;
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].current = 100 * Math.random();
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 100;
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].current = 100 * Math.random();
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 100;
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].current = 100 * Math.random();
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 100;
+		
+		_actorList.push(actor);
+		
+		_tempList.push([{id: Defines.ACTORVALUE_HEALTH, current: actor.actorValues[Defines.ACTORVALUE_HEALTH].current, maximum: actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum, base: actor.actorValues[Defines.ACTORVALUE_HEALTH].base},
+						{id: Defines.ACTORVALUE_MAGICKA, current: actor.actorValues[Defines.ACTORVALUE_MAGICKA].current, maximum: actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum, base: actor.actorValues[Defines.ACTORVALUE_MAGICKA].base},
+						{id: Defines.ACTORVALUE_STAMINA, current: actor.actorValues[Defines.ACTORVALUE_STAMINA].current, maximum: actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum, base: actor.actorValues[Defines.ACTORVALUE_STAMINA].base}]);
+		
+		_intervalId = setInterval(this, "onUpdateInterval", updateInterval);
+		
+		
+		
+		setInterval(this, "timeoutChange", 1000);
+		setInterval(this, "timeoutRemove", 10000);
 	}
 	
-	private function timeout2()
+	public function onUpdateInterval()
+	{
+		var totalActors = _actorList.length;
+		for(var i = 0; i < totalActors; i++) {
+			// Request new values
+			//var actorValues = new Array();
+			var actorValues = _tempList[i];
+			/*skse.RequestActorValues(_actorList[i].formId, 
+									[Defines.ACTORVALUE_HEALTH, 
+									 Defines.ACTORVALUE_MAGICKA,
+									 Defines.ACTORVALUE_STAMINA],
+									actorValues);*/
+			
+			// Get the old values
+			var oldValues = [_actorList[i].actorValues[Defines.ACTORVALUE_HEALTH],
+							_actorList[i].actorValues[Defines.ACTORVALUE_MAGICKA],
+							_actorList[i].actorValues[Defines.ACTORVALUE_STAMINA]];
+			
+			var changed: Boolean = false;
+			for(var s = 0; s < oldValues.length; s++)
+			{
+				// Replace changed values
+				if(oldValues[s].current != actorValues[s].current || oldValues[s].maximum != actorValues[s].maximum || oldValues[s].base != actorValues[s].base) {
+					var index: Number = actorValues[s].id;
+					_actorList[i].actorValues[index].current = actorValues[s].current;
+					_actorList[i].actorValues[index].maximum = actorValues[s].maximum;
+					_actorList[i].actorValues[index].base = actorValues[s].base;
+					changed = true;
+				}
+			}
+			
+			// One of our actor values changed
+			if(changed)
+			{
+				var totalShown: Number = content.actors.length;
+				
+				var updated: Boolean = false;
+				for(var n = 0; n < totalShown; n++)
+				{
+					// Actor is already shown
+					if(_actorList[i].formId == content.actors[n].formId) {
+						trace("Updating: " + _actorList[i].actorBase.fullName + " " + (_actorList[i].actorValues[Defines.ACTORVALUE_HEALTH].current|0) + " " + (_actorList[i].actorValues[Defines.ACTORVALUE_MAGICKA].current|0) + " " + (_actorList[i].actorValues[Defines.ACTORVALUE_STAMINA].current|0));
+						content.actors[n].update(_actorList[i]);
+						updated = true;
+						break;
+					}
+				}
+				
+				// Not in our list, add them
+				if(!updated) {
+					trace("Added: " + _actorList[i].actorBase.fullName);
+					content.addActor(_actorList[i]);
+				}
+			}
+		}
+	}
+	
+	private function timeoutChange()
+	{
+		var index: Number = (_actorList.length * Math.random())|0;
+		_tempList[index][0].current = 100 * Math.random();
+		_tempList[index][1].current = 100 * Math.random();
+		_tempList[index][2].current = 100 * Math.random();
+	}
+	
+	private function timeoutRemove()
+	{
+		var index: Number = (content.actors.length * Math.random())|0;
+		trace("Removing: " + content.actors[index].name);
+		content.actors[index].remove();
+	}
+		
+	/*private function timeout2()
 	{
 		content.actors[2].remove();
 		content.actors[1].remove();
 		content.actors[0].remove();
+		
+		var actor = copyObject(actor1);
+		actor.actorBase.fullName = "Jim";
+		actor.formId = 14;
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].current = 0;
+		actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum = 10;
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].current = 2;
+		actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum = 10;
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].current = 0;
+		actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum = 10;
+		content.addActor(actor);
 	}
 	
 	private function timeout3()
 	{
-		content.actors[0].remove();
+		content.actors[1].remove();
 	}
+	
+	private function timeout4()
+	{
+		content.actors[1].update();
+		content.actors[0].HealthMeter.meter.widget.startMeterFlash();
+		content.actors[0].MagickaMeter.meter.widget.startMeterFlash();
+		content.actors[0].StaminaMeter.meter.widget.startMeterFlash();
+	}
+	
+	private function timeout5()
+	{
+		content.actors[0].remove();
+		content.actors[1].remove();
+	}*/
 
 	/* PRIVATE FUNCTIONS */
 	function copyObject(obj)

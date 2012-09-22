@@ -1,4 +1,5 @@
 ﻿import com.greensock.TweenLite;
+import com.greensock.OverwriteManager;
 import com.greensock.easing.Linear;
 
 import skyui.util.Defines;
@@ -42,7 +43,11 @@ class PanelList extends MovieClip
 	
 	public function addActor(a_actor: Object): MovieClip
 	{
+		if(_actorArray.length == 0) // Previously had no items, fadein
+			_parent._parent.gotoAndPlay("FadeIn");
+		
 		var initObject: Object = {index: _actorArray.length,
+									formId: a_actor.formId,
 									name: a_actor.actorBase.fullName,
 									health: (a_actor.actorValues[Defines.ACTORVALUE_HEALTH].current / a_actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum) * 100,
 									magicka: (a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum) * 100,
@@ -54,7 +59,7 @@ class PanelList extends MovieClip
 								  
 		var entry: MovieClip = attachMovie("PanelEntry", a_actor.formId, getNextHighestDepth(), initObject);
 		_actorArray.push(entry);
-		updateBackground(moveDuration/4);
+		updateBackground(moveDuration);
 		return entry;
 	}
 	
@@ -66,7 +71,7 @@ class PanelList extends MovieClip
 
 		_actorArray.splice(actorIdx, 1);
 		removedActorClip.removeMovieClip();
-
+		
 		if (_actorArray.length > 0){
 			var Clip: MovieClip;
 
@@ -82,7 +87,7 @@ class PanelList extends MovieClip
 	
 	private function updateBackground(duration: Number)
 	{
-		TweenLite.to(mask, duration, {_height: Math.min(totalHeight, maxHeight), overwrite: "AUTO", easing: Linear.easeNone});
-		TweenLite.to(_parent.background, duration, {_height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom), overwrite: "AUTO", easing: Linear.easeNone});
+		TweenLite.to(mask, duration, {_height: Math.min(totalHeight, maxHeight), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		TweenLite.to(_parent.background, duration, {_height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 	}
 }
