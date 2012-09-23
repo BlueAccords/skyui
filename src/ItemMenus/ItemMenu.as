@@ -10,7 +10,8 @@ class ItemMenu extends MovieClip
 {
   /* CONSTANTS */
   
-	private var SKSE_REQ_RELEASE_IDX = 9;
+	private static var SKSE_REQ_RELEASE_IDX = 9;
+	private static var SKSE_REQ_VERSION = "1.4.8";
 
 
   /* PRIVATE VARIABLES */
@@ -32,7 +33,7 @@ class ItemMenu extends MovieClip
 	
 	public var itemCardFadeHolder: MovieClip;
 
-	public var bottomBar: MovieClip;
+	public var bottomBar: BottomBar;
 	
 	public var mouseRotationRect: MovieClip;
 	public var exitMenuRect: MovieClip;
@@ -73,13 +74,6 @@ class ItemMenu extends MovieClip
 		skse.ExtendData(true);
 		skse.ForceContainerCategorization(true);
 		
-		var test: Number = 10101.10000000149012;
-		skse.Log("#1 Number: " + test);
-		var rounded: Number = Math.round(test);
-		skse.Log("#1 Rounded: " + rounded);
-		var div: Number = rounded / 10;
-		skse.Log("#1 Div: " + div);
-		
 		_bPlayBladeSound = a_bPlayBladeSound
 		
 		inventoryLists.InitExtensions();
@@ -105,7 +99,7 @@ class ItemMenu extends MovieClip
 		positionFixedElements();
 		
 		itemCard._visible = false;
-		bottomBar.HideButtons();
+		bottomBar.hideButtons();
 		
 		exitMenuRect.onMouseDown = function()
 		{
@@ -118,23 +112,25 @@ class ItemMenu extends MovieClip
 			// Default message
 			if (_global.skse == undefined) {
 				skseWarning._visible = true;
-				skseWarning.message.text = "SkyUI could not detect the Skyrim Script Extender (SKSE).\n"
-					+ "SkyUI will not work correctly!\n"
-					+ "\n"
-					+ "This message may also appear if a new Skyrim Patch has been released.\n"
-					+ "In this case, wait until SKSE has been updated, then install the new version.\n"
-					+ "\n"
-					+ "For more information, see the mod description.";
+				skseWarning.message.text =
+					"SkyUI could not detect the Skyrim Script Extender (SKSE).\n" +
+					"SkyUI will not work correctly!\n" +
+					"\n" +
+					"This message may also appear if a new Skyrim Patch has been released.\n" +
+					"In this case, wait until SKSE has been updated, then install the new version.\n" +
+					"\n" +
+					"For more information, see the mod description.";
 					
 			} else if (_global.skse.version.releaseIdx < SKSE_REQ_RELEASE_IDX) {
 				skseWarning._visible = true;
-				skseWarning.message.text = "Your Skyrim Script Extender (SKSE) is outdated.\n"
-					+ "SkyUI will not work correctly!\n"
-					+ "\n"
-					+ "Installed version: " + _global.skse.version.major + "." + _global.skse.version.minor + "." + _global.skse.version.beta + "\n"
-					+ "Required version: 1.4.8\n"
-					+ "\n"
-					+ "For more information, see the mod description.";
+				skseWarning.message.text =
+					"Your Skyrim Script Extender (SKSE) is outdated.\n"	+
+					"SkyUI will not work correctly!\n" +
+					"\n" +
+					"Installed version: " + _global.skse.version.major + "." + _global.skse.version.minor + "." + _global.skse.version.beta + "\n" +
+					"Required version: " + SKSE_REQ_VERSION + "\n" +
+					"\n" +
+					"For more information, see the mod description.";
 					
 			} else {
 				skseWarning._visible = false;
@@ -145,27 +141,10 @@ class ItemMenu extends MovieClip
 
   /* PUBLIC FUNCTIONS */
 	
-	var tmpID: Number;
-	
 	public function onConfigLoad(event: Object): Void
 	{
-		var test: Number = 10101.10000000149012;
-		skse.Log("#2 Number: " + test);
-		var rounded: Number = Math.round(test);
-		skse.Log("#2 Rounded: " + rounded);
-		var div: Number = rounded / 10;
-		skse.Log("#2 Div: " + div);
-		
 		setConfig(event.config);
 		inventoryLists.showPanel(_bPlayBladeSound);
-		
-		tmpID = setInterval(this, "testFunc", 1);
-	}
-	
-	public function testFunc(): Void
-	{
-		clearInterval(tmpID);
-		delete(tmpID);
 	}
 	
 	public function setConfig(a_config: Object): Void
@@ -191,6 +170,10 @@ class ItemMenu extends MovieClip
 		itemListState.stolenDisabledColor = section.colors.disabled.stolen;
 		
 		skyui.util.Debug.log("Init'ed list state");
+		
+		skyui.util.Debug.log("Control: " + skse.GetMappedKey("ChargeItem", 0, 4));
+		skyui.util.Debug.log("Control: " + skse.GetMappedKey("ChargeItem", 1, 4));
+		skyui.util.Debug.log("Control: " + skse.GetMappedKey("ChargeItem", 2, 4));
 	}
 
 	// @API
@@ -199,7 +182,7 @@ class ItemMenu extends MovieClip
 		_platform = a_platform;
 		inventoryLists.setPlatform(a_platform,a_bPS3Switch);
 		itemCard.SetPlatform(a_platform,a_bPS3Switch);
-		bottomBar.SetPlatform(a_platform,a_bPS3Switch);
+		bottomBar.setPlatform(a_platform,a_bPS3Switch);
 	}
 
 	// @API
@@ -254,7 +237,7 @@ class ItemMenu extends MovieClip
 				
 				if (_bItemCardPositioned)
 					itemCard.FadeInCard();
-				bottomBar.ShowButtons();
+				bottomBar.showButtons();
 			}
 			
 			if (_bItemCardPositioned)
@@ -282,7 +265,7 @@ class ItemMenu extends MovieClip
 	{
 		GameDelegate.call("UpdateItem3D",[false]);
 		itemCard.FadeOutCard();
-		bottomBar.HideButtons();
+		bottomBar.hideButtons();
 	}
 
 	public function onItemSelect(event: Object): Void
@@ -305,14 +288,14 @@ class ItemMenu extends MovieClip
 	// @API
 	public function UpdatePlayerInfo(aUpdateObj: Object): Void
 	{
-		bottomBar.UpdatePlayerInfo(aUpdateObj,itemCard.itemInfo);
+		bottomBar.updatePlayerInfo(aUpdateObj,itemCard.itemInfo);
 	}
 
 	// @API
 	public function UpdateItemCardInfo(aUpdateObj: Object): Void
 	{
 		itemCard.itemInfo = aUpdateObj;
-		bottomBar.UpdatePerItemInfo(aUpdateObj);
+		bottomBar.updatePerItemInfo(aUpdateObj);
 	}
 
 	public function onItemCardSubMenuAction(event: Object): Void
@@ -378,15 +361,33 @@ class ItemMenu extends MovieClip
 	// @API
 	public function RestoreIndices(): Void
 	{
-		if (arguments[0] != undefined && arguments[0] != -1 && arguments.length == 3) {
-			inventoryLists.categoryList.restoreCategory(arguments[0]);
-			inventoryLists.itemList.scrollPosition = arguments[2];
-			inventoryLists.itemList.selectedIndex = arguments[1];
-		} else {
-			inventoryLists.categoryList.restoreCategory(1); // ALL
-		}
+		var categoryList = inventoryLists.categoryList;
+		var itemList = inventoryLists.itemList;
 		
-		inventoryLists.categoryList.UpdateList();
+		if (arguments[0] != undefined && arguments[0] != -1 && arguments.length == 3) {
+			categoryList.listState.restoredItem = arguments[0];
+			categoryList.onUnsuspend = function()
+			{
+				this.onItemPress(this.listState.restoredItem, 0);
+				delete this.onUnsuspend;
+			};
+			
+			itemList.listState.restoredScrollPosition = arguments[2];
+			itemList.listState.restoredSelectedIndex = arguments[1];
+			itemList.onUnsuspend = function()
+			{
+				this.scrollPosition = this.listState.restoredScrollPosition;
+				this.selectedIndex = this.listState.restoredSelectedIndex;
+				delete this.onUnsuspend;
+			};
+		} else {
+			var categoryList = inventoryLists.categoryList;
+			categoryList.onUnsuspend = function()
+			{
+				this.onItemPress(1, 0); // ALL
+				delete this.onUnsuspend;
+			};
+		}
 	}
 	
 	
@@ -414,7 +415,7 @@ class ItemMenu extends MovieClip
 		var leftEdge = Stage.visibleRect.x + Stage.safeRect.x;
 		var rightEdge = Stage.visibleRect.x + Stage.visibleRect.width - Stage.safeRect.x;
 		
-		bottomBar.PositionElements(leftEdge, rightEdge);
+		bottomBar.positionElements(leftEdge, rightEdge);
 		
 		MovieClip(exitMenuRect).Lock("TL");
 		exitMenuRect._x = exitMenuRect._x - Stage.safeRect.x;

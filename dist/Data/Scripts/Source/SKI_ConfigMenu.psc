@@ -5,8 +5,9 @@ scriptname SKI_ConfigMenu extends SKI_ConfigBase
 ; Lists
 string[]	_alignments
 
-string[]	_effectSizes
-float[]		_AEEffectSizeValues
+string[]	_sizes
+
+string[]	_corners
 
 ; OIDs (T:Text B:Toggle S:Slider M:Menu)
 int			_itemcardAlignOID_T
@@ -18,17 +19,32 @@ int			_3DItemYOffsetOID_S
 int			_3DItemScaleOID_S
 
 int			_AEEffectSizeOID_T
+int			_AEClampCornerOID_T
+int			_AEGroupEffectCountOID_S
+int			_AEOffsetXOID_S
+int			_AEOffsetYOID_S
+
+int			_itemlistFontSizeOID_T
 
 ; State
-int			_itemcardAlignIdx	= 2
-float		_itemcardXOffset	= 0.0
-float		_itemcardYOffset	= 0.0
+int			_itemcardAlignIdx		= 2
+float		_itemcardXOffset		= 0.0
+float		_itemcardYOffset		= 0.0
 
-float		_3DItemXOffset		= 0.0
-float		_3DItemYOffset		= 0.0
-float		_3DItemScale		= 1.5
+float		_3DItemXOffset			= 0.0
+float		_3DItemYOffset			= 0.0
+float		_3DItemScale			= 1.5
 
-int			_AEEffectSizeIdx	= 1
+float[]		_AEEffectSizeValues
+int			_AEEffectSizeIdx		= 1
+int			_AEClampCornerIdx		= 1
+int			_AEGroupEffectCount		= 8
+float[]		_AEBaseX
+float		_AEOffsetX				= 0.0
+float[]		_AEBaseY
+float		_AEOffsetY				= 0.0
+
+int			_itemlistFontSizeIdx	= 1
 
 ; Internal
 float		_itemXBase
@@ -53,15 +69,33 @@ event OnInit()
 	_alignments[1] = "Right"
 	_alignments[2] = "Center"
 
-	_effectSizes = new string[3]
-	_effectSizes[0] = "Small"
-	_effectSizes[1] = "Medium"
-	_effectSizes[2] = "Large"
+	_sizes = new string[3]
+	_sizes[0] = "Small"
+	_sizes[1] = "Medium"
+	_sizes[2] = "Large"
+
+	_corners = new string[4]
+	_corners[0] = "TL"
+	_corners[1] = "TR"
+	_corners[2] = "BR"
+	_corners[3] = "BL"
 
 	_AEEffectSizeValues = new float[3]
 	_AEEffectSizeValues[0] = 32.0
 	_AEEffectSizeValues[1] = 48.0
 	_AEEffectSizeValues[2] = 64.0
+
+	_AEBaseX = new float[4]
+	_AEBaseX[0] = 0.0
+	_AEBaseX[1] = 1280.0
+	_AEBaseX[2] = 1280.0
+	_AEBaseX[3] = 0.0
+
+	_AEBaseY = new float[4]
+	_AEBaseY[0] = 0.0
+	_AEBaseY[1] = 30.05 ; Actually 30.05
+	_AEBaseY[2] = 720.0
+	_AEBaseY[3] = 720.0
 
 	ApplySettings()
 endEvent
@@ -100,6 +134,7 @@ function ApplySettings()
 	Utility.SetINIFloat("fMagic3DItemPosZ:Interface", (16 + _3DItemYOffset))
 endFunction
 
+; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnPageReset(string a_page)
 	{Called when a new page is selected, including the initial empty page}
@@ -112,7 +147,8 @@ event OnPageReset(string a_page)
 		UnloadCustomContent()
 	endIf
 
-	if (a_page == Pages[0])
+	; -------------------------------------------------------
+	if (a_page == "General")
 		SetCursorFillMode(TOP_TO_BOTTOM)
 
 		AddHeaderOption("Item Card")
@@ -128,23 +164,38 @@ event OnPageReset(string a_page)
 		_3DItemScaleOID_S		= AddSliderOption("Scale", _3DItemScale, "{1}")
 
 		SetCursorPosition(1)
-	elseIf (a_page == Pages[1])
+
+		AddHeaderOption("Item List")
+		_itemlistFontSizeOID_T	= AddTextOption("Font Size", _sizes[_itemlistFontSizeIdx])
+
+	; -------------------------------------------------------
+	elseIf (a_page == "Widgets")
 		SetCursorFillMode(TOP_TO_BOTTOM)
 
 		AddHeaderOption("Active Effects")
+		_AEEffectSizeOID_T			= AddTextOption("Effect Size", _sizes[_AEEffectSizeIdx])
+		_AEClampCornerOID_T			= AddTextOption("Clamp to Corner", _corners[_AEClampCornerIdx])
+		_AEGroupEffectCountOID_S	= AddSliderOption("Max Effect Width", _AEGroupEffectCount, "{0}")
+		_AEOffsetXOID_S				= AddSliderOption("X Offset", _AEOffsetX, "{1}")
+		_AEOffsetYOID_S				= AddSliderOption("Y Offset", _AEOffsetY, "{1}")
 
-		_AEEffectSizeOID_T = AddTextOption("Effect Size", _effectSizes[_AEEffectSizeIdx])
+	; -------------------------------------------------------
+	elseIf (a_page == "Advanced")
+		SetCursorFillMode(TOP_TO_BOTTOM)
+
 	endIf
 endEvent
 
 
+; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnOptionSelect(int a_option)
 	{Called when the user selects a non-dialog option}
 
 	string page = CurrentPage
 	
-	if (page == Pages[0])
+	; -------------------------------------------------------
+	if (page == "General")
 		if (a_option == _itemcardAlignOID_T)
 			if (_itemcardAlignIdx < _alignments.length - 1)
 				_itemcardAlignIdx += 1
@@ -153,29 +204,80 @@ event OnOptionSelect(int a_option)
 			endif
 			SetTextOptionValue(a_option, _alignments[_itemcardAlignIdx])
 			SKI_SettingsManagerInstance.SetOverride("ItemInfo$itemcard$align", _alignments[_itemcardAlignIdx])
+
+		elseIf (a_option == _itemlistFontSizeOID_T)
+			if (_itemlistFontSizeIdx < _sizes.length - 1)
+				_itemlistFontSizeIdx += 1
+			else
+				_itemlistFontSizeIdx = 0
+			endif
+
+			SetTextOptionValue(a_option, _sizes[_itemlistFontSizeIdx])
+
+			; Small
+			if (_itemlistFontSizeIdx == 0)
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$defaults$label$textFormat$size", "12")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$defaults$entry$textFormat$size", "13")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$vars$n_iconSize$value", "16")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$vars$a_textBorder$value", "<0, 0, 0.3, 0>")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$columns$equipColumn$indent", "-25")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$columns$equipColumn$border", "<0, 10, 2, 2>")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$columns$iconColumn$border", "<0, 3, 2, 2>")
+			; Medium
+			elseIf (_itemlistFontSizeIdx == 1)
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$defaults$label$textFormat$size", "12")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$defaults$entry$textFormat$size", "14")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$vars$n_iconSize$value", "18")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$vars$a_textBorder$value", "<0, 0, 1.1, 0>")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$columns$equipColumn$indent", "-28")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$columns$equipColumn$border", "<0, 10, 3, 3>")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$columns$iconColumn$border", "<0, 3, 3, 3>")
+			; Large
+			else
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$defaults$label$textFormat$size", "14")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$defaults$entry$textFormat$size", "18")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$vars$n_iconSize$value", "20")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$vars$a_textBorder$value", "<0, 0, 0.4, 0>")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$columns$equipColumn$indent", "-30")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$columns$equipColumn$border", "<0, 10, 3.2, 3.2>")
+				SKI_SettingsManagerInstance.SetOverride("ListLayout$columns$iconColumn$border", "<0, 4, 3.2, 3.2>")
+			endIf
 		endIf
 
-	elseIf (page == Pages[1])
-		if (a_option == _AEEffectSizeOID_T)
-			if (_AEEffectSizeIdx < _effectSizes.length - 1)
+	; -------------------------------------------------------
+	elseIf (page == "Widgets")
+		If (a_option == _AEEffectSizeOID_T)
+			if (_AEEffectSizeIdx < _sizes.length - 1)
 				_AEEffectSizeIdx += 1
 			else
 				_AEEffectSizeIdx = 0
-			endif
-			SetTextOptionValue(a_option, _effectSizes[_AEEffectSizeIdx])
-			;SKI_SettingsManagerInstance.SetOverride("ItemInfo$itemcard$align", _alignments[_itemcardAlignIdx])
+			endIf
+			SetTextOptionValue(a_option, _sizes[_AEEffectSizeIdx])
 			SKI_ActiveEffectsWidgetInstance.EffectSize = _AEEffectSizeValues[_AEEffectSizeIdx]
+
+		elseIf (a_option == _AEClampCornerOID_T)
+			if (_AEClampCornerIdx < _corners.length - 1)
+				_AEClampCornerIdx += 1
+			else
+				_AEClampCornerIdx = 0
+			endIf
+			SetTextOptionValue(a_option, _corners[_AEClampCornerIdx])
+			SKI_ActiveEffectsWidgetInstance.ClampCorner = _corners[_AEClampCornerIdx]
+			SKI_ActiveEffectsWidgetInstance.X = _AEBaseX[_AEClampCornerIdx] + _AEOffsetX
+			SKI_ActiveEffectsWidgetInstance.Y = _AEBaseY[_AEClampCornerIdx] + _AEOffsetY
 		endIf
 	endIf
 endEvent
 
+; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnOptionSliderOpen(int a_option)
 	{Called when the user selects a slider option}
 
 	string page = CurrentPage
 
-	if (page == Pages[0])
+	; -------------------------------------------------------
+	if (page == "General")
 		if (a_option == _itemcardXOffsetOID_S)
 			SetSliderDialogStartValue(_itemcardXOffset)
 			SetSliderDialogDefaultValue(0)
@@ -207,18 +309,41 @@ event OnOptionSliderOpen(int a_option)
 			SetSliderDialogMinValue(0.5)
 			SetSliderDialogMaxValue(5)
 			SetSliderDialogInterval(0.1)
+		endIf
 
+	; -------------------------------------------------------
+	elseif (page == "Widgets")
+		if (a_option == _AEGroupEffectCountOID_S)
+			SetSliderDialogStartValue(_AEGroupEffectCount)
+			SetSliderDialogDefaultValue(8)
+			SetSliderDialogMinValue(1)
+			SetSliderDialogMaxValue(16)
+			SetSliderDialogInterval(1)
+		elseIf (a_option == _AEOffsetXOID_S)
+			SetSliderDialogStartValue(_AEOffsetX)
+			SetSliderDialogDefaultValue(0)
+			SetSliderDialogMinValue(-1280)
+			SetSliderDialogMaxValue(1280)
+			SetSliderDialogInterval(0.5)
+		elseIf (a_option == _AEOffsetYOID_S)
+			SetSliderDialogStartValue(_AEOffsetY)
+			SetSliderDialogDefaultValue(0)
+			SetSliderDialogMinValue(-720)
+			SetSliderDialogMaxValue(720)
+			SetSliderDialogInterval(0.5)
 		endIf
 	endIf
 endEvent
 
+; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnOptionSliderAccept(int a_option, float a_value)
 	{Called when the user accepts a new slider value}
 
 	string page = CurrentPage
 
-	if (page == Pages[0])
+	; -------------------------------------------------------
+	if (page == "General")
 		if (a_option == _itemcardXOffsetOID_S)
 			_itemcardXOffset = a_value
 			SetSliderOptionValue(a_option, _itemcardXOffset)
@@ -250,16 +375,34 @@ event OnOptionSliderAccept(int a_option, float a_value)
 			Utility.SetINIFloat("fInventory3DItemPosScale:Interface", _3DItemScale)
 			Utility.SetINIFloat("fMagic3DItemPosScale:Interface", _3DItemScale)
 		endIf
+
+	; -------------------------------------------------------
+	elseif (page == "Widgets")
+		if (a_option == _AEGroupEffectCountOID_S)
+			_AEGroupEffectCount = a_value as int
+			SetSliderOptionValue(a_option, _AEGroupEffectCount)
+			SKI_ActiveEffectsWidgetInstance.GroupEffectCount = _AEGroupEffectCount
+		elseIf (a_option == _AEOffsetXOID_S)
+			_AEOffsetX = a_value
+			SetSliderOptionValue(a_option, _AEOffsetX)
+			SKI_ActiveEffectsWidgetInstance.X = _AEBaseX[_AEClampCornerIdx] + _AEOffsetX
+		elseIf (a_option == _AEOffsetYOID_S)
+			_AEOffsetY = a_value
+			SetSliderOptionValue(a_option, _AEOffsetY)
+			SKI_ActiveEffectsWidgetInstance.Y = _AEBaseY[_AEClampCornerIdx] + _AEOffsetY
+		endIf
 	endIf
 endEvent
 
+; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnOptionMenuOpen(int a_option)
 	{Called when the user selects a menu option}
 
 	string page = CurrentPage
 
-	if (page == Pages[0])
+	; -------------------------------------------------------
+	if (page == "General")
 	endIf
 endEvent
 
@@ -269,18 +412,20 @@ event OnOptionMenuAccept(int a_option, int a_index)
 
 	string page = CurrentPage
 
-	if (page == Pages[0])
+	; -------------------------------------------------------
+	if (page == "General")
 	endIf
 endEvent
 
+; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnOptionHighlight(int a_option)
 	{Called when the user highlights an option}
 
 	string page = CurrentPage
 	
-	; Options
-	if (page == Pages[0])
+	; -------------------------------------------------------
+	if (page == "General")
 		if (a_option == _itemcardAlignOID_T)
 			SetInfoText("Default: Center")
 		elseIf (a_option == _itemcardXOffsetOID_S)
@@ -295,9 +440,80 @@ event OnOptionHighlight(int a_option)
 		elseIf (a_option == _3DItemScaleOID_S)
 			SetInfoText("Default: 1.5")
 		endIf
-	elseIf (page == Pages[1])
-		If (a_option == _AEEffectSizeOID_T)
+
+	; -------------------------------------------------------
+	elseIf (page == "Widgets")
+		if (a_option == _AEEffectSizeOID_T)
 			SetInfoText("Default: Medium")
+		elseif (a_option == _AEClampCornerOID_T)
+			SetInfoText("Default: TR")
+		elseIf (a_option == _AEGroupEffectCountOID_S)
+			SetInfoText("Default: 8")
+		elseif (a_option == _AEOffsetXOID_S)
+			SetInfoText("Default: 0")
+		elseif (a_option == _AEOffsetYOID_S)
+			SetInfoText("Default: 0")
 		endIf
 	endIf
 endEvent
+
+string function FormatNumber(float a_number, int a_dp)
+	{max DP is 6}
+	int mult = 1;
+
+	if (a_dp > 0)
+		int temp = 0
+		while (temp < a_dp)
+			mult = mult * 10
+			temp = temp + 1
+		endWhile
+	endIf
+
+	string valStr = (Math.floor((a_number * mult as float) + 0.5) / mult as float) as string
+
+	int dotIdx = StringUtil.Find(valStr, ".")
+	if (dotIdx != -1)
+		valStr = StringUtil.Substring(valStr, 0, dotIdx + a_dp + 1)
+	endIf
+
+	return valStr
+endFunction
+
+
+string function FormatExponent(float a_number, int a_dp)
+	{max DP is 6}
+	string valStr = a_number as String
+	float mantissa = a_number
+	string expStr = ""
+
+	;  float myFloat = 0.0000000000123456
+	; Debug.Trace("myFloat: " + myFloat as string)
+	; > 0.000000
+	; Incorrect? Should be 1.234560E-11
+
+	int expIdx = StringUtil.Find(valStr, "E")
+	if (expIdx != -1)
+		mantissa = StringUtil.Substring(valStr, 0, expIdx + 1) as float ; |1.23456|E-78
+		expStr = StringUtil.Substring(valStr, expIdx, 0) ; 1.123456|E-78|
+	endIf
+
+	int mult = 1;
+	if (a_dp > 0)
+		int temp = 0
+		while (temp < a_dp)
+			mult = mult * 10
+			temp = temp + 1
+		endWhile
+	endIf
+
+	valStr = (Math.floor((mantissa * mult as float) + 0.5) / mult as float) as string
+
+	int dotIdx = StringUtil.Find(valStr, ".")
+	if (dotIdx != -1)
+		valStr = StringUtil.Substring(valStr, 0, dotIdx + a_dp + 1)
+	endIf
+
+	valStr = valStr + expStr
+
+	return valStr
+endFunction

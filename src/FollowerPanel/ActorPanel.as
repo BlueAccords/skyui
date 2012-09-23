@@ -20,7 +20,7 @@ class ActorPanel extends MovieClip
 	private var _intervalId: Number;
 	
 	// Test List
-	public var _tempList: Array;
+	//public var _tempList: Array;
 
 	public function ActorPanel()
 	{
@@ -31,10 +31,10 @@ class ActorPanel extends MovieClip
 		content.maxEntries = 5;
 		content.paddingBottom = 10;
 		_actorList = new Array();
-		_tempList = new Array();
+		//_tempList = new Array();
 	}
 	
-	public function onLoad()
+	/*public function onLoad()
 	{
 		
 		var actor = {actorBase: {fullName: "Jack"}, formType: 1, formId: 1, actorValues: [{base: 0, current: 0, maximum: 0},
@@ -158,20 +158,20 @@ class ActorPanel extends MovieClip
 
 		setInterval(this, "timeoutChange", 1000);
 		//setInterval(this, "timeoutRemove", 10000);
-	}
+	}*/
 	
 	public function onUpdateInterval()
 	{
 		var totalActors = _actorList.length;
 		for(var i = 0; i < totalActors; i++) {
 			// Request new values
-			//var actorValues = new Array();
-			var actorValues = _tempList[i];
-			/*skse.RequestActorValues(_actorList[i].formId, 
+			var actorValues = new Array();
+			//var actorValues = _tempList[i];
+			skse.RequestActorValues(_actorList[i].formId, 
 									[Defines.ACTORVALUE_HEALTH, 
 									 Defines.ACTORVALUE_MAGICKA,
 									 Defines.ACTORVALUE_STAMINA],
-									actorValues);*/
+									actorValues);
 			
 			// Get the old values
 			var oldValues = [_actorList[i].actorValues[Defines.ACTORVALUE_HEALTH],
@@ -217,13 +217,13 @@ class ActorPanel extends MovieClip
 		}
 	}
 	
-	private function timeoutChange()
+	/*private function timeoutChange()
 	{
 		var index: Number = (_actorList.length * Math.random())|0;
 		_tempList[index][0].current = (100 * Math.random())|0;
 		_tempList[index][1].current = (100 * Math.random())|0;
 		_tempList[index][2].current = (100 * Math.random())|0;
-	}
+	}*/
 		
 	/* PAPYRUS FUNCTIONS */
 	public function addActors(a_form: Object)
@@ -283,7 +283,7 @@ class ActorPanel extends MovieClip
 	}
 
 	/* PRIVATE FUNCTIONS */
-	function copyObject(obj)
+	/*function copyObject(obj)
 	{
 	   var i;
 	   var o;
@@ -303,6 +303,6 @@ class ActorPanel extends MovieClip
 	   }
 	
 	   return(o);
-	}
+	}*/
 }
 

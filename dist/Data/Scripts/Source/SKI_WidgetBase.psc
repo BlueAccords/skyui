@@ -9,14 +9,16 @@ string property		HUD_MENU = "HUD Menu" autoReadOnly
 
 SKI_WidgetManager	_widgetManager
 
-bool				_initialized = false
-int					_widgetID = -1
-string				_type = ""
-string				_widgetRoot = ""
+bool				_initialized	= false
+int					_widgetID		= -1
+string				_type			= ""
+string				_widgetRoot		= ""
 string[]			_modes
-float				_x = 0.0
-float				_y = 0.0
-float				_alpha = 100.0
+float				_x				= 0.0
+float				_y				= 0.0
+float				_alpha			= 100.0
+string				_hAlign			= "left"
+string				_vAlign			= "top"
 
 
 ; PROPERTIES --------------------------------------------------------------------------------------
@@ -98,6 +100,34 @@ float property Alpha
 	endFunction
 endProperty
 
+string property HAlign
+	{Horizontal align of the widget left, center, right}
+	string function get()
+		return _hAlign
+	endFunction
+	
+	function set(string a_val)
+		_hAlign = a_val
+		if (Initialized)
+			UpdateWidgetHAlign()
+		endIf
+	endFunction
+endProperty
+
+string property VAlign
+	{Vertical align of the widget top, center, bottom}
+	string function get()
+		return _vAlign
+	endFunction
+	
+	function set(string a_val)
+		_vAlign = a_val
+		if (Initialized)
+			UpdateWidgetVAlign()
+		endIf
+	endFunction
+endProperty
+
 
 ; INITIALIZATION ----------------------------------------------------------------------------------
 
@@ -153,6 +183,8 @@ endEvent
 event OnWidgetReset()
 	; Reset base properties except modes to prevent widget from being drawn too early.
 	UpdateWidgetClientInfo()
+	UpdateWidgetHAlign()
+	UpdateWidgetVAlign()
 	UpdateWidgetPositionX()
 	UpdateWidgetPositionY()
 	UpdateWidgetAlpha()
@@ -176,15 +208,23 @@ function UpdateWidgetClientInfo()
 endFunction
 
 function UpdateWidgetPositionX()
-	UI.SetNumber(HUD_MENU, _widgetRoot + "._x", X)
+	UI.InvokeNumber(HUD_MENU, _widgetRoot + ".setPositionX", X)
 endFunction
 
 function UpdateWidgetPositionY()
-	UI.SetNumber(HUD_MENU, _widgetRoot + "._y", Y)
+	UI.InvokeNumber(HUD_MENU, _widgetRoot + ".setPositionY", Y)
 endFunction
 
 function UpdateWidgetAlpha()
-	UI.SetNumber(HUD_MENU, _widgetRoot + "._alpha", Alpha)
+	UI.InvokeNumber(HUD_MENU, _widgetRoot + ".setAlpha", Alpha)
+endFunction
+
+function UpdateWidgetHAlign()
+	UI.InvokeString(HUD_MENU, _widgetRoot + ".setHAlign", HAlign)
+endFunction
+
+function UpdateWidgetVAlign()
+	UI.InvokeString(HUD_MENU, _widgetRoot + ".setVAlign", VAlign)
 endFunction
 
 function UpdateWidgetModes()

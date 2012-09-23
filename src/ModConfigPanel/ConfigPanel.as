@@ -30,7 +30,10 @@ class ConfigPanel extends MovieClip
 	private var _modList: ScrollingList;
 	private var _subList: ScrollingList;
 	private var _optionsList: MultiColumnScrollingList;
+
 	private var _customContent: MovieClip;
+	private var _customContentX: Number = 0;
+	private var _customContentY: Number = 0;
 	
 	private var _optionChangeDialog: MovieClip;
 	
@@ -79,36 +82,53 @@ class ConfigPanel extends MovieClip
 		_optionNumValueBuffer = [];
 		
 		_menuDialogOptions = [];
+
+		contentHolder.infoPanel.textField.verticalAutoSize = "top";
 	}
 	
 	// @override MovieClip
 	private function onLoad()
 	{
 		super.onLoad();
-		
+
+		_global.skyui.platform = 0;
+
 		_modList.listEnumeration = new BasicEnumeration(_modList.entryList);
-		_modList.entryFormatter = new ButtonEntryFormatter(_modList);
-		
 		_subList.listEnumeration = new BasicEnumeration(_subList.entryList);
-		_subList.entryFormatter = new ButtonEntryFormatter(_subList);
-		
 		_optionsList.listEnumeration = new BasicEnumeration(_optionsList.entryList);
-		_optionsList.entryFormatter = new OptionEntryFormatter(_optionsList);
 		
 		_modList.addEventListener("itemPress", this, "onModListPress");
 		_subList.addEventListener("itemPress", this, "onSubListPress");
 		_optionsList.addEventListener("itemPress", this, "onOptionPress");
 		_optionsList.addEventListener("selectionChange", this, "onOptionChange");
 		
-		// Debug
-		Shared.GlobalFunc.MaintainTextFormat();
-		
-		_global.skyui.platform = 0;
-		
-//		startPage();
-//		loadCustomContent("skyui_splash.swf");
+		_modListPanel.addEventListener("modListEnter", this, "onModListEnter");
+		_modListPanel.addEventListener("modListExit", this, "onModListExit");
+		_modListPanel.addEventListener("subListEnter", this, "onSubListEnter");
+		_modListPanel.addEventListener("subListExit", this, "onSubListExit");
 
 		_optionsList._visible = false;
+		showWelcomeScreen();
+	}
+	
+	public function onModListEnter(event: Object): Void
+	{
+		showWelcomeScreen();
+	}
+	
+	public function onModListExit(event: Object): Void
+	{
+	}
+	
+	public function onSubListEnter(event: Object): Void
+	{
+	}
+	
+	public function onSubListExit(event: Object): Void
+	{
+		_optionsList.clearList();
+		_optionsList.InvalidateData();
+		unloadCustomContent();
 	}
 	
 	
@@ -121,8 +141,8 @@ class ConfigPanel extends MovieClip
 	
 	public function setModNames(/* names */): Void
 	{
-		skse.Log("Called setConfigPanelModNames");
-		
+		skse.Log("Called setConfigPanelModNamesDBG");
+			
 		_modList.clearList();
 		for (var i=0; i<arguments.length; i++)
 			if (arguments[i].toLowerCase() != "none")
@@ -141,6 +161,12 @@ class ConfigPanel extends MovieClip
 		_subList.InvalidateData();
 	}
 	
+	public function setCustomContentParams(a_x: Number, a_y: Number): Void
+	{
+		_customContentX = a_x;
+		_customContentY = a_y;
+	}
+	
 	public function loadCustomContent(a_source: String): Void
 	{
 		unloadCustomContent();
@@ -148,6 +174,8 @@ class ConfigPanel extends MovieClip
 		var optionsPanel: MovieClip = contentHolder.optionsPanel;
 		
 		_customContent = optionsPanel.createEmptyMovieClip("customContent", optionsPanel.getNextHighestDepth());
+		_customContent._x = _customContentX;
+		_customContent._y = _customContentY;
 		_customContent.loadMovie(a_source);
 		
 		_optionsList._visible = false;
@@ -214,7 +242,6 @@ class ConfigPanel extends MovieClip
 		var initObj = {
 			_x: 562, _y: 265,
 			titleText: _dialogTitleText,
-			optionMode: OptionChangeDialog.MODE_SLIDER,
 			sliderValue: a_value,
 			sliderDefault: a_default,
 			sliderMax: a_max,
@@ -223,7 +250,7 @@ class ConfigPanel extends MovieClip
 			sliderFormatString: _sliderDialogFormatString
 		};
 		
-		_optionChangeDialog = DialogManager.open(this, "OptionChangeDialog", initObj);
+		_optionChangeDialog = DialogManager.open(this, "OptionSliderDialog", initObj);
 		_optionChangeDialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
 		_optionChangeDialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
 		gotoAndPlay("dimOut");
@@ -242,13 +269,12 @@ class ConfigPanel extends MovieClip
 		var initObj = {
 			_x: 562, _y: 265,
 			titleText: _dialogTitleText,
-			optionMode: OptionChangeDialog.MODE_MENU,
 			menuOptions: _menuDialogOptions,
 			menuStartIndex: a_startIndex,
 			menuDefaultIndex: a_defaultIndex
 		};
 		
-		_optionChangeDialog = DialogManager.open(this, "OptionChangeDialog", initObj);
+		_optionChangeDialog = DialogManager.open(this, "OptionMenuDialog", initObj);
 		_optionChangeDialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
 		_optionChangeDialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
 		gotoAndPlay("dimOut");
@@ -305,14 +331,7 @@ class ConfigPanel extends MovieClip
 	{
 		GameDelegate.call("PlaySound", ["UIMenuOK"]);
 		_parent.gotoAndPlay("fadeIn");
-			
-//		for (var i=0; i<48; i++)
-//			_optionsList.entryList.push({optionType: Math.floor(Math.random()*6), enabled: true, text: "Label " + i, strValue: "OPTION " + i, numValue: 123.45});
-		
-
 	}
-	
-
 	
 	public function endPage(): Void
 	{
@@ -377,14 +396,17 @@ class ConfigPanel extends MovieClip
 		if (_state != READY)
 			return;
 		
-		ButtonEntryFormatter(_subList.entryFormatter).activeEntry = null;
+		_subList.listState.activeEntry = null;
 		_subList.clearList();
 		_subList.InvalidateData();
 		
+		_optionsList.clearList();
+		_optionsList.InvalidateData();
+		unloadCustomContent();
+		
 		_state = WAIT_FOR_OPTION_DATA;
 		skse.SendModEvent("SKICP_modSelected", null, a_entry.modIndex);
-
-//		unloadCustomContent();
+		
 		contentHolder.modListPanel.showSublist();
 	}
 	
@@ -396,7 +418,7 @@ class ConfigPanel extends MovieClip
 		if (a_entry == undefined)
 			return;
 		
-		ButtonEntryFormatter(_subList.entryFormatter).activeEntry = a_entry;
+		_subList.listState.activeEntry = a_entry;
 		_subList.UpdateList();
 		
 		_state = WAIT_FOR_OPTION_DATA;
@@ -413,24 +435,24 @@ class ConfigPanel extends MovieClip
 			return;
 		
 		switch (e.optionType) {
-			case OptionEntryFormatter.OPTION_EMPTY:
-			case OptionEntryFormatter.OPTION_HEADER:
+			case OptionsListEntry.OPTION_EMPTY:
+			case OptionsListEntry.OPTION_HEADER:
 				break;
 				
-			case OptionEntryFormatter.OPTION_TEXT:
-			case OptionEntryFormatter.OPTION_TOGGLE:
+			case OptionsListEntry.OPTION_TEXT:
+			case OptionsListEntry.OPTION_TOGGLE:
 				_state = WAIT_FOR_SELECT;
 				skse.SendModEvent("SKICP_optionSelected", null, a_index);
 				break;
 				
-			case OptionEntryFormatter.OPTION_SLIDER:
+			case OptionsListEntry.OPTION_SLIDER:
 				_state = WAIT_FOR_SLIDER_DATA;
 				_dialogTitleText = e.text;
 				_sliderDialogFormatString = e.strValue;
 				skse.SendModEvent("SKICP_sliderSelected", null, a_index);
 				break;
 				
-			case OptionEntryFormatter.OPTION_MENU:
+			case OptionsListEntry.OPTION_MENU:
 				_state = WAIT_FOR_MENU_DATA;
 				_dialogTitleText = e.text;
 				skse.SendModEvent("SKICP_menuSelected", null, a_index);
@@ -484,5 +506,14 @@ class ConfigPanel extends MovieClip
 		} else {
 			t.background._height = 32;
 		}
+	}
+	
+	private function showWelcomeScreen(): Void
+	{
+		setCustomContentParams(150, 50);
+		loadCustomContent("skyui/mcm_splash.swf");
+
+		setTitleText("MOD CONFIGURATION");
+		setInfoText("");
 	}
 }

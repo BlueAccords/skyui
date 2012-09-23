@@ -1,10 +1,10 @@
 ﻿import skyui.components.list.BasicList;
-import skyui.components.list.IListEntry;
+import skyui.components.list.ListState;
 import skyui.components.list.BasicListEntry;
 import skyui.components.list.ListState;
 
 /*
- *  A generic entry formatter.
+ *  A generic entry.
  *  Sets selectIndicator visible for the selected entry, if defined.
  *  Sets textField to obj.text.
  *  Forwards to label obj.state, if defined.

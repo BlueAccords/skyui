@@ -64,21 +64,21 @@ class PanelEntry extends MovieClip
 	{
 		if(a_clip == _healthMeter) {
 			a_clip.widget.initNumbers(background._width, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x561818, 0xDF2020, 100, 0, 0xFF3232);
-			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
+			a_clip.widget.initStrings("", "$EverywhereFont", "", "$EverywhereFont", "none","", "", "none", "right");
 			a_clip.widget.initCommit();
 			a_clip.widget.setMeterPercent(health, true);
 			a_clip.widget._visible = true;
 			a_clip._visible = true;
 		} else if(a_clip == _magickaMeter) {
 			a_clip.widget.initNumbers(background._width, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x0C016D, 0x284BD7, 100, 0, 0x3366FF);
-			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
+			a_clip.widget.initStrings("", "$EverywhereFont", "", "$EverywhereFont", "none","", "", "none", "right");
 			a_clip.widget.initCommit();
 			a_clip.widget.setMeterPercent(magicka, true);
 			a_clip.widget._visible = true;
 			a_clip._visible = true;
 		} else if(a_clip == _staminaMeter) {
 			a_clip.widget.initNumbers(background._width, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x003300, 0x339966, 100, 0, 0x009900);
-			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
+			a_clip.widget.initStrings("", "$EverywhereFont", "", "$EverywhereFont", "none","", "", "none", "right");
 			a_clip.widget.initCommit();
 			a_clip.widget.setMeterPercent(stamina, true);
 			a_clip.widget._visible = true;
