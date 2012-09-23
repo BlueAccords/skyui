@@ -2,7 +2,7 @@
 import com.greensock.OverwriteManager;
 import com.greensock.easing.Linear;
 
-import skyui.util.Defines;
+import PanelDefines;
 
 class PanelEntry extends MovieClip
 {
@@ -112,15 +112,15 @@ class PanelEntry extends MovieClip
 		
 		resetTimer();
 		
-		_healthMeter.widget.setMeterPercent((a_actor.actorValues[Defines.ACTORVALUE_HEALTH].current / a_actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum) * 100, false);
-		_magickaMeter.widget.setMeterPercent((a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum) * 100, false);
-		_staminaMeter.widget.setMeterPercent((a_actor.actorValues[Defines.ACTORVALUE_STAMINA].current / a_actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum) * 100, false);
+		_healthMeter.widget.setMeterPercent((a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].current / a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].maximum) * 100, false);
+		_magickaMeter.widget.setMeterPercent((a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].maximum) * 100, false);
+		_staminaMeter.widget.setMeterPercent((a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].maximum) * 100, false);
 		
-		if(a_actor.actorValues[Defines.ACTORVALUE_HEALTH].current == 0)
+		if(a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].current == 0)
 			_healthMeter.widget.startMeterFlash();
-		if(a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].current == 0)
+		if(a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].current == 0)
 			_magickaMeter.widget.startMeterFlash();
-		if(a_actor.actorValues[Defines.ACTORVALUE_STAMINA].current == 0)
+		if(a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current == 0)
 			_staminaMeter.widget.startMeterFlash();
 	}
 		

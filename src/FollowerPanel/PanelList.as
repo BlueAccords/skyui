@@ -2,7 +2,7 @@
 import com.greensock.OverwriteManager;
 import com.greensock.easing.Linear;
 
-import skyui.util.Defines;
+import PanelDefines;
 
 class PanelList extends MovieClip
 {
@@ -61,9 +61,9 @@ class PanelList extends MovieClip
 		var initObject: Object = {index: _actorArray.length,
 									formId: a_actor.formId,
 									name: a_actor.actorBase.fullName,
-									health: (a_actor.actorValues[Defines.ACTORVALUE_HEALTH].current / a_actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum) * 100,
-									magicka: (a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum) * 100,
-									stamina: (a_actor.actorValues[Defines.ACTORVALUE_STAMINA].current / a_actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum) * 100,
+									health: (a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].current / a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].maximum) * 100,
+									magicka: (a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].maximum) * 100,
+									stamina: (a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].maximum) * 100,
 									fadeInDuration: this.fadeInDuration,
 									fadeOutDuration: this.fadeOutDuration,
 									moveDuration: this.moveDuration

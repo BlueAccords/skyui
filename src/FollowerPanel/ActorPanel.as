@@ -1,7 +1,7 @@
 ﻿import gfx.events.EventDispatcher;
-import skyui.util.Defines;
+import PanelDefines;
 
-class ActorPanel extends MovieClip
+class ActorPanel extends skyui.widgets.WidgetBase
 {	
 	/* CONSTANTS */
 	static private var ACTOR_FADE_IN_DURATION: Number = 0.25;
@@ -168,15 +168,15 @@ class ActorPanel extends MovieClip
 			var actorValues = new Array();
 			//var actorValues = _tempList[i];
 			skse.RequestActorValues(_actorList[i].formId, 
-									[Defines.ACTORVALUE_HEALTH, 
-									 Defines.ACTORVALUE_MAGICKA,
-									 Defines.ACTORVALUE_STAMINA],
+									[PanelDefines.ACTORVALUE_HEALTH, 
+									 PanelDefines.ACTORVALUE_MAGICKA,
+									 PanelDefines.ACTORVALUE_STAMINA],
 									actorValues);
 			
 			// Get the old values
-			var oldValues = [_actorList[i].actorValues[Defines.ACTORVALUE_HEALTH],
-							_actorList[i].actorValues[Defines.ACTORVALUE_MAGICKA],
-							_actorList[i].actorValues[Defines.ACTORVALUE_STAMINA]];
+			var oldValues = [_actorList[i].actorValues[PanelDefines.ACTORVALUE_HEALTH],
+							_actorList[i].actorValues[PanelDefines.ACTORVALUE_MAGICKA],
+							_actorList[i].actorValues[PanelDefines.ACTORVALUE_STAMINA]];
 			
 			var changed: Boolean = false;
 			for(var s = 0; s < oldValues.length; s++)
@@ -226,20 +226,23 @@ class ActorPanel extends MovieClip
 	}*/
 		
 	/* PAPYRUS FUNCTIONS */
-	public function addActors(a_form: Object)
+	public function addPanelActors(a_form: Object)
 	{
-		if(a_form.formType == Defines.FORMTYPE_LIST)
+		skse.Log("Adding: " + a_form + " formType: " + a_form.formType + " Defined: " + PanelDefines.FORMTYPE_LIST);
+		if(a_form.formType == PanelDefines.FORMTYPE_LIST)
 		{
+			skse.Log("Adding FormList: " + a_form.formId);
 			var totalForms: Number = a_form.forms.length;
+			skse.Log("Total Forms: " + totalForms);
 			for(var i = 0; i < totalForms; i++) {
-				addActor(a_form.forms[i]);
+				addSingleActor(a_form.forms[i]);
 			}
 		} else {
-			addActor(a_form.forms[i]);
+			addSingleActor(a_form);
 		}
 	}
 	
-	public function addActor(a_form: Object)
+	public function addSingleActor(a_form: Object)
 	{
 		// We're about to add our first actor, start polling
 		if(_actorList.length == 0) {
@@ -247,26 +250,28 @@ class ActorPanel extends MovieClip
 			_intervalId = setInterval(this, "onUpdateInterval", updateInterval);
 		}
 		
-		skse.ExtendForm(a_form.formId, a_form, false, false);
-		skse.ExtendForm(a_form.actorBase.formId, a_form.actorBase, false, false);
+		skse.Log("Form Origin: " + a_form.formId);
+		skse.ExtendForm(a_form.formId, a_form, true, false);
+		skse.Log("Form ActorBase: " + a_form.actorBase.formId);
+		skse.ExtendForm(a_form.actorBase.formId, a_form.actorBase, true, false);
 		
 		_actorList.push(a_form);
 	}
 	
-	public function removeActors(a_form: Object)
+	public function removePanelActors(a_form: Object)
 	{
-		if(a_form.formType == Defines.FORMTYPE_LIST)
+		if(a_form.formType == PanelDefines.FORMTYPE_LIST)
 		{
 			var totalForms: Number = a_form.forms.length;
 			for(var i = 0; i < totalForms; i++) {
-				removeActor(a_form.forms[i]);
+				removeSingleActor(a_form.forms[i]);
 			}
 		} else {
-			removeActor(a_form);
+			removeSingleActor(a_form);
 		}
 	}
 	
-	public function removeActor(a_form: Object)
+	public function removeSingleActor(a_form: Object)
 	{
 		var totalActors: Number = _actorList.length;
 		for(var i = 0; i < totalActors; i++) {
