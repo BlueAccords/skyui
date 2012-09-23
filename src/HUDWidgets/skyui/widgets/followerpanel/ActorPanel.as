@@ -232,15 +232,13 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	
 	public function startFadeIn()
 	{
-		this.gotoAndPlay("FadeIn");
-		play();
+		_parent.gotoAndPlay("FadeIn");
 		skse.Log("FadeIn Triggered");
 	}
 	
 	public function startFadeOut()
 	{
-		this.gotoAndPlay("FadeOut");
-		play();
+		_parent.gotoAndPlay("FadeOut");
 		skse.Log("FadeOut Triggered");
 	}
 		
