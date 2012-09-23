@@ -78,7 +78,7 @@
 	static var FORMTYPE_SOULGEM: Number = 52;
 	static var FORMTYPE_SHOUT: Number = 0x77;
 	static var FORMTYPE_SPELL: Number = 0x16;
-	static var FORMTYPE_LIST = 91;
+	static var FORMTYPE_LIST: Number = 91;
 
 	// Materials
 	static var MATERIAL_ARTIFACT: Number = 1;
