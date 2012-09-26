@@ -13,6 +13,7 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 	private var paddingBottom: Number;
 	
 	private var mask: MovieClip;
+	private var _actorPanel: MovieClip;
 	
 	/* PRIVATE VARIABLES */
 	private var _actorArray: Array
@@ -21,7 +22,7 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 	public function PanelList()
 	{
 		super();
-		
+		_actorPanel = _parent._parent;
 		_actorArray = new Array();
 		setMask(mask);
 	}
@@ -56,7 +57,7 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 	public function addActor(a_actor: Object): MovieClip
 	{
 		if(_actorArray.length == 0) // Previously had no items, fadein
-			_parent.startFadeIn();
+			_actorPanel.startFadeIn();
 		
 		var initObject: Object = {index: _actorArray.length,
 									formId: a_actor.formId,
@@ -93,7 +94,7 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 				updateBackground(moveDuration);
 			}
 		} else {
-			_parent.startFadeOut();
+			_actorPanel.startFadeOut();
 		}
 		
 		updateBackground(moveDuration);
@@ -102,6 +103,6 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 	private function updateBackground(duration: Number)
 	{
 		TweenLite.to(mask, duration, {_height: Math.min(totalHeight, maxHeight), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
-		TweenLite.to(_parent.background, duration, {_height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		TweenLite.to(_actorPanel.background, duration, {_height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 	}
 }

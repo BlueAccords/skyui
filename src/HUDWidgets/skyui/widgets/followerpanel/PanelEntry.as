@@ -116,11 +116,11 @@ class skyui.widgets.followerpanel.PanelEntry extends MovieClip
 		_magickaMeter.widget.setMeterPercent((a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].maximum) * 100, false);
 		_staminaMeter.widget.setMeterPercent((a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].maximum) * 100, false);
 		
-		if(a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].current == 0)
+		if(a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].current <= 0)
 			_healthMeter.widget.startMeterFlash();
-		if(a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].current == 0)
+		if(a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].current <= 0)
 			_magickaMeter.widget.startMeterFlash();
-		if(a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current == 0)
+		if(a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current <= 0)
 			_staminaMeter.widget.startMeterFlash();
 	}
 		
