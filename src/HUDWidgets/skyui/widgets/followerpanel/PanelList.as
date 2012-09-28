@@ -1,4 +1,6 @@
-﻿import com.greensock.TweenLite;
+﻿import gfx.events.EventDispatcher;
+
+import com.greensock.TweenLite;
 import com.greensock.OverwriteManager;
 import com.greensock.easing.Linear;
 
@@ -18,11 +20,15 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 	/* PRIVATE VARIABLES */
 	private var _actorArray: Array
 	
+	/* GFX */
+	public var dispatchEvent: Function;
+	public var addEventListener: Function;
+	
 	/* PUBLIC FUNCTIONS */
 	public function PanelList()
 	{
 		super();
-		_actorPanel = _parent._parent;
+		EventDispatcher.initialize(this);
 		_actorArray = new Array();
 		setMask(mask);
 	}
@@ -57,7 +63,7 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 	public function addActor(a_actor: Object): MovieClip
 	{
 		if(_actorArray.length == 0) // Previously had no items, fadein
-			_actorPanel.startFadeIn();
+			dispatchEvent({type:"startFadeIn"});
 		
 		var initObject: Object = {index: _actorArray.length,
 									formId: a_actor.formId,
@@ -94,7 +100,7 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 				updateBackground(moveDuration);
 			}
 		} else {
-			_actorPanel.startFadeOut();
+			dispatchEvent({type:"startFadeOut"});
 		}
 		
 		updateBackground(moveDuration);
@@ -103,6 +109,7 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 	private function updateBackground(duration: Number)
 	{
 		TweenLite.to(mask, duration, {_height: Math.min(totalHeight, maxHeight), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
-		TweenLite.to(_actorPanel.background, duration, {_height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		dispatchEvent({type:"updateBackground", duration: duration, height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom)});
+		//TweenLite.to(_actorPanel.background, duration, {_height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 	}
 }
