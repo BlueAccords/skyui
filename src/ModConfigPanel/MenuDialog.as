@@ -29,6 +29,23 @@ class MenuDialog extends OptionDialog
 	
 	
   /* PUBLIC FUNCTIONS */
+
+	// @override OptionDialog
+	private function initContent(): Void
+	{
+		menuList.addEventListener("itemPress", this, "onMenuListPress");
+
+		menuList.listEnumeration = new BasicEnumeration(menuList.entryList);
+
+		for (var i=0; i<menuOptions.length; i++) {
+			var entry = {text: menuOptions[i], align: "center", enabled: true, state: "normal"};
+			menuList.entryList.push(entry);
+			if (i == menuStartIndex)
+				menuList.listState.activeEntry = entry
+		}
+
+		menuList.InvalidateData();	  	
+	}
 	
 	// @override OptionDialog
 	public function onDefaultPress(): Void
@@ -80,7 +97,7 @@ class MenuDialog extends OptionDialog
 	
 	private function getActiveMenuIndex(): Number
 	{
-		var index = menuList.listState.activeEntry.itemIndex
-		return (index ? index : -1);
+		var index = menuList.listState.activeEntry.itemIndex;
+		return (index != undefined ? index : -1);
 	}
 }

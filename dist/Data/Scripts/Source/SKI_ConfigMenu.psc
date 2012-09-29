@@ -8,8 +8,11 @@ string[]	_alignments
 string[]	_sizes
 
 string[]	_corners
+string[]	_cornerValues
 
-; OIDs (T:Text B:Toggle S:Slider M:Menu)
+string[]	_orientations
+
+; OIDs (T:Text B:Toggle S:Slider M:Menu, C:Color)
 int			_itemcardAlignOID_T
 int			_itemcardXOffsetOID_S
 int			_itemcardYOffsetOID_S
@@ -19,10 +22,12 @@ int			_3DItemYOffsetOID_S
 int			_3DItemScaleOID_S
 
 int			_AEEffectSizeOID_T
-int			_AEClampCornerOID_T
+int			_AEClampCornerOID_M
 int			_AEGroupEffectCountOID_S
 int			_AEOffsetXOID_S
 int			_AEOffsetYOID_S
+int			_AEOrientationOID_T
+int			_MXTestColorOID_C
 
 int			_itemlistFontSizeOID_T
 
@@ -39,10 +44,12 @@ float[]		_AEEffectSizeValues
 int			_AEEffectSizeIdx		= 1
 int			_AEClampCornerIdx		= 1
 int			_AEGroupEffectCount		= 8
-float[]		_AEBaseX
+float[]		_AEBaseXValues
 float		_AEOffsetX				= 0.0
-float[]		_AEBaseY
+float[]		_AEBaseYValues
 float		_AEOffsetY				= 0.0
+int			_AEOrientationIdx		= 1
+int			_MXTestColor			= 0x162274
 
 int			_itemlistFontSizeIdx	= 1
 
@@ -75,27 +82,37 @@ event OnInit()
 	_sizes[2] = "Large"
 
 	_corners = new string[4]
-	_corners[0] = "TL"
-	_corners[1] = "TR"
-	_corners[2] = "BR"
-	_corners[3] = "BL"
+	_corners[0] = "Top Left"
+	_corners[1] = "Top Right"
+	_corners[2] = "Bottom Right"
+	_corners[3] = "Bottom Left"
+
+	_cornerValues = new string[4]
+	_cornerValues[0] = "TL"
+	_cornerValues[1] = "TR"
+	_cornerValues[2] = "BR"
+	_cornerValues[3] = "BL"
+
+	_orientations = new String[2]
+	_orientations[0] = "Horizontal"
+	_orientations[1] = "Vertical"
 
 	_AEEffectSizeValues = new float[3]
 	_AEEffectSizeValues[0] = 32.0
 	_AEEffectSizeValues[1] = 48.0
 	_AEEffectSizeValues[2] = 64.0
 
-	_AEBaseX = new float[4]
-	_AEBaseX[0] = 0.0
-	_AEBaseX[1] = 1280.0
-	_AEBaseX[2] = 1280.0
-	_AEBaseX[3] = 0.0
+	_AEBaseXValues = new float[4]
+	_AEBaseXValues[0] = 0.0
+	_AEBaseXValues[1] = 1280.0
+	_AEBaseXValues[2] = 1280.0
+	_AEBaseXValues[3] = 0.0
 
-	_AEBaseY = new float[4]
-	_AEBaseY[0] = 0.0
-	_AEBaseY[1] = 30.05 ; Actually 30.05
-	_AEBaseY[2] = 720.0
-	_AEBaseY[3] = 720.0
+	_AEBaseYValues = new float[4]
+	_AEBaseYValues[0] = 0.0
+	_AEBaseYValues[1] = 30.05 ; Actually 30.05
+	_AEBaseYValues[2] = 720.0
+	_AEBaseYValues[3] = 720.0
 
 	ApplySettings()
 endEvent
@@ -174,10 +191,12 @@ event OnPageReset(string a_page)
 
 		AddHeaderOption("Active Effects")
 		_AEEffectSizeOID_T			= AddTextOption("Effect Size", _sizes[_AEEffectSizeIdx])
-		_AEClampCornerOID_T			= AddTextOption("Clamp to Corner", _corners[_AEClampCornerIdx])
+		_AEClampCornerOID_M			= AddMenuOption("Clamp to Corner", _corners[_AEClampCornerIdx])
 		_AEGroupEffectCountOID_S	= AddSliderOption("Max Effect Width", _AEGroupEffectCount, "{0}")
 		_AEOffsetXOID_S				= AddSliderOption("X Offset", _AEOffsetX, "{1}")
 		_AEOffsetYOID_S				= AddSliderOption("Y Offset", _AEOffsetY, "{1}")
+		_AEOrientationOID_T			= AddTextOption("Orientation", _orientations[_AEOrientationIdx])
+		_MXTestColorOID_C			= AddColorOption("A Color", _MXTestColor)
 
 	; -------------------------------------------------------
 	elseIf (a_page == "Advanced")
@@ -254,17 +273,14 @@ event OnOptionSelect(int a_option)
 			endIf
 			SetTextOptionValue(a_option, _sizes[_AEEffectSizeIdx])
 			SKI_ActiveEffectsWidgetInstance.EffectSize = _AEEffectSizeValues[_AEEffectSizeIdx]
-
-		elseIf (a_option == _AEClampCornerOID_T)
-			if (_AEClampCornerIdx < _corners.length - 1)
-				_AEClampCornerIdx += 1
+		elseIf (a_option == _AEOrientationOID_T)
+			if (_AEOrientationIdx < _orientations.length - 1)
+				_AEOrientationIdx += 1
 			else
-				_AEClampCornerIdx = 0
+				_AEOrientationIdx = 0
 			endIf
-			SetTextOptionValue(a_option, _corners[_AEClampCornerIdx])
-			SKI_ActiveEffectsWidgetInstance.ClampCorner = _corners[_AEClampCornerIdx]
-			SKI_ActiveEffectsWidgetInstance.X = _AEBaseX[_AEClampCornerIdx] + _AEOffsetX
-			SKI_ActiveEffectsWidgetInstance.Y = _AEBaseY[_AEClampCornerIdx] + _AEOffsetY
+			SetTextOptionValue(a_option, _orientations[_AEOrientationIdx])
+			SKI_ActiveEffectsWidgetInstance.Orientation = _orientations[_AEOrientationIdx]
 		endIf
 	endIf
 endEvent
@@ -385,11 +401,11 @@ event OnOptionSliderAccept(int a_option, float a_value)
 		elseIf (a_option == _AEOffsetXOID_S)
 			_AEOffsetX = a_value
 			SetSliderOptionValue(a_option, _AEOffsetX)
-			SKI_ActiveEffectsWidgetInstance.X = _AEBaseX[_AEClampCornerIdx] + _AEOffsetX
+			SKI_ActiveEffectsWidgetInstance.X = _AEBaseXValues[_AEClampCornerIdx] + _AEOffsetX
 		elseIf (a_option == _AEOffsetYOID_S)
 			_AEOffsetY = a_value
 			SetSliderOptionValue(a_option, _AEOffsetY)
-			SKI_ActiveEffectsWidgetInstance.Y = _AEBaseY[_AEClampCornerIdx] + _AEOffsetY
+			SKI_ActiveEffectsWidgetInstance.Y = _AEBaseYValues[_AEClampCornerIdx] + _AEOffsetY
 		endIf
 	endIf
 endEvent
@@ -403,6 +419,14 @@ event OnOptionMenuOpen(int a_option)
 
 	; -------------------------------------------------------
 	if (page == "General")
+
+	; -------------------------------------------------------
+	elseIf (page == "Widgets")
+		if (a_option == _AEClampCornerOID_M)
+			SetMenuDialogStartIndex(_AEClampCornerIdx)
+			SetMenuDialogDefaultIndex(1)
+			SetMenuDialogOptions(_corners)
+		endIf
 	endIf
 endEvent
 
@@ -414,6 +438,43 @@ event OnOptionMenuAccept(int a_option, int a_index)
 
 	; -------------------------------------------------------
 	if (page == "General")
+
+	; -------------------------------------------------------
+	elseif (page == "Widgets")
+		if (a_option == _AEClampCornerOID_M)
+			_AEClampCornerIdx = a_index
+			SetMenuOptionValue(a_option, _corners[_AEClampCornerIdx])
+			SKI_ActiveEffectsWidgetInstance.ClampCorner = _cornerValues[_AEClampCornerIdx]
+			SKI_ActiveEffectsWidgetInstance.X = _AEBaseXValues[_AEClampCornerIdx] + _AEOffsetX
+			SKI_ActiveEffectsWidgetInstance.Y = _AEBaseYValues[_AEClampCornerIdx] + _AEOffsetY
+		endIf
+	endIf
+endEvent
+
+; -------------------------------------------------------------------------------------------------
+; @implements SKI_ConfigBase
+event OnColorMenuOpen(int a_option)
+	{Called when the user selects a color option}
+	string page = CurrentPage
+
+	if (page == "Widgets")
+		if (a_option == _MXTestColorOID_C)
+			SetColorDialogCurrentColor(_MXTestColor)
+			SetColorDialogDefaultColor(0x162274)
+		endIf
+	endIf
+endEvent
+
+; @implements SKI_ConfigBase
+event OnColorMenuAccept(int a_option, int a_color)
+	{Called when the user selects a new color}
+	string page = CurrentPage
+
+	if (page == "Widgets")
+		if (a_option == _MXTestColorOID_C)
+			_MXTestColor = a_color;
+			SetColorOptionValue(a_option, a_color)
+		endIf
 	endIf
 endEvent
 
@@ -445,8 +506,8 @@ event OnOptionHighlight(int a_option)
 	elseIf (page == "Widgets")
 		if (a_option == _AEEffectSizeOID_T)
 			SetInfoText("Default: Medium")
-		elseif (a_option == _AEClampCornerOID_T)
-			SetInfoText("Default: TR")
+		elseif (a_option == _AEClampCornerOID_M)
+			SetInfoText("Default: Top Right")
 		elseIf (a_option == _AEGroupEffectCountOID_S)
 			SetInfoText("Default: 8")
 		elseif (a_option == _AEOffsetXOID_S)
@@ -456,64 +517,3 @@ event OnOptionHighlight(int a_option)
 		endIf
 	endIf
 endEvent
-
-string function FormatNumber(float a_number, int a_dp)
-	{max DP is 6}
-	int mult = 1;
-
-	if (a_dp > 0)
-		int temp = 0
-		while (temp < a_dp)
-			mult = mult * 10
-			temp = temp + 1
-		endWhile
-	endIf
-
-	string valStr = (Math.floor((a_number * mult as float) + 0.5) / mult as float) as string
-
-	int dotIdx = StringUtil.Find(valStr, ".")
-	if (dotIdx != -1)
-		valStr = StringUtil.Substring(valStr, 0, dotIdx + a_dp + 1)
-	endIf
-
-	return valStr
-endFunction
-
-
-string function FormatExponent(float a_number, int a_dp)
-	{max DP is 6}
-	string valStr = a_number as String
-	float mantissa = a_number
-	string expStr = ""
-
-	;  float myFloat = 0.0000000000123456
-	; Debug.Trace("myFloat: " + myFloat as string)
-	; > 0.000000
-	; Incorrect? Should be 1.234560E-11
-
-	int expIdx = StringUtil.Find(valStr, "E")
-	if (expIdx != -1)
-		mantissa = StringUtil.Substring(valStr, 0, expIdx + 1) as float ; |1.23456|E-78
-		expStr = StringUtil.Substring(valStr, expIdx, 0) ; 1.123456|E-78|
-	endIf
-
-	int mult = 1;
-	if (a_dp > 0)
-		int temp = 0
-		while (temp < a_dp)
-			mult = mult * 10
-			temp = temp + 1
-		endWhile
-	endIf
-
-	valStr = (Math.floor((mantissa * mult as float) + 0.5) / mult as float) as string
-
-	int dotIdx = StringUtil.Find(valStr, ".")
-	if (dotIdx != -1)
-		valStr = StringUtil.Substring(valStr, 0, dotIdx + a_dp + 1)
-	endIf
-
-	valStr = valStr + expStr
-
-	return valStr
-endFunction

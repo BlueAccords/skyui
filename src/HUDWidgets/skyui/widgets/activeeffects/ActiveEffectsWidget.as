@@ -9,23 +9,25 @@ import com.greensock.easing.Linear;
 class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 {
   /* CONSTANTS */
-	// TODO: Make these config vars.
-
-	private static var ORIENTATION_H: String = "horizontal";
-	private static var ORIENTATION_V: String = "vertical";
-
-	static private var GROUP_MOVE_DURATION: Number = 1.00;
-	private var _groupSpacing: Number; // _effectBaseSize/10
-
-	// NO './', bsa doesn't like it!
-	static private var ICON_LOCATION: String = "skyui/skyui_icons_psychosteve.swf"; // TEST: Change to ../skyui/... when testing
-
-	// config
-	private var _effectBaseSize: Number; // {small: 32.0, medium: 48.0, large: 64.0} Default: medium
-	private var _effectSpacing: Number; // _effectBaseSize/10
 	private static var EFFECT_FADE_IN_DURATION: Number = 0.25;
 	private static var EFFECT_FADE_OUT_DURATION: Number = 0.75;
 	private static var EFFECT_MOVE_DURATION: Number = 1.00;
+	private static var GROUP_MOVE_DURATION: Number = 1.00;
+
+	// NO './', bsa doesn't like it!
+	private static var ICON_LOCATION: String = "skyui/skyui_icons_psychosteve.swf"; // TEST: Change to ../skyui/... when testing
+
+	// config
+	private var _effectBaseSize: Number; // {small: 32.0, medium: 48.0, large: 64.0} Default: medium
+	private var _groupEffectCount: Number;
+	private var _clampCorner: String;
+	private var _orientation: String;
+
+
+
+	private var _effectSpacing: Number; // _effectBaseSize/10
+	private var _groupSpacing: Number; // _effectBaseSize/10
+
 
   /* PRIVATE VARIABLES */
 	private var _marker: Number = 1;
@@ -34,17 +36,14 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 	private var _effectsHash: Object;
 	private var _effectsGroups: Array;
 
-	private var _yMin: Number;
-
-	private var _groupEffectCount: Number;
+	
 
 	private var _intervalId: Number;
 
 	//Grow dir
 	private var _hGrowDirection: String;
 	private var _vGrowDirection: String;
-	private var _growAxis: String;
-	private var _clampCorner: String;
+	
 
   /* PUBLIC VARIABLES */
 	// Passed from SKSE
@@ -61,42 +60,6 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 		_effectsGroups = new Array();
 
 		effectDataArray = new Array();
-
-		/* // TEST: init
-		effectDataArray = [
-							{elapsed: 5, magicType: 4294967295, duration: 7, subType: 22, id: 567786304, actorValue: 107, effectFlags: 2099458, archetype: 34},
-							{elapsed: 3.1780076026917, magicType: 4294967295, duration: 60, subType: 4294967295, id: 596614304, actorValue: 135, effectFlags: 2099202, archetype: 34}, 
-							{elapsed: 3.1780076026917, magicType: 4294967295, duration:50, subType: 4294967295, id: 596613744, actorValue: 17, effectFlags: 2099202, archetype: 34}, 
-							{elapsed: 3.1780076026917, magicType: 4294967295, duration: 9, subType: 4294967295, id: 596613856, actorValue: 142, effectFlags: 2099202, archetype: 34}, 
-							{elapsed: 3.1780076026917, magicType: 4294967295, duration: 40, subType: 4294967295, id: 596613632, actorValue: 142, effectFlags: 2099202, archetype: 34}, // <-- remove
-							{elapsed: 3000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 596613296, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 3000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 59661324496, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 1000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 5964613296, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 3000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 5966143296, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 2000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 5966134442496, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 3000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 5966132966, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 3000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 5966132449666, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 1500, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 5964613296666, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 450, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 5966143296666, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 1000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 59661344424946, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 20, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 5966132999, actorValue: 54, effectFlags: 4201474, archetype: 11}
-							];
-		// Set via property in CK					
-		setHAlign("left"); //Registeration point
-		setVAlign("top");
-		setPositionX(0);
-		setPositionY(0);
-
-
-		initNumbers(48.0, 3);
-		initStrings("righdt", "dodwn", "horizdontal");
-		initCommit();
-
-		//setInterval(this, "testEffectSize", 3000);
-		//_global.setTimeout(this,"timeout", 1000);
-		//_global.setTimeout(this,"timeout2",2000);
-		//*/
-
 	}
 
   /* PUBLIC FUNCTIONS */
@@ -135,12 +98,10 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 	}
 
 	// @Papyrus
-	public function initStrings(a_clampCorner: String, a_growAxis: String): Void
+	public function initStrings(a_clampCorner: String, a_orientation: String): Void
 	{
-		//_hGrowDirection = a_hGrowDirection.toLowerCase();
-		//_vGrowDirection = a_vGrowDirection.toLowerCase();
 		updateClampCorner(a_clampCorner);
-		_growAxis = a_growAxis.toLowerCase();
+		_orientation = a_orientation.toLowerCase();
 	}
 
 	// @Papyrus
@@ -158,9 +119,8 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 		_effectBaseSize = a_effectBaseSize;
 		_groupSpacing = _effectSpacing = _effectBaseSize/10.0;
 
-		// Redraw effects, but before the redraw reset the align
-		// Align needs to be reset because its offset is determiend by the base size of the widget, _effectBaseSize
-		invalidateEffects(true);
+		invalidateSize();
+		invalidateEffects();
 	}
 
 	// @Papyrus
@@ -172,27 +132,11 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 	}
 
 	// @Papyrus
-	public function setHGrowDirection(a_hGrowDirection: String): Void
-	{
-		_hGrowDirection = a_hGrowDirection.toLowerCase();
-
-		invalidateEffects();
-	}
-
-	// @Papyrus
-	public function setVGrowDirection(a_vGrowDirection: String): Void
-	{
-		_vGrowDirection = a_vGrowDirection.toLowerCase();
-
-		invalidateEffects();
-	}
-
-	// @Papyrus
 	public function setClampCorner(a_clampCorner: String): Void
 	{
 		updateClampCorner(a_clampCorner);
 
-		invalidateEffects(true);
+		invalidateEffects();
 	}
 
 	// Helper function for setClampCorner
@@ -201,36 +145,28 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 		_clampCorner = a_clampCorner.toUpperCase();
 		switch(_clampCorner) {
 			case "BR":
-				_hAlign = "right";
-				_vAlign = "bottom";
 				_hGrowDirection = "left";
 				_vGrowDirection = "up";
 				break;
 			case "BL":
-				_hAlign = "left";
-				_vAlign = "bottom";
 				_hGrowDirection = "right";
 				_vGrowDirection = "up";
 				break;
 			case "TL":
-				_hAlign = "left";
-				_vAlign = "top";
 				_hGrowDirection = "right";
 				_vGrowDirection = "down";
 				break;
-			case "TR":
 			default:
-				_hAlign = "right";
-				_vAlign = "top";
+				_clampCorner = "TR";
 				_hGrowDirection = "left";
 				_vGrowDirection = "down";
 		}
 	}
 
 	// @Papyrus
-	public function setGrowAxis(a_growAxis: String): Void
+	public function setOrientation(a_orientation: String): Void
 	{
-		_growAxis = a_growAxis.toLowerCase();
+		_orientation = a_orientation.toLowerCase();
 
 		invalidateEffects();
 	}
@@ -239,8 +175,6 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
   /* PRIVATE FUNCTIONS */
 	private function onIntervalUpdate(): Void
 	{
-		
-		///* // TEST: Uncomment when testing.
 		effectDataArray.splice(0);
 		skse.RequestActivePlayerEffects(effectDataArray);
 
@@ -249,7 +183,6 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 			effectDataArray.sortOn("elapsed", Array.DESCENDING | Array.NUMERIC);
 			_sortFlag = false;
 		}
-		//*/
 
 		var effectData: Object;
 		var effectClip: MovieClip;
@@ -312,8 +245,10 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 										effectMoveDuration: EFFECT_MOVE_DURATION,
 										hGrowDirection: _hGrowDirection,
 										vGrowDirection: _vGrowDirection,
-										growAxis: _growAxis}; //String
-			effectsGroup = attachMovie("ActiveEffectsGroup", "effectsGroup" + newGroupIdx, getNextHighestDepth(), initObject);
+										orientation: _orientation};
+										
+			// Name needs to be unique so append getNextHighestDepth() to the name
+			effectsGroup = attachMovie("ActiveEffectsGroup", "effectsGroup" + getNextHighestDepth(), getNextHighestDepth(), initObject);
 			_effectsGroups.push(effectsGroup);
 
 			freeEffectsGroup = effectsGroup;
@@ -322,7 +257,7 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 		return freeEffectsGroup;
 	}
 
-	private function invalidateEffects(a_invalidateSize: Boolean): Void
+	private function invalidateEffects(): Void
 	{
 		clearInterval(_intervalId);
 		_sortFlag = true;
@@ -333,84 +268,10 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 			effectsGroup.removeMovieClip();
 		}
 
-		if (a_invalidateSize)
-			invalidateSize();
-
 		_effectsHash = new Object();
 		_effectsGroups = new Array();
 
-		// Redraw
-		onIntervalUpdate();
-
-		// Logic here to check if in the right HUD Mode, avoid unnecessary 
+		// Logic here to check if in the right HUD Mode, avoid unnecessary updates
 		_intervalId = setInterval(this, "onIntervalUpdate", updateInterval);
 	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-	/*// TEST: functions
-	private function testEffectSize()
-	{
-		setEffectSize((_effectBaseSize == 32) ? (48): (_effectBaseSize == 48) ? 64 : 32);
-	}
-
-	private function timeout()
-	{
-		effectDataArray = [{elapsed: 5, magicType: 4294967295, duration: 7, subType: 22, id: 567786304, actorValue: 107, effectFlags: 2099458, archetype: 34},
-							{elapsed: 3.1780076026917, magicType: 4294967295, duration: 60, subType: 4294967295, id: 596614304, actorValue: 135, effectFlags: 2099202, archetype: 34}//, 
-							//{elapsed: 3.1780076026917, magicType: 4294967295, duration:50, subType: 4294967295, id: 596613744, actorValue: 17, effectFlags: 2099202, archetype: 34}, 
-							//{elapsed: 3.1780076026917, magicType: 4294967295, duration: 9, subType: 4294967295, id: 596613856, actorValue: 142, effectFlags: 2099202, archetype: 34}, 
-							//{elapsed: 3.1780076026917, magicType: 4294967295, duration: 40, subType: 4294967295, id: 596613632, actorValue: 142, effectFlags: 2099202, archetype: 34}, // <-- remove
-							//{elapsed: 3000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 596613296, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							//{elapsed: 3000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 5966132999, actorValue: 54, effectFlags: 4201474, archetype: 11}
-							];
-		onIntervalUpdate();
-	}
-
-	private function timeout2()
-	{
-		effectDataArray = [//{elapsed: 5, magicType: 4294967295, duration: 7, subType: 22, id: 567786304, actorValue: 107, effectFlags: 2099458, archetype: 34},
-							{elapsed: 3.1780076026917, magicType: 4294967295, duration: 60, subType: 4294967295, id: 596614304, actorValue: 135, effectFlags: 2099202, archetype: 34}, 
-							//{elapsed: 3.1780076026917, magicType: 4294967295, duration:50, subType: 4294967295, id: 596613744, actorValue: 17, effectFlags: 2099202, archetype: 34}, 
-							//{elapsed: 3.1780076026917, magicType: 4294967295, duration: 9, subType: 4294967295, id: 596613856, actorValue: 142, effectFlags: 2099202, archetype: 34}, 
-							//{elapsed: 3.1780076026917, magicType: 4294967295, duration: 40, subType: 4294967295, id: 596613632, actorValue: 142, effectFlags: 2099202, archetype: 34}, // <-- remove
-							//{elapsed: 3000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 596613296, actorValue: 54, effectFlags: 4201474, archetype: 11},
-							{elapsed: 3000, magicType: 4294967295, duration: 3001, subType: 4294967295, id: 5966132999, actorValue: 54, effectFlags: 4201474, archetype: 11}
-							];
-
-		onIntervalUpdate();
-	}
-	//*/
 }
