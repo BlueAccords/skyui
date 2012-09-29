@@ -25,7 +25,7 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	private var _intervalId: Number;
 	
 	// TEST CODE
-	public var _tempList: Array;
+	//public var _tempList: Array;
 
 	public function ActorPanel()
 	{
@@ -38,7 +38,7 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 		panelList.maxEntries = 5;
 		panelList.paddingBottom = 10;
 		_actorList = new Array();
-		_tempList = new Array(); // TEST CODE
+		//_tempList = new Array(); // TEST CODE
 	}
 	
 	// TEST CODE
@@ -48,7 +48,7 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 		panelList.addEventListener("startFadeOut", this, "onFadeOut");
 		panelList.addEventListener("updateBackground", this, "onUpdateBackground");
 		
-		var actor = {actorBase: {fullName: "Jack"}, formType: 1, formId: 1, actorValues: [{base: 0, current: 0, maximum: 0},
+		/*var actor = {actorBase: {fullName: "Jack"}, formType: 1, formId: 1, actorValues: [{base: 0, current: 0, maximum: 0},
 												  {base: 10, current: 1, maximum: 0},
 												  {base: 10, current: 2, maximum: 0},
 												  {base: 10, current: 3, maximum: 0},
@@ -167,7 +167,7 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 		
 
 		setInterval(this, "timeoutChange", 1000);
-		//setInterval(this, "timeoutRemove", 10000);
+		//setInterval(this, "timeoutRemove", 10000);*/
 	}
 	
 	public function onUpdateInterval()
@@ -175,13 +175,13 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 		var totalActors = _actorList.length;
 		for(var i = 0; i < totalActors; i++) {
 			// Request new values
-			//var actorValues = new Array();
-			var actorValues = _tempList[i];// TEST CODE
-			/*skse.RequestActorValues(_actorList[i].formId, 
+			var actorValues = new Array();
+			//var actorValues = _tempList[i];// TEST CODE
+			skse.RequestActorValues(_actorList[i].formId, 
 									[PanelDefines.ACTORVALUE_HEALTH, 
 									 PanelDefines.ACTORVALUE_MAGICKA,
 									 PanelDefines.ACTORVALUE_STAMINA],
-									actorValues);*/
+									actorValues);
 			
 			// Get the old values
 			var oldValues = [_actorList[i].actorValues[PanelDefines.ACTORVALUE_HEALTH],
@@ -228,13 +228,13 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	}
 	
 	// TEST CODE
-	private function timeoutChange()
+	/*private function timeoutChange()
 	{
 		var index: Number = (_actorList.length * Math.random())|0;
 		_tempList[index][0].current = (100 * Math.random())|0;
 		_tempList[index][1].current = (100 * Math.random())|0;
 		_tempList[index][2].current = (100 * Math.random())|0;
-	}
+	}*/
 	
 	public function onFadeIn()
 	{
@@ -309,7 +309,7 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	}
 
 	/* PRIVATE FUNCTIONS */
-	function copyObject(obj)
+	/*function copyObject(obj)
 	{
 	   var i;
 	   var o;
@@ -329,6 +329,6 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	   }
 	
 	   return(o);
-	}
+	}*/
 }
 
