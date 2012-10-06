@@ -12,7 +12,7 @@ string[]	_cornerValues
 
 string[]	_orientations
 
-; OIDs (T:Text B:Toggle S:Slider M:Menu, C:Color)
+; OIDs (T:Text B:Toggle S:Slider M:Menu, C:Color, K:Key)
 int			_itemcardAlignOID_T
 int			_itemcardXOffsetOID_S
 int			_itemcardYOffsetOID_S
@@ -30,6 +30,10 @@ int			_AEOrientationOID_T
 int			_MXTestColorOID_C
 
 int			_itemlistFontSizeOID_T
+
+int			_hotkey1OID_K
+int			_hotkey2OID_K
+int			_hotkey3OID_K
 
 ; State
 int			_itemcardAlignIdx		= 2
@@ -154,7 +158,6 @@ endFunction
 ; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnPageReset(string a_page)
-	{Called when a new page is selected, including the initial empty page}
 
 	; Load custom .swf for animated logo
 	if (a_page == "")
@@ -170,6 +173,7 @@ event OnPageReset(string a_page)
 
 		AddHeaderOption("Item Card")
 		_itemcardAlignOID_T		= AddTextOption("Align", _alignments[_itemcardAlignIdx])
+		SetOptionFlags(_itemcardAlignOID_T, OPTION_FLAG_DISABLED)
 		_itemcardXOffsetOID_S	= AddSliderOption("Horizontal Offset", _itemcardXOffset)
 		_itemcardYOffsetOID_S	= AddSliderOption("Vertical Offset", _itemcardYOffset)
 
@@ -184,6 +188,10 @@ event OnPageReset(string a_page)
 
 		AddHeaderOption("Item List")
 		_itemlistFontSizeOID_T	= AddTextOption("Font Size", _sizes[_itemlistFontSizeIdx])
+
+		_hotkey1OID_K = AddKeyMapOption("Hotkey 1", Input.GetMappedKey("Jump"))
+		_hotkey2OID_K = AddKeyMapOption("Hotkey 2", Input.GetMappedKey("Jump"))
+		_hotkey3OID_K = AddKeyMapOption("Hotkey 3", Input.GetMappedKey("Jump"))
 
 	; -------------------------------------------------------
 	elseIf (a_page == "Widgets")
@@ -205,12 +213,28 @@ event OnPageReset(string a_page)
 	endIf
 endEvent
 
+; -------------------------------------------------------------------------------------------------
+; @implements SKI_ConfigBase
+; @interface
+event OnOptionKeyMapChange(int a_option, int a_keyCode)
+	string page = CurrentPage
+
+	; -------------------------------------------------------
+	if (page == "General")
+		if (a_option == _hotkey1OID_K)
+			SetKeyMapOptionValue(a_option, a_keyCode)
+		elseIf (a_option == _hotkey2OID_K)
+			SetKeyMapOptionValue(a_option, a_keyCode)
+		elseIf (a_option == _hotkey3OID_K)
+			SetKeyMapOptionValue(a_option, a_keyCode)
+		endIf
+	endIf
+endEvent
+
 
 ; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnOptionSelect(int a_option)
-	{Called when the user selects a non-dialog option}
-
 	string page = CurrentPage
 	
 	; -------------------------------------------------------
@@ -288,8 +312,6 @@ endEvent
 ; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnOptionSliderOpen(int a_option)
-	{Called when the user selects a slider option}
-
 	string page = CurrentPage
 
 	; -------------------------------------------------------
@@ -297,33 +319,28 @@ event OnOptionSliderOpen(int a_option)
 		if (a_option == _itemcardXOffsetOID_S)
 			SetSliderDialogStartValue(_itemcardXOffset)
 			SetSliderDialogDefaultValue(0)
-			SetSliderDialogMinValue(-1000)
-			SetSliderDialogMaxValue(1000)
+			SetSliderDialogRange(-1000, 1000)
 			SetSliderDialogInterval(1)
 		elseIf (a_option == _itemcardYOffsetOID_S)
 			SetSliderDialogStartValue(_itemcardYOffset)
 			SetSliderDialogDefaultValue(0)
-			SetSliderDialogMinValue(-1000)
-			SetSliderDialogMaxValue(1000)
+			SetSliderDialogRange(-1000, 1000)
 			SetSliderDialogInterval(1)
 
 		elseIf (a_option == _3DItemXOffsetOID_S)
 			SetSliderDialogStartValue(_3DItemXOffset)
 			SetSliderDialogDefaultValue(0)
-			SetSliderDialogMinValue(-128)
-			SetSliderDialogMaxValue(128)
+			SetSliderDialogRange(-128, 128)
 			SetSliderDialogInterval(1)
 		elseIf (a_option == _3DItemYOffsetOID_S)
 			SetSliderDialogStartValue(_3DItemYOffset)
 			SetSliderDialogDefaultValue(0)
-			SetSliderDialogMinValue(-128)
-			SetSliderDialogMaxValue(128)
+			SetSliderDialogRange(-128, 128)
 			SetSliderDialogInterval(1)
 		elseIf (a_option == _3DItemScaleOID_S)
 			SetSliderDialogStartValue(_3DItemScale)
 			SetSliderDialogDefaultValue(1.5)
-			SetSliderDialogMinValue(0.5)
-			SetSliderDialogMaxValue(5)
+			SetSliderDialogRange(0.5, 5)
 			SetSliderDialogInterval(0.1)
 		endIf
 
@@ -332,20 +349,17 @@ event OnOptionSliderOpen(int a_option)
 		if (a_option == _AEGroupEffectCountOID_S)
 			SetSliderDialogStartValue(_AEGroupEffectCount)
 			SetSliderDialogDefaultValue(8)
-			SetSliderDialogMinValue(1)
-			SetSliderDialogMaxValue(16)
+			SetSliderDialogRange(1, 16)
 			SetSliderDialogInterval(1)
 		elseIf (a_option == _AEOffsetXOID_S)
 			SetSliderDialogStartValue(_AEOffsetX)
 			SetSliderDialogDefaultValue(0)
-			SetSliderDialogMinValue(-1280)
-			SetSliderDialogMaxValue(1280)
+			SetSliderDialogRange(-1280, 1280)
 			SetSliderDialogInterval(0.5)
 		elseIf (a_option == _AEOffsetYOID_S)
 			SetSliderDialogStartValue(_AEOffsetY)
 			SetSliderDialogDefaultValue(0)
-			SetSliderDialogMinValue(-720)
-			SetSliderDialogMaxValue(720)
+			SetSliderDialogRange(-720, 720)
 			SetSliderDialogInterval(0.5)
 		endIf
 	endIf
@@ -354,8 +368,6 @@ endEvent
 ; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnOptionSliderAccept(int a_option, float a_value)
-	{Called when the user accepts a new slider value}
-
 	string page = CurrentPage
 
 	; -------------------------------------------------------
@@ -413,8 +425,6 @@ endEvent
 ; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnOptionMenuOpen(int a_option)
-	{Called when the user selects a menu option}
-
 	string page = CurrentPage
 
 	; -------------------------------------------------------
@@ -432,8 +442,6 @@ endEvent
 
 ; @implements SKI_ConfigBase
 event OnOptionMenuAccept(int a_option, int a_index)
-	{Called when the user accepts a new menu entry}
-
 	string page = CurrentPage
 
 	; -------------------------------------------------------
@@ -453,21 +461,19 @@ endEvent
 
 ; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
-event OnColorMenuOpen(int a_option)
-	{Called when the user selects a color option}
+event OnOptionColorOpen(int a_option)
 	string page = CurrentPage
 
 	if (page == "Widgets")
 		if (a_option == _MXTestColorOID_C)
-			SetColorDialogCurrentColor(_MXTestColor)
+			SetColorDialogStartColor(_MXTestColor)
 			SetColorDialogDefaultColor(0x162274)
 		endIf
 	endIf
 endEvent
 
 ; @implements SKI_ConfigBase
-event OnColorMenuAccept(int a_option, int a_color)
-	{Called when the user selects a new color}
+event OnOptionColorAccept(int a_option, int a_color)
 	string page = CurrentPage
 
 	if (page == "Widgets")
@@ -481,8 +487,6 @@ endEvent
 ; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
 event OnOptionHighlight(int a_option)
-	{Called when the user highlights an option}
-
 	string page = CurrentPage
 	
 	; -------------------------------------------------------

@@ -7,7 +7,11 @@ import Shared.GlobalFunc;
 import skyui.components.list.BasicEnumeration;
 import skyui.components.list.ButtonEntryFormatter;
 import skyui.components.list.ScrollingList;
+import skyui.components.ButtonPanel;
 import skyui.util.DialogManager;
+
+import com.greensock.TweenLite;
+import com.greensock.easing.Linear;
 
 
 class ConfigPanel extends MovieClip
@@ -24,8 +28,14 @@ class ConfigPanel extends MovieClip
 	
   /* PRIVATE VARIABLES */
   
+	private var _platform: Number;
+  
 	// Quest_Journal_mc
 	private var _parentMenu: MovieClip;
+	private var _buttonPanelL: ButtonPanel;
+	private var _buttonPanelR: ButtonPanel;
+	
+	private var _bottomBarStartY: Number;
 	
 	private var _modListPanel: ModListPanel;
 	private var _modList: ScrollingList;
@@ -41,7 +51,7 @@ class ConfigPanel extends MovieClip
 	private var _state: Number;
 	private var _bOptionsFocused: Boolean = false;
 	
-	private var _optionTypeBuffer: Array;
+	private var _optionFlagsBuffer: Array;
 	private var _optionTextBuffer: Array;
 	private var _optionStrValueBuffer: Array;
 	private var _optionNumValueBuffer: Array;
@@ -57,6 +67,17 @@ class ConfigPanel extends MovieClip
 	
 	private var	_sliderDialogFormatString: String = "";
 	
+	private var _currentRemapOption: Number = -1;
+	private var _bRemapMode = false;
+	private var _remapDelayID: Number;
+	
+	private var _selectControls: Array;
+	private var _cancelPCControls: Array;
+	private var _cancelGPControls: Array;
+	private var _exitPCControls: Array;
+	private var _exitGPControls: Array;
+	private var _xButtonControls: Array;
+	
 	
   /* STAGE ELEMENTS */
 
@@ -64,11 +85,14 @@ class ConfigPanel extends MovieClip
 	
 	public var titlebar: MovieClip;
 	
+	public var bottomBar: MovieClip;
+	
 	
   /* INITIALIATZION */
 	
 	function ConfigPanel()
 	{
+		// A bit hackish but w/e
 		_parentMenu = _root.QuestJournalFader.Menu_mc;
 
 		_modListPanel = contentHolder.modListPanel;
@@ -76,9 +100,12 @@ class ConfigPanel extends MovieClip
 		_subList = _modListPanel.subListFader.list;
 		_optionsList = contentHolder.optionsPanel.optionsList;
 		
+		_buttonPanelL = bottomBar.buttonPanelL;
+		_buttonPanelR = bottomBar.buttonPanelR;
+		
 		_state = READY;
 		
-		_optionTypeBuffer = [];
+		_optionFlagsBuffer = [];
 		_optionTextBuffer = [];
 		_optionStrValueBuffer = [];
 		_optionNumValueBuffer = [];
@@ -86,14 +113,19 @@ class ConfigPanel extends MovieClip
 		_menuDialogOptions = [];
 
 		contentHolder.infoPanel.textField.verticalAutoSize = "top";
+		
+		_selectControls = [{name: "Activate", context: skseDefines.kContext_Gameplay}];
+		_cancelPCControls = [{keyCode: 15}];
+		_cancelGPControls = [{name: "Cancel", context: skseDefines.kContext_MenuMode}];
+		_exitPCControls = [{keyCode: 1}];
+		_exitGPControls = [{name: "Cancel", context: skseDefines.kContext_MenuMode}];
+		_xButtonControls = [{name: "XButton", context: skseDefines.kContext_ItemMenu}];
 	}
 	
 	// @override MovieClip
 	private function onLoad()
 	{
 		super.onLoad();
-
-		_global.skyui.platform = 0;
 
 		_modList.listEnumeration = new BasicEnumeration(_modList.entryList);
 		_subList.listEnumeration = new BasicEnumeration(_subList.entryList);
@@ -110,7 +142,34 @@ class ConfigPanel extends MovieClip
 		_modListPanel.addEventListener("subListExit", this, "onSubListExit");
 
 		_optionsList._visible = false;
+	}
+	
+	public function initExtensions(): Void
+	{
+		bottomBar.Lock("B");
+		_bottomBarStartY = bottomBar._y;
+		
 		showWelcomeScreen();
+	}
+	
+	function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
+	{
+		_platform = a_platform;
+		
+		_buttonPanelL.setPlatform(a_platform, a_bPS3Switch);
+		_buttonPanelR.setPlatform(a_platform, a_bPS3Switch);
+
+		_buttonPanelR.isReversed = true;
+
+		_buttonPanelL.clearButtons();
+		_buttonPanelL.addButton({text: "$Select", controls: _selectControls});
+		_buttonPanelL.addButton({text: "$Default", controls: _xButtonControls});
+		_buttonPanelL.positionButtons();
+
+		_buttonPanelR.clearButtons();
+		_buttonPanelR.addButton({text: "$Exit", controls: _exitPCControls});
+		_buttonPanelR.addButton({text: "$Back", controls: _cancelPCControls});
+		_buttonPanelR.positionButtons();
 	}
 	
 	public function onModListEnter(event: Object): Void
@@ -135,6 +194,9 @@ class ConfigPanel extends MovieClip
 	
 	
   /* PAPYRUS INTERFACE */
+  
+	// Holds last selected key
+	public var selectedKeyCode = -1;
   
   	public function unlock(): Void
 	{
@@ -208,10 +270,10 @@ class ConfigPanel extends MovieClip
 			applyInfoText();
 	}
 	
-	public function setOptionTypeBuffer(/* values */): Void
+	public function setOptionFlagsBuffer(/* values */): Void
 	{
 		for (var i = 0; i < arguments.length; i++)
-			_optionTypeBuffer[i] = arguments[i];
+			_optionFlagsBuffer[i] = arguments[i];
 	}
 	
 	public function setOptionTextBuffer(/* values */): Void
@@ -222,9 +284,8 @@ class ConfigPanel extends MovieClip
 	
 	public function setOptionStrValueBuffer(/* values */): Void
 	{
-		for (var i = 0; i < arguments.length; i++) {
+		for (var i = 0; i < arguments.length; i++)
 			_optionStrValueBuffer[i] = arguments[i] === "None" ? null : arguments[i];
-		}
 	}
 	
 	public function setOptionNumValueBuffer(/* values */): Void
@@ -238,7 +299,8 @@ class ConfigPanel extends MovieClip
 		_state = DIALOG;
 		
 		var initObj = {
-			_x: 562, _y: 265,
+			_x: 719, _y: 265,
+			platform: _platform,
 			titleText: _dialogTitleText,
 			sliderValue: a_value,
 			sliderDefault: a_default,
@@ -251,7 +313,7 @@ class ConfigPanel extends MovieClip
 		_optionChangeDialog = DialogManager.open(this, "OptionSliderDialog", initObj);
 		_optionChangeDialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
 		_optionChangeDialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
-		gotoAndPlay("dimOut");
+		dimOut();
 	}
 	
 	public function setMenuDialogOptions(/* values */): Void
@@ -265,7 +327,8 @@ class ConfigPanel extends MovieClip
 		_state = DIALOG;
 		
 		var initObj = {
-			_x: 562, _y: 265,
+			_x: 719, _y: 265,
+			platform: _platform,
 			titleText: _dialogTitleText,
 			menuOptions: _menuDialogOptions,
 			menuStartIndex: a_startIndex,
@@ -275,7 +338,7 @@ class ConfigPanel extends MovieClip
 		_optionChangeDialog = DialogManager.open(this, "OptionMenuDialog", initObj);
 		_optionChangeDialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
 		_optionChangeDialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
-		gotoAndPlay("dimOut");
+		dimOut();
 	}
 
 	public function setColorDialogParams(a_currentColor: Number, a_defaultColor: Number): Void
@@ -283,7 +346,8 @@ class ConfigPanel extends MovieClip
 		_state = DIALOG;
 		
 		var initObj = {
-			_x: 562, _y: 265,
+			_x: 719, _y: 265,
+			platform: _platform,
 			titleText: _dialogTitleText,
 			currentColor: a_currentColor,
 			defaultColor: a_defaultColor
@@ -292,17 +356,22 @@ class ConfigPanel extends MovieClip
 		_optionChangeDialog = DialogManager.open(this, "OptionColorDialog", initObj);
 		_optionChangeDialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
 		_optionChangeDialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
-		gotoAndPlay("dimOut");
+		dimOut();
 	}
 	
 	public function flushOptionBuffers(a_optionCount: Number): Void
 	{
 		_optionsList.clearList();
 		for (var i=0; i<a_optionCount; i++) {
-			_optionsList.entryList.push({optionType: _optionTypeBuffer[i], 
+			// Both option type and flags are passed in the flags buffer
+			var optionType = _optionFlagsBuffer[i] & 0xFF;
+			var flags = (_optionFlagsBuffer[i] >>> 8) & 0xFF;
+			
+			_optionsList.entryList.push({optionType: optionType, 
 										 text: _optionTextBuffer[i],
  										 strValue: _optionStrValueBuffer[i],
-										 numValue: _optionNumValueBuffer[i]});
+										 numValue: _optionNumValueBuffer[i],
+										 flags: flags});
 		}
 		
 		// Pad uneven option count with empty option keyboard selection area is symmetrical
@@ -312,7 +381,7 @@ class ConfigPanel extends MovieClip
 		_optionsList.InvalidateData();
 		_optionsList.selectedIndex = -1;
 		
-		_optionTypeBuffer.splice(0);
+		_optionFlagsBuffer.splice(0);
 		_optionTextBuffer.splice(0);
 		_optionStrValueBuffer.splice(0);
 		_optionNumValueBuffer.splice(0);
@@ -328,6 +397,7 @@ class ConfigPanel extends MovieClip
 		setOptionListFocus(_optionsList._visible && _optionsList.entryList.length > 0);
 	}
 	
+	// Direct access to option data
 	public var optionCursorIndex = -1;
 	
 	public function get optionCursor(): Object
@@ -340,6 +410,13 @@ class ConfigPanel extends MovieClip
 		_optionsList.InvalidateData();
 	}
 	
+	public function setOptionFlags(/* values */): Void
+	{
+		var index = arguments[0];
+		var flags = arguments[1] >>> 8;
+		_optionsList.entryList[index].flags = flags;
+	}
+	
 	
   /* PUBLIC FUNCTIONS */
 	
@@ -349,6 +426,7 @@ class ConfigPanel extends MovieClip
 		_parent.gotoAndPlay("fadeIn");
 		
 		setOptionListFocus(false);
+		showWelcomeScreen();
 	}
 	
 	public function endPage(): Void
@@ -379,7 +457,7 @@ class ConfigPanel extends MovieClip
 	
 	public function onOptionChangeDialogClosing(event: Object): Void
 	{
-		gotoAndPlay("dimIn");
+		dimIn();
 	}
 	
 	
@@ -396,6 +474,9 @@ class ConfigPanel extends MovieClip
 		
 		if (pathToFocus != undefined && pathToFocus.length > 0)
 			bHandledInput = pathToFocus[0].handleInput(details, pathToFocus.slice(1));
+			
+		if (_bRemapMode)
+			return true;
 	
 		if (!bHandledInput && GlobalFunc.IsKeyPressed(details, false)) {
 			if (details.navEquivalent == NavigationCode.TAB) {
@@ -483,7 +564,37 @@ class ConfigPanel extends MovieClip
 				_dialogTitleText = e.text;
 				skse.SendModEvent("SKICP_colorSelected", null, a_index);
 				break;
+				
+			case OptionsListEntry.OPTION_KEYMAP:
+				if (!_bRemapMode) {
+					_optionsList.disableSelection = true;
+					_optionsList.disableInput = true;
+					_bRemapMode = true;
+					_currentRemapOption = a_index;
+					skse.StartRemapMode(this);
+				}
+				break;
 		}
+	}
+	
+	// @SKSE
+	public function EndRemapMode(a_keyCode: Number): Void
+	{
+		selectedKeyCode = a_keyCode;
+		_state = WAIT_FOR_SELECT;
+		skse.SendModEvent("SKICP_keymapChanged", null, _currentRemapOption);
+		_remapDelayID = setInterval(this, "clearRemap", 200);
+	}
+	
+	public function clearRemap(): Void
+	{
+		clearInterval(_remapDelayID);
+		delete _remapDelayID;
+		
+		_optionsList.disableSelection = false;
+		_optionsList.disableInput = false;
+		_bRemapMode = false;
+		_currentRemapOption = -1;
 	}
 	
 	private function initHighlightOption(a_index: Number): Void
@@ -538,6 +649,18 @@ class ConfigPanel extends MovieClip
 	{
 		_bOptionsFocused = a_bFocused;
 		FocusHandler.instance.setFocus(a_bFocused ? _optionsList : _modListPanel, 0);
+	}
+	
+	private function dimOut(): Void
+	{
+		TweenLite.to(bottomBar, 0.5, {_alpha: 0, _y: _bottomBarStartY+50, overwrite: 1, easing: Linear.easeNone});
+		TweenLite.to(contentHolder, 0.5, {_alpha: 75, overwrite: 1, easing: Linear.easeNone});
+	}
+	
+	private function dimIn(): Void
+	{
+		TweenLite.to(bottomBar, 0.5, {_alpha: 100, _y: _bottomBarStartY, overwrite: 1, easing: Linear.easeNone});
+		TweenLite.to(contentHolder, 0.5, {_alpha: 100, overwrite: 1, easing: Linear.easeNone});
 	}
 	
 	private function showWelcomeScreen(): Void
