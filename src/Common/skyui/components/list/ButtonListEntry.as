@@ -1,7 +1,6 @@
 ﻿import skyui.components.list.BasicList;
 import skyui.components.list.ListState;
 import skyui.components.list.BasicListEntry;
-import skyui.components.list.ListState;
 
 /*
  *  A generic entry.

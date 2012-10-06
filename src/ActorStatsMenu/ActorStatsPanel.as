@@ -52,7 +52,7 @@ class ActorStatsPanel extends MovieClip
 		
 		_categoryListIconArt = ["inv_all", "mag_powers", "inv_armor", "inv_weapons", "inv_ingredients", "mag_all"];
 		_categoryList.iconArt = _categoryListIconArt;
-		//_categoryList.iconSource = "skyui/skyui_icons_psychosteve.swf";
+		//_categoryList.listState.iconSource = "skyui/skyui_icons_psychosteve.swf";
 		
 		ConfigManager.registerLoadCallback(this, "onConfigLoad");
 	}
@@ -89,7 +89,7 @@ class ActorStatsPanel extends MovieClip
 		_subList.InvalidateData();
 		
 		//setActorNames("Sub 1", "Sub 2", "Sub 3", "Sub 4", "Sub 5", "Sub 6", "Sub 7", "Sub 8", "Sub 9", "Sub 10", "Sub 11");
-		setActorStatsPanelForm({actorBase: {fullName: "Jack"}, formType: 1, actorValues: [{base: 0, current: 0, maximum: 0},
+		/*setActorStatsPanelForm({actorBase: {fullName: "Jack"}, formType: 1, actorValues: [{base: 0, current: 0, maximum: 0},
 												  {base: 10, current: 1, maximum: 0},
 												  {base: 10, current: 2, maximum: 0},
 												  {base: 10, current: 3, maximum: 0},
@@ -120,7 +120,7 @@ class ActorStatsPanel extends MovieClip
 												  {base: 100, current: 28, maximum: 550},
 												  {base: 100, current: 29, maximum: 560},
 												  {base: 100, current: 30, maximum: 570},
-												  {base: 100, current: 31, maximum: 1000}]});
+												  {base: 100, current: 31, maximum: 1000}]});*/
 				
 		addActorValue("$Health", CATEGORY_FLAG_GENERAL, Defines.ACTORVALUE_HEALTH, "pc");
 		addActorValue("$Magicka", CATEGORY_FLAG_GENERAL, Defines.ACTORVALUE_MAGICKA, "pc");
