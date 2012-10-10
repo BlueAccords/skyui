@@ -23,6 +23,7 @@ class CategoryListEntry extends BasicListEntry
 		if (iconArt != undefined) {
 			iconLabel = iconArt;
 			icon.loadMovie(a_state.iconSource);
+			icon._width = icon._height = CategoryList(a_state.list).iconSize;
 		}
 	}
 	

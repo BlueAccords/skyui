@@ -35,6 +35,7 @@ class CategoryList extends BasicList
 	private var _bFastSwitch: Boolean;
 	private var _segmentOffset: Number;
 	private var _segmentLength: Number;
+	private var _selectorY: Number;
 
 
   /* PROPERTIES */
@@ -95,6 +96,7 @@ class CategoryList extends BasicList
 		dividerIndex = -1;
 		_segmentOffset = 0;
 		_segmentLength = 0;
+		_selectorY = selectorCenter._y;
 		
 		if (iconSize == undefined)
 			iconSize = 32;
@@ -120,6 +122,7 @@ class CategoryList extends BasicList
 		}
 		
 		listEnumeration.invalidate();
+
 		calculateSegmentParams();
 		
 		if (_selectedIndex >= listEnumeration.size())
@@ -351,10 +354,10 @@ class CategoryList extends BasicList
 
 		var selectedClip = _entryClipManager.getClip(_selectedIndex - _segmentOffset);
 
-		_targetSelectorPos = selectedClip._x + (selectedClip.background._width - selectorCenter._width) / 2;
+		_targetSelectorPos = selectedClip._x + (selectedClip._width - selectorCenter._width) / 2;
 		
 		selectorCenter._visible = true;
-		selectorCenter._y = selectedClip._y + selectedClip.background._height;
+		selectorCenter._y = selectedClip._y + selectedClip._height;
 		
 		if (selectorLeft != undefined) {
 			selectorLeft._visible = true;
