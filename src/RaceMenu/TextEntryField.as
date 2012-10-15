@@ -8,9 +8,17 @@ class TextEntryField extends MovieClip
 {
 	public var buttonPanel: ButtonPanel;
 	public var TextInputInstance: TextField;
+	
+	private var _acceptButton: MovieClip;
+	private var _cancelButton: MovieClip;
 
-	public var addEventListener: Function;
 	public var dispatchEvent: Function;
+	public var dispatchQueue: Function;
+	public var hasEventListener: Function;
+	public var addEventListener: Function;
+	public var removeEventListener: Function;
+	public var removeAllEventListeners: Function;
+	public var cleanUpEvents: Function;
 
 	public function TextEntryField()
 	{
@@ -46,12 +54,11 @@ class TextEntryField extends MovieClip
 	public function SetupButtons(): Void
 	{
 		buttonPanel.clearButtons();
-		buttonPanel.addButton({text: "$Accept", controls: InputDefines.Enter});
-		buttonPanel.addButton({text: "$Cancel", controls: InputDefines.Escape});
-
-		buttonPanel.buttons[0].addEventListener("click", this, "onAccept");
-		buttonPanel.buttons[1].addEventListener("click", this, "onCancel");
-		buttonPanel.updateButtons(true);
+		_acceptButton = buttonPanel.addButton({text: "$Accept", controls: InputDefines.Enter});
+		_cancelButton = buttonPanel.addButton({text: "$Cancel", controls: InputDefines.Escape});
+		_acceptButton.addEventListener("click", this, "onAccept");
+		_cancelButton.addEventListener("click", this, "onCancel");
+		buttonPanel.updateButtons();
 	}
 
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void

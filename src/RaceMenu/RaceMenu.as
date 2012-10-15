@@ -230,6 +230,11 @@ class RaceMenu extends MovieClip
 		
 		var bHandledInput: Boolean = false;
 		if (GlobalFunc.IsKeyPressed(details)) {
+			if (details.navEquivalent == NavigationCode.TAB) {
+				GameDelegate.call("ConfirmDone", []);
+				return true;
+			}
+			
 			if (details.control == InputDefines.Jump.name) {
 				searchWidget.startInput();
 				return true;
