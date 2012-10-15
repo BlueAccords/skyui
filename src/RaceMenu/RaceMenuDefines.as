@@ -31,4 +31,5 @@ class RaceMenuDefines
 	static var CATEGORY_BROW: Number = 64;
 	static var CATEGORY_MOUTH: Number = 128;
 	static var CATEGORY_HAIR: Number = 256;
+	static var CATEGORY_COLOR: Number = 512;
 }

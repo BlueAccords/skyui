@@ -45,14 +45,23 @@ class SliderListEntry extends BasicListEntry
 				list.onItemRollOver(_parent.itemIndex);
 		}
 		
-		/* Build all the onPress functions for the underlying pieces*/
-
-		trigger.onPress = function()
+		trigger.onRollOut = function()
 		{
 			var list = this._parent._parent;
 			
 			if (_parent.itemIndex != undefined && enabled)
-				list._parent.onItemPress(_parent.itemIndex);
+				list.onItemRollOut(_parent.itemIndex);
+		}
+		
+		/* Build all the onPress functions for the underlying pieces*/
+
+		trigger.onPress = function()
+		{
+			// Four levels up...
+			var list = this._parent._parent;
+			
+			if (_parent.itemIndex != undefined && enabled)
+				list.onItemPress(_parent.itemIndex);
 		}
 		activeIndicator.onPress = trigger.onPress;
 		
