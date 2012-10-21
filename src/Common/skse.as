@@ -15,4 +15,6 @@
 	static function RequestActivePlayerEffects(a_list:Array):Void;
 	static function	ExtendForm(a_formid:Number, a_object:Object, a_extraData:Boolean, a_recursive:Boolean):Void;
 	static function RequestActorValues(a_formid:Number, a_actorValues:Array, a_list:Array):Void;
+	static function GetClipboardData():String;
+	static function SetClipboardData(str:String):Void;
 }

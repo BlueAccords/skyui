@@ -1,4 +1,5 @@
-﻿import skyui.components.list.BasicList;
+﻿import gfx.events.EventDispatcher;
+import skyui.components.list.BasicList;
 import skyui.components.list.BasicListEntry;
 import skyui.components.list.ListState;
 
@@ -15,6 +16,7 @@ class SliderListEntry extends BasicListEntry
 	public static var activeTextColor: Number = 0xffffff;
 	public static var selectedTextColor: Number = 0xffffff;
 	public static var disabledTextColor: Number = 0x4c4c4c;
+	public static var squareFillColor: Number = 0x0000000;
 	private var sliderWait: Number;
 	private var proxyObject: Object;
 	
@@ -26,7 +28,7 @@ class SliderListEntry extends BasicListEntry
 	public var SliderInstance: Slider;
 	public var trigger: MovieClip;
 	public var colorSquare: MovieClip;
-	
+		
 	/* PUBLIC FUNCTIONS */
 	
 	public function SliderListEntry()
@@ -71,8 +73,19 @@ class SliderListEntry extends BasicListEntry
 			var list = this._parent._parent;
 			
 			if (_parent.itemIndex != undefined && enabled)
-				list._parent.onItemColor(_parent.itemIndex);
+				list.onItemPress(_parent.itemIndex);
 		}
+	}
+	
+	public function onLoad()
+	{
+		super.onLoad();
+		SliderInstance.addEventListener("onWidgetLoad", this, "onSliderLoad");
+	}
+	
+	public function onSliderLoad(event: Object)
+	{
+		setSlider(proxyObject);
 	}
 
 	public function setEntry(a_entryObject: Object, a_state: ListState): Void
@@ -124,8 +137,6 @@ class SliderListEntry extends BasicListEntry
 				// Yeah this is stupid, but its the only way to tell if the slider loaded
 				if(!SliderInstance.initialized) {
 					proxyObject = a_entryObject;
-					clearInterval(sliderWait);
-					sliderWait = setInterval(this, "waitForSlider", 1);
 				} else {
 					setSlider(a_entryObject);
 				}
@@ -133,28 +144,27 @@ class SliderListEntry extends BasicListEntry
 				valueField._visible = true;
 				valueField.SetText(((a_entryObject.position * 100)|0)/100);
 				
-				if(a_entryObject.callbackName == "ChangeTintingMask" || a_entryObject.callbackName == "ChangeMaskColor") {
-					colorSquare._visible = true;
-					colorSquare.disabled = false;
+				if(a_entryObject.callbackName == "ChangeTintingMask" || a_entryObject.callbackName == "ChangeMaskColor" || a_entryObject.callbackName == "ChangeHairColorPreset") {
+					var colorOverlay: Color = new Color(colorSquare.fill);
+					colorOverlay.setRGB(a_entryObject.fillColor);
+					colorSquare.enabled = colorSquare._visible = true;
 				} else {
-					colorSquare._visible = false;
-					colorSquare.disabled = true;
+					colorSquare.enabled = colorSquare._visible = false;
 				}
 			}
 			break;
 		}
 	}
-	
-	private function waitForSlider()
+
+	public function updatePosition(a_position: Number): Void
 	{
-		if(SliderInstance.initialized) {
-			setSlider(proxyObject);
-			clearInterval(sliderWait);
-		}
+		SliderInstance.position = a_position;
+		SliderInstance.changedCallback();
 	}
 	
 	private function setSlider(a_entryObject: Object): Void
 	{
+		SliderInstance.enabled = a_entryObject.enabled;
 		SliderInstance.minimum = a_entryObject.sliderMin;
 		SliderInstance.maximum = a_entryObject.sliderMax;
 		SliderInstance.snapInterval = a_entryObject.interval;
@@ -165,7 +175,11 @@ class SliderListEntry extends BasicListEntry
 		
 		SliderInstance.changedCallback = function()
 		{
-			GameDelegate.call(this.callbackName, [this.position, this.sliderID]);
+			if(this.sliderID < 1000) {
+				GameDelegate.call(this.callbackName, [this.position, this.sliderID]);
+			} else {
+				skse.SendModEvent("RSM_OnSliderChange", this.callbackName, this.position);
+			}
 			this.entryObject.position = this.position;
 			_parent.valueField.SetText(((this.position * 100)|0)/100);
 		};

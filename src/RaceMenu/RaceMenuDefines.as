@@ -1,8 +1,8 @@
-class RaceMenuDefines
+﻿class RaceMenuDefines
 {
-	static var ENTRY_TYPE_CAT = 0;
-	static var ENTRY_TYPE_RACE = 1;
-	static var ENTRY_TYPE_SLIDER = 2;
+	static var ENTRY_TYPE_CAT: Number = 0;
+	static var ENTRY_TYPE_RACE: Number = 1;
+	static var ENTRY_TYPE_SLIDER: Number = 2;
 	
 	static var CAT_TEXT: Number = 0;
 	static var CAT_FLAG: Number = 1;

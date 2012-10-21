@@ -54,11 +54,11 @@ class TextEntryField extends MovieClip
 	public function SetupButtons(): Void
 	{
 		buttonPanel.clearButtons();
-		_acceptButton = buttonPanel.addButton({text: "$Accept", controls: InputDefines.Enter});
-		_cancelButton = buttonPanel.addButton({text: "$Cancel", controls: InputDefines.Escape});
+		_acceptButton = buttonPanel.addButton({text: "$Accept", controls: InputDefines.Accept});
+		_cancelButton = buttonPanel.addButton({text: "$Cancel", controls: InputDefines.Cancel});
 		_acceptButton.addEventListener("click", this, "onAccept");
 		_cancelButton.addEventListener("click", this, "onCancel");
-		buttonPanel.updateButtons();
+		buttonPanel.updateButtons(true);
 	}
 
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void

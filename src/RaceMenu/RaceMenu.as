@@ -16,6 +16,7 @@ import skyui.filter.ItemNameFilter;
 
 import RaceMenuDefines;
 import TextEntryField;
+import ColorField;
 
 class RaceMenu extends MovieClip
 {
@@ -24,22 +25,29 @@ class RaceMenu extends MovieClip
 	private var _typeFilter: ItemTypeFilter;
 	private var _nameFilter: ItemNameFilter;
 	private var _playerObject: Object;
+	private var _acceptControl: Object;
+	private var updateInterval: Number;
 	
 	/* PUBLIC VARIABLES */
 	public var bLimitedMenu: Boolean;
-	public var bShowTextEntry: Boolean = false;
 	public var playerZoom: Boolean = true;
+	public var customSliders: Array;
+	
+	public var savedPresets: Array;
+	public var savedMorphs: Array;
 	
 	/* STAGE ELEMENTS */
 	public var racePanel: MovieClip;
 	public var itemList: ScrollingList;
 	public var categoryList: CategoryList;
 	public var categoryLabel: TextField;
+	public var raceDescription: TextField;
 	public var searchWidget: SearchWidget;
 	public var bottomBar: BottomBar;
 	public var navPanel: ButtonPanel;
 	public var textEntry: TextEntryField;
 	public var loadingIcon: MovieClip;
+	public var colorField: ColorField;
 	
 	/* GFx Dispatcher Functions */
 	public var dispatchEvent: Function;
@@ -62,9 +70,16 @@ class RaceMenu extends MovieClip
 		searchWidget = racePanel.searchWidget;
 		navPanel = bottomBar.buttonPanel;
 		
+		customSliders = new Array();
+		savedPresets = new Array();
+		savedMorphs = new Array();
+		
 		loadingIcon._visible = false;
 		textEntry._visible = false;
 		textEntry.enabled = false;
+		
+		ShowRaceDescription(false);
+		ShowColorField(false);
 		
 		GlobalFunc.MaintainTextFormat();
 		GlobalFunc.SetLockFunction();
@@ -111,14 +126,16 @@ class RaceMenu extends MovieClip
 		searchWidget.addEventListener("inputChange", this, "onSearchInputChange");
 		
 		textEntry.addEventListener("nameChange", this, "onNameChange");
+		colorField.addEventListener("setColor", this, "onSetColor");
+		colorField.addEventListener("changeColor", this, "onChangeColor");
 		
 		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette"];
 		categoryList.listState.iconSource = "skyui/racesex_icons.swf";
 		
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 508, savedItemIndex: -1, enabled: true});
-		
+		/*
 		// Test Code
-		/*categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "RACE", flag: RaceMenuDefines.CATEGORY_RACE, savedItemIndex: -1, enabled: true});
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "RACE", flag: RaceMenuDefines.CATEGORY_RACE, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "BODY", flag: RaceMenuDefines.CATEGORY_BODY, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "HEAD", flag: RaceMenuDefines.CATEGORY_HEAD, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "FACE", flag: RaceMenuDefines.CATEGORY_FACE, savedItemIndex: -1, enabled: true});
@@ -196,25 +213,36 @@ class RaceMenu extends MovieClip
 		FocusHandler.instance.setFocus(itemList, 0);
 		
 		// Test Code
-		InitExtensions();
+		//InitExtensions();
+		//SetPlatform(1, false);
 	}
 	
 	public function InitExtensions()
 	{
 		_root.RaceMenuInstance.racePanel.Lock("L");
 		bottomBar["playerInfo"].Lock("R");
+		
+		raceDescription._x = _root.RaceMenuInstance.racePanel._x + _root.RaceMenuInstance.racePanel.width;
+		raceDescription.width = (Stage.visibleRect.x + Stage.visibleRect.width - Stage.safeRect.x) - raceDescription._x;
 	}
 	
 	public function SetPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
 		_platform = a_platform;
-		_global.skyui.a_platform = 0;
-		
 		textEntry.setPlatform(a_platform, a_bPS3Switch);
-		textEntry.SetupButtons();
-		textEntry.TextInputInstance.maxChars = 26;
-		
 		bottomBar.setPlatform(a_platform, a_bPS3Switch);
+		colorField.setPlatform(a_platform, a_bPS3Switch);
+		
+		if(_platform == 0) {
+			_acceptControl = {keyCode: KEY_CODE_DONE};
+		} else {
+			_acceptControl = InputDefines.XButton;
+		}
+		
+		textEntry.TextInputInstance.maxChars = 26;
+		textEntry.SetupButtons();
+		colorField.SetupButtons();
+		
 		var leftEdge = Stage.visibleRect.x + Stage.safeRect.x;
 		var rightEdge = Stage.visibleRect.x + Stage.visibleRect.width - Stage.safeRect.x;
 		bottomBar.positionElements(leftEdge, rightEdge);
@@ -223,17 +251,20 @@ class RaceMenu extends MovieClip
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
+		// Consume input when these windows are open
+		if(colorField._visible) {
+			return colorField.handleInput(details, pathToFocus);
+		} else if(textEntry._visible) {
+			return textEntry.handleInput(details, pathToFocus);
+		}
+		
 		var nextClip = pathToFocus.shift();
 		if (nextClip.handleInput(details, pathToFocus)) {
 			return true;
 		}
-		
+				
 		var bHandledInput: Boolean = false;
 		if (GlobalFunc.IsKeyPressed(details)) {
-			if (details.navEquivalent == NavigationCode.TAB) {
-				GameDelegate.call("ConfirmDone", []);
-				return true;
-			}
 			
 			if (details.control == InputDefines.Jump.name) {
 				searchWidget.startInput();
@@ -243,45 +274,74 @@ class RaceMenu extends MovieClip
 				GameDelegate.call("ZoomPC", [playerZoom]);
 				updateBottomBar();
 				return true;
-			}			
-			if (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT || details.navEquivalent == NavigationCode.GAMEPAD_R1 || details.navEquivalent == NavigationCode.GAMEPAD_L1) {
+			}
+			
+			if (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT) {
 				var SelectedEntry = itemList.listState.selectedEntry;
 				var SelectedSlider = itemList.selectedClip.SliderInstance;
 				if ((details.navEquivalent == NavigationCode.LEFT && SelectedEntry.position > SelectedEntry.sliderMin) || 
-					(details.navEquivalent == NavigationCode.RIGHT && SelectedEntry.position < SelectedEntry.sliderMax) || 
-					(details.navEquivalent == NavigationCode.GAMEPAD_L1 && SelectedEntry.position > SelectedEntry.sliderMin) || 
-					(details.navEquivalent == NavigationCode.GAMEPAD_R1 && SelectedEntry.position < SelectedEntry.sliderMax)) {
+					(details.navEquivalent == NavigationCode.RIGHT && SelectedEntry.position < SelectedEntry.sliderMax)) {
 					bHandledInput = SelectedSlider.handleInput(details, pathToFocus);
 				}
 				itemList.UpdateList();
-			}
-		}
-		
-		if(bHandledInput) {
-			return bHandledInput;
+			} else if(details.navEquivalent === NavigationCode.GAMEPAD_L2) {
+				categoryList.moveSelectionLeft();
+			} else if(details.navEquivalent === NavigationCode.GAMEPAD_R2) {
+				categoryList.moveSelectionRight();
+			}			
 		}
 				
-		return false;
+		return bHandledInput;
 	}
 	
+	/* Component Toggles */
 	public function ShowTextEntry(abShowTextEntry: Boolean): Void
 	{
-		bShowTextEntry = abShowTextEntry;
+		textEntry._visible = textEntry.enabled = abShowTextEntry;
+		if(abShowTextEntry) {
+			ShowColorField(false);
+			categoryList.disableSelection = categoryList.disableInput = true;
+			itemList.disableSelection = itemList.disableInput = true;
+			FocusHandler.instance.setFocus(textEntry, 0);
+		} else {
+			categoryList.disableSelection = categoryList.disableInput = false;
+			itemList.disableSelection = itemList.disableInput = false;
+			FocusHandler.instance.setFocus(itemList, 0);
+		}
 	}
 	
+	// No idea why they have two of these
 	public function ShowTextEntryField(): Void
 	{
-		if (bShowTextEntry) {
+		if (textEntry.enabled) {
 			textEntry.TextInputInstance.text = "";
 			textEntry.TextInputInstance.focused = true;
-			textEntry._visible = true;
-			textEntry.enabled = true;
 			GameDelegate.call("SetAllowTextInput", []);
 			return;
 		}
 		GameDelegate.call("ShowVirtualKeyboard", []);
 	}
 	
+	public function ShowColorField(bShowField: Boolean): Void
+	{
+		colorField._visible = colorField.enabled = bShowField;
+		if(bShowField) {
+			colorField.ResetSlider();
+			categoryList.disableSelection = categoryList.disableInput = true;
+			itemList.disableSelection = itemList.disableInput = true;
+			FocusHandler.instance.setFocus(colorField.colorSelector, 0);
+		} else {
+			categoryList.disableSelection = categoryList.disableInput = false;
+			itemList.disableSelection = itemList.disableInput = false;
+			FocusHandler.instance.setFocus(itemList, 0);
+		}
+	}
+	
+	public function ShowRaceDescription(bShowDescription: Boolean): Void
+	{
+		raceDescription._visible = colorField.enabled = bShowDescription;
+	}
+		
 	public function onNameChange(event: Object): Void
 	{
 		if (event.nameChanged == true) {
@@ -290,8 +350,7 @@ class RaceMenu extends MovieClip
 			GameDelegate.call("ChangeName", []);
 		}
 		
-		textEntry._visible = false;
-		textEntry.enabled = false;
+		ShowTextEntry(false);
 	}
 	
 	public function HideLoadingIcon(): Void
@@ -340,12 +399,13 @@ class RaceMenu extends MovieClip
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.RACE_STRIDE, id++) {
 			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_RACE, text: arguments[i + RaceMenuDefines.RACE_NAME], filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: arguments[i + RaceMenuDefines.RACE_DESCRIPTION].length <= 0 ? "No race description for " + arguments[i + RaceMenuDefines.RACE_NAME] : arguments[i + RaceMenuDefines.RACE_DESCRIPTION], equipState: arguments[i + RaceMenuDefines.RACE_EQUIPSTATE], raceID: id, enabled: true};
 			if (entryObject.equipState > 0) {
+				itemList.listState.activeEntry = entryObject;
 				SetRaceText(entryObject.text);
 			}
 			itemList.entryList.push(entryObject);
 		}
 		
-		itemList.InvalidateData();
+		itemList.requestInvalidate();
 	}
 
 	private function SetSliders(): Void
@@ -357,6 +417,9 @@ class RaceMenu extends MovieClip
 			}
 		}
 		
+		savedPresets.splice(0, savedPresets.length);
+		savedMorphs.splice(0, savedMorphs.length);
+		
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.SLIDER_STRIDE) {
 			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: arguments[i + RaceMenuDefines.SLIDER_NAME], filterFlag: arguments[i + RaceMenuDefines.SLIDER_FILTERFLAG], callbackName: arguments[i + RaceMenuDefines.SLIDER_CALLBACKNAME], sliderMin: arguments[i + RaceMenuDefines.SLIDER_MIN], sliderMax: arguments[i + RaceMenuDefines.SLIDER_MAX], sliderID: arguments[i + RaceMenuDefines.SLIDER_ID], position: arguments[i + RaceMenuDefines.SLIDER_POSITION], interval: arguments[i + RaceMenuDefines.SLIDER_INTERVAL], enabled: true};
 			
@@ -366,12 +429,21 @@ class RaceMenu extends MovieClip
 			}
 			
 			// Oversliding
-			if(entryObject.callbackName == "ChangeDoubleMorph") {
-				entryObject.sliderMin -= 10;
-				entryObject.sliderMax += 10;
+			/*if(entryObject.callbackName == "ChangeDoubleMorph") {
+				entryObject.sliderMin -= 5;
+				entryObject.sliderMax += 5;
+			}*/
+			
+			if(entryObject.callbackName == "ChangePreset") {
+				savedPresets.push(entryObject);
+			} else if(entryObject.callbackName == "ChangeDoubleMorph") {
+				savedMorphs.push(entryObject);
 			}
+			
 			itemList.entryList.push(entryObject);
 		}
+				
+		skse.SendModEvent("RSM_LoadSliders");
 		
 		itemList.requestInvalidate();
 	}
@@ -384,7 +456,7 @@ class RaceMenu extends MovieClip
 	private function onSearchInputStart(event: Object): Void
 	{
 		categoryList.disableSelection = categoryList.disableInput = true;
-		itemList.disableSelection = itemList.disableInput = true
+		itemList.disableSelection = itemList.disableInput = true;
 		_nameFilter.filterText = "";
 	}
 
@@ -408,9 +480,137 @@ class RaceMenu extends MovieClip
 		}
 	}
 	
-	public function onItemColor(a_entry: Object): Void
+	public function onSetColor(event: Object): Void
 	{
-		// Do nothing yet
+		if(event.color != -1 && event.color != undefined)
+		{
+			var selectedEntry = itemList.listState.selectedEntry;
+			if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
+				selectedEntry.fillColor = event.color;
+			
+				if(!updateInterval)
+					updateInterval = setInterval(this, "doUpdateColor", 100, selectedEntry.sliderID, event.color);
+			}
+			
+			itemList.requestUpdate();
+		}
+		
+		ShowColorField(false);
+	}
+	
+	public function onChangeColor(event: Object): Void
+	{
+		if(event.color != -1 && event.color != undefined)
+		{
+			var selectedEntry = itemList.listState.selectedEntry;
+			if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
+				if(!updateInterval)
+					updateInterval = setInterval(this, "doUpdateColor", 100, selectedEntry.sliderID, event.color);
+			}
+		}
+	}
+	
+	public function doUpdateColor(sliderID: Number, appliedColor: Number): Void
+	{
+		setPlayerColor(sliderID, appliedColor);
+		clearInterval(updateInterval);
+		delete updateInterval;
+	}
+	
+	// This function is a mess right now
+	public function setPlayerColor(sliderID: Number, appliedColor: Number): Void
+	{
+		var tintType: Number = -1;
+		var tintIndex: Number = 0;
+		var isFemale: Boolean = false;
+		
+		if(sliderID == undefined) {
+			skyui.util.Debug.log("RSM Warning: Invalid sliderID.");
+			return;
+		}
+		
+		if(appliedColor == undefined) {
+			skyui.util.Debug.log("RSM Warning: Invalid color.");
+			return;
+		}
+				
+		for(var i: Number = 0; i < itemList.entryList.length; i++) {
+			var sexEntry: Object = itemList.entryList[i];
+			if(sexEntry.sliderID == -1) {
+				isFemale = sexEntry.position;
+				break;
+			}
+		}
+
+		if(isFemale && sliderID >= 10) { // Females don't have the facial hair slider
+			sliderID += 1;
+		}
+				
+		switch(sliderID) {
+			case 11: // - Hair color
+			tintType = 128;
+			break;
+			case 45: // - Lips
+			tintType = 1;
+			break;
+			case 32: // - Cheeks
+			tintType = 2;
+			break;
+			case 17: // - Eyeliner
+			tintType = 3;
+			break;
+			case 18: // - Upper Eyesocket
+			tintType = 4;
+			break;
+			case 19: // - Lower Eyesocket
+			tintType = 5;
+			break;
+			case 1: // - SkinTone
+			tintType = 6;
+			break;
+			case 8: // - Warpaint
+			{
+				// Tint index, find the warpaint slider position
+				for(var i: Number = 0; i < itemList.entryList.length; i++) {
+					var a_wpEntry: Object = itemList.entryList[i];
+					if(a_wpEntry.sliderID == 7) {
+						tintIndex = a_wpEntry.position;
+						break;
+					}
+				}
+				tintType = 7;
+			}
+			break;
+			case 33: // - Frownlines
+			tintType = 8;
+			break;
+			case 34: // - Lower Cheeks
+			tintType = 9;
+			break;
+			case 35: // - Nose
+			tintType = 10;
+			break;
+			case 36: // - Chin
+			tintType = 11;
+			break;
+			case 37: // - Neck
+			tintType = 12;
+			break;
+			case 38: // - Forehead
+			tintType = 13;
+			break;
+			case 5: // - Dirt
+			tintType = 14;
+			break;
+		}
+		
+		var tintColor: Number = appliedColor;
+		
+		if(tintType == 128) {
+			skse.SendModEvent("RSM_OnHairColorChange", "", tintColor);
+		} else if(tintType != -1) {
+			skse.SendModEvent("RSM_OnTintColorChange", Number(tintType * 1000 + tintIndex).toString(), tintColor);
+		}
 	}
 	
 	private function onItemPress(event: Object): Void
@@ -422,6 +622,9 @@ class RaceMenu extends MovieClip
 			loadingIcon._visible = true;
 			GameDelegate.call("ChangeRace", [entryObject.raceID, -1]);
 			playerZoom = true; // Reset zoom, this happens when race is changed
+		} else if(entryObject.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
+			colorField.setColor(entryObject.fillColor);
+			ShowColorField(true);
 		}
 		updateBottomBar();
 	}
@@ -429,20 +632,98 @@ class RaceMenu extends MovieClip
 	private function onSelectionChange(event: Object): Void
 	{
 		itemList.listState.selectedEntry = itemList.entryList[event.index];
+		if(itemList.listState.selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE) {
+			ShowRaceDescription(true);
+			raceDescription.SetText(itemList.listState.selectedEntry.raceDescription);
+		} else {
+			ShowRaceDescription(false);
+			raceDescription.SetText("");
+		}
 		updateBottomBar();
 	}
 	
 	private function updateBottomBar(): Void
 	{
 		navPanel.clearButtons();
-		navPanel.addButton({text: "$Done", controls: {keyCode: KEY_CODE_DONE}});
+		navPanel.addButton({text: "$Done", controls: _acceptControl});
+		if(_platform == 0) {
+			navPanel.addButton({text: "$Search", controls: InputDefines.Jump});
+		} else {
+			navPanel.addButton({text: "$Change Category", controls: InputDefines.Equip});
+		}
+		navPanel.addButton({text: playerZoom ? "$Zoom Out" : "$Zoom In", controls: InputDefines.Sprint});
+		
 		if(itemList.listState.selectedEntry != itemList.listState.activeEntry && itemList.listState.selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE) {
 			navPanel.addButton({text: "$Change Race", controls: InputDefines.Activate});
 		} else if(itemList.listState.selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
 			navPanel.addButton({text: "$Choose Color", controls: InputDefines.Activate});
 		}
-		navPanel.addButton({text: "$Search", controls: InputDefines.Jump});
-		navPanel.addButton({text: playerZoom ? "$Zoom Out" : "$Zoom In", controls: InputDefines.Sprint});
+		
 		navPanel.updateButtons(true);
+	}
+	
+	/* Clipboard functions */
+	private function saveSlidersToClipboard(): Void
+	{
+		var outputString: String = "";
+		var totalSettings = savedPresets.length + savedMorphs.length;
+		var k = 0;
+		for(var i = 0; i < savedPresets.length; i++, k++) {
+			outputString += "" + (((savedPresets[i].position * 100)|0)/100) + "";
+			
+			if(k < totalSettings - 1) {
+				outputString += ",";
+			}
+		}
+		
+		for(var i = 0; i < savedMorphs.length; i++, k++) {
+			outputString += "" + (((savedMorphs[i].position * 100)|0)/100) + "";
+			
+			if(k < totalSettings - 1) {
+				outputString += ",";
+			}
+		}
+		
+		skse.SetClipboardData(outputString);
+	}
+	
+	private function loadSlidersFromClipboard(): Void
+	{
+		var clipboardData: String = skse.GetClipboardData();
+		var sliderArray: Array = clipboardData.split(',');
+		var totalSettings = savedPresets.length + savedMorphs.length;
+		
+		// Load Presets
+		for(var i = 0; i < savedPresets.length; i++) {
+			if(savedPresets[i] != undefined && sliderArray[i] != undefined) {
+				savedPresets[i].position = Number(sliderArray[i]);
+				GameDelegate.call(savedPresets[i].callbackName, [savedPresets[i].position, savedPresets[i].sliderID]);
+			} else {
+				skse.Log("No data for preset: " + savedPresets[i].text);
+			}
+		}
+		
+		// Load Morphs
+		var k = 0;
+		for(var i = savedPresets.length; i < totalSettings; i++, k++) {
+			if(savedMorphs[k] != undefined && sliderArray[i] != undefined) {
+				savedMorphs[k].position = Number(sliderArray[i]);
+				GameDelegate.call(savedMorphs[k].callbackName, [savedMorphs[k].position, savedMorphs[k].sliderID]);
+			} else {
+				skse.Log("No data for morph: " + savedMorphs[k].text);
+			}
+		}
+		
+		itemList.requestUpdate();
+	}
+	
+	/* PAPYRUS INTERFACE */
+	public function RSM_AddSlider(a_name: String, a_section: String, a_callback: String, a_sliderMin: String, a_sliderMax: String, a_position: String, a_interval: String)
+	{
+		var newSliderID = customSliders.length + 1000;
+		var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: a_name, filterFlag: Number(a_section), callbackName: a_callback, sliderMin: Number(a_sliderMin), sliderMax: Number(a_sliderMax), sliderID: newSliderID, position: Number(a_position), interval: Number(a_interval), enabled: true};
+		customSliders.push(sliderObject);
+		itemList.entryList.push(sliderObject);
+		itemList.requestInvalidate();
 	}
 }
