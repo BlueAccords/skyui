@@ -119,12 +119,12 @@ class ColorField extends MovieClip
 	
 	public function onSliderChange(): Void
 	{
-		dispatchEvent({type: "changeColor", color: colorSelector.getCurrentColor()});
+		dispatchEvent({type: "changeColor", color: colorSelector.getColor()});
 	}
 
 	public function onAccept(): Void
 	{
-		dispatchEvent({type: "setColor", color: colorSelector.getCurrentColor()});
+		dispatchEvent({type: "setColor", color: colorSelector.getColor()});
 	}
 
 	public function onCancel(): Void

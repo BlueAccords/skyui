@@ -142,7 +142,7 @@ class HSVSelector extends MovieClip {
 		_color = newRGB;
 	}
 
-	public function getCurrentColor(): Number
+	public function getColor(): Number
 	{
 		return _color;
 	}
