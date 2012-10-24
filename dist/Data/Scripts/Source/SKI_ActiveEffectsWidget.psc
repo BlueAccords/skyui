@@ -3,7 +3,7 @@ scriptname SKI_ActiveEffectsWidget extends SKI_WidgetBase
 ; PRIVATE VARIABLES -------------------------------------------------------------------------------
 ; Config
 ; Make sure defaults match those in ConfigMenuInstance
-bool	_enabled			= true
+bool	_enabled			= false
 float	_effectSize			= 48.0
 int		_groupEffectCount	= 8
 string	_orientation		= "vertical"
@@ -80,7 +80,7 @@ string property ClampCorner
 				HAlign = "left"
 				VAlign = "top"
 			else
-				_clampCorner == "TR"
+				_clampCorner = "TR"
 				HAlign = "right"
 				VAlign = "top"
 			endIf

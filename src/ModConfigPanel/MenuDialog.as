@@ -9,9 +9,9 @@ import Shared.GlobalFunc;
 class MenuDialog extends OptionDialog
 {	
   /* PRIVATE VARIABLES */
-  
-  	private var _defaultButton: MovieClip;
-  	private var _closeButton: MovieClip;
+
+  	private var _defaultControls: Object;
+  	private var _closeControls: Object;
 	
 
   /* STAGE ELEMENTS */
@@ -37,29 +37,29 @@ class MenuDialog extends OptionDialog
   /* PUBLIC FUNCTIONS */
   
 	// @override OptionDialog
-	private function initButtons(): Void
+	public function initButtons(): Void
 	{
-		var closeControls: Object;
-		
 		if (platform == 0) {
-			closeControls = InputDefines.Escape;
+			_defaultControls = InputDefines.ReadyWeapon;
+			_closeControls = InputDefines.Tab;
 		} else {
-			closeControls = InputDefines.Cancel;
+			_defaultControls = InputDefines.YButton;
+			_closeControls = InputDefines.Cancel;
 		}
 		
 		leftButtonPanel.clearButtons();
-		_defaultButton = leftButtonPanel.addButton({text: "$Default", controls: InputDefines.ReadyWeapon});
-		_defaultButton.addEventListener("press", this, "onDefaultPress");
+		var defaultButton = leftButtonPanel.addButton({text: "$Default", controls: _defaultControls});
+		defaultButton.addEventListener("press", this, "onDefaultPress");
 		leftButtonPanel.updateButtons();
 		
 		rightButtonPanel.clearButtons();
-		_closeButton = rightButtonPanel.addButton({text: "$Exit", controls: closeControls});
-		_closeButton.addEventListener("press", this, "onExitPress");
+		var closeButton = rightButtonPanel.addButton({text: "$Exit", controls: _closeControls});
+		closeButton.addEventListener("press", this, "onExitPress");
 		rightButtonPanel.updateButtons();
 	}
 
 	// @override OptionDialog
-	private function initContent(): Void
+	public function initContent(): Void
 	{
 		menuList.addEventListener("itemPress", this, "onMenuListPress");
 
@@ -68,25 +68,15 @@ class MenuDialog extends OptionDialog
 		for (var i=0; i<menuOptions.length; i++) {
 			var entry = {text: menuOptions[i], align: "center", enabled: true, state: "normal"};
 			menuList.entryList.push(entry);
-			if (i == menuStartIndex)
-				menuList.listState.activeEntry = entry
 		}
-		
+
+		var e = menuList.entryList[menuStartIndex];
+		menuList.listState.activeEntry = e;
+		menuList.selectedIndex = menuStartIndex;
+
 		menuList.InvalidateData();
-		
+
 		FocusHandler.instance.setFocus(menuList, 0);
-	}
-	
-	public function onDefaultPress(): Void
-	{
-		setActiveMenuIndex(menuDefaultIndex);
-	}
-	
-	public function onExitPress(): Void
-	{
-		skse.SendModEvent("SKICP_menuAccepted", null, getActiveMenuIndex());
-//		skse.SendModEvent("SKICP_dialogCanceled");
-		DialogManager.close();
 	}
 	
 	// @GFx
@@ -100,13 +90,20 @@ class MenuDialog extends OptionDialog
 			if (details.navEquivalent == NavigationCode.TAB) {
 				onExitPress();
 				return true;
+			} else if (details.control == _defaultControls.name) {
+				onDefaultPress();
+				return true;
 			}
 		}
 		
-		return false;
+		// Don't forward to higher level
+		return true;
 	}
 	
-	public function onMenuListPress(a_event: Object): Void
+	
+  /* PRIVATE FUNCTIONS */
+  
+	private function onMenuListPress(a_event: Object): Void
 	{
 		var e = a_event.entry;
 		if (e == undefined)
@@ -115,9 +112,18 @@ class MenuDialog extends OptionDialog
 		menuList.listState.activeEntry = e;
 		menuList.UpdateList();
 	}
+  
+	private function onDefaultPress(): Void
+	{
+		setActiveMenuIndex(menuDefaultIndex);
+		menuList.selectedIndex = menuDefaultIndex;
+	}
 	
-	
-  /* PRIVATE FUNCTIONS */
+	private function onExitPress(): Void
+	{
+		skse.SendModEvent("SKICP_menuAccepted", null, getActiveMenuIndex());
+		DialogManager.close();
+	}
 	
 	private function setActiveMenuIndex(a_index: Number): Void
 	{

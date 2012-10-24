@@ -4,8 +4,6 @@ scriptname SKI_ConfigManager extends SKI_QuestBase hidden
 
 string property		JOURNAL_MENU	= "Journal Menu" autoReadonly
 string property		MENU_ROOT		= "_root.ConfigPanelFader.configPanel" autoReadonly
-string property		DIALOG_SLIDER	= 0 autoReadonly
-string property		DIALOG_MENU		= 1 autoReadonly
 
 
 ; PRIVATE VARIABLES -------------------------------------------------------------------------------
@@ -30,6 +28,7 @@ event OnInit()
 	RegisterForModEvent("SKICP_pageSelected", "OnPageSelect")
 	RegisterForModEvent("SKICP_optionHighlighted", "OnOptionHighlight")
 	RegisterForModEvent("SKICP_optionSelected", "OnOptionSelect")
+	RegisterForModEvent("SKICP_optionDefaulted", "OnOptionDefault")
 	RegisterForModEvent("SKICP_keymapChanged", "OnKeymapChange")
 	RegisterForModEvent("SKICP_sliderSelected", "OnSliderSelect")
 	RegisterForModEvent("SKICP_sliderAccepted", "OnSliderAccept")
@@ -42,7 +41,7 @@ event OnInit()
 	RegisterForMenu(JOURNAL_MENU)
 	
 	; Wait a few seconds until any initial menus have registered for events
-	Utility.Wait(3)
+	Utility.Wait(0.01)
 	
 	OnGameReload()
 endEvent
@@ -77,22 +76,33 @@ event OnMenuOpen(string a_menuName)
 endEvent
 
 event OnMenuClose(string a_menuName)
+
+	if (_activeConfig)
+		_activeConfig.CloseConfig()
+	endIf
+
 	_activeConfig = none
 endEvent
 
 event OnModSelect(string a_eventName, string a_strArg, float a_numArg, Form a_sender)
 	int configIndex = a_numArg as int
 	if (configIndex > -1)
+
+		; We can clean the buffers of the previous menu now
+		if (_activeConfig)
+			_activeConfig.CloseConfig()
+		endIf
+
 		_activeConfig = _modConfigs[configIndex]
-		UI.InvokeStringA(JOURNAL_MENU, MENU_ROOT + ".setPageNames", _activeConfig.Pages)
-		_activeConfig.SetPage("")
+		_activeConfig.OpenConfig()
 	endIf
 	UI.InvokeBool(JOURNAL_MENU, MENU_ROOT + ".unlock", true)
 endEvent
 
 event OnPageSelect(string a_eventName, string a_strArg, float a_numArg, Form a_sender)
 	string page = a_strArg
-	_activeConfig.SetPage(page)
+	int index = a_numArg as int
+	_activeConfig.SetPage(page, index)
 	UI.InvokeBool(JOURNAL_MENU, MENU_ROOT + ".unlock", true)
 endEvent
 
@@ -103,14 +113,38 @@ endEvent
 
 event OnOptionSelect(string a_eventName, string a_strArg, float a_numArg, Form a_sender)
 	int optionIndex = a_numArg as int
-	_activeConfig.OnOptionSelect(optionIndex)
+	_activeConfig.SelectOption(optionIndex)
+	UI.InvokeBool(JOURNAL_MENU, MENU_ROOT + ".unlock", true)
+endEvent
+
+event OnOptionDefault(string a_eventName, string a_strArg, float a_numArg, Form a_sender)
+	int optionIndex = a_numArg as int
+	_activeConfig.ResetOption(optionIndex)
 	UI.InvokeBool(JOURNAL_MENU, MENU_ROOT + ".unlock", true)
 endEvent
 
 event OnKeymapChange(string a_eventName, string a_strArg, float a_numArg, Form a_sender)
 	int optionIndex = a_numArg as int
 	int keyCode = UI.GetNumber(JOURNAL_MENU, MENU_ROOT + ".selectedKeyCode") as int
-	_activeConfig.OnOptionKeyMapChange(optionIndex, keyCode)
+
+	; First test vanilla controls
+	string conflictControl = Input.GetMappedControl(keyCode)
+	string conflictName = ""
+
+	; Then test mod controls
+	int i = 0
+	while (conflictControl == "" && i < _modConfigs.length)
+		if (_modConfigs[i] != none)
+			conflictControl = _modConfigs[i].GetCustomControl(keyCode)
+			if (conflictControl != "")
+				conflictName = _modNames[i]
+			endIf
+		endIf
+			
+		i += 1
+	endWhile
+
+	_activeConfig.RemapKey(optionIndex, keyCode, conflictControl, conflictName)
 	UI.InvokeBool(JOURNAL_MENU, MENU_ROOT + ".unlock", true)
 endEvent
 
@@ -154,6 +188,7 @@ endEvent
 
 ; FUNCTIONS ---------------------------------------------------------------------------------------
 
+; @interface
 int function RegisterMod(SKI_ConfigBase a_menu, string a_modName)
 	if (_configCount >= 128)
 		return -1

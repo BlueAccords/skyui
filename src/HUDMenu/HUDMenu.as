@@ -280,6 +280,7 @@ class HUDMenu extends Shared.PlatformChangeUser
 		TutorialLockInstance.Swimming = true;
 		
 		Health.HorseMode = true;
+		Magica.HorseMode = true;
 		CompassShoutMeterHolder.HorseMode = true;
 		MessagesBlock.HorseMode = true;
 		SubtitleTextHolder.HorseMode = true;
@@ -290,6 +291,7 @@ class HUDMenu extends Shared.PlatformChangeUser
 		TutorialLockInstance.HorseMode = true;
 		
 		Health.WarHorseMode = true;
+		Magica.WarHorseMode = true;
 		CompassShoutMeterHolder.WarHorseMode = true;
 		MessagesBlock.WarHorseMode = true;
 		SubtitleTextHolder.WarHorseMode = true;
@@ -367,7 +369,7 @@ class HUDMenu extends Shared.PlatformChangeUser
 			}
 		}
 		
-		skse.SendModEvent("hudModeChange", newHUDMode);
+		skse.SendModEvent("SKIWF_hudModeChange", newHUDMode);
 	}
 
 	function SetLocationName(aLocation: String): Void
