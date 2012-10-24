@@ -32,9 +32,7 @@ class ColorField extends MovieClip
 	
 	public function onLoad()
 	{
-		colorSelector.hSlider.addEventListener("change", this, "onSliderChange");
-		colorSelector.sSlider.addEventListener("change", this, "onSliderChange");
-		colorSelector.vSlider.addEventListener("change", this, "onSliderChange");
+		colorSelector.addEventListener("changeColor", this, "onSliderChange");
 	}
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
@@ -57,7 +55,12 @@ class ColorField extends MovieClip
 				if(_currentSlider < 0)
 					_currentSlider = 2;
 				bHandledInput = true;
-			} else if (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT || details.navEquivalent == NavigationCode.HOME || details.navEquivalent == NavigationCode.END) {
+			} else if (details.navEquivalent == NavigationCode.LEFT || 
+					   details.navEquivalent == NavigationCode.RIGHT || 
+					   details.navEquivalent == NavigationCode.HOME || 
+					   details.navEquivalent == NavigationCode.END || 
+					   details.navEquivalent == NavigationCode.GAMEPAD_L2 || 
+					   details.navEquivalent == NavigationCode.GAMEPAD_R2) {
 				var sliderObject: Slider = null;
 				switch(_currentSlider) {
 					case 0:	sliderObject = colorSelector.hSlider;	break;
@@ -65,21 +68,6 @@ class ColorField extends MovieClip
 					case 2:	sliderObject = colorSelector.vSlider;	break;
 				}
 				bHandledInput = sliderObject.handleInput(details, pathToFocus);
-			} else if (details.navEquivalent == NavigationCode.GAMEPAD_L2 || details.navEquivalent == NavigationCode.GAMEPAD_R2) {
-				var increment: Number = 0;
-				if(details.navEquivalent == NavigationCode.GAMEPAD_L2)
-					increment = -10;
-				else if(details.navEquivalent == NavigationCode.GAMEPAD_R2)
-					increment = 10;
-				var sliderObject: Slider = null;
-				switch(_currentSlider) {
-					case 0:	sliderObject = colorSelector.hSlider;	break;
-					case 1:	sliderObject = colorSelector.sSlider;	break;
-					case 2:	sliderObject = colorSelector.vSlider;	break;
-				}
-				sliderObject.value = sliderObject.value + increment;
-				sliderObject.dispatchEventAndSound({type: "change"});
-				bHandledInput = true;
 			}
 		}
 
@@ -117,9 +105,9 @@ class ColorField extends MovieClip
 		buttonPanel.setPlatform(a_platform, a_bPS3Switch);
 	}
 	
-	public function onSliderChange(): Void
+	public function onSliderChange(event: Object): Void
 	{
-		dispatchEvent({type: "changeColor", color: colorSelector.getColor()});
+		dispatchEvent({type: "changeColor", color: event.color});
 	}
 
 	public function onAccept(): Void

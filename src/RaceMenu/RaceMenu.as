@@ -219,11 +219,13 @@ class RaceMenu extends MovieClip
 	
 	public function InitExtensions()
 	{
-		_root.RaceMenuInstance.racePanel.Lock("L");
+		_root.RaceSexMenuBaseInstance.RaceSexPanelsInstance.racePanel.Lock("L");
 		bottomBar["playerInfo"].Lock("R");
 		
 		raceDescription._x = _root.RaceMenuInstance.racePanel._x + _root.RaceMenuInstance.racePanel.width;
 		raceDescription.width = (Stage.visibleRect.x + Stage.visibleRect.width - Stage.safeRect.x) - raceDescription._x;
+		
+		skse.Log("Extensions initialized");
 	}
 	
 	public function SetPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
@@ -373,8 +375,8 @@ class RaceMenu extends MovieClip
 		categoryList.entryList.splice(1, categoryList.entryList.length - 1);
 		
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.CAT_STRIDE) {
-			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: arguments[i + RaceMenuDefines.CAT_TEXT].toUpperCase(), flag: arguments[i + RaceMenuDefines.CAT_FLAG], enabled: true};
-			if(bLimitedMenu && entryObject.flag == RaceMenuDefines.CATEGORY_RACE) {
+			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: arguments[i + RaceMenuDefines.CAT_TEXT].toUpperCase(), flag: arguments[i + RaceMenuDefines.CAT_FLAG], enabled: true};			
+			if(bLimitedMenu && entryObject.flag & RaceMenuDefines.CATEGORY_RACE) {
 				entryObject.filterFlag = 0;
 			}
 			categoryList.entryList.push(entryObject);
@@ -394,7 +396,7 @@ class RaceMenu extends MovieClip
 					itemList.entryList.splice(k, 1);
 			}
 		}
-		
+				
 		var id = 0;
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.RACE_STRIDE, id++) {
 			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_RACE, text: arguments[i + RaceMenuDefines.RACE_NAME], filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: arguments[i + RaceMenuDefines.RACE_DESCRIPTION].length <= 0 ? "No race description for " + arguments[i + RaceMenuDefines.RACE_NAME] : arguments[i + RaceMenuDefines.RACE_DESCRIPTION], equipState: arguments[i + RaceMenuDefines.RACE_EQUIPSTATE], raceID: id, enabled: true};
@@ -402,6 +404,7 @@ class RaceMenu extends MovieClip
 				itemList.listState.activeEntry = entryObject;
 				SetRaceText(entryObject.text);
 			}
+
 			itemList.entryList.push(entryObject);
 		}
 		
@@ -440,6 +443,7 @@ class RaceMenu extends MovieClip
 				savedMorphs.push(entryObject);
 			}
 			
+			skse.Log("Slider Loaded: " + entryObject.text + " ID: " + entryObject.sliderID);
 			itemList.entryList.push(entryObject);
 		}
 				
@@ -477,6 +481,7 @@ class RaceMenu extends MovieClip
 		if (categoryList.selectedEntry != undefined) {
 			_typeFilter.changeFilterFlag(categoryList.selectedEntry.flag);
 			categoryLabel.textField.text = categoryList.selectedEntry.text;
+			GameDelegate.call("PlaySound",["UIMenuFocus"]);
 		}
 	}
 	
@@ -488,8 +493,9 @@ class RaceMenu extends MovieClip
 			if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
 				selectedEntry.fillColor = event.color;
 			
-				if(!updateInterval)
+				if(!updateInterval) {
 					updateInterval = setInterval(this, "doUpdateColor", 100, selectedEntry.sliderID, event.color);
+				}
 			}
 			
 			itemList.requestUpdate();
@@ -504,8 +510,9 @@ class RaceMenu extends MovieClip
 		{
 			var selectedEntry = itemList.listState.selectedEntry;
 			if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
-				if(!updateInterval)
+				if(!updateInterval) {
 					updateInterval = setInterval(this, "doUpdateColor", 100, selectedEntry.sliderID, event.color);
+				}
 			}
 		}
 	}
@@ -522,7 +529,7 @@ class RaceMenu extends MovieClip
 	{
 		var tintType: Number = -1;
 		var tintIndex: Number = 0;
-		var isFemale: Boolean = false;
+		var isFemale: Number = skse.GetPlayerSex();
 		
 		if(sliderID == undefined) {
 			skyui.util.Debug.log("RSM Warning: Invalid sliderID.");
@@ -533,77 +540,41 @@ class RaceMenu extends MovieClip
 			skyui.util.Debug.log("RSM Warning: Invalid color.");
 			return;
 		}
-				
-		for(var i: Number = 0; i < itemList.entryList.length; i++) {
-			var sexEntry: Object = itemList.entryList[i];
-			if(sexEntry.sliderID == -1) {
-				isFemale = sexEntry.position;
+		
+		// Get the tintType by sliderID
+		for(var i = 0; i < RaceMenuDefines.SLIDER_MAP[isFemale].length; i++)
+		{
+			var searchID: Number = RaceMenuDefines.SLIDER_MAP[isFemale][i].sliderID;
+			if(searchID == sliderID) {
+				tintType = RaceMenuDefines.SLIDER_MAP[isFemale][i].tintType;
 				break;
 			}
 		}
-
-		if(isFemale && sliderID >= 10) { // Females don't have the facial hair slider
-			sliderID += 1;
-		}
 				
-		switch(sliderID) {
-			case 11: // - Hair color
-			tintType = 128;
-			break;
-			case 45: // - Lips
-			tintType = 1;
-			break;
-			case 32: // - Cheeks
-			tintType = 2;
-			break;
-			case 17: // - Eyeliner
-			tintType = 3;
-			break;
-			case 18: // - Upper Eyesocket
-			tintType = 4;
-			break;
-			case 19: // - Lower Eyesocket
-			tintType = 5;
-			break;
-			case 1: // - SkinTone
-			tintType = 6;
-			break;
-			case 8: // - Warpaint
-			{
-				// Tint index, find the warpaint slider position
-				for(var i: Number = 0; i < itemList.entryList.length; i++) {
-					var a_wpEntry: Object = itemList.entryList[i];
-					if(a_wpEntry.sliderID == 7) {
-						tintIndex = a_wpEntry.position;
-						break;
-					}
+		// Apply warpaint color based on warpaint slider value
+		if(tintType == RaceMenuDefines.TINT_TYPE_WARPAINT) {
+			for(var i: Number = 0; i < itemList.entryList.length; i++) {
+				var a_wpEntry: Object = itemList.entryList[i];
+				var searchID: Number = RaceMenuDefines.STATIC_SLIDER_WARPAINT;
+				if(a_wpEntry.sliderID == searchID) {
+					tintIndex = a_wpEntry.position;
+					break;
 				}
-				tintType = 7;
 			}
-			break;
-			case 33: // - Frownlines
-			tintType = 8;
-			break;
-			case 34: // - Lower Cheeks
-			tintType = 9;
-			break;
-			case 35: // - Nose
-			tintType = 10;
-			break;
-			case 36: // - Chin
-			tintType = 11;
-			break;
-			case 37: // - Neck
-			tintType = 12;
-			break;
-			case 38: // - Forehead
-			tintType = 13;
-			break;
-			case 5: // - Dirt
-			tintType = 14;
-			break;
 		}
 		
+		// Apply dirt color based on dirt slider value
+		if(tintType == RaceMenuDefines.TINT_TYPE_DIRT) {
+			for(var i: Number = 0; i < itemList.entryList.length; i++) {
+				var a_wpEntry: Object = itemList.entryList[i];
+				var searchID: Number = RaceMenuDefines.STATIC_SLIDER_DIRT;
+				if(a_wpEntry.sliderID == searchID) {
+					tintIndex = a_wpEntry.position;
+					break;
+				}
+			}
+		}
+						
 		var tintColor: Number = appliedColor;
 		
 		if(tintType == 128) {
@@ -639,6 +610,7 @@ class RaceMenu extends MovieClip
 			ShowRaceDescription(false);
 			raceDescription.SetText("");
 		}
+		GameDelegate.call("PlaySound",["UIMenuFocus"]);
 		updateBottomBar();
 	}
 	
@@ -717,6 +689,34 @@ class RaceMenu extends MovieClip
 		itemList.requestUpdate();
 	}
 	
+	private function GetSliderByType(tintType: Number): Object
+	{
+		var isFemale: Number = skse.GetPlayerSex();
+		var sliderID: Number;
+		
+		for(var i = 0; i < RaceMenuDefines.SLIDER_MAP[isFemale].length; i++)
+		{
+			if(RaceMenuDefines.SLIDER_MAP[isFemale][i].tintType == tintType) {
+				var foundID: Number = RaceMenuDefines.SLIDER_MAP[isFemale][i].sliderID;
+				sliderID = foundID;
+				break;
+			}
+		}
+
+		if(sliderID == undefined)
+			return null;
+		
+		for(var i = 0; i < itemList.entryList.length; i++)
+		{
+			if(itemList.entryList[i].sliderID == sliderID) {
+				skse.Log("Found Slider: " + sliderID + " for " + tintType + " : " + itemList.entryList[i].text);
+				return itemList.entryList[i];
+			}
+		}
+		
+		return null;
+	}
+	
 	/* PAPYRUS INTERFACE */
 	public function RSM_AddSlider(a_name: String, a_section: String, a_callback: String, a_sliderMin: String, a_sliderMax: String, a_position: String, a_interval: String)
 	{
@@ -725,5 +725,25 @@ class RaceMenu extends MovieClip
 		customSliders.push(sliderObject);
 		itemList.entryList.push(sliderObject);
 		itemList.requestInvalidate();
+	}
+	
+	public function RSM_LoadColors()
+	{
+		for(var i = 0; i < arguments.length; i += 2)
+		{
+			var tintType: Number = arguments[i];
+			var tintColor: Number = arguments[i + 1];
+			
+			if(tintType != 0 && tintColor != 0) {
+				var slider: Object = GetSliderByType(tintType);
+				if(slider) {
+					slider.fillColor = tintColor & 0x00FFFFFF;
+				}
+				
+				skse.Log("Loading Tint: " + tintType + " Color: " + tintColor);
+			}
+		}
+		
+		itemList.requestUpdate();
 	}
 }

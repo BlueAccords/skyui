@@ -1,5 +1,6 @@
 ﻿import flash.geom.Matrix;
 
+import gfx.events.EventDispatcher;
 import gfx.controls.Slider;
 import gfx.controls.Button;
 import gfx.ui.NavigationCode;
@@ -17,6 +18,14 @@ class HSVSelector extends MovieClip {
 	public var vSlider: Slider;
 	public var currentColor: MovieClip;
 	private var _color: Number;
+	
+	private var dispatchEvent: Function;
+	public var hasEventListener: Function;
+	public var addEventListener: Function;
+	public var removeEventListener: Function;
+	public var removeAllEventListeners: Function;
+	public var cleanUpEvents: Function;
+	
 
   /* PRIVATE VARIABLES */
 
@@ -28,6 +37,7 @@ class HSVSelector extends MovieClip {
 		sSlider = sliders.sSlider;
 		vSlider = sliders.vSlider;
 		setupGradients();
+		EventDispatcher.initialize(this);
 	}
 
 	public function onLoad(): Void
@@ -47,20 +57,9 @@ class HSVSelector extends MovieClip {
 		hSlider.addEventListener("change", this, "onHSliderChange");
 		sSlider.addEventListener("change", this, "onSSliderChange");
 		vSlider.addEventListener("change", this, "onVSliderChange");
-
+		
 		setColor(0x000000);
 	}
-
-	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
-	{
-		var nextClip = pathToFocus.shift();
-		if (nextClip.handleInput(details, pathToFocus)) {
-			return true;
-		}
-
-		return false;
-	}
-
 
 	public function setColor(a_color: Number): Void
 	{
@@ -104,6 +103,7 @@ class HSVSelector extends MovieClip {
 		colorOverlay = new Color(currentColor);
 		colorOverlay.setRGB(newRGB);
 		_color = newRGB;
+		dispatchEvent({type: "changeColor", color: _color});
 	}
 
 	public function onSSliderChange(a_event: Object): Void
@@ -122,6 +122,7 @@ class HSVSelector extends MovieClip {
 		colorOverlay = new Color(currentColor);
 		colorOverlay.setRGB(newRGB);
 		_color = newRGB;
+		dispatchEvent({type: "changeColor", color: _color});
 	}
 
 	public function onVSliderChange(a_event: Object): Void
@@ -140,6 +141,7 @@ class HSVSelector extends MovieClip {
 		colorOverlay = new Color(currentColor);
 		colorOverlay.setRGB(newRGB);
 		_color = newRGB;
+		dispatchEvent({type: "changeColor", color: _color});
 	}
 
 	public function getColor(): Number

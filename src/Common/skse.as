@@ -17,4 +17,5 @@
 	static function RequestActorValues(a_formid:Number, a_actorValues:Array, a_list:Array):Void;
 	static function GetClipboardData():String;
 	static function SetClipboardData(str:String):Void;
+	static function GetPlayerSex():Number;
 }
