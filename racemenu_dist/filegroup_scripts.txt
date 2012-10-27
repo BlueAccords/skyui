@@ -1,0 +1,4 @@
+Scripts\RaceMenu.pex
+Scripts\RaceMenuLoad.pex
+Scripts\Source\RaceMenu.psc
+Scripts\Source\RaceMenuLoad.psc

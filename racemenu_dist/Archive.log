@@ -1,0 +1,32 @@
+Log started for script bsascript.txt
+Creating new archive
+Checking option: Compress Archive
+Checking option: Menus
+Checking option: Misc
+Checking option: Retain Directory Names
+Checking option: Retain File Names
+Setting File Group Root: 'Data\'
+Adding File Group: filegroup_all.txt
+-Adding File: Data\Interface\racesex_menu.swf
+-Adding File: Data\Interface\skyui\racesex_icons.swf
+-Adding File: Data\Interface\translations\RaceMenu_ENGLISH.txt
+-Adding File: Data\Scripts\RaceMenu.pex
+-Adding File: Data\Scripts\RaceMenuLoad.pex
+-Adding File: Data\Scripts\Source\RaceMenu.psc
+-Adding File: Data\Scripts\Source\RaceMenuLoad.psc
+Saving archive: _generated\RaceMenu.bsa
+
+Writing files
+
+Offset          0: Wrote compressed file scripts\source\racemenu.psc
+Offset       1525: Wrote compressed file scripts\source\racemenuload.psc
+Offset       1646: Wrote compressed file scripts\racemenu.pex
+Offset       4625: Wrote compressed file scripts\racemenuload.pex
+Offset       5027: Wrote compressed file interface\translations\racemenu_english.txt
+Offset       5194: Wrote compressed file interface\skyui\racesex_icons.swf
+Offset      13282: Wrote compressed file interface\racesex_menu.swf
+Offset      65620: END OF FILE
+
+Finished writing files
+
+Script bsascript.txt has finished.

@@ -1,0 +1,7 @@
+Interface\racesex_menu.swf
+Interface\skyui\racesex_icons.swf
+Interface\translations\RaceMenu_ENGLISH.txt
+Scripts\RaceMenu.pex
+Scripts\RaceMenuLoad.pex
+Scripts\Source\RaceMenu.psc
+Scripts\Source\RaceMenuLoad.psc

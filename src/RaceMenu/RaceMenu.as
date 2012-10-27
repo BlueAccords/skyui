@@ -13,6 +13,7 @@ import skyui.components.ButtonPanel;
 
 import skyui.filter.ItemTypeFilter;
 import skyui.filter.ItemNameFilter;
+import skyui.util.Debug;
 
 import RaceMenuDefines;
 import TextEntryField;
@@ -26,11 +27,14 @@ class RaceMenu extends MovieClip
 	private var _nameFilter: ItemNameFilter;
 	private var _playerObject: Object;
 	private var _acceptControl: Object;
+	private var _lightControl: Object;
 	private var updateInterval: Number;
 	
 	/* PUBLIC VARIABLES */
 	public var bLimitedMenu: Boolean;
 	public var playerZoom: Boolean = true;
+	public var bShowLight: Boolean = true;
+	public var bTextEntryMode: Boolean = false;
 	public var customSliders: Array;
 	
 	public var savedPresets: Array;
@@ -58,7 +62,12 @@ class RaceMenu extends MovieClip
 	public var removeAllEventListeners: Function;
 	public var cleanUpEvents: Function;
 	
-	public var KEY_CODE_DONE: Number = 19;
+	public var DISPLAY_KEYCODE_DONE: Number = 19;
+	public var DISPLAY_KEYCODE_LIGHT: Number = 38;
+	public var DISPLAY_GAMEPAD_R1: Number = 275;
+	
+	public var KEYCODE_L: Number = 76;
+	
 		
 	function RaceMenu()
 	{
@@ -236,9 +245,11 @@ class RaceMenu extends MovieClip
 		colorField.setPlatform(a_platform, a_bPS3Switch);
 		
 		if(_platform == 0) {
-			_acceptControl = {keyCode: KEY_CODE_DONE};
+			_acceptControl = {keyCode: DISPLAY_KEYCODE_DONE};
+			_lightControl = {keyCode: DISPLAY_KEYCODE_LIGHT};
 		} else {
 			_acceptControl = InputDefines.XButton;
+			_lightControl = {keyCode: DISPLAY_GAMEPAD_R1};
 		}
 		
 		textEntry.TextInputInstance.maxChars = 26;
@@ -271,9 +282,14 @@ class RaceMenu extends MovieClip
 			if (details.control == InputDefines.Jump.name) {
 				searchWidget.startInput();
 				return true;
-			} else if (details.control == InputDefines.Sprint.name) {
+			} else if (details.control == InputDefines.Sprint.name && !bTextEntryMode) {
 				playerZoom = !playerZoom;
 				GameDelegate.call("ZoomPC", [playerZoom]);
+				updateBottomBar();
+				return true;
+			} else if((details.code == KEYCODE_L || details.navEquivalent == NavigationCode.GAMEPAD_R1) && !bTextEntryMode) {
+				bShowLight = !bShowLight;
+				skse.SendModEvent("RSM_OnToggleLight", "", Number(bShowLight));
 				updateBottomBar();
 				return true;
 			}
@@ -443,7 +459,6 @@ class RaceMenu extends MovieClip
 				savedMorphs.push(entryObject);
 			}
 			
-			skse.Log("Slider Loaded: " + entryObject.text + " ID: " + entryObject.sliderID);
 			itemList.entryList.push(entryObject);
 		}
 				
@@ -459,6 +474,7 @@ class RaceMenu extends MovieClip
 	
 	private function onSearchInputStart(event: Object): Void
 	{
+		bTextEntryMode = true;
 		categoryList.disableSelection = categoryList.disableInput = true;
 		itemList.disableSelection = itemList.disableInput = true;
 		_nameFilter.filterText = "";
@@ -474,6 +490,7 @@ class RaceMenu extends MovieClip
 		categoryList.disableSelection = categoryList.disableInput = false;
 		itemList.disableSelection = itemList.disableInput = false;
 		_nameFilter.filterText = event.data;
+		bTextEntryMode = false;
 	}
 	
 	public function onCategoryPress(a_event: Object): Void
@@ -532,12 +549,12 @@ class RaceMenu extends MovieClip
 		var isFemale: Number = skse.GetPlayerSex();
 		
 		if(sliderID == undefined) {
-			skyui.util.Debug.log("RSM Warning: Invalid sliderID.");
+			Debug.log("RSM Warning: Invalid sliderID.");
 			return;
 		}
 		
 		if(appliedColor == undefined) {
-			skyui.util.Debug.log("RSM Warning: Invalid color.");
+			Debug.log("RSM Warning: Invalid color.");
 			return;
 		}
 		
@@ -624,6 +641,7 @@ class RaceMenu extends MovieClip
 			navPanel.addButton({text: "$Change Category", controls: InputDefines.Equip});
 		}
 		navPanel.addButton({text: playerZoom ? "$Zoom Out" : "$Zoom In", controls: InputDefines.Sprint});
+		navPanel.addButton({text: bShowLight ? "$Light Off" : "$Light On", controls: _lightControl});
 		
 		if(itemList.listState.selectedEntry != itemList.listState.activeEntry && itemList.listState.selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE) {
 			navPanel.addButton({text: "$Change Race", controls: InputDefines.Activate});
@@ -671,7 +689,7 @@ class RaceMenu extends MovieClip
 				savedPresets[i].position = Number(sliderArray[i]);
 				GameDelegate.call(savedPresets[i].callbackName, [savedPresets[i].position, savedPresets[i].sliderID]);
 			} else {
-				skse.Log("No data for preset: " + savedPresets[i].text);
+				Debug.log("No data for preset: " + savedPresets[i].text);
 			}
 		}
 		
@@ -682,7 +700,7 @@ class RaceMenu extends MovieClip
 				savedMorphs[k].position = Number(sliderArray[i]);
 				GameDelegate.call(savedMorphs[k].callbackName, [savedMorphs[k].position, savedMorphs[k].sliderID]);
 			} else {
-				skse.Log("No data for morph: " + savedMorphs[k].text);
+				Debug.log("No data for morph: " + savedMorphs[k].text);
 			}
 		}
 		
@@ -709,7 +727,6 @@ class RaceMenu extends MovieClip
 		for(var i = 0; i < itemList.entryList.length; i++)
 		{
 			if(itemList.entryList[i].sliderID == sliderID) {
-				skse.Log("Found Slider: " + sliderID + " for " + tintType + " : " + itemList.entryList[i].text);
 				return itemList.entryList[i];
 			}
 		}
@@ -739,8 +756,6 @@ class RaceMenu extends MovieClip
 				if(slider) {
 					slider.fillColor = tintColor & 0x00FFFFFF;
 				}
-				
-				skse.Log("Loading Tint: " + tintType + " Color: " + tintColor);
 			}
 		}
 		

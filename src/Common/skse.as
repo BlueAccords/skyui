@@ -18,4 +18,5 @@
 	static function GetClipboardData():String;
 	static function SetClipboardData(str:String):Void;
 	static function GetPlayerSex():Number;
+	static function GetVMVariable(a_formid:Number, a_variableName:String);
 }
