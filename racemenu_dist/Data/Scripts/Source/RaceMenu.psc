@@ -16,28 +16,41 @@ int Property CATEGORY_COLOR = 512 AutoReadOnly
 Actor _playerActor = None
 ActorBase _playerActorBase = None
 ColorForm _hairColor = None
+Form _lightForm = None
 ObjectReference _light = None
 int _color = 0
 float _height = 1.0
 bool _customHair = false
 int[] _tintTypes
 int[] _tintColors
+string[] _tintTextures
 
 Event OnInit()
 	_hairColor = Game.GetFormFromFile(0x801, "RaceMenu.esp") as ColorForm
+	_lightForm = Game.GetFormFromFile(0x803, "RaceMenu.esp")
 	_playerActor = Game.GetPlayer()
 	_playerActorBase = _playerActor.GetActorBase()
+	_tintTextures = new string[128]
 	_tintTypes = new int[128]
 	_tintColors = new int[128]
+	
+	OnStartup()
 EndEvent
 
-Event OnGameReload()
+Function OnStartup()
 	RegisterForMenu(RACESEX_MENU)
 	RegisterForModEvent("RSM_LoadSliders", "OnLoadSliders")
-	RegisterForModEvent("RSM_OnSliderChange", "OnSliderChange")
-	RegisterForModEvent("RSM_OnHairColorChange", "OnHairColorChange")
-	RegisterForModEvent("RSM_OnTintColorChange", "OnTintColorChange")
-	RegisterForModEvent("RSM_OnToggleLight", "OnToggleLight")
+	RegisterForModEvent("RSM_SliderChange", "OnSliderChange")
+	RegisterForModEvent("RSM_HairColorChange", "OnHairColorChange")
+	RegisterForModEvent("RSM_TintColorChange", "OnTintColorChange")
+	RegisterForModEvent("RSM_ToggleLight", "OnToggleLight")
+
+	Utility.SetINIFloat("fPlayerBodyEditDistance:Interface", 180.0)
+	Utility.SetINIFloat("fPlayerFaceEditDistance:Interface", 50.0)
+EndFunction
+
+Event OnGameReload()
+	OnStartup()
 
 	; Reload player settings
 	If _playerActorBase.GetHairColor() == _hairColor
@@ -52,13 +65,12 @@ EndEvent
 
 Event OnMenuOpen(string menuName)
 	If menuName == RACESEX_MENU
-		LoadTints()
-		If _customHair
-			_playerActorBase.SetHairColor(_hairColor)
-		EndIf
-		_playerActor.QueueNiNodeUpdate()
 		UpdateColors()
-		_light = _playerActor.placeAtMe(Game.GetFormFromFile(0x803, "RaceMenu.esp"))
+		LoadTints()
+		LoadHair()
+		_playerActor.QueueNiNodeUpdate()
+		UpdateRaces()
+		_light = _playerActor.placeAtMe(_lightForm)
 		float zOffset = _light.GetHeadingAngle(_playerActor)
 		_light.SetAngle(_light.GetAngleX(), _light.GetAngleY(), _light.GetAngleZ() + zOffset)
 		_light.MoveTo(_playerActor, 60 * Math.Sin(_playerActor.GetAngleZ()), 60 * Math.Cos(_playerActor.GetAngleZ()), _playerActor.GetHeight())
@@ -69,24 +81,38 @@ Event OnMenuClose(string menuName)
 	If menuName == RACESEX_MENU
 		_light.Delete()
 		_light = None
-		If _playerActorBase.GetHairColor() == _hairColor
-			_color = _hairColor.GetColor()
-			_customHair = true
-		Else
-			_customHair = false
-		EndIf
-
+		SaveHair()
 		SaveTints()
 	Endif
 EndEvent
+
+Function LoadHair()
+	If _customHair
+		_playerActorBase.SetHairColor(_hairColor)
+	EndIf
+EndFunction
+
+Function SaveHair()
+	If _playerActorBase.GetHairColor() == _hairColor
+		_color = _hairColor.GetColor()
+		_customHair = true
+	Else
+		_color = _playerActorBase.GetHairColor().GetColor()
+		_customHair = false
+	EndIf
+EndFunction
 
 Function LoadTints()
 	int i = 0
 	int totalTints = Game.GetNumTintMasks()
 	While i < totalTints
 		int color = _tintColors[i]
+		string texture = _tintTextures[i]
+		If texture != ""
+			Game.SetNthTintMaskTexturePath(texture, i)
+		Endif
 		If color != 0
-			Game.SetNthTintMaskColor(i, _tintColors[i])
+			Game.SetNthTintMaskColor(i, color)
 		Endif
 		i += 1
 	EndWhile
@@ -98,6 +124,7 @@ Function SaveTints()
 	While i < totalTints
 		_tintTypes[i] = Game.GetNthTintMaskType(i)
 		_tintColors[i] = Game.GetNthTintMaskColor(i)
+		_tintTextures[i] = Game.GetNthTintMaskTexturePath(i)
 		i += 1
 	EndWhile
 EndFunction
@@ -107,54 +134,48 @@ Function ClearTints()
 	While i < _tintTypes.length
 		_tintTypes[i] = 0
 		_tintColors[i] = 0
+		_tintTextures[i] = ""
 		i += 1
 	EndWhile
 EndFunction
 
 Event OnLoadSliders(string eventName, string strArg, float numArg, Form formArg)
-	If eventName == "RSM_LoadSliders"
-		AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, Game.GetPlayer().GetActorBase().GetHeight())
-	Endif
+	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, _playerActorBase.GetHeight())
+	SaveHair()
+	SaveTints()
+	UpdateColors()
 EndEvent
 
 Event OnSliderChange(string eventName, string strArg, float numArg, Form formArg)
-	If eventName == "RSM_OnSliderChange"
-		If strArg == "ChangeHeight"
-			_height = numArg
-			_playerActorBase.SetHeight(numArg)
-			_playerActor.QueueNiNodeUpdate()
-		Endif
+	If strArg == "ChangeHeight"
+		_height = numArg
+		_playerActorBase.SetHeight(numArg)
+		_playerActor.QueueNiNodeUpdate()
 	Endif
 EndEvent
 
 Event OnHairColorChange(string eventName, string strArg, float numArg, Form formArg)
-	If eventName == "RSM_OnHairColorChange"
-		_color = numArg as int
-		_hairColor.SetColor(_color)
-		_playerActorBase.SetHairColor(_hairColor)
-		_playerActor.QueueNiNodeUpdate()
-	Endif
+	_color = strArg as int
+	_hairColor.SetColor(_color)
+	_playerActorBase.SetHairColor(_hairColor)
+	_playerActor.QueueNiNodeUpdate()
 EndEvent
 
 Event OnTintColorChange(string eventName, string strArg, float numArg, Form formArg)
-	If eventName == "RSM_OnTintColorChange"
-		int color = numArg as int
-		int arg = strArg as int
-		int type = arg / 1000
-		int index = arg - (type * 1000)
-		Game.SetTintMaskColor(0xFF000000 + color, type, index)
-		_playerActor.QueueNiNodeUpdate()
-	Endif
+	int color = strArg as int
+	int arg = numArg as int
+	int type = arg / 1000
+	int index = arg - (type * 1000)
+	Game.SetTintMaskColor(color, type, index)
+	_playerActor.QueueNiNodeUpdate()
 EndEvent
 
 Event OnToggleLight(string eventName, string strArg, float numArg, Form formArg)
-	If eventName == "RSM_OnToggleLight"
-		bool lightOn = numArg as bool
-		if lightOn
-			_light.EnableNoWait()
-		Else
-			_light.DisableNoWait()
-		Endif
+	bool lightOn = numArg as bool
+	if lightOn
+		_light.EnableNoWait()
+	Else
+		_light.DisableNoWait()
 	Endif
 EndEvent
 
@@ -171,16 +192,25 @@ Function AddSlider(string name, int section, string callback, float min, float m
 EndFunction
 
 Function UpdateColors()
-	float[] tints = new float[128]
-	tints[0] = 128
-	tints[1] = _color
-	int i = 2
-	int k = 0
-	While i < tints.length
-		tints[i] = _tintTypes[k] as float
-		tints[i + 1] = _tintColors[k] as float
-		k += 1
-		i += 2
+	UI.InvokeInt(RACESEX_MENU, MENU_ROOT + "RSM_AddTintTypes", 128)
+	UI.InvokeInt(RACESEX_MENU, MENU_ROOT + "RSM_AddTintColors", _color)
+	UI.InvokeString(RACESEX_MENU, MENU_ROOT + "RSM_AddTintTextures", "")
+
+	UI.InvokeIntA(RACESEX_MENU, MENU_ROOT + "RSM_AddTintTypes", _tintTypes)
+	UI.InvokeIntA(RACESEX_MENU, MENU_ROOT + "RSM_AddTintColors", _tintColors)
+	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddTintTextures", _tintTextures)
+
+	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_UpdateSettings")
+EndFunction
+
+Function UpdateRaces()
+	int totalRaces = Race.GetNumPlayableRaces()
+	int i = 0
+	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_BeginExtend")
+	While i < totalRaces
+		Race playableRace = Race.GetNthPlayableRace(i)
+		UI.InvokeForm(RACESEX_MENU, MENU_ROOT + "RSM_ExtendRace", playableRace)
+		i += 1
 	EndWhile
-	UI.InvokeNumberA(RACESEX_MENU, MENU_ROOT + "RSM_LoadColors", tints)
+	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_EndExtend")
 EndFunction

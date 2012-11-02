@@ -14,6 +14,7 @@ class ColorField extends MovieClip
 	private var _acceptButton: MovieClip;
 	private var _cancelButton: MovieClip;
 	private var _currentColor: Number = 0;
+	private var _currentAlpha: Number = 0;
 	public var _currentSlider: Number = 0;
 
 	public var dispatchEvent: Function;
@@ -47,25 +48,28 @@ class ColorField extends MovieClip
 				bHandledInput = true;
 			} else if (details.navEquivalent == NavigationCode.DOWN) {
 				_currentSlider++;
-				if(_currentSlider > 2)
+				if(_currentSlider > 3)
 					_currentSlider = 0;
 				bHandledInput = true;
 			} else if(details.navEquivalent == NavigationCode.UP) {
 				_currentSlider--;
 				if(_currentSlider < 0)
-					_currentSlider = 2;
+					_currentSlider = 3;
 				bHandledInput = true;
 			} else if (details.navEquivalent == NavigationCode.LEFT || 
 					   details.navEquivalent == NavigationCode.RIGHT || 
 					   details.navEquivalent == NavigationCode.HOME || 
 					   details.navEquivalent == NavigationCode.END || 
 					   details.navEquivalent == NavigationCode.GAMEPAD_L2 || 
-					   details.navEquivalent == NavigationCode.GAMEPAD_R2) {
+					   details.navEquivalent == NavigationCode.GAMEPAD_R2 || 
+					   details.navEquivalent == NavigationCode.GAMEPAD_L1 || 
+					   details.navEquivalent == NavigationCode.GAMEPAD_R1) {
 				var sliderObject: Slider = null;
 				switch(_currentSlider) {
 					case 0:	sliderObject = colorSelector.hSlider;	break;
 					case 1:	sliderObject = colorSelector.sSlider;	break;
 					case 2:	sliderObject = colorSelector.vSlider;	break;
+					case 3:	sliderObject = colorSelector.aSlider;	break;
 				}
 				bHandledInput = sliderObject.handleInput(details, pathToFocus);
 			}
@@ -94,10 +98,16 @@ class ColorField extends MovieClip
 		return _currentColor;
 	}
 	
-	public function setColor(a_color: Number): Void
+	public function getAlpha(): Number
+	{
+		return _currentAlpha;
+	}
+	
+	public function setColor(a_color: Number, a_alpha: Number): Void
 	{
 		_currentColor = a_color;
-		colorSelector.setColor(_currentColor);
+		_currentAlpha = a_alpha;
+		colorSelector.setColor(_currentColor, _currentAlpha);
 	}
 
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
@@ -107,16 +117,16 @@ class ColorField extends MovieClip
 	
 	public function onSliderChange(event: Object): Void
 	{
-		dispatchEvent({type: "changeColor", color: event.color});
+		dispatchEvent({type: "changeColor", color: event.color, alpha: event.alpha});
 	}
 
 	public function onAccept(): Void
 	{
-		dispatchEvent({type: "setColor", color: colorSelector.getColor()});
+		dispatchEvent({type: "setColor", color: colorSelector.getColor(), alpha: colorSelector.getAlpha()});
 	}
 
 	public function onCancel(): Void
 	{
-		dispatchEvent({type: "setColor", color: _currentColor});
+		dispatchEvent({type: "setColor", color: _currentColor, alpha: _currentAlpha});
 	}
 }

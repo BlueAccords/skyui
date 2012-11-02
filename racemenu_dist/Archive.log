@@ -19,13 +19,13 @@ Saving archive: _generated\RaceMenu.bsa
 Writing files
 
 Offset          0: Wrote compressed file scripts\source\racemenu.psc
-Offset       1525: Wrote compressed file scripts\source\racemenuload.psc
-Offset       1646: Wrote compressed file scripts\racemenu.pex
-Offset       4625: Wrote compressed file scripts\racemenuload.pex
-Offset       5027: Wrote compressed file interface\translations\racemenu_english.txt
-Offset       5194: Wrote compressed file interface\skyui\racesex_icons.swf
-Offset      13282: Wrote compressed file interface\racesex_menu.swf
-Offset      65620: END OF FILE
+Offset       1728: Wrote compressed file scripts\source\racemenuload.psc
+Offset       1849: Wrote compressed file scripts\racemenu.pex
+Offset       5148: Wrote compressed file scripts\racemenuload.pex
+Offset       5550: Wrote compressed file interface\translations\racemenu_english.txt
+Offset       5717: Wrote compressed file interface\skyui\racesex_icons.swf
+Offset      13805: Wrote compressed file interface\racesex_menu.swf
+Offset      66726: END OF FILE
 
 Finished writing files
 

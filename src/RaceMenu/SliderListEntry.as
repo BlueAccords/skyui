@@ -146,7 +146,8 @@ class SliderListEntry extends BasicListEntry
 				
 				if(a_entryObject.callbackName == "ChangeTintingMask" || a_entryObject.callbackName == "ChangeMaskColor" || a_entryObject.callbackName == "ChangeHairColorPreset") {
 					var colorOverlay: Color = new Color(colorSquare.fill);
-					colorOverlay.setRGB(a_entryObject.fillColor);
+					colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
+					colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
 					colorSquare.enabled = colorSquare._visible = true;
 				} else {
 					colorSquare.enabled = colorSquare._visible = false;
@@ -178,7 +179,7 @@ class SliderListEntry extends BasicListEntry
 			if(this.sliderID < 1000) {
 				GameDelegate.call(this.callbackName, [this.position, this.sliderID]);
 			} else {
-				skse.SendModEvent("RSM_OnSliderChange", this.callbackName, this.position);
+				skse.SendModEvent("RSM_SliderChange", this.callbackName, this.position);
 			}
 			this.entryObject.position = this.position;
 			_parent.valueField.SetText(((this.position * 100)|0)/100);

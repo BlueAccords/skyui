@@ -1,4 +1,5 @@
 ﻿import flash.geom.Matrix;
+import flash.display.BitmapData;
 
 import gfx.events.EventDispatcher;
 import gfx.controls.Slider;
@@ -16,8 +17,9 @@ class HSVSelector extends MovieClip {
 	public var hSlider: Slider;
 	public var sSlider: Slider;
 	public var vSlider: Slider;
-	public var currentColor: MovieClip;
-	private var _color: Number;
+	public var aSlider: Slider;
+	private var _currentColor: Number;
+	private var _alphaValue: Number;
 	
 	private var dispatchEvent: Function;
 	public var hasEventListener: Function;
@@ -36,6 +38,7 @@ class HSVSelector extends MovieClip {
 		hSlider = sliders.hSlider;
 		sSlider = sliders.sSlider;
 		vSlider = sliders.vSlider;
+		aSlider = sliders.aSlider;
 		setupGradients();
 		EventDispatcher.initialize(this);
 	}
@@ -53,16 +56,22 @@ class HSVSelector extends MovieClip {
 		vSlider.minimum = 0;
 		vSlider.maximum = 100;
 		vSlider.liveDragging = true;
+		
+		aSlider.minimum = 0;
+		aSlider.maximum = 100;
+		aSlider.liveDragging = true;
 
 		hSlider.addEventListener("change", this, "onHSliderChange");
 		sSlider.addEventListener("change", this, "onSSliderChange");
 		vSlider.addEventListener("change", this, "onVSliderChange");
+		aSlider.addEventListener("change", this, "onASliderChange");
 		
-		setColor(0x000000);
+		setColor(0x000000, 0xFF);
 	}
 
-	public function setColor(a_color: Number): Void
+	public function setColor(a_color: Number, a_alpha: Number): Void
 	{
+		var alphaNormal = (a_alpha / 255) * 100;
 		_hsv = ColorFunctions.hexToHsv(a_color);
 		var satRGB: Number = ColorFunctions.hsvToHex([_hsv[0], 100, _hsv[2]]);
 		var valRGB: Number = ColorFunctions.hsvToHex([_hsv[0], _hsv[1], 100]);
@@ -74,17 +83,21 @@ class HSVSelector extends MovieClip {
 
 		vSlider.track.trackWhite._alpha = 100 - _hsv[1]; //val.white
 		
+		aSlider.track.trackColor._alpha = alphaNormal;
+		
 		var colorOverlay: Color = new Color(sSlider.track.trackColor);
 		colorOverlay.setRGB(satRGB);
 		colorOverlay = new Color(vSlider.track.trackColor);
 		colorOverlay.setRGB(valRGB);
-		colorOverlay = new Color(currentColor);
+		colorOverlay = new Color(aSlider.track.trackColor);
 		colorOverlay.setRGB(a_color);
 
 		hSlider.value = _hsv[0];
 		sSlider.value = _hsv[1];
 		vSlider.value = _hsv[2];
-		_color = a_color;
+		aSlider.value = alphaNormal;
+		_currentColor = a_color;
+		_alphaValue = a_alpha;
 	}
 
 	public function onHSliderChange(a_event: Object): Void
@@ -100,10 +113,10 @@ class HSVSelector extends MovieClip {
 		colorOverlay.setRGB(satRGB);
 		colorOverlay = new Color(vSlider.track.trackColor);
 		colorOverlay.setRGB(valRGB);
-		colorOverlay = new Color(currentColor);
+		colorOverlay = new Color(aSlider.track.trackColor);
 		colorOverlay.setRGB(newRGB);
-		_color = newRGB;
-		dispatchEvent({type: "changeColor", color: _color});
+		_currentColor = newRGB;
+		dispatchEvent({type: "changeColor", color: _currentColor, alpha: _alphaValue});
 	}
 
 	public function onSSliderChange(a_event: Object): Void
@@ -119,10 +132,10 @@ class HSVSelector extends MovieClip {
 
 		var colorOverlay: Color = new Color(vSlider.track.trackColor);
 		colorOverlay.setRGB(valRGB);
-		colorOverlay = new Color(currentColor);
+		colorOverlay = new Color(aSlider.track.trackColor);
 		colorOverlay.setRGB(newRGB);
-		_color = newRGB;
-		dispatchEvent({type: "changeColor", color: _color});
+		_currentColor = newRGB;
+		dispatchEvent({type: "changeColor", color: _currentColor, alpha: _alphaValue});
 	}
 
 	public function onVSliderChange(a_event: Object): Void
@@ -138,15 +151,33 @@ class HSVSelector extends MovieClip {
 
 		var colorOverlay: Color = new Color(sSlider.track.trackColor);
 		colorOverlay.setRGB(satRGB);
-		colorOverlay = new Color(currentColor);
+		colorOverlay = new Color(aSlider.track.trackColor);
 		colorOverlay.setRGB(newRGB);
-		_color = newRGB;
-		dispatchEvent({type: "changeColor", color: _color});
+		_currentColor = newRGB;
+		dispatchEvent({type: "changeColor", color: _currentColor, alpha: _alphaValue});
+	}
+	
+	public function onASliderChange(a_event: Object): Void
+	{
+		var newAlpha = a_event.target.value;
+		var newRGB: Number = ColorFunctions.hsvToHex(_hsv);
+		var alphaValue = (newAlpha / 100) * 255;
+
+		aSlider.track.trackColor._alpha = newAlpha;
+
+		_currentColor = newRGB;
+		_alphaValue = alphaValue;
+		dispatchEvent({type: "changeColor", color: _currentColor, alpha: _alphaValue});
 	}
 
 	public function getColor(): Number
 	{
-		return _color;
+		return _currentColor;
+	}
+	
+	public function getAlpha(): Number
+	{
+		return _alphaValue;
 	}
 
   /* PRIVATE FUNCTIONS */
@@ -155,6 +186,7 @@ class HSVSelector extends MovieClip {
 		var hTrack: Button = hSlider.track;
 		var sTrack: Button = sSlider.track;
 		var vTrack: Button = vSlider.track;
+		var aTrack: Button = aSlider.track;
 
 		var width: Number;
 		var height: Number;
@@ -167,6 +199,7 @@ class HSVSelector extends MovieClip {
 		var trackColor: MovieClip;
 		var trackWhite: MovieClip;
 		var trackBlack: MovieClip;
+		var trackAlpha: MovieClip;
 
 		//------------------------------------------------------------------------------------------
 		// Hue Slider
@@ -281,5 +314,31 @@ class HSVSelector extends MovieClip {
 		trackBlack.lineTo(0, height);
 		trackBlack.lineTo(0, 0);
 		trackBlack.endFill();
+		
+		//------------------------------------------------------------------------------------------
+		// Alpha Slider
+		
+		width = aTrack._width;
+		height = aTrack._height;
+		var repeat: Boolean = true;
+		matrix = new Matrix();
+		var backgroundBitmap: BitmapData = BitmapData.loadBitmap("AlphaBackground");
+		trackAlpha = aTrack.createEmptyMovieClip("trackAlpha", aTrack.getNextHighestDepth());
+		trackAlpha.beginBitmapFill(backgroundBitmap, matrix, repeat);
+		trackAlpha.moveTo(0,0);
+		trackAlpha.lineTo(width, 0);
+		trackAlpha.lineTo(width, height);
+		trackAlpha.lineTo(0, height);
+		trackAlpha.lineTo(0, 0);
+		trackAlpha.endFill();
+		
+		trackColor = aTrack.createEmptyMovieClip("trackColor", aTrack.getNextHighestDepth());
+		trackColor.beginFill(0x000000);
+		trackColor.moveTo(0,0);
+		trackColor.lineTo(width, 0);
+		trackColor.lineTo(width, height);
+		trackColor.lineTo(0, height);
+		trackColor.lineTo(0, 0);
+		trackColor.endFill();
 	}
 }

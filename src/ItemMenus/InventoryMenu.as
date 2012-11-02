@@ -68,7 +68,8 @@ class InventoryMenu extends ItemMenu
 		var itemList: TabularList = inventoryLists.itemList;
 		itemList.addDataProcessor(new InventoryDataExtender());
 		itemList.addDataProcessor(new PropertyDataExtender(a_config["Properties"], "itemProperties", "itemIcons", "itemCompoundProperties"));
-		
+		itemList.addDataProcessor(new InventoryDataSetter());
+
 		var layout: ListLayout = ListLayoutManager.createLayout(a_config["ListLayout"], "ItemListLayout");
 		itemList.layout = layout;
 
