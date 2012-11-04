@@ -171,7 +171,7 @@ int function AddToggleOption(string a_text, bool a_checked, int a_flags = 0)
 	Guard()
 endfunction
 
-int function AddSliderOption(string a_text, float a_value, string a_formatString = "", int a_flags = 0)
+int function AddSliderOption(string a_text, float a_value, string a_formatString = "{0}", int a_flags = 0)
 	{Adds an option that opens a slider dialog when selected}
 	Guard()
 endFunction
@@ -216,7 +216,7 @@ function SetToggleOptionValue(int a_option, bool a_checked, bool a_noUpdate = fa
 	Guard()
 endfunction
 
-function SetSliderOptionValue(int a_option, float a_value, string a_formatString = "", bool a_noUpdate = false)
+function SetSliderOptionValue(int a_option, float a_value, string a_formatString = "{0}", bool a_noUpdate = false)
 	{Sets the value(s) of an existing option}
 	Guard()
 endFunction
@@ -278,6 +278,11 @@ endFunction
 
 function SetColorDialogDefaultColor(int a_color)
 	{Sets menu color parameter(s)}
+	Guard()
+endFunction
+
+bool function ShowMessage(string a_message, bool a_withCancel = true, string a_acceptLabel = "$Accept", string a_cancelLabel = "$Cancel")
+	{Shows a message dialog and waits until the user has closed it}
 	Guard()
 endFunction
 

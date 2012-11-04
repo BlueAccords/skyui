@@ -51,8 +51,6 @@ class ConfigPanel extends MovieClip
 	private var _customContentX: Number = 0;
 	private var _customContentY: Number = 0;
 	
-	private var _optionChangeDialog: MovieClip;
-	
 	private var _state: Number;
 	private var _focus: Number;
 	
@@ -174,6 +172,8 @@ class ConfigPanel extends MovieClip
 		for (var i=0; i<arguments.length; i++)
 			if (arguments[i].toLowerCase() != "none")
 				_modList.entryList.push({modIndex: i, text: arguments[i], align: "right", enabled: true});
+
+		_modList.entryList.sortOn("text", Array.CASEINSENSITIVE);
 		_modList.InvalidateData();
 	}
 	
@@ -278,16 +278,24 @@ class ConfigPanel extends MovieClip
 			sliderFormatString: _sliderDialogFormatString
 		};
 		
-		_optionChangeDialog = DialogManager.open(this, "OptionSliderDialog", initObj);
-		_optionChangeDialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
-		_optionChangeDialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
+		var dialog = DialogManager.open(this, "OptionSliderDialog", initObj);
+		dialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
+		dialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
 		dimOut();
 	}
 	
 	public function setMenuDialogOptions(/* values */): Void
 	{
-		for (var i = 0; i < arguments.length; i++)
+		_menuDialogOptions.splice(0);
+		
+		for (var i = 0; i < arguments.length; i++) {
+			var s = arguments[i];
+			
+			// Cut off rest of the buffer once the first emtpy string was found
+			if (s.toLowerCase() == "none" || s == "")
+				break;			
 			_menuDialogOptions[i] = arguments[i];
+		}
 	}
 	
 	public function setMenuDialogParams(a_startIndex: Number, a_defaultIndex: Number): Void
@@ -303,9 +311,9 @@ class ConfigPanel extends MovieClip
 			menuDefaultIndex: a_defaultIndex
 		};
 		
-		_optionChangeDialog = DialogManager.open(this, "OptionMenuDialog", initObj);
-		_optionChangeDialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
-		_optionChangeDialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
+		var dialog = DialogManager.open(this, "OptionMenuDialog", initObj);
+		dialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
+		dialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
 		dimOut();
 	}
 
@@ -321,9 +329,9 @@ class ConfigPanel extends MovieClip
 			defaultColor: a_defaultColor
 		};
 		
-		_optionChangeDialog = DialogManager.open(this, "OptionColorDialog", initObj);
-		_optionChangeDialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
-		_optionChangeDialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
+		var dialog = DialogManager.open(this, "OptionColorDialog", initObj);
+		dialog.addEventListener("dialogClosed", this, "onOptionChangeDialogClosed");
+		dialog.addEventListener("dialogClosing", this, "onOptionChangeDialogClosing");
 		dimOut();
 	}
 	
@@ -390,6 +398,30 @@ class ConfigPanel extends MovieClip
 		_bRequestPageReset = true;
 	}
 	
+	public function showMessageDialog(a_text: String, a_acceptLabel: String, a_cancelLabel: String): Void
+	{
+		// Don't open it while READY cause we should always be waiting for something.
+		if (_state == READY) {
+			skse.SendModEvent("SKICP_messageDialogClosed", null, 0);
+			return;
+		}
+		
+		// This is a special dialog. It doesn't result in Papyrus event when closed but instead the
+		// thread opening is supposed to sleep and wait until it's closed again (behaving like Message.Show()).
+		// It keeps _state set to whatever it was.
+		var initObj = {
+			_x: 719, _y: 265,
+			platform: _platform,
+			messageText: a_text,
+			acceptLabel: a_acceptLabel,
+			cancelLabel: a_cancelLabel
+		};
+		
+		var dialog = DialogManager.open(this, "MessageDialog", initObj);
+		dialog.addEventListener("dialogClosing", this, "onMessageDialogClosing");
+		dimOut();
+	}
+	
 	
   /* PUBLIC FUNCTIONS */
   
@@ -451,7 +483,7 @@ class ConfigPanel extends MovieClip
 					_optionsList.selectedIndex = -1;
 					
 					var restored = _subList.listState.savedIndex;
-					_subList.selectedIndex = restored ? restored : _subList.listState.activeEntry.itemIndex;
+					_subList.selectedIndex = (restored > -1) ? restored : ((_subList.listState.activeEntry.itemIndex > -1) ? _subList.listState.activeEntry.itemIndex : 0);
 					return true;
 				}
 			} else if (_focus == FOCUS_MODLIST) {
@@ -462,7 +494,7 @@ class ConfigPanel extends MovieClip
 					_subList.selectedIndex = -1;
 					
 					var restored = _optionsList.listState.savedIndex;
-					_optionsList.selectedIndex = restored ? restored : 0;
+					_optionsList.selectedIndex = (restored > -1) ? restored : 0;
 					return true;
 				}
 			}
@@ -478,7 +510,7 @@ class ConfigPanel extends MovieClip
 				if (_modListPanel.isSublistActive()) {
 					changeFocus(FOCUS_MODLIST);
 					_modListPanel.showList();
-				} else {
+				} else if (_modListPanel.isListActive()) {
 					_parentMenu.ConfigPanelClose();
 				}
 				return true;
@@ -566,6 +598,11 @@ class ConfigPanel extends MovieClip
 	}
 	
 	private function onOptionChangeDialogClosing(event: Object): Void
+	{
+		dimIn();
+	}
+	
+	private function onMessageDialogClosing(event: Object): Void
 	{
 		dimIn();
 	}
@@ -689,8 +726,6 @@ class ConfigPanel extends MovieClip
 		clearInterval(_remapDelayID);
 		delete _remapDelayID;
 		
-		_optionsList.disableSelection = false;
-		_optionsList.disableInput = false;
 		_bRemapMode = false;
 		_currentRemapOption = -1;
 	}
@@ -752,8 +787,8 @@ class ConfigPanel extends MovieClip
 	private function dimOut(): Void
 	{
 		GameDelegate.call("PlaySound",["UIMenuBladeOpenSD"]);
-		_optionsList.disableSelection = _subList.disableSelection = true;
-		_optionsList.disableInput = _subList.disableInput = true;
+		_optionsList.disableSelection = _optionsList.disableInput = true;
+		_subList.disableSelection = _subList.disableInput = true;
 		TweenLite.to(bottomBar, 0.5, {_alpha: 0, _y: _bottomBarStartY+50, overwrite: 1, easing: Linear.easeNone});
 		TweenLite.to(contentHolder, 0.5, {_alpha: 75, overwrite: 1, easing: Linear.easeNone});
 	}
@@ -761,8 +796,8 @@ class ConfigPanel extends MovieClip
 	private function dimIn(): Void
 	{
 		GameDelegate.call("PlaySound",["UIMenuBladeCloseSD"]);
-		_optionsList.disableSelection = _subList.disableSelection = false;
-		_optionsList.disableInput = _subList.disableInput = false;
+		_optionsList.disableSelection = _optionsList.disableInput = false;
+		_subList.disableSelection = _subList.disableInput = false;
 		TweenLite.to(bottomBar, 0.5, {_alpha: 100, _y: _bottomBarStartY, overwrite: 1, easing: Linear.easeNone});
 		TweenLite.to(contentHolder, 0.5, {_alpha: 100, overwrite: 1, easing: Linear.easeNone});
 	}
@@ -774,7 +809,6 @@ class ConfigPanel extends MovieClip
 
 		setTitleText("MOD CONFIGURATION");
 		setInfoText("");
-
 	}
 	
 	private function updateModListButtons(a_bSubList: Boolean): Void

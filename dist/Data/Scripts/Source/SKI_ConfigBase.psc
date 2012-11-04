@@ -30,30 +30,33 @@ int property		TOP_TO_BOTTOM	= 2 autoReadonly
 ; PRIVATE VARIABLES -------------------------------------------------------------------------------
 
 SKI_ConfigManager	_configManager
-bool				_initialized	= false
-int					_configID		= -1
-string				_currentPage	= ""
-int					_currentPageNum	= 0		; 0 for "", real pages start at 1
+bool				_initialized		= false
+int					_configID			= -1
+string				_currentPage		= ""
+int					_currentPageNum		= 0			; 0 for "", real pages start at 1
 
 ; Keep track of what we're doing at the moment for stupidity checks
-int					_state			= 0
+int					_state				= 0
 
-int					_cursorPosition	= 0
-int					_cursorFillMode	= 1		;LEFT_TO_RIGHT
+int					_cursorPosition		= 0
+int					_cursorFillMode		= 1			;LEFT_TO_RIGHT
 
 ; Local buffers
-float[]				_optionFlagsBuf			; byte 1 type, byte 2 flags
+int[]				_optionFlagsBuf					; byte 1 type, byte 2 flags
 string[]			_textBuf
 string[]			_strValueBuf
 float[]				_numValueBuf
 
 float[]				_sliderParams
-float[]				_menuParams
-float[]				_colorParams
+int[]				_menuParams
+int[]				_colorParams
 
-int					_activeOption	= -1
+int					_activeOption		= -1
 
 string				_infoText
+
+bool				_messageResult		= false
+bool				_waitForMessage		= false
 
 
 ; PROPERTIES --------------------------------------------------------------------------------------
@@ -72,7 +75,7 @@ endProperty
 ; INITIALIZATION ----------------------------------------------------------------------------------
 
 event OnInit()
-	_optionFlagsBuf	= new float[128]
+	_optionFlagsBuf	= new int[128]
 	_textBuf		= new string[128]
 	_strValueBuf	= new string[128]
 	_numValueBuf	= new float[128]
@@ -86,11 +89,11 @@ event OnInit()
 
 	; 0 startIndex
 	; 1 defaultIndex
-	_menuParams		= new float[2]
+	_menuParams		= new int[2]
 
 	; 0 currentColor
 	; 1 defaultColor
-	_colorParams	= new float[2]
+	_colorParams	= new int[2]
 	
 	RegisterForModEvent("SKICP_configManagerReady", "OnConfigManagerReady")
 endEvent
@@ -188,6 +191,11 @@ event OnOptionKeyMapChange(int a_option, int a_keyCode, string a_conflictControl
 	{Called when a key has been remapped}
 endEvent
 
+event OnMessageDialogClose(string a_eventName, string a_strArg, float a_numArg, Form a_sender)
+	_messageResult = a_numArg as bool
+	_waitForMessage = false
+endEvent
+
 
 ; FUNCTIONS ---------------------------------------------------------------------------------------
 
@@ -205,7 +213,7 @@ endFunction
 
 ; @interface
 function ForcePageReset()
-	{Forces a reset of the current page}
+	{Forces a full reset of the current page}
 	UI.Invoke(JOURNAL_MENU, MENU_ROOT + ".forcePageReset")
 endFunction
 
@@ -254,7 +262,7 @@ int function AddToggleOption(string a_text, bool a_checked, int a_flags = 0)
 endfunction
 
 ; @interface
-int function AddSliderOption(string a_text, float a_value, string a_formatString = "", int a_flags = 0)
+int function AddSliderOption(string a_text, float a_value, string a_formatString = "{0}", int a_flags = 0)
 	return AddOption(OPTION_TYPE_SLIDER, a_text, a_formatString, a_value, a_flags)
 endFunction
 
@@ -278,7 +286,7 @@ function LoadCustomContent(string a_source, float a_x = 0.0, float a_y = 0.0)
 	float[] params = new float[2]
 	params[0] = a_x
 	params[1] = a_y
-	UI.InvokeNumberA(JOURNAL_MENU, MENU_ROOT + ".setCustomContentParams", params)
+	UI.InvokeFloatA(JOURNAL_MENU, MENU_ROOT + ".setCustomContentParams", params)
 	UI.InvokeString(JOURNAL_MENU, MENU_ROOT + ".loadCustomContent", a_source)
 endFunction
 
@@ -302,10 +310,10 @@ function SetOptionFlags(int a_option, int a_flags, bool a_noUpdate = false)
 	oldFlags += a_flags * 0x100	; Set new flags
 
 	; Update display
-	float[] params = new float[2]
+	int[] params = new int[2]
 	params[0] = index
 	params[1] = a_flags
-	UI.InvokeNumberA(JOURNAL_MENU, MENU_ROOT + ".setOptionFlags", params)
+	UI.InvokeIntA(JOURNAL_MENU, MENU_ROOT + ".setOptionFlags", params)
 
 	if (!a_noUpdate)
 		UI.Invoke(JOURNAL_MENU, MENU_ROOT + ".invalidateOptionData")
@@ -339,7 +347,7 @@ function SetToggleOptionValue(int a_option, bool a_checked, bool a_noUpdate = fa
 endfunction
 
 ; @interface
-function SetSliderOptionValue(int a_option, float a_value, string a_formatString = "", bool a_noUpdate = false)
+function SetSliderOptionValue(int a_option, float a_value, string a_formatString = "{0}", bool a_noUpdate = false)
 	int index = a_option % 0x100
 
 	if (_optionFlagsBuf[index] != OPTION_TYPE_SLIDER)
@@ -481,6 +489,38 @@ function SetColorDialogDefaultColor(int a_color)
 	_colorParams[1] = a_color
 endFunction
 
+; @interface
+bool function ShowMessage(string a_message, bool a_withCancel = true, string a_acceptLabel = "$Accept", string a_cancelLabel = "$Cancel")
+	if (_waitForMessage)
+		Error("Called ShowMessage() while another message was already open")
+		return false
+	endIf
+
+	_waitForMessage = true
+	_messageResult = false
+
+	string[] params = new string[3]
+	params[0] = a_message
+	params[1] = a_acceptLabel
+	if (a_withCancel)
+		params[2] = a_cancelLabel
+	else
+		params[2] = ""
+	endIf
+
+	RegisterForModEvent("SKICP_messageDialogClosed", "OnMessageDialogClose")
+	UI.InvokeStringA(JOURNAL_MENU, MENU_ROOT + ".showMessageDialog", params)
+
+	; Wait for result
+	while (_waitForMessage)
+		Utility.WaitMenuMode(0.1)
+	endWhile
+
+	UnregisterForModEvent("SKICP_messageDialogClosed")
+	
+	return _messageResult
+endFunction
+
 function Error(string a_msg)
 	Debug.Trace(self + " ERROR: " +  a_msg)
 endFunction
@@ -497,6 +537,7 @@ endFunction
 function CloseConfig()
 	OnConfigClose()	
 	ClearOptionBuffers()
+	_waitForMessage = false
 endFunction
 
 function SetPage(string a_page, int a_index)
@@ -560,11 +601,11 @@ function WriteOptionBuffers()
 		i += 1
 	endWhile
 	
-	UI.InvokeNumberA(menu, root + ".setOptionFlagsBuffer", _optionFlagsBuf)
+	UI.InvokeIntA(menu, root + ".setOptionFlagsBuffer", _optionFlagsBuf)
 	UI.InvokeStringA(menu, root + ".setOptionTextBuffer", _textBuf)
 	UI.InvokeStringA(menu, root + ".setOptionStrValueBuffer", _strValueBuf)
-	UI.InvokeNumberA(menu, root + ".setOptionNumValueBuffer", _numValueBuf)
-	UI.InvokeNumber(menu, root + ".flushOptionBuffers", optionCount)
+	UI.InvokeFloatA(menu, root + ".setOptionNumValueBuffer", _numValueBuf)
+	UI.InvokeInt(menu, root + ".flushOptionBuffers", optionCount)
 endFunction
 
 function ClearOptionBuffers()
@@ -591,7 +632,7 @@ function SetOptionStrValue(int a_index, string a_strValue, bool a_noUpdate)
 	string menu = JOURNAL_MENU
 	string root = MENU_ROOT
 
-	UI.SetNumber(menu, root + ".optionCursorIndex", a_index)
+	UI.SetInt(menu, root + ".optionCursorIndex", a_index)
 	UI.SetString(menu, root + ".optionCursor.strValue", a_strValue)
 	if (!a_noUpdate)
 		UI.Invoke(menu, root + ".invalidateOptionData")
@@ -607,8 +648,8 @@ function SetOptionNumValue(int a_index, float a_numValue, bool a_noUpdate)
 	string menu = JOURNAL_MENU
 	string root = MENU_ROOT
 
-	UI.SetNumber(menu, root + ".optionCursorIndex", a_index)
-	UI.SetNumber(menu, root + ".optionCursor.numValue", a_numValue)
+	UI.SetInt(menu, root + ".optionCursorIndex", a_index)
+	UI.SetFloat(menu, root + ".optionCursor.numValue", a_numValue)
 	if (!a_noUpdate)
 		UI.Invoke(menu, root + ".invalidateOptionData")
 	endIf
@@ -623,9 +664,9 @@ function SetOptionValues(int a_index, string a_strValue, float a_numValue, bool 
 	string menu = JOURNAL_MENU
 	string root = MENU_ROOT
 
-	UI.SetNumber(menu, root + ".optionCursorIndex", a_index)
+	UI.SetInt(menu, root + ".optionCursorIndex", a_index)
 	UI.SetString(menu, root + ".optionCursor.strValue", a_strValue)
-	UI.SetNumber(menu, root + ".optionCursor.numValue", a_numValue)
+	UI.SetFloat(menu, root + ".optionCursor.numValue", a_numValue)
 	if (!a_noUpdate)
 		UI.Invoke(menu, root + ".invalidateOptionData")
 	endIf
@@ -645,7 +686,7 @@ function RequestSliderDialogData(int a_index)
 	OnOptionSliderOpen(_activeOption)
 	_state = STATE_DEFAULT
 
-	UI.InvokeNumberA(JOURNAL_MENU, MENU_ROOT + ".setSliderDialogParams", _sliderParams)
+	UI.InvokeFloatA(JOURNAL_MENU, MENU_ROOT + ".setSliderDialogParams", _sliderParams)
 endFunction
 
 function RequestMenuDialogData(int a_index)
@@ -659,7 +700,7 @@ function RequestMenuDialogData(int a_index)
 	OnOptionMenuOpen(_activeOption)
 	_state = STATE_DEFAULT
 
-	UI.InvokeNumberA(JOURNAL_MENU, MENU_ROOT + ".setMenuDialogParams", _menuParams)
+	UI.InvokeIntA(JOURNAL_MENU, MENU_ROOT + ".setMenuDialogParams", _menuParams)
 endFunction
 
 function RequestColorDialogData(int a_index)
@@ -673,7 +714,7 @@ function RequestColorDialogData(int a_index)
 	OnOptionColorOpen(_activeOption)
 	_state = STATE_DEFAULT
 
-	UI.InvokeNumberA(JOURNAL_MENU, MENU_ROOT + ".setColorDialogParams", _colorParams)
+	UI.InvokeIntA(JOURNAL_MENU, MENU_ROOT + ".setColorDialogParams", _colorParams)
 endFunction
 
 function SetSliderValue(float a_value)

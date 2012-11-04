@@ -54,8 +54,6 @@ class ColorDialog extends OptionDialog
 		}
 		
 		leftButtonPanel.clearButtons();
-		var acceptButton = leftButtonPanel.addButton({text: "$Accept", controls: acceptControls});
-		acceptButton.addEventListener("press", this, "onAcceptPress");
 		var defaultButton = leftButtonPanel.addButton({text: "$Default", controls: _defaultControls});
 		defaultButton.addEventListener("press", this, "onDefaultPress");
 		leftButtonPanel.updateButtons();
@@ -63,6 +61,8 @@ class ColorDialog extends OptionDialog
 		rightButtonPanel.clearButtons();
 		var cancelButton = rightButtonPanel.addButton({text: "$Cancel", controls: cancelControls});
 		cancelButton.addEventListener("press", this, "onCancelPress");
+		var acceptButton = rightButtonPanel.addButton({text: "$Accept", controls: acceptControls});
+		acceptButton.addEventListener("press", this, "onAcceptPress");
 		rightButtonPanel.updateButtons();
 	}
 
