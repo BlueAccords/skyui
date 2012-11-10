@@ -35,7 +35,6 @@ class CategoryList extends BasicList
 	private var _bFastSwitch: Boolean;
 	private var _segmentOffset: Number;
 	private var _segmentLength: Number;
-	private var _selectorY: Number;
 
 
   /* PROPERTIES */
@@ -96,7 +95,6 @@ class CategoryList extends BasicList
 		dividerIndex = -1;
 		_segmentOffset = 0;
 		_segmentLength = 0;
-		_selectorY = selectorCenter._y;
 		
 		if (iconSize == undefined)
 			iconSize = 32;
@@ -147,6 +145,7 @@ class CategoryList extends BasicList
 			var entryClip = getClipByIndex(i);
 
 			entryClip.setEntry(listEnumeration.at(i + _segmentOffset), listState);
+			entryClip._height = entryClip._width = iconSize;
 
 			listEnumeration.at(i + _segmentOffset).clipIndex = i;
 			entryClip.itemIndex = i + _segmentOffset;
