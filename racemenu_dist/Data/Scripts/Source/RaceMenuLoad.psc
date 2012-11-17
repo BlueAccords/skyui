@@ -1,5 +1,5 @@
 Scriptname RaceMenuLoad extends ReferenceAlias
 
 Event OnPlayerLoadGame()
-	(GetOwningQuest() as RaceMenu).OnGameReload()
+	(GetOwningQuest() as RaceMenuBase).OnGameReload()
 EndEvent

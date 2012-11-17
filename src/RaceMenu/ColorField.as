@@ -10,11 +10,13 @@ class ColorField extends MovieClip
 {
 	public var buttonPanel: ButtonPanel;
 	public var colorSelector: HSVSelector;
+	public var colorText: TextField;
+	public var currentSelectionLeft: MovieClip;
+	public var currentSelectionRight: MovieClip;
 	
-	private var _acceptButton: MovieClip;
-	private var _cancelButton: MovieClip;
+	private var _acceptButton: Object;
+	private var _cancelButton: Object;
 	private var _currentColor: Number = 0;
-	private var _currentAlpha: Number = 0;
 	public var _currentSlider: Number = 0;
 
 	public var dispatchEvent: Function;
@@ -29,6 +31,7 @@ class ColorField extends MovieClip
 	{
 		super();
 		EventDispatcher.initialize(this);
+		colorText.textAutoSize = "shrink";
 	}
 	
 	public function onLoad()
@@ -50,11 +53,13 @@ class ColorField extends MovieClip
 				_currentSlider++;
 				if(_currentSlider > 3)
 					_currentSlider = 0;
+				UpdateSelection();
 				bHandledInput = true;
 			} else if(details.navEquivalent == NavigationCode.UP) {
 				_currentSlider--;
 				if(_currentSlider < 0)
 					_currentSlider = 3;
+				UpdateSelection();
 				bHandledInput = true;
 			} else if (details.navEquivalent == NavigationCode.LEFT || 
 					   details.navEquivalent == NavigationCode.RIGHT || 
@@ -81,52 +86,65 @@ class ColorField extends MovieClip
 	public function SetupButtons(): Void
 	{
 		buttonPanel.clearButtons();
-		_acceptButton = buttonPanel.addButton({text: "$Accept", controls: InputDefines.Accept});
-		_cancelButton = buttonPanel.addButton({text: "$Cancel", controls: InputDefines.Cancel});
-		_acceptButton.addEventListener("click", this, "onAccept");
-		_cancelButton.addEventListener("click", this, "onCancel");
+		var acceptButton: MovieClip = buttonPanel.addButton({text: "$Accept", controls: _acceptButton});
+		var cancelButton: MovieClip = buttonPanel.addButton({text: "$Cancel", controls: _cancelButton});
+		acceptButton.addEventListener("click", this, "onAccept");
+		cancelButton.addEventListener("click", this, "onCancel");
 		buttonPanel.updateButtons(true);
+	}
+	
+	public function UpdateSelection(): Void
+	{
+		currentSelectionLeft.gotoAndStop(_currentSlider + 1);
+		currentSelectionRight.gotoAndStop(_currentSlider + 1);
 	}
 	
 	public function ResetSlider(): Void
 	{
 		_currentSlider = 0;
+		UpdateSelection();
 	}
 	
 	public function getColor(): Number
 	{
 		return _currentColor;
 	}
-	
-	public function getAlpha(): Number
+		
+	public function setText(a_text: String): Void
 	{
-		return _currentAlpha;
+		colorText.text = a_text;
 	}
 	
-	public function setColor(a_color: Number, a_alpha: Number): Void
+	public function setColor(a_color: Number): Void
 	{
 		_currentColor = a_color;
-		_currentAlpha = a_alpha;
-		colorSelector.setColor(_currentColor, _currentAlpha);
+		colorSelector.setColor(_currentColor & 0x00FFFFFF, (_currentColor >>> 24));
 	}
 
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
+		if(a_platform == 0) {
+			_acceptButton = InputDefines.Accept;
+			_cancelButton = InputDefines.Tab;
+		} else {
+			_acceptButton = InputDefines.Accept;
+			_cancelButton = InputDefines.Cancel;
+		}
 		buttonPanel.setPlatform(a_platform, a_bPS3Switch);
 	}
 	
 	public function onSliderChange(event: Object): Void
 	{
-		dispatchEvent({type: "changeColor", color: event.color, alpha: event.alpha});
+		dispatchEvent({type: "changeColor", color: (event.color | event.alpha << 24)});
 	}
 
 	public function onAccept(): Void
 	{
-		dispatchEvent({type: "setColor", color: colorSelector.getColor(), alpha: colorSelector.getAlpha()});
+		dispatchEvent({type: "setColor", color: (colorSelector.getColor() | colorSelector.getAlpha() << 24)});
 	}
 
 	public function onCancel(): Void
 	{
-		dispatchEvent({type: "setColor", color: _currentColor, alpha: _currentAlpha});
+		dispatchEvent({type: "setColor", color: _currentColor});
 	}
 }

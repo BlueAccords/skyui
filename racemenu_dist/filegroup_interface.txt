@@ -1,3 +1,4 @@
 Interface\racesex_menu.swf
 Interface\skyui\racesex_icons.swf
 Interface\translations\RaceMenu_ENGLISH.txt
+Interface\translations\RaceMenuPlugin_ENGLISH.txt

@@ -109,7 +109,7 @@ class SliderListEntry extends BasicListEntry
 				textField.textColor = selectedTextColor;
 			else
 				textField.textColor = defaultTextColor;
-				
+
 			textField.SetText(a_entryObject.text ? a_entryObject.text : " ");
 		}
 		
@@ -152,6 +152,18 @@ class SliderListEntry extends BasicListEntry
 				} else {
 					colorSquare.enabled = colorSquare._visible = false;
 				}
+			}
+			break;
+			
+			case RaceMenuDefines.ENTRY_TYPE_MAKEUP:
+			{
+				SliderInstance._visible = false;
+				valueField._visible = false;
+						
+				var colorOverlay: Color = new Color(colorSquare.fill);
+				colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
+				colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
+				colorSquare.enabled = colorSquare._visible = true;
 			}
 			break;
 		}

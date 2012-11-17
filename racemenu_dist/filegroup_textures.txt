@@ -1,0 +1,4 @@
+Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_01.dds
+Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_02.dds
+Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_03.dds
+Textures\Actors\Character\Character Assets\TintMasks\DragonTattoo_01.dds

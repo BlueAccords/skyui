@@ -3,6 +3,7 @@
 	static var ENTRY_TYPE_CAT: Number = 0;
 	static var ENTRY_TYPE_RACE: Number = 1;
 	static var ENTRY_TYPE_SLIDER: Number = 2;
+	static var ENTRY_TYPE_MAKEUP: Number = 3;
 	
 	static var CAT_TEXT: Number = 0;
 	static var CAT_FLAG: Number = 1;
@@ -32,6 +33,7 @@
 	static var CATEGORY_MOUTH: Number = 128;
 	static var CATEGORY_HAIR: Number = 256;
 	static var CATEGORY_COLOR: Number = 512;
+	static var CATEGORY_MAKEUP: Number = 1024;
 	
 	static var STATIC_SLIDER_SEX: Number = -1;
 	static var STATIC_SLIDER_PRESET: Number = 0;
@@ -57,6 +59,8 @@
 	static var TINT_TYPE_NECK: Number = 12;
 	static var TINT_TYPE_FOREHEAD: Number = 13;
 	static var TINT_TYPE_DIRT: Number = 14;
+	
+	static var CUSTOM_SLIDER_OFFSET: Number = 1000;
 
 	static var SLIDER_MAP: Array = [// Male
 										[{sliderID: 11, tintType: TINT_TYPE_HAIR}, // Hair Color
@@ -91,4 +95,45 @@
 										{sliderID: 37, tintType: TINT_TYPE_FOREHEAD}, // Forehead Color
 										{sliderID: 5, tintType: TINT_TYPE_DIRT} // Dirt Color
 										]];
+	
+	static var ACTORVALUE_ALCHEMY: Number = 16;
+	static var ACTORVALUE_ALTERATION: Number = 18;
+	static var ACTORVALUE_MARKSMAN: Number = 8;
+	static var ACTORVALUE_BLOCK: Number = 9;
+	static var ACTORVALUE_CONJURATION: Number = 19;
+	static var ACTORVALUE_DESTRUCTION: Number = 20;
+	static var ACTORVALUE_ENCHANTING: Number = 23;
+	static var ACTORVALUE_HEAVYARMOR: Number = 11;
+	static var ACTORVALUE_ILLUSION: Number = 21;
+	static var ACTORVALUE_LIGHTARMOR: Number = 12;
+	static var ACTORVALUE_LOCKPICKING: Number = 14;
+	static var ACTORVALUE_ONEHANDED: Number = 6;
+	static var ACTORVALUE_PICKPOCKET: Number = 13;
+	static var ACTORVALUE_RESTORATION: Number = 22;
+	static var ACTORVALUE_SMITHING: Number = 10;
+	static var ACTORVALUE_SNEAK: Number = 15;
+	static var ACTORVALUE_SPEECHCRAFT: Number = 17;
+	static var ACTORVALUE_TWOHANDED: Number = 7;
+	static var ACTORVALUE_NONE: Number = 255;
+	
+	static var ACTORVALUE_MAP: Array = [{value: ACTORVALUE_ALCHEMY, text: "$Alchemy"},
+										{value: ACTORVALUE_ALTERATION, text: "$Alteration"},
+										{value: ACTORVALUE_MARKSMAN, text: "$Archery"},
+										{value: ACTORVALUE_BLOCK, text: "$Block"},
+										{value: ACTORVALUE_CONJURATION, text: "$Conjuration"},
+										{value: ACTORVALUE_DESTRUCTION, text: "$Destruction"},
+										{value: ACTORVALUE_ENCHANTING, text: "$Enchanting"},
+										{value: ACTORVALUE_HEAVYARMOR, text: "$Heavy Armor"},
+										{value: ACTORVALUE_ILLUSION, text: "$Illusion"},
+										{value: ACTORVALUE_LIGHTARMOR, text: "$Light Armor"},
+										{value: ACTORVALUE_LOCKPICKING, text: "$Lockpicking"},
+										{value: ACTORVALUE_ONEHANDED, text: "$One Handed"},
+										{value: ACTORVALUE_PICKPOCKET, text: "$Pickpocket"},
+										{value: ACTORVALUE_RESTORATION, text: "$Restoration"},
+										{value: ACTORVALUE_SMITHING, text: "$Smithing"},
+										{value: ACTORVALUE_SNEAK, text: "$Sneak"},
+										{value: ACTORVALUE_SPEECHCRAFT, text: "$Speechcraft"},
+										{value: ACTORVALUE_TWOHANDED, text: "$Two Handed"},
+										{value: ACTORVALUE_NONE, text: "$None"}
+										];
 }

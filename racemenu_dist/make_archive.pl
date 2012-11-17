@@ -30,12 +30,14 @@ $archiveOutPath	= "_generated";
 
 $fileGroupInterfacePath = "filegroup_interface.txt";
 $fileGroupScriptsPath = "filegroup_scripts.txt";
+$fileGroupTexturesPath = "filegroup_textures.txt";
 
 $filegroupPathOut = "filegroup_all.txt";
 
 @filegroupPathsIn = (
 	$fileGroupInterfacePath,
-	$fileGroupScriptsPath
+	$fileGroupScriptsPath,
+	$fileGroupTexturesPath
 );
 
 # No wait?

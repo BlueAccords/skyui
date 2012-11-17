@@ -1,7 +1,16 @@
 Interface\racesex_menu.swf
 Interface\skyui\racesex_icons.swf
 Interface\translations\RaceMenu_ENGLISH.txt
+Interface\translations\RaceMenuPlugin_ENGLISH.txt
 Scripts\RaceMenu.pex
+Scripts\RaceMenuBase.pex
 Scripts\RaceMenuLoad.pex
+Scripts\RaceMenuPlugin.pex
 Scripts\Source\RaceMenu.psc
+Scripts\Source\RaceMenuBase.psc
 Scripts\Source\RaceMenuLoad.psc
+Scripts\Source\RaceMenuPlugin.psc
+Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_01.dds
+Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_02.dds
+Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_03.dds
+Textures\Actors\Character\Character Assets\TintMasks\DragonTattoo_01.dds
