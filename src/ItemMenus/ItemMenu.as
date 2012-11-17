@@ -9,12 +9,6 @@ import skyui.components.ButtonPanel;
 
 class ItemMenu extends MovieClip
 {
-  /* CONSTANTS */
-  
-	private static var SKSE_REQ_RELEASE_IDX = 9;
-	private static var SKSE_REQ_VERSION = "1.4.8";
-
-
   /* PRIVATE VARIABLES */
   
 	private var _platform: Number;
@@ -27,7 +21,11 @@ class ItemMenu extends MovieClip
 	
 	private var _acceptControls: Object;
 	private var _cancelControls: Object;
+	private var _searchControls: Object;
 	private var _switchControls: Object;
+	
+	private var _searchKey: Number;
+	private var _switchKey: Number;
 	
 	
   /* STAGE ELEMENTS */
@@ -40,7 +38,6 @@ class ItemMenu extends MovieClip
 	
 	public var mouseRotationRect: MovieClip;
 	public var exitMenuRect: MovieClip;
-	public var skseWarning: MovieClip;
 	
 	
   /* PROPERTIES */
@@ -113,36 +110,6 @@ class ItemMenu extends MovieClip
 			if (_parent.bFadedIn == true && Mouse.getTopMostEntity() == this)
 				_parent.onExitMenuRectClick();
 		};
-		
-		if (skseWarning != undefined) {
-			
-			// Default message
-			if (_global.skse == undefined) {
-				skseWarning._visible = true;
-				skseWarning.message.text =
-					"SkyUI could not detect the Skyrim Script Extender (SKSE).\n" +
-					"SkyUI will not work correctly!\n" +
-					"\n" +
-					"This message may also appear if a new Skyrim Patch has been released.\n" +
-					"In this case, wait until SKSE has been updated, then install the new version.\n" +
-					"\n" +
-					"For more information, see the mod description.";
-					
-			} else if (_global.skse.version.releaseIdx < SKSE_REQ_RELEASE_IDX) {
-				skseWarning._visible = true;
-				skseWarning.message.text =
-					"Your Skyrim Script Extender (SKSE) is outdated.\n"	+
-					"SkyUI will not work correctly!\n" +
-					"\n" +
-					"Installed version: " + _global.skse.version.major + "." + _global.skse.version.minor + "." + _global.skse.version.beta + "\n" +
-					"Required version: " + SKSE_REQ_VERSION + "\n" +
-					"\n" +
-					"For more information, see the mod description.";
-					
-			} else {
-				skseWarning._visible = false;
-			}
-		}
 	}
 	
 	public function setConfig(a_config: Object): Void
@@ -165,12 +132,22 @@ class ItemMenu extends MovieClip
 		itemListState.defaultDisabledColor = section.colors.disabled.text;
 		itemListState.negativeDisabledColor = section.colors.disabled.negative;
 		itemListState.stolenDisabledColor = section.colors.disabled.stolen;
+
+		_searchKey = a_config["Input"].controls.search;
+		_switchKey = a_config["Input"].controls.switchTab;
+
+		_searchControls = {keyCode: _searchKey};
+		_switchControls = (_platform != 0) ? InputDefines.GamepadBack : {keyCode: _switchKey};
+		
+		updateBottomBar(false);
 	}
 
 	// @API
 	public function SetPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
 		_platform = a_platform;
+		
+		_searchControls = InputDefines.Jump;
 		
 		if (a_platform == 0) {
 			_acceptControls = InputDefines.Enter;
@@ -282,7 +259,6 @@ class ItemMenu extends MovieClip
 	
 	
   /* PRIVATE FUNCTIONS */
-  
 
 	public function onItemCardSubMenuAction(event: Object): Void
 	{
@@ -325,9 +301,7 @@ class ItemMenu extends MovieClip
 	}
 	
 	private function onItemHighlightChange(event: Object): Void
-	{
-		super.onItemHighlightChange(event);
-		
+	{		
 		if (event.index != -1) {
 			if (!_bItemCardFadedIn) {
 				_bItemCardFadedIn = true;
@@ -427,9 +401,6 @@ class ItemMenu extends MovieClip
 		MovieClip(exitMenuRect).Lock("TL");
 		exitMenuRect._x = exitMenuRect._x - Stage.safeRect.x;
 		exitMenuRect._y = exitMenuRect._y - Stage.safeRect.y;
-		
-		if (skseWarning != undefined)
-			skseWarning.Lock("TR");
 	}
 	
 	private function positionFloatingElements(): Void
@@ -558,4 +529,6 @@ class ItemMenu extends MovieClip
 		
 		return btnData;
 	}
+	
+	private function updateBottomBar(a_bSelected: Boolean): Void {}
 }

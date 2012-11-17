@@ -11,6 +11,8 @@ import skyui.props.PropertyDataExtender;
 
 class ContainerMenu extends ItemMenu
 {
+	#include "../version.as"
+	
   /* CONSTANTS */
   
 	private static var NULL_HAND: Number = -1;
@@ -157,10 +159,7 @@ class ContainerMenu extends ItemMenu
 	public function SetPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
 		super.SetPlatform(a_platform,a_bPS3Switch);
-
-		updateBottomBar(false);
-
-		_platform = a_platform;
+		
 		_bEquipMode = a_platform != 0;
 	}
 	
@@ -226,6 +225,7 @@ class ContainerMenu extends ItemMenu
 		GameDelegate.call("DisabledItemSelect",[]);
 	}
 	
+	// @override ItemMenu
 	private function updateBottomBar(a_bSelected: Boolean): Void
 	{
 		navPanel.clearButtons();
@@ -260,7 +260,7 @@ class ContainerMenu extends ItemMenu
 				navPanel.addButton({text: "$Equip Mode", controls: _equipModeControls});
 		} else {
 			navPanel.addButton({text: "$Exit", controls: _cancelControls});
-			navPanel.addButton({text: "$Search", controls: InputDefines.Jump});
+			navPanel.addButton({text: "$Search", controls: _searchControls});
 			if (_platform != 0) {
 				navPanel.addButton({text: "$Column", controls: InputDefines.SortColumn});
 				navPanel.addButton({text: "$Order", controls: InputDefines.SortOrder});

@@ -31,6 +31,15 @@ int			_AEOffsetXOID_S
 int			_AEOffsetYOID_S
 int			_AEOrientationOID_T
 
+int			_searchKeyOID_K
+int			_switchTabKeyOID_K
+
+int			_checkHUDMenuOID_B
+int			_checkInventoryMenuOID_B
+int			_checkMagicMenuOID_B
+int			_checkBarterMenuOID_B
+int			_checkContainerMenuOID_B
+
 ; State
 int			_itemlistFontSizeIdx	= 1
 
@@ -53,6 +62,9 @@ float[]		_AEBaseYValues
 float		_AEOffsetY				= 0.0
 int			_AEOrientationIdx		= 1
 
+int			_searchKey				= 57
+int			_switchTabKey			= 56
+
 ; Internal
 float		_itemXBase
 
@@ -61,6 +73,7 @@ float		_itemXBase
 
 SKI_SettingsManager property		SKI_SettingsManagerInstance auto
 SKI_ActiveEffectsWidget property	SKI_ActiveEffectsWidgetInstance auto
+SKI_Main property					SKI_MainInstance auto
 
 
 ; INITIALIZATION ----------------------------------------------------------------------------------
@@ -120,6 +133,8 @@ endEvent
 
 ; @implements SKI_QuestBase
 event OnGameReload()
+	parent.OnGameReload()
+	
 	ApplySettings()
 endEvent
 
@@ -142,6 +157,12 @@ event OnPageReset(string a_page)
 		AddHeaderOption("Item List")
 		_itemlistFontSizeOID_T		= AddTextOption("Font Size", _sizes[_itemlistFontSizeIdx])
 
+		AddEmptyOption()
+
+		AddHeaderOption("Controls")
+		_searchKeyOID_K				= AddKeyMapOption("Search", _searchKey)
+		_switchTabKeyOID_K			= AddKeyMapOption("Switch Tab", _switchTabKey)
+
 		SetCursorPosition(1)
 
 		; Disabled for now until icons are done
@@ -160,20 +181,28 @@ event OnPageReset(string a_page)
 
 		AddEmptyOption()
 
-		AddHeaderOption("3D Item")
-		_3DItemXOffsetOID_S			= AddSliderOption("Horizontal Offset", _3DItemXOffset)
-		_3DItemYOffsetOID_S			= AddSliderOption("Vertical Offset", _3DItemYOffset)
-		_3DItemScaleOID_S			= AddSliderOption("Scale", _3DItemScale, "{1}")
-
-		SetCursorPosition(1)
-
 		AddHeaderOption("Active Effects HUD")
-		
 		_AEOrientationOID_T			= AddTextOption("Orientation", _orientations[_AEOrientationIdx])
 		_AEClampCornerOID_M			= AddMenuOption("Clamp to Corner", _corners[_AEClampCornerIdx])
 		_AEGroupEffectCountOID_S	= AddSliderOption("Max Effect Width", _AEGroupEffectCount, "{0}")
 		_AEOffsetXOID_S				= AddSliderOption("X Offset", _AEOffsetX)
 		_AEOffsetYOID_S				= AddSliderOption("Y Offset", _AEOffsetY)
+
+		SetCursorPosition(1)
+
+		AddHeaderOption("3D Item")
+		_3DItemXOffsetOID_S			= AddSliderOption("Horizontal Offset", _3DItemXOffset)
+		_3DItemYOffsetOID_S			= AddSliderOption("Vertical Offset", _3DItemYOffset)
+		_3DItemScaleOID_S			= AddSliderOption("Scale", _3DItemScale, "{1}")
+
+		AddEmptyOption()
+
+		AddHeaderOption("SWF Version Checking")
+		_checkHUDMenuOID_B			= AddToggleOption("HUD Menu", SKI_MainInstance.HUDMenuCheckEnabled)
+		_checkInventoryMenuOID_B	= AddToggleOption("Inventory Menu", SKI_MainInstance.InventoryMenuCheckEnabled)
+		_checkMagicMenuOID_B		= AddToggleOption("Magic Menu", SKI_MainInstance.MagicMenuCheckEnabled)
+		_checkBarterMenuOID_B		= AddToggleOption("Barter Menu", SKI_MainInstance.BarterMenuCheckEnabled)
+		_checkContainerMenuOID_B	= AddToggleOption("Container Menu", SKI_MainInstance.ContainerMenuCheckEnabled)
 		
 	endIf
 endEvent
@@ -187,6 +216,17 @@ event OnOptionDefault(int a_option)
 		_itemlistFontSizeIdx = 1
 		SetTextOptionValue(a_option, _sizes[_itemlistFontSizeIdx])
 		ApplyItemListFontSize()
+
+	; -------------------------------------------------------
+	elseIf (a_option == _searchKeyOID_K)
+		_searchKey = 57
+		SetKeyMapOptionValue(a_option, _searchKey)
+		SKI_SettingsManagerInstance.SetOverride("Input$controls$search", _searchKey)
+
+	elseIf (a_option == _switchTabKeyOID_K)
+		_switchTabKey = 56
+		SetKeyMapOptionValue(a_option, _switchTabKey)
+		SKI_SettingsManagerInstance.SetOverride("Input$controls$switchTab", _switchTabKey)
 
 	; -------------------------------------------------------
 	elseIf (a_option == _itemcardAlignOID_T)
@@ -258,6 +298,26 @@ event OnOptionDefault(int a_option)
 		SetTextOptionValue(a_option, _orientations[_AEOrientationIdx])
 		SKI_ActiveEffectsWidgetInstance.Orientation = _orientations[_AEOrientationIdx]
 
+	; -------------------------------------------------------
+	elseIf (a_option == _checkHUDMenuOID_B)
+		SKI_MainInstance.HUDMenuCheckEnabled = true
+		SetToggleOptionValue(a_option, true)
+
+	elseIf (a_option == _checkInventoryMenuOID_B)
+		SKI_MainInstance.InventoryMenuCheckEnabled = true
+		SetToggleOptionValue(a_option, true)
+
+	elseIf (a_option == _checkMagicMenuOID_B)
+		SKI_MainInstance.MagicMenuCheckEnabled = true
+		SetToggleOptionValue(a_option, true)
+
+	elseIf (a_option == _checkBarterMenuOID_B)
+		SKI_MainInstance.BarterMenuCheckEnabled = true
+		SetToggleOptionValue(a_option, true)
+
+	elseIf (a_option == _checkContainerMenuOID_B)
+		SKI_MainInstance.ContainerMenuCheckEnabled = true
+		SetToggleOptionValue(a_option, true)
 	endIf
 endEvent
 
@@ -306,6 +366,31 @@ event OnOptionSelect(int a_option)
 		endIf
 		SetTextOptionValue(a_option, _orientations[_AEOrientationIdx])
 		SKI_ActiveEffectsWidgetInstance.Orientation = _orientations[_AEOrientationIdx]
+	
+	elseIf (a_option == _checkHUDMenuOID_B)
+		bool newVal = !SKI_MainInstance.HUDMenuCheckEnabled
+		SKI_MainInstance.HUDMenuCheckEnabled = newVal
+		SetToggleOptionValue(a_option, newVal)
+
+	elseIf (a_option == _checkInventoryMenuOID_B)
+		bool newVal = !SKI_MainInstance.InventoryMenuCheckEnabled
+		SKI_MainInstance.InventoryMenuCheckEnabled = newVal
+		SetToggleOptionValue(a_option, newVal)
+
+	elseIf (a_option == _checkMagicMenuOID_B)
+		bool newVal = !SKI_MainInstance.MagicMenuCheckEnabled
+		SKI_MainInstance.MagicMenuCheckEnabled = newVal
+		SetToggleOptionValue(a_option, newVal)
+
+	elseIf (a_option == _checkBarterMenuOID_B)
+		bool newVal = !SKI_MainInstance.BarterMenuCheckEnabled
+		SKI_MainInstance.BarterMenuCheckEnabled = newVal
+		SetToggleOptionValue(a_option, newVal)
+
+	elseIf (a_option == _checkContainerMenuOID_B)
+		bool newVal = !SKI_MainInstance.ContainerMenuCheckEnabled
+		SKI_MainInstance.ContainerMenuCheckEnabled = newVal
+		SetToggleOptionValue(a_option, newVal)
 
 	endIf
 endEvent
@@ -439,11 +524,36 @@ endEvent
 
 ; -------------------------------------------------------------------------------------------------
 ; @implements SKI_ConfigBase
-event OnOptionHighlight(int a_option)
+event OnOptionKeyMapChange(int a_option, int a_keyCode, string a_conflictControl, string a_conflictName)
+	
+	if (a_option == _searchKeyOID_K)
+		SwapKeys(a_keyCode, _searchKey)
 
+		_searchKey = a_keyCode
+		SetKeyMapOptionValue(a_option, _searchKey)
+		SKI_SettingsManagerInstance.SetOverride("Input$controls$search", _searchKey)
+
+
+	elseIf (a_option == _switchTabKeyOID_K)
+		SwapKeys(a_keyCode, _switchTabKey)
+
+		_switchTabKey = a_keyCode
+		SetKeyMapOptionValue(a_option, _switchTabKey)
+		SKI_SettingsManagerInstance.SetOverride("Input$controls$switchTab", _switchTabKey)
+	endIf
+endEvent
+
+; -------------------------------------------------------------------------------------------------
+; @implements SKI_ConfigBase
+event OnOptionHighlight(int a_option)
 
 	if (a_option == _itemlistFontSizeOID_T)
 		SetInfoText("Default: Medium")
+
+	elseIf (a_option == _searchKeyOID_K)
+		SetInfoText("Default: Space")
+	elseIf (a_option == _switchTabKeyOID_K)
+		SetInfoText("Default: Left Alt")
 
 	elseIf (a_option == _itemcardAlignOID_T)
 		SetInfoText("Default: Center")
@@ -473,6 +583,17 @@ event OnOptionHighlight(int a_option)
 		SetInfoText("Default: 0")
 	elseif (a_option == _AEOrientationOID_T)
 		SetInfoText("Default: Vertical")
+
+	elseIf (a_option == _checkHUDMenuOID_B)
+		SetInfoText("Incompatible or outdated SWFs may break SkyUI functionality. This only disables the warning message!\nDefault: On")
+	elseIf (a_option == _checkInventoryMenuOID_B)
+		SetInfoText("Incompatible or outdated SWFs may break SkyUI functionality. This only disables the warning message!\nDefault: On")
+	elseIf (a_option == _checkMagicMenuOID_B)
+		SetInfoText("Incompatible or outdated SWFs may break SkyUI functionality. This only disables the warning message!\nDefault: On")
+	elseIf (a_option == _checkBarterMenuOID_B)
+		SetInfoText("Incompatible or outdated SWFs may break SkyUI functionality. This only disables the warning message!\nDefault: On")
+	elseIf (a_option == _checkContainerMenuOID_B)
+		SetInfoText("Incompatible or outdated SWFs may break SkyUI functionality. This only disables the warningmessage !\nDefault: On")
 	endIf
 endEvent
 
@@ -543,4 +664,18 @@ function Apply3DItemScale()
 	Utility.SetINIFloat("fMagic3DItemPosScaleWide:Interface", _3DItemScale)
 	Utility.SetINIFloat("fInventory3DItemPosScale:Interface", _3DItemScale)
 	Utility.SetINIFloat("fMagic3DItemPosScale:Interface", _3DItemScale)
+endFunction
+
+function SwapKeys(int a_newKey, int a_curKey)
+	if (a_newKey == _searchKey)
+		_searchKey = a_curKey
+		SetKeyMapOptionValue(_searchKeyOID_K, _searchKey)
+		SKI_SettingsManagerInstance.SetOverride("Input$controls$search", _searchKey)
+
+	elseIf (a_newKey == _switchTabKey)
+		_switchTabKey = a_curKey
+		SetKeyMapOptionValue(_switchTabKeyOID_K, _switchTabKey)
+		SKI_SettingsManagerInstance.SetOverride("Input$controls$switchTab", _switchTabKey)
+
+	endIf
 endFunction
