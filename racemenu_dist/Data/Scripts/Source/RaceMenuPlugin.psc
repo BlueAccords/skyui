@@ -15,16 +15,18 @@ float _leftButt = 1.0
 float _rightButt = 1.0
 ; VoiceType _voiceType = None
 
-Event OnReloadSettings()
-	_playerActorBase.SetHeight(_height)
-	_playerActor.SetNiNodeScale(NINODE_HEAD, _head)
-	_playerActor.SetNiNodeScale(NINODE_LEFT_BREAST, _leftBreast)
-	_playerActor.SetNiNodeScale(NINODE_RIGHT_BREAST, _rightBreast)
-	_playerActor.SetNiNodeScale(NINODE_LEFT_BUTT, _leftButt)
-	_playerActor.SetNiNodeScale(NINODE_RIGHT_BUTT, _rightButt)
-	_playerActor.QueueNiNodeUpdate()
+; Reload Custom slider settings here
+Event OnReloadSettings(Actor player, ActorBase playerBase)
+	playerBase.SetHeight(_height)
+	player.SetNiNodeScale(NINODE_HEAD, _head)
+	player.SetNiNodeScale(NINODE_LEFT_BREAST, _leftBreast)
+	player.SetNiNodeScale(NINODE_RIGHT_BREAST, _rightBreast)
+	player.SetNiNodeScale(NINODE_LEFT_BUTT, _leftButt)
+	player.SetNiNodeScale(NINODE_RIGHT_BUTT, _rightButt)
+	player.QueueNiNodeUpdate()
 EndEvent
 
+; Add Custom Warpaint here
 Event OnWarpaintRequest()
 	AddWarpaint("$Beauty Mark 01", "Actors\\Character\\Character Assets\\TintMasks\\BeautyMark_01.dds")
 	AddWarpaint("$Beauty Mark 02", "Actors\\Character\\Character Assets\\TintMasks\\BeautyMark_02.dds")
@@ -32,10 +34,10 @@ Event OnWarpaintRequest()
 	AddWarpaint("$Dragon Tattoo 01", "Actors\\Character\\Character Assets\\TintMasks\\DragonTattoo_01.dds")
 EndEvent
 
-Event OnSliderRequest()
-	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, _playerActorBase.GetHeight())
+; Add Custom sliders here
+Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool isFemale)
+	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, playerBase.GetHeight())
 
-	bool isFemale = _playerActorBase.GetSex() as bool
 	; If isFemale == false
 	; 	int vType = GetVoiceTypeIndex(isFemale, _playerActor.GetRace().GetDefaultVoiceType(isFemale))
 	; 	If vType != -1
@@ -48,16 +50,16 @@ Event OnSliderRequest()
 	; 	Endif
 	; Endif
 
-	float head = _playerActor.GetNiNodeScale(NINODE_HEAD)
+	float head = player.GetNiNodeScale(NINODE_HEAD)
 	If head != 0
 		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, head)
 	Endif
 
 	If isFemale == true
-		float leftBreast = _playerActor.GetNiNodeScale(NINODE_LEFT_BREAST)
-		float rightBreast = _playerActor.GetNiNodeScale(NINODE_RIGHT_BREAST)
-		float leftButt = _playerActor.GetNiNodeScale(NINODE_LEFT_BUTT)
-		float rightButt = _playerActor.GetNiNodeScale(NINODE_RIGHT_BUTT)
+		float leftBreast = player.GetNiNodeScale(NINODE_LEFT_BREAST)
+		float rightBreast = player.GetNiNodeScale(NINODE_RIGHT_BREAST)
+		float leftButt = player.GetNiNodeScale(NINODE_LEFT_BUTT)
+		float rightButt = player.GetNiNodeScale(NINODE_RIGHT_BUTT)
 		
 		If leftBreast != 0 && rightBreast != 0 && leftButt != 0 && rightButt != 0
 			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 5.00, 0.1, leftBreast)

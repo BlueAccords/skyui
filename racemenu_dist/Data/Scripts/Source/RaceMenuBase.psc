@@ -55,7 +55,7 @@ EndEvent
 
 Event OnGameReload()
 	OnStartup()
-	OnReloadSettings()
+	OnReloadSettings(_playerActor, _playerActorBase)
 EndEvent
 
 Event OnStartup()
@@ -67,13 +67,13 @@ EndEvent
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
 	OnWarpaintRequest()
 	AddWarpaints(_textureName, _texturePath)
-	OnSliderRequest()
+	OnSliderRequest(_playerActor, _playerActorBase, _playerActorBase.GetRace(), _playerActorBase.GetSex() as bool)
 	AddSliders(_sliderName, _sliderSection, _sliderCallback, _sliderMin, _sliderMax, _sliderInterval, _sliderPosition)
 	FlushBuffer(2)
 EndEvent
 
 Event OnMenuReinitialized(string eventName, string strArg, float numArg, Form formArg)
-	OnSliderRequest()
+	OnSliderRequest(_playerActor, _playerActorBase, _playerActorBase.GetRace(), _playerActorBase.GetSex() as bool)
 	AddSliders(_sliderName, _sliderSection, _sliderCallback, _sliderMin, _sliderMax, _sliderInterval, _sliderPosition)
 	FlushBuffer(1)
 EndEvent
@@ -82,7 +82,7 @@ Event OnMenuSliderChange(string eventName, string strArg, float numArg, Form for
 	OnSliderChanged(strArg, numArg)
 EndEvent
 
-Event OnReloadSettings()
+Event OnReloadSettings(Actor player, ActorBase playerBase)
 	; Do nothing
 EndEvent
 
@@ -90,7 +90,7 @@ Event OnWarpaintRequest()
 	; Do nothing
 EndEvent
 
-Event OnSliderRequest()
+Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool isFemale)
 	; Do nothing
 EndEvent
 
