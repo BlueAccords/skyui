@@ -5,7 +5,6 @@ import gfx.ui.NavigationCode;
 import Shared.GlobalFunc;
 
 import skyui.components.list.BasicEnumeration;
-import skyui.components.list.ButtonEntryFormatter;
 import skyui.components.list.ScrollingList;
 import skyui.components.ButtonPanel;
 import skyui.util.DialogManager;
@@ -188,7 +187,6 @@ class ConfigPanel extends MovieClip
 			if (arguments[i].toLowerCase() != "none")
 				_subList.entryList.push({pageIndex: i, text: arguments[i], align: "right", enabled: true});
 		_subList.InvalidateData();
-
 	}
 	
 	public function setCustomContentParams(a_x: Number, a_y: Number): Void
@@ -255,7 +253,7 @@ class ConfigPanel extends MovieClip
 	public function setOptionStrValueBuffer(/* values */): Void
 	{
 		for (var i = 0; i < arguments.length; i++)
-			_optionStrValueBuffer[i] = arguments[i] === "None" ? null : arguments[i];
+			_optionStrValueBuffer[i] = (arguments[i].toLowerCase() == "none") ? null : arguments[i];
 	}
 	
 	public function setOptionNumValueBuffer(/* values */): Void
@@ -790,7 +788,7 @@ class ConfigPanel extends MovieClip
 	{
 		GameDelegate.call("PlaySound",["UIMenuBladeOpenSD"]);
 		_optionsList.disableSelection = _optionsList.disableInput = true;
-		_subList.disableSelection = _subList.disableInput = true;
+		_modListPanel.isDisabled = true;
 		TweenLite.to(bottomBar, 0.5, {_alpha: 0, _y: _bottomBarStartY+50, overwrite: 1, easing: Linear.easeNone});
 		TweenLite.to(contentHolder, 0.5, {_alpha: 75, overwrite: 1, easing: Linear.easeNone});
 	}
@@ -799,7 +797,7 @@ class ConfigPanel extends MovieClip
 	{
 		GameDelegate.call("PlaySound",["UIMenuBladeCloseSD"]);
 		_optionsList.disableSelection = _optionsList.disableInput = false;
-		_subList.disableSelection = _subList.disableInput = false;
+		_modListPanel.isDisabled = false;
 		TweenLite.to(bottomBar, 0.5, {_alpha: 100, _y: _bottomBarStartY, overwrite: 1, easing: Linear.easeNone});
 		TweenLite.to(contentHolder, 0.5, {_alpha: 100, overwrite: 1, easing: Linear.easeNone});
 	}

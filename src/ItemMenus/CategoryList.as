@@ -45,9 +45,6 @@ class CategoryList extends BasicList
 	// Size of the icon.
 	public var iconSize: Number;
 	
-	// Name of movie that contains icons, i.e. skyui_icons_curved.swf.
-	public var iconSource: String;
-	
 	// Array that contains the icon label for category at position i.
 	// The category list uses fixed lengths/icons, so this is assigned statically.
 	public var iconArt: Array;
@@ -105,7 +102,7 @@ class CategoryList extends BasicList
   
   	// Clears the list. For the category list, that's ok since the entryList isn't manipulated directly.
 	// @override BasicList
-	function clearList(): Void
+	public function clearList(): Void
 	{
 		dividerIndex = -1;
 		_entryList.splice(0);
