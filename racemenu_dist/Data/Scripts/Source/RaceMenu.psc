@@ -15,11 +15,6 @@ int[] _tintColors
 string[] _tintTextures
 int[] _presets
 float[] _morphs
-; VoiceType[] _defaultMaleVoiceTypes
-; VoiceType[] _defaultFemaleVoiceTypes
-
-; VoiceType[] _maleVoiceTypes
-; VoiceType[] _femaleVoiceTypes
 
 Event OnInitialized()
 	_hairColor = Game.GetFormFromFile(0x801, "RaceMenu.esp") as ColorForm
@@ -30,12 +25,6 @@ Event OnInitialized()
 	_tintColors = new int[128]
 	_presets = new int[4]
 	_morphs = new float[19]
-	; _defaultMaleVoiceTypes = new VoiceType[128]
-	; _defaultFemaleVoiceTypes = new VoiceType[128]
-	; _maleVoiceTypes = new VoiceType[128]
-	; _femaleVoiceTypes = new VoiceType[128]
-
-	; LoadVoiceTypes()
 
 	SaveHair()
 	SaveTints()
@@ -46,7 +35,6 @@ Function OnStartup()
 
 	RegisterForModEvent("RSM_Initialized", "OnMenuInitialized") ; Event sent when the menu initializes enough to load data
 	RegisterForModEvent("RSM_Reinitialized", "OnMenuReinitialized") ; Event sent when sliders have re-initialized
-	RegisterForModEvent("RSM_SliderChange", "OnSliderChange") ; Event sent when a slider's value is changed
 	RegisterForModEvent("RSM_HairColorChange", "OnHairColorChange") ; Event sent when hair color changes
 	RegisterForModEvent("RSM_TintColorChange", "OnTintColorChange") ; Event sent when a tint changes color
 	RegisterForModEvent("RSM_TintTextureChange", "OnTintTextureChange") ; Event sent when a tint changes texture
@@ -72,8 +60,6 @@ Event OnGameReload()
 	LoadTints()
 
 	_playerActor.QueueNiNodeUpdate()
-
-	; SaveVoices()
 EndEvent
 
 Event OnMenuOpen(string menuName)
@@ -202,26 +188,6 @@ Function ClearTints()
 		i += 1
 	EndWhile
 EndFunction
-
-; Function SaveVoices()
-; 	int totalRaces = Race.GetNumPlayableRaces()
-; 	int i = 0
-; 	While i < totalRaces
-; 		Race playableRace = Race.GetNthPlayableRace(i)
-; 		_defaultMaleVoiceTypes[i] = playableRace.GetDefaultVoiceType(false)
-; 		_defaultFemaleVoiceTypes[i] = playableRace.GetDefaultVoiceType(true)
-; 		i += 1
-; 	EndWhile
-; EndFunction
-
-; Function ClearVoices()
-; 	int i = 0
-; 	While i < _defaultMaleVoiceTypes.length
-; 		_defaultMaleVoiceTypes[i] = None
-; 		_defaultFemaleVoiceTypes[i] = None
-; 		i += 1
-; 	EndWhile
-; EndFunction
 
 Event OnHairColorChange(string eventName, string strArg, float numArg, Form formArg)
 	_color = strArg as int

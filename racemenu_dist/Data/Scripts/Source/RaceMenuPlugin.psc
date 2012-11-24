@@ -13,7 +13,6 @@ float _leftBreast = 1.0
 float _rightBreast = 1.0
 float _leftButt = 1.0
 float _rightButt = 1.0
-; VoiceType _voiceType = None
 
 ; Reload Custom slider settings here
 Event OnReloadSettings(Actor player, ActorBase playerBase)
@@ -37,18 +36,6 @@ EndEvent
 ; Add Custom sliders here
 Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool isFemale)
 	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, playerBase.GetHeight())
-
-	; If isFemale == false
-	; 	int vType = GetVoiceTypeIndex(isFemale, _playerActor.GetRace().GetDefaultVoiceType(isFemale))
-	; 	If vType != -1
-	; 		AddSlider("$Voice Type", CATEGORY_BODY, "ChangeVoice", 0, 24, 1, vType)
-	; 	Endif
-	; Elseif isFemale == true
-	; 	int vType = GetVoiceTypeIndex(isFemale, _playerActor.GetRace().GetDefaultVoiceType(isFemale))
-	; 	If vType != -1
-	; 		AddSlider("$Voice Type", CATEGORY_BODY, "ChangeVoice", 0, 17, 1, vType)
-	; 	Endif
-	; Endif
 
 	float head = player.GetNiNodeScale(NINODE_HEAD)
 	If head != 0
@@ -95,11 +82,5 @@ Event OnSliderChanged(string callback, float value)
 		_rightButt = value
 		_playerActor.SetNiNodeScale(NINODE_RIGHT_BUTT, _rightButt)
 		_playerActor.QueueNiNodeUpdate()
-	; Elseif strArg == "ChangeVoice"
-	; 	bool isFemale = _playerActorBase.GetSex() as Bool
-	; 	VoiceType newVoice = GetVoiceType(isFemale, numArg as int)
-	; 	_playerActor.GetRace().SetDefaultVoiceType(isFemale, newVoice)
-	; 	Topic swingTopic = Game.GetFormFromFile(0xB876A, "Skyrim.esm") as Topic ; DCETAttack
-	; 	_playerActor.Say(swingTopic, None, true)
 	Endif
 EndEvent
