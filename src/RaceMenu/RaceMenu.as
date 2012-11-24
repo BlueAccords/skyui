@@ -35,11 +35,25 @@ class RaceMenu extends MovieClip
 	private var _playerObject: Object;
 	
 	private var updateInterval: Number;
+	
+	// Tint Parameters
 	private var _tintTypes: Array;
 	private var _tintColors: Array;
 	private var _tintTextures: Array;
+	
+	// Warpaint Parameters
 	private var _makeupNames: Array;
 	private var _makeupTextures: Array;
+	
+	// Slider Parameters
+	private var _sliderName: Array;
+	private var _sliderSection: Array;
+	private var _sliderCallback: Array;
+	private var _sliderMin: Array;
+	private var _sliderMax: Array;
+	private var _sliderInterval: Array;
+	private var _sliderPosition: Array;
+	
 	private var _raceList: Array;
 	private var _extendIndex: Number = 0;
 	
@@ -116,12 +130,7 @@ class RaceMenu extends MovieClip
 		bonusList = bonusPanel.bonusList;
 		
 		customSliders = new Array();
-		
-		_tintTypes = new Array();
-		_tintColors = new Array();
-		_tintTextures = new Array();
-		_makeupNames = new Array();
-		_makeupTextures = new Array();
+				
 		_raceList = new Array();
 		
 		loadingIcon._visible = false;
@@ -608,7 +617,7 @@ class RaceMenu extends MovieClip
 			skse.SendModEvent("RSM_Reinitialized");
 		}
 		
-		skse.SendModEvent("RSM_RequestCustomContent");
+		skse.SendModEvent("RSM_RequestSliders");
 		
 		itemList.requestInvalidate();
 	}
@@ -987,19 +996,87 @@ class RaceMenu extends MovieClip
 	}
 	
 	/* PAPYRUS INTERFACE */
-	public function RSM_AddSlider(a_name: String, a_section: String, a_callback: String, a_sliderMin: String, a_sliderMax: String, a_position: String, a_interval: String)
+	/*public function RSM_AddSlider(a_name: String, a_section: String, a_callback: String, a_sliderMin: String, a_sliderMax: String, a_position: String, a_interval: String)
 	{
 		var newSliderID = customSliders.length + RaceMenuDefines.CUSTOM_SLIDER_OFFSET;
 		var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: a_name, filterFlag: Number(a_section), callbackName: a_callback, sliderMin: Number(a_sliderMin), sliderMax: Number(a_sliderMax), sliderID: newSliderID, position: Number(a_position), interval: Number(a_interval), enabled: true};
 		customSliders.push(sliderObject);
 		itemList.entryList.push(sliderObject);
 		itemList.requestInvalidate();
+	}*/
+	
+	public function RSM_BeginSliders()
+	{
+		_sliderName = new Array();
+		_sliderSection = new Array();
+		_sliderCallback = new Array();
+		_sliderMin = new Array();
+		_sliderMax = new Array();
+		_sliderInterval = new Array();
+		_sliderPosition = new Array();
+	}
+	
+	public function RSM_AddSliderName()
+	{
+		_sliderName = _sliderName.concat(arguments);
+	}
+	
+	public function RSM_AddSliderSection()
+	{
+		_sliderSection = _sliderSection.concat(arguments);
+	}
+	
+	public function RSM_AddSliderCallback()
+	{
+		_sliderCallback = _sliderCallback.concat(arguments);
+	}
+	
+	public function RSM_AddSliderMin()
+	{
+		_sliderMin = _sliderMin.concat(arguments);
+	}
+	
+	public function RSM_AddSliderMax()
+	{
+		_sliderMax = _sliderMax.concat(arguments);
+	}
+	
+	public function RSM_AddSliderInterval()
+	{
+		_sliderInterval = _sliderInterval.concat(arguments);
+	}
+	
+	public function RSM_AddSliderPosition()
+	{
+		_sliderPosition = _sliderPosition.concat(arguments);
+	}
+	
+	public function RSM_EndSliders()
+	{
+		for(var i = 0; i < _sliderName.length; i++)
+		{
+			if(_sliderName[i] != "") {
+				var newSliderID = customSliders.length + RaceMenuDefines.CUSTOM_SLIDER_OFFSET;
+				var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: _sliderName[i], filterFlag:_sliderSection[i], callbackName: _sliderCallback[i], sliderMin: _sliderMin[i], sliderMax: _sliderMax[i], sliderID: newSliderID, position: _sliderPosition[i], interval: _sliderInterval[i], enabled: true};
+				customSliders.push(sliderObject);
+				itemList.entryList.push(sliderObject);
+				itemList.requestInvalidate();
+			}
+		}
+		
+		delete _sliderName;
+		delete _sliderSection;
+		delete _sliderCallback;
+		delete _sliderMin;
+		delete _sliderMax;
+		delete _sliderInterval;
+		delete _sliderPosition;
 	}
 	
 	public function RSM_BeginMakeup()
 	{
-		_makeupNames.splice(0, _makeupNames.length);
-		_makeupTextures.splice(0, _makeupTextures.length);
+		_makeupNames = new Array();
+		_makeupTextures = new Array();
 	}
 	
 	public function RSM_AddMakeupNames()
@@ -1020,13 +1097,16 @@ class RaceMenu extends MovieClip
 				makeupPanel.AddMakeup(_makeupNames[i], _makeupTextures[i]);
 			}
 		}
+		
+		delete _makeupNames;
+		delete _makeupTextures;
 	}
 		
 	public function RSM_BeginSettings()
 	{
-		_tintTypes.splice(0, _tintTypes.length);
-		_tintColors.splice(0, _tintColors.length);
-		_tintTextures.splice(0, _tintTextures.length);
+		_tintTypes = new Array();
+		_tintColors = new Array();
+		_tintTextures = new Array();
 	}
 	
 	public function RSM_AddTintTypes()
@@ -1048,6 +1128,10 @@ class RaceMenu extends MovieClip
 	{
 		SetSliderColors(false);
 		SetMakeup(_tintTypes, _tintColors, _tintTextures, RaceMenuDefines.TINT_TYPE_WARPAINT);
+		
+		delete _tintTypes;
+		delete _tintColors;
+		delete _tintTextures;
 	}
 	
 	public function RSM_BeginExtend()

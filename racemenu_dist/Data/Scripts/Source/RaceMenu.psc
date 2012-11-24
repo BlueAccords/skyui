@@ -1,28 +1,10 @@
 Scriptname RaceMenu extends RaceMenuBase
 
-int Property CATEGORY_RACE = 2 AutoReadOnly
-int Property CATEGORY_BODY = 4 AutoReadOnly
-int Property CATEGORY_HEAD = 8 AutoReadOnly
-int Property CATEGORY_FACE = 16 AutoReadOnly
-int Property CATEGORY_EYES = 32 AutoReadOnly
-int Property CATEGORY_BROW = 64 AutoReadOnly
-int Property CATEGORY_MOUTH = 128 AutoReadOnly
-int Property CATEGORY_HAIR = 256 AutoReadOnly
-int Property CATEGORY_COLOR = 512 AutoReadOnly
-
 int Property TINT_TYPE_HAIR = 128 AutoReadOnly
 
 int Property MAX_PRESETS = 4 AutoReadOnly
 int Property MAX_MORPHS = 19 AutoReadOnly
 
-string Property NINODE_HEAD = "NPC Head [Head]" AutoReadOnly
-string Property NINODE_LEFT_BREAST = "NPC L Breast" AutoReadOnly
-string Property NINODE_RIGHT_BREAST = "NPC R Breast" AutoReadOnly
-string Property NINODE_LEFT_BUTT = "NPC L Butt" AutoReadOnly
-string Property NINODE_RIGHT_BUTT = "NPC R Butt" AutoReadOnly
-
-Actor _playerActor = None
-ActorBase _playerActorBase = None
 ColorForm _hairColor = None
 Form _lightForm = None
 ObjectReference _light = None
@@ -39,20 +21,10 @@ float[] _morphs
 ; VoiceType[] _maleVoiceTypes
 ; VoiceType[] _femaleVoiceTypes
 
-; Custom Properties
-float _height = 1.0
-float _head = 1.0
-float _leftBreast = 1.0
-float _rightBreast = 1.0
-float _leftButt = 1.0
-float _rightButt = 1.0
-; VoiceType _voiceType = None
-
-Event OnInit()
+Event OnInitialized()
 	_hairColor = Game.GetFormFromFile(0x801, "RaceMenu.esp") as ColorForm
 	_lightForm = Game.GetFormFromFile(0x803, "RaceMenu.esp")
-	_playerActor = Game.GetPlayer()
-	_playerActorBase = _playerActor.GetActorBase()
+	
 	_tintTextures = new string[128]
 	_tintTypes = new int[128]
 	_tintColors = new int[128]
@@ -67,14 +39,11 @@ Event OnInit()
 
 	SaveHair()
 	SaveTints()
-	
-	OnStartup()
 EndEvent
 
 Function OnStartup()
 	RegisterForMenu(RACESEX_MENU)
 
-	
 	RegisterForModEvent("RSM_Initialized", "OnMenuInitialized") ; Event sent when the menu initializes enough to load data
 	RegisterForModEvent("RSM_Reinitialized", "OnMenuReinitialized") ; Event sent when sliders have re-initialized
 	RegisterForModEvent("RSM_SliderChange", "OnSliderChange") ; Event sent when a slider's value is changed
@@ -82,7 +51,6 @@ Function OnStartup()
 	RegisterForModEvent("RSM_TintColorChange", "OnTintColorChange") ; Event sent when a tint changes color
 	RegisterForModEvent("RSM_TintTextureChange", "OnTintTextureChange") ; Event sent when a tint changes texture
 	RegisterForModEvent("RSM_ToggleLight", "OnToggleLight") ; Event sent when the Light button is pressed
-	RegisterForModEvent("RSM_RequestCustomContent", "OnRequestCustomContent") ; Load custom sliders and custom warpaints with this event
 
 	; Handles clipboard data transfer DO NOT EDIT
 	RegisterForModEvent("RSM_RequestLoadClipboard", "OnLoadClipboard")
@@ -100,21 +68,9 @@ Event OnGameReload()
 	OnStartup()
 
 	; Reload player settings
-	If _playerActorBase.GetHairColor() == _hairColor
-		_hairColor.SetColor(_color)
-		_customHair = true
-	Else
-		_customHair = false
-	EndIf
-
+	LoadHair()
 	LoadTints()
 
-	_playerActorBase.SetHeight(_height)
-	_playerActor.SetNiNodeScale(NINODE_HEAD, _head)
-	_playerActor.SetNiNodeScale(NINODE_LEFT_BREAST, _leftBreast)
-	_playerActor.SetNiNodeScale(NINODE_RIGHT_BREAST, _rightBreast)
-	_playerActor.SetNiNodeScale(NINODE_LEFT_BUTT, _leftButt)
-	_playerActor.SetNiNodeScale(NINODE_RIGHT_BUTT, _rightButt)
 	_playerActor.QueueNiNodeUpdate()
 
 	; SaveVoices()
@@ -161,11 +117,15 @@ Function LoadHair()
 EndFunction
 
 Function SaveHair()
-	If _playerActorBase.GetHairColor() == _hairColor
-		_color = _hairColor.GetColor() + 0xFF000000
+	ColorForm hairColor = _playerActorBase.GetHairColor()
+	If hairColor == _hairColor
+		_color = _hairColor.GetColor() + 0xFF000000 ; Add alpha component bad
 		_customHair = true
+	Elseif hairColor != None
+		_color = hairColor.GetColor()
+		_customHair = false
 	Else
-		_color = _playerActorBase.GetHairColor().GetColor()
+		_color = 0xFF000000
 		_customHair = false
 	EndIf
 EndFunction
@@ -262,76 +222,6 @@ EndFunction
 ; 		i += 1
 ; 	EndWhile
 ; EndFunction
-
-Event OnRequestCustomContent(string eventName, string strArg, float numArg, Form formArg)
-	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, _playerActorBase.GetHeight())
-
-	bool isFemale = _playerActorBase.GetSex() as bool
-	; If isFemale == false
-	; 	int vType = GetVoiceTypeIndex(isFemale, _playerActor.GetRace().GetDefaultVoiceType(isFemale))
-	; 	If vType != -1
-	; 		AddSlider("$Voice Type", CATEGORY_BODY, "ChangeVoice", 0, 24, 1, vType)
-	; 	Endif
-	; Elseif isFemale == true
-	; 	int vType = GetVoiceTypeIndex(isFemale, _playerActor.GetRace().GetDefaultVoiceType(isFemale))
-	; 	If vType != -1
-	; 		AddSlider("$Voice Type", CATEGORY_BODY, "ChangeVoice", 0, 17, 1, vType)
-	; 	Endif
-	; Endif
-
-	float head = _playerActor.GetNiNodeScale(NINODE_HEAD)
-	If head != 0
-		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, head)
-	Endif
-
-	If isFemale == true
-		float leftBreast = _playerActor.GetNiNodeScale(NINODE_LEFT_BREAST)
-		float rightBreast = _playerActor.GetNiNodeScale(NINODE_RIGHT_BREAST)
-		float leftButt = _playerActor.GetNiNodeScale(NINODE_LEFT_BUTT)
-		float rightButt = _playerActor.GetNiNodeScale(NINODE_RIGHT_BUTT)
-		
-		If leftBreast != 0 && rightBreast != 0 && leftButt != 0 && rightButt != 0
-			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 5.00, 0.1, leftBreast)
-			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 5.00, 0.1, rightBreast)
-			AddSlider("$Left Buttcheek", CATEGORY_BODY, "ChangeLeftButt", 0.1, 5.00, 0.1, leftButt)
-			AddSlider("$Right Buttcheek", CATEGORY_BODY, "ChangeRightButt", 0.1, 5.00, 0.1, rightButt)
-		Endif
-	Endif
-EndEvent
-
-Event OnSliderChange(string eventName, string strArg, float numArg, Form formArg)
-	If strArg == "ChangeHeight"
-		_height = numArg
-		_playerActorBase.SetHeight(numArg)
-		_playerActor.QueueNiNodeUpdate()
-	ElseIf strArg == "ChangeHeadSize"
-		_head = numArg
-		_playerActor.SetNiNodeScale(NINODE_HEAD, _head)
-		_playerActor.QueueNiNodeUpdate()
-	Elseif strArg == "ChangeLeftBreast"
-		_leftBreast = numArg
-		_playerActor.SetNiNodeScale(NINODE_LEFT_BREAST, _leftBreast)
-		_playerActor.QueueNiNodeUpdate()
-	Elseif strArg == "ChangeRightBreast"
-		_rightBreast = numArg
-		_playerActor.SetNiNodeScale(NINODE_RIGHT_BREAST, _rightBreast)
-		_playerActor.QueueNiNodeUpdate()
-	Elseif strArg == "ChangeLeftButt"
-		_leftButt = numArg
-		_playerActor.SetNiNodeScale(NINODE_LEFT_BUTT, _leftButt)
-		_playerActor.QueueNiNodeUpdate()
-	Elseif strArg == "ChangeRightButt"
-		_rightButt = numArg
-		_playerActor.SetNiNodeScale(NINODE_RIGHT_BUTT, _rightButt)
-		_playerActor.QueueNiNodeUpdate()
-	; Elseif strArg == "ChangeVoice"
-	; 	bool isFemale = _playerActorBase.GetSex() as Bool
-	; 	VoiceType newVoice = GetVoiceType(isFemale, numArg as int)
-	; 	_playerActor.GetRace().SetDefaultVoiceType(isFemale, newVoice)
-	; 	Topic swingTopic = Game.GetFormFromFile(0xB876A, "Skyrim.esm") as Topic ; DCETAttack
-	; 	_playerActor.Say(swingTopic, None, true)
-	Endif
-EndEvent
 
 Event OnHairColorChange(string eventName, string strArg, float numArg, Form formArg)
 	_color = strArg as int
@@ -488,6 +378,7 @@ EndEvent
 ; EndFunction
 
 Function SendDefaultMakeup()
+	; Do not use the plugin buffer
 	string[] names = new string[120]
 	string[] textures = new string[120]
 	names[0] = "$Male Warpaint 01"
@@ -730,7 +621,7 @@ Function SendDefaultMakeup()
 	textures[118] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBlackBloodTattoo_01.dds"
 	names[119] = "$Male Black Blood Tattoo 02"
 	textures[119] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBlackBloodTattoo_02.dds"
-	AddMakeupList(names, textures)
+	AddWarpaints(names, textures)
 EndFunction
 
 Function UpdateColors()
