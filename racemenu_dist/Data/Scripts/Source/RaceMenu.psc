@@ -33,6 +33,11 @@ int[] _tintColors
 string[] _tintTextures
 int[] _presets
 float[] _morphs
+; VoiceType[] _defaultMaleVoiceTypes
+; VoiceType[] _defaultFemaleVoiceTypes
+
+; VoiceType[] _maleVoiceTypes
+; VoiceType[] _femaleVoiceTypes
 
 ; Custom Properties
 float _height = 1.0
@@ -41,6 +46,7 @@ float _leftBreast = 1.0
 float _rightBreast = 1.0
 float _leftButt = 1.0
 float _rightButt = 1.0
+; VoiceType _voiceType = None
 
 Event OnInit()
 	_hairColor = Game.GetFormFromFile(0x801, "RaceMenu.esp") as ColorForm
@@ -52,6 +58,12 @@ Event OnInit()
 	_tintColors = new int[128]
 	_presets = new int[4]
 	_morphs = new float[19]
+	; _defaultMaleVoiceTypes = new VoiceType[128]
+	; _defaultFemaleVoiceTypes = new VoiceType[128]
+	; _maleVoiceTypes = new VoiceType[128]
+	; _femaleVoiceTypes = new VoiceType[128]
+
+	; LoadVoiceTypes()
 
 	SaveHair()
 	SaveTints()
@@ -94,6 +106,9 @@ Event OnGameReload()
 	Else
 		_customHair = false
 	EndIf
+
+	LoadTints()
+
 	_playerActorBase.SetHeight(_height)
 	_playerActor.SetNiNodeScale(NINODE_HEAD, _head)
 	_playerActor.SetNiNodeScale(NINODE_LEFT_BREAST, _leftBreast)
@@ -101,6 +116,8 @@ Event OnGameReload()
 	_playerActor.SetNiNodeScale(NINODE_LEFT_BUTT, _leftButt)
 	_playerActor.SetNiNodeScale(NINODE_RIGHT_BUTT, _rightButt)
 	_playerActor.QueueNiNodeUpdate()
+
+	; SaveVoices()
 EndEvent
 
 Event OnMenuOpen(string menuName)
@@ -226,15 +243,48 @@ Function ClearTints()
 	EndWhile
 EndFunction
 
+; Function SaveVoices()
+; 	int totalRaces = Race.GetNumPlayableRaces()
+; 	int i = 0
+; 	While i < totalRaces
+; 		Race playableRace = Race.GetNthPlayableRace(i)
+; 		_defaultMaleVoiceTypes[i] = playableRace.GetDefaultVoiceType(false)
+; 		_defaultFemaleVoiceTypes[i] = playableRace.GetDefaultVoiceType(true)
+; 		i += 1
+; 	EndWhile
+; EndFunction
+
+; Function ClearVoices()
+; 	int i = 0
+; 	While i < _defaultMaleVoiceTypes.length
+; 		_defaultMaleVoiceTypes[i] = None
+; 		_defaultFemaleVoiceTypes[i] = None
+; 		i += 1
+; 	EndWhile
+; EndFunction
+
 Event OnRequestCustomContent(string eventName, string strArg, float numArg, Form formArg)
 	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, _playerActorBase.GetHeight())
+
+	bool isFemale = _playerActorBase.GetSex() as bool
+	; If isFemale == false
+	; 	int vType = GetVoiceTypeIndex(isFemale, _playerActor.GetRace().GetDefaultVoiceType(isFemale))
+	; 	If vType != -1
+	; 		AddSlider("$Voice Type", CATEGORY_BODY, "ChangeVoice", 0, 24, 1, vType)
+	; 	Endif
+	; Elseif isFemale == true
+	; 	int vType = GetVoiceTypeIndex(isFemale, _playerActor.GetRace().GetDefaultVoiceType(isFemale))
+	; 	If vType != -1
+	; 		AddSlider("$Voice Type", CATEGORY_BODY, "ChangeVoice", 0, 17, 1, vType)
+	; 	Endif
+	; Endif
 
 	float head = _playerActor.GetNiNodeScale(NINODE_HEAD)
 	If head != 0
 		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, head)
 	Endif
 
-	If _playerActorBase.GetSex() == 1
+	If isFemale == true
 		float leftBreast = _playerActor.GetNiNodeScale(NINODE_LEFT_BREAST)
 		float rightBreast = _playerActor.GetNiNodeScale(NINODE_RIGHT_BREAST)
 		float leftButt = _playerActor.GetNiNodeScale(NINODE_LEFT_BUTT)
@@ -274,6 +324,12 @@ Event OnSliderChange(string eventName, string strArg, float numArg, Form formArg
 		_rightButt = numArg
 		_playerActor.SetNiNodeScale(NINODE_RIGHT_BUTT, _rightButt)
 		_playerActor.QueueNiNodeUpdate()
+	; Elseif strArg == "ChangeVoice"
+	; 	bool isFemale = _playerActorBase.GetSex() as Bool
+	; 	VoiceType newVoice = GetVoiceType(isFemale, numArg as int)
+	; 	_playerActor.GetRace().SetDefaultVoiceType(isFemale, newVoice)
+	; 	Topic swingTopic = Game.GetFormFromFile(0xB876A, "Skyrim.esm") as Topic ; DCETAttack
+	; 	_playerActor.Say(swingTopic, None, true)
 	Endif
 EndEvent
 
@@ -352,6 +408,84 @@ Event OnClipboardFinished(string eventName, string strArg, float numArg, Form fo
 	UI.InvokeBool(RACESEX_MENU, MENU_ROOT + "RSM_ToggleLoader", false)
 EndEvent
 ; ------------------------------------------------------------------------------------
+
+; VoiceType Function GetVoiceType(bool female, int index)
+; 	If female == false
+; 		return _maleVoiceTypes[index]
+; 	Elseif female == true
+; 		return _femaleVoiceTypes[index]
+; 	Endif
+; 	return None
+; EndFunction
+
+; int Function GetVoiceTypeIndex(bool female, VoiceType aVoice)
+; 	If female == false
+; 		int i = 0
+; 		While i < 25
+; 			If _maleVoiceTypes[i] == aVoice
+; 				return i
+; 			Endif
+; 			i += 1
+; 		EndWhile
+; 	Elseif female == true
+; 		int i = 0
+; 		While i < 18
+; 			If _femaleVoiceTypes[i] == aVoice
+; 				return i
+; 			Endif
+; 			i += 1
+; 		EndWhile
+; 	EndIf
+; 	return -1
+; EndFunction
+
+; Function LoadVoiceTypes()
+; 	; Avoid adding properties to script
+; 	_maleVoiceTypes[0] = Game.GetFormFromFile(0xea267, "Skyrim.esm") as VoiceType ; MaleEvenTonedAccented
+; 	_maleVoiceTypes[1] = Game.GetFormFromFile(0xea266, "Skyrim.esm") as VoiceType ; MaleCommonerAccented
+; 	_maleVoiceTypes[2] = Game.GetFormFromFile(0xaa8d3, "Skyrim.esm") as VoiceType ; MaleGuard
+; 	_maleVoiceTypes[3] = Game.GetFormFromFile(0x9844f, "Skyrim.esm") as VoiceType ; MaleForsworn
+; 	_maleVoiceTypes[4] = Game.GetFormFromFile(0x9843b, "Skyrim.esm") as VoiceType ; MaleBandit
+; 	_maleVoiceTypes[5] = Game.GetFormFromFile(0x9843a, "Skyrim.esm") as VoiceType ; MaleWarlock
+; 	_maleVoiceTypes[6] = Game.GetFormFromFile(0xe5003, "Skyrim.esm") as VoiceType ; MaleNordCommander
+; 	_maleVoiceTypes[7] = Game.GetFormFromFile(0x13af2, "Skyrim.esm") as VoiceType ; MaleDarkElf
+; 	_maleVoiceTypes[8] = Game.GetFormFromFile(0x13af0, "Skyrim.esm") as VoiceType ; MaleElfHaughty
+; 	_maleVoiceTypes[9] = Game.GetFormFromFile(0x13aee, "Skyrim.esm") as VoiceType ; MaleArgonian
+; 	_maleVoiceTypes[10] = Game.GetFormFromFile(0x13aec, "Skyrim.esm") as VoiceType ; MaleKhajiit
+; 	_maleVoiceTypes[11] = Game.GetFormFromFile(0x13aea, "Skyrim.esm") as VoiceType ; MaleOrc
+; 	_maleVoiceTypes[12] = Game.GetFormFromFile(0x13ae8, "Skyrim.esm") as VoiceType ; MaleChild
+; 	_maleVoiceTypes[13] = Game.GetFormFromFile(0x13ae6, "Skyrim.esm") as VoiceType ; MaleNord
+; 	_maleVoiceTypes[14] = Game.GetFormFromFile(0x13adb, "Skyrim.esm") as VoiceType ; MaleCoward
+; 	_maleVoiceTypes[15] = Game.GetFormFromFile(0x13ada, "Skyrim.esm") as VoiceType ; MaleBrute
+; 	_maleVoiceTypes[16] = Game.GetFormFromFile(0x13ad9, "Skyrim.esm") as VoiceType ; MaleCondescending
+; 	_maleVoiceTypes[17] = Game.GetFormFromFile(0x13ad8, "Skyrim.esm") as VoiceType ; MaleCommander
+; 	_maleVoiceTypes[18] = Game.GetFormFromFile(0x13ad7, "Skyrim.esm") as VoiceType ; MaleOldGrumpy
+; 	_maleVoiceTypes[19] = Game.GetFormFromFile(0x13ad6, "Skyrim.esm") as VoiceType ; MaleOldKindly
+; 	_maleVoiceTypes[20] = Game.GetFormFromFile(0x13ad5, "Skyrim.esm") as VoiceType ; MaleSlyCynical
+; 	_maleVoiceTypes[21] = Game.GetFormFromFile(0x13ad4, "Skyrim.esm") as VoiceType ; MaleDrunk
+; 	_maleVoiceTypes[22] = Game.GetFormFromFile(0x13ad3, "Skyrim.esm") as VoiceType ; MaleCommoner
+; 	_maleVoiceTypes[23] = Game.GetFormFromFile(0x13ad2, "Skyrim.esm") as VoiceType ; MaleEvenToned
+; 	_maleVoiceTypes[24] = Game.GetFormFromFile(0x13ad1, "Skyrim.esm") as VoiceType ; MaleYoungEager
+
+; 	_femaleVoiceTypes[0] = Game.GetFormFromFile(0x1b560, "Skyrim.esm") as VoiceType ; FemaleSoldier
+; 	_femaleVoiceTypes[1] = Game.GetFormFromFile(0x13bc3, "Skyrim.esm") as VoiceType ; FemaleShrill
+; 	_femaleVoiceTypes[2] = Game.GetFormFromFile(0x13af3, "Skyrim.esm") as VoiceType ; FemaleDarkElf
+; 	_femaleVoiceTypes[3] = Game.GetFormFromFile(0x13af1, "Skyrim.esm") as VoiceType ; FemaleElfHaughty
+; 	_femaleVoiceTypes[4] = Game.GetFormFromFile(0x13aef, "Skyrim.esm") as VoiceType ; FemaleArgonian
+; 	_femaleVoiceTypes[5] = Game.GetFormFromFile(0x13aed, "Skyrim.esm") as VoiceType ; FemaleKhajiit
+; 	_femaleVoiceTypes[6] = Game.GetFormFromFile(0x13aeb, "Skyrim.esm") as VoiceType ; FemaleOrc
+; 	_femaleVoiceTypes[7] = Game.GetFormFromFile(0x13ae9, "Skyrim.esm") as VoiceType ; FemaleChild
+; 	_femaleVoiceTypes[8] = Game.GetFormFromFile(0x13ae7, "Skyrim.esm") as VoiceType ; FemaleNord
+; 	_femaleVoiceTypes[9] = Game.GetFormFromFile(0x13ae5, "Skyrim.esm") as VoiceType ; FemaleCoward
+; 	_femaleVoiceTypes[10] = Game.GetFormFromFile(0x13ae4, "Skyrim.esm") as VoiceType ; FemaleCondescending
+; 	_femaleVoiceTypes[11] = Game.GetFormFromFile(0x13ae3, "Skyrim.esm") as VoiceType ; FemaleCommander
+; 	_femaleVoiceTypes[12] = Game.GetFormFromFile(0x13ae2, "Skyrim.esm") as VoiceType ; FemaleOldGrumpy
+; 	_femaleVoiceTypes[13] = Game.GetFormFromFile(0x13ae1, "Skyrim.esm") as VoiceType ; FemaleOldKindly
+; 	_femaleVoiceTypes[14] = Game.GetFormFromFile(0x13ae0, "Skyrim.esm") as VoiceType ; FemaleSultry
+; 	_femaleVoiceTypes[15] = Game.GetFormFromFile(0x13ade, "Skyrim.esm") as VoiceType ; FemaleCommoner
+; 	_femaleVoiceTypes[16] = Game.GetFormFromFile(0x13add, "Skyrim.esm") as VoiceType ; FemaleEvenToned
+; 	_femaleVoiceTypes[17] = Game.GetFormFromFile(0x13adc, "Skyrim.esm") as VoiceType ; FemaleYoungEager
+; EndFunction
 
 Function SendDefaultMakeup()
 	string[] names = new string[120]
