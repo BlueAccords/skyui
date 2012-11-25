@@ -368,13 +368,7 @@ class RaceMenu extends MovieClip
 		} else if(makeupPanel._visible) {
 			return makeupPanel.handleInput(details, pathToFocus);
 		}
-		
-		var nextClip = pathToFocus.shift();
-		if (nextClip.handleInput(details, pathToFocus)) {
-			return true;
-		}
-				
-		var bHandledInput: Boolean = false;
+			
 		if (GlobalFunc.IsKeyPressed(details)) {
 			
 			if (details.code == KEYCODE_SPACE) {
@@ -403,22 +397,41 @@ class RaceMenu extends MovieClip
 				return true;
 			}
 			
-			if (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT) {
-				var SelectedEntry = itemList.listState.selectedEntry;
+			var SelectedEntry = itemList.listState.selectedEntry;
+			if (SelectedEntry && (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT)) {
 				var SelectedSlider = itemList.selectedClip.SliderInstance;
+				var handledInput: Boolean = false;
 				if ((details.navEquivalent == NavigationCode.LEFT && SelectedEntry.position > SelectedEntry.sliderMin) || 
 					(details.navEquivalent == NavigationCode.RIGHT && SelectedEntry.position < SelectedEntry.sliderMax)) {
-					bHandledInput = SelectedSlider.handleInput(details, pathToFocus);
+					handledInput = SelectedSlider.handleInput(details, pathToFocus);
+					if(handledInput) {
+						itemList.UpdateList();
+						return handledInput;
+					}
 				}
-				itemList.UpdateList();
+			} else if(!SelectedEntry && (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT)) {
+				if(details.navEquivalent == NavigationCode.LEFT) {
+					categoryList.moveSelectionLeft();
+					return true;
+				} else if(details.navEquivalent == NavigationCode.RIGHT) {
+					categoryList.moveSelectionRight();
+					return true;
+				}
 			} else if(details.navEquivalent === NavigationCode.GAMEPAD_L2) {
 				categoryList.moveSelectionLeft();
+				return true;
 			} else if(details.navEquivalent === NavigationCode.GAMEPAD_R2) {
 				categoryList.moveSelectionRight();
-			}			
+				return true;
+			}
 		}
-				
-		return bHandledInput;
+		
+		var nextClip = pathToFocus.shift();
+		if (nextClip.handleInput(details, pathToFocus)) {
+			return true;
+		}
+		
+		return false;
 	}
 	
 	/* Component Toggles */
@@ -426,16 +439,14 @@ class RaceMenu extends MovieClip
 	{
 		textEntry._visible = textEntry.enabled = abShowTextEntry;
 		if(abShowTextEntry) {
-			ShowColorField(false);
-			categoryList.disableSelection = categoryList.disableInput = true;
-			itemList.disableSelection = itemList.disableInput = true;
+			if(colorField._visible) {
+				ShowColorField(false);
+			} else if(makeupPanel._visible) {
+				ShowMakeupPanel(false);
+			}
 			FocusHandler.instance.setFocus(textEntry, 0);
-			TweenLite.to(racePanel, 0.25, {_alpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
-			categoryList.disableSelection = categoryList.disableInput = false;
-			itemList.disableSelection = itemList.disableInput = false;
 			FocusHandler.instance.setFocus(itemList, 0);
-			TweenLite.to(racePanel, 0.25, {_alpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
 	
@@ -456,16 +467,11 @@ class RaceMenu extends MovieClip
 		colorField._visible = colorField.enabled = bShowField;
 		if(bShowField) {
 			colorField.ResetSlider();
-			categoryList.disableSelection = categoryList.disableInput = true;
-			itemList.disableSelection = itemList.disableInput = true;
 			FocusHandler.instance.setFocus(colorField.colorSelector, 0);
-			TweenLite.to(racePanel, 0.25, {_alpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
-			categoryList.disableSelection = categoryList.disableInput = false;
-			itemList.disableSelection = itemList.disableInput = false;
 			FocusHandler.instance.setFocus(itemList, 0);
-			TweenLite.to(racePanel, 0.25, {_alpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
+		ShowRacePanel(!bShowField);
 	}
 	
 	public function ShowRaceDescription(bShowDescription: Boolean): Void
@@ -501,15 +507,26 @@ class RaceMenu extends MovieClip
 		makeupPanel._visible = makeupPanel.enabled = bShowPanel;
 		if(bShowPanel) {
 			makeupPanel.UpdateList();
-			categoryList.disableSelection = categoryList.disableInput = true;
-			itemList.disableSelection = itemList.disableInput = true;
 			FocusHandler.instance.setFocus(makeupPanel.makeupList, 0);
-			TweenLite.to(racePanel, 0.25, {_alpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
+			FocusHandler.instance.setFocus(itemList, 0);
+		}
+		
+		ShowRacePanel(!bShowPanel);
+	}
+	
+	public function ShowRacePanel(bShowPanel: Boolean): Void
+	{
+		if(bShowPanel) {
 			categoryList.disableSelection = categoryList.disableInput = false;
 			itemList.disableSelection = itemList.disableInput = false;
-			FocusHandler.instance.setFocus(itemList, 0);
+			searchWidget.isDisabled = false;
 			TweenLite.to(racePanel, 0.25, {_alpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		} else {
+			categoryList.disableSelection = categoryList.disableInput = true;
+			itemList.disableSelection = itemList.disableInput = true;
+			searchWidget.isDisabled = true;
+			TweenLite.to(racePanel, 0.25, {_alpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
 	
@@ -571,7 +588,7 @@ class RaceMenu extends MovieClip
 				
 		var id = 0;
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.RACE_STRIDE, id++) {
-			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_RACE, text: arguments[i + RaceMenuDefines.RACE_NAME], filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: arguments[i + RaceMenuDefines.RACE_DESCRIPTION].length <= 0 ? "No race description for " + arguments[i + RaceMenuDefines.RACE_NAME] : arguments[i + RaceMenuDefines.RACE_DESCRIPTION], equipState: arguments[i + RaceMenuDefines.RACE_EQUIPSTATE], raceID: id, enabled: true};
+			var entryObject: Object = {state: RaceMenuDefines.ENTRY_STATE_RACE, type: RaceMenuDefines.ENTRY_TYPE_RACE, text: arguments[i + RaceMenuDefines.RACE_NAME], filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: arguments[i + RaceMenuDefines.RACE_DESCRIPTION].length <= 0 ? "No race description for " + arguments[i + RaceMenuDefines.RACE_NAME] : arguments[i + RaceMenuDefines.RACE_DESCRIPTION], equipState: arguments[i + RaceMenuDefines.RACE_EQUIPSTATE], raceID: id, enabled: true};
 			if (entryObject.equipState > 0) {
 				itemList.listState.activeEntry = entryObject;
 				SetRaceText(entryObject.text);
@@ -594,7 +611,7 @@ class RaceMenu extends MovieClip
 		}
 				
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.SLIDER_STRIDE) {
-			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: arguments[i + RaceMenuDefines.SLIDER_NAME], filterFlag: arguments[i + RaceMenuDefines.SLIDER_FILTERFLAG], callbackName: arguments[i + RaceMenuDefines.SLIDER_CALLBACKNAME], sliderMin: arguments[i + RaceMenuDefines.SLIDER_MIN], sliderMax: arguments[i + RaceMenuDefines.SLIDER_MAX], sliderID: arguments[i + RaceMenuDefines.SLIDER_ID], position: arguments[i + RaceMenuDefines.SLIDER_POSITION], interval: arguments[i + RaceMenuDefines.SLIDER_INTERVAL], enabled: true};
+			var entryObject: Object = {state: RaceMenuDefines.ENTRY_STATE_SLIDER, type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: arguments[i + RaceMenuDefines.SLIDER_NAME], filterFlag: arguments[i + RaceMenuDefines.SLIDER_FILTERFLAG], callbackName: arguments[i + RaceMenuDefines.SLIDER_CALLBACKNAME], sliderMin: arguments[i + RaceMenuDefines.SLIDER_MIN], sliderMax: arguments[i + RaceMenuDefines.SLIDER_MAX], sliderID: arguments[i + RaceMenuDefines.SLIDER_ID], position: arguments[i + RaceMenuDefines.SLIDER_POSITION], interval: arguments[i + RaceMenuDefines.SLIDER_INTERVAL], enabled: true};
 			
 			// Add new category
 			if(entryObject.callbackName == "ChangeTintingMask" || entryObject.callbackName == "ChangeMaskColor" || entryObject.callbackName == "ChangeHairColorPreset") {
@@ -658,7 +675,7 @@ class RaceMenu extends MovieClip
 				formatIndex = nTintTexture.length;
 			
 			var displayText: String = nTintTexture.substring(slashIndex + 1, formatIndex);
-			itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: displayText, texture: nTintTexture, tintType: nTintType, tintIndex: nTintIndex, fillColor: nTintColor, filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true});
+			itemList.entryList.push({state: RaceMenuDefines.ENTRY_STATE_TEXTURE, type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: displayText, texture: nTintTexture, tintType: nTintType, tintIndex: nTintIndex, fillColor: nTintColor, filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true});
 		}
 		
 		itemList.requestInvalidate();
@@ -705,6 +722,7 @@ class RaceMenu extends MovieClip
 	
 	public function onCategoryChange(a_event: Object): Void
 	{
+		itemList.selectedIndex = -1;
 		GameDelegate.call("PlaySound",["UIMenuFocus"]);
 	}
 		

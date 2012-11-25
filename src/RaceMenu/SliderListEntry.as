@@ -2,6 +2,7 @@
 import skyui.components.list.BasicList;
 import skyui.components.list.BasicListEntry;
 import skyui.components.list.ListState;
+import gfx.ui.InputDetails;
 
 import gfx.io.GameDelegate;
 import gfx.controls.Slider;
@@ -12,10 +13,6 @@ class SliderListEntry extends BasicListEntry
 {	
 	/* PROPERTIES */
   
-	public static var defaultTextColor: Number = 0xffffff;
-	public static var activeTextColor: Number = 0xffffff;
-	public static var selectedTextColor: Number = 0xffffff;
-	public static var disabledTextColor: Number = 0x4c4c4c;
 	public static var squareFillColor: Number = 0x0000000;
 	private var sliderWait: Number;
 	private var proxyObject: Object;
@@ -96,20 +93,10 @@ class SliderListEntry extends BasicListEntry
 		var isActive = (a_state.activeEntry != undefined && a_entryObject == a_state.activeEntry);
 
 		if (a_entryObject.state != undefined)
-			gotoAndPlay(a_entryObject.state);
+			gotoAndStop(a_entryObject.state);
 
 		if (textField != undefined) {
 			textField.autoSize = a_entryObject.align ? a_entryObject.align : "left";
-			
-			if (!a_entryObject.enabled)
-				textField.textColor = disabledTextColor;
-			else if (isActive)
-				textField.textColor = activeTextColor;
-			else if (isSelected)
-				textField.textColor = selectedTextColor;
-			else
-				textField.textColor = defaultTextColor;
-
 			textField.SetText(a_entryObject.text ? a_entryObject.text : " ");
 		}
 		
@@ -122,18 +109,9 @@ class SliderListEntry extends BasicListEntry
 		}
 		
 		switch(a_entryObject.type)
-		{
-			case RaceMenuDefines.ENTRY_TYPE_RACE:
-			{
-				SliderInstance._visible = false;
-				colorSquare._visible = false;
-				valueField._visible = false;
-			}
-			break;
-			
+		{			
 			case RaceMenuDefines.ENTRY_TYPE_SLIDER:
 			{
-				SliderInstance._visible = true;
 				// Yeah this is stupid, but its the only way to tell if the slider loaded
 				if(!SliderInstance.initialized) {
 					proxyObject = a_entryObject;
@@ -141,7 +119,6 @@ class SliderListEntry extends BasicListEntry
 					setSlider(a_entryObject);
 				}
 				
-				valueField._visible = true;
 				valueField.SetText(((a_entryObject.position * 100)|0)/100);
 				
 				if(a_entryObject.callbackName == "ChangeTintingMask" || a_entryObject.callbackName == "ChangeMaskColor" || a_entryObject.callbackName == "ChangeHairColorPreset") {
@@ -156,10 +133,7 @@ class SliderListEntry extends BasicListEntry
 			break;
 			
 			case RaceMenuDefines.ENTRY_TYPE_MAKEUP:
-			{
-				SliderInstance._visible = false;
-				valueField._visible = false;
-						
+			{						
 				var colorOverlay: Color = new Color(colorSquare.fill);
 				colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
 				colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;

@@ -5,6 +5,10 @@
 	static var ENTRY_TYPE_SLIDER: Number = 2;
 	static var ENTRY_TYPE_MAKEUP: Number = 3;
 	
+	static var ENTRY_STATE_SLIDER: String = "Slider";
+	static var ENTRY_STATE_TEXTURE: String = "Texture";
+	static var ENTRY_STATE_RACE: String = "Race";
+	
 	static var CAT_TEXT: Number = 0;
 	static var CAT_FLAG: Number = 1;
 	static var CAT_STRIDE: Number = 2;

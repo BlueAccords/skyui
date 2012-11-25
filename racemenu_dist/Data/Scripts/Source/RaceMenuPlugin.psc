@@ -65,22 +65,22 @@ Event OnSliderChanged(string callback, float value)
 	ElseIf callback == "ChangeHeadSize"
 		_head = value
 		_playerActor.SetNiNodeScale(NINODE_HEAD, _head)
-		_playerActor.QueueNiNodeUpdate()
+		_playerActor.UpdateNiNode(NINODE_HEAD)
 	Elseif callback == "ChangeLeftBreast"
 		_leftBreast = value
 		_playerActor.SetNiNodeScale(NINODE_LEFT_BREAST, _leftBreast)
-		_playerActor.QueueNiNodeUpdate()
+		_playerActor.UpdateNiNode(NINODE_LEFT_BREAST)
 	Elseif callback == "ChangeRightBreast"
 		_rightBreast = value
 		_playerActor.SetNiNodeScale(NINODE_RIGHT_BREAST, _rightBreast)
-		_playerActor.QueueNiNodeUpdate()
+		_playerActor.UpdateNiNode(NINODE_RIGHT_BREAST)
 	Elseif callback == "ChangeLeftButt"
 		_leftButt = value
 		_playerActor.SetNiNodeScale(NINODE_LEFT_BUTT, _leftButt)
-		_playerActor.QueueNiNodeUpdate()
+		_playerActor.UpdateNiNode(NINODE_LEFT_BUTT)
 	Elseif callback == "ChangeRightButt"
 		_rightButt = value
 		_playerActor.SetNiNodeScale(NINODE_RIGHT_BUTT, _rightButt)
-		_playerActor.QueueNiNodeUpdate()
+		_playerActor.UpdateNiNode(NINODE_RIGHT_BUTT)
 	Endif
 EndEvent
