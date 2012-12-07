@@ -37,22 +37,22 @@ EndEvent
 Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool isFemale)
 	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, playerBase.GetHeight())
 
-	float head = player.GetNiNodeScale(NINODE_HEAD)
-	If head != 0
-		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, head)
+	If player.HasNiNode(NINODE_HEAD)
+		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, player.GetNiNodeScale(NINODE_HEAD))
 	Endif
 
-	If isFemale == true
-		float leftBreast = player.GetNiNodeScale(NINODE_LEFT_BREAST)
-		float rightBreast = player.GetNiNodeScale(NINODE_RIGHT_BREAST)
-		float leftButt = player.GetNiNodeScale(NINODE_LEFT_BUTT)
-		float rightButt = player.GetNiNodeScale(NINODE_RIGHT_BUTT)
-		
-		If leftBreast != 0 && rightBreast != 0 && leftButt != 0 && rightButt != 0
-			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 5.00, 0.1, leftBreast)
-			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 5.00, 0.1, rightBreast)
-			AddSlider("$Left Buttcheek", CATEGORY_BODY, "ChangeLeftButt", 0.1, 5.00, 0.1, leftButt)
-			AddSlider("$Right Buttcheek", CATEGORY_BODY, "ChangeRightButt", 0.1, 5.00, 0.1, rightButt)
+	If isFemale == true		
+		If player.HasNiNode(NINODE_LEFT_BREAST)
+			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 5.00, 0.1, player.GetNiNodeScale(NINODE_LEFT_BREAST))
+		Endif
+		If player.HasNiNode(NINODE_RIGHT_BREAST)
+			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 5.00, 0.1, player.GetNiNodeScale(NINODE_RIGHT_BREAST))
+		Endif
+		If player.HasNiNode(NINODE_LEFT_BUTT)
+			AddSlider("$Left Buttcheek", CATEGORY_BODY, "ChangeLeftButt", 0.1, 5.00, 0.1, player.GetNiNodeScale(NINODE_LEFT_BUTT))
+		Endif
+		If player.HasNiNode(NINODE_RIGHT_BUTT)
+			AddSlider("$Right Buttcheek", CATEGORY_BODY, "ChangeRightButt", 0.1, 5.00, 0.1, player.GetNiNodeScale(NINODE_RIGHT_BUTT))
 		Endif
 	Endif
 EndEvent

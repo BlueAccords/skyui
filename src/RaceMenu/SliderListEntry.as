@@ -12,7 +12,8 @@ import RaceMenuDefines;
 class SliderListEntry extends BasicListEntry
 {	
 	/* PROPERTIES */
-  
+  	public static var defaultTextColor: Number = 0xffffff;
+	public static var disabledTextColor: Number = 0x4c4c4c;
 	public static var squareFillColor: Number = 0x0000000;
 	private var sliderWait: Number;
 	private var proxyObject: Object;
@@ -20,6 +21,7 @@ class SliderListEntry extends BasicListEntry
 	/* STAGE ELMENTS */
 	public var activeIndicator: MovieClip;
 	public var selectIndicator: MovieClip;
+	public var focusIndicator: MovieClip;
 	public var textField: TextField;
 	public var valueField: TextField;
 	public var SliderInstance: Slider;
@@ -91,27 +93,52 @@ class SliderListEntry extends BasicListEntry
 		
 		var isSelected = a_entryObject == a_state.list.selectedEntry;
 		var isActive = (a_state.activeEntry != undefined && a_entryObject == a_state.activeEntry);
+		var isFocus = (a_entryObject == a_state.focusEntry);
+		var hasFocus = (a_state.focusEntry != undefined);
+		
+		if(hasFocus && !isFocus) {
+			enabled = false;
+			textField.textColor = disabledTextColor;
+			valueField.textColor = disabledTextColor;
+			SliderInstance._alpha = 40;
+		} else {
+			enabled = true;
+			textField.textColor = defaultTextColor;
+			valueField.textColor = defaultTextColor;
+			SliderInstance._alpha = 100;
+		}
 
-		if (a_entryObject.state != undefined)
-			gotoAndStop(a_entryObject.state);
-
-		if (textField != undefined) {
+		if (textField != undefined) {			
 			textField.autoSize = a_entryObject.align ? a_entryObject.align : "left";
 			textField.SetText(a_entryObject.text ? a_entryObject.text : " ");
 		}
 		
-		if (selectIndicator != undefined)
-			selectIndicator._visible = isSelected;
+		if(selectIndicator != undefined)
+			selectIndicator._visible = isSelected && !isFocus;
 			
-		if (activeIndicator != undefined) {
+		if(activeIndicator != undefined) {
 			activeIndicator._visible = isActive;
 			activeIndicator._x = textField._x + textField._width + 5;
 		}
-		
+		if(focusIndicator != undefined)
+			focusIndicator._visible = isFocus;
+
 		switch(a_entryObject.type)
-		{			
+		{
+			case RaceMenuDefines.ENTRY_TYPE_RACE:
+			{
+				valueField._visible = valueField.enabled = false;
+				SliderInstance._visible = SliderInstance.enabled = false;
+				colorSquare._visible = colorSquare.enabled = false;
+			}
+			break;
+			
 			case RaceMenuDefines.ENTRY_TYPE_SLIDER:
 			{
+				valueField._visible = valueField.enabled = true;
+				SliderInstance._visible = SliderInstance.enabled = true;
+				colorSquare._visible = colorSquare.enabled = true;
+				
 				// Yeah this is stupid, but its the only way to tell if the slider loaded
 				if(!SliderInstance.initialized) {
 					proxyObject = a_entryObject;
@@ -133,7 +160,11 @@ class SliderListEntry extends BasicListEntry
 			break;
 			
 			case RaceMenuDefines.ENTRY_TYPE_MAKEUP:
-			{						
+			{
+				valueField._visible = valueField.enabled = false;
+				SliderInstance._visible = SliderInstance.enabled = false;
+				colorSquare._visible = colorSquare.enabled = true;
+				
 				var colorOverlay: Color = new Color(colorSquare.fill);
 				colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
 				colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
