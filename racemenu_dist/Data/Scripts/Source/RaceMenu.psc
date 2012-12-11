@@ -105,10 +105,10 @@ EndFunction
 Function SaveHair()
 	ColorForm hairColor = _playerActorBase.GetHairColor()
 	If hairColor == _hairColor
-		_color = _hairColor.GetColor() + 0xFF000000 ; Add alpha component bad
+		_color = hairColor.GetColor() + 0xFF000000
 		_customHair = true
 	Elseif hairColor != None
-		_color = hairColor.GetColor()
+		_color = hairColor.GetColor() + 0xFF000000
 		_customHair = false
 	Else
 		_color = 0xFF000000
@@ -202,7 +202,8 @@ Event OnTintColorChange(string eventName, string strArg, float numArg, Form form
 	int type = arg / 1000
 	int index = arg - (type * 1000)
 	Game.SetTintMaskColor(color, type, index)
-	Game.UpdateTintMaskColors()
+	_playerActor.QueueNiNodeUpdate()
+	;Game.UpdateTintMaskColors()
 EndEvent
 
 Event OnTintTextureChange(string eventName, string strArg, float numArg, Form formArg)
@@ -587,7 +588,14 @@ Function SendDefaultMakeup()
 	textures[118] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBlackBloodTattoo_01.dds"
 	names[119] = "$Male Black Blood Tattoo 02"
 	textures[119] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBlackBloodTattoo_02.dds"
-	AddWarpaints(names, textures)
+
+	string[] textureList = new string[120]
+	int i = 0
+	While i < 120
+		textureList[i] = names[i] + ";;" + textures[i]
+		i += 1
+	EndWhile
+	AddWarpaints(textureList)
 EndFunction
 
 Function UpdateColors()

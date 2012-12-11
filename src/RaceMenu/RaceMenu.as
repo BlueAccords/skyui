@@ -40,20 +40,7 @@ class RaceMenu extends MovieClip
 	private var _tintTypes: Array;
 	private var _tintColors: Array;
 	private var _tintTextures: Array;
-	
-	// Warpaint Parameters
-	private var _makeupNames: Array;
-	private var _makeupTextures: Array;
-	
-	// Slider Parameters
-	private var _sliderName: Array;
-	private var _sliderSection: Array;
-	private var _sliderCallback: Array;
-	private var _sliderMin: Array;
-	private var _sliderMax: Array;
-	private var _sliderInterval: Array;
-	private var _sliderPosition: Array;
-	
+		
 	private var _raceList: Array;
 	private var _extendIndex: Number = 0;
 	
@@ -401,22 +388,11 @@ class RaceMenu extends MovieClip
 			if (SelectedEntry && (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT)) {
 				var SelectedSlider = itemList.selectedClip.SliderInstance;
 				var handledInput: Boolean = false;
-				if ((details.navEquivalent == NavigationCode.LEFT && SelectedEntry.position > SelectedEntry.sliderMin) || 
-					(details.navEquivalent == NavigationCode.RIGHT && SelectedEntry.position < SelectedEntry.sliderMax)) {
-					handledInput = SelectedSlider.handleInput(details, pathToFocus);
-					if(handledInput) {
-						itemList.UpdateList();
-						return handledInput;
-					}
-				}
+				handledInput = SelectedSlider.handleInput(details, pathToFocus);
+				itemList.UpdateList();
+				return handledInput;
 			} else if(!SelectedEntry && (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT)) {
-				if(details.navEquivalent == NavigationCode.LEFT) {
-					categoryList.moveSelectionLeft();
-					return true;
-				} else if(details.navEquivalent == NavigationCode.RIGHT) {
-					categoryList.moveSelectionRight();
-					return true;
-				}
+				return categoryList.handleInput(details, pathToFocus);
 			} else if(details.navEquivalent === NavigationCode.GAMEPAD_L2) {
 				categoryList.moveSelectionLeft();
 				return true;
@@ -426,10 +402,14 @@ class RaceMenu extends MovieClip
 			}
 		}
 		
-		var nextClip = pathToFocus.shift();
-		if (nextClip.handleInput(details, pathToFocus)) {
+		if(itemList.handleInput(details, pathToFocus)) {
 			return true;
 		}
+		
+		/*var nextClip = pathToFocus.shift();
+		if (nextClip.handleInput(details, pathToFocus)) {
+			return true;
+		}*/
 		
 		return false;
 	}
@@ -1027,101 +1007,30 @@ class RaceMenu extends MovieClip
 		itemList.requestInvalidate();
 	}*/
 	
-	public function RSM_BeginSliders()
+	public function RSM_AddSliders()
 	{
-		_sliderName = new Array();
-		_sliderSection = new Array();
-		_sliderCallback = new Array();
-		_sliderMin = new Array();
-		_sliderMax = new Array();
-		_sliderInterval = new Array();
-		_sliderPosition = new Array();
-	}
-	
-	public function RSM_AddSliderName()
-	{
-		_sliderName = _sliderName.concat(arguments);
-	}
-	
-	public function RSM_AddSliderSection()
-	{
-		_sliderSection = _sliderSection.concat(arguments);
-	}
-	
-	public function RSM_AddSliderCallback()
-	{
-		_sliderCallback = _sliderCallback.concat(arguments);
-	}
-	
-	public function RSM_AddSliderMin()
-	{
-		_sliderMin = _sliderMin.concat(arguments);
-	}
-	
-	public function RSM_AddSliderMax()
-	{
-		_sliderMax = _sliderMax.concat(arguments);
-	}
-	
-	public function RSM_AddSliderInterval()
-	{
-		_sliderInterval = _sliderInterval.concat(arguments);
-	}
-	
-	public function RSM_AddSliderPosition()
-	{
-		_sliderPosition = _sliderPosition.concat(arguments);
-	}
-	
-	public function RSM_EndSliders()
-	{
-		for(var i = 0; i < _sliderName.length; i++)
+		for(var i = 0; i < arguments.length; i++)
 		{
-			if(_sliderName[i] != "") {
+			var sliderParams: Array = arguments[i].split(";;");
+			if(sliderParams[0] != "") {
 				var newSliderID = customSliders.length + RaceMenuDefines.CUSTOM_SLIDER_OFFSET;
-				var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: _sliderName[i], filterFlag:_sliderSection[i], callbackName: _sliderCallback[i], sliderMin: _sliderMin[i], sliderMax: _sliderMax[i], sliderID: newSliderID, position: _sliderPosition[i], interval: _sliderInterval[i], enabled: true};
+				var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: sliderParams[0], filterFlag: Number(sliderParams[1]), callbackName: sliderParams[2], sliderMin: Number(sliderParams[3]), sliderMax: Number(sliderParams[4]), sliderID: newSliderID, position: Number(sliderParams[6]), interval: Number(sliderParams[5]), enabled: true};
 				customSliders.push(sliderObject);
 				itemList.entryList.push(sliderObject);
 				itemList.requestInvalidate();
 			}
 		}
-		
-		delete _sliderName;
-		delete _sliderSection;
-		delete _sliderCallback;
-		delete _sliderMin;
-		delete _sliderMax;
-		delete _sliderInterval;
-		delete _sliderPosition;
 	}
-	
-	public function RSM_BeginMakeup()
+						
+	public function RSM_AddWarpaints()
 	{
-		_makeupNames = new Array();
-		_makeupTextures = new Array();
-	}
-	
-	public function RSM_AddMakeupNames()
-	{
-		_makeupNames = _makeupNames.concat(arguments);
-	}
-	
-	public function RSM_AddMakeupTextures()
-	{
-		_makeupTextures = _makeupTextures.concat(arguments);
-	}
-		
-	public function RSM_EndMakeup()
-	{
-		for(var i = 0; i < _makeupNames.length; i++)
+		for(var i = 0; i < arguments.length; i++)
 		{
-			if(_makeupNames[i] != "" && _makeupTextures[i] != "") {
-				makeupPanel.AddMakeup(_makeupNames[i], _makeupTextures[i]);
+			var warpaintParams: Array = arguments[i].split(";;");
+			if(warpaintParams[0] != "" && warpaintParams[1] != "") {
+				makeupPanel.AddMakeup(warpaintParams[0], warpaintParams[1]);
 			}
 		}
-		
-		delete _makeupNames;
-		delete _makeupTextures;
 	}
 		
 	public function RSM_BeginSettings()

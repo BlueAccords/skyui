@@ -16,17 +16,10 @@ int Property CATEGORY_COLOR = 512 AutoReadOnly
 Actor Property _playerActor Auto
 ActorBase Property _playerActorBase Auto
 
-string[] _textureName
-string[] _texturePath
+string[] _textures
 int _textureBuffer
 
-string[] _sliderName
-int[] _sliderSection
-string[] _sliderCallback
-float[] _sliderMin
-float[] _sliderMax
-float[] _sliderInterval
-float[] _sliderPosition
+string[] _sliders
 int _sliderBuffer
 
 Event OnInit()
@@ -39,17 +32,10 @@ Event OnInit()
 EndEvent
 
 Event OnInitialized()
-	_textureName = new string[128]
-	_texturePath = new string[128]
+	_textures = new string[128]
 	_textureBuffer = 0
 
-	_sliderName = new string[128]
-	_sliderSection = new int[128]
-	_sliderCallback = new string[128]
-	_sliderMin = new float[128]
-	_sliderMax = new float[128]
-	_sliderInterval = new float[128]
-	_sliderPosition = new float[128]
+	_sliders = new string[128]
 	_sliderBuffer = 0
 EndEvent
 
@@ -66,15 +52,15 @@ EndEvent
 
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
 	OnWarpaintRequest()
-	AddWarpaints(_textureName, _texturePath)
+	AddWarpaints(_textures)
 	OnSliderRequest(_playerActor, _playerActorBase, _playerActorBase.GetRace(), _playerActorBase.GetSex() as bool)
-	AddSliders(_sliderName, _sliderSection, _sliderCallback, _sliderMin, _sliderMax, _sliderInterval, _sliderPosition)
+	AddSliders(_sliders)
 	FlushBuffer(2)
 EndEvent
 
 Event OnMenuReinitialized(string eventName, string strArg, float numArg, Form formArg)
 	OnSliderRequest(_playerActor, _playerActorBase, _playerActorBase.GetRace(), _playerActorBase.GetSex() as bool)
-	AddSliders(_sliderName, _sliderSection, _sliderCallback, _sliderMin, _sliderMax, _sliderInterval, _sliderPosition)
+	AddSliders(_sliders)
 	FlushBuffer(1)
 EndEvent
 
@@ -99,39 +85,21 @@ Event OnSliderChanged(string callback, float value)
 EndEvent
 
 Function AddWarpaint(string name, string texturePath)
-	_textureName[_textureBuffer] = name
-	_texturePath[_textureBuffer] = texturePath
+	_textures[_textureBuffer] = name + ";;" + texturePath
 	_textureBuffer += 1
 EndFunction
 
 Function AddSlider(string name, int section, string callback, float min, float max, float interval, float position)
-	_sliderName[_sliderBuffer] = name
-	_sliderSection[_sliderBuffer] = section
-	_sliderCallback[_sliderBuffer] = callback
-	_sliderMin[_sliderBuffer] = min
-	_sliderMax[_sliderBuffer] = max
-	_sliderInterval[_sliderBuffer] = interval
-	_sliderPosition[_sliderBuffer] = position
+	_sliders[_sliderBuffer] = name + ";;" + section + ";;" + callback + ";;" + min + ";;" + max + ";;" + interval + ";;" + position
 	_sliderBuffer += 1
 EndFunction
 
-Function AddWarpaints(string[] names, string[] textures)
-	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_BeginMakeup")
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddMakeupNames", names)
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddMakeupTextures", textures)
-	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_EndMakeup")
+Function AddWarpaints(string[] textures)
+	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddWarpaints", textures)
 EndFunction
 
-Function AddSliders(string[] name, int[] section, string[] callback, float[] min, float[] max, float[] interval, float[] position)
-	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_BeginSliders")
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddSliderName", name)
-	UI.InvokeIntA(RACESEX_MENU, MENU_ROOT + "RSM_AddSliderSection", section)
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddSliderCallback", callback)
-	UI.InvokeFloatA(RACESEX_MENU, MENU_ROOT + "RSM_AddSliderMin", min)
-	UI.InvokeFloatA(RACESEX_MENU, MENU_ROOT + "RSM_AddSliderMax", max)
-	UI.InvokeFloatA(RACESEX_MENU, MENU_ROOT + "RSM_AddSliderInterval", interval)
-	UI.InvokeFloatA(RACESEX_MENU, MENU_ROOT + "RSM_AddSliderPosition", position)
-	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_EndSliders")
+Function AddSliders(string[] sliders)
+	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddSliders", sliders)
 EndFunction
 
 ; 0 - Texture Buffers
@@ -141,17 +109,10 @@ Function FlushBuffer(int bufferType)
 	int i = 0
 	While i < 128
 		if bufferType == 0 || bufferType == 2
-			_textureName[i] = ""
-			_texturePath[i] = ""
+			_textures[i] = ""
 		Endif
 		If bufferType == 1 || bufferType == 2
-			_sliderName[i] = ""
-			_sliderSection[i] = 0
-			_sliderCallback[i] = ""
-			_sliderMin[i] = 0.0
-			_sliderMax[i] = 0.0
-			_sliderInterval[i] = 0.0
-			_sliderPosition[i] = 0.0
+			_sliders[i] = ""
 		Endif
 		i += 1
 	EndWhile
