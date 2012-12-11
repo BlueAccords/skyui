@@ -27,13 +27,13 @@ endProperty
 
 int property		ReqSWFRelease
 	int function get()
-		return 2
+		return 3
 	endFunction
 endProperty
 
 string property		ReqSWFVersion
 	string function get()
-		return "3.0-alpha5"
+		return "3.0-alpha6"
 	endFunction
 endProperty
 
@@ -60,11 +60,13 @@ event OnGameReload()
 	if (SKSE.GetVersionRelease() == 0)
 		Error("The Skyrim Script Extender (SKSE) is not running.\nSkyUI will not work correctly!\n\n" \
 			+ "This message may also appear if a new Skyrim Patch has been released. In this case, wait until SKSE has been updated, then install the new version.")
+		return
 
 	elseIf (SKSE.GetVersionRelease() < MinSKSERelease)
 		Error("Your Skyrim Script Extender (SKSE) is outdated.\nSkyUI will not work correctly!\n" \
 			+ "Required version: " + MinSKSEVersion + " or newer\n" \
 			+ "Detected version: " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta())
+		return
 	endIf
 
 	; Check hudmenu.swf version

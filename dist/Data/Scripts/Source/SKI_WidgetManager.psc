@@ -22,7 +22,7 @@ event OnInit()
 	_widgetCount	= 0
 	
 	; Wait a few seconds until all widgets have registered their callbacks
-	Utility.Wait(0.1)
+	Utility.Wait(1.5)
 	
 	OnGameReload()
 endEvent
@@ -44,7 +44,7 @@ function CleanUp()
 	int i = 0
 	
 	while (i < _widgets.length)
-		if (_widgets[i] == none || !(_widgets[i].GetFormID() > 0))
+		if (_widgets[i] == none || _widgets[i].GetFormID() == 0)
 			; Widget no longer exists
 			_widgets[i] = none
 			_widgetTypes[i] = none
