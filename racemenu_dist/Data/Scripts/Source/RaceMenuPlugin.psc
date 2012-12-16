@@ -17,11 +17,11 @@ float _rightButt = 1.0
 ; Reload Custom slider settings here
 Event OnReloadSettings(Actor player, ActorBase playerBase)
 	playerBase.SetHeight(_height)
-	player.SetNiNodeScale(NINODE_HEAD, _head)
-	player.SetNiNodeScale(NINODE_LEFT_BREAST, _leftBreast)
-	player.SetNiNodeScale(NINODE_RIGHT_BREAST, _rightBreast)
-	player.SetNiNodeScale(NINODE_LEFT_BUTT, _leftButt)
-	player.SetNiNodeScale(NINODE_RIGHT_BUTT, _rightButt)
+	NetImmerse.SetNodeScale(player, NINODE_HEAD, _head)
+	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST, _leftBreast)
+	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST, _rightBreast)
+	NetImmerse.SetNodeScale(player, NINODE_LEFT_BUTT, _leftButt)
+	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BUTT, _rightButt)
 	player.QueueNiNodeUpdate()
 EndEvent
 
@@ -35,24 +35,32 @@ EndEvent
 
 ; Add Custom sliders here
 Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool isFemale)
-	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, playerBase.GetHeight())
+	; Reset the stored data
+	_height = playerBase.GetHeight()
+	_head = NetImmerse.GetNodeScale(player, NINODE_HEAD)
+	_leftBreast = NetImmerse.GetNodeScale(player, NINODE_LEFT_BREAST)
+	_rightBreast = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BREAST)
+	_leftButt = NetImmerse.GetNodeScale(player, NINODE_LEFT_BUTT)
+	_rightButt = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BUTT)
 
-	If player.HasNiNode(NINODE_HEAD)
-		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, player.GetNiNodeScale(NINODE_HEAD))
+	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, _height)
+
+	If NetImmerse.HasNode(player, NINODE_HEAD)
+		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, _head)
 	Endif
 
 	If isFemale == true		
-		If player.HasNiNode(NINODE_LEFT_BREAST)
-			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 5.00, 0.1, player.GetNiNodeScale(NINODE_LEFT_BREAST))
+		If NetImmerse.HasNode(player, NINODE_LEFT_BREAST)
+			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 5.00, 0.1, _leftBreast)
 		Endif
-		If player.HasNiNode(NINODE_RIGHT_BREAST)
-			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 5.00, 0.1, player.GetNiNodeScale(NINODE_RIGHT_BREAST))
+		If NetImmerse.HasNode(player, NINODE_RIGHT_BREAST)
+			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 5.00, 0.1, _rightBreast)
 		Endif
-		If player.HasNiNode(NINODE_LEFT_BUTT)
-			AddSlider("$Left Buttcheek", CATEGORY_BODY, "ChangeLeftButt", 0.1, 5.00, 0.1, player.GetNiNodeScale(NINODE_LEFT_BUTT))
+		If NetImmerse.HasNode(player, NINODE_LEFT_BUTT)
+			AddSlider("$Left Buttcheek", CATEGORY_BODY, "ChangeLeftButt", 0.1, 5.00, 0.1, _leftButt)
 		Endif
-		If player.HasNiNode(NINODE_RIGHT_BUTT)
-			AddSlider("$Right Buttcheek", CATEGORY_BODY, "ChangeRightButt", 0.1, 5.00, 0.1, player.GetNiNodeScale(NINODE_RIGHT_BUTT))
+		If NetImmerse.HasNode(player, NINODE_RIGHT_BUTT)
+			AddSlider("$Right Buttcheek", CATEGORY_BODY, "ChangeRightButt", 0.1, 5.00, 0.1, _rightButt)
 		Endif
 	Endif
 EndEvent
@@ -64,23 +72,23 @@ Event OnSliderChanged(string callback, float value)
 		_playerActor.QueueNiNodeUpdate()
 	ElseIf callback == "ChangeHeadSize"
 		_head = value
-		_playerActor.SetNiNodeScale(NINODE_HEAD, _head)
-		_playerActor.UpdateNiNode(NINODE_HEAD)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_HEAD, _head)
+		NetImmerse.UpdateNode(_playerActor, NINODE_HEAD)
 	Elseif callback == "ChangeLeftBreast"
 		_leftBreast = value
-		_playerActor.SetNiNodeScale(NINODE_LEFT_BREAST, _leftBreast)
-		_playerActor.UpdateNiNode(NINODE_LEFT_BREAST)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BREAST, _leftBreast)
+		NetImmerse.UpdateNode(_playerActor, NINODE_LEFT_BREAST)
 	Elseif callback == "ChangeRightBreast"
 		_rightBreast = value
-		_playerActor.SetNiNodeScale(NINODE_RIGHT_BREAST, _rightBreast)
-		_playerActor.UpdateNiNode(NINODE_RIGHT_BREAST)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BREAST, _rightBreast)
+		NetImmerse.UpdateNode(_playerActor, NINODE_RIGHT_BREAST)
 	Elseif callback == "ChangeLeftButt"
 		_leftButt = value
-		_playerActor.SetNiNodeScale(NINODE_LEFT_BUTT, _leftButt)
-		_playerActor.UpdateNiNode(NINODE_LEFT_BUTT)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BUTT, _leftButt)
+		NetImmerse.UpdateNode(_playerActor, NINODE_LEFT_BUTT)
 	Elseif callback == "ChangeRightButt"
 		_rightButt = value
-		_playerActor.SetNiNodeScale(NINODE_RIGHT_BUTT, _rightButt)
-		_playerActor.UpdateNiNode(NINODE_RIGHT_BUTT)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BUTT, _rightButt)
+		NetImmerse.UpdateNode(_playerActor, NINODE_RIGHT_BUTT)
 	Endif
 EndEvent
