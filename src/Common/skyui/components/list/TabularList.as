@@ -2,7 +2,9 @@
 import gfx.ui.NavigationCode;
 import gfx.ui.InputDetails;
 
+import skyui.defines.Input;
 import skyui.util.ConfigLoader;
+import skyui.util.GlobalFunctions;
 import skyui.components.list.ListLayout;
 import skyui.components.list.SortedListHeader;
 import skyui.components.list.ScrollingList;
@@ -11,6 +13,12 @@ import skyui.filter.IFilter;
 
 class skyui.components.list.TabularList extends ScrollingList
 {
+  /* PRIVATE VARIABLES */
+
+	private var _previousColumnKey: Number;
+	private var _nextColumnKey: Number;
+	private var _sortOrderKey: Number;
+
   /* STAGE ELEMENTS */
   
 	public var header: SortedListHeader;
@@ -46,6 +54,18 @@ class skyui.components.list.TabularList extends ScrollingList
 
 
   /* PUBLIC FUNCTIONS */
+
+	// @override BasicList
+	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
+	{
+		super.setPlatform(a_platform,a_bPS3Switch);
+
+		if (_platform != 0) {
+			_previousColumnKey = GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, true);
+			_nextColumnKey = GlobalFunctions.getMappedKey("Shout", Input.CONTEXT_GAMEPLAY, true);
+			_sortOrderKey = GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, true);
+		}
+	}
 	
 	// @GFx
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
@@ -55,13 +75,13 @@ class skyui.components.list.TabularList extends ScrollingList
 
 		if (!disableInput && _platform != 0) {
 			if (GlobalFunc.IsKeyPressed(details)) {
-				if (details.navEquivalent == NavigationCode.GAMEPAD_L1) {
+				if (details.skseKeycode == _previousColumnKey) {
 					_layout.selectColumn(_layout.activeColumnIndex - 1);
 					return true;
-				} else if (details.navEquivalent == NavigationCode.GAMEPAD_R1) {
+				} else if (details.skseKeycode == _nextColumnKey) {
 					_layout.selectColumn(_layout.activeColumnIndex + 1);
 					return true;
-				} else if (details.navEquivalent == NavigationCode.GAMEPAD_L3) {
+				} else if (details.skseKeycode == _sortOrderKey) {
 					_layout.selectColumn(_layout.activeColumnIndex);
 					return true;
 				}

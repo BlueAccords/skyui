@@ -3,8 +3,12 @@ import Shared.GlobalFunc;
 import gfx.ui.NavigationCode;
 import gfx.ui.InputDetails;
 
+import skyui.defines.Input;
+import skyui.util.GlobalFunctions;
 import skyui.util.ConfigManager;
 import skyui.components.ButtonPanel;
+
+import skyui.defines.Inventory;
 
 
 class ItemMenu extends MovieClip
@@ -14,6 +18,8 @@ class ItemMenu extends MovieClip
 	private var _platform: Number;
 	private var _bItemCardFadedIn: Boolean = false;
 	private var _bItemCardPositioned: Boolean = false;
+	
+	private var _quantityMinCount: Number = 5;
 	
 	private var _config: Object;
 	
@@ -26,6 +32,8 @@ class ItemMenu extends MovieClip
 	private var _cancelControls: Object;
 	private var _searchControls: Object;
 	private var _switchControls: Object;
+	private var _sortColumnControls: Array;
+	private var _sortOrderControl: Object;
 	
 	
   /* STAGE ELEMENTS */
@@ -120,18 +128,29 @@ class ItemMenu extends MovieClip
 		
 		var itemListState = inventoryLists.itemList.listState;
 		var categoryListState = inventoryLists.categoryList.listState;
-		var section = a_config["Appearance"];
+		var appearance = a_config["Appearance"];
 		
-		categoryListState.iconSource = section.icons.source;
+		categoryListState.iconSource = appearance.icons.source;
 		
-		itemListState.iconSource = section.icons.source;
-		itemListState.showStolenIcon = section.icons.showStolen;
-		itemListState.defaultEnabledColor = section.colors.enabled.text;
-		itemListState.negativeEnabledColor = section.colors.enabled.negative;
-		itemListState.stolenEnabledColor = section.colors.enabled.stolen;
-		itemListState.defaultDisabledColor = section.colors.disabled.text;
-		itemListState.negativeDisabledColor = section.colors.disabled.negative;
-		itemListState.stolenDisabledColor = section.colors.disabled.stolen;
+		itemListState.iconSource = appearance.icons.source;
+		itemListState.showStolenIcon = appearance.icons.showStolen;
+		itemListState.defaultEnabledColor = appearance.colors.text.enabled;
+		itemListState.negativeEnabledColor = appearance.colors.negative.enabled;
+		itemListState.stolenEnabledColor = appearance.colors.stolen.enabled;
+		itemListState.defaultDisabledColor = appearance.colors.text.disabled;
+		itemListState.negativeDisabledColor = appearance.colors.negative.disabled;
+		itemListState.stolenDisabledColor = appearance.colors.stolen.disabled;
+
+		_quantityMinCount = a_config["ItemList"].quantityMenu.minCount;
+		
+		_searchKey = a_config["Input"].controls.search;
+		_searchControls = {keyCode: _searchKey};
+		
+		if (_platform == 0) {
+			// For gamepad, we use "Wait", otherwise config value
+			_switchTabKey = a_config["Input"].controls.switchTab;			
+			_switchControls = {keyCode: _switchTabKey};
+		}
 		
 		updateBottomBar(false);
 	}
@@ -141,25 +160,29 @@ class ItemMenu extends MovieClip
 	{
 		_platform = a_platform;
 		
-		_searchKey = skse.GetMappedKey("Jump", InputDefines.DEVICE_KEYBOARD, InputDefines.CONTEXT_GAMEPLAY);
-		if (!_searchKey)
-			_searchKey = -1;
-			
-		_switchTabKey = skse.GetMappedKey("Sprint", InputDefines.DEVICE_KEYBOARD, InputDefines.CONTEXT_GAMEPLAY);
-		if (!_switchTabKey)
-			_switchTabKey = -1;
-		
-		_searchControls = {keyCode: _searchKey};
-		
 		if (a_platform == 0) {
-			_acceptControls = InputDefines.Enter;
-			_cancelControls = InputDefines.Tab;
-			_switchControls = {keyCode: _switchTabKey};
+			_acceptControls = Input.Enter;
+			_cancelControls = Input.Tab;
+			_switchTabKey = Input.Sprint; // Use as default until config is loaded
 		} else {
-			_acceptControls = InputDefines.Accept;
-			_cancelControls = InputDefines.Cancel;
-			_switchControls = InputDefines.GamepadBack;
+
+			_acceptControls = Input.Accept;
+			_cancelControls = Input.Cancel;
+			
+			_switchTabKey = GlobalFunctions.getMappedKey("Wait", Input.CONTEXT_GAMEPLAY, true);
+			var previousColumnKey = GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, true);
+			var nextColumnKey = GlobalFunctions.getMappedKey("Shout", Input.CONTEXT_GAMEPLAY, true);
+			var sortOrderKey = GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, true);
+
+			_sortColumnControls = [{keyCode: previousColumnKey},
+								   {keyCode: nextColumnKey}];
+			_sortOrderControl = {keyCode: sortOrderKey};
 		}
+		
+		_switchControls = {keyCode: _switchTabKey};
+		
+		_searchKey = Input.Sprint; // Use as default until config is loaded
+		_searchControls = {keyCode: _searchKey};
 		
 		inventoryLists.setPlatform(a_platform,a_bPS3Switch);
 		itemCard.SetPlatform(a_platform,a_bPS3Switch);
@@ -280,6 +303,7 @@ class ItemMenu extends MovieClip
 	private function onConfigLoad(event: Object): Void
 	{
 		setConfig(event.config);
+
 		inventoryLists.showPanel(_bPlayBladeSound);
 	}
 
@@ -342,13 +366,15 @@ class ItemMenu extends MovieClip
 	private function onItemSelect(event: Object): Void
 	{
 		if (event.entry.enabled) {
-			if (event.entry.count > InventoryDefines.QUANTITY_MENU_COUNT_LIMIT)
-				itemCard.ShowQuantityMenu(event.entry.count);
-			else
+			if (_quantityMinCount < 1 || (event.entry.count < _quantityMinCount))
 				onQuantityMenuSelect({amount:1});
+			else
+				itemCard.ShowQuantityMenu(event.entry.count);
 		} else {
 			GameDelegate.call("DisabledItemSelect",[]);
 		}
+
+
 	}
 
 	private function onQuantityMenuSelect(event: Object): Void
@@ -503,24 +529,24 @@ class ItemMenu extends MovieClip
 	{
 		var btnData = {};
 		
-		var useControls = InputDefines.Activate;
-		var equipControls = InputDefines.Equip;
+		var useControls = Input.Activate;
+		var equipControls = Input.Equip;
 		
 		switch (a_itemType) {
-			case InventoryDefines.ICT_ARMOR :
+			case Inventory.ICT_ARMOR :
 				btnData.text = "$Equip";
 				btnData.controls = a_bAlwaysEquip ? equipControls : useControls;
 				break;
-			case InventoryDefines.ICT_BOOK :
+			case Inventory.ICT_BOOK :
 				btnData.text = "$Read";
 				btnData.controls = a_bAlwaysEquip ? equipControls : useControls;
 				break;
-			case InventoryDefines.ICT_POTION :
+			case Inventory.ICT_POTION :
 				btnData.text = "$Use";
 				btnData.controls = a_bAlwaysEquip ? equipControls : useControls;
 				break;
-			case InventoryDefines.ICT_FOOD :
-			case InventoryDefines.ICT_INGREDIENT :
+			case Inventory.ICT_FOOD :
+			case Inventory.ICT_INGREDIENT :
 				btnData.text = "$Eat";
 				btnData.controls = a_bAlwaysEquip ? equipControls : useControls;
 				break;

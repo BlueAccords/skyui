@@ -24,8 +24,8 @@ event OnInit()
 	_curConfigID	= 0
 	_configCount	= 0
 	
-	; Wait a few seconds until any initial menus have registered for events
-	Utility.Wait(0.01)
+	; Wait a few ticks until any initial menus have registered for events
+	Utility.Wait(0.1)
 	
 	OnGameReload()
 endEvent
@@ -49,6 +49,7 @@ event OnGameReload()
 	RegisterForMenu(JOURNAL_MENU)
 
 	CleanUp()
+
 	SendModEvent("SKICP_configManagerReady")
 endEvent
 
@@ -58,7 +59,7 @@ function CleanUp()
 	while (i < _modConfigs.length)
 		if (_modConfigs[i] == none || _modConfigs[i].GetFormID() == 0)
 			_modConfigs[i] = none
-			_modNames[i] = none
+			_modNames[i] = ""
 		else
 			_configCount += 1
 		endIf
@@ -194,6 +195,17 @@ int function RegisterMod(SKI_ConfigBase a_menu, string a_modName)
 		return -1
 	endIf
 
+	; Already registered?
+	int i = 0
+	while (i < _modConfigs.length)
+		if (_modConfigs[i] == a_menu)
+			return i
+		endIf
+			
+		i += 1
+	endWhile
+
+	; New registration
 	int configID = NextID()
 	_modConfigs[configID] = a_menu
 	_modNames[configID] = a_modName
@@ -201,6 +213,23 @@ int function RegisterMod(SKI_ConfigBase a_menu, string a_modName)
 	_configCount += 1
 	
 	return configID
+endFunction
+
+; @interface
+bool function UnregisterMod(SKI_ConfigBase a_menu)
+	int i = 0
+	while (i < _modConfigs.length)
+		if (_modConfigs[i] == a_menu)
+			_modConfigs[i] = none
+			_modNames[i] = ""
+			_configCount -= 1
+			return true
+		endIf
+			
+		i += 1
+	endWhile
+
+	return false
 endFunction
 
 int function NextID()

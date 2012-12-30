@@ -5,6 +5,9 @@ import skyui.components.list.TabularList;
 import skyui.components.list.ListLayout;
 import skyui.props.PropertyDataExtender;
 
+import skyui.defines.Input;
+import skyui.defines.Inventory;
+
 
 class GiftMenu extends ItemMenu
 {
@@ -45,7 +48,8 @@ class GiftMenu extends ItemMenu
 		super.setConfig(a_config);
 
 		var itemList: TabularList = inventoryLists.itemList;		
-		itemList.addDataProcessor(new InventoryDataExtender());
+		itemList.addDataProcessor(new InventoryDataSetter());
+		itemList.addDataProcessor(new InventoryIconSetter());
 		itemList.addDataProcessor(new PropertyDataExtender(a_config["Properties"], "itemProperties", "itemIcons", "itemCompoundProperties"));
 		
 		var layout: ListLayout = ListLayoutManager.createLayout(a_config["ListLayout"], "ItemListLayout");
@@ -98,6 +102,9 @@ class GiftMenu extends ItemMenu
 	private function onHideItemsList(event: Object): Void
 	{
 		super.onHideItemsList(event);
+
+		bottomBar.updatePerItemInfo({type:Inventory.ICT_NONE});
+		
 		updateBottomBar(false);
 	}
 
@@ -123,13 +130,13 @@ class GiftMenu extends ItemMenu
 		navPanel.clearButtons();
 		
 		if (a_bSelected) {
-			navPanel.addButton({text: (_bGivingGifts ? "$Give" : "$Take"), controls: InputDefines.Activate});
+			navPanel.addButton({text: (_bGivingGifts ? "$Give" : "$Take"), controls: Input.Activate});
 		} else {
 			navPanel.addButton({text: "$Exit", controls: _cancelControls});
 			navPanel.addButton({text: "$Search", controls: _searchControls});
 			if (_platform != 0) {
-				navPanel.addButton({text: "$Column", controls: InputDefines.SortColumn});
-				navPanel.addButton({text: "$Order", controls: InputDefines.SortOrder});
+				navPanel.addButton({text: "$Column", controls: _sortColumnControls});
+				navPanel.addButton({text: "$Order", controls: _sortOrderControl});
 			}
 		}
 		

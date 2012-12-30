@@ -1,8 +1,11 @@
 ﻿import skyui.util.DialogManager;
 import skyui.util.GlobalFunctions;
+import skyui.util.Translator;
 import gfx.managers.FocusHandler;
 import gfx.ui.NavigationCode;
 import Shared.GlobalFunc;
+
+import skyui.defines.Input;
 
 
 class SliderDialog extends OptionDialog
@@ -43,13 +46,13 @@ class SliderDialog extends OptionDialog
 	public function initButtons(): Void
 	{	
 		if (platform == 0) {
-			_acceptControls = InputDefines.Enter;
-			_defaultControls = InputDefines.ReadyWeapon;
-			_cancelControls = InputDefines.Tab;
+			_acceptControls = Input.Enter;
+			_defaultControls = Input.ReadyWeapon;
+			_cancelControls = Input.Tab;
 		} else {
-			_acceptControls = InputDefines.Accept;
-			_defaultControls = InputDefines.YButton;
-			_cancelControls = InputDefines.Cancel;
+			_acceptControls = Input.Accept;
+			_defaultControls = Input.YButton;
+			_cancelControls = Input.Cancel;
 		}
 		
 		leftButtonPanel.clearButtons();
@@ -74,7 +77,10 @@ class SliderDialog extends OptionDialog
 		sliderPanel.slider.snapInterval = sliderInterval;
 		sliderPanel.slider.snapping = true;
 		sliderPanel.slider.value = sliderValue;
-		updateValueText();	
+
+		sliderFormatString = Translator.translate(sliderFormatString);
+		updateValueText();
+
 		sliderPanel.slider.addEventListener("change", this, "onValueChange");
 
 		FocusHandler.instance.setFocus(sliderPanel.slider, 0);
@@ -134,7 +140,7 @@ class SliderDialog extends OptionDialog
 	private function updateValueText(): Void
 	{
 		var t = sliderFormatString	? GlobalFunctions.formatString(sliderFormatString, sliderValue)
-									: t = Math.round(sliderValue * 100) / 100;
+									: Math.round(sliderValue * 100) / 100;
 		sliderPanel.valueTextField.SetText(t);
 	}
 }

@@ -2,6 +2,7 @@
 import Components.Meter;
 
 import skyui.components.ButtonPanel;
+import skyui.defines.Inventory;
 
 
 class BottomBar extends MovieClip
@@ -35,7 +36,7 @@ class BottomBar extends MovieClip
 	public function BottomBar()
 	{
 		super();
-		_lastItemType = InventoryDefines.ICT_NONE;
+		_lastItemType = Inventory.ICT_NONE;
 		_healthMeter = new Meter(playerInfoCard.HealthRect.MeterInstance.Meter_mc);
 		_magickaMeter = new Meter(playerInfoCard.MagickaRect.MeterInstance.Meter_mc);
 		_staminaMeter = new Meter(playerInfoCard.StaminaRect.MeterInstance.Meter_mc);
@@ -62,6 +63,12 @@ class BottomBar extends MovieClip
 		playerInfoCard._alpha = 0;
 	}
 
+	public function updatePlayerInfo(a_playerUpdateObj: Object, a_itemUpdateObj: Object): Void
+	{
+		_playerInfoObj = a_playerUpdateObj;
+		updatePerItemInfo(a_itemUpdateObj);
+	}
+
 	public function updatePerItemInfo(a_itemUpdateObj: Object): Void
 	{
 		var infoCard = playerInfoCard;
@@ -77,7 +84,7 @@ class BottomBar extends MovieClip
 		}
 		if (_playerInfoObj != undefined && a_itemUpdateObj != undefined) {
 			switch(itemType) {
-				case InventoryDefines.ICT_ARMOR:
+				case Inventory.ICT_ARMOR:
 					infoCard.gotoAndStop("Armor");
 					var strArmor: String = Math.floor(_playerInfoObj.armor).toString();
 					if (a_itemUpdateObj.armorChange != undefined) {
@@ -92,7 +99,7 @@ class BottomBar extends MovieClip
 					infoCard.ArmorRatingValue.SetText(strArmor, true);
 					break;
 					
-				case InventoryDefines.ICT_WEAPON:
+				case Inventory.ICT_WEAPON:
 					infoCard.gotoAndStop("Weapon");
 					var strDamage: String = Math.floor(_playerInfoObj.damage).toString();
 					if (a_itemUpdateObj.damageChange != undefined) {
@@ -107,8 +114,8 @@ class BottomBar extends MovieClip
 					infoCard.DamageValue.SetText(strDamage, true);
 					break;
 					
-				case InventoryDefines.ICT_POTION:
-				case InventoryDefines.ICT_FOOD:
+				case Inventory.ICT_POTION:
+				case Inventory.ICT_FOOD:
 					var EF_HEALTH: Number = 0;
 					var EF_MAGICKA: Number = 1;
 					var EF_STAMINA: Number = 2;
@@ -120,29 +127,29 @@ class BottomBar extends MovieClip
 						infoCard.gotoAndStop("HealthPotion");
 					break;
 					
-				case InventoryDefines.ICT_SPELL_DEFAULT:
-				case InventoryDefines.ICT_ACTIVE_EFFECT:
+				case Inventory.ICT_SPELL_DEFAULT:
+				case Inventory.ICT_ACTIVE_EFFECT:
 					infoCard.gotoAndStop("Magic");
 					bHasWeightandValue = false;
 					break;
 					
-				case InventoryDefines.ICT_SPELL:
+				case Inventory.ICT_SPELL:
 					infoCard.gotoAndStop("MagicSkill");
 					if (a_itemUpdateObj.magicSchoolName != undefined) 
 						updateSkillBar(a_itemUpdateObj.magicSchoolName, a_itemUpdateObj.magicSchoolLevel, a_itemUpdateObj.magicSchoolPct);
 					bHasWeightandValue = false;
 					break;
 					
-				case InventoryDefines.ICT_SHOUT:
+				case Inventory.ICT_SHOUT:
 					infoCard.gotoAndStop("Shout");
 					infoCard.DragonSoulTextInstance.SetText(_playerInfoObj.dragonSoulText);
 					bHasWeightandValue = false;
 					break;
 					
-				case InventoryDefines.ICT_BOOK:
-				case InventoryDefines.ICT_INGREDIENT:
-				case InventoryDefines.ICT_MISC:
-				case InventoryDefines.ICT_KEY:
+				case Inventory.ICT_BOOK:
+				case Inventory.ICT_INGREDIENT:
+				case Inventory.ICT_MISC:
+				case Inventory.ICT_KEY:
 				default:
 					infoCard.gotoAndStop("Default");
 			}
@@ -150,14 +157,15 @@ class BottomBar extends MovieClip
 			if (bHasWeightandValue) {
 				infoCard.CarryWeightValue.textAutoSize = "shrink";
 				infoCard.CarryWeightValue.SetText(Math.ceil(_playerInfoObj.encumbrance) + "/" + Math.floor(_playerInfoObj.maxEncumbrance));
+				infoCard.PlayerGoldValue.textAutoSize = "shrink";
 				infoCard.PlayerGoldValue.SetText(_playerInfoObj.gold.toString());
 				infoCard.PlayerGoldLabel._x = infoCard.PlayerGoldValue._x + infoCard.PlayerGoldValue.getLineMetrics(0).x - infoCard.PlayerGoldLabel._width;
 				infoCard.CarryWeightValue._x = infoCard.PlayerGoldLabel._x + infoCard.PlayerGoldLabel.getLineMetrics(0).x - infoCard.CarryWeightValue._width - 5;
 				infoCard.CarryWeightLabel._x = infoCard.CarryWeightValue._x + infoCard.CarryWeightValue.getLineMetrics(0).x - infoCard.CarryWeightLabel._width;
-				if (itemType === InventoryDefines.ICT_ARMOR) {
+				if (itemType === Inventory.ICT_ARMOR) {
 					infoCard.ArmorRatingValue._x = infoCard.CarryWeightLabel._x + infoCard.CarryWeightLabel.getLineMetrics(0).x - infoCard.ArmorRatingValue._width - 5;
 					infoCard.ArmorRatingLabel._x = infoCard.ArmorRatingValue._x + infoCard.ArmorRatingValue.getLineMetrics(0).x - infoCard.ArmorRatingLabel._width;
-				} else if (itemType === InventoryDefines.ICT_WEAPON) {
+				} else if (itemType === Inventory.ICT_WEAPON) {
 					infoCard.DamageValue._x = infoCard.CarryWeightLabel._x + infoCard.CarryWeightLabel.getLineMetrics(0).x - infoCard.DamageValue._width - 5;
 					infoCard.DamageLabel._x = infoCard.DamageValue._x + infoCard.DamageValue.getLineMetrics(0).x - infoCard.DamageLabel._width;
 				}
@@ -168,53 +176,77 @@ class BottomBar extends MovieClip
 		}
 	}
 
-	public function updatePlayerInfo(a_playerUpdateObj: Object, a_itemUpdateObj: Object): Void
-	{
-		_playerInfoObj = a_playerUpdateObj;
-		updatePerItemInfo(a_itemUpdateObj);
-	}
-
 	public function updateCraftingInfo(a_skillName: String, a_levelStart: Number, a_levelPercent: Number): Void
 	{
 		playerInfoCard.gotoAndStop("Crafting");
 		updateSkillBar(a_skillName, a_levelStart, a_levelPercent);
 	}
 
-	public function setBarterInfo(a_playerGold: Number, a_vendorGold: Number, a_goldDelta: Number, a_vendorName: String): Void
+	public function updateBarterInfo(a_playerUpdateObj: Object, a_itemUpdateObj: Object, a_playerGold: Number, a_vendorGold: Number, a_vendorName: String): Void
 	{
+		_playerInfoObj = a_playerUpdateObj;
+
 		var infoCard = playerInfoCard;
-		
-		if (infoCard._currentframe == 1) 
-			infoCard.gotoAndStop("Barter");
-		infoCard.PlayerGoldValue.textAutoSize = "shrink";
-		infoCard.VendorGoldValue.textAutoSize = "shrink";
-		if (a_goldDelta == undefined) 
-			infoCard.PlayerGoldValue.SetText(a_playerGold.toString(), true);
-		else if (a_goldDelta >= 0) 
-			infoCard.PlayerGoldValue.SetText(a_playerGold.toString() + " <font color=\'#189515\'>(+" + a_goldDelta.toString() + ")</font>", true);
-		else 
-			infoCard.PlayerGoldValue.SetText(a_playerGold.toString() + " <font color=\'#FF0000\'>(" + a_goldDelta.toString() + ")</font>", true);
-		infoCard.VendorGoldValue.SetText(a_vendorGold.toString());
+
+		infoCard.gotoAndStop("Barter");
+
+		infoCard.CarryWeightValue.textAutoSize = "shrink";
+		infoCard.CarryWeightValue.SetText(Math.ceil(_playerInfoObj.encumbrance) + "/" + Math.floor(_playerInfoObj.maxEncumbrance));
+
+		infoCard.VendorGoldLabel.textAutoSize = "shrink";
 		if (a_vendorName != undefined) {
 			infoCard.VendorGoldLabel.SetText("$Gold");
 			infoCard.VendorGoldLabel.SetText(a_vendorName + " " + infoCard.VendorGoldLabel.text);
 		}
-		infoCard.VendorGoldLabel._x = infoCard.VendorGoldValue._x + infoCard.VendorGoldValue.getLineMetrics(0).x - infoCard.VendorGoldLabel._width - 5;
-		infoCard.PlayerGoldValue._x = infoCard.VendorGoldLabel._x + infoCard.VendorGoldLabel.getLineMetrics(0).x - infoCard.PlayerGoldValue._width - 20;
-		infoCard.PlayerGoldLabel._x = infoCard.PlayerGoldValue._x + infoCard.PlayerGoldValue.getLineMetrics(0).x - infoCard.PlayerGoldLabel._width - 5;
+
+		updateBarterPriceInfo(a_playerGold, a_vendorGold, a_itemUpdateObj);
 	}
 
-	public function setBarterPerItemInfo(a_itemUpdateObj: Object, a_playerInfoObj: Object): Void
+	public function updateBarterPriceInfo(a_playerGold: Number, a_vendorGold: Number, a_itemUpdateObj: Object, a_goldDelta: Number): Void
 	{
 		var infoCard = playerInfoCard;
-		
+
+		infoCard.PlayerGoldValue.textAutoSize = "shrink";
+		if (a_goldDelta == undefined) {
+			infoCard.PlayerGoldValue.SetText(a_playerGold.toString(), true);
+		} else if (a_goldDelta >= 0) {
+			infoCard.PlayerGoldValue.SetText(a_playerGold.toString() + " <font color=\'#189515\'>(+" + a_goldDelta.toString() + ")</font>", true);
+		} else {
+			infoCard.PlayerGoldValue.SetText(a_playerGold.toString() + " <font color=\'#FF0000\'>(" + a_goldDelta.toString() + ")</font>", true);
+		}
+
+		infoCard.VendorGoldValue.textAutoSize = "shrink";
+		infoCard.VendorGoldValue.SetText(a_vendorGold.toString());
+
+		infoCard.VendorGoldLabel._x = infoCard.VendorGoldValue._x + infoCard.VendorGoldValue.getLineMetrics(0).x - infoCard.VendorGoldLabel._width;
+		infoCard.PlayerGoldValue._x = infoCard.VendorGoldLabel._x + infoCard.VendorGoldLabel.getLineMetrics(0).x - infoCard.PlayerGoldValue._width - 10;
+		infoCard.PlayerGoldLabel._x = infoCard.PlayerGoldValue._x + infoCard.PlayerGoldValue.getLineMetrics(0).x - infoCard.PlayerGoldLabel._width;
+		infoCard.CarryWeightValue._x = infoCard.PlayerGoldLabel._x + infoCard.PlayerGoldLabel.getLineMetrics(0).x - infoCard.CarryWeightValue._width - 5;
+		infoCard.CarryWeightLabel._x = infoCard.CarryWeightValue._x + infoCard.CarryWeightValue.getLineMetrics(0).x - infoCard.CarryWeightLabel._width;
+
+		updateBarterPerItemInfo(a_itemUpdateObj);
+	}
+
+	public function updateBarterPerItemInfo(a_itemUpdateObj: Object): Void
+	{
+		var infoCard = playerInfoCard;
+		var itemType: Number = a_itemUpdateObj.type;
+
+		if (itemType == undefined) {
+			itemType = _lastItemType;
+			if (a_itemUpdateObj == undefined)
+				a_itemUpdateObj = {type: _lastItemType};
+		} else {
+			_lastItemType = itemType;
+		}
+
 		if (a_itemUpdateObj != undefined) {
 			var itemType: Number = a_itemUpdateObj.type;
 			
 			switch(itemType) {
-				case InventoryDefines.ICT_ARMOR:
+				case Inventory.ICT_ARMOR:
 					infoCard.gotoAndStop("Barter_Armor");
-					var strArmor: String = Math.floor(a_playerInfoObj.armor).toString();
+					var strArmor: String = Math.floor(_playerInfoObj.armor).toString();
 					if (a_itemUpdateObj.armorChange != undefined) {
 						var iArmorDelta: Number = Math.round(a_itemUpdateObj.armorChange);
 						if (iArmorDelta > 0) 
@@ -225,13 +257,13 @@ class BottomBar extends MovieClip
 					infoCard.ArmorRatingValue.textAutoSize = "shrink";
 					infoCard.ArmorRatingValue.html = true;
 					infoCard.ArmorRatingValue.SetText(strArmor, true);
-					infoCard.ArmorRatingValue._x = infoCard.PlayerGoldLabel._x + infoCard.PlayerGoldLabel.getLineMetrics(0).x - infoCard.ArmorRatingValue._width - 20;
-					infoCard.ArmorRatingLabel._x = infoCard.ArmorRatingValue._x  + infoCard.ArmorRatingValue.getLineMetrics(0).x- infoCard.ArmorRatingLabel._width - 5;
+					infoCard.ArmorRatingValue._x = infoCard.CarryWeightLabel._x + infoCard.CarryWeightLabel.getLineMetrics(0).x - infoCard.ArmorRatingValue._width - 5;
+					infoCard.ArmorRatingLabel._x = infoCard.ArmorRatingValue._x + infoCard.ArmorRatingValue.getLineMetrics(0).x - infoCard.ArmorRatingLabel._width;
 					break;
 					
-				case InventoryDefines.ICT_WEAPON:
+				case Inventory.ICT_WEAPON:
 					infoCard.gotoAndStop("Barter_Weapon");
-					var strDamage: String = Math.floor(a_playerInfoObj.damage).toString();
+					var strDamage: String = Math.floor(_playerInfoObj.damage).toString();
 					if (a_itemUpdateObj.damageChange != undefined) {
 						var iDamageDelta: Number = Math.round(a_itemUpdateObj.damageChange);
 						if (iDamageDelta > 0) 
@@ -242,8 +274,8 @@ class BottomBar extends MovieClip
 					infoCard.DamageValue.textAutoSize = "shrink";
 					infoCard.DamageValue.html = true;
 					infoCard.DamageValue.SetText(strDamage, true);
-					infoCard.DamageValue._x = infoCard.PlayerGoldLabel._x + infoCard.PlayerGoldLabel.getLineMetrics(0).x - infoCard.DamageValue._width - 20;
-					infoCard.DamageLabel._x = infoCard.DamageValue._x  + infoCard.DamageValue.getLineMetrics(0).x- infoCard.DamageLabel._width - 5;
+					infoCard.DamageValue._x = infoCard.CarryWeightLabel._x + infoCard.CarryWeightLabel.getLineMetrics(0).x - infoCard.DamageValue._width - 5;
+					infoCard.DamageLabel._x = infoCard.DamageValue._x + infoCard.DamageValue.getLineMetrics(0).x - infoCard.DamageLabel._width;
 					break;
 					
 				default:

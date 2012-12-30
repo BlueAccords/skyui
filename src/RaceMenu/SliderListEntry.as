@@ -193,11 +193,8 @@ class SliderListEntry extends BasicListEntry
 		
 		SliderInstance.changedCallback = function()
 		{
-			if(this.sliderID < 1000) {
-				GameDelegate.call(this.callbackName, [this.position, this.sliderID]);
-			} else {
-				skse.SendModEvent("RSM_SliderChange", this.callbackName, this.position);
-			}
+			GameDelegate.call(this.callbackName, [this.position, this.sliderID]);
+			skse.SendModEvent("RSM_SliderChange", this.callbackName, this.position);
 			this.entryObject.position = this.position;
 			_parent.valueField.SetText(((this.position * 100)|0)/100);
 		};

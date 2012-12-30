@@ -3,10 +3,14 @@ import gfx.ui.NavigationCode;
 import gfx.ui.InputDetails;
 
 import skyui.util.Translator;
+import skyui.util.GlobalFunctions;
 import skyui.components.list.ListLayoutManager;
 import skyui.components.list.TabularList;
 import skyui.components.list.ListLayout;
 import skyui.props.PropertyDataExtender;
+
+import skyui.defines.Input;
+import skyui.defines.Inventory;
 
 
 class ContainerMenu extends ItemMenu
@@ -24,8 +28,9 @@ class ContainerMenu extends ItemMenu
 
 	private var _bEquipMode: Boolean = false;
 	private var _equipHand: Number;
-	
-	private var _equipModeControls: Array;
+
+	private var _equipModeKey: Number;
+	private var _equipModeControls: Object;
 	
 	private var _categoryListIconArt: Array;
 	private var _tabBarIconArt: Array;
@@ -45,8 +50,6 @@ class ContainerMenu extends ItemMenu
 	public function ContainerMenu()
 	{
 		super();
-		
-		_equipModeControls = [{keyCode: 42}];
 		
 		_categoryListIconArt = ["inv_all", "inv_weapons", "inv_armor", "inv_potions", "inv_scrolls", "inv_food", "inv_ingredients", "inv_books", "inv_keys", "inv_misc"];
 		
@@ -77,7 +80,8 @@ class ContainerMenu extends ItemMenu
 		super.setConfig(a_config);
 		
 		var itemList: TabularList = inventoryLists.itemList;		
-		itemList.addDataProcessor(new InventoryDataExtender());
+		itemList.addDataProcessor(new InventoryDataSetter());
+		itemList.addDataProcessor(new InventoryIconSetter());
 		itemList.addDataProcessor(new PropertyDataExtender(a_config["Properties"], "itemProperties", "itemIcons", "itemCompoundProperties"));
 		
 		var layout: ListLayout = ListLayoutManager.createLayout(a_config["ListLayout"], "ItemListLayout");
@@ -86,6 +90,9 @@ class ContainerMenu extends ItemMenu
 		// Not 100% happy with doing this here, but has to do for now.
 		if (inventoryLists.categoryList.selectedEntry)
 			layout.changeFilterFlag(inventoryLists.categoryList.selectedEntry.flag);
+			
+		_equipModeKey = a_config["Input"].controls.equipMode;
+		_equipModeControls = {keyCode: _equipModeKey};
 	}
 
 	// @API
@@ -101,7 +108,7 @@ class ContainerMenu extends ItemMenu
 		super.handleInput(details,pathToFocus);
 
 		if (shouldProcessItemsListInput(false)) {
-			if (_platform == 0 && details.code == 16 && inventoryLists.itemList.selectedIndex != -1) {
+			if (_platform == 0 && details.skseKeycode == _equipModeKey && inventoryLists.itemList.selectedIndex != -1) {
 				_bEquipMode = details.value != "keyUp";
 				updateBottomBar(true);
 			}
@@ -159,8 +166,8 @@ class ContainerMenu extends ItemMenu
 	public function SetPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
 		super.SetPlatform(a_platform,a_bPS3Switch);
-		
-		_bEquipMode = a_platform != 0;
+
+		_bEquipMode = (a_platform != 0);
 	}
 	
 	
@@ -187,8 +194,10 @@ class ContainerMenu extends ItemMenu
 	// @override ItemMenu
 	private function onItemHighlightChange(event: Object): Void
 	{
+		if (event.index != -1)
+			updateBottomBar(true);
+
 		super.onItemHighlightChange(event);
-		updateBottomBar(true);
 	}
 
 	// @override ItemMenu
@@ -201,6 +210,9 @@ class ContainerMenu extends ItemMenu
 	private function onHideItemsList(event: Object): Void
 	{
 		super.onHideItemsList(event);
+
+		bottomBar.updatePerItemInfo({type:Inventory.ICT_NONE});
+
 		updateBottomBar(false);
 	}
 
@@ -233,28 +245,28 @@ class ContainerMenu extends ItemMenu
 		if (a_bSelected && inventoryLists.itemList.selectedIndex != -1 && inventoryLists.currentState == InventoryLists.SHOW_PANEL) {
 			if (isViewingContainer()) {
 				if (_platform != 0) {
-					navPanel.addButton({text: "$Take", controls: InputDefines.Activate});
+					navPanel.addButton({text: "$Take", controls: Input.Activate});
 					navPanel.addButton(getEquipButtonData(itemCard.itemInfo.type, true));
 				} else {
 					if (_bEquipMode)
 						navPanel.addButton(getEquipButtonData(itemCard.itemInfo.type));
 					else
-						navPanel.addButton({text: "$Take", controls: InputDefines.Activate});
+						navPanel.addButton({text: "$Take", controls: Input.Activate});
 				}
 				if (!bNPCMode)
-					navPanel.addButton({text: "$Take All", controls: InputDefines.XButton});
+					navPanel.addButton({text: "$Take All", controls: Input.XButton});
 			} else {
 				if (_platform != 0) {
-					navPanel.addButton({text: bNPCMode ? "$Give" : "$Store", controls: InputDefines.Activate});
+					navPanel.addButton({text: bNPCMode ? "$Give" : "$Store", controls: Input.Activate});
 					navPanel.addButton(getEquipButtonData(itemCard.itemInfo.type, true));
 				} else {
 					if (_bEquipMode)
 						navPanel.addButton(getEquipButtonData(itemCard.itemInfo.type));
 					else
-						navPanel.addButton({text: bNPCMode ? "$Give" : "$Store", controls: InputDefines.Activate});
+						navPanel.addButton({text: bNPCMode ? "$Give" : "$Store", controls: Input.Activate});
 				}
 
-				navPanel.addButton({text: itemCard.itemInfo.favorite ? "$Unfavorite" : "$Favorite", controls: InputDefines.YButton});
+				navPanel.addButton({text: itemCard.itemInfo.favorite ? "$Unfavorite" : "$Favorite", controls: Input.YButton});
 			}
 			if (!_bEquipMode)
 				navPanel.addButton({text: "$Equip Mode", controls: _equipModeControls});
@@ -262,13 +274,13 @@ class ContainerMenu extends ItemMenu
 			navPanel.addButton({text: "$Exit", controls: _cancelControls});
 			navPanel.addButton({text: "$Search", controls: _searchControls});
 			if (_platform != 0) {
-				navPanel.addButton({text: "$Column", controls: InputDefines.SortColumn});
-				navPanel.addButton({text: "$Order", controls: InputDefines.SortOrder});
+				navPanel.addButton({text: "$Column", controls: _sortColumnControls});
+				navPanel.addButton({text: "$Order", controls: _sortOrderControl});
 			}
 			navPanel.addButton({text: "$Switch Tab", controls: _switchControls});
 			
 			if (isViewingContainer() && !bNPCMode)
-				navPanel.addButton({text: "$Take All", controls: InputDefines.XButton});			
+				navPanel.addButton({text: "$Take All", controls: Input.XButton});			
 
 		}
 		
@@ -278,17 +290,17 @@ class ContainerMenu extends ItemMenu
 	private function startItemTransfer(): Void
 	{
 		if (inventoryLists.itemList.selectedEntry.enabled) {
+			// TODO: Maybe this should be removed?
 			if (itemCard.itemInfo.weight == 0 && isViewingContainer()) {
 				onQuantityMenuSelect({amount:inventoryLists.itemList.selectedEntry.count});
 				return;
 			}
 
-			if (inventoryLists.itemList.selectedEntry.count <= InventoryDefines.QUANTITY_MENU_COUNT_LIMIT) {
+			if (_quantityMinCount < 1 || (inventoryLists.itemList.selectedEntry.count < _quantityMinCount)) {
 				onQuantityMenuSelect({amount:1});
-				return;
+			} else {
+				itemCard.ShowQuantityMenu(inventoryLists.itemList.selectedEntry.count);
 			}
-
-			itemCard.ShowQuantityMenu(inventoryLists.itemList.selectedEntry.count);
 		}
 	}
 

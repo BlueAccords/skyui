@@ -187,7 +187,7 @@ class RaceMenu extends MovieClip
 		makeupPanel.addEventListener("setTexture", this, "onSetTexture");
 		makeupPanel.addEventListener("changeTexture", this, "onChangeTexture");
 		
-		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", ""];
+		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face"];
 		categoryList.listState.iconSource = "skyui/racesex_icons.swf";
 		
 		_sortFilter.setSortBy(["text"], [0]);
@@ -385,7 +385,7 @@ class RaceMenu extends MovieClip
 			}
 			
 			var SelectedEntry = itemList.listState.selectedEntry;
-			if (SelectedEntry && (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT)) {
+			if (SelectedEntry && SelectedEntry.type == RaceMenuDefines.ENTRY_TYPE_SLIDER && (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT)) {
 				var SelectedSlider = itemList.selectedClip.SliderInstance;
 				var handledInput: Boolean = false;
 				handledInput = SelectedSlider.handleInput(details, pathToFocus);
@@ -1021,7 +1021,21 @@ class RaceMenu extends MovieClip
 			}
 		}
 	}
-						
+	
+	public function RSM_SetSliderParameters()
+	{
+		for(var i = 0; i < customSliders.length; i++) {
+			if(customSliders[i].callbackName.toLower() == arguments[0].toLower()) {
+				customSliders[i].sliderMin = Number(arguments[1]);
+				customSliders[i].sliderMax = Number(arguments[2]);
+				customSliders[i].interval = Number(arguments[3]);
+				customSliders[i].position = Number(arguments[4]);
+				itemList.requestUpdate();
+				break;
+			}
+		}
+	}
+
 	public function RSM_AddWarpaints()
 	{
 		for(var i = 0; i < arguments.length; i++)

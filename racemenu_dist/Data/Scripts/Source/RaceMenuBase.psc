@@ -102,6 +102,16 @@ Function AddSliders(string[] sliders)
 	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddSliders", sliders)
 EndFunction
 
+Function SetSliderParameters(string callback, float min, float max, float interval, float position)
+	string[] params = new string[5]
+	params[0] = callback
+	params[1] = min as string
+	params[2] = max as string
+	params[3] = interval as string
+	params[4] = position as string
+	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_SetSliderParameters", params)
+EndFunction
+
 ; 0 - Texture Buffers
 ; 1 - Slider Buffers
 ; 2 - Both Buffers

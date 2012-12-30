@@ -1,8 +1,13 @@
-﻿import skyui.util.DialogManager;
-import gfx.ui.NavigationCode;
-import Shared.GlobalFunc;
-import skyui.components.dialog.BasicDialog;
+﻿import skyui.components.dialog.BasicDialog;
 import skyui.components.ButtonPanel;
+import skyui.util.DialogManager;
+import skyui.util.GlobalFunctions;
+import skyui.util.Translator;
+import skyui.defines.Input;
+
+import gfx.ui.NavigationCode;
+
+import Shared.GlobalFunc;
 
 
 class MessageDialog extends OptionDialog
@@ -53,7 +58,8 @@ class MessageDialog extends OptionDialog
 		initButtons();
 
 		textField.wordWrap = true;
-		textField.SetText(messageText);
+		messageText = Translator.translate(messageText);
+		textField.SetText(GlobalFunctions.unescape(messageText));
 		textField.verticalAutoSize = "top";
 		
 		positionElements();
@@ -65,11 +71,11 @@ class MessageDialog extends OptionDialog
 	public function initButtons(): Void
 	{
 		if (platform == 0) {
-			_acceptControls = InputDefines.Enter;
-			_cancelControls = InputDefines.Tab;
+			_acceptControls = Input.Enter;
+			_cancelControls = Input.Tab;
 		} else {
-			_acceptControls = InputDefines.Accept;
-			_cancelControls = InputDefines.Cancel;
+			_acceptControls = Input.Accept;
+			_cancelControls = Input.Cancel;
 		}
 		
 		buttonPanel.clearButtons();

@@ -21,6 +21,8 @@ import skyui.util.Translator;
 import skyui.util.DialogManager;
 import skyui.util.Debug;
 
+import skyui.defines.Input;
+
 
 class InventoryLists extends MovieClip
 {
@@ -53,12 +55,15 @@ class InventoryLists extends MovieClip
 	
 	private var _searchKey: Number;
 	private var _switchTabKey: Number;
+	private var _sortOrderKey: Number;
+	private var _sortOrderKeyHeld: Boolean = false;
 	
 	private var _bTabbed = false;
 	private var _leftTabText: String;
 	private var _rightTabText: String;
 
 	private var _columnSelectDialog: MovieClip;
+	private var _columnSelectInterval: Number;
 	
 
   /* PROPERTIES */
@@ -131,6 +136,7 @@ class InventoryLists extends MovieClip
 		searchWidget = panelContainer.searchWidget;
 		columnSelectButton = panelContainer.columnSelectButton;
 
+		ConfigManager.registerLoadCallback(this, "onConfigLoad");
 		ConfigManager.registerUpdateCallback(this, "onConfigUpdate");
 	}
 	
@@ -217,20 +223,19 @@ class InventoryLists extends MovieClip
 		itemList.listHeight = 480;
 	}
 
-	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean)
+	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
 		_platform = a_platform;
-
-		categoryList.platform = a_platform;
-		itemList.platform = a_platform;
-		
-		_searchKey = skse.GetMappedKey("Jump", InputDefines.DEVICE_KEYBOARD, InputDefines.CONTEXT_GAMEPLAY);
-		if (!_searchKey)
-			_searchKey = -1;
 			
-		_switchTabKey = skse.GetMappedKey("Sprint", InputDefines.DEVICE_KEYBOARD, InputDefines.CONTEXT_GAMEPLAY);
-		if (!_switchTabKey)
-			_switchTabKey = -1;
+		if (a_platform != 0) {
+			_sortOrderKey = GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, true);
+			_switchTabKey = GlobalFunctions.getMappedKey("Wait", Input.CONTEXT_GAMEPLAY, true);
+		} else {
+			_sortOrderKey = -1;
+		}
+
+		categoryList.setPlatform(a_platform,a_bPS3Switch);
+		itemList.setPlatform(a_platform,a_bPS3Switch);
 	}
 
 	// @GFx
@@ -238,7 +243,44 @@ class InventoryLists extends MovieClip
 	{
 		if (_currentState != SHOW_PANEL)
 			return false;
-			
+
+		if (_platform > 0) {
+			if (details.skseKeycode == _sortOrderKey) {
+				_sortOrderKeyHeld = true;
+				if (details.value == "keyDown") {
+					if (_columnSelectDialog)
+						DialogManager.close();
+					else
+						_columnSelectInterval = setInterval(this, "onColumnSelectButtonPress", 1000, {type: "timeout"});
+					return true;
+				} else if (details.value == "keyUp") {
+					_sortOrderKeyHeld = false;
+					if (_columnSelectInterval) {
+						// keyPress not handled
+						//   Clear intervals and change value to keyDown to be processed later
+						clearInterval(_columnSelectInterval);
+						delete(_columnSelectInterval);
+						details.value = "keyDown";
+						// Continue
+					} else {
+						// keyPress handled:
+						//    Key was released after the interval expired
+						return true;
+					}
+				} else if (_sortOrderKeyHeld && details.value == "keyHold") {
+					// Fix for opening journal menu while key is depressed
+					// For some reason this is the only time we receive a keyHold event
+					_sortOrderKeyHeld = false;
+					if (_columnSelectDialog)
+						DialogManager.close();
+					return true;
+				}
+			}
+
+			if (_sortOrderKeyHeld) // Disable extra input while interval is active
+				return true;
+		}
+
 		if (GlobalFunc.IsKeyPressed(details)) {
 			// Search hotkey (default space)
 			if (details.skseKeycode == _searchKey) {
@@ -247,8 +289,7 @@ class InventoryLists extends MovieClip
 			}
 			
 			// Toggle tab (default ALT)
-			var bGamepadBackPressed = (_platform != 0 && details.navEquivalent == NavigationCode.GAMEPAD_BACK);
-			if (tabBar != undefined && (details.skseKeycode == _switchTabKey || bGamepadBackPressed)) {
+			if (tabBar != undefined && details.skseKeycode == _switchTabKey) {
 				tabBar.tabToggle();
 				return true;
 			}
@@ -363,6 +404,15 @@ class InventoryLists extends MovieClip
 	
   /* PRIVATE FUNCTIONS */
   
+  	private function onConfigLoad(event: Object): Void
+	{
+		var config = event.config;
+		_searchKey = config["Input"].controls.search;
+		
+		if (_platform == 0)
+			_switchTabKey = config["Input"].controls.switchTab;
+	}
+  
 	private function onFilterChange(): Void
 	{
 		itemList.requestInvalidate();
@@ -380,6 +430,11 @@ class InventoryLists extends MovieClip
 	
 	private function onColumnSelectButtonPress(event: Object): Void
 	{
+		if (event.type == "timeout") {
+			clearInterval(_columnSelectInterval);
+			delete(_columnSelectInterval);
+		}
+
 		if (_columnSelectDialog) {
 			DialogManager.close();
 			return;

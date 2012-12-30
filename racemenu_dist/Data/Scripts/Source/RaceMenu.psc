@@ -17,6 +17,8 @@ int[] _presets
 float[] _morphs
 
 Event OnInitialized()
+	parent.OnInitialized()
+
 	_hairColor = Game.GetFormFromFile(0x801, "RaceMenu.esp") as ColorForm
 	_lightForm = Game.GetFormFromFile(0x803, "RaceMenu.esp")
 	
@@ -49,7 +51,7 @@ Function OnStartup()
 	; --------------------------------------------
 
 	Utility.SetINIFloat("fPlayerBodyEditDistance:Interface", 180.0)
-	Utility.SetINIFloat("fPlayerFaceEditDistance:Interface", 50.0)
+	Utility.SetINIFloat("fPlayerFaceEditDistance:Interface", 60.0)
 EndFunction
 
 Event OnGameReload()
@@ -86,7 +88,7 @@ Event OnMenuInitialized(string eventName, string strArg, float numArg, Form form
 	LoadTints()
 	LoadHair()
 	_playerActor.QueueNiNodeUpdate()
-	SendDefaultMakeup()
+	parent.OnMenuInitialized(eventName, strArg, numArg, formArg)
 EndEvent
 
 Event OnMenuReinitialized(string eventName, string strArg, float numArg, Form formArg)
@@ -344,258 +346,127 @@ EndEvent
 ; 	_femaleVoiceTypes[17] = Game.GetFormFromFile(0x13adc, "Skyrim.esm") as VoiceType ; FemaleYoungEager
 ; EndFunction
 
-Function SendDefaultMakeup()
-	; Do not use the plugin buffer
-	string[] names = new string[120]
-	string[] textures = new string[120]
-	names[0] = "$Male Warpaint 01"
-	textures[0] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_01.dds"
-	names[1] = "$Male Warpaint 02"
-	textures[1] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_02.dds"
-	names[2] = "$Male Warpaint 03"
-	textures[2] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_03.dds"
-	names[3] = "$Male Warpaint 04"
-	textures[3] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_04.dds"
-	names[4] = "$Male Warpaint 05"
-	textures[4] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_05.dds"
-	names[5] = "$Male Warpaint 06"
-	textures[5] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_06.dds"
-	names[6] = "$Male Warpaint 07"
-	textures[6] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_07.dds"
-	names[7] = "$Male Warpaint 08"
-	textures[7] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_08.dds"
-	names[8] = "$Male Warpaint 09"
-	textures[8] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_09.dds"
-	names[9] = "$Male Warpaint 10"
-	textures[9] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_10.dds"
-	names[10] = "$Male Nord Warpaint 01"
-	textures[10] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadNordWarPaint_01.dds"
-	names[11] = "$Male Nord Warpaint 02"
-	textures[11] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadNordWarPaint_02.dds"
-	names[12] = "$Male Nord Warpaint 03"
-	textures[12] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadNordWarPaint_03.dds"
-	names[13] = "$Male Nord Warpaint 04"
-	textures[13] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadNordWarPaint_04.dds"
-	names[14] = "$Male Nord Warpaint 05"
-	textures[14] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadNordWarPaint_05.dds"
-	names[15] = "$Female Warpaint 01"
-	textures[15] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_01.dds"
-	names[16] = "$Female Warpaint 02"
-	textures[16] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_02.dds"
-	names[17] = "$Female Warpaint 03"
-	textures[17] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_03.dds"
-	names[18] = "$Female Warpaint 04"
-	textures[18] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_04.dds"
-	names[19] = "$Female Warpaint 05"
-	textures[19] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_05.dds"
-	names[20] = "$Female Warpaint 06"
-	textures[20] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_06.dds"
-	names[21] = "$Female Warpaint 07"
-	textures[21] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_07.dds"
-	names[22] = "$Female Warpaint 08"
-	textures[22] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_08.dds"
-	names[23] = "$Female Warpaint 09"
-	textures[23] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_09.dds"
-	names[24] = "$Female Warpaint 10"
-	textures[24] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_10.dds"
-	names[25] = "$Female Nord Warpaint 01"
-	textures[25] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadNordWarPaint_01.dds"
-	names[26] = "$Female Nord Warpaint 02"
-	textures[26] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadNordWarPaint_02.dds"
-	names[27] = "$Female Nord Warpaint 03"
-	textures[27] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadNordWarPaint_03.dds"
-	names[28] = "$Female Nord Warpaint 04"
-	textures[28] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadNordWarPaint_04.dds"
-	names[29] = "$Female Nord Warpaint 05"
-	textures[29] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadNordWarPaint_05.dds"
-	names[30] = "$Argonian Stripes 01"
-	textures[30] = "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes01.dds"
-	names[31] = "$Argonian Stripes 02"
-	textures[31] = "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes02.dds"
-	names[32] = "$Argonian Stripes 03"
-	textures[32] = "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes03.dds"
-	names[33] = "$Argonian Stripes 04"
-	textures[33] = "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes04.dds"
-	names[34] = "$Argonian Stripes 05"
-	textures[34] = "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes05.dds"
-	names[35] = "$Argonian Stripes 06"
-	textures[35] = "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes06.dds"
-	names[36] = "$Female High Elf Warpaint 01"
-	textures[36] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadHighElfWarPaint_01.dds"
-	names[37] = "$Female High Elf Warpaint 02"
-	textures[37] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadHighElfWarPaint_02.dds"
-	names[38] = "$Female High Elf Warpaint 03"
-	textures[38] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadHighElfWarPaint_03.dds"
-	names[39] = "$Female High Elf Warpaint 04"
-	textures[39] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadHighElfWarPaint_04.dds"
-	names[40] = "$Male Dark Elf Warpaint 01"
-	textures[40] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_01.dds"
-	names[41] = "$Male Dark Elf Warpaint 02"
-	textures[41] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_02.dds"
-	names[42] = "$Male Dark Elf Warpaint 03"
-	textures[42] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_03.dds"
-	names[43] = "$Male Dark Elf Warpaint 04"
-	textures[43] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_04.dds"
-	names[44] = "$Male Dark Elf Warpaint 05"
-	textures[44] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_05.dds"
-	names[45] = "$Male Dark Elf Warpaint 06"
-	textures[45] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_06.dds"
-	names[46] = "$Female Dark Elf Warpaint 01"
-	textures[46] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_01.dds"
-	names[47] = "$Female Dark Elf Warpaint 02"
-	textures[47] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_02.dds"
-	names[48] = "$Female Dark Elf Warpaint 03"
-	textures[48] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_03.dds"
-	names[49] = "$Female Dark Elf Warpaint 04"
-	textures[49] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_04.dds"
-	names[50] = "$Female Dark Elf Warpaint 05"
-	textures[50] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_05.dds"
-	names[51] = "$Female Dark Elf Warpaint 06"
-	textures[51] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_06.dds"
-	names[52] = "$Male Imperial Warpaint 01"
-	textures[52] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadImperialWarPaint_01.dds"
-	names[53] = "$Male Imperial Warpaint 02"
-	textures[53] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadImperialWarPaint_02.dds"
-	names[54] = "$Male Imperial Warpaint 03"
-	textures[54] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadImperialWarPaint_03.dds"
-	names[55] = "$Male Imperial Warpaint 04"
-	textures[55] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadImperialWarPaint_04.dds"
-	names[56] = "$Male Imperial Warpaint 05"
-	textures[56] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadImperialWarPaint_05.dds"
-	names[57] = "$Female Imperial Warpaint 01"
-	textures[57] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadImperialWarPaint_01.dds"
-	names[58] = "$Female Imperial Warpaint 02"
-	textures[58] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadImperialWarPaint_02.dds"
-	names[59] = "$Female Imperial Warpaint 03"
-	textures[59] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadImperialWarPaint_03.dds"
-	names[60] = "$Female Imperial Warpaint 04"
-	textures[60] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadImperialWarPaint_04.dds"
-	names[61] = "$Female Imperial Warpaint 05"
-	textures[61] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadImperialWarPaint_05.dds"
-	names[62] = "$Khajiit Stripes 01"
-	textures[62] = "Actors\\Character\\Character Assets\\TintMasks\\KhajiitStripes01.dds"
-	names[63] = "$Khajiit Stripes 02"
-	textures[63] = "Actors\\Character\\Character Assets\\TintMasks\\KhajiitStripes02.dds"
-	names[64] = "$Khajiit Stripes 03"
-	textures[64] = "Actors\\Character\\Character Assets\\TintMasks\\KhajiitStripes03.dds"
-	names[65] = "$Khajiit Stripes 04"
-	textures[65] = "Actors\\Character\\Character Assets\\TintMasks\\KhajiitStripes04.dds"
-	names[66] = "$Khajiit Paint 01"
-	textures[66] = "Actors\\Character\\Character Assets\\TintMasks\\KhajiitPaint01.dds"
-	names[67] = "$Khajiit Paint 02"
-	textures[67] = "Actors\\Character\\Character Assets\\TintMasks\\KhajiitPaint02.dds"
-	names[68] = "$Khajiit Paint 03"
-	textures[68] = "Actors\\Character\\Character Assets\\TintMasks\\KhajiitPaint03.dds"
-	names[69] = "$Khajiit Paint 04"
-	textures[69] = "Actors\\Character\\Character Assets\\TintMasks\\KhajiitPaint04.dds"
-	names[70] = "$Male Orc Warpaint 01"
-	textures[70] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadOrcWarPaint_01.dds"
-	names[71] = "$Male Orc Warpaint 02"
-	textures[71] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadOrcWarPaint_02.dds"
-	names[72] = "$Male Orc Warpaint 03"
-	textures[72] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadOrcWarPaint_03.dds"
-	names[73] = "$Male Orc Warpaint 04"
-	textures[73] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadOrcWarPaint_04.dds"
-	names[74] = "$Male Orc Warpaint 05"
-	textures[74] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadOrcWarPaint_05.dds"
-	names[75] = "$Female Orc Warpaint 01"
-	textures[75] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadOrcWarPaint_01.dds"
-	names[76] = "$Female Orc Warpaint 02"
-	textures[76] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadOrcWarPaint_02.dds"
-	names[77] = "$Female Orc Warpaint 03"
-	textures[77] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadOrcWarPaint_03.dds"
-	names[78] = "$Female Orc Warpaint 04"
-	textures[78] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadOrcWarPaint_04.dds"
-	names[79] = "$Female Orc Warpaint 05"
-	textures[79] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadOrcWarPaint_05.dds"
-	names[80] = "$Male Redguard Warpaint 01"
-	textures[80] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadRedguardWarPaint_01.dds"
-	names[81] = "$Male Redguard Warpaint 02"
-	textures[81] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadRedguardWarPaint_02.dds"
-	names[82] = "$Male Redguard Warpaint 03"
-	textures[82] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadRedguardWarPaint_03.dds"
-	names[83] = "$Male Redguard Warpaint 04"
-	textures[83] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadRedguardWarPaint_04.dds"
-	names[84] = "$Male Redguard Warpaint 05"
-	textures[84] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadRedguardWarPaint_05.dds"
-	names[85] = "$Female Redguard Warpaint 01"
-	textures[85] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadRedguardWarPaint_01.dds"
-	names[86] = "$Female Redguard Warpaint 02"
-	textures[86] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadRedguardWarPaint_02.dds"
-	names[87] = "$Female Redguard Warpaint 03"
-	textures[87] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadRedguardWarPaint_03.dds"
-	names[88] = "$Female Redguard Warpaint 04"
-	textures[88] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadRedguardWarPaint_04.dds"
-	names[89] = "$Female Redguard Warpaint 05"
-	textures[89] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadRedguardWarPaint_05.dds"
-	names[90] = "$Male Wood Elf Warpaint 01"
-	textures[90] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWoodElfWarPaint_01.dds"
-	names[91] = "$Male Wood Elf Warpaint 02"
-	textures[91] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWoodElfWarPaint_02.dds"
-	names[92] = "$Male Wood Elf Warpaint 03"
-	textures[92] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWoodElfWarPaint_03.dds"
-	names[93] = "$Male Wood Elf Warpaint 04"
-	textures[93] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWoodElfWarPaint_04.dds"
-	names[94] = "$Male Wood Elf Warpaint 05"
-	textures[94] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWoodElfWarPaint_05.dds"
-	names[95] = "$Female Wood Elf Warpaint 01"
-	textures[95] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWoodElfWarPaint_01.dds"
-	names[96] = "$Female Wood Elf Warpaint 02"
-	textures[96] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWoodElfWarPaint_02.dds"
-	names[97] = "$Female Wood Elf Warpaint 03"
-	textures[97] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWoodElfWarPaint_03.dds"
-	names[98] = "$Female Wood Elf Warpaint 04"
-	textures[98] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWoodElfWarPaint_04.dds"
-	names[99] = "$Female Wood Elf Warpaint 05"
-	textures[99] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWoodElfWarPaint_05.dds"
-	names[100] = "$Male Breton Warpaint 01"
-	textures[100] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBretonWarPaint_01.dds"
-	names[101] = "$Male Breton Warpaint 02"
-	textures[101] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBretonWarPaint_02.dds"
-	names[102] = "$Male Breton Warpaint 03"
-	textures[102] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBretonWarPaint_03.dds"
-	names[103] = "$Male Breton Warpaint 04"
-	textures[103] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBretonWarPaint_04.dds"
-	names[104] = "$Male Breton Warpaint 05"
-	textures[104] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBretonWarPaint_05.dds"
-	names[105] = "$Female Breton Warpaint 01"
-	textures[105] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadBretonWarPaint_01.dds"
-	names[106] = "$Female Breton Warpaint 02"
-	textures[106] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadBretonWarPaint_02.dds"
-	names[107] = "$Female Breton Warpaint 03"
-	textures[107] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadBretonWarPaint_03.dds"
-	names[108] = "$Female Breton Warpaint 04"
-	textures[108] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadBretonWarPaint_04.dds"
-	names[109] = "$Female Breton Warpaint 05"
-	textures[109] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadBretonWarPaint_05.dds"
-	names[110] = "$Male Forsworn Tattoo 01"
-	textures[110] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadForswornTattoo_01.dds"
-	names[111] = "$Male Forsworn Tattoo 02"
-	textures[111] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadForswornTattoo_02.dds"
-	names[112] = "$Male Forsworn Tattoo 03"
-	textures[112] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadForswornTattoo_03.dds"
-	names[113] = "$Male Forsworn Tattoo 04"
-	textures[113] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadForswornTattoo_04.dds"
-	names[114] = "$Female Forsworn Tattoo 01"
-	textures[114] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadForswornTattoo_01.dds"
-	names[115] = "$Female Forsworn Tattoo 02"
-	textures[115] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadForswornTattoo_02.dds"
-	names[116] = "$Female Forsworn Tattoo 03"
-	textures[116] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadForswornTattoo_03.dds"
-	names[117] = "$Female Forsworn Tattoo 04"
-	textures[117] = "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadForswornTattoo_04.dds"
-	names[118] = "$Male Black Blood Tattoo 01"
-	textures[118] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBlackBloodTattoo_01.dds"
-	names[119] = "$Male Black Blood Tattoo 02"
-	textures[119] = "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBlackBloodTattoo_02.dds"
-
-	string[] textureList = new string[120]
-	int i = 0
-	While i < 120
-		textureList[i] = names[i] + ";;" + textures[i]
-		i += 1
-	EndWhile
-	AddWarpaints(textureList)
+Function OnWarpaintRequest()
+	AddWarpaint("$Male Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_01.dds")
+	AddWarpaint("$Male Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_02.dds")
+	AddWarpaint("$Male Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_03.dds")
+	AddWarpaint("$Male Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_04.dds")
+	AddWarpaint("$Male Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_05.dds")
+	AddWarpaint("$Male Warpaint 06", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_06.dds")
+	AddWarpaint("$Male Warpaint 07", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_07.dds")
+	AddWarpaint("$Male Warpaint 08", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_08.dds")
+	AddWarpaint("$Male Warpaint 09", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_09.dds")
+	AddWarpaint("$Male Warpaint 10", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_10.dds")
+	AddWarpaint("$Male Nord Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadNordWarPaint_01.dds")
+	AddWarpaint("$Male Nord Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadNordWarPaint_02.dds")
+	AddWarpaint("$Male Nord Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadNordWarPaint_03.dds")
+	AddWarpaint("$Male Nord Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadNordWarPaint_04.dds")
+	AddWarpaint("$Male Nord Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadNordWarPaint_05.dds")
+	AddWarpaint("$Female Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_01.dds")
+	AddWarpaint("$Female Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_02.dds")
+	AddWarpaint("$Female Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_03.dds")
+	AddWarpaint("$Female Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_04.dds")
+	AddWarpaint("$Female Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_05.dds")
+	AddWarpaint("$Female Warpaint 06", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_06.dds")
+	AddWarpaint("$Female Warpaint 07", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_07.dds")
+	AddWarpaint("$Female Warpaint 08", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_08.dds")
+	AddWarpaint("$Female Warpaint 09", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_09.dds")
+	AddWarpaint("$Female Warpaint 10", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWarPaint_10.dds")
+	AddWarpaint("$Female Nord Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadNordWarPaint_01.dds")
+	AddWarpaint("$Female Nord Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadNordWarPaint_02.dds")
+	AddWarpaint("$Female Nord Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadNordWarPaint_03.dds")
+	AddWarpaint("$Female Nord Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadNordWarPaint_04.dds")
+	AddWarpaint("$Female Nord Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadNordWarPaint_05.dds")
+	AddWarpaint("$Argonian Stripes 01", "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes01.dds")
+	AddWarpaint("$Argonian Stripes 02", "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes02.dds")
+	AddWarpaint("$Argonian Stripes 03", "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes03.dds")
+	AddWarpaint("$Argonian Stripes 04", "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes04.dds")
+	AddWarpaint("$Argonian Stripes 05", "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes05.dds")
+	AddWarpaint("$Argonian Stripes 06", "Actors\\Character\\Character Assets\\TintMasks\\ArgonianStripes06.dds")
+	AddWarpaint("$Female High Elf Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadHighElfWarPaint_01.dds")
+	AddWarpaint("$Female High Elf Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadHighElfWarPaint_02.dds")
+	AddWarpaint("$Female High Elf Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadHighElfWarPaint_03.dds")
+	AddWarpaint("$Female High Elf Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadHighElfWarPaint_04.dds")
+	AddWarpaint("$Male Dark Elf Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_01.dds")
+	AddWarpaint("$Male Dark Elf Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_02.dds")
+	AddWarpaint("$Male Dark Elf Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_03.dds")
+	AddWarpaint("$Male Dark Elf Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_04.dds")
+	AddWarpaint("$Male Dark Elf Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_05.dds")
+	AddWarpaint("$Male Dark Elf Warpaint 06", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadDarkElfWarPaint_06.dds")
+	AddWarpaint("$Female Dark Elf Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_01.dds")
+	AddWarpaint("$Female Dark Elf Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_02.dds")
+	AddWarpaint("$Female Dark Elf Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_03.dds")
+	AddWarpaint("$Female Dark Elf Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_04.dds")
+	AddWarpaint("$Female Dark Elf Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_05.dds")
+	AddWarpaint("$Female Dark Elf Warpaint 06", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadDarkElfWarPaint_06.dds")
+	AddWarpaint("$Male Imperial Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadImperialWarPaint_01.dds")
+	AddWarpaint("$Male Imperial Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadImperialWarPaint_02.dds")
+	AddWarpaint("$Male Imperial Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadImperialWarPaint_03.dds")
+	AddWarpaint("$Male Imperial Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadImperialWarPaint_04.dds")
+	AddWarpaint("$Male Imperial Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadImperialWarPaint_05.dds")
+	AddWarpaint("$Female Imperial Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadImperialWarPaint_01.dds")
+	AddWarpaint("$Female Imperial Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadImperialWarPaint_02.dds")
+	AddWarpaint("$Female Imperial Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadImperialWarPaint_03.dds")
+	AddWarpaint("$Female Imperial Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadImperialWarPaint_04.dds")
+	AddWarpaint("$Female Imperial Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadImperialWarPaint_05.dds")
+	AddWarpaint("$Khajiit Stripes 01", "Actors\\Character\\Character Assets\\TintMasks\\KhajiitStripes01.dds")
+	AddWarpaint("$Khajiit Stripes 02", "Actors\\Character\\Character Assets\\TintMasks\\KhajiitStripes02.dds")
+	AddWarpaint("$Khajiit Stripes 03", "Actors\\Character\\Character Assets\\TintMasks\\KhajiitStripes03.dds")
+	AddWarpaint("$Khajiit Stripes 04", "Actors\\Character\\Character Assets\\TintMasks\\KhajiitStripes04.dds")
+	AddWarpaint("$Khajiit Paint 01", "Actors\\Character\\Character Assets\\TintMasks\\KhajiitPaint01.dds")
+	AddWarpaint("$Khajiit Paint 02", "Actors\\Character\\Character Assets\\TintMasks\\KhajiitPaint02.dds")
+	AddWarpaint("$Khajiit Paint 03", "Actors\\Character\\Character Assets\\TintMasks\\KhajiitPaint03.dds")
+	AddWarpaint("$Khajiit Paint 04", "Actors\\Character\\Character Assets\\TintMasks\\KhajiitPaint04.dds")
+	AddWarpaint("$Male Orc Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadOrcWarPaint_01.dds")
+	AddWarpaint("$Male Orc Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadOrcWarPaint_02.dds")
+	AddWarpaint("$Male Orc Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadOrcWarPaint_03.dds")
+	AddWarpaint("$Male Orc Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadOrcWarPaint_04.dds")
+	AddWarpaint("$Male Orc Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadOrcWarPaint_05.dds")
+	AddWarpaint("$Female Orc Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadOrcWarPaint_01.dds")
+	AddWarpaint("$Female Orc Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadOrcWarPaint_02.dds")
+	AddWarpaint("$Female Orc Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadOrcWarPaint_03.dds")
+	AddWarpaint("$Female Orc Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadOrcWarPaint_04.dds")
+	AddWarpaint("$Female Orc Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadOrcWarPaint_05.dds")
+	AddWarpaint("$Male Redguard Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadRedguardWarPaint_01.dds")
+	AddWarpaint("$Male Redguard Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadRedguardWarPaint_02.dds")
+	AddWarpaint("$Male Redguard Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadRedguardWarPaint_03.dds")
+	AddWarpaint("$Male Redguard Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadRedguardWarPaint_04.dds")
+	AddWarpaint("$Male Redguard Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadRedguardWarPaint_05.dds")
+	AddWarpaint("$Female Redguard Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadRedguardWarPaint_01.dds")
+	AddWarpaint("$Female Redguard Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadRedguardWarPaint_02.dds")
+	AddWarpaint("$Female Redguard Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadRedguardWarPaint_03.dds")
+	AddWarpaint("$Female Redguard Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadRedguardWarPaint_04.dds")
+	AddWarpaint("$Female Redguard Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadRedguardWarPaint_05.dds")
+	AddWarpaint("$Male Wood Elf Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWoodElfWarPaint_01.dds")
+	AddWarpaint("$Male Wood Elf Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWoodElfWarPaint_02.dds")
+	AddWarpaint("$Male Wood Elf Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWoodElfWarPaint_03.dds")
+	AddWarpaint("$Male Wood Elf Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWoodElfWarPaint_04.dds")
+	AddWarpaint("$Male Wood Elf Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWoodElfWarPaint_05.dds")
+	AddWarpaint("$Female Wood Elf Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWoodElfWarPaint_01.dds")
+	AddWarpaint("$Female Wood Elf Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWoodElfWarPaint_02.dds")
+	AddWarpaint("$Female Wood Elf Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWoodElfWarPaint_03.dds")
+	AddWarpaint("$Female Wood Elf Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWoodElfWarPaint_04.dds")
+	AddWarpaint("$Female Wood Elf Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadWoodElfWarPaint_05.dds")
+	AddWarpaint("$Male Breton Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBretonWarPaint_01.dds")
+	AddWarpaint("$Male Breton Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBretonWarPaint_02.dds")
+	AddWarpaint("$Male Breton Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBretonWarPaint_03.dds")
+	AddWarpaint("$Male Breton Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBretonWarPaint_04.dds")
+	AddWarpaint("$Male Breton Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBretonWarPaint_05.dds")
+	AddWarpaint("$Female Breton Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadBretonWarPaint_01.dds")
+	AddWarpaint("$Female Breton Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadBretonWarPaint_02.dds")
+	AddWarpaint("$Female Breton Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadBretonWarPaint_03.dds")
+	AddWarpaint("$Female Breton Warpaint 04", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadBretonWarPaint_04.dds")
+	AddWarpaint("$Female Breton Warpaint 05", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadBretonWarPaint_05.dds")
+	AddWarpaint("$Male Forsworn Tattoo 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadForswornTattoo_01.dds")
+	AddWarpaint("$Male Forsworn Tattoo 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadForswornTattoo_02.dds")
+	AddWarpaint("$Male Forsworn Tattoo 03", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadForswornTattoo_03.dds")
+	AddWarpaint("$Male Forsworn Tattoo 04", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadForswornTattoo_04.dds")
+	AddWarpaint("$Female Forsworn Tattoo 01", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadForswornTattoo_01.dds")
+	AddWarpaint("$Female Forsworn Tattoo 02", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadForswornTattoo_02.dds")
+	AddWarpaint("$Female Forsworn Tattoo 03", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadForswornTattoo_03.dds")
+	AddWarpaint("$Female Forsworn Tattoo 04", "Actors\\Character\\Character Assets\\TintMasks\\FemaleHeadForswornTattoo_04.dds")
+	AddWarpaint("$Male Black Blood Tattoo 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBlackBloodTattoo_01.dds")
+	AddWarpaint("$Male Black Blood Tattoo 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBlackBloodTattoo_02.dds")
 EndFunction
 
 Function UpdateColors()

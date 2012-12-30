@@ -8,6 +8,9 @@ import skyui.components.list.TabularList;
 import skyui.components.list.ListLayout;
 import skyui.props.PropertyDataExtender;
 
+import skyui.defines.Inventory;
+import skyui.defines.Input;
+
 
 class InventoryMenu extends ItemMenu
 {
@@ -68,7 +71,8 @@ class InventoryMenu extends ItemMenu
 		super.setConfig(a_config);
 		
 		var itemList: TabularList = inventoryLists.itemList;
-		itemList.addDataProcessor(new InventoryDataExtender());
+		itemList.addDataProcessor(new InventoryDataSetter());
+		itemList.addDataProcessor(new InventoryIconSetter());
 		itemList.addDataProcessor(new PropertyDataExtender(a_config["Properties"], "itemProperties", "itemIcons", "itemCompoundProperties"));
 		itemList.addDataProcessor(new InventoryDataSetter());
 
@@ -96,8 +100,7 @@ class InventoryMenu extends ItemMenu
 				GameDelegate.call("CloseTweenMenu", []);
 			} else if (!inventoryLists.itemList.disableInput) {
 				// Gamepad back || ALT (default) || 'P'
-				var bGamepadBackPressed = (_platform != 0 && details.navEquivalent == NavigationCode.GAMEPAD_BACK);
-				if (bGamepadBackPressed || details.skseKeycode == _switchTabKey || details.control == "Quick Magic")
+				if (details.skseKeycode == _switchTabKey || details.control == "Quick Magic")
 					openMagicMenu(true);
 			}
 		}
@@ -117,7 +120,7 @@ class InventoryMenu extends ItemMenu
 	public function DropItem(): Void
 	{
 		if (shouldProcessItemsListInput(false) && inventoryLists.itemList.selectedEntry != undefined) {
-			if (inventoryLists.itemList.selectedEntry.count <= InventoryDefines.QUANTITY_MENU_COUNT_LIMIT)
+			if (_quantityMinCount < 1 || (inventoryLists.itemList.selectedEntry.count < _quantityMinCount))
 				onQuantityMenuSelect({amount:1});
 			else
 				itemCard.ShowQuantityMenu(inventoryLists.itemList.selectedEntry.count);
@@ -194,7 +197,9 @@ class InventoryMenu extends ItemMenu
 	private function onHideItemsList(event: Object): Void
 	{
 		super.onHideItemsList(event);
-		bottomBar.updatePerItemInfo({type:InventoryDefines.ICT_NONE});
+
+		bottomBar.updatePerItemInfo({type:Inventory.ICT_NONE});
+		
 		updateBottomBar(false);
 	}
 
@@ -273,22 +278,22 @@ class InventoryMenu extends ItemMenu
 		
 		if (a_bSelected) {
 			navPanel.addButton(getEquipButtonData(itemCard.itemInfo.type));
-			navPanel.addButton({text: "$Drop", controls: InputDefines.XButton});
+			navPanel.addButton({text: "$Drop", controls: Input.XButton});
 			
 			if (inventoryLists.itemList.selectedEntry.filterFlag & inventoryLists.categoryList.entryList[0].flag != 0)
-				navPanel.addButton({text: "$Unfavorite", controls: InputDefines.YButton});
+				navPanel.addButton({text: "$Unfavorite", controls: Input.YButton});
 			else
-				navPanel.addButton({text: "$Favorite", controls: InputDefines.YButton});
+				navPanel.addButton({text: "$Favorite", controls: Input.YButton});
 	
 			if (itemCard.itemInfo.charge != undefined && itemCard.itemInfo.charge < 100)
-				navPanel.addButton({text: "$Charge", controls: InputDefines.ChargeItem});
+				navPanel.addButton({text: "$Charge", controls: Input.ChargeItem});
 				
 		} else {
 			navPanel.addButton({text: "$Exit", controls: _cancelControls});
 			navPanel.addButton({text: "$Search", controls: _searchControls});
 			if (_platform != 0) {
-				navPanel.addButton({text: "$Column", controls: InputDefines.SortColumn});
-				navPanel.addButton({text: "$Order", controls: InputDefines.SortOrder});
+				navPanel.addButton({text: "$Column", controls: _sortColumnControls});
+				navPanel.addButton({text: "$Order", controls: _sortOrderControl});
 			}
 			navPanel.addButton({text: "$Magic", controls: _switchControls});
 		}

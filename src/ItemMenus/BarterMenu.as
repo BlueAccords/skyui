@@ -5,6 +5,9 @@ import skyui.components.list.TabularList;
 import skyui.components.list.ListLayout;
 import skyui.props.PropertyDataExtender;
 
+import skyui.defines.Input;
+import skyui.defines.Inventory;
+
 
 class BarterMenu extends ItemMenu
 {
@@ -12,7 +15,6 @@ class BarterMenu extends ItemMenu
 	
   /* PRIVATE VARIABLES */
   
-	private var _playerInfoObj: Object;
 	private var _buyMult: Number = 1;
 	private var _sellMult: Number = 1;
 	private var _confirmAmount: Number = 0;
@@ -63,7 +65,8 @@ class BarterMenu extends ItemMenu
 		super.setConfig(a_config);
 
 		var itemList: TabularList = inventoryLists.itemList;		
-		itemList.addDataProcessor(new BarterDataExtender(_buyMult, _sellMult));
+		itemList.addDataProcessor(new BarterDataSetter(_buyMult, _sellMult));
+		itemList.addDataProcessor(new InventoryIconSetter());
 		itemList.addDataProcessor(new PropertyDataExtender(a_config["Properties"], "itemProperties", "itemIcons", "itemCompoundProperties"));
 		
 		var layout: ListLayout = ListLayoutManager.createLayout(a_config["ListLayout"], "ItemListLayout");
@@ -103,16 +106,15 @@ class BarterMenu extends ItemMenu
 		}
 		a_updateObj.value = Math.floor(a_updateObj.value + 0.5);
 		itemCard.itemInfo = a_updateObj;
-		bottomBar.setBarterPerItemInfo(a_updateObj,_playerInfoObj);
+		bottomBar.updateBarterPerItemInfo(a_updateObj);
 	}
 
 	// @override ItemMenu
-	public function UpdatePlayerInfo(a_playerGold: Number, a_vendorGold: Number, a_vendorName: String, a_updateObj: Object): Void
+	public function UpdatePlayerInfo(a_playerGold: Number, a_vendorGold: Number, a_vendorName: String, a_playerUpdateObj: Object): Void
 	{
 		_vendorGold = a_vendorGold;
 		_playerGold = a_playerGold;
-		bottomBar.setBarterInfo(a_playerGold,a_vendorGold,undefined,a_vendorName);
-		_playerInfoObj = a_updateObj;
+		bottomBar.updateBarterInfo(a_playerUpdateObj, itemCard.itemInfo, a_playerGold, a_vendorGold, a_vendorName);
 	}
 	
 	
@@ -139,6 +141,9 @@ class BarterMenu extends ItemMenu
 	private function onHideItemsList(event: Object): Void
 	{
 		super.onHideItemsList(event);
+
+		bottomBar.updateBarterPerItemInfo({type:Inventory.ICT_NONE});
+		
 		updateBottomBar(false);
 	}
 	
@@ -148,7 +153,7 @@ class BarterMenu extends ItemMenu
 		if (isViewingVendorItems()) {
 			price = price * -1;
 		}
-		bottomBar.setBarterInfo(_playerGold,_vendorGold,price);
+		bottomBar.updateBarterPriceInfo(_playerGold, _vendorGold, itemCard.itemInfo, price);
 	}
 	
 	// @override ItemMenu
@@ -157,7 +162,10 @@ class BarterMenu extends ItemMenu
 		var price = event.amount * itemCard.itemInfo.value;
 		if (price > _vendorGold && !isViewingVendorItems()) {
 			_confirmAmount = event.amount;
+
 			GameDelegate.call("GetRawDealWarningString", [price], this, "ShowRawDealWarning");
+
+			bottomBar.updateBarterPriceInfo(_playerGold, _vendorGold, itemCard.itemInfo, price);
 			return;
 		}
 		doTransaction(event.amount);
@@ -172,7 +180,7 @@ class BarterMenu extends ItemMenu
 				onQuantitySliderChange({value:itemCard.itemInfo.count});
 				return;
 			}
-			bottomBar.setBarterInfo(_playerGold,_vendorGold);
+			bottomBar.updateBarterPriceInfo(_playerGold, _vendorGold);
 		}
 	}
 	
@@ -185,6 +193,9 @@ class BarterMenu extends ItemMenu
 	private function doTransaction(a_amount: Number): Void
 	{
 		GameDelegate.call("ItemSelect",[a_amount, itemCard.itemInfo.value, isViewingVendorItems()]);
+		// Update barter multipliers
+		// Update itemList => dataProcessor => BarterDataSetter updateBarterMultipliers
+		// Update itemCardInfo GameDelegate.call("RequestItemCardInfo",[], this, "UpdateItemCardInfo");
 	}
 	
 	private function isViewingVendorItems(): Boolean
@@ -198,13 +209,13 @@ class BarterMenu extends ItemMenu
 		navPanel.clearButtons();
 		
 		if (a_bSelected) {
-			navPanel.addButton({text: (isViewingVendorItems() ? "$Buy" : "$Sell"), controls: InputDefines.Activate});
+			navPanel.addButton({text: (isViewingVendorItems() ? "$Buy" : "$Sell"), controls: Input.Activate});
 		} else {
 			navPanel.addButton({text: "$Exit", controls: _cancelControls});
 			navPanel.addButton({text: "$Search", controls: _searchControls});
 			if (_platform != 0) {
-				navPanel.addButton({text: "$Column", controls: InputDefines.SortColumn});
-				navPanel.addButton({text: "$Order", controls: InputDefines.SortOrder});
+				navPanel.addButton({text: "$Column", controls: _sortColumnControls});
+				navPanel.addButton({text: "$Order", controls: _sortOrderControl});
 			}
 			navPanel.addButton({text: "$Switch Tab", controls: _switchControls});
 		}

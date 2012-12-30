@@ -8,6 +8,9 @@ import skyui.components.list.TabularList;
 import skyui.components.list.ListLayout;
 import skyui.props.PropertyDataExtender;
 
+import skyui.defines.Input;
+import skyui.defines.Inventory;
+
 
 class MagicMenu extends ItemMenu
 {
@@ -48,7 +51,7 @@ class MagicMenu extends ItemMenu
 		GameDelegate.addCallBack("DragonSoulSpent", this, "DragonSoulSpent");
 		GameDelegate.addCallBack("AttemptEquip", this , "AttemptEquip");
 		
-		bottomBar.updatePerItemInfo({type:InventoryDefines.ICT_SPELL_DEFAULT});
+		bottomBar.updatePerItemInfo({type:Inventory.ICT_SPELL_DEFAULT});
 		
 		// Initialize menu-specific list components
 		var categoryList: CategoryList = inventoryLists.categoryList;
@@ -61,7 +64,8 @@ class MagicMenu extends ItemMenu
 		super.setConfig(a_config);
 		
 		var itemList: TabularList = inventoryLists.itemList;
-		itemList.addDataProcessor(new MagicDataExtender());
+		itemList.addDataProcessor(new MagicDataSetter(a_config["Appearance"]));
+		itemList.addDataProcessor(new MagicIconSetter());
 		itemList.addDataProcessor(new PropertyDataExtender(a_config["Properties"], "magicProperties", "magicIcons", "magicCompoundProperties"));
 		
 		var layout: ListLayout = ListLayoutManager.createLayout(a_config["ListLayout"], "MagicListLayout");
@@ -89,8 +93,7 @@ class MagicMenu extends ItemMenu
 				GameDelegate.call("CloseTweenMenu",[]);
 			} else if (!inventoryLists.itemList.disableInput) {
 				// Gamepad back || ALT (default) || 'I'
-				var bGamepadBackPressed = (details.navEquivalent == NavigationCode.GAMEPAD_BACK && details.code != 8);
-				if (bGamepadBackPressed || details.skseKeycode == _switchTabKey || details.control == "Quick Inventory")
+				if (details.skseKeycode == _switchTabKey || details.control == "Quick Inventory")
 					openInventoryMenu(true);
 			}
 		}
@@ -168,7 +171,7 @@ class MagicMenu extends ItemMenu
 	{
 		super.onHideItemsList(event);
 		
-		bottomBar.updatePerItemInfo({type:InventoryDefines.ICT_SPELL_DEFAULT});
+		bottomBar.updatePerItemInfo({type:Inventory.ICT_SPELL_DEFAULT});
 		
 		updateBottomBar(false);
 	}
@@ -191,23 +194,23 @@ class MagicMenu extends ItemMenu
 	{
 		navPanel.clearButtons();
 		
-		if (a_bSelected && (inventoryLists.itemList.selectedEntry.filterFlag & skyui.util.Defines.FLAG_MAGIC_ACTIVE_EFFECT) == 0) {
-			navPanel.addButton({text: "$Equip", controls: InputDefines.Equip});
+		if (a_bSelected && (inventoryLists.itemList.selectedEntry.filterFlag & Inventory.FILTERFLAG_MAGIC_ACTIVEEFFECTS) == 0) {
+			navPanel.addButton({text: "$Equip", controls: Input.Equip});
 			
 			if (inventoryLists.itemList.selectedEntry.filterFlag & inventoryLists.categoryList.entryList[0].flag != 0)
-				navPanel.addButton({text: "$Unfavorite", controls: InputDefines.YButton});
+				navPanel.addButton({text: "$Unfavorite", controls: Input.YButton});
 			else
-				navPanel.addButton({text: "$Favorite", controls: InputDefines.YButton});
+				navPanel.addButton({text: "$Favorite", controls: Input.YButton});
 	
 			if (itemCard.itemInfo.showUnlocked)
-				navPanel.addButton({text: "$Unlock", controls: InputDefines.XButton});
+				navPanel.addButton({text: "$Unlock", controls: Input.XButton});
 				
 		} else {
 			navPanel.addButton({text: "$Exit", controls: _cancelControls});
 			navPanel.addButton({text: "$Search", controls: _searchControls});
 			if (_platform != 0) {
-				navPanel.addButton({text: "$Column", controls: InputDefines.SortColumn});
-				navPanel.addButton({text: "$Order", controls: InputDefines.SortOrder});
+				navPanel.addButton({text: "$Column", controls: _sortColumnControls});
+				navPanel.addButton({text: "$Order", controls: _sortOrderControl});
 			}
 			navPanel.addButton({text: "$Inventory", controls: _switchControls});
 		}

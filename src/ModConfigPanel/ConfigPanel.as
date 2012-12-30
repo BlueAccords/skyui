@@ -8,6 +8,9 @@ import skyui.components.list.BasicEnumeration;
 import skyui.components.list.ScrollingList;
 import skyui.components.ButtonPanel;
 import skyui.util.DialogManager;
+import skyui.util.GlobalFunctions;
+import skyui.util.Translator;
+import skyui.defines.Input;
 
 import com.greensock.TweenLite;
 import com.greensock.easing.Linear;
@@ -170,9 +173,11 @@ class ConfigPanel extends MovieClip
 		_modList.clearList();
 		_modList.listState.savedIndex = null;
 		
-		for (var i=0; i<arguments.length; i++)
-			if (arguments[i].toLowerCase() != "none")
-				_modList.entryList.push({modIndex: i, text: arguments[i], align: "right", enabled: true});
+		for (var i=0; i<arguments.length; i++) {
+			var s = arguments[i];
+			if (s != "")
+				_modList.entryList.push({modIndex: i, text: s, align: "right", enabled: true});
+		}
 
 		_modList.entryList.sortOn("text", Array.CASEINSENSITIVE);
 		_modList.InvalidateData();
@@ -222,7 +227,7 @@ class ConfigPanel extends MovieClip
 	
 	public function setTitleText(a_text: String): Void
 	{
-		_titleText = a_text.toUpperCase();
+		_titleText = Translator.translate(a_text).toUpperCase();
 		
 		// Don't apply yet if waiting for option data
 		if (_state != WAIT_FOR_OPTION_DATA)
@@ -231,7 +236,7 @@ class ConfigPanel extends MovieClip
 	
 	public function setInfoText(a_text: String): Void
 	{
-		_infoText = a_text;
+		_infoText = Translator.translate(a_text);
 		
 		// Don't apply yet if waiting for option data
 		if (_state != WAIT_FOR_OPTION_DATA)
@@ -438,13 +443,13 @@ class ConfigPanel extends MovieClip
 		_platform = a_platform;
 		
 		if (a_platform == 0) {
-			_acceptControls = InputDefines.Enter;
-			_defaultControls = InputDefines.ReadyWeapon;
-			_cancelControls = InputDefines.Tab;
+			_acceptControls = Input.Enter;
+			_defaultControls = Input.ReadyWeapon;
+			_cancelControls = Input.Tab;
 		} else {
-			_acceptControls = InputDefines.Accept;
-			_defaultControls = InputDefines.YButton;
-			_cancelControls = InputDefines.Cancel;
+			_acceptControls = Input.Accept;
+			_defaultControls = Input.YButton;
+			_cancelControls = Input.Cancel;
 		}
 		
 		_buttonPanelL.setPlatform(a_platform, a_bPS3Switch);
@@ -768,7 +773,7 @@ class ConfigPanel extends MovieClip
 	{
 		var t = contentHolder.infoPanel;
 		
-		t.textField.text = _infoText;
+		t.textField.text = GlobalFunctions.unescape(_infoText);
 		
 		if (_infoText != "") {
 			var h = t.textField.textHeight + 22;
@@ -807,7 +812,7 @@ class ConfigPanel extends MovieClip
 		setCustomContentParams(150, 50);
 		loadCustomContent("skyui/mcm_splash.swf");
 
-		setTitleText("MOD CONFIGURATION");
+		setTitleText("$MOD CONFIGURATION");
 		setInfoText("");
 	}
 	

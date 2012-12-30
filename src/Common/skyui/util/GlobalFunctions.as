@@ -1,4 +1,6 @@
-﻿class skyui.util.GlobalFunctions
+﻿import skyui.defines.Input;
+
+class skyui.util.GlobalFunctions
 {
   /* PUBLIC FUNCTIONS */
 	
@@ -8,7 +10,7 @@
 	}
 
 	// Remove comments and leading/trailing white space
-	static function clean(a_str: String): String
+	public static function clean(a_str: String): String
 	{
 		if (a_str.indexOf(";") > 0)
 			a_str = a_str.slice(0,a_str.indexOf(";"));
@@ -22,6 +24,13 @@
 			j--;
 
 		return a_str.slice(i,j + 1);
+	}
+
+	public static function unescape(a_str: String): String 
+	{
+		a_str = a_str.split("\\n").join("\n");
+		a_str = a_str.split("\\t").join("\t");
+		return a_str;
 	}
 
 	private static var _arrayExtended = false;
@@ -65,6 +74,8 @@
 					
 	    	return false;
     	};
+
+    	_global.ASSetPropFlags(Array.prototype, ["indexOf", "equals", "contains"], 0x01, 0x00);
 	}
 
 	// Maps Unicode inputted character code to it's CP819/CP1251 character code
@@ -196,5 +207,20 @@
 			valStr += "E" + floatComponents[1]
 		
 		return valStr;
+	}
+	
+	public static function getMappedKey(a_control: String, a_context: Number, a_bGamepad: Boolean): Number
+	{
+		if (_global.skse == undefined)
+			return -1;
+		
+		if (a_bGamepad == true) {
+			return skse.GetMappedKey(a_control, Input.DEVICE_GAMEPAD, a_context);
+		} else {
+			var keyCode = skse.GetMappedKey(a_control, Input.DEVICE_KEYBOARD, a_context);
+			if (keyCode == -1)
+				keyCode = skse.GetMappedKey(a_control, Input.DEVICE_MOUSE, a_context);
+			return keyCode;
+		}
 	}
 }

@@ -1,5 +1,7 @@
 ﻿import Shared.ButtonChange;
 import gfx.controls.Button;
+import skyui.defines.Input;
+import skyui.util.GlobalFunctions;
 
 class skyui.components.MappedButton extends Button
 {
@@ -106,19 +108,11 @@ class skyui.components.MappedButton extends Button
 
 			// Setting keycode manually overrides auto-detection
 			if (controlInfo.keyCode != null) {
-				keyCode = controlInfo.keyCode
+				keyCode = controlInfo.keyCode;
 			} else {
 				var name = controlInfo.name;
 				var context = controlInfo.context;
-
-				if (_platform == 0) {
-					keyCode = skse.GetMappedKey(name, InputDefines.DEVICE_KEYBOARD, context);
-					if (keyCode == -1)
-						keyCode = skse.GetMappedKey(name, InputDefines.DEVICE_MOUSE, context);
-	
-				} else {
-					keyCode = skse.GetMappedKey(name, InputDefines.DEVICE_GAMEPAD, context);
-				}
+				keyCode = GlobalFunctions.getMappedKey(name, context, _platform != 0);
 			}
 			
 			if (keyCode == -1)
