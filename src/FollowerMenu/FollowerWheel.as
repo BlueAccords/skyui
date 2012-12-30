@@ -2,7 +2,7 @@
 import com.greensock.easing.*;
 import flash.geom.Transform;
 import flash.geom.ColorTransform;
-import skyui.util.Defines;
+import skyui.defines.Actor;
 
 class FollowerWheel extends MovieClip
 {
@@ -152,19 +152,19 @@ class FollowerWheel extends MovieClip
 			a_clip.widget.initNumbers(200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x561818, 0xDF2020, 100, 0, 0xFF3232);
 			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
 			a_clip.widget.initCommit();
-			a_clip.widget.setMeterPercent((_actor.actorValues[Defines.ACTORVALUE_HEALTH].current / _actor.actorValues[Defines.ACTORVALUE_HEALTH].maximum) * 100.0, true);
+			a_clip.widget.setMeterPercent((_actor.actorValues[Actor.AV_HEALTH].current / _actor.actorValues[Actor.AV_HEALTH].maximum) * 100.0, true);
 			a_clip.widget._visible = true;
 		} else if(a_clip == MagickaMeter) {
 			a_clip.widget.initNumbers(200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x0C016D, 0x284BD7, 100, 0, 0x3366FF);
 			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
 			a_clip.widget.initCommit();
-			a_clip.widget.setMeterPercent((_actor.actorValues[Defines.ACTORVALUE_MAGICKA].current / _actor.actorValues[Defines.ACTORVALUE_MAGICKA].maximum) * 100.0, true);
+			a_clip.widget.setMeterPercent((_actor.actorValues[Actor.AV_MAGICKA].current / _actor.actorValues[Actor.AV_MAGICKA].maximum) * 100.0, true);
 			a_clip.widget._visible = true;
 		} else if(a_clip == StaminaMeter) {
 			a_clip.widget.initNumbers(200, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0x003300, 0x339966, 100, 0, 0x009900);
 			a_clip.widget.initStrings("$EverywhereFont", "$EverywhereFont", "", "", "", "", "right");
 			a_clip.widget.initCommit();
-			a_clip.widget.setMeterPercent((_actor.actorValues[Defines.ACTORVALUE_STAMINA].current / _actor.actorValues[Defines.ACTORVALUE_STAMINA].maximum) * 100.0, true);
+			a_clip.widget.setMeterPercent((_actor.actorValues[Actor.AV_STAMINA].current / _actor.actorValues[Actor.AV_STAMINA].maximum) * 100.0, true);
 			a_clip.widget._visible = true;
 		} else {
 			updateIcon(int(a_clip._name.substring(4, _name.length)));
