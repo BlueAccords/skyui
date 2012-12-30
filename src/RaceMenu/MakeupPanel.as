@@ -6,10 +6,9 @@ import gfx.io.GameDelegate;
 
 import skyui.components.list.FilteredEnumeration;
 import skyui.components.list.ScrollingList;
-
 import skyui.components.ButtonPanel;
-
 import skyui.filter.ItemSorter;
+import skyui.defines.Input;
 
 class MakeupPanel extends MovieClip
 {
@@ -122,11 +121,11 @@ class MakeupPanel extends MovieClip
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
 		if(a_platform == 0) {
-			_acceptButton = InputDefines.Accept;
-			_cancelButton = InputDefines.Tab;
+			_acceptButton = Input.Accept;
+			_cancelButton = Input.Tab;
 		} else {
-			_acceptButton = InputDefines.Accept;
-			_cancelButton = InputDefines.Cancel;
+			_acceptButton = Input.Accept;
+			_cancelButton = Input.Cancel;
 		}
 		buttonPanel.setPlatform(a_platform, a_bPS3Switch);
 	}

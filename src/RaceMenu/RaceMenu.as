@@ -19,6 +19,7 @@ import skyui.filter.ItemTypeFilter;
 import skyui.filter.ItemNameFilter;
 import skyui.filter.ItemSorter;
 import skyui.util.Debug;
+import skyui.defines.Input;
 
 import RaceMenuDefines;
 import TextEntryField;
@@ -319,15 +320,15 @@ class RaceMenu extends MovieClip
 		makeupPanel.setPlatform(a_platform, a_bPS3Switch);
 		
 		if(_platform == 0) {
-			_activateControl = InputDefines.Activate;
+			_activateControl = Input.Activate;
 			_acceptControl = {keyCode: DISPLAY_KEYCODE_DONE};
 			_lightControl = {keyCode: DISPLAY_KEYCODE_LIGHT};
-			_zoomControl = InputDefines.Sprint;
+			_zoomControl = Input.Sprint;
 			_searchControl = {keyCode: DISPLAY_KEYCODE_SEARCH};
 			_textureControl = {keyCode: DISPLAY_KEYCODE_TEXTURE};
 		} else {
-			_activateControl = InputDefines.Activate;
-			_acceptControl = InputDefines.XButton;
+			_activateControl = Input.Activate;
+			_acceptControl = Input.XButton;
 			_lightControl = {keyCode: DISPLAY_GAMEPAD_R1};
 			_zoomControl = {keyCode: DISPLAY_GAMEPAD_L1};
 			_textureControl = {keyCode: DISPLAY_GAMEPAD_Y};
@@ -366,7 +367,7 @@ class RaceMenu extends MovieClip
 				makeupPanel.setTexture(SelectedEntry.text, SelectedEntry.texture);
 				ShowMakeupPanel(true);
 				return true;
-			} else if ((details.control == InputDefines.Sprint.name || details.navEquivalent == NavigationCode.GAMEPAD_L1) && !bTextEntryMode) {
+			} else if ((details.control == Input.Sprint.name || details.navEquivalent == NavigationCode.GAMEPAD_L1) && !bTextEntryMode) {
 				playerZoom = !playerZoom;
 				GameDelegate.call("ZoomPC", [playerZoom]);
 				updateBottomBar();
@@ -911,7 +912,7 @@ class RaceMenu extends MovieClip
 		if(_platform == 0) {
 			navPanel.addButton({text: "$Search", controls: _searchControl});
 		} else {
-			navPanel.addButton({text: "$Change Category", controls: InputDefines.Equip});
+			navPanel.addButton({text: "$Change Category", controls: Input.Equip});
 		}
 		navPanel.addButton({text: playerZoom ? "$Zoom Out" : "$Zoom In", controls: _zoomControl});
 		navPanel.addButton({text: bShowLight ? "$Light Off" : "$Light On", controls: _lightControl});

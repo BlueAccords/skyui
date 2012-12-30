@@ -9,9 +9,10 @@ import skyui.components.list.BasicEnumeration;
 import skyui.components.list.ButtonEntryFormatter;
 import skyui.components.list.ScrollingList;
 import skyui.filter.ItemTypeFilter;
-import skyui.util.Defines;
-
 import skyui.util.ConfigManager;
+
+import skyui.defines.Actor;
+import skyui.defines.Form;
 
 class ActorStatsPanel extends MovieClip
 {	
@@ -122,37 +123,37 @@ class ActorStatsPanel extends MovieClip
 												  {base: 100, current: 30, maximum: 570},
 												  {base: 100, current: 31, maximum: 1000}]});*/
 				
-		addActorValue("$Health", CATEGORY_FLAG_GENERAL, Defines.ACTORVALUE_HEALTH, "pc");
-		addActorValue("$Magicka", CATEGORY_FLAG_GENERAL, Defines.ACTORVALUE_MAGICKA, "pc");
-		addActorValue("$Stamina", CATEGORY_FLAG_GENERAL, Defines.ACTORVALUE_STAMINA, "pc");
-		addActorValue("$Health Rate", CATEGORY_FLAG_GENERAL, Defines.ACTORVALUE_HEALRATE, "p");
-		addActorValue("$Magicka Rate", CATEGORY_FLAG_GENERAL, Defines.ACTORVALUE_MAGICKARATE, "p");
-		addActorValue("$Stamina Rate", CATEGORY_FLAG_GENERAL, Defines.ACTORVALUE_STAMINARATE, "p");
-		addActorValue("$Armor", CATEGORY_FLAG_RESISTANCES, Defines.ACTORVALUE_DAMAGERESIST);
-		addActorValue("$Disease Resist", CATEGORY_FLAG_RESISTANCES, Defines.ACTORVALUE_DISEASERESIST, "p");
-		addActorValue("$Electric Resist", CATEGORY_FLAG_RESISTANCES, Defines.ACTORVALUE_ELECTRICRESIST, "p");
-		addActorValue("$Fire Resist", CATEGORY_FLAG_RESISTANCES, Defines.ACTORVALUE_FIRERESIST, "p");
-		addActorValue("$Frost Resist", CATEGORY_FLAG_RESISTANCES, Defines.ACTORVALUE_FROSTRESIST, "p");
-		addActorValue("$Poison Resist", CATEGORY_FLAG_RESISTANCES, Defines.ACTORVALUE_POISONRESIST, "p");
-		addActorValue("$Magic Resist", CATEGORY_FLAG_RESISTANCES, Defines.ACTORVALUE_MAGICRESIST, "p");
-		addActorValue("$One Handed", CATEGORY_FLAG_COMBAT, Defines.ACTORVALUE_ONEHANDED);
-		addActorValue("$Two Handed", CATEGORY_FLAG_COMBAT, Defines.ACTORVALUE_TWOHANDED);
-		addActorValue("$Archery", CATEGORY_FLAG_COMBAT, Defines.ACTORVALUE_MARKSMAN);
-		addActorValue("$Block", CATEGORY_FLAG_COMBAT, Defines.ACTORVALUE_BLOCK);
-		addActorValue("$Heavy Armor", CATEGORY_FLAG_COMBAT, Defines.ACTORVALUE_HEAVYARMOR);
-		addActorValue("$Light Armor", CATEGORY_FLAG_COMBAT, Defines.ACTORVALUE_LIGHTARMOR);
-		addActorValue("$Sneak", CATEGORY_FLAG_COMBAT, Defines.ACTORVALUE_SNEAK);
-		addActorValue("$Alchemy", CATEGORY_FLAG_SKILL, Defines.ACTORVALUE_ALCHEMY);
-		addActorValue("$Enchanting", CATEGORY_FLAG_SKILL, Defines.ACTORVALUE_ENCHANTING);
-		addActorValue("$Smithing", CATEGORY_FLAG_SKILL, Defines.ACTORVALUE_SMITHING);
-		addActorValue("$Lockpicking", CATEGORY_FLAG_SKILL, Defines.ACTORVALUE_LOCKPICKING);
-		addActorValue("$Pickpocket", CATEGORY_FLAG_SKILL, Defines.ACTORVALUE_PICKPOCKET);
-		addActorValue("$Speechcraft", CATEGORY_FLAG_SKILL, Defines.ACTORVALUE_SPEECHCRAFT);
-		addActorValue("$Alteration", CATEGORY_FLAG_MAGIC, Defines.ACTORVALUE_ALTERATION);
-		addActorValue("$Conjuration", CATEGORY_FLAG_MAGIC, Defines.ACTORVALUE_CONJURATION);
-		addActorValue("$Destruction", CATEGORY_FLAG_MAGIC, Defines.ACTORVALUE_DESTRUCTION);
-		addActorValue("$Illusion", CATEGORY_FLAG_MAGIC, Defines.ACTORVALUE_ILLUSION);
-		addActorValue("$Restoration", CATEGORY_FLAG_MAGIC, Defines.ACTORVALUE_RESTORATION);
+		addActorValue("$Health", CATEGORY_FLAG_GENERAL, Actor.AV_HEALTH, "pc");
+		addActorValue("$Magicka", CATEGORY_FLAG_GENERAL, Actor.AV_MAGICKA, "pc");
+		addActorValue("$Stamina", CATEGORY_FLAG_GENERAL, Actor.AV_STAMINA, "pc");
+		addActorValue("$Health Rate", CATEGORY_FLAG_GENERAL, Actor.AV_HEALRATE, "p");
+		addActorValue("$Magicka Rate", CATEGORY_FLAG_GENERAL, Actor.AV_MAGICKARATE, "p");
+		addActorValue("$Stamina Rate", CATEGORY_FLAG_GENERAL, Actor.AV_STAMINARATE, "p");
+		addActorValue("$Armor", CATEGORY_FLAG_RESISTANCES, Actor.AV_DAMAGERESIST);
+		addActorValue("$Disease Resist", CATEGORY_FLAG_RESISTANCES, Actor.AV_DISEASERESIST, "p");
+		addActorValue("$Electric Resist", CATEGORY_FLAG_RESISTANCES, Actor.AV_ELECTRICRESIST, "p");
+		addActorValue("$Fire Resist", CATEGORY_FLAG_RESISTANCES, Actor.AV_FIRERESIST, "p");
+		addActorValue("$Frost Resist", CATEGORY_FLAG_RESISTANCES, Actor.AV_FROSTRESIST, "p");
+		addActorValue("$Poison Resist", CATEGORY_FLAG_RESISTANCES, Actor.AV_POISONRESIST, "p");
+		addActorValue("$Magic Resist", CATEGORY_FLAG_RESISTANCES, Actor.AV_MAGICRESIST, "p");
+		addActorValue("$One Handed", CATEGORY_FLAG_COMBAT, Actor.AV_ONEHANDED);
+		addActorValue("$Two Handed", CATEGORY_FLAG_COMBAT, Actor.AV_TWOHANDED);
+		addActorValue("$Archery", CATEGORY_FLAG_COMBAT, Actor.AV_MARKSMAN);
+		addActorValue("$Block", CATEGORY_FLAG_COMBAT, Actor.AV_BLOCK);
+		addActorValue("$Heavy Armor", CATEGORY_FLAG_COMBAT, Actor.AV_HEAVYARMOR);
+		addActorValue("$Light Armor", CATEGORY_FLAG_COMBAT, Actor.AV_LIGHTARMOR);
+		addActorValue("$Sneak", CATEGORY_FLAG_COMBAT, Actor.AV_SNEAK);
+		addActorValue("$Alchemy", CATEGORY_FLAG_SKILL, Actor.AV_ALCHEMY);
+		addActorValue("$Enchanting", CATEGORY_FLAG_SKILL, Actor.AV_ENCHANTING);
+		addActorValue("$Smithing", CATEGORY_FLAG_SKILL, Actor.AV_SMITHING);
+		addActorValue("$Lockpicking", CATEGORY_FLAG_SKILL, Actor.AV_LOCKPICKING);
+		addActorValue("$Pickpocket", CATEGORY_FLAG_SKILL, Actor.AV_PICKPOCKET);
+		addActorValue("$Speechcraft", CATEGORY_FLAG_SKILL, Actor.AV_SPEECHCRAFT);
+		addActorValue("$Alteration", CATEGORY_FLAG_MAGIC, Actor.AV_ALTERATION);
+		addActorValue("$Conjuration", CATEGORY_FLAG_MAGIC, Actor.AV_CONJURATION);
+		addActorValue("$Destruction", CATEGORY_FLAG_MAGIC, Actor.AV_DESTRUCTION);
+		addActorValue("$Illusion", CATEGORY_FLAG_MAGIC, Actor.AV_ILLUSION);
+		addActorValue("$Restoration", CATEGORY_FLAG_MAGIC, Actor.AV_RESTORATION);
 		
 		_categoryList.entryList.push({bDontHide: true, filterFlag: 1, flag: CATEGORY_FLAG_ALL, text: "$All"});
 		_categoryList.entryList.push({bDontHide: false, filterFlag: 1, flag: CATEGORY_FLAG_GENERAL, text: "$General"});
@@ -183,7 +184,7 @@ class ActorStatsPanel extends MovieClip
 	
 	public function setActorStatsPanelForm(a_object: Object): Void
 	{
-		if(a_object.formType == Defines.FORMTYPE_LIST)
+		if(a_object.formType == Form.FORMTYPE_LIST)
 		{
 			_subList.clearList();
 			for(var i = 0; i < a_object.forms.length; i++) {

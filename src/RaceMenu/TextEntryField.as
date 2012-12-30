@@ -1,8 +1,10 @@
 ﻿import gfx.events.EventDispatcher;
-import skyui.components.ButtonPanel;
 import gfx.ui.InputDetails;
 import gfx.ui.NavigationCode;
 import Shared.GlobalFunc;
+
+import skyui.components.ButtonPanel;
+import skyui.defines.Input;
 
 class TextEntryField extends MovieClip
 {
@@ -54,8 +56,8 @@ class TextEntryField extends MovieClip
 	public function SetupButtons(): Void
 	{
 		buttonPanel.clearButtons();
-		_acceptButton = buttonPanel.addButton({text: "$Accept", controls: InputDefines.Accept});
-		_cancelButton = buttonPanel.addButton({text: "$Cancel", controls: InputDefines.Cancel});
+		_acceptButton = buttonPanel.addButton({text: "$Accept", controls: Input.Accept});
+		_cancelButton = buttonPanel.addButton({text: "$Cancel", controls: Input.Cancel});
 		_acceptButton.addEventListener("click", this, "onAccept");
 		_cancelButton.addEventListener("click", this, "onCancel");
 		buttonPanel.updateButtons(true);
