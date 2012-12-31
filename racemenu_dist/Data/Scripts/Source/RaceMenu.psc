@@ -204,8 +204,8 @@ Event OnTintColorChange(string eventName, string strArg, float numArg, Form form
 	int type = arg / 1000
 	int index = arg - (type * 1000)
 	Game.SetTintMaskColor(color, type, index)
-	_playerActor.QueueNiNodeUpdate()
-	;Game.UpdateTintMaskColors()
+	;_playerActor.QueueNiNodeUpdate()
+	Game.UpdateTintMaskColors()
 EndEvent
 
 Event OnTintTextureChange(string eventName, string strArg, float numArg, Form formArg)
