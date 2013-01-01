@@ -193,7 +193,7 @@ EndFunction
 
 Event OnHairColorChange(string eventName, string strArg, float numArg, Form formArg)
 	_color = strArg as int
-	_hairColor.SetColor(_color)
+ 	_hairColor.SetColor(_color)
 	_playerActorBase.SetHairColor(_hairColor)
 	Game.UpdateHairColor()
 EndEvent
@@ -486,11 +486,9 @@ EndFunction
 Function UpdateRaces()
 	int totalRaces = Race.GetNumPlayableRaces()
 	int i = 0
-	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_BeginExtend")
 	While i < totalRaces
 		Race playableRace = Race.GetNthPlayableRace(i)
 		UI.InvokeForm(RACESEX_MENU, MENU_ROOT + "RSM_ExtendRace", playableRace)
 		i += 1
 	EndWhile
-	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_EndExtend")
 EndFunction

@@ -44,6 +44,14 @@ Event OnGameReload()
 	OnReloadSettings(_playerActor, _playerActorBase)
 EndEvent
 
+Event OnChangeRace(Actor akActor)
+	; Do nothing
+EndEvent
+
+Event On3DLoaded(ObjectReference akRef)
+	; Do nothing
+EndEvent
+
 Event OnStartup()
 	RegisterForModEvent("RSM_Initialized", "OnMenuInitialized")
 	RegisterForModEvent("RSM_Reinitialized", "OnMenuReinitialized")

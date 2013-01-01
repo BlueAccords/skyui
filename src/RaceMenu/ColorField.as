@@ -17,8 +17,8 @@ class ColorField extends MovieClip
 	
 	private var _acceptButton: Object;
 	private var _cancelButton: Object;
-	private var _currentColor: Number = 0;
-	public var _currentSlider: Number = 0;
+	private var _currentColor: Number;
+	public var _currentSlider: Number;
 
 	public var dispatchEvent: Function;
 	public var dispatchQueue: Function;
@@ -31,6 +31,8 @@ class ColorField extends MovieClip
 	public function ColorField()
 	{
 		super();
+		_currentColor = 0;
+		_currentSlider = 0;
 		EventDispatcher.initialize(this);
 		colorText.textAutoSize = "shrink";
 	}
@@ -136,16 +138,16 @@ class ColorField extends MovieClip
 	
 	public function onSliderChange(event: Object): Void
 	{
-		dispatchEvent({type: "changeColor", color: (event.color | event.alpha << 24)});
+		dispatchEvent({type: "changeColor", color: (event.color | event.alpha << 24), apply: false});
 	}
 
 	public function onAccept(): Void
 	{
-		dispatchEvent({type: "setColor", color: (colorSelector.getColor() | colorSelector.getAlpha() << 24)});
+		dispatchEvent({type: "changeColor", color: (colorSelector.getColor() | colorSelector.getAlpha() << 24), apply: true});
 	}
 
 	public function onCancel(): Void
 	{
-		dispatchEvent({type: "setColor", color: _currentColor});
+		dispatchEvent({type: "changeColor", color: _currentColor >> 0, apply: true}); // Shift to make signed
 	}
 }

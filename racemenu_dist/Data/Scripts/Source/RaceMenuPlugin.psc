@@ -25,6 +25,10 @@ Event OnReloadSettings(Actor player, ActorBase playerBase)
 	player.QueueNiNodeUpdate()
 EndEvent
 
+Event On3DLoaded(ObjectReference akRef)
+	OnReloadSettings(_playerActor, _playerActorBase)
+EndEvent
+
 ; Add Custom Warpaint here
 Event OnWarpaintRequest()
 	AddWarpaint("$Beauty Mark 01", "Actors\\Character\\Character Assets\\TintMasks\\BeautyMark_01.dds")

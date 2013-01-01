@@ -35,7 +35,8 @@ class RaceMenu extends MovieClip
 	private var _sortFilter: ItemSorter;
 	private var _playerObject: Object;
 	
-	private var updateInterval: Number;
+	private var _updateInterval: Number;
+	private var _pendingData: Object;
 	
 	// Tint Parameters
 	private var _tintTypes: Array;
@@ -43,7 +44,6 @@ class RaceMenu extends MovieClip
 	private var _tintTextures: Array;
 		
 	private var _raceList: Array;
-	private var _extendIndex: Number = 0;
 	
 	/* CONTROLS */
 	private var _activateControl: Object;
@@ -58,14 +58,13 @@ class RaceMenu extends MovieClip
 	public var playerZoom: Boolean = true;
 	public var bShowLight: Boolean = true;
 	public var bTextEntryMode: Boolean = false;
-	public var bExtendRaceMode: Boolean = false;
 	public var bSlidersInitialized: Boolean = false;
 	
 	public var customSliders: Array;
 	
 	/* STAGE ELEMENTS */
 	public var racePanel: MovieClip;
-	public var itemList: ScrollingList;
+	public var itemList: RaceMenuList;
 	public var categoryList: CategoryList;
 	public var categoryLabel: TextField;
 	public var searchWidget: SearchWidget;
@@ -183,9 +182,7 @@ class RaceMenu extends MovieClip
 		searchWidget.addEventListener("inputChange", this, "onSearchInputChange");
 		
 		textEntry.addEventListener("nameChange", this, "onNameChange");
-		colorField.addEventListener("setColor", this, "onSetColor");
 		colorField.addEventListener("changeColor", this, "onChangeColor");
-		makeupPanel.addEventListener("setTexture", this, "onSetTexture");
 		makeupPanel.addEventListener("changeTexture", this, "onChangeTexture");
 		
 		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face"];
@@ -385,16 +382,7 @@ class RaceMenu extends MovieClip
 				return true;
 			}
 			
-			var SelectedEntry = itemList.listState.selectedEntry;
-			if (SelectedEntry && SelectedEntry.type == RaceMenuDefines.ENTRY_TYPE_SLIDER && (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT)) {
-				var SelectedSlider = itemList.selectedClip.SliderInstance;
-				var handledInput: Boolean = false;
-				handledInput = SelectedSlider.handleInput(details, pathToFocus);
-				itemList.UpdateList();
-				return handledInput;
-			} else if(!SelectedEntry && (details.navEquivalent == NavigationCode.LEFT || details.navEquivalent == NavigationCode.RIGHT)) {
-				return categoryList.handleInput(details, pathToFocus);
-			} else if(details.navEquivalent === NavigationCode.GAMEPAD_L2) {
+			if(details.navEquivalent === NavigationCode.GAMEPAD_L2) {
 				categoryList.moveSelectionLeft();
 				return true;
 			} else if(details.navEquivalent === NavigationCode.GAMEPAD_R2) {
@@ -404,6 +392,10 @@ class RaceMenu extends MovieClip
 		}
 		
 		if(itemList.handleInput(details, pathToFocus)) {
+			return true;
+		}
+		
+		if(categoryList.handleInput(details, pathToFocus)) {
 			return true;
 		}
 		
@@ -446,8 +438,8 @@ class RaceMenu extends MovieClip
 	public function ShowColorField(bShowField: Boolean): Void
 	{
 		colorField._visible = colorField.enabled = bShowField;
+		colorField.ResetSlider();
 		if(bShowField) {
-			colorField.ResetSlider();
 			FocusHandler.instance.setFocus(colorField.colorSelector, 0);
 		} else {
 			FocusHandler.instance.setFocus(itemList, 0);
@@ -708,59 +700,25 @@ class RaceMenu extends MovieClip
 		GameDelegate.call("PlaySound",["UIMenuFocus"]);
 	}
 		
-	public function onSetTexture(event: Object): Void
-	{
-		if(event.texture != undefined)
-		{
-			var selectedEntry = itemList.listState.selectedEntry;
-			if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP) {
-				selectedEntry.text = event.displayText;
-				selectedEntry.texture = event.texture;
-				if(!updateInterval) {
-					updateInterval = setInterval(this, "doUpdateMakeupTexture", 100, selectedEntry.tintType, selectedEntry.tintIndex, event.texture);
-				}
-			}
-			
-			itemList.requestUpdate();
-		}
-		
-		ShowMakeupPanel(false);
-	}
-	
 	public function onChangeTexture(event: Object): Void
 	{
 		if(event.texture != undefined)
 		{
 			var selectedEntry = itemList.listState.selectedEntry;
 			if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP) {
-				if(!updateInterval) {
-					updateInterval = setInterval(this, "doUpdateMakeupTexture", 100, selectedEntry.tintType, selectedEntry.tintIndex, event.texture);
+				if(event.apply) {
+					selectedEntry.text = event.displayText;
+					selectedEntry.texture = event.texture;
 				}
-			}
-		}
-	}
-	
-	public function onSetColor(event: Object): Void
-	{
-		if(event.color != undefined)
-		{
-			var selectedEntry = itemList.listState.selectedEntry;
-			if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
-				selectedEntry.fillColor = event.color;
-				if(!updateInterval) {
-					updateInterval = setInterval(this, "doUpdateSliderColor", 100, selectedEntry.sliderID, event.color);
-				}
-			} else if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP) {
-				selectedEntry.fillColor = event.color;
-				if(!updateInterval) {
-					updateInterval = setInterval(this, "doUpdateMakeupColor", 100, selectedEntry.tintType, selectedEntry.tintIndex, event.color);
-				}
+				requestUpdate({type: "makeupTexture", tintType: selectedEntry.tintType, tintIndex: selectedEntry.tintIndex, replacementTexture: event.texture});
 			}
 			
-			itemList.requestUpdate();
+			if(event.apply)
+				itemList.requestUpdate();
 		}
 		
-		ShowColorField(false);
+		if(event.apply)
+			ShowMakeupPanel(false);
 	}
 	
 	public function onChangeColor(event: Object): Void
@@ -769,40 +727,52 @@ class RaceMenu extends MovieClip
 		{
 			var selectedEntry = itemList.listState.selectedEntry;
 			if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
-				if(!updateInterval) {
-					updateInterval = setInterval(this, "doUpdateSliderColor", 100, selectedEntry.sliderID, event.color);
-				}
+				if(event.apply)
+					selectedEntry.fillColor = event.color;
+				requestUpdate({type: "sliderColor", sliderID: selectedEntry.sliderID, argbColor: event.color});
 			} else if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP) {
-				if(!updateInterval) {
-					updateInterval = setInterval(this, "doUpdateMakeupColor", 100, selectedEntry.tintType, selectedEntry.tintIndex, event.color);
-				}
+				if(event.apply)
+					selectedEntry.fillColor = event.color;
+				requestUpdate({type: "makeupColor", tintType: selectedEntry.tintType, tintIndex: selectedEntry.tintIndex, argbColor: event.color});
 			}
+			
+			if(event.apply)
+				itemList.requestUpdate();
+		}
+		
+		if(event.apply)
+			ShowColorField(false);
+	}
+	
+	public function requestUpdate(pendingData: Object)
+	{
+		_pendingData = pendingData;
+		if(!_updateInterval) {
+			_updateInterval = setInterval(this, "processDataUpdate", 100);
 		}
 	}
 	
-	public function doUpdateMakeupTexture(tintType: Number, tintIndex: Number, replacementTexture: String): Void
+	public function processDataUpdate()
 	{
-		SendPlayerTexture(tintType, tintIndex, replacementTexture);
-		clearInterval(updateInterval);
-		delete updateInterval;
-	}
-	
-	public function doUpdateMakeupColor(tintType: Number, tintIndex: Number, argbColor: Number): Void
-	{
-		SendPlayerTint(tintType, tintIndex, argbColor);
-		clearInterval(updateInterval);
-		delete updateInterval;
-	}
-	
-	public function doUpdateSliderColor(sliderID: Number, argbColor: Number): Void
-	{
-		setPlayerColor(sliderID, argbColor);
-		clearInterval(updateInterval);
-		delete updateInterval;
+		switch(_pendingData.type) {
+			case "makeupTexture":
+			SendPlayerTexture(_pendingData.tintType, _pendingData.tintIndex, _pendingData.replacementTexture);
+			break;
+			case "makeupColor":
+			SendPlayerTint(_pendingData.tintType, _pendingData.tintIndex, _pendingData.argbColor);
+			break;
+			case "sliderColor":
+			SendPlayerTintBySlider(_pendingData.sliderID, _pendingData.argbColor);
+			break;
+		}
+		
+		clearInterval(_updateInterval);
+		delete _updateInterval;
+		delete _pendingData;
 	}
 	
 	// This function is a mess right now
-	public function setPlayerColor(sliderID: Number, argbColor: Number): Void
+	public function SendPlayerTintBySlider(sliderID: Number, argbColor: Number): Void
 	{
 		var tintType: Number = -1;
 		var tintIndex: Number = 0;
@@ -871,16 +841,16 @@ class RaceMenu extends MovieClip
 	
 	private function onItemPress(event: Object): Void
 	{
-		var entryObject: Object = itemList.entryList[event.index];
-		if(entryObject != itemList.listState.activeEntry && entryObject.type == RaceMenuDefines.ENTRY_TYPE_RACE) {
-			itemList.listState.activeEntry = entryObject;
+		var pressedEntry: Object = itemList.entryList[event.index];
+		if(pressedEntry != itemList.listState.activeEntry && pressedEntry.type == RaceMenuDefines.ENTRY_TYPE_RACE) {
+			itemList.listState.activeEntry = pressedEntry;
 			itemList.requestUpdate();
 			loadingIcon._visible = true;
-			GameDelegate.call("ChangeRace", [entryObject.raceID, -1]);
+			GameDelegate.call("ChangeRace", [pressedEntry.raceID, -1]);
 			playerZoom = true; // Reset zoom, this happens when race is changed
-		} else if((entryObject.filterFlag & RaceMenuDefines.CATEGORY_COLOR) || (entryObject.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP)) {
-			colorField.setText(entryObject.text);
-			colorField.setColor(entryObject.fillColor);
+		} else if((pressedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) || (pressedEntry.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP)) {
+			colorField.setText(pressedEntry.text);
+			colorField.setColor(pressedEntry.fillColor);
 			ShowColorField(true);
 		}/* else {
 			itemList.listState.focusEntry = entryObject;
@@ -891,11 +861,12 @@ class RaceMenu extends MovieClip
 	
 	private function onSelectionChange(event: Object): Void
 	{
-		itemList.listState.selectedEntry = itemList.entryList[event.index];
-		if(itemList.listState.selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE) {
-			raceDescription.textField.SetText(itemList.listState.selectedEntry.raceDescription);
+		var selectedEntry: Object = itemList.entryList[event.index];
+		itemList.listState.selectedEntry = selectedEntry;
+		if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE) {
+			raceDescription.textField.SetText(selectedEntry.raceDescription);
 			ShowRaceDescription(true);
-			ShowRaceBonuses(_raceList[itemList.listState.selectedEntry.raceID], true);
+			ShowRaceBonuses(_raceList[selectedEntry.raceID], true);
 		} else {
 			ShowRaceBonuses(null, false);
 			ShowRaceDescription(false);
@@ -967,7 +938,7 @@ class RaceMenu extends MovieClip
 		return "UNKAV " + a_actorValue;
 	}
 	
-	private function SetSliderColors(a_update: Boolean): Void
+	private function SetSliderColors(): Void
 	{
 		var typesSet: Array = new Array();
 		for(var i = 0; i < _tintTypes.length; i++) {
@@ -991,10 +962,6 @@ class RaceMenu extends MovieClip
 						typesSet.push(_tintTypes[i]);
 				}
 			}
-		}
-		
-		if(a_update) {
-			itemList.requestUpdate();
 		}
 	}
 	
@@ -1072,30 +1039,20 @@ class RaceMenu extends MovieClip
 	
 	public function RSM_EndSettings()
 	{
-		SetSliderColors(false);
+		SetSliderColors();
 		SetMakeup(_tintTypes, _tintColors, _tintTextures, RaceMenuDefines.TINT_TYPE_WARPAINT);
 		
 		delete _tintTypes;
 		delete _tintColors;
 		delete _tintTextures;
 	}
-	
-	public function RSM_BeginExtend()
-	{
-		bExtendRaceMode = true;
-	}
-	
+		
 	public function RSM_ExtendRace(a_object: Object)
 	{
 		if(a_object.formId != undefined) {
 			skse.ExtendForm(a_object.formId, a_object, true, false);
 		}
 		_raceList.push(a_object);
-	}
-	
-	public function RSM_EndExtend()
-	{
-		bExtendRaceMode = false;
 	}
 	
 	/* Clipboard functions */

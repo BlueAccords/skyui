@@ -76,6 +76,23 @@ class SliderListEntry extends BasicListEntry
 		}
 	}
 	
+	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
+	{
+		var list = _parent;		
+		var entryObject = list.selectedEntry;
+		var selectedClip = list.selectedClip;
+		if(entryObject.type != RaceMenuDefines.ENTRY_TYPE_SLIDER)
+			return false;
+		
+		var handledInput: Boolean = SliderInstance.handleInput(details, pathToFocus);
+		if(handledInput) {
+			list.requestUpdate();
+			return true;
+		}
+		
+		return false;
+	}
+	
 	public function onLoad()
 	{
 		super.onLoad();

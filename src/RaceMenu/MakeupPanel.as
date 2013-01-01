@@ -140,7 +140,7 @@ class MakeupPanel extends MovieClip
 	{
 		var entryObject: Object = makeupList.entryList[event.index];
 		if(entryObject) {
-			dispatchEvent({type: "setTexture", texture: entryObject.texture, displayText: entryObject.displayText});
+			dispatchEvent({type: "changeTexture", texture: entryObject.texture, displayText: entryObject.displayText, apply: true});
 		}
 	}
 	
@@ -148,20 +148,20 @@ class MakeupPanel extends MovieClip
 	{
 		var selectedEntry = makeupList.listState.selectedEntry;
 		if(selectedEntry) {
-			dispatchEvent({type: "setTexture", texture: selectedEntry.texture, displayText: selectedEntry.displayText});
+			dispatchEvent({type: "changeTexture", texture: selectedEntry.texture, displayText: selectedEntry.displayText, apply: true});
 		}
 	}
 
 	public function onCancel(): Void
 	{
-		dispatchEvent({type: "setTexture", texture: _currentTexture, displayText: _currentDisplayText});
+		dispatchEvent({type: "changeTexture", texture: _currentTexture, displayText: _currentDisplayText, apply: true});
 	}
 	
 	public function onSelectionChanged(event: Object): Void
 	{
 		makeupList.listState.selectedEntry = makeupList.entryList[event.index];
 		if(makeupList.listState.selectedEntry) {
-			dispatchEvent({type: "changeTexture", texture: makeupList.listState.selectedEntry.texture, displayText: makeupList.listState.selectedEntry.displayText});
+			dispatchEvent({type: "changeTexture", texture: makeupList.listState.selectedEntry.texture, displayText: makeupList.listState.selectedEntry.displayText, apply: false});
 		}
 		GameDelegate.call("PlaySound",["UIMenuFocus"]);
 	}
