@@ -1,5 +1,7 @@
 Interface\racesex_menu.swf
-Interface\skyui\racesex_icons.swf
+Interface\racemenu\racesex_icons.swf
+Interface\racemenu\bottombar.swf
+Interface\racemenu\buttonArt.swf
 Interface\translations\RaceMenu_ENGLISH.txt
 Interface\translations\RaceMenu_czech.txt
 Interface\translations\RaceMenu_french.txt

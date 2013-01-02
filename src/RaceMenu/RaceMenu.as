@@ -186,7 +186,7 @@ class RaceMenu extends MovieClip
 		makeupPanel.addEventListener("changeTexture", this, "onChangeTexture");
 		
 		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face"];
-		categoryList.listState.iconSource = "skyui/racesex_icons.swf";
+		categoryList.listState.iconSource = "racemenu/racesex_icons.swf";
 		
 		_sortFilter.setSortBy(["text"], [0]);
 				
