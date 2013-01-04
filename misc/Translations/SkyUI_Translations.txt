@@ -5,9 +5,9 @@ $FILTER	FILTER	FILTRE	FILTER	FILTRO	FILTRO	FILTR	FILTR	ФИЛЬТР	フィルタ
 $STOLEN	STOLEN	VOLÉ	GESTOHLEN	RUBATO	ROBADO	KRADENÉ	SKRADZIONE	УКРАДЕНО	盗品
 $EQUIPPED	EQUIPPED	ÉQUIPÉ	AUSGERÜSTET	EQUIPAGGIATO	EQUIPADO	POUŽÍVANÉ	WYPOSAŻONY	НАДЕТО	装備品
 $ENCHANTED	ENCHANTED	ENCHANTÉ	VERZAUBERT	INCANTATO	ENCANTADO	OČAROVANÉ	ZACZAROWANY	ЗАЧАРОВАНО	エンチャント
-$V/W	V/W	V/P	W/G	V/P	V/P	C/H	C/W	Ц/В	V/W
+$V/W	V/W	V/P	W/G	V/P	V/P	C/H	C/W	Ц/В	金額/重量
 $VALUE/WEIGHT	VALUE/WEIGHT	VALEUR/POIDS	WERT/GEWICHT	VALORE/PESO	VALOR/PESO	CENA/HMOTNOST	CENA/WAGA	ЦЕНА/ВЕС	金額/重量
-$SPELL COST	SPELL COST	COÛT MAGIQUE	KOSTEN	COSTO	COSTO	MANA	WYDATEK MAGICKI	СТОИМОСТЬ	コスト
+$SPELL COST	SPELL COST	COÛT MAGIQUE	KOSTEN	COSTO	COSTO	MANA	KOSZT CZARU	СТОИМОСТЬ	コスト
 $FIRST WORD	FIRST WORD	PREMIER MOT	ERSTES WORT	PRIMA PAROLA	PRIMERA PALABRA	PRVNÍ SLOVO	PIERWSZY WYRAZ	ПЕРВОЕ СЛОВО	第一の言葉
 $SECOND WORD	SECOND WORD	DEUXIÈME MOT	ZWEITES WORT	SECONDA PAROLA	SEGUNDA PALABRA	DRUHÉ SLOVO	DRUGI WYRAZ	ВТОРОЕ СЛОВО	第二の言葉
 $THIRD WORD	THIRD WORD	TROISIÈME MOT	DRITTES WORT	TERZA PAROLA	TERCERA PALABRA	TŘETÍ SLOVO	TRZECI WYRAZ	ТРЕТЬЕ СЛОВО	第三の言葉
@@ -22,12 +22,12 @@ $MAT	MAT	MAT	MAT	MAT	MAT	MAT	MAT	МАТ	材料
 $CLASS	CLASS	CLASSE	KLASSE	CLASSE	CLASE	TŘÍDA	KLASA	КЛАСС	分類
 $MAGNITUDE	MAGNITUDE	MAGNITUDE	STÄRKE	MAGNITUDO	MAGNITUD	SÍLA	WIELKOŚĆ	ВЕЛИЧИНА	効力
 $MAG	MAG	MAG	STÄ	MAG	MAG	SIL	WLK	ВЕЛ	効力
-$DURATION	DURATION	DURÉE	DAUER	DURATA	DURACIÓN	TRVÁNÍ	CZAS TRWANIA	ПРОДОЛЖИТЕЛЬНОСТЬ	
-$DUR	DUR	DUR	DAU	DUR	DUR	TRV		ПРОД	
+$DURATION	DURATION	DURÉE	DAUER	DURATA	DURACIÓN	TRVÁNÍ	CZAS TRWANIA	ПРОДОЛЖИТЕЛЬНОСТЬ	期限
+$DUR	DUR	DUR	DAU	DUR	DUR	TRV	TRW	ПРОД	期限
 $TIME	TIME	TEMPS	ZEIT	TEMPO	TIEMPO	ČAS	CZAS	ВРЕМЯ	時間
 $DAM	DAM	DOMM	SCHA	DANNI	DAÑO	POŠK	OBR	УРОН	ダメージ
 $WGT	WGT	PDS	GEW	PESO	PESO	HMOT	WAG	ВЕС	重量
-$VAL	VAL	VAL	WERT	VAL	VAL	CEN	CEN	ЦЕНА	金額
+$VAL	VAL	VAL	WERT	VAL	VAL	CENA	CEN	ЦЕНА	金額
 $ARM	ARM	ARM	RÜST	ARM	ARM	ZBR	ZBR	БРОНЯ	防御
 									
 $Armor	Armor	Armure	Rüstung	Armatura	Armadura	Zbroj	Zbroja	Защита	防具
@@ -48,24 +48,24 @@ $Amulet	Amulet	Amulette	Amulett	Amuleto	Amuleto	Amulet	Amulet	Ожерелье	�
 $Ring	Ring	Anneau	Ring	Anello	Anillo	Prsten	Pierścień	Кольцо	指輪
 $Mask	Mask	Masque	Maske	Maschera	Máscara	Maska	Maska	Маска	仮面
 $Circlet	Circlet	Couronne	Diadem	Tiara	Aro	Čelenka	Diadem	Обруч	サークレット
-$Ears	Ears	Oreilles	Ohren	Orecchie	Orejas	Uši	Uszy	Уши	
-$Tail	Tail	Queue	Schwanz	Coda	Cola	Ocas	Ogon	Хвост	
+$Ears	Ears	Oreilles	Ohren	Orecchie	Orejas	Uši	Uszy	Уши	耳
+$Tail	Tail	Queue	Schwanz	Coda	Cola	Ocas	Ogon	Хвост	尻尾
 									
 $Weapon	Weapon	Arme	Waffe	Arma	Arma	Zbraň	Broń	Оружие	武器
-$Melee	Melee	Corps à corps	Nahkampf	Corpo a Corpo	Cuerpo a cuerpo	Pěsti	Pięści / Gołe pięści	Схватка	
+$Melee	Melee	Corps à Corps	Nahkampf	Corpo a Corpo	Cuerpo a Cuerpo	Pěsti	Pięści	Схватка	挌闘
 $Sword	Sword	Épée	Schwert	Spada	Espada	Meč	Miecz	Меч	剣
 $Dagger	Dagger	Dague	Dolch	Pugnale	Daga	Dýka	Sztylet	Кинжал	ダガー
-$War Axe	War Axe	Hache	Kriegsaxt	Ascia	Hacha	Válečná Sekera	Topór bojowy	Боевой топор	片手斧
+$War Axe	War Axe	Hache	Kriegsaxt	Ascia	Hacha de guerra	Válečná Sekera	Topór Bojowy	Боевой топор	片手斧
 $Mace	Mace	Masse	Streitkolben	Mazza	Maza	Palcát	Buława	Булава	メイス
-$Greatsword	Greatsword	Espadon	Zweihänder	Spadone	Mandoble	Obouruční Meč	Wielki miecz	Двуручный меч	グレートソード
-$Warhammer	Warhammer	Marteau	Kriegshammer	Martello	Martillo	Kladivo	Młot bojowy	Боевой молот	戦鎚
-$Battleaxe	Battleaxe	Hache de guerre	Streitaxt	Ascia	Hacha	Bojová Sekera	Topór bitewny	Секира	両手斧
+$Greatsword	Greatsword	Espadon	Zweihänder	Spadone	Mandoble	Obouruční Meč	Wielki Miecz	Двуручный меч	グレートソード
+$Warhammer	Warhammer	Marteau	Kriegshammer	Martello	Martillo	Kladivo	Młot Bojowy	Боевой молот	戦鎚
+$Battleaxe	Battleaxe	Hache de Guerre	Streitaxt	Ascia	Hacha de combate	Bojová Sekera	Topór Bitewny	Секира	両手斧
 $Bow	Bow	Arc	Bogen	Arco	Arco	Luk	Łuk	Лук	弓
-$Staff	Staff	Bâton	Stab	Bastone	Bastón	Hůl	Laska	Посох	杖
+$Staff	Staff	Bâton	Stab	Bastone	Bastón	Hůl	Kostur	Посох	杖
 $Crossbow	Crossbow	Arbalète	Armbrust	Balestra	Ballesta	Kuše	Kusza	Арбалет	クロスボウ
 $Spear	Spear	Lance	Speer	Lancia	Lanza	Kopí	Włócznia	Копьё	槍
 $Pickaxe	Pickaxe	Pioche	Spitzhacke	Piccone	Pico	Krumpáč	Kilof	Кирка	つるはし
-$Wood Axe	Wood Axe	Hache	Holzaxt	Accetta del taglialegna	Hacha de leñador	Sekera na dřevo	Topór / Topór drwala	Колун	木こりの斧
+$Wood Axe	Wood Axe	Hache	Holzaxt	Accetta del Taglialegna	Hacha de Leñador	Sekera na Dřevo	Siekiera Drwala	Колун	木こりの斧
 									
 $Arrow	Arrow	Flèche	Pfeil	Freccia	Flecha	Šíp	Strzała	Стрела	矢
 $Bolt	Bolt	Carreau	Bolzen	Dardo	Virote	Šipka	Bełt	Болт	ボルト
@@ -77,19 +77,20 @@ $Drink	Drink	Boisson	Getränk	Bevanda	Bebida	Pití	Napój	Напиток	飲料
 									
 $Scroll	Scroll	Parchemin	Schriftrolle	Pergamena	Pergamino	Svitek	Zwój	Свиток	巻物
 $Book	Book	Livre	Buch	Libro	Libro	Kniha	Książka	Книга	書物
-$Spell Tome	Spell Tome	Livre de sort	Zauberbuch	Libro di Incantesimi	Grimorio	Kniha Kouzel	Księga czaru	Том Заклинаний	呪文の書
+$Spell Tome	Spell Tome	Livre de sort	Zauberbuch	Libro di Incantesimi	Grimorio	Kniha Kouzel	Księga Czaru	Том Заклинаний	呪文の書
 $Recipe	Recipe	Recette	Rezept	Ricetta	Receta	Recept	Przepis	Рецепт	レシピ
 $Note	Note	Note	Notiz	Nota	Nota	Poznámka	Notatka	Записка	ノート
 $Map	Map	Carte	Karte	Mappa	Mapa	Mapa	Mapa	Карта	地図
 									
 $Ingredient	Ingredient	Ingrédient	Zutat	Ingrediente	Ingrediente	Přísada	Składnik	Ингредиент	材料
 									
-$Misc	Misc	Divers	Diverses	Varie	Misc	Různé	Pozostałe	Разное	その他
-$Gem	Gem	Gemme	Edelstein	Gemma	Gema	Drahokam	Kamień szlachetny	Драгоценный камень	宝石
-$Tool	Tool	Outil	Werkzeug	Utensile	Util	Nástroj	Narzędzie	Инструмент	道具
+$Misc	Misc	Divers	Diverses	Varie	Varios	Různé	Pozostałe	Разное	その他
+$Lockpick	Lockpick	Crochet	Dietrich	Grimaldello	Ganzúa	Šperhák	Wytrych	Отмычка	ロックピック
+$Gem	Gem	Gemme	Edelstein	Gemma	Gema	Drahokam	Kamień Szlachetny	Драгоценный Камень	宝石
+$Tool	Tool	Outil	Werkzeug	Utensile	Herramienta	Nástroj	Narzędzie	Инструмент	道具
 $Remains	Remains	Restes	Überreste	Resti	Restos	Pozůstatky	Szczątki	Останки	遺骨
 $Leather	Leather	Cuir	Leder	Pelle	Cuero	Kůže	Skórzany	Кожа	革
-$Strips	Strips	Bandes	Streifen	strisce	Tiras	Odřezky	Paski	Полоски кожи	ひも
+$Strips	Strips	Bandes	Streifen	Strisce	Tiras	Odřezky	Paski	Полоски Кожи	ひも
 $Hide	Hide	Cacher	Haut	Pelle	Piel	Useň	Skóra	Шкура	皮
 $Ore	Ore	Minerai	Erz	Minerale	Mineral	Ruda	Ruda	Руда	鉱石
 $Ingot	Ingot	Lingot	Barren	Lingotto	Lingote	Ingot	Sztaba	Слиток	インゴット
@@ -97,12 +98,12 @@ $Claw	Claw	Griffe	Klaue	Artiglio	Garra	Spár	Szpon	Коготь	爪
 $Clutter	Clutter	Autres	Zeug	Altro	Otros	Krámy	Klamoty	Хлам	雑貨
 $Torch	Torch	Torche	Fackel	Torcia	Antorcha	Pochodeň	Pochodnia	Факел	たいまつ
 $Key	Key	Clé	Schlüssel	Chiave	Llave	Klíč	Klucz	Ключ	鍵
-$Soul Gem	Soul Gem	Gemme spirituelle	Seelenstein	Gemma dell'anima	Gema de alma	Kámen duší	Kamień dusz	Камень душ	魂石
-$Firewood	Firewood	Feu de bois	Feuerholz	Legna da ardere	Leña	Dřevo	Drewno / Drewno opałowe	Полено	薪
+$Soul Gem	Soul Gem	Gemme Spirituelle	Seelenstein	Gemma Dell'Anima	Gema de Alma	Kámen Duší	Klejnot Duszy	Камень Душ	魂石
+$Firewood	Firewood	Feu de Bois	Feuerholz	Legna da Ardere	Leña	Dřevo	Drewno Opałowe	Полено	薪
 $Gold	Gold	Or	Gold	Oro	Oro	Zlato	Złoto	Золото	ゴールド
-$Artifact	Artifact	Artefact	Artefakt	Artefatto	Artefacto	Artefakt	Arefakt	Артефакт	アーティファクト
+$Artifact	Artifact	Artefact	Artefakt	Artefatto	Artefacto	Artefakt	Artefakt	Артефакт	アーティファクト
 $Toy	Toy	Jouet	Spielzeug	Giocattolo	Juguete	Hračka	Zabawka	Игрушка	玩具
-$House Part	House Part	Partie de maison	Hausbau	Parte della casa	Parte de la casa	Část domu	Część domu	Часть дома	建材
+$House Part	House Part	Partie de Maison	Hausbau	Parte della Casa	Parte de la Casa	Část Domu	Część Domu	Часть Дома	建材
 									
 $Spell	Spell	Sort	Zauber	Incantesimo	Hechizo	Kouzlo	Zaklęcie	Заклинание	スペル
 $Alteration	Alteration	Altération	Veränderung	Alterazione	Alteración	Proměna	Przemiana	Изменение	変性
@@ -111,96 +112,96 @@ $Illusion	Illusion	Illusion	Illusion	Illusione	Ilusión	Iluze	Iluzja	Иллюз�
 $Restoration	Restoration	Restauration	Wiederherstellung	Recupero	Restauración	Obnovení	Przywrócenie	Восстановление	回復
 									
 $Other	Other	Autre	Andere	Altro	Otros	Jiné	Inne	Другое	その他
-$Magical	Magical	Magique	Magisch	Magico	Mágico	Magické	Magiczny	Магическое	魔法
-$Daedric	Daedric	Daedrique	Daedrisch	Daedrico	Daedrico	Daedrické	Deadryczny	Даэдрическое	デイドラ
-$Dragonplate	Dragonplate	Plates draconique	Drachenknochen	Piastre di Drago	Placas de dragón	Dračí pláty	Smoczy - Płytowy	Драконье панцерное	ドラゴンプレート
-$Nightingale	Nightingale	Rossignol	Nachtigall	Nightingale	Ruiseñor	Slavičí	Słowiczy	Соловьиное	ナイチンゲール
+$Magical	Magical	Magique	Magisch	Magico	Mágica	Magické	Magiczny	Магическое	魔法
+$Daedric	Daedric	Daedrique	Daedrisch	Daedrico	Daédrica	Daedrické	Deadryczny	Даэдрическое	デイドラ
+$Dragonplate	Dragonplate	Plates Draconique	Drachenknochen	Piastre di Drago	Placas de Dragón	Dračí Pláty	Smoczy - Płytowy	Драконье Панцерное	ドラゴンプレート
+$Nightingale	Nightingale	Rossignol	Nachtigall	Nightingale	Ruiseñor	Slavíci	Słowiczy	Соловьиное	ナイチンゲール
 $Ebony	Ebony	Ébonite	Ebenerz	Ebano	Ébano	Ebenit	Ebonowy	Эбонитовое	黒檀
-$Dragonscale	Dragonscale	Écaille de dragon	Drachenschuppen	Scaglie di Drago	Escamas de dragón	Dračí šupiny	Smoczy - Łuskowy	Драконье чешуйчатое	ドラゴンスケール
-$Orcish	Orcish	Orque	Orkisch	Orchesco	Orco	Orkský	Orkowy	Орочье	オーク
-$Steel Plate	Steel Plate	Plates	Stahlharnisch	Piastre d'acciaio	Placas de acero	Ocelové pláty	Stalowy - Płytowy	Стальное пластинчатое	スチールプレート
+$Dragonscale	Dragonscale	Écaille de Dragon	Drachenschuppen	Scaglie di Drago	Escamas de Dragón	Dračí Šupiny	Smoczy - Łuskowy	Драконье Чешуйчатое	ドラゴンスケール
+$Orcish	Orcish	Orque	Orkisch	Orchesco	Orca	Orkský	Orkowy	Орочье	オーク
+$Steel Plate	Steel Plate	Plates	Stahlharnisch	Piastre d'Acciaio	Placas de Acero	Ocelové Pláty	Stalowy - Płytowy	Стальное Пластинчатое	スチールプレート
 $Glass	Glass	Verre	Glas	Vetro	Cristal	Sklo	Szklany	Стеклянное	碧水晶
-$Elven Gilded	Elven Gilded	Dorée elfique	Elfenvergoldet	Elfico dorato	Dorada élfica	Elfské pozlacené	Elficki - Pozłacany	Эльфийское позолоченное	エルフの黄金
+$Elven Gilded	Elven Gilded	Dorée Elfique	Elfenvergoldet	Elfico dorato	Dorada Élfica	Elfský Pozlacený	Elficki - Pozłacany	Эльфийское Позолоченное	エルフの黄金
 $Dwarven	Dwarven	Dwemer	Dwemer	Nanico	Enana	Trpasličí	Krasnoludzki	Двемерское	ドワーフ
 $Scaled	Scaled	Écaille	Schuppen	Scaglie	Escamas	Šupiny	Łuskowy	Ламеллярное	スケイル
 $Steel	Steel	Acier	Stahl	Acciaio	Acero	Ocel	Stalowy	Стальное	鋼鉄
 $Brotherhood	Brotherhood	Confrérie	Bruderschaft	Confraternita	Hermandad	Bratrstvo	Bractwa	Братства	闇の一党
-$Elven	Elven	Elfique	Elfen	Elfico	Élfico	Elfský	Elficki	Эльфийское	エルフ
-$Iron Banded	Iron Banded	Fer rubané	Eisenbebändert	Ferro Laminato	Hierro bandeado	Železo s pásky	Żelazny - Łączony	Прочное железное	帯鉄
+$Elven	Elven	Elfique	Elfen	Elfico	Élfica	Elfský	Elficki	Эльфийское	エルフ
+$Iron Banded	Iron Banded	Fer Rubané	Eisenbebändert	Ferro Laminato	Hierro Bandeado	Železo s Pásky	Żelazny - Łączony	Прочное Железное	帯鉄
 $Leather	Leather	Cuir	Leder	Pelle	Cuero	Kůže	Skórzany	Кожаное	革
-$Imperial	Imperial	Impérial	Kaiserliche	Imperiale	Imperial	Císařský	Imperialny	Имперское	帝国軍
+$Imperial	Imperial	Impérial	Kaiserliche	Imperiale	Imperial	Císařští	Imperialny	Имперское	帝国軍
 $Studded	Studded	Clouté	Vernietet	Borchiato	Tachonada	Okované	Ćwiekowany	Клепаное	鋲付き
 $Fur	Fur	Peau	Fell	Pelliccia	Piel	Useň	Futrzany	Меховое	毛皮
 $Iron	Iron	Fer	Eisen	Ferro	Hierro	Železo	Żelazny	Железное	鉄
 $Stormcloak	Stormcloak	Sombrage	Sturmmantel	Manto della Tempesta	Capa de la Tormenta	Bouřné Hávy	Gromowładnych	Братьев Бури	ストームクローク
 $Silver	Silver	Argenté	Silber	Argento	Plata	Stříbro	Srebrny	Серебреное	銀
 $Wood	Wood	Bois	Holz	Legno	Madera	Dřevo	Drewniany	Деревянное	木製
-$Nordic	Nordic	Nordique	Nordisch	Nordico	Nórdico	Severský	Nordycki	Нордическое	ノルドの刻印
-$Bonemold	Bonemold	Ossement	Knochen	Ossa Fuse	Molde de hueso			Костяное	ボーンモールド
+$Nordic	Nordic	Nordique	Nordisch	Nordico	Nórdica	Severský	Nordycki	Нордическое	ノルドの刻印
+$Bonemold	Bonemold	Ossement	Knochen	Ossa Fuse	Molde de Hueso	Bonemold	Bonemold	Костяное	ボーンモールド
 $Chitin	Chitin	Chitine	Chitin	Chitina	Quitinosa	Chitin	Chitynowy	Хитиновое	キチン
 $Morag Tong	Morag Tong	Morag Tong	Morag Tong	Morag Tong	Morag Tong	Morag Tong	Morag Tong	Мораг Тонга	モラグ・トング
 $Stalhrim	Stalhrim	Stalhrim	Stalhrim	Stalhrim	Stalhrim	Stalhrim	Stalhrim	Сталгримовое	スタルリム
-$Deathbrand	Deathbrand	Balafré	Todesmal	Marchio Mortale	Estigma Mortal			Клеймо смерти	デスブランド
+$Deathbrand	Deathbrand	Balafré	Todesmal	Marchio Mortale	Estigma Mortal	Deathbrand	Deathbrand	Клеймо Смерти	デスブランド
 $Draugr	Draugr	Draugr	Draugr	Draugr	Draugr	Draugirský	Draugrowy	Драургское	ドラウグル
-$Draugr Honed	Draugr Honed	Draugr Affûtée	Draugr geschliffen	Draugr affilata	Draugr afilada	Zdokonalený Draugirský		Драургское Заточенное	
+$Draugr Honed	Draugr Honed	Draugr Affûtée	Draugr Geschliffen	Draugr Affilata	Draugr Afilada	Draugirský Naostřený	Naostrzony Draugrowy	Драургское Заточенное	
 $Falmer	Falmer	Falmer	Falmer	Falmer	Falmer	Falmerský	Falmerski	Фалмерское	ファルメル
-$Falmer Honed	Falmer Honed	Falmer Affûtée	Falmer geschliffen	Falmer affilata	Falmer afilada	Zdokonalený Falmerský		Фалмерское Заточенное	
+$Falmer Honed	Falmer Honed	Falmer Affûtée	Falmer Geschliffen	Falmer Affilata	Falmer Aafilada	Falmerský Naostřený	Naostrzony Falmerski	Фалмерское Заточенное	
 $Forsworn	Forsworn	Parjure	Abgeschworene	Rinnegato	Renegado	Zapřisáhlí	Krzywoprzysięzca	Изгоев	フォースウォーン
 $Dawnguard	Dawnguard	Garde de l'Aube	Dämmerwacht	Dawnguard	Guardia del Alba	Strážci Úsvitu	Dawnguard	Стражей рассвета	ドーンガード
-$Falmer Hardened	Falmer Hardened	Falmer renforcée	Gehärtete Falmerrüstung	Falmer Pesante	Falmer endurecida	Tvrzený Falmerský		Фалмерское Укреплённое	
-$Hunter	Hunter	Chasseur	Jäger	Cacciatore	Cazador	Lovecký	Łowcy	Охотничье	
+$Falmer Hardened	Falmer Hardened	Falmer Renforcée	Gehärtete Falmerrüstung	Falmer Pesante	Falmer endurecida	Falmerský Tvrzený	Utwardzony Falmerski	Фалмерское Укреплённое	
+$Hunter	Hunter	Chasseur	Jäger	Cacciatore	Cazador	Lovci	Łowcy	Охотничье	ハンター
 $Vampire	Vampire	Vampire	Vampir	Vampiro	Vampiro	Upíři	Wampirzy	Вампирское	吸血鬼
-$Aetherium	Aetherium	Aetherium	Aetherium	Eterio	Aetério	Aetherit	Aetherium	Этериевое	エセリウム
-$Dragonbone	Dragonbone	Os de dragon	Drachenknochen	Ossa di Drago	Hueso de dragón	Dračí kost		Драконорождённого	
+$Aetherium	Aetherium	Aetherium	Aetherium	Eterio	Aeterio	Aetherit	Aetherium	Этериевое	エセリウム
+$Dragonbone	Dragonbone	Os de Dragon	Drachenknochen	Ossa di Drago	Hueso de Dragón	Dračí kost	Smocza Kość	Драконорождённого	龍骨
 									
 $MOD CONFIGURATION	MOD CONFIGURATION	CONFIGURATION DU MOD	MOD-KONFIGURATION	CONFIGURAZIONE MOD	CONFIGURACIÓN DE MOD	NASTAVENÍ MODŮ	KONFIGURACJA MODA	НАСТРОЙКА МОДА	MOD設定
-$Default	Default	Par Défaut	Voreinstellung	Predefinito	Por defecto	Základní	Domyślny	Умолчание	デフォルト
-$Defaults	Defaults	Par Défaut	Voreinstellungen	Predefiniti	Por defecto	Základní	Domyślne	По умолчанию	デフォルト
+$Default	Default	Par Défaut	Voreinstellung	Predefinito	Por Defecto	Základní	Domyślny	Умолчание	デフォルト
+$Defaults	Defaults	Par Défaut	Voreinstellungen	Predefiniti	Por Defecto	Základní	Domyślne	По умолчанию	デフォルト
 $Search	Search	Chercher	Suchen	Cerca	Buscar	Hledat	Szukaj	Поиск	検索
 $Magic	Magic	Magie	Magie	Magia	Magia	Magie	Magia	Магия	魔法
 $Inventory	Inventory	Inventaire	Inventar	Inventario	Inventario	Inventář	Ekwipunek	Инвентарь	所持品
-$Switch Tab	Switch Tab	Changer Onglet	Wechsle Reiter	Cambia Scheda	Cambiar pestaña	Změnit Záložku	Przełącz Kartę	Переключение Вкладок	タブの切り替え
-$Equip Mode	Equip Mode	Gestion d'équipement	Ausrüstungsmodus	Gestisci equipaggiamento	Modo de Equipar	Vybrat Režim	Wybierz tryb	Режим Оснащения	装備モード
+$Switch Tab	Switch Tab	Changer Onglet	Wechsle Reiter	Cambia Scheda	Cambiar Pestaña	Změnit Záložku	Przełącz Kartę	Переключение Вкладок	タブの切り替え
+$Equip Mode	Equip Mode	Gestion d'Équipement	Ausrüstungsmodus	Gestisci Equipaggiamento	Modo Equipamiento	Režim použití	Wybierz tryb	Режим Оснащения	装備モード
 $Column	Column	Colonne	Spalte	Colonna	Columna	Sloupek	Kolumna	Колонка	列
 $Order	Order	Trier	Sortierung	Ordina	Ordenar	Řazení	Kolejność	Заказ	ソート
-$Open Slider	Open Slider	Ouvrir Slider	Schieber öffnen	Apri Scorrimento	Activar Cursor	Otevřít Posuvník	Otwórz suwak	Открыть Ползунок	スライダーを開く
-$Open Menu	Open Menu	Ouvrir Menu	Menü öffnen	Apri Menu	Abrir Menu	Otevřít Menu	Otwórz Menu	Открыть Меню	メニューを開く
+$Open Slider	Open Slider	Ouvrir Slider	Schieber Öffnen	Apri Scorrimento	Activar Cursor	Otevřít Posuvník	Otwórz Suwak	Открыть Ползунок	スライダーを開く
+$Open Menu	Open Menu	Ouvrir Menu	Menü Öffnen	Apri Menu	Abrir Menu	Otevřít Menu	Otwórz Menu	Открыть Меню	メニューを開く
 $Toggle	Toggle	Configurer	Umschalten	Seleziona	Seleccionar	Zaškrtnout	Przełącz	Переключить	トグル
-$Pick Color	Pick Color	Sélectionner Couleur	Farbauswahl	Seleziona Colore	Seleccionar color	Vybrat Barvu	Wybierz Kolor	Выбор Цвета	色を選択
+$Pick Color	Pick Color	Sélectionner Couleur	Farbauswahl	Seleziona Colore	Seleccionar Color	Vybrat Barvu	Wybierz Kolor	Выбор Цвета	色を選択
 $Remap	Remap	Réaffecter	Neuzuweisen	Riassegna	Reasignar	Přenastavit	Ponowne Przypisywanie	Перераспределение	再割り当て
 									
 $General	General	Général	Allgemein	Generale	General	Základní	Ogólnie	Общие	一般
-$Advanced	Advanced	Avancé	Fortgeschritten	Avanzato	Avanzado	Pokročilé	Zaawasowane	Дополнительно	高度
+$Advanced	Advanced	Avancé	Fortgeschritten	Avanzato	Avanzado	Pokročilé	Zaawansowane	Дополнительно	高度
 									
-$Item List	Item List	Liste des objets	Gegenstandsliste	Lista degli Oggetti	Lista de objetos	Seznam Předmětů	Lista przedmiotów	Список элементов	アイテムリスト
-$Font Size	Font Size	Taille de police	Schriftgröße	Dimensione del Font	Tamaño de fuente	Velikost Písma	Wielkość czcionki	Размер шрифта	フォントサイズ
-$Quantity Menu Min. Count	Quantity Menu Min. Count	Compte min. pour le menu de quantité	Mindestauswahlmenge	Contatore Min. per il Menù di Quantità	Número mín. para Menú de Cantidad	Min. počet pro kvantitativní menu		Мин. Размер Значения Меню	
-$Item Card	Item Card	Carte de l'objet	Gegenstandskarte	Scheda dell'Oggetto	Tarjeta del objeto	Karta Předmětu	Karta przedmiotu	Элемент Карты	アイテムカード
-$3D Item	3D Item	Item 3D	3D Ansicht	Oggetto 3D	Objeto 3D	3D Objekt	Obiekt 3D	3D элемент	
-$Align	Align	Alignement	Ausrichten	Allinea	Alinear	Zarovnání	Wyrównanie	Выравнивание	
-$Horizontal Offset	Horizontal Offset	Axe horizontal	Horizontaler Abstand	Spostamento Orizzontale	Desplazamiento Horizontal	Vodorovné odsazení	Przesunięcie poziome	Горизонтальное смещение	
-$Vertical Offset	Vertical Offset	Axe vertical	Vertikaler Abstand	Spostamento Verticale	Desplazamiento Vertical	Svislé odsazení	Przesuniecie pionowe	Вертикальное смещение	
-$Scale	Scale	Échelle	Größe	Scala	Escala	Měřítko	Skala	Масштаб	
-$SWF Version Checking	SWF Version Checking	SWF Vérification de version	SWF Versions-Check	Controllo Versione SWF	Comprobar versión SWF	Kontrola verze SWF	Sprawdzanie wersji SWF	Проверка версии SWF	
+$Item List	Item List	Liste des Objets	Gegenstandsliste	Lista degli Oggetti	Lista de Objetos	Seznam Předmětů	Lista Przedmiotów	Список Элементов	アイテムリスト
+$Font Size	Font Size	Taille de police	Schriftgröße	Dimensione del Font	Tamaño de Fuente	Velikost Písma	Wielkość Czcionki	Размер шрифта	フォントサイズ
+$Quantity Menu Min. Count	Quantity Menu Min. Count	Compte Min. pour le Menu de Quantité	Mindestauswahlmenge	Contatore Min. per il Menù di Quantità	Número Mín. para Menú de Cantidad	Min. Počet Obj. Pro Kvant. Menu	Menu Ilości Min. Liczba	Мин. Размер Значения Меню	数量メニュー最小カウント
+$Item Card	Item Card	Carte de l'Objet	Gegenstandskarte	Scheda dell'Oggetto	Tarjeta del Objeto	Karta Předmětu	Karta przedmiotu	Элемент Карты	アイテムカード
+$3D Item	3D Item	Item 3D	3D Ansicht	Oggetto 3D	Objeto 3D	3D Objekt	Obiekt 3D	3D элемент	3D アイテム
+$Align	Align	Alignement	Ausrichten	Allinea	Alinear	Zarovnání	Wyrównanie	Выравнивание	整列する
+$Horizontal Offset	Horizontal Offset	Axe horizontal	Horizontaler Abstand	Spostamento Orizzontale	Desplazamiento Horizontal	Vodorovné Odsazení	Przesunięcie poziome	Горизонтальное Смещение	水平オフセット
+$Vertical Offset	Vertical Offset	Axe vertical	Vertikaler Abstand	Spostamento Verticale	Desplazamiento Vertical	Svislé Odsazení	Przesuniecie pionowe	Вертикальное Смещение	垂直オフセット
+$Scale	Scale	Échelle	Größe	Scala	Escala	Měřítko	Skala	Масштаб	スケール
+$SWF Version Checking	SWF Version Checking	SWF Vérification de Version	SWF Versions-Check	Controllo Versione SWF	Comprobar Versión SWF	Kontrola Verze SWF	Sprawdzanie Wersji SWF	Проверка Версии SWF	SWF のバージョンの確認
 									
 $Left	Left	Gauche	Links	Sinistra	Izquierda	Vlevo	Lewo	Лево	左
 $Right	Right	Droite	Rechts	Destra	Derecha	Vpravo	Prawo	Право	右
 $Center	Center	Centre	Mitte	Centro	Centro	Na střed	Środek	Центр	中央
 									
-$SKI_INFO1	Default: Medium	Défaut: Moyen	Voreinstellung: Mittel	Predefinito: Medio	Predefinido: Medio	Výchozí nastavení: Střední	Domyślny: Średni	Умолчание: Среднее	
-$SKI_INFO2	Number of items required to trigger quantity menu, or 0 to disable it.\nDefault: 5	Nombre d'objets requit pour activer le menu de quantité, ou 0 pour le désactiver.\NDéfaut: 5	Mindestgröße eines Stapels zur Anzeigen des Mengendialogs.\nVoreinstellung: 5	Numero di oggetti richiesti per avviare il menù di quantità, o 0 per disabilitarlo. \nPredefinito: 5	Número de objetos requeridos para activar el Menú de Cantidad (0 para deshabilitar). \nPredefinido: 5	Počet objektů potřebných k otevření kvantitativního menu, nebo 0 pro vypnutí.\nVýchozí hodnota: 5		Число элементов необходимое для инициализации значения меню (0 - Выкл. \ 5 - По умолчанию)	
-$SKI_INFO3	Default: Center	Défaut: Centre	Voreinstellung: Mittel	Predefinito: Centro	Predefinido: Centro	Výchozí nastavení: Na střed	Domyślnie: Wyśrodkowany	Умолчание: Центр	
-$SKI_INFO4	Default: 0	Défaut: 0	Voreinstellung: 0	Predefinito: 0	Predefinido: 0	Výchozí nastavení: 0	Domyślnie: 0	Умолчание: 0	
-$SKI_INFO5	Default: 1.5	Défaut: 1.5	Voreinstellung: 1.5	Predefinito: 1.5	Predefinido: 1.5	Výchozí nastavení: 1.5	Domyślnie: 1.5	Умолчание: 1.5	
-$SKI_INFO6	Incompatible or outdated SWFs may break SkyUI functionality. This only disables the warning message!\nDefault: On	Des SWF incompatibles ou obsolètes peuvent empêcher le fonctionnement de SkyUI. Cela désactive uniquement le message d'avertissement!\nDéfaut: Activé	Inkompatible oder veraltete SWF Dateien beeinträchtigen möglicherweise die Funktionalität von SkyUI. Mit dieser Option lässt sich lediglich die Warnung unterdrücken!\nVoreinstellung: An	I file SWF incompatibili o datati potrebbero causare un malfunzionamento nelle funzioni di SkyUI. Questo disabilita solamente i messaggi di avviso!\nPredefinito: Attivo	Los archivos SWF incompatibles o desactualizados pueden provocar un malfuncionamiento de SkyUI. ¡Esto sólo deshabilita el mensaje de advertencia!\nPredefinido: Activo	 Nekonpatibilní nebo zastaralé SWF mohou narušit funkčnost SkyUI. Zaškrtnutí pouze vypne zobrazování varovných zpráv!\nVýchozí nastavení: Zapnuto	Niekompatyilny lub przestarzały SWF może zepsuć funkcjonalność SkyUI. Ta opcja tylko wyłącza ostrzeżenie!\nDomyślnie: Włączone	Несовместимый или устаревший SWF файл может нарушить работу SkyUI. Эта функция отключит всплывающее сообщение! \ По умолчанию: Включено	
-$SKI_INFO7	Default: Space	Défaut: Space	Voreinstellung: Space	Predefinito: Space	Predefinido: Space	Výchozí nastavení: Space	Domyślnie: Space	Умолчание: Space	
-$SKI_INFO8	Default: LAlt	Défaut: LAlt	Voreinstellung: LAlt	Predefinito: LAlt	Predefinido: LAlt	Výchozí nastavení: LAlt	Domyślnie: LAlt	Умолчание: LAlt	
-$SKI_INFO9	Default: Shift	Défaut: Shift	Voreinstellung: Shift	Predefinito: Shift	Predefinido: Shift	Výchozí nastavení: Shift	Domyślnie: Shift	Умолчание: Shift	
-$SKI_MSG1	This control requires a keyboard mapping.		Dieser Funktion muss einer Tastatureingabe zugewiesen werden.					Эта функция должна быть назначена на ввод с клавиатуры.	
+$SKI_INFO1	Default: Medium	Défaut: Moyen	Voreinstellung: Mittel	Predefinito: Medio	Predefinido: Medio	Výchozí nastavení: Střední	Domyślny: Średni	Умолчание: Среднее	デフォルト: 並
+$SKI_INFO2	Number of items required to trigger quantity menu, or 0 to disable it.\nDefault: 6	Nombre d'objets requit pour activer le menu de quantité, ou 0 pour le désactiver.\nDéfaut: 6	Mindestgröße eines stapels zum anzeigen des mengendialogs.\nvoreinstellung: 6	Numero di oggetti richiesti per avviare il menù di quantità, o 0 per disabilitarlo.\nPredefinito: 6	Número de objetos requeridos para activar el Menú de Cantidad (0 para deshabilitar).\nPredefinido: 6	Počet objektů potřebných k otevření menu s posuvníkem, nebo 0 pro vypnutí.\nVýchozí hodnota: 6	Liczba elementów wymagana do aktywacji menu ilości lub 0, aby je wyłączyć.\nDomyślnie: 6	Число элементов необходимое для инициализации значения меню, или 0 чтобы отключить.\nУмолчание: 6	
+$SKI_INFO3	Default: Center	Défaut: Centre	Voreinstellung: Mittel	Predefinito: Centro	Predefinido: Centro	Výchozí nastavení: Na střed	Domyślnie: Wyśrodkowany	Умолчание: Центр	デフォルト: 中央
+$SKI_INFO4	Default: 0	Défaut: 0	Voreinstellung: 0	Predefinito: 0	Predefinido: 0	Výchozí nastavení: 0	Domyślnie: 0	Умолчание: 0	デフォルト: 0
+$SKI_INFO5	Default: 1.5	Défaut: 1.5	Voreinstellung: 1.5	Predefinito: 1.5	Predefinido: 1.5	Výchozí nastavení: 1.5	Domyślnie: 1.5	Умолчание: 1.5	デフォルト: 1.5
+$SKI_INFO6	Incompatible or outdated SWFs may break SkyUI functionality. This only disables the warning message!\nDefault: On	Des SWF incompatibles ou obsolètes peuvent empêcher le fonctionnement de SkyUI. Cela désactive uniquement le message d'avertissement!\nDéfaut: Activé	Inkompatible oder veraltete SWF Dateien beeinträchtigen möglicherweise die Funktionalität von SkyUI. Mit dieser Option lässt sich lediglich die Warnung unterdrücken!\nVoreinstellung: An	I file SWF incompatibili o datati potrebbero causare un malfunzionamento nelle funzioni di SkyUI. Questo disabilita solamente i messaggi di avviso!\nPredefinito: Attivo	Los archivos SWF incompatibles o desactualizados pueden provocar un malfuncionamiento de SkyUI. ¡Esto sólo deshabilita el mensaje de advertencia!\nPredefinido: Activo	 Nekonpatibilní nebo zastaralé SWF mohou narušit funkčnost SkyUI. Zaškrtnutí pouze vypne zobrazování varovných zpráv!\nVýchozí nastavení: Zapnuto	Niekompatyilny lub przestarzały SWF może zepsuć funkcjonalność SkyUI. Ta opcja tylko wyłącza ostrzeżenie!\nDomyślnie: Włączone	Несовместимый или устаревший SWF файл может нарушить работу SkyUI. Эта функция отключит всплывающее сообщение!\nУмолчание: Включено	
+$SKI_INFO7	Default: Space	Défaut: Space	Voreinstellung: Space	Predefinito: Space	Predefinido: Space	Výchozí nastavení: Space	Domyślnie: Space	Умолчание: Space	デフォルト: Space
+$SKI_INFO8	Default: LAlt	Défaut: LAlt	Voreinstellung: LAlt	Predefinito: LAlt	Predefinido: LAlt	Výchozí nastavení: LAlt	Domyślnie: LAlt	Умолчание: LAlt	デフォルト: LAlt
+$SKI_INFO9	Default: Shift	Défaut: Shift	Voreinstellung: Shift	Predefinito: Shift	Predefinido: Shift	Výchozí nastavení: Shift	Domyślnie: Shift	Умолчание: Shift	デフォルト: Shift
+$SKI_MSG1	This control requires a keyboard mapping.	Cette fonction requiert un réglage de touche.	Diese Funktion muss einer Tastatureingabe zugewiesen werden.	Questo controllo richiede una mappatura della tastiera.	Este control necesita ser configurado en el teclado	Funkce vyžaduje nastavení klávesy na klávesnici.	Ta funkcja wymaga przypisania klawisza.	Эта функция должна быть назначена с клавиатуры.	このコントロールは、キーボードのマッピングを必要とします。
 									
 									
 $NAME	$	$	$	$	$	$	NAZWA	$	$
 $ TO PLACE	$	$	$	$	$	$	$	 ПОМЕСТИТЬ	$
 $ TO STEAL	$	$	$	$	$	$	$	 УКРАСТЬ	$
 									
-% Completion	100.00%	99.46%	100.00%	99.46%	99.46%	98.39%	94.62%	100.00%	85.48%
+% Completion	100.00%	100.00%	100.00%	100.00%	100.00%	100.00%	100.00%	100.00%	97.33%

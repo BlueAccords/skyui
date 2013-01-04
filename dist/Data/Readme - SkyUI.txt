@@ -9,7 +9,7 @@ Team:			snakster, Mardoxx, T3T
 
 Contributors:	ianpatt, behippo, Kratos, psychosteve, MisterPete, GreatClone, gibbed, PurpleLunchBox, Gopher, Indie
 
-Version:		3.0-beta3
+Version:		3.0
 
 Download:		http://www.skyrimnexus.com/downloads/file.php?id=3863
 				http://steamcommunity.com/sharedfiles/filedetails/?id=8122
@@ -32,7 +32,7 @@ The following mods/utilities are required for SkyUI:
 
 	3. Installation
 
-	4. Uninstallation/Upgrading
+	4. Uninstallation
 
 	5. Troubleshooting
 
@@ -54,7 +54,7 @@ The following mods/utilities are required for SkyUI:
 ========================================================================================================================================
 
 SkyUI is mod that aims to improve Skyrim's User Interface by making it easier to use with mouse and keyboard,
-less wasteful of available screen space and nicer to look at.
+less wasteful of available screen space, and nicer to look at.
 
 We do all that while keeping true to the style of the original UI, so new and old components are integrated seamlessly.
 It is not our goal to re-create the complete interface from scratch.
@@ -66,14 +66,14 @@ Further general objectives and design concepts are:
 
 * Easy installation and setup by providing a user-friendly installer through the Nexus Mod Manager.
 
-* Great customization support by using a seperate configuration file.
+* Great customization support by using a separate configuration file.
 
-* Blending features in as good as possible - players shouldn't feel reminded that they're using a mod.
+* Blending features in as well as possible - players shouldn't feel reminded that they're using a mod.
 
 
-Since improving the whole UI is a big undertaking, we release only single menus at a time as we make progress.
+Since improving the whole UI is a big undertaking, we only release single menus at a time as progress is made.
 The first menu we addressed was the Inventory. In version 2.0, we included new Barter, Container and Magic menus.
-Version 3.0 introduced a shared in-game control panel for mods.
+Version 3.0 introduced an in-game configuration menu for mods.
 
 For a more detailed description, please see our mod description on Skyrim Nexus.
 
@@ -92,7 +92,7 @@ NOTE: When upgrading from previous versions, make sure to uninstall them first!
 - Added a new icon theme by Psychosteve (support for the old themes had to be dropped because they are no longer maintained).
 - Added type column to group items of the same category into sub-types.
 - Added dynamic icon coloring.
-- Added option to configure the minimum stack size that triggers the quanity select dialog.
+- Added option to configure the minimum stack size that triggers the quantity select dialog.
 - Added dynamic icon art to bottom bar so it matches the current control mapping.
 - Replaced NMM installer with an in-game configuration menu.
 - Replaced old error messages with regular message boxes and added more safety checks for outdated SkyUI components.
@@ -145,7 +145,7 @@ NOTE: When upgrading from previous versions, make sure to uninstall them first!
 [InventoryMenu]
 - Fixed enchantment mini-icon so it's no longer displayed for enchanted weapons only.
 - Fixed missing sort options for name field in the favorites category.
-- Fixed backspace canceling the search.
+- Fixed backspace cancelling the search.
 - Fixed searching for non-English languages (i.e. Russian).
 - Improved sorting system. Null/invalid values are now always at the bottom.
 - Empty categories are greyed out and no longer selectable by mouse or during keyboard/controller navigation.
@@ -164,8 +164,8 @@ NOTE: When upgrading from previous versions, make sure to uninstall them first!
 1.1:
 
 [InventoryMenu]
-- Updated gibbed's interface extensions plugin to support the latest Skyrim version 1.3.10.0.
-- Improved support for XBOX360 controller: LB/RB can now be used to change the active column, Left Stick changes the sorting order.
+- Updated Gibbed's interface extensions plugin to support the latest Skyrim version 1.3.10.0.
+- Improved support for XBOX360 controller: LB/RB can now be used to change the active column; Left Stick changes the sorting order.
 - Made SKSE warning message less intrusive; it's only shown once after each game restart now.
 - Fixed LT/RT equip bug with XBOX360 controller.
 - Fixed bug where 3D model/item card would not update in certain situations (dropping an item, charging an item, etc.).
@@ -195,10 +195,10 @@ See section 4 for instructions.
 ------------------------------------------------------------
 
 There are several ways to install SkyUI:
+- Subscribe to SkyUI on Steam Workshop.
 - Let the Nexus Mod Manager (NMM) download and install the archive for you.
 - Download the archive manually and install it with NMM.
 - Download and install the archive manually.
-- Subscribe to SkyUI on Steam Workshop.
 
 Pick the method you prefer.
 
@@ -210,8 +210,6 @@ Pick the method you prefer.
 
 2. The next time you start the Skyrim Launcher, SkyUI will be downloaded and installed automatically.
 
-3. Done!
-
 OR
 
 ------------------------------------------------------------
@@ -221,8 +219,6 @@ OR
 1.	Click the 'Download with manager' button on top of the file.
 
 2.	SkyUI will appear in in NMM's Mods list once it's downloaded. Double-click the SkyUI entry to activate it.
-
-3.	Done!
 
 OR
 
@@ -236,8 +232,6 @@ OR
 
 3.	SkyUI will now appear in the list. Double-click the entry to activate it.
 
-4.	Done!
-
 OR
 
 ------------------------------------------------------------
@@ -249,11 +243,11 @@ OR
 
 2.	Extract the contents of the downloaded archive file to the 'Data/' folder.
 
-3.	Done!
+3.	In the Skyrim Launcher, select 'Data Files' and enable 'SkyUI.esp'.
 
 
 ========================================================================================================================================
- 4. Uninstallation/Upgrading
+ 4. Uninstallation
 ========================================================================================================================================
 
 Before removing any files, it is recommended to make a 'clean' save game with SkyUI deactivated.
@@ -278,43 +272,39 @@ Any SkyUI version older than 3.0 (this includes alpha builds) has to be removed 
 For details, see the following instructions that match your current SkyUI version/installation method.
 
 ------------------------------------------------------------
- NMM installation
- Any SkyUI version
+ NMM installation / Any SkyUI version
 ------------------------------------------------------------
 
 In NMM's mod list, search for the SkyUI entry and deactivate the mod.
 
 ------------------------------------------------------------
- Steam workshop
- Any SkyUI version
+ Steam workshop / Any SkyUI version
 ------------------------------------------------------------
 
 Unsubscribe from the mod and deactivate it in Skyrim Launcher (if you haven't already).
 There, you can also completely remove it by highlighting it and pressing 'Delete Selected'.
 
 ------------------------------------------------------------
- Manual installation
- SkyUI pre-3.0 versions (1.0, 1.1, 2.0, 2.1, 2.2)
+ Manual installation / SkyUI 2.2 or older
 ------------------------------------------------------------
 
 If you installed the SkyUI files manually, then you also have to remove them manually.
 So view the contents of the SkyUI archive you are using, locate each file at its install location and remove it.
 
-To revert your interface folder to it's original state, you can delete the 'Interface/' directory from Skyrim's 'Data/' folder
+To revert your interface folder to its original state, you can delete the 'Interface/' directory from Skyrim's 'Data/' folder
 and then use Steam to restore any original files you removed in the process by following these steps:
 (Backup your interface folder before deleting it in case anything goes wrong)
 	1. Locate Skyrim in Steam's game library.
 	2. Open the properties dialog and select the 'Local files' tab.
 	3. Verify integrity of game cache.
-Be aware, that this will break any other mods that installed files to the interface folder. You have to re-install them.
+Be aware, that this will break any other mods that installed files to the interface folder. You will have to re-install them.
 
 ------------------------------------------------------------
- Manual installation
- SkyUI 3.0 alpha versions
+ Manual installation / SkyUI 3.0 alpha versions
 ------------------------------------------------------------
 
-The 3.0 alpha packages contained loose script files requires by mod authors to create MCM config menus.
-You have to remove these files because they will override any newer scripts in SkyUI.BSA.
+The 3.0 alpha packages contained loose script files required by mod authors to create configuration menus.
+You have to remove these files because they will override any newer scripts in SkyUI.bsa.
 
 1.	Locate the 'Scripts/' folder in your Skyrim data directory.
 	It's typically found at 'Program Files/Steam/steamapps/common/skyrim/Data/Scripts/'.
@@ -325,8 +315,7 @@ You have to remove these files because they will override any newer scripts in S
 3.	Delete 'SkyUI.esp' and 'SkyUI.bsa' from the data folder.
 
 ------------------------------------------------------------
- Manual installation
- SkyUI 3.0 beta and newer
+ Manual installation / SkyUI 3.0 and newer
 ------------------------------------------------------------
 
 1.	Locate the 'Data/' folder in your Skyrim installation directory.
@@ -340,7 +329,7 @@ You have to remove these files because they will override any newer scripts in S
 ========================================================================================================================================
 
 ------------------------------------------------------------
-Problem: There's a message telling me that I'm missing the Skyrim Script Extender (SKSE). What do I have to do?
+Problem: There's an error message telling me about a problem with the Skyrim Script Extender (SKSE).
 
 Solution: There are two things that can cause this:
 	1)	You didn't install the Skyrim Script Extender (or you installed it incorrectly).
@@ -349,6 +338,22 @@ Solution: There are two things that can cause this:
 	2)	Everything was fine before, then Skyrim was patched to a new version and the message started appearing.
 		This is because each new patch also requires an update of SKSE. So just you'll just have to wait until that is released, then
 		get the new version and everything should be back to normal.
+
+	If you have problems installing or running SKSE, have a look at Gopher's video guide:
+		http://www.youtube.com/watch?v=xTGnQIiNVqA
+
+------------------------------------------------------------
+Problem: There's an error message telling me about a problem with some outdated/incompatible menu (SWF) file.
+
+Solution: There are several reasons this might happen.
+	1)	You didn't uninstall an old version of SkyUI before upgrading to 3.0 or newer.
+		See the Uninstallation section and make sure you really removed everything, and then install the new version again.
+
+	2)	There's another mod that overrides a particular menu file SkyUI is using as well.
+		If this is the case, you'll have to pick one of the two mods.
+
+	If you want another mod to be able to override certain menu files of SkyUI while keeping the rest, you can disable these
+	warning messages individually in the SkyUI configuration menu ('Advanced' page).
 
 ------------------------------------------------------------
 Problem: There are dollar signs ($) in front of all words in the main menu (and in lots of other places, too)!
@@ -363,13 +368,25 @@ Problem: My game crashes after I uninstalled SkyUI.
 Solution: Try making a clean save with SkyUI.esp deactivated instead of removing it completely.
 	The necessary steps are described at the beginning of section 4.
 
+------------------------------------------------------------
+Problem: Some gamepad buttons are not working in the menu.
+
+Solution: There's a known problem when using a custom controlmap.
+	The following functions must be mapped to only one key: Wait, Sprint, Shout, and Sneak.
+
+	If that's not the case, uninstall whichever mod that changed it.
+	Alternatively, delete the 'Data/Interface/controls/' folder and 'Data/Interface/controlmap_custom.txt' to reset your controlmap.
+
+
+If your problem wasn't listed here, ask for help in the Nexus comments.
+
 
 ========================================================================================================================================
  6. Mod Author Guide
 ========================================================================================================================================
 
 Since version 3.0, SkyUI provides a Mod Configuration Menu framework that can be utilized by other mods.
-If you're a mod author interested in using it for you mod, have a look at the documentation:
+If you're a mod author interested in using it, have a look at the documentation:
 
 	https://github.com/schlangster/skyui/wiki
 
@@ -426,7 +443,7 @@ Pelinor:
 
 
 SkyUI is utilizing TweenLite, a high-performance tweening library (http://www.greensock.com/tweenlite/).
-	Thanks to Jack Doyle and his team for creating it and allowing us to use it under their ‚ÄúNo Charge‚Äù license.
+	Thanks to Jack Doyle and his team for creating it and allowing us to use it under their ìNo Chargeî license.
 
 Thanks to all the testers, who helped a great deal with improving the overall quality of this mod:
 	ToJKa, HellKnight, xporc, MadCat221, Ismelda, Gribbles, freesta, Cartrodus, TheCastle (in random order)

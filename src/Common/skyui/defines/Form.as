@@ -198,6 +198,7 @@
 	public static var BASEID_DLC2RIEKLINGSPEARTHROWN: Number			= 0x026239;
 	
 	// Misc
+	public static var BASEID_LOCKPICK: Number							= 0x00000A;
 	public static var BASEID_GOLD001: Number							= 0x00000F;
 
 	public static var BASEID_LEATHER01: Number							= 0x0DB5D2;
@@ -230,5 +231,9 @@
 
 	public static var BASEID_AXE01: Number 								= 0x02F2F4;
 	public static var BASEID_DUNHALTEDSTREAMPOACHERSAXE: Number 		= 0x0AE086;
+
+	// Fodm Ids
+	// Sound Descriptors
+	public static var FORMID_ITMPotionUse: Number 						= 0x000B6435;
 
 }
