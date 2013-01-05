@@ -33,7 +33,7 @@ class RaceMenu extends MovieClip
 	private var _typeFilter: ItemTypeFilter;
 	private var _nameFilter: ItemNameFilter;
 	private var _sortFilter: ItemSorter;
-	private var _playerObject: Object;
+	private var _panelX: Number;
 	
 	private var _updateInterval: Number;
 	private var _pendingData: Object;
@@ -297,6 +297,8 @@ class RaceMenu extends MovieClip
 	{
 		racePanel.Lock("L");
 		bottomBar["playerInfo"].Lock("R");
+		
+		_panelX = racePanel._x;
 
 		raceDescription._x = racePanel._x + raceDescription._width / 2 + racePanel._width + 15;
 		raceDescription._y = bottomBar._y - raceDescription._height / 2 - 15;
@@ -421,6 +423,9 @@ class RaceMenu extends MovieClip
 		} else {
 			FocusHandler.instance.setFocus(itemList, 0);
 		}
+		
+		ShowRacePanel(!abShowTextEntry);
+		ShowBottomBar(!abShowTextEntry);
 	}
 	
 	// No idea why they have two of these
@@ -445,6 +450,7 @@ class RaceMenu extends MovieClip
 			FocusHandler.instance.setFocus(itemList, 0);
 		}
 		ShowRacePanel(!bShowField);
+		ShowBottomBar(!bShowField);
 	}
 	
 	public function ShowRaceDescription(bShowDescription: Boolean): Void
@@ -486,6 +492,7 @@ class RaceMenu extends MovieClip
 		}
 		
 		ShowRacePanel(!bShowPanel);
+		ShowBottomBar(!bShowPanel);
 	}
 	
 	public function ShowRacePanel(bShowPanel: Boolean): Void
@@ -494,12 +501,21 @@ class RaceMenu extends MovieClip
 			categoryList.disableSelection = categoryList.disableInput = false;
 			itemList.disableSelection = itemList.disableInput = false;
 			searchWidget.isDisabled = false;
-			TweenLite.to(racePanel, 0.25, {_alpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(racePanel, 0.5, {_alpha: 100, _x: _panelX, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
 			categoryList.disableSelection = categoryList.disableInput = true;
 			itemList.disableSelection = itemList.disableInput = true;
 			searchWidget.isDisabled = true;
-			TweenLite.to(racePanel, 0.25, {_alpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(racePanel, 0.5, {_alpha: 0, _x: -478, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		}
+	}
+	
+	public function ShowBottomBar(bShowBottomBar: Boolean): Void
+	{
+		if(bShowBottomBar) {
+			TweenLite.to(bottomBar, 0.5, {_alpha: 100, _y: 645, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		} else {
+			TweenLite.to(bottomBar, 0.5, {_alpha: 0, _y: 745, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
 	
@@ -507,11 +523,13 @@ class RaceMenu extends MovieClip
 	{
 		if (event.nameChanged == true) {
 			GameDelegate.call("ChangeName", [textEntry.TextInputInstance.text]);
+			ShowTextEntry(false);
+			ShowRacePanel(false);
+			ShowBottomBar(false);
 		} else {
 			GameDelegate.call("ChangeName", []);
+			ShowTextEntry(false);
 		}
-		
-		ShowTextEntry(false);
 	}
 	
 	public function HideLoadingIcon(): Void

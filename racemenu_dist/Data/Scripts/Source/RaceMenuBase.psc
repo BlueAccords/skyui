@@ -41,7 +41,6 @@ EndEvent
 
 Event OnGameReload()
 	OnStartup()
-	OnReloadSettings(_playerActor, _playerActorBase)
 EndEvent
 
 Event OnChangeRace(Actor akActor)
@@ -56,6 +55,7 @@ Event OnStartup()
 	RegisterForModEvent("RSM_Initialized", "OnMenuInitialized")
 	RegisterForModEvent("RSM_Reinitialized", "OnMenuReinitialized")
 	RegisterForModEvent("RSM_SliderChange", "OnMenuSliderChange") ; Event sent when a slider's value is changed
+	RegisterForModEvent("RSM_LoadPlugins", "OnMenuLoadPlugins")
 EndEvent
 
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
@@ -74,6 +74,10 @@ EndEvent
 
 Event OnMenuSliderChange(string eventName, string strArg, float numArg, Form formArg)
 	OnSliderChanged(strArg, numArg)
+EndEvent
+
+Event OnMenuLoadPlugins(string eventName, string strArg, float numArg, Form formArg)
+	OnReloadSettings(_playerActor, _playerActorBase)
 EndEvent
 
 Event OnReloadSettings(Actor player, ActorBase playerBase)

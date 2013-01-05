@@ -56,12 +56,14 @@ EndFunction
 
 Event OnGameReload()
 	OnStartup()
-
 	; Reload player settings
 	LoadHair()
 	LoadTints()
 
-	_playerActor.QueueNiNodeUpdate()
+	Game.UpdateHairColor()
+	Game.UpdateTintMaskColors()
+
+	SendModEvent("RSM_LoadPlugins")
 EndEvent
 
 Event OnMenuOpen(string menuName)
@@ -87,7 +89,8 @@ Event OnMenuInitialized(string eventName, string strArg, float numArg, Form form
 	UpdateColors()
 	LoadTints()
 	LoadHair()
-	_playerActor.QueueNiNodeUpdate()
+	Game.UpdateHairColor()
+	Game.UpdateTintMaskColors()
 	parent.OnMenuInitialized(eventName, strArg, numArg, formArg)
 EndEvent
 
@@ -204,7 +207,6 @@ Event OnTintColorChange(string eventName, string strArg, float numArg, Form form
 	int type = arg / 1000
 	int index = arg - (type * 1000)
 	Game.SetTintMaskColor(color, type, index)
-	;_playerActor.QueueNiNodeUpdate()
 	Game.UpdateTintMaskColors()
 EndEvent
 
@@ -214,7 +216,7 @@ Event OnTintTextureChange(string eventName, string strArg, float numArg, Form fo
 	int type = arg / 1000
 	int index = arg - (type * 1000)
 	Game.SetTintMaskTexturePath(strArg, type, index)
-	_playerActor.QueueNiNodeUpdate()
+	Game.UpdateTintMaskColors()
 EndEvent
 
 Event OnToggleLight(string eventName, string strArg, float numArg, Form formArg)

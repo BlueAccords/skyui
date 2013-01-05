@@ -17,12 +17,12 @@ float _rightButt = 1.0
 ; Reload Custom slider settings here
 Event OnReloadSettings(Actor player, ActorBase playerBase)
 	playerBase.SetHeight(_height)
+	player.QueueNiNodeUpdate()
 	NetImmerse.SetNodeScale(player, NINODE_HEAD, _head)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST, _leftBreast)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST, _rightBreast)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BUTT, _leftButt)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BUTT, _rightButt)
-	player.QueueNiNodeUpdate()
 EndEvent
 
 Event On3DLoaded(ObjectReference akRef)
@@ -77,22 +77,17 @@ Event OnSliderChanged(string callback, float value)
 	ElseIf callback == "ChangeHeadSize"
 		_head = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_HEAD, _head)
-		NetImmerse.UpdateNode(_playerActor, NINODE_HEAD)
 	Elseif callback == "ChangeLeftBreast"
 		_leftBreast = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BREAST, _leftBreast)
-		NetImmerse.UpdateNode(_playerActor, NINODE_LEFT_BREAST)
 	Elseif callback == "ChangeRightBreast"
 		_rightBreast = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BREAST, _rightBreast)
-		NetImmerse.UpdateNode(_playerActor, NINODE_RIGHT_BREAST)
 	Elseif callback == "ChangeLeftButt"
 		_leftButt = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BUTT, _leftButt)
-		NetImmerse.UpdateNode(_playerActor, NINODE_LEFT_BUTT)
 	Elseif callback == "ChangeRightButt"
 		_rightButt = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BUTT, _rightButt)
-		NetImmerse.UpdateNode(_playerActor, NINODE_RIGHT_BUTT)
 	Endif
 EndEvent
