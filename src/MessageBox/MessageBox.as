@@ -194,8 +194,13 @@ class MessageBox extends MovieClip
 
 	function SetPlatform(aiPlatform: Number, abPS3Switch: Boolean)
 	{
-		if (aiPlatform != 0 && MessageButtons.length > 0) 
+		if (aiPlatform != 0 && MessageButtons.length > 0) {
 			Selection.setFocus(MessageButtons[0]);
+		}
+		
+		if(proxyMenu) {
+			proxyMenu.SetPlatform(aiPlatform, abPS3Switch);
+		}
 	}
 
 }

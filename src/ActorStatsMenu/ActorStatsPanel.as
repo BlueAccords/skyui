@@ -21,7 +21,6 @@ class ActorStatsPanel extends MovieClip
 	private var _subList: ScrollingList;
 	private var _statsList: ScrollingList;
 	private var _categoryList: CategoryList;
-	private var _categoryListIconArt: Array;
 	private var _typeFilter: ItemTypeFilter;
 	private var _showStats: Boolean = false;
 	private var _quitting: Boolean = false;
@@ -50,12 +49,6 @@ class ActorStatsPanel extends MovieClip
 		_subList = contentHolder.actorListPanel.list;
 		_statsList = contentHolder.statsPanel.statsList;
 		_categoryList = contentHolder.categoryList;
-		
-		_categoryListIconArt = ["inv_all", "mag_powers", "inv_armor", "inv_weapons", "inv_ingredients", "mag_all"];
-		_categoryList.iconArt = _categoryListIconArt;
-		//_categoryList.listState.iconSource = "skyui/skyui_icons_psychosteve.swf";
-		
-		ConfigManager.registerLoadCallback(this, "onConfigLoad");
 	}
 	
 	// @override MovieClip
@@ -155,30 +148,21 @@ class ActorStatsPanel extends MovieClip
 		addActorValue("$Illusion", CATEGORY_FLAG_MAGIC, Actor.AV_ILLUSION);
 		addActorValue("$Restoration", CATEGORY_FLAG_MAGIC, Actor.AV_RESTORATION);
 		
+		_categoryList.iconArt = ["inv_all", "mag_powers", "inv_armor", "inv_weapons", "inv_ingredients", "mag_all"];
+		_categoryList.listState.iconSource = "xflmenus/icons_category_psychosteve.swf";
+		
 		_categoryList.entryList.push({bDontHide: true, filterFlag: 1, flag: CATEGORY_FLAG_ALL, text: "$All"});
 		_categoryList.entryList.push({bDontHide: false, filterFlag: 1, flag: CATEGORY_FLAG_GENERAL, text: "$General"});
 		_categoryList.entryList.push({bDontHide: false, filterFlag: 1, flag: CATEGORY_FLAG_RESISTANCES, text: "$Resistances"});
 		_categoryList.entryList.push({bDontHide: false, filterFlag: 1, flag: CATEGORY_FLAG_COMBAT, text: "$Combat"});
 		_categoryList.entryList.push({bDontHide: false, filterFlag: 1, flag: CATEGORY_FLAG_SKILL, text: "$Skill"});
 		_categoryList.entryList.push({bDontHide: false, filterFlag: 1, flag: CATEGORY_FLAG_MAGIC, text: "$Magic"});
-		//_categoryList.InvalidateData();
-		//_categoryList.onItemPress(0, 0);
+		_categoryList.InvalidateData();
+		_categoryList.onItemPress(0, 0);
 		
 		startPage();
 		FocusHandler.instance.setFocus(_subList, 0);
 //		loadCustomContent("skyui_splash.swf");
-	}
-	
-	public function onConfigLoad(event: Object): Void
-	{
-		_config = event.config;
-		
-		var section = _config["Appearance"];
-		_categoryList.listState.iconSource = section.icons.source;
-		
-		_categoryList.InvalidateData();
-		_categoryList.onItemPress(0, 0);
-		
 		skse.SendModEvent("XFLStatPanel_LoadMenu");
 	}
 	

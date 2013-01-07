@@ -49,8 +49,8 @@ class GiftMenu extends ItemMenu
 
 		var itemList: TabularList = inventoryLists.itemList;		
 		itemList.addDataProcessor(new InventoryDataSetter());
-		itemList.addDataProcessor(new InventoryIconSetter());
-		itemList.addDataProcessor(new PropertyDataExtender(a_config["Properties"], "itemProperties", "itemIcons", "itemCompoundProperties"));
+		itemList.addDataProcessor(new InventoryIconSetter(a_config["Appearance"]));
+		itemList.addDataProcessor(new PropertyDataExtender(a_config["Appearance"], a_config["Properties"], "itemProperties", "itemIcons", "itemCompoundProperties"));
 		
 		var layout: ListLayout = ListLayoutManager.createLayout(a_config["ListLayout"], "ItemListLayout");
 		itemList.layout = layout;
@@ -136,7 +136,7 @@ class GiftMenu extends ItemMenu
 			navPanel.addButton({text: "$Search", controls: _searchControls});
 			if (_platform != 0) {
 				navPanel.addButton({text: "$Column", controls: _sortColumnControls});
-				navPanel.addButton({text: "$Order", controls: _sortOrderControl});
+				navPanel.addButton({text: "$Order", controls: _sortOrderControls});
 			}
 		}
 		

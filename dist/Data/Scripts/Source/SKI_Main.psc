@@ -15,25 +15,25 @@ string property		JOURNAL_MENU	= "Journal Menu" autoReadonly
 
 int property		MinSKSERelease
 	int function get()
-		return 33
+		return 34
 	endFunction
 endProperty
 
 string property		MinSKSEVersion
 	string function get()
-		return "1.6.5"
+		return "1.6.6"
 	endFunction
 endProperty
 
 int property		ReqSWFRelease
 	int function get()
-		return 7
+		return 8
 	endFunction
 endProperty
 
 string property		ReqSWFVersion
 	string function get()
-		return "3.0"
+		return "3.1"
 	endFunction
 endProperty
 
@@ -64,6 +64,13 @@ event OnGameReload()
 
 	elseIf (SKSE.GetVersionRelease() < MinSKSERelease)
 		Error("Your Skyrim Script Extender (SKSE) is outdated.\nSkyUI will not work correctly!\n" \
+			+ "Required version: " + MinSKSEVersion + " or newer\n" \
+			+ "Detected version: " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta())
+		return
+
+	; Could also check for != SKSE.GetVersionRelease(), but this should be strict enough
+	elseIf (SKSE.GetScriptVersionRelease() < MinSKSERelease)
+		Error("Your Skyrim Script Extender (SKSE) scripts are outdated.\nYou probably forgot to install/update them with the rest of SKSE.\nSkyUI will not work correctly!\n" \
 			+ "Required version: " + MinSKSEVersion + " or newer\n" \
 			+ "Detected version: " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta())
 		return
@@ -156,7 +163,7 @@ function CheckMenuVersion(string a_swfName, string a_menu, string a_class)
 	string version = UI.GetString(a_menu, a_class + ".SKYUI_VERSION_STRING")
 
 	if (releaseIdx == 0)
-		Error("Missing or incompatible menu file (" + a_swfName + ").\nPlease make sure you installed everything correctly and no other mod has overwritten this file.\nIf you were using an older SkyUI version, un-install it and re-install the latest version.")
+		Error("Incompatible menu file (" + a_swfName + ").\nPlease make sure you installed everything correctly and no other mod has overwritten this file.\nIf you were using an older SkyUI version, un-install it and re-install the latest version.")
 
 	elseIf (releaseIdx != ReqSWFRelease)
 		Error("Menu file version mismatch for " + a_swfName + ".\n" \
