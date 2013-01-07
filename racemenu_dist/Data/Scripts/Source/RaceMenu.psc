@@ -50,9 +50,10 @@ Function OnStartup()
 	RegisterForModEvent("RSM_ClipboardFinished", "OnClipboardFinished")
 	; --------------------------------------------
 
-	Utility.SetINIFloat("fPlayerBodyEditDistance:Interface", 180.0)
-	Utility.SetINIFloat("fPlayerFaceEditDistance:Interface", 60.0)
+	Utility.SetINIFloat("fPlayerBodyEditDistance:Interface", 190.0)
+	Utility.SetINIFloat("fPlayerFaceEditDistance:Interface", 70.0)
 EndFunction
+
 
 Event OnGameReload()
 	OnStartup()
@@ -60,8 +61,7 @@ Event OnGameReload()
 	LoadHair()
 	LoadTints()
 
-	Game.UpdateHairColor()
-	Game.UpdateTintMaskColors()
+	_playerActor.QueueNiNodeUpdate()
 
 	SendModEvent("RSM_LoadPlugins")
 EndEvent

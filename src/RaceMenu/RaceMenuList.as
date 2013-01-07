@@ -3,6 +3,8 @@ import gfx.ui.NavigationCode;
 import gfx.ui.InputDetails;
 import Shared.GlobalFunc;
 
+import skyui.defines.Input;
+import skyui.util.GlobalFunctions;
 import skyui.components.list.EntryClipManager;
 import skyui.components.list.BasicList;
 import skyui.filter.IFilter;
@@ -33,7 +35,7 @@ class RaceMenuList extends skyui.components.list.ScrollingList
 			} else if (details.navEquivalent == NavigationCode.DOWN || details.navEquivalent == NavigationCode.PAGE_DOWN) {
 				moveSelectionDown(details.navEquivalent == NavigationCode.PAGE_DOWN);
 				return true;
-			} else if (!disableSelection && details.navEquivalent == NavigationCode.ENTER) {
+			} else if (!disableSelection && (details.navEquivalent == NavigationCode.ENTER || details.skseKeycode == GlobalFunctions.getMappedKey("Activate", Input.CONTEXT_GAMEPLAY, _platform != 0))) {
 				onItemPress();
 				return true;
 			}

@@ -22,6 +22,7 @@
 
 	public static var TYPE_SOULGEM: Number			= 52;
 
+	public static var TYPE_FORMLIST: Number			= 91;
 	public static var TYPE_SHOUT: Number 			= 119;
 
 	/*

@@ -43,6 +43,10 @@ Event OnGameReload()
 	OnStartup()
 EndEvent
 
+Event OnCellLoaded(ObjectReference akRef)
+	; Do nothing
+EndEvent
+
 Event OnChangeRace(Actor akActor)
 	; Do nothing
 EndEvent

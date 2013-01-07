@@ -5,6 +5,8 @@ string Property NINODE_LEFT_BREAST = "NPC L Breast" AutoReadOnly
 string Property NINODE_RIGHT_BREAST = "NPC R Breast" AutoReadOnly
 string Property NINODE_LEFT_BUTT = "NPC L Butt" AutoReadOnly
 string Property NINODE_RIGHT_BUTT = "NPC R Butt" AutoReadOnly
+string Property NINODE_Left_BICEP = "NPC L UpperarmTwist2 [LUt2]" AutoReadOnly
+string Property NINODE_RIGHT_BICEP = "NPC R UpperarmTwist2 [RUt2]" AutoReadOnly
 
 ; Custom Properties
 float _height = 1.0
@@ -13,20 +15,32 @@ float _leftBreast = 1.0
 float _rightBreast = 1.0
 float _leftButt = 1.0
 float _rightButt = 1.0
+float _rightBicep = 1.0
+float _leftBicep = 1.0
 
 ; Reload Custom slider settings here
 Event OnReloadSettings(Actor player, ActorBase playerBase)
 	playerBase.SetHeight(_height)
 	player.QueueNiNodeUpdate()
+	LoadNodeScales(player)
+EndEvent
+
+Function LoadNodeScales(Actor player)
 	NetImmerse.SetNodeScale(player, NINODE_HEAD, _head)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST, _leftBreast)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST, _rightBreast)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BUTT, _leftButt)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BUTT, _rightButt)
-EndEvent
+	NetImmerse.SetNodeScale(player, NINODE_LEFT_BICEP, _leftBicep)
+	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BICEP, _rightBicep)
+EndFunction
 
 Event On3DLoaded(ObjectReference akRef)
 	OnReloadSettings(_playerActor, _playerActorBase)
+EndEvent
+
+Event OnCellLoaded(ObjectReference akRef)
+	LoadNodeScales(_playerActor)
 EndEvent
 
 ; Add Custom Warpaint here
@@ -46,6 +60,8 @@ Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool i
 	_rightBreast = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BREAST)
 	_leftButt = NetImmerse.GetNodeScale(player, NINODE_LEFT_BUTT)
 	_rightButt = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BUTT)
+	_leftBicep = NetImmerse.GetNodeScale(player, NINODE_LEFT_BICEP)
+	_rightBicep = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BICEP)
 
 	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, _height)
 
@@ -67,6 +83,9 @@ Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool i
 			AddSlider("$Right Buttcheek", CATEGORY_BODY, "ChangeRightButt", 0.1, 5.00, 0.1, _rightButt)
 		Endif
 	Endif
+
+	AddSlider("$Left Bicep", CATEGORY_BODY, "ChangeLeftBicep", 0.1, 5.00, 0.1, _leftBicep)
+	AddSlider("$Right Bicep", CATEGORY_BODY, "ChangeRightBicep", 0.1, 5.00, 0.1, _rightBicep)
 EndEvent
 
 Event OnSliderChanged(string callback, float value)
@@ -89,5 +108,11 @@ Event OnSliderChanged(string callback, float value)
 	Elseif callback == "ChangeRightButt"
 		_rightButt = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BUTT, _rightButt)
+	Elseif callback == "ChangeLeftBicep"
+		_leftBicep = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BICEP, _leftBicep)
+	Elseif callback == "ChangeRightBicep"
+		_rightBicep = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BICEP, _rightBicep)
 	Endif
 EndEvent

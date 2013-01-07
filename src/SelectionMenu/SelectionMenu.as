@@ -25,6 +25,7 @@
 		ItemList.addEventListener("itemPress", this, "onItemSelect");
 		gfx.managers.FocusHandler.instance.setFocus(ItemList, 0);
 		_parent.gotoAndPlay("startFadeIn");
+		skse.SendModEvent("SelectionMenu_LoadMenu");
 	}
 	
 	private function handleInput(details: gfx.ui.InputDetails, pathToFocus: Array): Boolean

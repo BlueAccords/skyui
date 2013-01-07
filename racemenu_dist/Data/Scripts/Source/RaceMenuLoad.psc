@@ -11,3 +11,7 @@ EndEvent
 Event OnLoad()
 	(GetOwningQuest() as RaceMenuBase).On3DLoaded(GetReference())
 EndEvent
+
+Event OnCellLoad()
+	(GetOwningQuest() as RaceMenuBase).OnCellLoaded(GetReference())
+EndEvent

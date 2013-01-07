@@ -357,7 +357,6 @@ class RaceMenu extends MovieClip
 		}
 			
 		if (GlobalFunc.IsKeyPressed(details)) {
-			
 			if (details.code == KEYCODE_SPACE) {
 				searchWidget.startInput();
 				return true;
@@ -419,6 +418,7 @@ class RaceMenu extends MovieClip
 			} else if(makeupPanel._visible) {
 				ShowMakeupPanel(false);
 			}
+			textEntry.updateButtons(true);
 			FocusHandler.instance.setFocus(textEntry, 0);
 		} else {
 			FocusHandler.instance.setFocus(itemList, 0);
@@ -445,6 +445,7 @@ class RaceMenu extends MovieClip
 		colorField._visible = colorField.enabled = bShowField;
 		colorField.ResetSlider();
 		if(bShowField) {
+			colorField.updateButtons(true);
 			FocusHandler.instance.setFocus(colorField.colorSelector, 0);
 		} else {
 			FocusHandler.instance.setFocus(itemList, 0);
@@ -486,6 +487,7 @@ class RaceMenu extends MovieClip
 		makeupPanel._visible = makeupPanel.enabled = bShowPanel;
 		if(bShowPanel) {
 			makeupPanel.UpdateList();
+			makeupPanel.updateButtons(true);
 			FocusHandler.instance.setFocus(makeupPanel.makeupList, 0);
 		} else {
 			FocusHandler.instance.setFocus(itemList, 0);
@@ -915,7 +917,7 @@ class RaceMenu extends MovieClip
 			navPanel.addButton({text: "$Choose Texture", controls: _textureControl});
 		}
 		
-		navPanel.updateButtons(true);
+		navPanel.updateButtons(true);		
 	}
 	
 	private function GetSliderByType(tintType: Number): Object

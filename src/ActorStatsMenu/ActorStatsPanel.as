@@ -178,13 +178,15 @@ class ActorStatsPanel extends MovieClip
 		
 		_categoryList.InvalidateData();
 		_categoryList.onItemPress(0, 0);
+		
+		skse.SendModEvent("XFLStatPanel_LoadMenu");
 	}
 	
 	/* PAPYRUS INTERFACE */
 	
 	public function setActorStatsPanelForm(a_object: Object): Void
 	{
-		if(a_object.formType == Form.FORMTYPE_LIST)
+		if(a_object.formType == Form.TYPE_FORMLIST)
 		{
 			_subList.clearList();
 			for(var i = 0; i < a_object.forms.length; i++) {

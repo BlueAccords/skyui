@@ -6,6 +6,7 @@ import Shared.GlobalFunc;
 
 import skyui.components.ButtonPanel;
 import skyui.defines.Input;
+import skyui.util.GlobalFunctions;
 
 class ColorField extends MovieClip
 {
@@ -15,6 +16,7 @@ class ColorField extends MovieClip
 	public var currentSelectionLeft: MovieClip;
 	public var currentSelectionRight: MovieClip;
 	
+	private var _platform: Number;
 	private var _acceptButton: Object;
 	private var _cancelButton: Object;
 	private var _currentColor: Number;
@@ -46,10 +48,10 @@ class ColorField extends MovieClip
 	{			
 		var bHandledInput: Boolean = false;
 		if (GlobalFunc.IsKeyPressed(details)) {
-			if(details.navEquivalent == NavigationCode.ENTER) {
+			if(details.navEquivalent == NavigationCode.ENTER || details.skseKeycode == GlobalFunctions.getMappedKey("Activate", Input.CONTEXT_GAMEPLAY, _platform != 0)) {
 				onAccept();
 				bHandledInput = true;
-			} else if(details.navEquivalent == NavigationCode.TAB) {
+			} else if(details.navEquivalent == NavigationCode.TAB || details.skseKeycode == GlobalFunctions.getMappedKey("Cancel", Input.CONTEXT_GAMEPLAY, _platform != 0)) {
 				onCancel();
 				bHandledInput = true;
 			} else if (details.navEquivalent == NavigationCode.DOWN) {
@@ -123,12 +125,18 @@ class ColorField extends MovieClip
 		_currentColor = a_color;
 		colorSelector.setColor(_currentColor & 0x00FFFFFF, (_currentColor >>> 24));
 	}
+	
+	public function updateButtons(bInstant: Boolean)
+	{
+		buttonPanel.updateButtons(bInstant);
+	}
 
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
+		_platform = a_platform;
 		if(a_platform == 0) {
 			_acceptButton = Input.Accept;
-			_cancelButton = Input.Tab;
+			_cancelButton = {name: "Tween Menu", context: Input.CONTEXT_GAMEPLAY};
 		} else {
 			_acceptButton = Input.Accept;
 			_cancelButton = Input.Cancel;

@@ -9,6 +9,7 @@ import skyui.components.list.ScrollingList;
 import skyui.components.ButtonPanel;
 import skyui.filter.ItemSorter;
 import skyui.defines.Input;
+import skyui.util.GlobalFunctions;
 
 class MakeupPanel extends MovieClip
 {
@@ -18,6 +19,7 @@ class MakeupPanel extends MovieClip
 	private var _cancelButton: Object;
 	private var _sortFilter: ItemSorter;
 	
+	private var _platform: Number;
 	private var _currentTexture: String;
 	private var _currentDisplayText: String;
 	
@@ -91,10 +93,10 @@ class MakeupPanel extends MovieClip
 	{
 		var bHandledInput: Boolean = false;
 		if (GlobalFunc.IsKeyPressed(details)) {
-			if(details.navEquivalent == NavigationCode.ENTER) {
+			if(details.navEquivalent == NavigationCode.ENTER || details.skseKeycode == GlobalFunctions.getMappedKey("Activate", Input.CONTEXT_GAMEPLAY, _platform != 0)) {
 				onAccept();
 				bHandledInput = true;
-			} else if(details.navEquivalent == NavigationCode.TAB) {
+			} else if(details.navEquivalent == NavigationCode.TAB || details.skseKeycode == GlobalFunctions.getMappedKey("Cancel", Input.CONTEXT_GAMEPLAY, _platform != 0)) {
 				onCancel();
 				bHandledInput = true;
 			}
@@ -118,11 +120,17 @@ class MakeupPanel extends MovieClip
 		buttonPanel.updateButtons(true);
 	}
 	
+	public function updateButtons(bInstant: Boolean)
+	{
+		buttonPanel.updateButtons(bInstant);
+	}
+	
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
+		_platform = a_platform;
 		if(a_platform == 0) {
 			_acceptButton = Input.Accept;
-			_cancelButton = Input.Tab;
+			_cancelButton = {name: "Tween Menu", context: Input.CONTEXT_GAMEPLAY};
 		} else {
 			_acceptButton = Input.Accept;
 			_cancelButton = Input.Cancel;

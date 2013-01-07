@@ -11,8 +11,8 @@ class TextEntryField extends MovieClip
 	public var buttonPanel: ButtonPanel;
 	public var TextInputInstance: TextField;
 	
-	private var _acceptButton: MovieClip;
-	private var _cancelButton: MovieClip;
+	private var _acceptButton: Object;
+	private var _cancelButton: Object;
 
 	public var dispatchEvent: Function;
 	public var dispatchQueue: Function;
@@ -56,15 +56,27 @@ class TextEntryField extends MovieClip
 	public function SetupButtons(): Void
 	{
 		buttonPanel.clearButtons();
-		_acceptButton = buttonPanel.addButton({text: "$Accept", controls: Input.Accept});
-		_cancelButton = buttonPanel.addButton({text: "$Cancel", controls: Input.Cancel});
-		_acceptButton.addEventListener("click", this, "onAccept");
-		_cancelButton.addEventListener("click", this, "onCancel");
+		var acceptButton = buttonPanel.addButton({text: "$Accept", controls: _acceptButton});
+		var cancelButton = buttonPanel.addButton({text: "$Cancel", controls: _cancelButton});
+		acceptButton.addEventListener("click", this, "onAccept");
+		cancelButton.addEventListener("click", this, "onCancel");
 		buttonPanel.updateButtons(true);
+	}
+	
+	public function updateButtons(bInstant: Boolean)
+	{
+		buttonPanel.updateButtons(bInstant);
 	}
 
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
+		if(a_platform == 0) {
+			_acceptButton = Input.Enter;
+			_cancelButton = Input.Tab;
+		} else {
+			_acceptButton = Input.Accept;
+			_cancelButton = Input.Cancel;
+		}
 		buttonPanel.setPlatform(a_platform, a_bPS3Switch);
 	}
 
