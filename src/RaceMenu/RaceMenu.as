@@ -18,6 +18,7 @@ import skyui.components.ButtonPanel;
 import skyui.filter.ItemTypeFilter;
 import skyui.filter.ItemNameFilter;
 import skyui.filter.ItemSorter;
+import skyui.util.GlobalFunctions;
 import skyui.util.Debug;
 import skyui.defines.Input;
 
@@ -321,16 +322,16 @@ class RaceMenu extends MovieClip
 		if(_platform == 0) {
 			_activateControl = Input.Activate;
 			_acceptControl = {keyCode: DISPLAY_KEYCODE_DONE};
-			_lightControl = {keyCode: DISPLAY_KEYCODE_LIGHT};
+			_lightControl = Input.Shout;
 			_zoomControl = Input.Sprint;
-			_searchControl = {keyCode: DISPLAY_KEYCODE_SEARCH};
-			_textureControl = {keyCode: DISPLAY_KEYCODE_TEXTURE};
+			_searchControl = Input.Jump;
+			_textureControl = Input.Wait;
 		} else {
 			_activateControl = Input.Activate;
 			_acceptControl = Input.XButton;
-			_lightControl = {keyCode: DISPLAY_GAMEPAD_R1};
-			_zoomControl = {keyCode: DISPLAY_GAMEPAD_L1};
-			_textureControl = {keyCode: DISPLAY_GAMEPAD_Y};
+			_lightControl = Input.Wait;
+			_zoomControl = Input.Sprint;
+			_textureControl = Input.YButton;
 			_searchControl = null;
 		}
 		
@@ -345,6 +346,11 @@ class RaceMenu extends MovieClip
 		updateBottomBar();
 	}
 	
+	public function IsBoundKeyPressed(details: InputDetails, boundKey: Object, platform: Number): Boolean
+	{
+		return (details.control == boundKey.name || details.skseKeycode == GlobalFunctions.getMappedKey(boundKey.name, boundKey.context, platform != 0));
+	}
+	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
 		// Consume input when these windows are open
@@ -357,20 +363,22 @@ class RaceMenu extends MovieClip
 		}
 			
 		if (GlobalFunc.IsKeyPressed(details)) {
-			if (details.code == KEYCODE_SPACE) {
+			if (IsBoundKeyPressed(details, _searchControl, _platform) && _platform == 0) {
 				searchWidget.startInput();
 				return true;
-			} else if ((details.code == KEYCODE_T || details.navEquivalent == NavigationCode.GAMEPAD_Y) && !bTextEntryMode) {
-				var SelectedEntry = itemList.listState.selectedEntry;
-				makeupPanel.setTexture(SelectedEntry.text, SelectedEntry.texture);
-				ShowMakeupPanel(true);
-				return true;
-			} else if ((details.control == Input.Sprint.name || details.navEquivalent == NavigationCode.GAMEPAD_L1) && !bTextEntryMode) {
+			} else if (IsBoundKeyPressed(details, _textureControl, _platform) && !bTextEntryMode) {
+				var selectedEntry = itemList.listState.selectedEntry;
+				if(selectedEntry && selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP) {
+					makeupPanel.setTexture(selectedEntry.text, selectedEntry.texture);
+					ShowMakeupPanel(true);
+					return true;
+				}
+			} else if (IsBoundKeyPressed(details, _zoomControl, _platform) && !bTextEntryMode) {
 				playerZoom = !playerZoom;
 				GameDelegate.call("ZoomPC", [playerZoom]);
 				updateBottomBar();
 				return true;
-			} else if((details.code == KEYCODE_L || details.navEquivalent == NavigationCode.GAMEPAD_R1) && !bTextEntryMode) {
+			} else if(IsBoundKeyPressed(details, _lightControl, _platform) && !bTextEntryMode) {
 				bShowLight = !bShowLight;
 				skse.SendModEvent("RSM_ToggleLight", "", Number(bShowLight));
 				updateBottomBar();
