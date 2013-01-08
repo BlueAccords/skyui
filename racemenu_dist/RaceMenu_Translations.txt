@@ -5,8 +5,8 @@ $MAKEUP	MAKEUP	MAQUILLAGE	Make-Up	TRUCCO	Maquillaje	MAKEUP			化粧	MAQUIAGEM
 $Zoom In	Zoom In	Zoom Avant	Vergrößern	Ingrandisci	Acercarse	Přiblížit			ズームイン	Mais Zoom
 $Zoom Out	Zoom Out	Zoom Arrière	Verkleinern	Riduci	Alejarse	Oddálit			ズームアウト	Menos Zoom
 $Change Race	Change Race	Changer Race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu			種族の変更	Mudar a raca
-$Choose Color	Choose Color	Choisissez Couleur	Farbe wählen	Scegli Colore	Elegir color	Vybrat Barvu			色の選択	Escolha a cor
-$Choose Texture	Choose Texture	Choisissez Texture	Textur wählen	Scegli Texture	Elegir textura	Vybrat texturu			テクスチャーの選択	Escolha a textura
+$Choose Color	Choose Color	Choix de couleur	Farbe wählen	Scegli Colore	Elegir color	Vybrat Barvu			色の選択	Escolha a cor
+$Choose Texture	Choose Texture	Choix de texture	Textur wählen	Scegli Texture	Elegir textura	Vybrat texturu			テクスチャーの選択	Escolha a textura
 $Search	Search	Recherche	Suchen	Cerca	Buscar	Hledat			検索	Procura
 $Change Category	Change Category	Changer Catégorie	Kategorie ändern	Cambia Categoria	Cambiar categoría	Změnit Kategorii			カテゴリーの変更	Mudar a categoria
 $Height	Height	Taille	Größe	Altezza	Altura	Výška			身長	Altura
@@ -17,6 +17,8 @@ $Left Breast	Left Breast	Poitrine Gauche	Linke Brust	Seno Sinistro	Seno izquierd
 $Right Breast	Right Breast	Poitrine Droite	Rechte Brust	Seno Destro	Seno derecho	Pravé ňadro			右胸	Peito direito
 $Left Buttcheek	Left Buttcheek	Fessier Gauche	Linke Pobacke	Gluteo Sinistro	Nalga izquierda	Levá půlka			左尻	Glúteo esquerdo
 $Right Buttcheek	Right Buttcheek	Fessier Droit	Rechte Pobacke	Gluteo Destro	Nalga derecha	Pravá půlka			右尻	Glúteo direito
+$Left Biceps	Left Biceps	Biceps Gauche	Linke Bizeps	Bicipite Sinistro	Bíceps izquierda					
+$Right Biceps	Right Biceps	Biceps Droit	Rechte Bizeps	Bicipite Destro	Bíceps derecha					
 $Alteration	Alteration	Altération	Veränderung	Alterazione	Alteración	Proměny			変性	Alteração
 $Conjuration	Conjuration	Conjuration	Beschwörung	Evocazione	Conjuración	Vyvolávání			召喚	Conjuração
 $Destruction	Destruction	Destruction	Zerstörung	Distruzione	Destrucción	Ničení			破壊	Destruição
@@ -157,5 +159,5 @@ $Female Forsworn Tattoo 04	Female Forsworn Tattoo 04	Tatouage Parjure Femme 03	W
 $Male Black Blood Tattoo 01	Male Black Blood Tattoo 01	Tatouage Sang Noir Homme 01 	Männliches Schwarzblut Tattoo 01	Tatuaggio Maschile Blackblood 01	Tatuaje Sangre Negra para hombre 01	Tetování Gangu Blackblood 01			男性ブラック・ブラッドのタトゥー 01	Tatuagem de sangue negro masculino 01
 $Male Black Blood Tattoo 02	Male Black Blood Tattoo 02	Tatouage Sang Noir Homme 02	Männliches Schwarzblut Tattoo 02	Tatuaggio Maschile Blackblood 02	Tatuaje Sangre Negra para hombre 02	Tetování Gangu Blackblood 02			男性ブラック・ブラッドのタトゥー 02	Tatuagem de sangue negro masculino 02
 										
-% Completion	100.00%	100.00%	100.00%	100.00%	100.00%	100.00%	0.00%	0.00%	100.00%	100.00%
-Total % Completion	80.00%	80.00%	80.00%	80.00%	80.00%	80.00%	80.00%	80.00%	80.00%	80.00%
+% Completion	100.00%	100.00%	100.00%	100.00%	100.00%	98.74%	0.00%	0.00%	98.74%	98.74%
+Total % Completion	79.62%	79.62%	79.62%	79.62%	79.62%	79.62%	79.62%	79.62%	79.62%	79.62%
