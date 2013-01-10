@@ -61,40 +61,22 @@
 	static var TINT_TYPE_DIRT: Number = 14;
 	
 	static var CUSTOM_SLIDER_OFFSET: Number = 1000;
-
-	static var SLIDER_MAP: Array = [// Male
-										[{sliderID: 11, tintType: TINT_TYPE_HAIR}, // Hair Color
-										{sliderID: 45, tintType: TINT_TYPE_LIPS}, // Lips Color
-										{sliderID: 32, tintType: TINT_TYPE_CHEEKS}, // Cheeks Color
-										{sliderID: 17, tintType: TINT_TYPE_EYELINER}, // Eyeliner Color
-										{sliderID: 18, tintType: TINT_TYPE_UPPEREYE}, // Upper Eyesocket Color
-										{sliderID: 19, tintType: TINT_TYPE_LOWEREYE}, // Lower Eyesocket Color
-										{sliderID: 1, tintType: TINT_TYPE_SKINTONE}, // SkinTone Color
-										{sliderID: 8, tintType: TINT_TYPE_WARPAINT}, // Warpaint Color
-										{sliderID: 33, tintType: TINT_TYPE_LAUGHLINES}, // FrownLines Color
-										{sliderID: 34, tintType: TINT_TYPE_LOWERCHEEKS}, // LowerCheeks Color
-										{sliderID: 35, tintType: TINT_TYPE_NOSE}, // Nose Color
-										{sliderID: 36, tintType: TINT_TYPE_CHIN}, // Chin Color
-										{sliderID: 37, tintType: TINT_TYPE_NECK}, // Neck Color
-										{sliderID: 38, tintType: TINT_TYPE_FOREHEAD}, // Forehead Color
-										{sliderID: 5, tintType: TINT_TYPE_DIRT} // Dirt Color
-										], // Female
-										[{sliderID: 10, tintType: TINT_TYPE_HAIR}, // Hair Color
-										{sliderID: 44, tintType: TINT_TYPE_LIPS}, // Lips Color
-										{sliderID: 31, tintType: TINT_TYPE_CHEEKS}, // Cheeks Color
-										{sliderID: 16, tintType: TINT_TYPE_EYELINER}, // Eyeliner Color
-										{sliderID: 17, tintType: TINT_TYPE_UPPEREYE}, // Upper Eyesocket Color
-										{sliderID: 18, tintType: TINT_TYPE_LOWEREYE}, // Lower Eyesocket Color
-										{sliderID: 1, tintType: TINT_TYPE_SKINTONE}, // SkinTone Color
-										{sliderID: 8, tintType: TINT_TYPE_WARPAINT}, // Warpaint Color
-										{sliderID: 32, tintType: TINT_TYPE_LAUGHLINES}, // FrownLines Color
-										{sliderID: 33, tintType: TINT_TYPE_LOWERCHEEKS}, // LowerCheeks Color
-										{sliderID: 34, tintType: TINT_TYPE_NOSE}, // Nose Color
-										{sliderID: 35, tintType: TINT_TYPE_CHIN}, // Chin Color
-										{sliderID: 36, tintType: TINT_TYPE_NECK}, // Neck Color
-										{sliderID: 37, tintType: TINT_TYPE_FOREHEAD}, // Forehead Color
-										{sliderID: 5, tintType: TINT_TYPE_DIRT} // Dirt Color
-										]];
+	
+	static var TINT_MAP: Array = [TINT_TYPE_SKINTONE,
+								  TINT_TYPE_DIRT,
+								  TINT_TYPE_WARPAINT,
+								  TINT_TYPE_HAIR,
+								  TINT_TYPE_EYELINER,
+								  TINT_TYPE_UPPEREYE,
+								  TINT_TYPE_LOWEREYE,
+								  TINT_TYPE_CHEEKS,
+								  TINT_TYPE_LAUGHLINES,
+								  TINT_TYPE_LOWERCHEEKS,
+								  TINT_TYPE_NOSE,
+								  TINT_TYPE_CHIN,
+								  TINT_TYPE_NECK,
+								  TINT_TYPE_FOREHEAD,
+								  TINT_TYPE_LIPS];
 	
 	static var ACTORVALUE_ALCHEMY: Number = 16;
 	static var ACTORVALUE_ALTERATION: Number = 18;

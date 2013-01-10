@@ -154,7 +154,6 @@ class SliderListEntry extends BasicListEntry
 			{
 				valueField._visible = valueField.enabled = true;
 				SliderInstance._visible = SliderInstance.enabled = true;
-				colorSquare._visible = colorSquare.enabled = true;
 				
 				// Yeah this is stupid, but its the only way to tell if the slider loaded
 				if(!SliderInstance.initialized) {
@@ -169,7 +168,7 @@ class SliderListEntry extends BasicListEntry
 					var colorOverlay: Color = new Color(colorSquare.fill);
 					colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
 					colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
-					colorSquare.enabled = colorSquare._visible = true;
+					colorSquare.enabled = colorSquare._visible = (_global.skse != undefined);
 				} else {
 					colorSquare.enabled = colorSquare._visible = false;
 				}

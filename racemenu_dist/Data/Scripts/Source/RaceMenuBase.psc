@@ -65,12 +65,14 @@ EndEvent
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
 	OnWarpaintRequest()
 	AddWarpaints(_textures)
+	OnInitializeMenu(_playerActor, _playerActorBase)
 	OnSliderRequest(_playerActor, _playerActorBase, _playerActorBase.GetRace(), _playerActorBase.GetSex() as bool)
 	AddSliders(_sliders)
 	FlushBuffer(2)
 EndEvent
 
 Event OnMenuReinitialized(string eventName, string strArg, float numArg, Form formArg)
+	OnResetMenu(_playerActor, _playerActorBase)
 	OnSliderRequest(_playerActor, _playerActorBase, _playerActorBase.GetRace(), _playerActorBase.GetSex() as bool)
 	AddSliders(_sliders)
 	FlushBuffer(1)
@@ -89,6 +91,14 @@ Event OnReloadSettings(Actor player, ActorBase playerBase)
 EndEvent
 
 Event OnWarpaintRequest()
+	; Do nothing
+EndEvent
+
+Event OnInitializeMenu(Actor player, ActorBase playerBase)
+	; Do nothing
+EndEvent
+
+Event OnResetMenu(Actor player, ActorBase playerBase)
 	; Do nothing
 EndEvent
 

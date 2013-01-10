@@ -15,6 +15,7 @@ int[] _tintColors
 string[] _tintTextures
 int[] _presets
 float[] _morphs
+bool hasInitialized = false
 
 Event OnInitialized()
 	parent.OnInitialized()
@@ -27,9 +28,6 @@ Event OnInitialized()
 	_tintColors = new int[128]
 	_presets = new int[4]
 	_morphs = new float[19]
-
-	SaveHair()
-	SaveTints()
 EndEvent
 
 Function OnStartup()
@@ -57,6 +55,9 @@ EndFunction
 
 Event OnGameReload()
 	OnStartup()
+
+	LoadDefaults()
+
 	; Reload player settings
 	LoadHair()
 	LoadTints()
@@ -86,6 +87,7 @@ Event OnMenuClose(string menuName)
 EndEvent
 
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
+	LoadDefaults()
 	UpdateColors()
 	LoadTints()
 	LoadHair()
@@ -471,18 +473,63 @@ Function OnWarpaintRequest()
 	AddWarpaint("$Male Black Blood Tattoo 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBlackBloodTattoo_02.dds")
 EndFunction
 
+Function LoadDefaults()
+	If _tintTypes[0] == 0
+		SaveHair()
+		SaveTints()
+		hasInitialized = true
+		If _tintTypes[0] == 0
+			LoadDefaultTypes(_tintTypes)
+		Endif
+	Endif
+EndFunction
+
+Function LoadDefaultTypes(int[] loadedTypes)
+	loadedTypes[0] = 6;;-4744047;;Actors\Character\Character Assets\TintMasks\SkinTone.dds
+	loadedTypes[1] = 4;;16777215;;Actors\Character\Character Assets\TintMasks\MaleUpperEyeSocket.dds
+	loadedTypes[2] = 5;;16777215;;Actors\Character\Character Assets\TintMasks\MaleLowerEyeSocket.dds
+	loadedTypes[3] = 2;;1799554049;;Actors\Character\Character Assets\TintMasks\MaleHead_Cheeks.dds
+	loadedTypes[4] = 9;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHead_Cheeks2.dds
+	loadedTypes[5] = 8;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHead_FrownLines.dds
+	loadedTypes[6] = 1;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadNord_Lips.dds
+	loadedTypes[7] = 10;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHead_Nose.dds
+	loadedTypes[8] = 13;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadHuman_ForeHead.dds
+	loadedTypes[9] = 11;;1799554049;;Actors\Character\Character Assets\TintMasks\MaleHeadHuman_Chin.dds
+	loadedTypes[10] = 12;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadHuman_Neck.dds
+	loadedTypes[11] = 0;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHead_Frekles_01.dds
+	loadedTypes[12] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadWarPaint_01.dds
+	loadedTypes[13] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadWarPaint_02.dds
+	loadedTypes[14] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadWarPaint_03.dds
+	loadedTypes[15] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadWarPaint_04.dds
+	loadedTypes[16] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadWarPaint_05.dds
+	loadedTypes[17] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadWarPaint_06.dds
+	loadedTypes[18] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadWarPaint_07.dds
+	loadedTypes[19] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadWarPaint_08.dds
+	loadedTypes[20] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadWarPaint_09.dds
+	loadedTypes[21] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadWarPaint_10.dds
+	loadedTypes[22] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadNordWarPaint_01.dds
+	loadedTypes[23] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadNordWarPaint_02.dds
+	loadedTypes[24] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadNordWarPaint_03.dds
+	loadedTypes[25] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadNordWarPaint_04.dds
+	loadedTypes[26] = 7;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadNordWarPaint_05.dds
+	loadedTypes[27] = 0;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadBothiahTattoo_01.dds
+	loadedTypes[28] = 0;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadBlackBloodTattoo_01.dds
+	loadedTypes[29] = 0;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadBlackBloodTattoo_02.dds
+	loadedTypes[30] = 3;;16777215;;Actors\Character\Character Assets\TintMasks\RedGuardMaleEyeLinerStyle_01.dds
+	loadedTypes[31] = 14;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadDirt_01.dds
+	loadedTypes[32] = 14;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadDirt_02.dds
+	loadedTypes[33] = 14;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadDirt_03.dds
+EndFunction
+
 Function UpdateColors()
-	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_BeginSettings")
-
-	UI.InvokeInt(RACESEX_MENU, MENU_ROOT + "RSM_AddTintTypes", TINT_TYPE_HAIR)
-	UI.InvokeInt(RACESEX_MENU, MENU_ROOT + "RSM_AddTintColors", _color)
-	UI.InvokeString(RACESEX_MENU, MENU_ROOT + "RSM_AddTintTextures", "")
-
-	UI.InvokeIntA(RACESEX_MENU, MENU_ROOT + "RSM_AddTintTypes", _tintTypes)
-	UI.InvokeIntA(RACESEX_MENU, MENU_ROOT + "RSM_AddTintColors", _tintColors)
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddTintTextures", _tintTextures)
-
-	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_EndSettings")
+	int i = 0
+	string[] tints = new string[128]
+	tints[0] = TINT_TYPE_HAIR + ";;" + _color + ";;"
+	While i < _tintTypes.length - 1
+		tints[i + 1] = _tintTypes[i] + ";;" + _tintColors[i] + ";;" + _tintTextures[i]
+		i += 1
+	EndWhile
+	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddTints", tints)
 EndFunction
 
 Function UpdateRaces()
