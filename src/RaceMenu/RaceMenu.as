@@ -51,7 +51,7 @@ class RaceMenu extends MovieClip
 	
 	/* PUBLIC VARIABLES */
 	public var bLimitedMenu: Boolean;
-	public var playerZoom: Boolean = true;
+	public var bPlayerZoom: Boolean = true;
 	public var bShowLight: Boolean = true;
 	public var bTextEntryMode: Boolean = false;
 	public var bMenuInitialized: Boolean = false;
@@ -92,6 +92,8 @@ class RaceMenu extends MovieClip
 	function RaceMenu()
 	{
 		super();
+		_global.tintCount = 0;
+		_global.maxTints = RaceMenuDefines.MAX_TINTS;
 		
 		itemList = racePanel.itemList;
 		categoryList = racePanel.categoryList;
@@ -157,6 +159,7 @@ class RaceMenu extends MovieClip
 		_nameFilter.addEventListener("filterChange", this, "onFilterChange");
 		
 		itemList.addEventListener("itemPress", this, "onItemPress");
+		itemList.addEventListener("itemPressSecondary", this, "onItemPressSecondary");
 		itemList.addEventListener("selectionChange", this, "onSelectionChange");
 		categoryList.addEventListener("itemPress", this, "onCategoryPress");
 		categoryList.addEventListener("selectionChange", this, "onCategoryChange");
@@ -349,16 +352,9 @@ class RaceMenu extends MovieClip
 			if (IsBoundKeyPressed(details, _searchControl, _platform) && _platform == 0) {
 				searchWidget.startInput();
 				return true;
-			} else if (IsBoundKeyPressed(details, _textureControl, _platform) && !bTextEntryMode) {
-				var selectedEntry = itemList.listState.selectedEntry;
-				if(selectedEntry && selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP) {
-					makeupPanel.setTexture(selectedEntry.text, selectedEntry.texture);
-					ShowMakeupPanel(true);
-					return true;
-				}
 			} else if (IsBoundKeyPressed(details, _zoomControl, _platform) && !bTextEntryMode) {
-				playerZoom = !playerZoom;
-				GameDelegate.call("ZoomPC", [playerZoom]);
+				bPlayerZoom = !bPlayerZoom;
+				GameDelegate.call("ZoomPC", [bPlayerZoom]);
 				updateBottomBar();
 				return true;
 			} else if(IsBoundKeyPressed(details, _lightControl, _platform) && !bTextEntryMode) {
@@ -469,8 +465,6 @@ class RaceMenu extends MovieClip
 	{
 		makeupPanel._visible = makeupPanel.enabled = bShowPanel;
 		if(bShowPanel) {
-			makeupPanel.UpdateList();
-			makeupPanel.updateButtons(true);
 			FocusHandler.instance.setFocus(makeupPanel.makeupList, 0);
 		} else {
 			FocusHandler.instance.setFocus(itemList, 0);
@@ -594,15 +588,18 @@ class RaceMenu extends MovieClip
 			if(entryObject.callbackName == "ChangeTintingMask" || entryObject.callbackName == "ChangeMaskColor" || entryObject.callbackName == "ChangeHairColorPreset") {
 				entryObject.filterFlag += RaceMenuDefines.CATEGORY_COLOR;
 				entryObject.tintType = RaceMenuDefines.TINT_MAP[colorIndex];
+				entryObject.isColorEnabled = function(): Boolean
+				{
+					return (_global.skse && (_global.tintCount < _global.maxTints || (this.fillColor >>> 24) != 0 || this.tintType == RaceMenuDefines.TINT_TYPE_HAIR));
+				}
+				entryObject.hasColor = function(): Boolean { return true; }
 				colorIndex++;
+			} else {
+				entryObject.hasColor = function(): Boolean { return false; }
 			}
 			
-			// Oversliding
-			/*if(entryObject.callbackName == "ChangeDoubleMorph") {
-				entryObject.sliderMin -= 5;
-				entryObject.sliderMax += 5;
-			}*/
-						
+			entryObject.isTextureEnabled = function(): Boolean { return false; }
+			
 			itemList.entryList.push(entryObject);
 		}
 				
@@ -663,7 +660,16 @@ class RaceMenu extends MovieClip
 				formatIndex = nTintTexture.length;
 			
 			var displayText: String = nTintTexture.substring(slashIndex + 1, formatIndex);
-			itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: displayText, texture: nTintTexture, tintType: nTintType, tintIndex: nTintIndex, fillColor: nTintColor, filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true});
+			
+			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: displayText, texture: nTintTexture, tintType: nTintType, tintIndex: nTintIndex, fillColor: nTintColor, filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true};
+			entryObject.isColorEnabled = function(tintColors: Number): Boolean
+			{
+				return (_global.skse && (_global.tintCount < _global.maxTints || (this.fillColor >>> 24) != 0));
+			}
+			entryObject.isTextureEnabled = function(): Boolean { return true; }
+			entryObject.hasColor = function(): Boolean { return true; }
+			
+			itemList.entryList.push(entryObject);
 		}
 		
 		itemList.requestInvalidate();
@@ -742,12 +748,30 @@ class RaceMenu extends MovieClip
 		{
 			var selectedEntry = itemList.listState.selectedEntry;
 			if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
-				if(event.apply)
+				if(event.apply) {
+					// Update Tint Count
+					if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) == 0 && (event.color >>> 24) != 0) {
+						_global.tintCount++;
+						UpdateTintCount();
+					} else if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) != 0 && (event.color >>> 24) == 0) {
+						_global.tintCount--;
+						UpdateTintCount();
+					}
 					selectedEntry.fillColor = event.color;
+				}
 				requestUpdate({type: "sliderColor", slider: selectedEntry, argbColor: event.color});
 			} else if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP) {
-				if(event.apply)
+				if(event.apply) {
+					// Update Tint Count
+					if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) == 0 && (event.color >>> 24) != 0) {
+						_global.tintCount++;
+						UpdateTintCount();
+					} else if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) != 0 && (event.color >>> 24) == 0) {
+						_global.tintCount--;
+						UpdateTintCount();
+					}
 					selectedEntry.fillColor = event.color;
+				}
 				requestUpdate({type: "makeupColor", tintType: selectedEntry.tintType, tintIndex: selectedEntry.tintIndex, argbColor: event.color});
 			}
 			
@@ -842,8 +866,9 @@ class RaceMenu extends MovieClip
 			itemList.requestUpdate();
 			loadingIcon._visible = true;
 			GameDelegate.call("ChangeRace", [pressedEntry.raceID, -1]);
-			playerZoom = true; // Reset zoom, this happens when race is changed
-		} else if((pressedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) || (pressedEntry.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP) && _global.skse) {
+			bPlayerZoom = true; // Reset zoom, this happens when race is changed
+			updateBottomBar();
+		} else if(pressedEntry.isColorEnabled()) {
 			colorField.setText(pressedEntry.text);
 			colorField.setColor(pressedEntry.fillColor);
 			ShowColorField(true);
@@ -851,7 +876,18 @@ class RaceMenu extends MovieClip
 			itemList.listState.focusEntry = entryObject;
 			itemList.requestUpdate();
 		}*/
-		updateBottomBar();
+	}
+	
+	private function onItemPressSecondary(event: Object): Void
+	{
+		var pressedEntry: Object = itemList.entryList[event.index];
+		if(pressedEntry.isTextureEnabled()) {
+			makeupPanel.InvalidateList();
+			makeupPanel.updateButtons(true);
+			makeupPanel.setSelectedEntry(pressedEntry.texture);
+			makeupPanel.setTexture(pressedEntry.text, pressedEntry.texture);
+			ShowMakeupPanel(true);
+		}
 	}
 	
 	private function onSelectionChange(event: Object): Void
@@ -878,19 +914,18 @@ class RaceMenu extends MovieClip
 		if(_platform == 0) {
 			navPanel.addButton({text: "$Search", controls: _searchControl});
 		}
-		navPanel.addButton({text: playerZoom ? "$Zoom Out" : "$Zoom In", controls: _zoomControl});
+		navPanel.addButton({text: bPlayerZoom ? "$Zoom Out" : "$Zoom In", controls: _zoomControl});
 		
 		if(_global.skse)
 			navPanel.addButton({text: bShowLight ? "$Light Off" : "$Light On", controls: _lightControl});
 		
-		if(itemList.listState.selectedEntry != itemList.listState.activeEntry && itemList.listState.selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE) {
+		var selectedEntry = itemList.listState.selectedEntry;
+		if(selectedEntry != itemList.listState.activeEntry && selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE)
 			navPanel.addButton({text: "$Change Race", controls: _activateControl});
-		} else if(itemList.listState.selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR && _global.skse) {
+		if(selectedEntry.isColorEnabled())
 			navPanel.addButton({text: "$Choose Color", controls: _activateControl});
-		} else if(itemList.listState.selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_MAKEUP && _global.skse) {
-			navPanel.addButton({text: "$Choose Color", controls: _activateControl});
+		if(selectedEntry.isTextureEnabled())
 			navPanel.addButton({text: "$Choose Texture", controls: _textureControl});
-		}
 		
 		navPanel.updateButtons(true);		
 	}
@@ -945,6 +980,11 @@ class RaceMenu extends MovieClip
 		}
 	}
 	
+	private function UpdateTintCount(): Void
+	{
+		racePanel.tintCount.text = "(" + _global.tintCount + "/" + _global.maxTints + ")";
+	}
+	
 	/* PAPYRUS INTERFACE */
 	public function RSM_AddSliders()
 	{
@@ -991,7 +1031,8 @@ class RaceMenu extends MovieClip
 		var tintTypes = new Array();
 		var tintColors = new Array();
 		var tintTextures = new Array();
-			
+		
+		_global.tintCount = 0;
 		for(var i = 0; i < arguments.length; i++)
 		{		
 			var tintParams: Array = arguments[i].split(";;");
@@ -999,8 +1040,14 @@ class RaceMenu extends MovieClip
 				tintTypes.push(Number(tintParams[0]));
 				tintColors.push(Number(tintParams[1]));
 				tintTextures.push(tintParams[2]);
+				
+				// Tint has a color
+				if(Number(tintParams[0]) != RaceMenuDefines.TINT_TYPE_HAIR && (Number(tintParams[1]) >>> 24) > 0) {
+					_global.tintCount++;
+				}
 			}
 		}
+		UpdateTintCount();
 		
 		SetSliderColors(tintTypes, tintColors);
 		SetMakeup(tintTypes, tintColors, tintTextures, RaceMenuDefines.TINT_TYPE_WARPAINT);

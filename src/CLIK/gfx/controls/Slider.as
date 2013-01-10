@@ -1,4 +1,4 @@
-dynamic class gfx.controls.Slider extends gfx.core.UIComponent
+﻿dynamic class gfx.controls.Slider extends gfx.core.UIComponent
 {
 	var liveDragging: Boolean = false;
 	var state: String = "default";
@@ -87,7 +87,7 @@ dynamic class gfx.controls.Slider extends gfx.core.UIComponent
 			this.focusEnabled = this.tabEnabled = !this._disabled;
 			if (this.initialized) 
 			{
-				this.thumb.disabled = this.track.__set__disabled(this._disabled);
+				this.thumb.disabled = this.track.disabled = this._disabled;
 				this.invalidate();
 				return;
 			}
@@ -178,7 +178,7 @@ dynamic class gfx.controls.Slider extends gfx.core.UIComponent
 		this.thumb.addEventListener("press", this, "beginDrag");
 		this.track.addEventListener("press", this, "trackPress");
 		this.thumb.focusTarget = this.track.focusTarget = this;
-		this.thumb.disabled = this.track.__set__disabled(this._disabled);
+		this.thumb.disabled = this.track.disabled = this._disabled;
 		this.thumb.lockDragStateChange = true;
 		this.initSize();
 		this.constraints = new gfx.utils.Constraints(this);
@@ -211,10 +211,6 @@ dynamic class gfx.controls.Slider extends gfx.core.UIComponent
 
 	function updateThumb()
 	{
-		if (this._disabled) 
-		{
-			return undefined;
-		}
 		var __reg2 = this.__width - this.offsetLeft - this.offsetRight;
 		this.thumb._x = (this._value - this._minimum) / (this._maximum - this._minimum) * __reg2 - this.thumb._width / 2 + this.offsetLeft;
 	}

@@ -43,6 +43,8 @@
 	static var STATIC_SLIDER_DIRT: Number = 4;
 	static var STATIC_SLIDER_WARPAINT: Number = 7;
 	
+	static var MAX_TINTS: Number = 15;
+	
 	static var TINT_TYPE_HAIR: Number = 128;
 	static var TINT_TYPE_FRECKLES: Number = 0;
 	static var TINT_TYPE_LIPS: Number = 1;

@@ -63,9 +63,9 @@ class MakeupPanel extends MovieClip
 		makeupList.requestInvalidate();
 	}
 	
-	public function UpdateList(): Void
+	public function InvalidateList(): Void
 	{
-		makeupList.requestInvalidate();
+		makeupList.InvalidateData();
 	}
 		
 	public function AddMakeup(a_name: String, a_texture: String)
@@ -136,6 +136,16 @@ class MakeupPanel extends MovieClip
 			_cancelButton = Input.Cancel;
 		}
 		buttonPanel.setPlatform(a_platform, a_bPS3Switch);
+	}
+	
+	public function setSelectedEntry(a_texture: String): Void
+	{
+		for(var i = 0; i < makeupList.entryList.length; i++) {
+			if(makeupList.entryList[i].texture == a_texture) {
+				makeupList.selectedIndex = i;
+				break;
+			}
+		}
 	}
 	
 	public function setTexture(a_displayText:String, a_texture: String): Void

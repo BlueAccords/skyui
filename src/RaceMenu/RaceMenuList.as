@@ -38,6 +38,12 @@ class RaceMenuList extends skyui.components.list.ScrollingList
 			} else if (!disableSelection && (details.navEquivalent == NavigationCode.ENTER || details.skseKeycode == GlobalFunctions.getMappedKey("Activate", Input.CONTEXT_GAMEPLAY, _platform != 0))) {
 				onItemPress();
 				return true;
+			} else if (!disableSelection && (details.control == "YButton" || 
+											 details.control == "Wait" || 
+											 details.skseKeycode == GlobalFunctions.getMappedKey("YButton", Input.CONTEXT_GAMEPLAY, _platform != 0) || 
+											 details.skseKeycode == GlobalFunctions.getMappedKey("Wait", Input.CONTEXT_GAMEPLAY, _platform != 0))) {
+				dispatchEvent({type: "itemPressSecondary", index: _selectedIndex, entry: selectedEntry, clip: selectedClip});
+				return true;
 			}
 		}
 		return false;

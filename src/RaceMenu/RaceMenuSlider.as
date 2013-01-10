@@ -1,4 +1,4 @@
-class RaceMenuSlider extends gfx.controls.Slider
+﻿class RaceMenuSlider extends gfx.controls.Slider
 {
 	function RaceMenuSlider()
 	{

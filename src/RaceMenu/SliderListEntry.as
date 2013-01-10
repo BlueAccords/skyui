@@ -15,7 +15,7 @@ class SliderListEntry extends BasicListEntry
   	public static var defaultTextColor: Number = 0xffffff;
 	public static var disabledTextColor: Number = 0x4c4c4c;
 	public static var squareFillColor: Number = 0x0000000;
-	private var sliderWait: Number;
+
 	private var proxyObject: Object;
 	
 	/* STAGE ELMENTS */
@@ -80,14 +80,15 @@ class SliderListEntry extends BasicListEntry
 	{
 		var list = _parent;		
 		var entryObject = list.selectedEntry;
-		var selectedClip = list.selectedClip;
 		if(entryObject.type != RaceMenuDefines.ENTRY_TYPE_SLIDER)
 			return false;
 		
-		var handledInput: Boolean = SliderInstance.handleInput(details, pathToFocus);
-		if(handledInput) {
-			list.requestUpdate();
-			return true;
+		if(!SliderInstance.disabled) {
+			var handledInput: Boolean = SliderInstance.handleInput(details, pathToFocus);
+			if(handledInput) {
+				list.requestUpdate();
+				return true;
+			}
 		}
 		
 		return false;
@@ -105,21 +106,71 @@ class SliderListEntry extends BasicListEntry
 	}
 
 	public function setEntry(a_entryObject: Object, a_state: ListState): Void
-	{
-		enabled = a_entryObject.enabled;
-		
+	{	
 		var isSelected = a_entryObject == a_state.list.selectedEntry;
 		var isActive = (a_state.activeEntry != undefined && a_entryObject == a_state.activeEntry);
 		var isFocus = (a_entryObject == a_state.focusEntry);
 		var hasFocus = (a_state.focusEntry != undefined);
 		
-		if(hasFocus && !isFocus) {
-			enabled = false;
+		switch(a_entryObject.type)
+		{
+			case RaceMenuDefines.ENTRY_TYPE_RACE:
+			{
+				valueField._visible = valueField.enabled = false;
+				SliderInstance._visible = SliderInstance.enabled = false;
+				colorSquare._visible = colorSquare.enabled = false;
+			}
+			break;
+			
+			case RaceMenuDefines.ENTRY_TYPE_SLIDER:
+			{
+				valueField._visible = valueField.enabled = true;
+				SliderInstance._visible = SliderInstance.enabled = true;
+				
+				a_entryObject.enabled = (!a_entryObject.hasColor() || a_entryObject.isColorEnabled());
+										
+				valueField.SetText(((a_entryObject.position * 100)|0)/100);
+				
+				if(a_entryObject.hasColor()) {
+					var colorOverlay: Color = new Color(colorSquare.fill);
+					colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
+					colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
+					colorSquare.enabled = colorSquare._visible = (_global.skse != undefined);
+				} else {
+					colorSquare.enabled = colorSquare._visible = false;
+				}
+				
+				// Yeah this is stupid, but its the only way to tell if the slider loaded
+				if(!SliderInstance.initialized) {
+					proxyObject = a_entryObject;
+				} else {
+					setSlider(a_entryObject);
+				}
+			}
+			break;
+			
+			case RaceMenuDefines.ENTRY_TYPE_MAKEUP:
+			{
+				valueField._visible = valueField.enabled = false;
+				SliderInstance._visible = SliderInstance.enabled = false;
+				colorSquare._visible = colorSquare.enabled = true;
+				
+				a_entryObject.enabled = a_entryObject.isColorEnabled();
+				
+				var colorOverlay: Color = new Color(colorSquare.fill);
+				colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
+				colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
+				colorSquare.enabled = colorSquare._visible = true;
+			}
+			break;
+		}
+		
+		enabled = a_entryObject.enabled;
+		if((hasFocus && !isFocus) || !enabled) {
 			textField.textColor = disabledTextColor;
 			valueField.textColor = disabledTextColor;
 			SliderInstance._alpha = 40;
 		} else {
-			enabled = true;
 			textField.textColor = defaultTextColor;
 			valueField.textColor = defaultTextColor;
 			SliderInstance._alpha = 100;
@@ -139,55 +190,6 @@ class SliderListEntry extends BasicListEntry
 		}
 		if(focusIndicator != undefined)
 			focusIndicator._visible = isFocus;
-
-		switch(a_entryObject.type)
-		{
-			case RaceMenuDefines.ENTRY_TYPE_RACE:
-			{
-				valueField._visible = valueField.enabled = false;
-				SliderInstance._visible = SliderInstance.enabled = false;
-				colorSquare._visible = colorSquare.enabled = false;
-			}
-			break;
-			
-			case RaceMenuDefines.ENTRY_TYPE_SLIDER:
-			{
-				valueField._visible = valueField.enabled = true;
-				SliderInstance._visible = SliderInstance.enabled = true;
-				
-				// Yeah this is stupid, but its the only way to tell if the slider loaded
-				if(!SliderInstance.initialized) {
-					proxyObject = a_entryObject;
-				} else {
-					setSlider(a_entryObject);
-				}
-				
-				valueField.SetText(((a_entryObject.position * 100)|0)/100);
-				
-				if(a_entryObject.callbackName == "ChangeTintingMask" || a_entryObject.callbackName == "ChangeMaskColor" || a_entryObject.callbackName == "ChangeHairColorPreset") {
-					var colorOverlay: Color = new Color(colorSquare.fill);
-					colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
-					colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
-					colorSquare.enabled = colorSquare._visible = (_global.skse != undefined);
-				} else {
-					colorSquare.enabled = colorSquare._visible = false;
-				}
-			}
-			break;
-			
-			case RaceMenuDefines.ENTRY_TYPE_MAKEUP:
-			{
-				valueField._visible = valueField.enabled = false;
-				SliderInstance._visible = SliderInstance.enabled = false;
-				colorSquare._visible = colorSquare.enabled = true;
-				
-				var colorOverlay: Color = new Color(colorSquare.fill);
-				colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
-				colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
-				colorSquare.enabled = colorSquare._visible = true;
-			}
-			break;
-		}
 	}
 
 	public function updatePosition(a_position: Number): Void
@@ -198,7 +200,6 @@ class SliderListEntry extends BasicListEntry
 	
 	private function setSlider(a_entryObject: Object): Void
 	{
-		SliderInstance.enabled = a_entryObject.enabled;
 		SliderInstance.minimum = a_entryObject.sliderMin;
 		SliderInstance.maximum = a_entryObject.sliderMax;
 		SliderInstance.snapInterval = a_entryObject.interval;
@@ -206,7 +207,6 @@ class SliderListEntry extends BasicListEntry
 		SliderInstance.callbackName = a_entryObject.callbackName;
 		SliderInstance.sliderID = a_entryObject.sliderID;
 		SliderInstance.entryObject = a_entryObject;
-		
 		SliderInstance.changedCallback = function()
 		{
 			GameDelegate.call(this.callbackName, [this.position, this.sliderID]);
@@ -215,5 +215,6 @@ class SliderListEntry extends BasicListEntry
 			_parent.valueField.SetText(((this.position * 100)|0)/100);
 		};
 		SliderInstance.addEventListener("change", SliderInstance, "changedCallback");
+		SliderInstance.disabled = !a_entryObject.enabled;
 	}
 }
