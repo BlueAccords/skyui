@@ -68,9 +68,9 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 		var initObject: Object = {index: _actorArray.length,
 									formId: a_actor.formId,
 									name: a_actor.actorBase.fullName,
-									health: (a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].current / a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].maximum) * 100,
-									magicka: (a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].maximum) * 100,
-									stamina: (a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].maximum) * 100,
+									health: (a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].current / a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].maximum),
+									magicka: (a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].maximum),
+									stamina: (a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].maximum),
 									fadeInDuration: this.fadeInDuration,
 									fadeOutDuration: this.fadeOutDuration,
 									moveDuration: this.moveDuration
