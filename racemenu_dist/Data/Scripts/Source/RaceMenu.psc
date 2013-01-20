@@ -15,6 +15,7 @@ int[] _tintColors
 string[] _tintTextures
 int[] _presets
 float[] _morphs
+
 bool hasInitialized = false
 
 Event OnInitialized()
@@ -39,6 +40,8 @@ Function OnStartup()
 	RegisterForModEvent("RSM_TintColorChange", "OnTintColorChange") ; Event sent when a tint changes color
 	RegisterForModEvent("RSM_TintTextureChange", "OnTintTextureChange") ; Event sent when a tint changes texture
 	RegisterForModEvent("RSM_ToggleLight", "OnToggleLight") ; Event sent when the Light button is pressed
+	RegisterForModEvent("RSM_RequestTintSave", "OnTintSave") ; User-sent event to request tint save
+	RegisterForModEvent("RSM_SliderChange", "OnMenuSliderChange") ; Event sent when a slider's value is changed
 
 	; Handles clipboard data transfer DO NOT EDIT
 	RegisterForModEvent("RSM_RequestLoadClipboard", "OnLoadClipboard")
@@ -50,6 +53,13 @@ Function OnStartup()
 
 	Utility.SetINIFloat("fPlayerBodyEditDistance:Interface", 190.0)
 	Utility.SetINIFloat("fPlayerFaceEditDistance:Interface", 70.0)
+
+	If SKSE.GetVersionRelease() < 34
+		Debug.Notification("SKSE version mismatch. You are running SKSE Version " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta() + "." + SKSE.GetVersionRelease() + " you require 1.6.6.34 or greater.")
+	Endif
+	If SKSE.GetVersionRelease() != SKSE.GetScriptVersionRelease()
+		Debug.Notification("SKSE script version mismatch. Please reinstall your SKSE scripts to match your version.")
+	Endif
 EndFunction
 
 
@@ -61,11 +71,37 @@ Event OnGameReload()
 	; Reload player settings
 	LoadHair()
 	LoadTints()
-
-	_playerActor.QueueNiNodeUpdate()
+	
+	;_playerActor.QueueNiNodeUpdate()
+	;SafeUpdate(_playerActor)
+	GoToState("Update")
 
 	SendModEvent("RSM_LoadPlugins")
 EndEvent
+
+Event On3DLoaded(ObjectReference akRef)
+	LoadTints()
+	GoToState("Update")
+EndEvent
+
+Event OnBeginState()
+	If GetState() == "Update"
+		Utility.Wait(0.5)
+		Game.UpdateHairColor()
+		Game.UpdateTintMaskColors()
+		GoToState("")
+	Endif
+EndEvent
+
+;Function SafeUpdate(Actor player)
+;	if player.IsOnMount()
+;		Utility.Wait(1.0)
+;		Game.UpdateHairColor()
+;		Game.UpdateTintMaskColors()
+;	Else
+;		player.QueueNiNodeUpdate()
+;	Endif
+;EndFunction
 
 Event OnMenuOpen(string menuName)
 	If menuName == RACESEX_MENU
@@ -100,6 +136,16 @@ Event OnMenuReinitialized(string eventName, string strArg, float numArg, Form fo
 	SaveHair()
 	SaveTints()
 	UpdateColors()
+EndEvent
+
+Event OnMenuSliderChange(string eventName, string strArg, float numArg, Form formArg)
+	If strArg == "ChangeTintingMask" || strArg == "ChangeMaskColor"
+		SaveTints()
+		UpdateColors()
+	Elseif strArg == "ChangeHairColorPreset"
+		SaveHair()
+		UpdateColors()
+	Endif
 EndEvent
 
 Function LoadHair()
@@ -146,6 +192,13 @@ Function SaveTints()
 		_tintTypes[i] = Game.GetNthTintMaskType(i)
 		_tintColors[i] = Game.GetNthTintMaskColor(i)
 		_tintTextures[i] = Game.GetNthTintMaskTexturePath(i)
+		i += 1
+	EndWhile
+	; Clear the remaining tints
+	While i < _tintTypes.length
+		_tintTypes[i] = 0
+		_tintColors[i] = 0
+		_tintTextures[i] = ""
 		i += 1
 	EndWhile
 EndFunction
@@ -228,6 +281,11 @@ Event OnToggleLight(string eventName, string strArg, float numArg, Form formArg)
 	Else
 		_light.DisableNoWait()
 	Endif
+EndEvent
+
+Event OnTintSave(string eventName, string strArg, float numArg, Form formArg)
+	SaveHair()
+	SaveTints()
 EndEvent
 
 ; ------------------------------- Clipboard Events -----------------------------------

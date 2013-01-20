@@ -170,10 +170,12 @@ class SliderListEntry extends BasicListEntry
 			textField.textColor = disabledTextColor;
 			valueField.textColor = disabledTextColor;
 			SliderInstance._alpha = 40;
+			colorSquare._alpha = 40;
 		} else {
 			textField.textColor = defaultTextColor;
 			valueField.textColor = defaultTextColor;
 			SliderInstance._alpha = 100;
+			colorSquare._alpha = 100;
 		}
 
 		if (textField != undefined) {			

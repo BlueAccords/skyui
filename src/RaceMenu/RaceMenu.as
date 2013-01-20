@@ -307,14 +307,14 @@ class RaceMenu extends MovieClip
 		
 		if(_platform == 0) {
 			_activateControl = Input.Activate;
-			_acceptControl = {keyCode: DISPLAY_KEYCODE_DONE};
+			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_lightControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_searchControl = Input.Jump;
 			_textureControl = Input.Wait;
 		} else {
 			_activateControl = Input.Activate;
-			_acceptControl = Input.XButton;
+			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_lightControl = Input.Wait;
 			_zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_textureControl = Input.YButton;
@@ -590,7 +590,7 @@ class RaceMenu extends MovieClip
 				entryObject.tintType = RaceMenuDefines.TINT_MAP[colorIndex];
 				entryObject.isColorEnabled = function(): Boolean
 				{
-					return (_global.skse && (_global.tintCount < _global.maxTints || (this.fillColor >>> 24) != 0 || this.tintType == RaceMenuDefines.TINT_TYPE_HAIR));
+					return (_global.skse && (_global.tintCount < _global.maxTints || (this.fillColor >>> 24) != 0 || this.tintType == RaceMenuDefines.TINT_TYPE_HAIR)) || !_global.skse;
 				}
 				entryObject.hasColor = function(): Boolean { return true; }
 				colorIndex++;

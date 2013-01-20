@@ -12,6 +12,8 @@ class WidgetLoader extends MovieClip
 	
 	private var _mcLoader: MovieClipLoader;
 	
+	private var _hudModeDispatcher: MovieClip;
+	
 
   /* INITIALIZATION */
 	
