@@ -6,11 +6,15 @@ class WidgetLoader extends MovieClip
 	
   /* PRIVATE VARIABLES */
   
-	private var _widgetPath: String = "widgets/";
+	private var _rootPath: String = "";
 
 	private var _widgetContainer: MovieClip;
 	
 	private var _mcLoader: MovieClipLoader;
+
+	private var _hudMetrics: Object
+
+	private var _hudModeDispatcher: MovieClip;
 	
 	private var _hudModeDispatcher: MovieClip;
 	
@@ -22,7 +26,7 @@ class WidgetLoader extends MovieClip
 		_mcLoader = new MovieClipLoader();
 		_mcLoader.addListener(this);
 		
-		GlobalFunctions.addArrayFunctions();	
+		GlobalFunctions.addArrayFunctions();
 	}
 	
 	
@@ -30,6 +34,18 @@ class WidgetLoader extends MovieClip
 
 	public function onLoad(): Void
 	{
+		var hudMinXY: Object = {x: Stage.safeRect.x, y: Stage.safeRect.y};
+		var hudMaxXY: Object = {x: Stage.visibleRect.width - Stage.safeRect.x, y: Stage.visibleRect.height - Stage.safeRect.y};
+		_root.globalToLocal(hudMinXY);
+		_root.globalToLocal(hudMaxXY);
+
+		_hudMetrics = {hMin: hudMinXY.x,
+						//hCenter: (hudMaxXY.x - hudMinXY.x)/2,
+						hMax: hudMaxXY.x,
+						vMin: hudMinXY.y,
+						//vCenter: (hudMaxXY.y - hudMinXY.y)/2,
+						vMax: hudMaxXY.y}
+
 		// Dispatch event with initial hudMode
 		var currentHudMode: String = _root.HUDMovieBaseInstance.HUDModes[_root.HUDMovieBaseInstance.HUDModes.length - 1];
 		skse.SendModEvent("SKIWF_hudModeChanged", currentHudMode);
@@ -58,6 +74,9 @@ class WidgetLoader extends MovieClip
 				widgetHolder.widget.onModeChange(a_hudMode);
 		}
 		
+		a_widgetHolder.widget.setHudMetrics(_hudMetrics);
+		a_widgetHolder.widget.setRootPath(_rootPath);
+		
 		skse.SendModEvent("SKIWF_widgetLoaded", a_widgetHolder._name);
 	}
 	
@@ -66,10 +85,10 @@ class WidgetLoader extends MovieClip
 		skse.SendModEvent("SKIWF_widgetError", "WidgetLoadFailure", Number(a_widgetHolder._name));
 	}
 	
-	public function setWidgetPath(a_path: String): Void
+	public function setRootPath(a_path: String): Void
 	{
-		skse.Log("WidgetLoader.as: setWidgetPath(a_path = " + a_path + ")");
-		_widgetPath = a_path;
+		skse.Log("WidgetLoader.as: setRootPath(a_path = " + a_path + ")");
+		_rootPath = a_path;
 	}
 	
 	public function loadWidgets(/* widgetSources (128) */): Void
@@ -96,7 +115,7 @@ class WidgetLoader extends MovieClip
 			createWidgetContainer();
 		
 		var widgetHolder: MovieClip = _widgetContainer.createEmptyMovieClip(a_widgetID, _widgetContainer.getNextHighestDepth());
-		_mcLoader.loadClip(_widgetPath + a_widgetSource, widgetHolder);
+		_mcLoader.loadClip(_rootPath + "widgets/" + a_widgetSource, widgetHolder);
 	}
 	 
 	 

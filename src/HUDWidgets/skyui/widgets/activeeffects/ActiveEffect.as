@@ -1,5 +1,4 @@
-﻿
-import skyui.util.EffectIconMap;
+﻿import skyui.util.EffectIconMap;
 import Shared.GlobalFunc;
 
 import com.greensock.TweenLite;
@@ -8,18 +7,27 @@ import com.greensock.easing.Linear;
 
 class skyui.widgets.activeeffects.ActiveEffect extends MovieClip
 {
-  /* PRIVATE VARIABLES */
-  
-	private static var _archetypeMap: Array = [];
-	private static var _posAVMap: Array = [];
-	private static var _negAVMap: Array = [];
-	
-	
   /* CONSTANTS */
   
 	private static var METER_WIDTH: Number = 15;
 	private static var METER_PADDING: Number = 5;
+	
+	
+  /* PRIVATE VARIABLES */
 
+	private var _meter: MovieClip;
+	
+	private var _meterEmptyIdx: Number;
+	private var _meterFullIdx: Number;
+	
+	// Icon
+	private var _iconLoader: MovieClipLoader;
+	private var _icon: MovieClip;
+	private var _iconHolder: MovieClip;
+	
+	private var _iconBaseLabel: String;
+	private var _iconEmblemLabel: String;
+	
 
   /* STAGE ELEMENTS */
   
@@ -41,24 +49,9 @@ class skyui.widgets.activeeffects.ActiveEffect extends MovieClip
 	public var effectFadeOutDuration: Number;
 	public var effectMoveDuration: Number;
 
-	public var hGrowDirection: String;
-	public var vGrowDirection: String;
+	public var hAnchor: String;
+	public var vAnchor: String;
 	public var orientation: String;
-	
-	
-  /* PRIVATE VARIABLES */
-
-	private var _meter: MovieClip;
-	
-	private var _meterEmptyIdx: Number;
-	private var _meterFullIdx: Number;
-	
-	// Icon
-	private var _iconLoader: MovieClipLoader;
-	private var _icon: MovieClip;
-	private var _iconHolder: MovieClip;
-	
-	private var _iconLabel: String;
 	
 	
   /* INITIALIZATION */
@@ -76,8 +69,9 @@ class skyui.widgets.activeeffects.ActiveEffect extends MovieClip
 		_width = _height = effectBaseSize;
 
 		// Force position
-		_x = determinePosition(index)[0];
-		_y = determinePosition(index)[1];
+		var p = determinePosition(index);
+		_x = p[0];
+		_y = p[1];
 		
 		initEffect();
 		_iconLoader.loadClip(iconLocation, _icon);
@@ -105,11 +99,11 @@ class skyui.widgets.activeeffects.ActiveEffect extends MovieClip
 		_meter.gotoAndStop(meterFrame);
 	}
 
-	public function updatePosition(a_newIndex): Void
+	public function updatePosition(a_newIndex: Number): Void
 	{
 		index = a_newIndex;
-
-		TweenLite.to(this, effectMoveDuration, {_x: determinePosition(index)[0], _y: determinePosition(index)[1], overwrite: 0, easing: Linear.easeNone});
+		var p = determinePosition(index);
+		TweenLite.to(this, effectMoveDuration, {_x: p[0], _y: p[1], overwrite: 0, easing: Linear.easeNone});
 	}
 
 	public function remove(): Void
@@ -122,11 +116,13 @@ class skyui.widgets.activeeffects.ActiveEffect extends MovieClip
   
 	private function initEffect(): Void
 	{
-		_iconLabel = EffectIconMap.lookupIconLabel(effectData);
+		var iconData = EffectIconMap.lookupIconLabel(effectData);
+		_iconBaseLabel = iconData.baseLabel;
+		_iconEmblemLabel = iconData.emblemLabel;
 		
-		skyui.util.Debug.log("Found icon " + _iconLabel);
+		skyui.util.Debug.log("Found icon " + _iconBaseLabel + ", emblem " + _iconEmblemLabel);
  
-		if (_iconLabel == "default_effect" || _iconLabel == undefined || _iconLabel == "") {
+		if (_iconBaseLabel == "default_effect" || _iconBaseLabel == undefined || _iconBaseLabel == "") {
 			skyui.util.Debug.log("[SkyUI Active Effects]: Couldn't determine icon for")
 			for (var s: String in effectData)
 				skyui.util.Debug.log("                        " + s + ": " + effectData[s])
@@ -143,7 +139,7 @@ class skyui.widgets.activeeffects.ActiveEffect extends MovieClip
 			// Instantaneous effect, no timer (e.g. Healing)
 			// Healing actually has a duration of 1, but it keeps reapplying itself after it's dispelled
 			// No meter, just icon: center the icon
-			_iconHolder._x = (background._width - _iconHolder._width) / 2;
+//			_iconHolder._x = (background._width - _iconHolder._width) / 2;
 		}
 	}
 
@@ -164,7 +160,8 @@ class skyui.widgets.activeeffects.ActiveEffect extends MovieClip
 
 		// TODO, make it scale w/ icon size. All the icons we use are 128*128 so it doesn't matter
 		_icon._width = _icon._height = _iconHolder.iconBackground._width;
-		_icon.gotoAndStop(_iconLabel);
+		_icon.baseIcon.gotoAndStop(_iconBaseLabel);
+		_icon.emblemIcon.gotoAndStop(_iconEmblemLabel);
 	}
 
 	private function onLoadError(a_mc: MovieClip, a_errorCode: String): Void
@@ -189,18 +186,15 @@ class skyui.widgets.activeeffects.ActiveEffect extends MovieClip
 		var newX: Number = 0;
 		var newY: Number = 0;
 
-		// orientation the axis in which new effects will be added to after the total number of effects > GroupEffectCount
-		if (orientation == "vertical") {
-			// Orientation is vertical so...
-			// This effect is in a column, next effect will be shifted vertically
-			if (vGrowDirection == "up") {
+		// Orientation is the orientation of the EffectsGroups
+		if (orientation == "vertical") { // Orientation vertical means that the ActiveEffect is in a column, so the next effect needs to be added either above, or below
+			if (vAnchor == "bottom") {  // Widget is anchored vertically to the bottom of the stage, so need to add next ActiveEffect above
 				newY = -(index * (effectBaseSize + effectSpacing));
 			} else {
 				newY = +(index * (effectBaseSize + effectSpacing));
 			}
-		} else {
-			// This effect is in a row, next effect will be shifted horizontally
-			if (hGrowDirection == "left") {
+		} else { // Orientation horizontal means that the ActiveEffect is in a row, so the next effect needs to be added either to the left, or right
+			if (hAnchor == "right") {  // Widget is anchored horizontally to the right of the stage, so need to add next ActiveEffect to the left
 				newX = -(index * (effectBaseSize + effectSpacing));
 			} else {
 				newX = +(index * (effectBaseSize + effectSpacing));

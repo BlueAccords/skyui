@@ -7,7 +7,6 @@ bool	_enabled			= false
 float	_effectSize			= 48.0
 int		_groupEffectCount	= 8
 string	_orientation		= "vertical"
-string	_clampCorner		= "TR"
 
 ; @overrides SKI_WidgetBase
 string function GetWidgetSource()
@@ -61,36 +60,6 @@ int property GroupEffectCount
 	endFunction
 endProperty
 
-string property ClampCorner
-	{Corner at which the first effect is displayed}
-	string function get()
-		return _clampCorner
-	endFunction
-
-	function set(string a_val)
-		_clampCorner = a_val
-		if (Ready)
-
-			if (_clampCorner == "BR")
-				HAlign = "right"
-				VAlign = "bottom"
-			elseIf (_clampCorner == "BL")
-				HAlign = "left"
-				VAlign = "bottom"
-			elseIf (_clampCorner == "TL")
-				HAlign = "left"
-				VAlign = "top"
-			else
-				_clampCorner = "TR"
-				HAlign = "right"
-				VAlign = "top"
-			endIf
-
-			UI.InvokeString(HUD_MENU, WidgetRoot + ".setClampCorner", _clampCorner) 
-		endIf
-	endFunction
-endProperty
-
 string property Orientation
 	{The axis in which new effects will be added to after the total number of effects > GroupEffectCount}
 	string function get()
@@ -117,9 +86,8 @@ event OnWidgetReset()
 	UI.InvokeFloatA(HUD_MENU, WidgetRoot + ".initNumbers", numberArgs)
 
 	; Init strings
-	string[] stringArgs = new string[2]
-	stringArgs[0] = _clampCorner
-	stringArgs[1] = _orientation
+	string[] stringArgs = new string[1]
+	stringArgs[0] = _orientation
 	UI.InvokeStringA(HUD_MENU, WidgetRoot + ".initStrings", stringArgs)
 
 	; Init commit

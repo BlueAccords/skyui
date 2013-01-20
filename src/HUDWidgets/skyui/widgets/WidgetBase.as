@@ -7,21 +7,28 @@ class skyui.widgets.WidgetBase extends MovieClip
 	private static var MODES: Array = ["All", "Favor", "MovementDisabled", "Swimming", "WarhorseMode", "HorseMode", "InventoryMode", "BookMode", "DialogueMode", "StealthMode", "SleepWaitMode", "BarterMode", "TweenMode", "WorldMapMode", "JournalMode", "CartMode", "VATSPlayback"];
 	//private static var CROSSHAIR_MODES: Array = ["All", "Favor", "DialogueMode", "StealthMode", "Swimming", "HorseMode", "WarHorseMode"];
 
-	private static var ALIGN_LEFT: String = "left";
-	private static var ALIGN_RIGHT: String = "right";
-	private static var ALIGN_CENTER: String = "center";
-	private static var ALIGN_TOP: String = "top";
-	private static var ALIGN_BOTTOM: String = "bottom";
+	private static var ANCHOR_LEFT: String		= "left";
+	private static var ANCHOR_RIGHT: String		= "right";
+	private static var ANCHOR_CENTER: String	= "center";
+	private static var ANCHOR_TOP: String		= "top";
+	private static var ANCHOR_BOTTOM: String	= "bottom";
 	
 	
   /* PRIVATE VARIABLES */
+  
+	private var _rootPath: String = "";
+
+	private var _hudMetrics: Object;
   
 	private var _clientInfo: Object;
 	private var _widgetID: String;
 	private var _widgetHolder: MovieClip;
 
-	private var _vAlign: String;
-	private var _hAlign: String;
+	private var __x: Number = 0;
+	private var __y: Number = 0;
+
+	private var _vAnchor: String = "top";
+	private var _hAnchor: String = "left";
 	
 	
   /* INITIALIZATION */
@@ -41,6 +48,16 @@ class skyui.widgets.WidgetBase extends MovieClip
 	
 		
   /* PUBLIC FUNCTIONS */
+  
+	public function setRootPath(a_path: String): Void
+	{
+		_rootPath = a_path;
+	}
+
+	public function setHudMetrics(a_hudMetrics: Object): Void
+	{
+		_hudMetrics = a_hudMetrics;
+	}	
 
 	// @Papyrus
 	public function setClientInfo(a_clientString: String): Void
@@ -85,27 +102,27 @@ class skyui.widgets.WidgetBase extends MovieClip
 	}
 
 	// @Papyrus
-	public function setHAlign(a_hAlign: String): Void
+	public function setHAnchor(a_hAnchor: String): Void
 	{
-		var hAlign: String = a_hAlign.toLowerCase();
+		var hAnchor: String = a_hAnchor.toLowerCase();
 
-		if (_hAlign == hAlign)
+		if (_hAnchor == hAnchor)
 			return;
 
-		_hAlign = hAlign;
+		_hAnchor = hAnchor;
 
 		invalidateSize();
 	}
 
 	// @Papyrus
-	public function setVAlign(a_vAlign: String): Void
+	public function setVAnchor(a_vAnchor: String): Void
 	{
-		var vAlign: String = a_vAlign.toLowerCase();
+		var vAnchor: String = a_vAnchor.toLowerCase();
 
-		if (_vAlign == vAlign)
+		if (_vAnchor == vAnchor)
 			return;
 
-		_vAlign = vAlign;
+		_vAnchor = vAnchor;
 
 		invalidateSize();
 	}
@@ -113,21 +130,15 @@ class skyui.widgets.WidgetBase extends MovieClip
 	// @Papyrus
 	public function setPositionX(a_positionX: Number): Void
 	{
-		var minX: Number = 0; //Stage.visibleRect.x + Stage.safeRect.x;
-		var maxX: Number = Stage.visibleRect.width - 2*Stage.safeRect.x; //Stage.visibleRect.x + Stage.visibleRect.width - Stage.safeRect.x;
-		var newX: Number = GlobalFunc.Lerp(minX, maxX, 0, 1280, a_positionX, true);
-
-		_x = newX;
+		__x = a_positionX;
+		updatePosition();	
 	}
 
 	// @Papyrus
 	public function setPositionY(a_positionY: Number): Void
 	{
-		var minY: Number = 0; //Stage.visibleRect.y + Stage.safeRect.y;
-		var maxY: Number = Stage.visibleRect.height - 2*Stage.safeRect.y; //Stage.visibleRect.y + Stage.visibleRect.height - Stage.safeRect.y;
-		var newY: Number = GlobalFunc.Lerp(minY, maxY, 0, 720, a_positionY, true);
-
-		_y = newY;
+		__y = a_positionY;
+		updatePosition();
 	}
 
 	// @Papyrus
@@ -152,26 +163,88 @@ class skyui.widgets.WidgetBase extends MovieClip
 
 	private function invalidateSize(): Void
 	{
-		updateAlign();
+		updateAnchor();
 	}
 
-	private function updateAlign(): Void
+	private function updateAnchor(): Void
 	{
 		var xOffset: Number = getWidth();
 		var yOffset: Number = getHeight();
 		
-		if (_hAlign == ALIGN_RIGHT)
+		if (_hAnchor == ANCHOR_RIGHT)
 			_widgetHolder._x = -xOffset;
-		else if (_hAlign == ALIGN_CENTER)
+		else if (_hAnchor == ANCHOR_CENTER)
 			_widgetHolder._x = -xOffset/2;
 		else
 			_widgetHolder._x = 0;
 
-		if (_vAlign == ALIGN_BOTTOM)
+		if (_vAnchor == ANCHOR_BOTTOM)
 			_widgetHolder._y = -yOffset;
-		else if (_vAlign == ALIGN_CENTER)
+		else if (_vAnchor == ANCHOR_CENTER)
 			_widgetHolder._y = -yOffset/2;
 		else
 			_widgetHolder._y = 0;
+
+		// Anchor or offsets could have changed, so update position
+		updatePosition();
+	}
+
+	private function updatePosition(): Void
+	{
+		// Removed, because we want absolute positioning, not relative positioning.
+		/*
+		var newX: Number;
+		var newY: Number;
+
+		switch(_hAnchor) {
+			case ANCHOR_RIGHT:
+				// 0 -> _hudMetrics.hMax
+				// 1280 -> -_hudMetrics.hMin
+				newX = GlobalFunc.Lerp(_hudMetrics.hMax, -_hudMetrics.hMin, 0, 1280, __x);
+				break;
+
+			case ANCHOR_CENTER:
+				// 0 -> 0
+				// 640 -> _hudMetrics.hCenter
+				newX = GlobalFunc.Lerp(0, _hudMetrics.hCenter, 0, 640, __x);
+				break;
+			
+			case ANCHOR_LEFT:
+			default:
+				// 0 -> -_hudMetrics.hMin
+				// 1280 -> _hudMetrics.hMax
+				newX = GlobalFunc.Lerp(-_hudMetrics.hMin, _hudMetrics.hMax, 0, 1280, __x);
+		}
+
+		switch(_vAnchor) {
+			case ANCHOR_BOTTOM:
+				// 0 -> _hudMetrics.vMax
+				// 720 -> -_hudMetrics.vMin
+				newY = GlobalFunc.Lerp(_hudMetrics.vMax, -_hudMetrics.vMin, 0, 720, __y);
+				break;
+
+			case ANCHOR_CENTER:
+				// 0 -> 0
+				// 360 -> _hudMetrics.vCenter
+				newY = GlobalFunc.Lerp(0, _hudMetrics.hCenter, 0, 360, __x);
+				break;
+
+			case ANCHOR_TOP:
+			default:
+				// 0 -> -_hudMetrics.vMin
+				// 720 -> _hudMetrics.vMax
+				newY = GlobalFunc.Lerp(-_hudMetrics.vMin, _hudMetrics.vMax, 0, 720, __y);
+		}
+
+		_x = newX;
+		_y = newY;
+		*/
+
+		// 0 -> -_hudMetrics.hMin
+		// 1280 -> _hudMetrics.hMax
+		_x = GlobalFunc.Lerp(-_hudMetrics.hMin, _hudMetrics.hMax, 0, 1280, __x);
+		// 0 -> -_hudMetrics.vMin
+		// 720 -> _hudMetrics.vMax
+		_y = GlobalFunc.Lerp(-_hudMetrics.vMin, _hudMetrics.vMax, 0, 720, __y);
 	}
 }

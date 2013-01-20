@@ -14,8 +14,8 @@ bool				_ready				= false
 int					_widgetID			= -1
 string				_widgetRoot			= ""
 string[]			_modes
-string				_hAlign				= "left"
-string				_vAlign				= "top"
+string				_hAnchor			= "left"
+string				_vAnchor			= "top"
 float				_x					= 0.0
 float				_y					= 0.0
 float				_alpha				= 100.0
@@ -64,30 +64,30 @@ string[] property Modes
 	endFunction
 endProperty
 
-string property HAlign
-	{Horizontal registration point of the widget ["left", "center", "right"]. Default: "left"}
+string property HAnchor
+	{Horizontal anchor point of the widget ["left", "center", "right"]. Default: "left"}
 	string function get()
-		return _hAlign
+		return _hAnchor
 	endFunction
 	
 	function set(string a_val)
-		_hAlign = a_val
+		_hAnchor = a_val
 		if (Ready)
-			UpdateWidgetHAlign()
+			UpdateWidgetHAnchor()
 		endIf
 	endFunction
 endProperty
 
-string property VAlign
-	{Vertical registration point of the widget ["top", "center", "bottom"]. Default: "top"}
+string property VAnchor
+	{Vertical anchor point of the widget ["top", "center", "bottom"]. Default: "top"}
 	string function get()
-		return _vAlign
+		return _vAnchor
 	endFunction
 	
 	function set(string a_val)
-		_vAlign = a_val
+		_vAnchor = a_val
 		if (Ready)
-			UpdateWidgetVAlign()
+			UpdateWidgetVAnchor()
 		endIf
 	endFunction
 endProperty
@@ -143,6 +143,7 @@ endEvent
 
 ; @implements SKI_QuestBase
 event OnGameReload()
+	_ready = false
 	RegisterForModEvent("SKIWF_widgetManagerReady", "OnWidgetManagerReady")
 
 	if (!IsExtending() && RequireExtend)
@@ -179,11 +180,11 @@ event OnWidgetManagerReady(string a_eventName, string a_strArg, float a_numArg, 
 	if (_widgetID != -1)
 		_widgetRoot = "_root.WidgetContainer." + _widgetID + ".widget"
 		_widgetManager.CreateWidget(_widgetID, GetWidgetSource())
-		_ready = true
 	else
 		Debug.Trace("WidgetWarning: " + self as string + ": could not be loaded, too many widgets. Max is 128")
 	endIf
 endEvent
+
 
 ; EVENTS ------------------------------------------------------------------------------------------
 
@@ -194,6 +195,8 @@ endEvent
 
 ; Executed after each game reload by widget manager.
 event OnWidgetLoad()
+	_ready = true
+
 	OnWidgetReset()
 	
 	; Before that the widget was still hidden.
@@ -204,8 +207,8 @@ endEvent
 event OnWidgetReset()
 	; Reset base properties except modes to prevent widget from being drawn too early.
 	UpdateWidgetClientInfo()
-	UpdateWidgetHAlign()
-	UpdateWidgetVAlign()
+	UpdateWidgetHAnchor()
+	UpdateWidgetVAnchor()
 	UpdateWidgetPositionX()
 	UpdateWidgetPositionY()
 	UpdateWidgetAlpha()
@@ -239,24 +242,24 @@ function UpdateWidgetClientInfo()
 	UI.InvokeString(HUD_MENU, _widgetRoot + ".setClientInfo", self as string)
 endFunction
 
+function UpdateWidgetAlpha()
+	UI.InvokeFloat(HUD_MENU, _widgetRoot + ".setAlpha", Alpha)
+endFunction
+
+function UpdateWidgetHAnchor()
+	UI.InvokeString(HUD_MENU, _widgetRoot + ".setHAnchor", HAnchor)
+endFunction
+
+function UpdateWidgetVAnchor()
+	UI.InvokeString(HUD_MENU, _widgetRoot + ".setVAnchor", VAnchor)
+endFunction
+
 function UpdateWidgetPositionX()
 	UI.InvokeFloat(HUD_MENU, _widgetRoot + ".setPositionX", X)
 endFunction
 
 function UpdateWidgetPositionY()
 	UI.InvokeFloat(HUD_MENU, _widgetRoot + ".setPositionY", Y)
-endFunction
-
-function UpdateWidgetAlpha()
-	UI.InvokeFloat(HUD_MENU, _widgetRoot + ".setAlpha", Alpha)
-endFunction
-
-function UpdateWidgetHAlign()
-	UI.InvokeString(HUD_MENU, _widgetRoot + ".setHAlign", HAlign)
-endFunction
-
-function UpdateWidgetVAlign()
-	UI.InvokeString(HUD_MENU, _widgetRoot + ".setVAlign", VAlign)
 endFunction
 
 function UpdateWidgetModes()

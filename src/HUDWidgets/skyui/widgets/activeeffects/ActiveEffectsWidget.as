@@ -1,5 +1,6 @@
 ﻿import skyui.widgets.WidgetBase;
 import skyui.widgets.activeeffects.ActiveEffectsGroup;
+import skyui.defines.Magic;
 
 import com.greensock.TweenLite;
 import com.greensock.easing.Linear;
@@ -14,17 +15,15 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 	private static var EFFECT_MOVE_DURATION: Number = 1.00;
 	private static var GROUP_MOVE_DURATION: Number = 1.00;
 
-	private static var ICON_LOCATION: String = "skyui/skyui_icons_psychosteve.swf";
+	private static var ICON_SOURCE: String = "skyui/icons_effect_psychosteve.swf";
 	
 
 	// config
-	private var _effectBaseSize: Number; // {small: 32.0, medium: 48.0, large: 64.0} Default: medium
+	private var _effectBaseSize: Number; // "small" = 32.0, "medium" = 48.0, "large" = 64.0, Default: "medium"
 	private var _groupEffectCount: Number;
-	private var _clampCorner: String;
 	private var _orientation: String;
 
-	private var _effectSpacing: Number; // _effectBaseSize/10
-	private var _groupSpacing: Number; // _effectBaseSize/10
+	private var _effectSpacing: Number; // == _effectBaseSize/10
 
 
   /* PRIVATE VARIABLES */
@@ -97,16 +96,15 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 	}
 
 	// @Papyrus
-	public function initStrings(a_clampCorner: String, a_orientation: String): Void
+	public function initStrings(a_orientation: String): Void
 	{
-		updateClampCorner(a_clampCorner);
 		_orientation = a_orientation.toLowerCase();
 	}
 
 	// @Papyrus
 	public function initCommit(): Void
 	{
-		_groupSpacing = _effectSpacing = _effectBaseSize/10;
+		_effectSpacing = _effectBaseSize/10;
 		invalidateSize();
 
 		if (_enabled)
@@ -117,7 +115,7 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 	public function setEffectSize(a_effectBaseSize: Number): Void
 	{
 		_effectBaseSize = a_effectBaseSize;
-		_groupSpacing = _effectSpacing = _effectBaseSize/10.0;
+		_effectSpacing = _effectBaseSize/10.0;
 
 		invalidateSize();
 		invalidateEffects();
@@ -127,14 +125,6 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 	public function setGroupEffectCount(a_groupEffectCount: Number): Void
 	{
 		_groupEffectCount = a_groupEffectCount;
-
-		invalidateEffects();
-	}
-
-	// @Papyrus
-	public function setClampCorner(a_clampCorner: String): Void
-	{
-		updateClampCorner(a_clampCorner);
 
 		invalidateEffects();
 	}
@@ -161,29 +151,6 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 
   /* PRIVATE FUNCTIONS */
   
-	private function updateClampCorner(a_clampCorner: String): Void
-	{
-		_clampCorner = a_clampCorner.toUpperCase();
-		switch(_clampCorner) {
-			case "BR":
-				_hGrowDirection = "left";
-				_vGrowDirection = "up";
-				break;
-			case "BL":
-				_hGrowDirection = "right";
-				_vGrowDirection = "up";
-				break;
-			case "TL":
-				_hGrowDirection = "right";
-				_vGrowDirection = "down";
-				break;
-			default:
-				_clampCorner = "TR";
-				_hGrowDirection = "left";
-				_vGrowDirection = "down";
-		}
-	}
-	
 	private function onIntervalUpdate(): Void
 	{
 		effectDataArray.splice(0);
@@ -202,6 +169,9 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 		for (var i: Number = 0; i < effectDataArray.length; i++) {
 			effectData = effectDataArray[i];
 			effectClip = _effectsHash[effectData.id];
+
+			if ((effectData.effectFlags & Magic.MGEFFLAG_HIDEINUI) != 0)
+				continue;
 
 			if (!effectClip) {
 				// New Effect
@@ -246,16 +216,15 @@ class skyui.widgets.activeeffects.ActiveEffectsWidget extends WidgetBase
 
 		if (freeEffectsGroup == undefined) {
 			var initObject: Object = {index: newGroupIdx,
-										iconLocation: ICON_LOCATION,
+										iconLocation: _rootPath + ICON_SOURCE,
 										groupMoveDuration: GROUP_MOVE_DURATION,
-										groupSpacing: _groupSpacing,
 										effectBaseSize: _effectBaseSize,
 										effectSpacing: _effectSpacing,
 										effectFadeInDuration: EFFECT_FADE_IN_DURATION,
 										effectFadeOutDuration: EFFECT_FADE_OUT_DURATION,
 										effectMoveDuration: EFFECT_MOVE_DURATION,
-										hGrowDirection: _hGrowDirection,
-										vGrowDirection: _vGrowDirection,
+										hAnchor: _hAnchor,
+										vAnchor: _vAnchor,
 										orientation: _orientation};
 										
 			// Name needs to be unique so append getNextHighestDepth() to the name
