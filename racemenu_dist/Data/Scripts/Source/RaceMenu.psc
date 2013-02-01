@@ -75,6 +75,7 @@ Event OnGameReload()
 	;_playerActor.QueueNiNodeUpdate()
 	;SafeUpdate(_playerActor)
 	GoToState("Update")
+	;Game.UpdateHairColor()
 
 	SendModEvent("RSM_LoadPlugins")
 EndEvent
@@ -276,10 +277,12 @@ EndEvent
 
 Event OnToggleLight(string eventName, string strArg, float numArg, Form formArg)
 	bool lightOn = numArg as bool
-	if lightOn
-		_light.EnableNoWait()
-	Else
-		_light.DisableNoWait()
+	If _light
+		if lightOn
+			_light.EnableNoWait()
+		Else
+			_light.DisableNoWait()
+		Endif
 	Endif
 EndEvent
 

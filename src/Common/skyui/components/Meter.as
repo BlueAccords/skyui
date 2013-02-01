@@ -306,8 +306,8 @@ class skyui.components.Meter extends MovieClip
 			setPercent(_currentPercent, true);
 		else
 			setPercent(0, true); // Reset to 0, assume that if fillOrigin is changed, meter data provider changed
-		_fillSpeed = 2;
-		_emptySpeed = 3;
+		_fillSpeed = 0.02;
+		_emptySpeed = 0.03;
 	}
 
 	private function drawMeterGradients(): Void

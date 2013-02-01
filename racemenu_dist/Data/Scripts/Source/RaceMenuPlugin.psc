@@ -4,14 +4,22 @@ string Property NINODE_NPC = "NPC" AutoReadOnly
 string Property NINODE_HEAD = "NPC Head [Head]" AutoReadOnly
 string Property NINODE_LEFT_BREAST = "NPC L Breast" AutoReadOnly
 string Property NINODE_RIGHT_BREAST = "NPC R Breast" AutoReadOnly
-string Property NINODE_Left_BICEP = "NPC L UpperarmTwist2 [LUt2]" AutoReadOnly
-string Property NINODE_RIGHT_BICEP = "NPC R UpperarmTwist2 [RUt2]" AutoReadOnly
+string Property NINODE_LEFT_BUTT = "NPC L Butt" AutoReadOnly
+string Property NINODE_RIGHT_BUTT = "NPC R Butt" AutoReadOnly
+string Property NINODE_LEFT_BREAST_FORWARD = "NPC L Breast01" AutoReadOnly
+string Property NINODE_RIGHT_BREAST_FORWARD = "NPC R Breast01" AutoReadOnly
+string Property NINODE_LEFT_BICEP = "NPC L UpperarmTwist2 [LUt2]" AutoReadOnly
+string Property NINODE_RIGHT_BICEP = "NPC R UpperarmTwist1 [RUt1]" AutoReadOnly
 
 ; Custom Properties
 float _height = 1.0
 float _head = 1.0
 float _leftBreast = 1.0
 float _rightBreast = 1.0
+float _leftBreastF = 1.0
+float _rightBreastF = 1.0
+float _leftButt = 1.0
+float _rightButt = 1.0
 float _rightBicep = 1.0
 float _leftBicep = 1.0
 
@@ -37,6 +45,10 @@ Function LoadPlayerNodeScales(Actor player)
 	NetImmerse.SetNodeScale(player, NINODE_HEAD, _head, true)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST, _leftBreast, true)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST, _rightBreast, true)
+	NetImmerse.SetNodeScale(player, NINODE_LEFT_BUTT, _leftButt, true)
+	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BUTT, _rightButt, true)
+	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST_FORWARD, _leftBreastF, true)
+	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST_FORWARD, _rightBreastF, true)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BICEP, _leftBicep, true)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BICEP, _rightBicep, true)
 EndFunction
@@ -78,6 +90,26 @@ Function SavePlayerNodeScales(Actor player)
 	Else
 		_rightBreast = 1.0
 	Endif
+	If NetImmerse.HasNode(player, NINODE_LEFT_BREAST_FORWARD, false)
+		_leftBreastF = NetImmerse.GetNodeScale(player, NINODE_LEFT_BREAST_FORWARD, false)
+	Else
+		_leftBreastF = 1.0
+	Endif
+	If NetImmerse.HasNode(player, NINODE_RIGHT_BREAST_FORWARD, false)
+		_rightBreastF = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BREAST_FORWARD, false)
+	Else
+		_rightBreastF = 1.0
+	Endif
+	If NetImmerse.HasNode(player, NINODE_LEFT_BUTT, false)
+		_leftButt = NetImmerse.GetNodeScale(player, NINODE_LEFT_BUTT, false)
+	Else
+		_leftButt = 1.0
+	Endif
+	If NetImmerse.HasNode(player, NINODE_RIGHT_BUTT, false)
+		_rightButt = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BUTT, false)
+	Else
+		_rightButt = 1.0
+	Endif
 	If NetImmerse.HasNode(player, NINODE_LEFT_BICEP, false)
 		_leftBicep = NetImmerse.GetNodeScale(player, NINODE_LEFT_BICEP, false)
 	Else
@@ -99,6 +131,10 @@ Event OnResetMenu(Actor player, ActorBase playerBase)
 	_head = 1.0
 	_leftBreast = 1.0
 	_rightBreast = 1.0
+	_leftBreastF = 1.0
+	_rightBreastF = 1.0
+	_leftButt = 1.0
+	_rightButt = 1.0
 	_rightBicep = 1.0
 	_leftBicep = 1.0
 	LoadPlayerNodeScales(player)
@@ -118,6 +154,18 @@ Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool i
 		Endif
 		If NetImmerse.HasNode(player, NINODE_RIGHT_BREAST, false)
 			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 5.00, 0.01, _rightBreast)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_LEFT_BREAST_FORWARD, false)
+			AddSlider("$Left Breast Curve", CATEGORY_BODY, "ChangeLeftBreastCurve", 0.1, 5.00, 0.01, _leftBreastF)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_RIGHT_BREAST_FORWARD, false)
+			AddSlider("$Right Breast Curve", CATEGORY_BODY, "ChangeRightBreastCurve", 0.1, 5.00, 0.01, _rightBreastF)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_LEFT_BUTT, false)
+			AddSlider("$Left Glute", CATEGORY_BODY, "ChangeLeftButt", 0.1, 5.00, 0.01, _leftButt)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_RIGHT_BUTT, false)
+			AddSlider("$Right Glute", CATEGORY_BODY, "ChangeRightButt", 0.1, 5.00, 0.01, _rightButt)
 		Endif
 	Endif
 
@@ -142,6 +190,22 @@ Event OnSliderChanged(string callback, float value)
 		_rightBreast = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BREAST, _rightBreast, false)
 		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BREAST, _rightBreast, true)
+	Elseif callback == "ChangeLeftBreastCurve"
+		_leftBreastF = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BREAST_FORWARD, _leftBreastF, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BREAST_FORWARD, _leftBreastF, true)
+	Elseif callback == "ChangeRightBreastCurve"
+		_rightBreastF = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BREAST_FORWARD, _rightBreastF, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BREAST_FORWARD, _rightBreastF, true)
+	Elseif callback == "ChangeLeftButt"
+		_leftButt = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BUTT, _leftButt, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BUTT, _leftButt, true)
+	Elseif callback == "ChangeRightButt"
+		_rightButt = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BUTT, _rightButt, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BUTT, _rightButt, true)
 	Elseif callback == "ChangeLeftBiceps"
 		_leftBicep = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BICEP, _leftBicep, false)
