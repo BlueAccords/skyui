@@ -55,6 +55,7 @@ class RaceMenu extends MovieClip
 	public var bShowLight: Boolean = true;
 	public var bTextEntryMode: Boolean = false;
 	public var bMenuInitialized: Boolean = false;
+	public var bRaceChanging: Boolean = false;
 	
 	public var customSliders: Array;
 	
@@ -350,17 +351,13 @@ class RaceMenu extends MovieClip
 			
 		if (GlobalFunc.IsKeyPressed(details)) {			
 			if (IsBoundKeyPressed(details, _searchControl, _platform) && _platform == 0) {
-				searchWidget.startInput();
+				onSearchClicked();
 				return true;
 			} else if (IsBoundKeyPressed(details, _zoomControl, _platform) && !bTextEntryMode) {
-				bPlayerZoom = !bPlayerZoom;
-				GameDelegate.call("ZoomPC", [bPlayerZoom]);
-				updateBottomBar();
+				onZoomClicked();
 				return true;
 			} else if(IsBoundKeyPressed(details, _lightControl, _platform) && !bTextEntryMode) {
-				bShowLight = !bShowLight;
-				skse.SendModEvent("RSM_ToggleLight", "", Number(bShowLight));
-				updateBottomBar();
+				onLightClicked();
 				return true;
 			} else if((details.navEquivalent == NavigationCode.GAMEPAD_L3) && !bTextEntryMode) {
 				skse.SendModEvent("RSM_RequestLoadClipboard");
@@ -514,6 +511,10 @@ class RaceMenu extends MovieClip
 	public function HideLoadingIcon(): Void
 	{
 		loadingIcon._visible = false;
+		if(bRaceChanging) {
+			skse.SendModEvent("RSM_RaceChanged");
+			bRaceChanging = false;
+		}
 	}
 	
 	public function SetNameText(astrPlayerName: String): Void
@@ -596,6 +597,10 @@ class RaceMenu extends MovieClip
 				colorIndex++;
 			} else {
 				entryObject.hasColor = function(): Boolean { return false; }
+			}
+			if(entryObject.callbackName == "ChangeWeight" || entryObject.callbackName == "ChangeDoubleMorph") {
+				entryObject.interval = 0.01;
+				entryObject.sliderMax = 3;
 			}
 			
 			entryObject.isTextureEnabled = function(): Boolean { return false; }
@@ -866,6 +871,7 @@ class RaceMenu extends MovieClip
 			itemList.requestUpdate();
 			loadingIcon._visible = true;
 			GameDelegate.call("ChangeRace", [pressedEntry.raceID, -1]);
+			bRaceChanging = true;
 			bPlayerZoom = true; // Reset zoom, this happens when race is changed
 			updateBottomBar();
 		} else if(pressedEntry.isColorEnabled()) {
@@ -910,24 +916,105 @@ class RaceMenu extends MovieClip
 	private function updateBottomBar(): Void
 	{
 		navPanel.clearButtons();
-		navPanel.addButton({text: "$Done", controls: _acceptControl});
+		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", this, "onDoneClicked");
 		if(_platform == 0) {
-			navPanel.addButton({text: "$Search", controls: _searchControl});
+			navPanel.addButton({text: "$Search", controls: _searchControl}).addEventListener("click", this, "onSearchClicked");
 		}
-		navPanel.addButton({text: bPlayerZoom ? "$Zoom Out" : "$Zoom In", controls: _zoomControl});
+		navPanel.addButton({text: bPlayerZoom ? "$Zoom Out" : "$Zoom In", controls: _zoomControl}).addEventListener("click", this, "onZoomClicked");
 		
 		if(_global.skse)
-			navPanel.addButton({text: bShowLight ? "$Light Off" : "$Light On", controls: _lightControl});
+			navPanel.addButton({text: bShowLight ? "$Light Off" : "$Light On", controls: _lightControl}).addEventListener("click", this, "onLightClicked");
 		
 		var selectedEntry = itemList.listState.selectedEntry;
 		if(selectedEntry != itemList.listState.activeEntry && selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE)
-			navPanel.addButton({text: "$Change Race", controls: _activateControl});
+			navPanel.addButton({text: "$Change Race", controls: _activateControl}).addEventListener("click", this, "onChangeRaceClicked");
 		if(selectedEntry.isColorEnabled())
-			navPanel.addButton({text: "$Choose Color", controls: _activateControl});
+			navPanel.addButton({text: "$Choose Color", controls: _activateControl}).addEventListener("click", this, "onChooseColorClicked");
 		if(selectedEntry.isTextureEnabled())
-			navPanel.addButton({text: "$Choose Texture", controls: _textureControl});
+			navPanel.addButton({text: "$Choose Texture", controls: _textureControl}).addEventListener("click", this, "onChooseTextureClicked");
 		
 		navPanel.updateButtons(true);		
+	}
+	
+	private function onDoneClicked(): Void
+	{
+		if(colorField._visible || textEntry._visible || makeupPanel._visible)
+			return;
+		
+		GameDelegate.call("ConfirmDone", []);
+	}
+	
+	private function onSearchClicked(): Void
+	{
+		if(colorField._visible || textEntry._visible || makeupPanel._visible)
+			return;
+		
+		searchWidget.startInput();
+	}
+	
+	private function onZoomClicked(): Void
+	{
+		if(colorField._visible || textEntry._visible || makeupPanel._visible)
+			return;
+		
+		bPlayerZoom = !bPlayerZoom;
+		GameDelegate.call("ZoomPC", [bPlayerZoom]);
+		updateBottomBar();
+	}
+	
+	private function onLightClicked(): Void
+	{
+		if(colorField._visible || textEntry._visible || makeupPanel._visible)
+			return;
+		
+		bShowLight = !bShowLight;
+		skse.SendModEvent("RSM_ToggleLight", "", Number(bShowLight));
+		updateBottomBar();
+	}
+	
+	private function onChangeRaceClicked(): Void
+	{
+		if(colorField._visible || textEntry._visible || makeupPanel._visible)
+			return;
+		
+		var selectedEntry = itemList.listState.selectedEntry
+		if(selectedEntry) {
+			itemList.listState.activeEntry = selectedEntry;
+			itemList.requestUpdate();
+			loadingIcon._visible = true;
+			GameDelegate.call("ChangeRace", [selectedEntry.raceID, -1]);
+			bRaceChanging = true;
+			bPlayerZoom = true; // Reset zoom, this happens when race is changed
+			updateBottomBar();
+		}
+	}
+	
+	private function onChooseColorClicked(): Void
+	{
+		if(colorField._visible || textEntry._visible || makeupPanel._visible)
+			return;
+		
+		var selectedEntry = itemList.listState.selectedEntry;
+		if(selectedEntry.isColorEnabled()) {
+			colorField.setText(selectedEntry.text);
+			colorField.setColor(selectedEntry.fillColor);
+			ShowColorField(true);
+		}
+	}
+	
+	private function onChooseTextureClicked(): Void
+	{
+		if(colorField._visible || textEntry._visible || makeupPanel._visible)
+			return;
+		
+		var selectedEntry = itemList.listState.selectedEntry;
+		if(selectedEntry.isTextureEnabled()) {
+			makeupPanel.InvalidateList();
+			makeupPanel.updateButtons(true);
+			makeupPanel.setSelectedEntry(selectedEntry.texture);
+			makeupPanel.setTexture(selectedEntry.text, selectedEntry.texture);
+			ShowMakeupPanel(true);
+		}
 	}
 	
 	private function GetSliderByType(tintType: Number): Object

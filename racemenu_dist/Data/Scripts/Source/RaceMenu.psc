@@ -72,37 +72,23 @@ Event OnGameReload()
 	LoadHair()
 	LoadTints()
 	
-	;_playerActor.QueueNiNodeUpdate()
-	;SafeUpdate(_playerActor)
-	GoToState("Update")
-	;Game.UpdateHairColor()
+	Game.UpdateTintMaskColors() ; Have to double up the call for some reason on a gameload
+	Game.UpdateHairColor()
+	Game.UpdateTintMaskColors()
 
 	SendModEvent("RSM_LoadPlugins")
 EndEvent
 
 Event On3DLoaded(ObjectReference akRef)
-	LoadTints()
-	GoToState("Update")
-EndEvent
-
-Event OnBeginState()
-	If GetState() == "Update"
+	If !UI.IsMenuOpen(RACESEX_MENU)
+		LoadHair()
+		LoadTints()
 		Utility.Wait(0.5)
+		Game.UpdateTintMaskColors()
 		Game.UpdateHairColor()
 		Game.UpdateTintMaskColors()
-		GoToState("")
 	Endif
 EndEvent
-
-;Function SafeUpdate(Actor player)
-;	if player.IsOnMount()
-;		Utility.Wait(1.0)
-;		Game.UpdateHairColor()
-;		Game.UpdateTintMaskColors()
-;	Else
-;		player.QueueNiNodeUpdate()
-;	Endif
-;EndFunction
 
 Event OnMenuOpen(string menuName)
 	If menuName == RACESEX_MENU
@@ -196,7 +182,8 @@ Function SaveTints()
 		i += 1
 	EndWhile
 	; Clear the remaining tints
-	While i < _tintTypes.length
+	totalTints = _tintTypes.length
+	While i < totalTints
 		_tintTypes[i] = 0
 		_tintColors[i] = 0
 		_tintTextures[i] = ""
@@ -242,7 +229,8 @@ EndFunction
 
 Function ClearTints()
 	int i = 0
-	While i < _tintTypes.length
+	int totalTints = _tintTypes.length
+	While i < totalTints
 		_tintTypes[i] = 0
 		_tintColors[i] = 0
 		_tintTextures[i] = ""
@@ -585,8 +573,9 @@ EndFunction
 Function UpdateColors()
 	int i = 0
 	string[] tints = new string[128]
+	int totalTints = _tintTypes.length - 1
 	tints[0] = TINT_TYPE_HAIR + ";;" + _color + ";;"
-	While i < _tintTypes.length - 1
+	While i < totalTints
 		tints[i + 1] = _tintTypes[i] + ";;" + _tintColors[i] + ";;" + _tintTextures[i]
 		i += 1
 	EndWhile

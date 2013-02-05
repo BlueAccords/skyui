@@ -142,7 +142,7 @@ EndEvent
 
 ; Add Custom sliders here
 Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool isFemale)
-	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 1.50, 0.01, _height)
+	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 2.00, 0.01, _height)
 
 	If NetImmerse.HasNode(player, NINODE_HEAD, false)
 		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, _head)
@@ -150,27 +150,27 @@ Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool i
 
 	If isFemale == true		
 		If NetImmerse.HasNode(player, NINODE_LEFT_BREAST, false)
-			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 5.00, 0.01, _leftBreast)
+			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 3.00, 0.01, _leftBreast)
 		Endif
 		If NetImmerse.HasNode(player, NINODE_RIGHT_BREAST, false)
-			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 5.00, 0.01, _rightBreast)
+			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 3.00, 0.01, _rightBreast)
 		Endif
 		If NetImmerse.HasNode(player, NINODE_LEFT_BREAST_FORWARD, false)
-			AddSlider("$Left Breast Curve", CATEGORY_BODY, "ChangeLeftBreastCurve", 0.1, 5.00, 0.01, _leftBreastF)
+			AddSlider("$Left Breast Curve", CATEGORY_BODY, "ChangeLeftBreastCurve", 0.1, 3.00, 0.01, _leftBreastF)
 		Endif
 		If NetImmerse.HasNode(player, NINODE_RIGHT_BREAST_FORWARD, false)
-			AddSlider("$Right Breast Curve", CATEGORY_BODY, "ChangeRightBreastCurve", 0.1, 5.00, 0.01, _rightBreastF)
+			AddSlider("$Right Breast Curve", CATEGORY_BODY, "ChangeRightBreastCurve", 0.1, 3.00, 0.01, _rightBreastF)
 		Endif
 		If NetImmerse.HasNode(player, NINODE_LEFT_BUTT, false)
-			AddSlider("$Left Glute", CATEGORY_BODY, "ChangeLeftButt", 0.1, 5.00, 0.01, _leftButt)
+			AddSlider("$Left Glute", CATEGORY_BODY, "ChangeLeftButt", 0.1, 3.00, 0.01, _leftButt)
 		Endif
 		If NetImmerse.HasNode(player, NINODE_RIGHT_BUTT, false)
-			AddSlider("$Right Glute", CATEGORY_BODY, "ChangeRightButt", 0.1, 5.00, 0.01, _rightButt)
+			AddSlider("$Right Glute", CATEGORY_BODY, "ChangeRightButt", 0.1, 3.00, 0.01, _rightButt)
 		Endif
 	Endif
 
-	AddSlider("$Left Biceps", CATEGORY_BODY, "ChangeLeftBiceps", 0.1, 5.00, 0.01, _leftBicep)
-	AddSlider("$Right Biceps", CATEGORY_BODY, "ChangeRightBiceps", 0.1, 5.00, 0.01, _rightBicep)
+	AddSlider("$Left Biceps", CATEGORY_BODY, "ChangeLeftBiceps", 0.1, 2.00, 0.01, _leftBicep)
+	AddSlider("$Right Biceps", CATEGORY_BODY, "ChangeRightBiceps", 0.1, 2.00, 0.01, _rightBicep)
 EndEvent
 
 Event OnSliderChanged(string callback, float value)

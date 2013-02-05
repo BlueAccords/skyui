@@ -67,6 +67,16 @@ class skyui.components.MappedButton extends Button
 			_parent.onButtonLoad(this);
 	}
 	
+	function updateAfterStateChange()
+	{
+		textField.autoSize = "left"; //reset text autoSize
+
+		super.updateAfterStateChange(); //Sets actual text
+
+		textField._width = textField.getLineMetrics(0).width; // hack for larger resolutions
+  
+		update(); //reposition everything (probably not necesarry)
+	}
 	
   /* PUBLIC FUNCTIONS */
 
