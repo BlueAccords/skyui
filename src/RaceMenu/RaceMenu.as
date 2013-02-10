@@ -87,9 +87,7 @@ class RaceMenu extends MovieClip
 	public var removeEventListener: Function;
 	public var removeAllEventListeners: Function;
 	public var cleanUpEvents: Function;
-	
-	public var DISPLAY_KEYCODE_DONE: Number = 19;
-		
+			
 	function RaceMenu()
 	{
 		super();
@@ -600,7 +598,6 @@ class RaceMenu extends MovieClip
 			}
 			if(entryObject.callbackName == "ChangeWeight" || entryObject.callbackName == "ChangeDoubleMorph") {
 				entryObject.interval = 0.01;
-				entryObject.sliderMax = 3;
 			}
 			
 			entryObject.isTextureEnabled = function(): Boolean { return false; }

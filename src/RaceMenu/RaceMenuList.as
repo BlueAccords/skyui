@@ -12,6 +12,8 @@ import skyui.filter.IFilter;
 
 class RaceMenuList extends skyui.components.list.ScrollingList
 {
+	public var entryHeight: Number = 25;
+	
 	public function RaceMenuList()
 	{
 		super();

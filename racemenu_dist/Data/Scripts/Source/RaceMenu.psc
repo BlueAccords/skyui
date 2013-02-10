@@ -71,22 +71,24 @@ Event OnGameReload()
 	; Reload player settings
 	LoadHair()
 	LoadTints()
-	
-	Game.UpdateTintMaskColors() ; Have to double up the call for some reason on a gameload
-	Game.UpdateHairColor()
-	Game.UpdateTintMaskColors()
-
+	UpdateTints()
 	SendModEvent("RSM_LoadPlugins")
 EndEvent
+
+Function UpdateTints()
+	If _playerActor.IsOnMount()
+		Game.UpdateHairColor()
+		Game.UpdateTintMaskColors()
+	Else
+		_playerActor.QueueNiNodeUpdate()
+	Endif
+EndFunction
 
 Event On3DLoaded(ObjectReference akRef)
 	If !UI.IsMenuOpen(RACESEX_MENU)
 		LoadHair()
 		LoadTints()
-		Utility.Wait(0.5)
-		Game.UpdateTintMaskColors()
-		Game.UpdateHairColor()
-		Game.UpdateTintMaskColors()
+		UpdateTints()
 	Endif
 EndEvent
 
@@ -114,8 +116,7 @@ Event OnMenuInitialized(string eventName, string strArg, float numArg, Form form
 	UpdateColors()
 	LoadTints()
 	LoadHair()
-	Game.UpdateHairColor()
-	Game.UpdateTintMaskColors()
+	UpdateTints()
 	parent.OnMenuInitialized(eventName, strArg, numArg, formArg)
 EndEvent
 
