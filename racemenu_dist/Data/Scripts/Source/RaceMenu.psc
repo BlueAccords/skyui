@@ -54,8 +54,8 @@ Function OnStartup()
 	Utility.SetINIFloat("fPlayerBodyEditDistance:Interface", 190.0)
 	Utility.SetINIFloat("fPlayerFaceEditDistance:Interface", 70.0)
 
-	If SKSE.GetVersionRelease() < 34
-		Debug.Notification("SKSE version mismatch. You are running SKSE Version " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta() + "." + SKSE.GetVersionRelease() + " you require 1.6.6.34 or greater.")
+	If SKSE.GetVersionRelease() < 35
+		Debug.Notification("SKSE version mismatch. You are running SKSE Version " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta() + "." + SKSE.GetVersionRelease() + " you require 1.6.7 or greater.")
 	Endif
 	If SKSE.GetVersionRelease() != SKSE.GetScriptVersionRelease()
 		Debug.Notification("SKSE script version mismatch. Please reinstall your SKSE scripts to match your version.")

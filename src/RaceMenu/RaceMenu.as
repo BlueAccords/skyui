@@ -41,6 +41,12 @@ class RaceMenu extends MovieClip
 		
 	private var _raceList: Array;
 	
+	private var ITEMLIST_HEIGHT_FULL = 528;
+	private var ITEMLIST_HEIGHT_SHARED = 335;
+	
+	private var DESCRIPTION_WIDTH_FULL = 405;
+	private var DESCRIPTION_WIDTH_SHARED = 262;
+	
 	/* CONTROLS */
 	private var _activateControl: Object;
 	private var _acceptControl: Object;
@@ -48,6 +54,8 @@ class RaceMenu extends MovieClip
 	private var _lightControl: Object;
 	private var _textureControl: Object;
 	private var _searchControl: Object;
+	private var _loadPresetControl: Object;
+	private var _savePresetControl: Object;
 	
 	/* PUBLIC VARIABLES */
 	public var bLimitedMenu: Boolean;
@@ -99,7 +107,8 @@ class RaceMenu extends MovieClip
 		categoryLabel = racePanel.categoryLabel;
 		searchWidget = racePanel.searchWidget;
 		navPanel = bottomBar.buttonPanel;
-		bonusList = bonusPanel.bonusList;
+		bonusList = raceDescription.bonusList;
+		bonusPanel = bonusList;
 		
 		customSliders = new Array();
 				
@@ -108,12 +117,7 @@ class RaceMenu extends MovieClip
 		loadingIcon._visible = false;
 		textEntry._visible = false;
 		textEntry.enabled = false;
-		
-		ShowRaceBonuses(null, false);
-		ShowRaceDescription(false);
-		ShowColorField(false);
-		ShowMakeupPanel(false);
-		
+				
 		GlobalFunc.MaintainTextFormat();
 		GlobalFunc.SetLockFunction();
 		
@@ -136,6 +140,11 @@ class RaceMenu extends MovieClip
 	private function onLoad()
 	{
 		super.onLoad();
+		
+		ShowRaceBonuses(null, false);
+		ShowRaceDescription(false);
+		ShowColorField(false);
+		ShowMakeupPanel(false);
 		
 		raceDescription.textField.textAutoSize = "shrink";
 		bottomBar.hidePlayerInfo();
@@ -178,16 +187,18 @@ class RaceMenu extends MovieClip
 				
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 508, savedItemIndex: -1, enabled: true});
 		/*
-		_raceList.push({skillBonuses: [{skill: 10, bonus: 11},
-									   {skill: 11, bonus: 11},
-									   {skill: 12, bonus: 11},
-									   {skill: 13, bonus: 11},
-									   {skill: 14, bonus: 11},
-									   {skill: 15, bonus: 11},
+		_raceList.push({skillBonuses: [{skill: 10, bonus: 255},
+									   {skill: 11, bonus: 176},
+									   {skill: 12, bonus: 45},
+									   {skill: 13, bonus: 766},
+									   {skill: 14, bonus: 465},
+									   {skill: 15, bonus: 122},
 									   {skill: 16, bonus: 11}
 									   ]});
 		
 		// Test Code
+		_global.skse = new Array();
+				
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "RACE", flag: RaceMenuDefines.CATEGORY_RACE, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "BODY", flag: RaceMenuDefines.CATEGORY_BODY, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "HEAD", flag: RaceMenuDefines.CATEGORY_HEAD, savedItemIndex: -1, enabled: true});
@@ -211,28 +222,37 @@ class RaceMenu extends MovieClip
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_RACE, text: "Orc", filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: "The people of the Wrothgarian and Dragontail Mountains, Orcish smiths are prized for their craftsmanship. Orc troops in Heavy Armor are among the finest in the Empire, and are fearsome when using their Berserker Rage.", equipState: 0, raceID: 7, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_RACE, text: "Redguard", filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: "The most naturally talented warriors in Tamriel, the Redguards of Hammerfell have a hardy constitution and a natural resistance to poison. They can call upon an Adrenaline Rush in combat.", equipState: 0, raceID: 8, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_RACE, text: "Wood Elf", filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: "The clanfolk of the Western Valenwood forests, also known as \"Bosmer.\" Wood elves make good scouts and thieves, and there are no finer archers in all of Tamriel. They have natural resistances to both poisons and diseases. They can Command Animals to fight for them.", equipState: 0, raceID: 9, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_RACE, text: "TestRace1", filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: "TestRace1", equipState: 0, raceID: 10, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_RACE, text: "TestRace2", filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: "TestRace2", equipState: 0, raceID: 11, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_RACE, text: "TestRace3", filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: "TestRace3", equipState: 0, raceID: 12, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_RACE, text: "TestRace4", filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: "TestRace4", equipState: 0, raceID: 13, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_RACE, text: "TestRace5", filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: "TestRace5", equipState: 0, raceID: 14, enabled: true});
+		
+		
+		var isEnabled: Function = function(): Boolean { return true; }
+		var colorIndex: Number = 0;	
 		
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Sex", filterFlag: 4, callbackName: "ChangeSex", sliderMin: 0, sliderMax: 1, sliderID: -1, position: 0, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Presets", filterFlag: 4, callbackName: "ChangeHeadPreset", sliderMin: 0, sliderMax: 0, sliderID: 0, position: 0, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Skin Tone", filterFlag: 4 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 2892, sliderID: 1, position: 2885, interval: 1, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Skin Tone", filterFlag: 4 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 2892, sliderID: 1, position: 2885, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Weight", filterFlag: 4, callbackName: "ChangeWeight", sliderMin: 0, sliderMax: 1, sliderID: 2, position: 0, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Complexion", filterFlag: 8, callbackName: "ChangeFaceDetails", sliderMin: 0, sliderMax: 5, sliderID: 3, position: 0, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Dirt", filterFlag: 8, callbackName: "ChangeMask", sliderMin: -1, sliderMax: 2, sliderID: 4, position: -1, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Dirt Color", filterFlag: 8 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeMaskColor", sliderMin: 1, sliderMax: 4, sliderID: 5, position: 0, interval: 1, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Dirt Color", filterFlag: 8 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeMaskColor", sliderMin: 1, sliderMax: 4, sliderID: 5, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Scars", filterFlag: 8, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 12, sliderID: 6, position: 7, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "War Paint", filterFlag: 8, callbackName: "ChangeMask", sliderMin: -1, sliderMax: 14, sliderID: 7, position: -1, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "War Paint Color", filterFlag: 8 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeMaskColor", sliderMin: 1, sliderMax: 23, sliderID: 8, position: 0, interval: 1, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "War Paint Color", filterFlag: 8 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeMaskColor", sliderMin: 1, sliderMax: 23, sliderID: 8, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Hair", filterFlag: 256, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 69, sliderID: 9, position: 10, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Facial Hair", filterFlag: 256, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 45, sliderID: 10, position: 41, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Hair Color", filterFlag: 256 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeHairColorPreset", sliderMin: 0, sliderMax: 6594, sliderID: 11, position: 6578, interval: 1, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Hair Color", filterFlag: 256 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeHairColorPreset", sliderMin: 0, sliderMax: 6594, sliderID: 11, position: 6578, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Shape", filterFlag: 32, callbackName: "ChangePreset", sliderMin: 0, sliderMax: 37, sliderID: 12, position: 1, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Color", filterFlag: 32, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 1, sliderID: 13, position: 0, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Height", filterFlag: 32, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 14, position: 0.5, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Width", filterFlag: 32, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 15, position: -0.059999998658895, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Depth", filterFlag: 32, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 16, position: -0.63999998569489, interval: 0.10000000149012, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eyeliner Color", filterFlag: 32 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 3, sliderID: 17, position: 0, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Shadow", filterFlag: 32 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 7, sliderID: 18, position: 0, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Tint", filterFlag: 32 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 7, sliderID: 19, position: 0, interval: 1, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eyeliner Color", filterFlag: 32 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 3, sliderID: 17, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Shadow", filterFlag: 32 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 7, sliderID: 18, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Tint", filterFlag: 32 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 7, sliderID: 19, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Brow Type", filterFlag: 64, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 11, sliderID: 20, position: 0, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Brow Height", filterFlag: 64, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 21, position: -1, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Brow Width", filterFlag: 64, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 22, position: -0.10000000149012, interval: 0.10000000149012, enabled: true});
@@ -245,23 +265,23 @@ class RaceMenu extends MovieClip
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Jaw Forward", filterFlag: 16, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 29, position: 0.03999999910593, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Cheekbone Height", filterFlag: 16, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 30, position: 0.019999999552965, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Cheekbone Width", filterFlag: 16, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 31, position: 0.5, interval: 0.10000000149012, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Cheek Color", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 6, sliderID: 32, position: 0, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Laugh Lines", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 3, sliderID: 33, position: 0, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Cheek Color Lower", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 6, sliderID: 34, position: 0, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Nose Color", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 5, sliderID: 35, position: 0, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Chin Color", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 4, sliderID: 36, position: 0, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Neck Color", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 4, sliderID: 37, position: 0, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Forehead Color", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 3, sliderID: 38, position: 0, interval: 1, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Cheek Color", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 6, sliderID: 32, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Laugh Lines", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 3, sliderID: 33, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Cheek Color Lower", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 6, sliderID: 34, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Nose Color", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 5, sliderID: 35, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Chin Color", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 4, sliderID: 36, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Neck Color", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 4, sliderID: 37, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Forehead Color", filterFlag: 16 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 3, sliderID: 38, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Mouth Shape", filterFlag: 128, callbackName: "ChangePreset", sliderMin: 0, sliderMax: 30, sliderID: 39, position: 19, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Mouth Height", filterFlag: 128, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 40, position: 0.66000002622604, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Mouth Forward", filterFlag: 128, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 41, position: 0.15999999642372, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Chin Width", filterFlag: 128, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 42, position: -0.34000000357628, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Chin Length", filterFlag: 128, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 43, position: -0.40000000596046, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Chin Forward", filterFlag: 128, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 44, position: 0.18000000715256, interval: 0.10000000149012, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Lip Color", filterFlag: 128 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 7, sliderID: 45, position: 0, interval: 1, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Lip Color", filterFlag: 128 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 7, sliderID: 45, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: "MyNigga", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: "MyNigga2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: "MyNigga", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: "MyNigga2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		*/
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
@@ -270,8 +290,8 @@ class RaceMenu extends MovieClip
 		FocusHandler.instance.setFocus(itemList, 0);
 		
 		// Test Code
-		//InitExtensions();
-		//SetPlatform(1, false);
+		InitExtensions();
+		SetPlatform(1, false);
 		
 		/*for(var i = 0; i < 50; i++) {
 			RSM_AddMakeup("Test " + i, "Texture1");
@@ -282,15 +302,19 @@ class RaceMenu extends MovieClip
 	public function InitExtensions()
 	{
 		racePanel.Lock("L");
+		raceDescription.Lock("L");
 		bottomBar["playerInfo"].Lock("R");
 		
 		_panelX = racePanel._x;
 
-		raceDescription._x = racePanel._x + raceDescription._width / 2 + racePanel._width + 15;
-		raceDescription._y = bottomBar._y - raceDescription._height / 2 - 15;
+		//raceDescription._x = racePanel._x + raceDescription._width / 2 + racePanel._width + 15;
+		//raceDescription._y = bottomBar._y - raceDescription._height / 2 - 15;
 		
-		bonusPanel._x = raceDescription._x + bonusPanel._width / 2 + raceDescription._width / 2 + 15;
-		bonusPanel._y = raceDescription._y;
+		//bonusPanel._x = racePanel._x + bonusPanel._width / 2 + racePanel._width + 10;
+		//bonusPanel._y = bottomBar._y - bonusPanel._height / 2 - 10;
+		
+		//bonusPanel._x = raceDescription._x + bonusPanel._width / 2 + raceDescription._width / 2 + 15;
+		//bonusPanel._y = raceDescription._y;
 		
 		colorField._x = racePanel._x + racePanel._width / 2;
 		makeupPanel._x = racePanel._x + racePanel._width / 2;
@@ -311,6 +335,8 @@ class RaceMenu extends MovieClip
 			_zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_searchControl = Input.Jump;
 			_textureControl = Input.Wait;
+			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Quicksave", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Quickload", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
 			_activateControl = Input.Activate;
 			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
@@ -318,6 +344,8 @@ class RaceMenu extends MovieClip
 			_zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_textureControl = Input.YButton;
 			_searchControl = null;
+			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		}
 		
 		textEntry.TextInputInstance.maxChars = 26;
@@ -357,11 +385,11 @@ class RaceMenu extends MovieClip
 			} else if(IsBoundKeyPressed(details, _lightControl, _platform) && !bTextEntryMode) {
 				onLightClicked();
 				return true;
-			} else if((details.navEquivalent == NavigationCode.GAMEPAD_L3) && !bTextEntryMode) {
-				skse.SendModEvent("RSM_RequestLoadClipboard");
+			} else if(IsBoundKeyPressed(details, _loadPresetControl, _platform) && !bTextEntryMode) {
+				onLoadPresetClicked();
 				return true;
-			} else if((details.navEquivalent == NavigationCode.GAMEPAD_R3) && !bTextEntryMode) {
-				skse.SendModEvent("RSM_RequestSaveClipboard");
+			} else if(IsBoundKeyPressed(details, _savePresetControl, _platform) && !bTextEntryMode) {
+				onSavePresetClicked();
 				return true;
 			}
 		}
@@ -430,7 +458,17 @@ class RaceMenu extends MovieClip
 	
 	public function ShowRaceDescription(bShowDescription: Boolean): Void
 	{
+		var toggled: Boolean = (raceDescription._visible != bShowDescription);
 		raceDescription._visible = raceDescription.enabled = bShowDescription;
+		if(bShowDescription) {
+			itemList.listHeight = ITEMLIST_HEIGHT_SHARED;
+		} else {
+			itemList.listHeight = ITEMLIST_HEIGHT_FULL;
+		}
+		
+		if(toggled) {
+			itemList.requestInvalidate();
+		}
 	}
 	
 	public function ShowRaceBonuses(a_race: Object, bShowBonuses: Boolean): Void
@@ -453,6 +491,11 @@ class RaceMenu extends MovieClip
 			}
 			
 			bonusList.requestInvalidate();
+		}
+		if(bonusPanel._visible) {
+			raceDescription.textField._width = DESCRIPTION_WIDTH_SHARED;
+		} else {
+			raceDescription.textField._width = DESCRIPTION_WIDTH_FULL;
 		}
 	}
 	
@@ -929,6 +972,9 @@ class RaceMenu extends MovieClip
 			navPanel.addButton({text: "$Choose Color", controls: _activateControl}).addEventListener("click", this, "onChooseColorClicked");
 		if(selectedEntry.isTextureEnabled())
 			navPanel.addButton({text: "$Choose Texture", controls: _textureControl}).addEventListener("click", this, "onChooseTextureClicked");
+			
+		navPanel.addButton({text: "$Load Preset", controls: _loadPresetControl}).addEventListener("click", this, "onLoadPresetClicked");
+		navPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", this, "onSavePresetClicked");
 		
 		navPanel.updateButtons(true);		
 	}
@@ -1012,6 +1058,16 @@ class RaceMenu extends MovieClip
 			makeupPanel.setTexture(selectedEntry.text, selectedEntry.texture);
 			ShowMakeupPanel(true);
 		}
+	}
+	
+	private function onSavePresetClicked(): Void
+	{
+		skse.SendModEvent("RSM_RequestSaveClipboard");
+	}
+	
+	private function onLoadPresetClicked(): Void
+	{
+		skse.SendModEvent("RSM_RequestLoadClipboard");
 	}
 	
 	private function GetSliderByType(tintType: Number): Object

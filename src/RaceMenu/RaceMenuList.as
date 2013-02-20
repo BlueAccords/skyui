@@ -19,6 +19,16 @@ class RaceMenuList extends skyui.components.list.ScrollingList
 		super();
 	}
 	
+	public function set listHeight(a_height: Number): Void
+	{
+		_listHeight = background._height = a_height;
+		
+		if (scrollbar != undefined)
+			scrollbar.height = _listHeight;
+			
+		_maxListIndex = Math.floor(_listHeight / entryHeight);
+	}
+	
 	// @GFx
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
