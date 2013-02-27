@@ -236,7 +236,7 @@ class ConfigPanel extends MovieClip
 	
 	public function setInfoText(a_text: String): Void
 	{
-		_infoText = Translator.translate(a_text);
+		_infoText = Translator.translateNested(a_text);
 		
 		// Don't apply yet if waiting for option data
 		if (_state != WAIT_FOR_OPTION_DATA)
@@ -753,7 +753,7 @@ class ConfigPanel extends MovieClip
 		_highlightIndex = a_index;
 		
 		clearInterval(_highlightIntervalID);
-		_highlightIntervalID = setInterval(doHighlightOption, 200, a_index);
+		_highlightIntervalID = setInterval(this, "doHighlightOption", 200, a_index);
 	}
 	
 	private function doHighlightOption(a_index: Number): Void

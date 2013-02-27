@@ -262,7 +262,7 @@ class ItemMenu extends MovieClip
 		var categoryList = inventoryLists.categoryList;
 		var itemList = inventoryLists.itemList;
 		
-		if (arguments[0] != undefined && arguments[0] != -1 && arguments.length == 3) {
+		if (arguments[0] != undefined && arguments[0] != -1 && arguments.length == 5) {
 			categoryList.listState.restoredItem = arguments[0];
 			categoryList.onUnsuspend = function()
 			{
@@ -272,14 +272,23 @@ class ItemMenu extends MovieClip
 			
 			itemList.listState.restoredScrollPosition = arguments[2];
 			itemList.listState.restoredSelectedIndex = arguments[1];
+			itemList.listState.restoredActiveColumnIndex = arguments[3];
+			itemList.listState.restoredActiveColumnState = arguments[4];
+
 			itemList.onUnsuspend = function()
 			{
-				this.scrollPosition = this.listState.restoredScrollPosition;
-				this.selectedIndex = this.listState.restoredSelectedIndex;
+				this.onInvalidate = function()
+				{
+					this.scrollPosition = this.listState.restoredScrollPosition;
+					this.selectedIndex = this.listState.restoredSelectedIndex;
+					delete this.onInvalidate;
+				};
+				
+				this.layout.restoreColumnState(this.listState.restoredActiveColumnIndex, this.listState.restoredActiveColumnState);
 				delete this.onUnsuspend;
 			};
 		} else {
-			var categoryList = inventoryLists.categoryList;
+			
 			categoryList.onUnsuspend = function()
 			{
 				this.onItemPress(1, 0); // ALL
@@ -416,6 +425,8 @@ class ItemMenu extends MovieClip
 		a.push(inventoryLists.categoryList.selectedIndex);
 		a.push(inventoryLists.itemList.selectedIndex);
 		a.push(inventoryLists.itemList.scrollPosition);
+		a.push(inventoryLists.itemList.layout.activeColumnIndex);
+		a.push(inventoryLists.itemList.layout.activeColumnState);
 		
 		GameDelegate.call("SaveIndices", [a]);
 	}

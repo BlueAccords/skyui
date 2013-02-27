@@ -1,22 +1,29 @@
 scriptname SKI_ActiveEffectsWidget extends SKI_WidgetBase
 
+; SCRIPT VERSION ----------------------------------------------------------------------------------
+;
+; History
+;
+; 1:	- Initial version
+;
+; 2:	- Updated hudModes
+
+int function GetVersion()
+	return 2
+endFunction
+
 ; PRIVATE VARIABLES -------------------------------------------------------------------------------
-; Config
+
+; -- Version 1 --
+
 ; Make sure defaults match those in ConfigMenuInstance
 bool	_enabled			= false
 float	_effectSize			= 48.0
 int		_groupEffectCount	= 8
 string	_orientation		= "vertical"
 
-; @overrides SKI_WidgetBase
-string function GetWidgetSource()
-	return "skyui/activeeffects.swf"
-endFunction
 
-; @overrides SKI_WidgetBase
-string function GetWidgetType()
- return "SKI_ActiveEffectsWidget"
-endFunction
+; PROPERTIES --------------------------------------------------------------------------------------
 
 bool Property Enabled
 	{Whether the active effects are displayed or not}
@@ -33,7 +40,7 @@ bool Property Enabled
 endProperty
 
 float property EffectSize
-	{Size of each effect in pixels at a resolution of 1280x720}
+	{Size of each effect icon in pixels at a resolution of 1280x720}
 	float function get()
 		return _effectSize
 	endFunction
@@ -74,6 +81,29 @@ string property Orientation
 	endFunction
 endProperty
 
+; INITIALIZATION ----------------------------------------------------------------------------------
+
+; @implements SKI_QuestBase
+event OnVersionUpdate(int a_version)
+	
+	; Version 2
+	if (a_version >= 2 && CurrentVersion < 2)
+		Debug.Trace(self + ": Updating to script version 2")
+
+		string[] hudModes = new string[6]
+		hudModes[0] = "All"
+		hudModes[1] = "StealthMode"
+		hudModes[2] = "Favor"
+		hudModes[3] = "Swimming"
+		hudModes[4] = "HorseMode"
+		hudModes[5] = "WarHorseMode"
+
+		Modes = hudModes
+	endIf
+endEvent
+
+; EVENTS ------------------------------------------------------------------------------------------
+
 ; @override SKI_WidgetBase
 event OnWidgetReset()
 	parent.OnWidgetReset()
@@ -93,3 +123,16 @@ event OnWidgetReset()
 	; Init commit
 	UI.Invoke(HUD_MENU, WidgetRoot + ".initCommit")
 endEvent
+
+
+; FUNCTIONS ---------------------------------------------------------------------------------------
+
+; @overrides SKI_WidgetBase
+string function GetWidgetSource()
+	return "skyui/activeeffects.swf"
+endFunction
+
+; @overrides SKI_WidgetBase
+string function GetWidgetType()
+ return "SKI_ActiveEffectsWidget"
+endFunction

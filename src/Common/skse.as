@@ -20,4 +20,6 @@
 	static function SetClipboardData(str:String):Void;
 	static function GetPlayerSex():Number;
 	static function GetVMVariable(a_formid:Number, a_variableName:String);
+	static function EnableMapMenuMouseWheel(a_enable:Boolean):Void;
+	static function ShowOnMap(a_markerIndex:Number):Void;
 }

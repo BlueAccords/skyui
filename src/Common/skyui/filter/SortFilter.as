@@ -3,7 +3,7 @@
 import skyui.filter.IFilter;
 
 
-class skyui.filter.ItemSorter implements skyui.filter.IFilter
+class skyui.filter.SortFilter implements skyui.filter.IFilter
 {
   /* PRIVATE VARIABLES */
   
@@ -13,7 +13,7 @@ class skyui.filter.ItemSorter implements skyui.filter.IFilter
 
   /* INITIALIZATION */
 
-	public function ItemSorter()
+	public function SortFilter()
 	{
 		EventDispatcher.initialize(this);
 	}

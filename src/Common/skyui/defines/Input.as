@@ -45,6 +45,7 @@
 		{keyCode: 274},
 		{keyCode: 275}
 	];
+	static var SortOrder	= {keyCode: 272};
 
 	// Raw
 	static var GamepadBack	= {keyCode: 271};
@@ -53,5 +54,5 @@
 	static var Shift		= {keyCode: 42};
 	static var Space		= {keyCode: 57};
 	static var Alt			= {keyCode: 56};
-	static var SortOrder	= {keyCode: 272};
+
 }

@@ -100,13 +100,13 @@ columns.iconColumn.icon.size = n_iconSize
 columns.iconColumn.border = <0, 3, 3, 3> ; left right top bottom
 
 columns.iconColumn.state1.label.text = ' '
-columns.iconColumn.state1.sortAttributes = <type, formType, subType, weightClass, material, infoDamage, infoArmor, infoSchoolName, actorValue, resistance, skillLevel, magnitude, duration, text>
-columns.iconColumn.state1.sortOptions = <{ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {ASCENDING | CASEINSENSITIVE}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {ASCENDING | CASEINSENSITIVE}>
+columns.iconColumn.state1.sortAttributes = <type, formType, subType, weightClass, material, infoDamage, infoArmor, infoSchoolName, actorValue, resistance, skillLevel, magnitude, duration, isRead, text>
+columns.iconColumn.state1.sortOptions = <{ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {ASCENDING | CASEINSENSITIVE}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | CASEINSENSITIVE}>
 
 columns.iconColumn.state2.label.text = ' '
 columns.iconColumn.state2.label.arrowDown = true
-columns.iconColumn.state2.sortAttributes = <type, formType, subType, weightClass, material, infoDamage, infoArmor, infoSchoolName, actorValue, resistance, skillLevel, magnitude, duration, text>
-columns.iconColumn.state2.sortOptions = <{DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {DESCENDING | CASEINSENSITIVE}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {DESCENDING | CASEINSENSITIVE}>
+columns.iconColumn.state2.sortAttributes = <type, formType, subType, weightClass, material, infoDamage, infoArmor, infoSchoolName, actorValue, resistance, skillLevel, magnitude, duration, isRead, text>
+columns.iconColumn.state2.sortOptions = <{DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {DESCENDING | CASEINSENSITIVE}, {DESCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {DESCENDING | NUMERIC}, {DESCENDING | CASEINSENSITIVE}>
 
 ; ITEM NAME COLUMN -------------------------------------------------------
 columns.itemNameColumn.type = NAME
@@ -173,34 +173,46 @@ columns.subTypeColumn.state2.label.text = '$TYPE'
 columns.subTypeColumn.state2.entry.text = @subTypeDisplay
 columns.subTypeColumn.state2.label.arrowDown = true
 columns.subTypeColumn.state2.sortAttributes = <subTypeDisplay, text>
-columns.subTypeColumn.state2.sortOptions = <{DESCENDING | CASEINSENSITIVE}, {DESCENDING | CASEINSENSITIVE}>
+columns.subTypeColumn.state2.sortOptions = <{DESCENDING | CASEINSENSITIVE}, {ASCENDING | CASEINSENSITIVE}>
 
 
 ; MATERIAL COLUMN -------------------------------------------------------
 columns.materialColumn.type = TEXT
 columns.materialColumn.name = '$MATERIAL'
-columns.materialColumn.states = 1
+columns.materialColumn.states = 2
 columns.materialColumn.width = 0.10
 columns.materialColumn.border = a_textBorder
 columns.materialColumn.hidden = true
 
 columns.materialColumn.state1.label.text = '$MAT'
 columns.materialColumn.state1.entry.text = @materialDisplay
-columns.materialColumn.state1.sortAttributes = <material, formType, weightClass, subType, text>
-columns.materialColumn.state1.sortOptions = <{ASCENDING | NUMERIC},  {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | CASEINSENSITIVE}>
+columns.materialColumn.state1.sortAttributes = <materialDisplay, text>
+columns.materialColumn.state1.sortOptions = <{ASCENDING | CASEINSENSITIVE}, {ASCENDING | CASEINSENSITIVE}>
+
+columns.materialColumn.state2.label.text = '$MAT'
+columns.materialColumn.state2.entry.text = @materialDisplay
+columns.materialColumn.state2.entry.arrowDown = true
+columns.materialColumn.state2.sortAttributes = <materialDisplay, text>
+columns.materialColumn.state2.sortOptions = <{DESCENDING | CASEINSENSITIVE}, {ASCENDING | CASEINSENSITIVE}>
 
 
 ; CLASS COLUMN -------------------------------------------------------
 columns.classColumn.type = TEXT
 columns.classColumn.name = '$CLASS'
-columns.classColumn.states = 1
+columns.classColumn.states = 2
 columns.classColumn.width = 0.10
 columns.classColumn.border = a_textBorder
 
 columns.classColumn.state1.label.text = '$CLASS'
 columns.classColumn.state1.entry.text = @weightClassDisplay
-columns.classColumn.state1.sortAttributes = <weightClass, formType, subType, material, text>
-columns.classColumn.state1.sortOptions = <{ASCENDING | NUMERIC},  {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | NUMERIC}, {ASCENDING | CASEINSENSITIVE}>
+columns.classColumn.state1.sortAttributes = <weightClassDisplay, text>
+columns.classColumn.state1.sortOptions = <{ASCENDING | CASEINSENSITIVE}, {ASCENDING | CASEINSENSITIVE}>
+
+columns.classColumn.state2.label.text = '$CLASS'
+columns.classColumn.state2.entry.text = @weightClassDisplay
+columns.classColumn.state2.entry.arrowDown = true
+columns.classColumn.state2.sortAttributes = <weightClassDisplay, text>
+columns.classColumn.state2.sortOptions = <{DESCENDING | CASEINSENSITIVE}, {ASCENDING | CASEINSENSITIVE}>
 
 
 ; MAGNITUDE COLUMN -------------------------------------------------------
