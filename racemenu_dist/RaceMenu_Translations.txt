@@ -1,4 +1,4 @@
-﻿Language	English	French	German	Italian	Spanish	Czech	Polish	Russian	Japanese	Portuguese	ChineseTraditional	ChineseSimplified
+Language	English	French	German	Italian	Spanish	Czech	Polish	Russian	Japanese	Portuguese	ChineseTraditional	ChineseSimplified
 $ALL	ALL	TOUT	Alles	TUTTO	Todos/Todas (Masculine/Feminie)	VŠE	WSZYSTKIE	ВСЕ	全て	TUDO	全部	全部
 $COLORS	COLORS	COULEURS	Farben	COLORI	Colores	BARVY	KOLORY	ЦВЕТА	色	CORES	色彩	颜色
 $MAKEUP	MAKEUP	MAQUILLAGE	Make-Up	TRUCCO	Maquillaje	MAKEUP	MAKIJAŻ	МАКИЯЖ	化粧	MAQUIAGEM	化粧	化妆
@@ -10,8 +10,8 @@ $Choose Color	Choose Color	Choix de couleur	Farbe wählen	Scegli Colore	Elegir c
 $Choose Texture	Choose Texture	Choix de texture	Textur wählen	Scegli Texture	Elegir textura	Vybrat texturu	Wybierz Texturę	Выбор текстуры	テクスチャーの選択	Escolha a textura	選擇材質	选择材质
 $Search	Search	Recherche	Suchen	Cerca	Buscar	Hledat	Szukaj	Найти	検索	Procura	搜尋	搜索
 $Change Category	Change Category	Changer Catégorie	Kategorie ändern	Cambia Categoria	Cambiar categoría	Změnit kategorii	Zmień Kategorię	Сменить категорию	カテゴリーの変更	Mudar a categoria	變更類別	更变类别
-$Load Preset	Load Preset		Voreinstellung laden			Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку				读取预设
-$Save Preset	Save Preset		Voreinstellung speichern			Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку				保存预设
+$Load Preset	Load Preset	Charger Préréglage                                                                                 	Voreinstellung laden			Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード			读取预设
+$Save Preset	Save Preset	Sauver Préréglage	Voreinstellung speichern			Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存			保存预设
 $Light On	Light On	Avec Lumière	Licht an	Luce Accesa	Luz encendida	Světlo zapnuté	Zapal	Светлее	ライトオン	Ligar a luz	開啟燈光	开启光照
 $Light Off	Light Off	Sans Lumière	Licht aus	Luce Spenta	Luz apagada	Světlo vypnuté	Zgaś	Темнее	ライトオフ	Desligar a luz	關閉燈光	关闭光照
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
@@ -24,6 +24,8 @@ $Left Breast Curve	Left Breast Curve	Courbe Poitrine Gauche	Linke Brustkurve			K
 $Right Breast Curve	Right Breast Curve	Courbe Poitrine Droite	Rechte Brustkurve			Křivka pravého ňadra	Krągłość Prawej Piersi	Изгиб правой груди				右胸曲线
 $Left Biceps	Left Biceps	Biceps Gauche	Linker Bizeps	Bicipite Sinistro	Bíceps izquierdos	Levý biceps	Lewy Biceps	Левый бицепс	左腕の力こぶ	Bíceps esquerdo	右臂二頭肌	左肱二头肌
 $Right Biceps	Right Biceps	Biceps Droit	Rechter Bizeps	Bicipite Destro	Bíceps derechos	Pravý biceps	Prawy Biceps	Правый бицепс	右腕の力こぶ	Bíceps direito	左臂二頭肌	右肱二头肌
+$Left Biceps 2	Left Biceps 2	Biceps Gauche 2	Linker Bizeps 2	Bicipite Sinistro 2	Bíceps izquierdos 2	Levý biceps 2	Lewy Biceps 2	Левый бицепс 2	左腕の力こぶ 2	Bíceps esquerdo 2	右臂二頭肌 2	左肱二头肌 2
+$Right Biceps 2	Right Biceps 2	Biceps Droit 2	Rechter Bizeps 2	Bicipite Destro 2	Bíceps derechos 2	Pravý biceps 2	Prawy Biceps 2	Правый бицепс 2	右腕の力こぶ 2	Bíceps direito 2	左臂二頭肌 2	右肱二头肌 2
 $Alteration	Alteration	Altération	Veränderung	Alterazione	Alteración	Proměny	Przemiana	Изменение	変性	Alteração		变化
 $Conjuration	Conjuration	Conjuration	Beschwörung	Evocazione	Conjuración	Vyvolávání	Przywoływanie	Колдовство	召喚	Conjuração		召唤
 $Destruction	Destruction	Destruction	Zerstörung	Distruzione	Destrucción	Ničení	Zniszczenie	Разрушение	破壊	Destruição		毁灭
@@ -164,5 +166,5 @@ $Female Forsworn Tattoo 04	Female Forsworn Tattoo 04	Tatouage Parjure Femme 03	W
 $Male Black Blood Tattoo 01	Male Black Blood Tattoo 01	Tatouage Sang Noir Homme 01 	Männliches Schwarzblut Tattoo 01	Tatuaggio Maschile Blackblood 01	Tatuaje Sangre Negra para hombre 01	Tetování Gangu Blackblood 01	Męski Tatuaż Czarnej Krwii 01	Муж. Тату черной крови 01	男性ブラック・ブラッドのタトゥー 01	Tatuagem de sangue negro masculino 01		男黑血纹身 01
 $Male Black Blood Tattoo 02	Male Black Blood Tattoo 02	Tatouage Sang Noir Homme 02	Männliches Schwarzblut Tattoo 02	Tatuaggio Maschile Blackblood 02	Tatuaje Sangre Negra para hombre 02	Tetování Gangu Blackblood 02	Męski Tatuaż Czarnej Krwii 02	Муж. Тату черной крови 02	男性ブラック・ブラッドのタトゥー 02	Tatuagem de sangue negro masculino 02		男黑血纹身 02
 												
-% Completion	100.00%	98.78%	100.00%	97.56%	97.56%	100.00%	100.00%	100.00%	97.56%	97.56%	34.15%	100.00%
-Total % Completion	93.60%	93.60%	93.60%	93.60%	93.60%	93.60%	93.60%	93.60%	93.60%	93.60%	93.60%	93.60%
+% Completion	100.00%	100.00%	100.00%	97.59%	97.59%	100.00%	100.00%	100.00%	98.80%	97.59%	34.94%	100.00%
+Total % Completion	93.88%	93.88%	93.88%	93.88%	93.88%	93.88%	93.88%	93.88%	93.88%	93.88%	93.88%	93.88%

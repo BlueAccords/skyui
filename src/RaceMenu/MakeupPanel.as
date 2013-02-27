@@ -4,20 +4,27 @@ import gfx.ui.InputDetails;
 import Shared.GlobalFunc;
 import gfx.io.GameDelegate;
 
+import skyui.components.SearchWidget;
 import skyui.components.list.FilteredEnumeration;
 import skyui.components.list.ScrollingList;
 import skyui.components.ButtonPanel;
 import skyui.filter.ItemSorter;
+import skyui.filter.ItemNameFilter;
 import skyui.defines.Input;
 import skyui.util.GlobalFunctions;
 
 class MakeupPanel extends MovieClip
 {
 	public var buttonPanel: ButtonPanel;
-	public var makeupList: ScrollingList;
+	public var makeupList: MakeupList;
+	public var searchWidget: SearchWidget;
+	public var bTextEntryMode: Boolean = false;
+	
 	private var _acceptButton: Object;
 	private var _cancelButton: Object;
+	
 	private var _sortFilter: ItemSorter;
+	private var _nameFilter: ItemNameFilter;
 	
 	private var _platform: Number;
 	private var _currentTexture: String;
@@ -36,6 +43,7 @@ class MakeupPanel extends MovieClip
 		super();
 		
 		_sortFilter = new ItemSorter();
+		_nameFilter = new ItemNameFilter();
 		
 		GlobalFunc.MaintainTextFormat();
 		GlobalFunc.SetLockFunction();
@@ -49,18 +57,56 @@ class MakeupPanel extends MovieClip
 
 		var listEnumeration = new FilteredEnumeration(makeupList.entryList);
 		listEnumeration.addFilter(_sortFilter);
+		listEnumeration.addFilter(_nameFilter);
 		makeupList.listEnumeration = listEnumeration;
 		
 		_sortFilter.setSortBy(["text"], [0]);
 		_sortFilter.addEventListener("filterChange", this, "onFilterChange");
+		_nameFilter.addEventListener("filterChange", this, "onFilterChange");
 		
 		makeupList.addEventListener("itemPress", this, "onItemPress");
 		makeupList.addEventListener("selectionChange", this, "onSelectionChanged");
+		
+		searchWidget.addEventListener("inputStart", this, "onSearchInputStart");
+		searchWidget.addEventListener("inputEnd", this, "onSearchInputEnd");
+		searchWidget.addEventListener("inputChange", this, "onSearchInputChange");
+		searchWidget.gotoAndStop("Double");
+		
+		// Test Code
+		/*for(var i = 0; i < 50; i++) {
+			AddMakeup("Texture" + i, "Actor\\Texture_" + i + ".dds");
+		}
+		InvalidateList();*/
 	}
 	
-	public function onFilterChange(): Void
+	private function onSearchInputStart(event: Object): Void
+	{
+		bTextEntryMode = true;
+		makeupList.disableSelection = makeupList.disableInput = true;
+		_nameFilter.filterText = "";
+	}
+
+	private function onSearchInputChange(event: Object)
+	{
+		_nameFilter.filterText = event.data;
+	}
+
+	private function onSearchInputEnd(event: Object)
+	{
+		makeupList.disableSelection = makeupList.disableInput = false;
+		_nameFilter.filterText = event.data;
+		bTextEntryMode = false;
+	}
+	
+	private function onFilterChange(): Void
 	{
 		makeupList.requestInvalidate();
+	}
+	
+	public function clearFilter(): Void
+	{
+		searchWidget.endInput();
+		_nameFilter.filterText = "";
 	}
 	
 	public function InvalidateList(): Void
@@ -92,7 +138,7 @@ class MakeupPanel extends MovieClip
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
 		var bHandledInput: Boolean = false;
-		if (GlobalFunc.IsKeyPressed(details)) {
+		if (GlobalFunc.IsKeyPressed(details) && !bTextEntryMode) {
 			if(details.navEquivalent == NavigationCode.ENTER || details.skseKeycode == GlobalFunctions.getMappedKey("Activate", Input.CONTEXT_GAMEPLAY, _platform != 0)) {
 				onAccept();
 				bHandledInput = true;

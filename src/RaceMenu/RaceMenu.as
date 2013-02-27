@@ -184,7 +184,7 @@ class RaceMenu extends MovieClip
 		categoryList.listState.iconSource = "racemenu/racesex_icons.swf";
 		
 		_sortFilter.setSortBy(["text"], [0]);
-				
+		
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 508, savedItemIndex: -1, enabled: true});
 		/*
 		_raceList.push({skillBonuses: [{skill: 10, bonus: 255},
@@ -280,8 +280,8 @@ class RaceMenu extends MovieClip
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Chin Forward", filterFlag: 128, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 44, position: 0.18000000715256, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Lip Color", filterFlag: 128 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 7, sliderID: 45, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: "MyNigga", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: "MyNigga2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: "MyNigga", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, isTextureEnabled: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: "MyNigga2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, isTextureEnabled: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		*/
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
@@ -290,13 +290,8 @@ class RaceMenu extends MovieClip
 		FocusHandler.instance.setFocus(itemList, 0);
 		
 		// Test Code
-		InitExtensions();
-		SetPlatform(1, false);
-		
-		/*for(var i = 0; i < 50; i++) {
-			RSM_AddMakeup("Test " + i, "Texture1");
-		}
-		ShowMakeupPanel(true);*/
+		//InitExtensions();
+		//SetPlatform(1, false);
 	}
 	
 	public function InitExtensions()
@@ -375,7 +370,7 @@ class RaceMenu extends MovieClip
 			return makeupPanel.handleInput(details, pathToFocus);
 		}
 			
-		if (GlobalFunc.IsKeyPressed(details)) {			
+		if (GlobalFunc.IsKeyPressed(details)) {
 			if (IsBoundKeyPressed(details, _searchControl, _platform) && _platform == 0) {
 				onSearchClicked();
 				return true;
@@ -639,7 +634,7 @@ class RaceMenu extends MovieClip
 			} else {
 				entryObject.hasColor = function(): Boolean { return false; }
 			}
-			if(entryObject.callbackName == "ChangeWeight" || entryObject.callbackName == "ChangeDoubleMorph") {
+			if(entryObject.callbackName == "ChangeWeight") {
 				entryObject.interval = 0.01;
 			}
 			
@@ -928,6 +923,7 @@ class RaceMenu extends MovieClip
 	{
 		var pressedEntry: Object = itemList.entryList[event.index];
 		if(pressedEntry.isTextureEnabled()) {
+			makeupPanel.clearFilter();
 			makeupPanel.InvalidateList();
 			makeupPanel.updateButtons(true);
 			makeupPanel.setSelectedEntry(pressedEntry.texture);
