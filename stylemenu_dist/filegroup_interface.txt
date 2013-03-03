@@ -1,0 +1,2 @@
+Interface\stylemenu.swf
+Interface\translations\StyleMenu_ENGLISH.txt

@@ -1,0 +1,8 @@
+Scripts\StyleMenu.pex
+Scripts\StyleMenuBase.pex
+Scripts\StyleMenuInject.pex
+Scripts\StyleMenuLoad.pex
+Scripts\Source\StyleMenu.psc
+Scripts\Source\StyleMenuBase.psc
+Scripts\Source\StyleMenuInject.psc
+Scripts\Source\StyleMenuLoad.psc

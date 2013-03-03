@@ -1,0 +1,36 @@
+Log started for script bsascript.txt
+Creating new archive
+Checking option: Compress Archive
+Checking option: Menus
+Checking option: Misc
+Checking option: Retain Directory Names
+Checking option: Retain File Names
+Setting File Group Root: 'Data\'
+Adding File Group: filegroup_all.txt
+-Adding File: Data\Interface\stylemenu.swf
+-Adding File: Data\Scripts\StyleMenu.pex
+-Adding File: Data\Scripts\StyleMenuBase.pex
+-Adding File: Data\Scripts\StyleMenuInject.pex
+-Adding File: Data\Scripts\StyleMenuLoad.pex
+-Adding File: Data\Scripts\Source\StyleMenu.psc
+-Adding File: Data\Scripts\Source\StyleMenuBase.psc
+-Adding File: Data\Scripts\Source\StyleMenuInject.psc
+-Adding File: Data\Scripts\Source\StyleMenuLoad.psc
+Saving archive: _generated\StyleMenu.bsa
+
+Writing files
+
+Offset          0: Wrote compressed file scripts\source\stylemenubase.psc
+Offset        716: Wrote compressed file scripts\source\stylemenuload.psc
+Offset        841: Wrote compressed file scripts\source\stylemenu.psc
+Offset       1414: Wrote compressed file scripts\source\stylemenuinject.psc
+Offset       1716: Wrote compressed file scripts\stylemenubase.pex
+Offset       3055: Wrote compressed file scripts\stylemenuload.pex
+Offset       3460: Wrote compressed file scripts\stylemenu.pex
+Offset       4441: Wrote compressed file scripts\stylemenuinject.pex
+Offset       4931: Wrote compressed file interface\stylemenu.swf
+Offset      31686: END OF FILE
+
+Finished writing files
+
+Script bsascript.txt has finished.
