@@ -160,6 +160,10 @@
 	},
 	"file_history":
 	[
+		"/C/Users/Brendan/AppData/Roaming/Natural Selection 2/system_options.xml",
+		"/C/Users/Brendan/Desktop/SKSE/SkyUI/skyui/stylemenu_dist/Data/Scripts/Source/StyleMenuInject.psc",
+		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLPluginTrain.psc",
+		"/C/program files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/EXP__TIF__00000804.psc",
 		"/C/Users/Brendan/Desktop/SKSE/SkyUI/skyui/dist/Data/Scripts/Source/SKI_WidgetManager.psc",
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/StyleMenu.psc",
 		"/C/Users/Brendan/Desktop/SKSE/SkyUI/skyui/racemenu_dist/Data/Scripts/Source/RaceMenuBase.psc",
@@ -173,7 +177,6 @@
 		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/modified/ColorComponent.psc",
 		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/build_src/ColorComponent.psc",
 		"/C/program files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/BlacksmithForge01.psc",
-		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLPluginTrain.psc",
 		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/modified/Game.psc",
 		"/C/Users/Brendan/Desktop/SKSE/SkyUI/skyui/racemenu_dist/Data/Scripts/Source/RaceMenuPlugin.psc",
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/DiethardtWarpaint.psc",
@@ -284,10 +287,7 @@
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/Dawnguard/DLC1VampireTurnScript.psc",
 		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/modified/TextureSet.psc",
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLPanel.psc",
-		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLLoadSettings.psc",
-		"/C/program files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLScript.psc",
-		"/C/program files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLStatsMenu.psc",
-		"/C/program files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLMagicMenu.psc"
+		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLLoadSettings.psc"
 	],
 	"find":
 	{
@@ -378,8 +378,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								967,
+								967
 							]
 						],
 						"settings":
@@ -388,7 +388,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 225.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -405,8 +405,8 @@
 						"selection":
 						[
 							[
-								0,
-								0
+								478,
+								478
 							]
 						],
 						"settings":

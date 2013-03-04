@@ -21,15 +21,15 @@ Saving archive: _generated\StyleMenu.bsa
 Writing files
 
 Offset          0: Wrote compressed file scripts\source\stylemenubase.psc
-Offset        716: Wrote compressed file scripts\source\stylemenuload.psc
-Offset        841: Wrote compressed file scripts\source\stylemenu.psc
-Offset       1414: Wrote compressed file scripts\source\stylemenuinject.psc
-Offset       1716: Wrote compressed file scripts\stylemenubase.pex
-Offset       3055: Wrote compressed file scripts\stylemenuload.pex
-Offset       3460: Wrote compressed file scripts\stylemenu.pex
-Offset       4441: Wrote compressed file scripts\stylemenuinject.pex
-Offset       4931: Wrote compressed file interface\stylemenu.swf
-Offset      31686: END OF FILE
+Offset        828: Wrote compressed file scripts\source\stylemenuload.psc
+Offset        953: Wrote compressed file scripts\source\stylemenu.psc
+Offset       3211: Wrote compressed file scripts\source\stylemenuinject.psc
+Offset       3513: Wrote compressed file scripts\stylemenubase.pex
+Offset       5072: Wrote compressed file scripts\stylemenuload.pex
+Offset       5477: Wrote compressed file scripts\stylemenu.pex
+Offset       8655: Wrote compressed file scripts\stylemenuinject.pex
+Offset       9153: Wrote compressed file interface\stylemenu.swf
+Offset      36702: END OF FILE
 
 Finished writing files
 

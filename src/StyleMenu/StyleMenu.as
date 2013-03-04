@@ -1,6 +1,7 @@
 ﻿import Shared.GlobalFunc;
 import gfx.ui.InputDetails;
 import gfx.ui.NavigationCode;
+import gfx.io.GameDelegate;
 import gfx.events.EventDispatcher;
 import gfx.managers.FocusHandler;
 
@@ -16,6 +17,7 @@ class StyleMenu extends MovieClip
 	private var _parentMenu: MovieClip;
 	private var _parentHandleInput: Function;
 	private var _parentSetPlatform: Function;
+	private var _parentMouseDown: Function;
 	
 	/* GFx Dispatcher Functions */
 	public var dispatchEvent: Function;
@@ -41,32 +43,50 @@ class StyleMenu extends MovieClip
 		_parentMenu = _root.DialogueMenu_mc;
 		_parentHandleInput = _parentMenu.handleInput;
 		_parentSetPlatform = _parentMenu.setPlatform;
+		_parentMouseDown = _parentMenu.onMouseDown;
 		
-		_parentMenu.setPlatform = setPlatform_Hook;
-		_parentMenu.handleInput = handleInput_Hook;
-		
+		HookMenu();
+				
 		styleTable.listEnumeration = new BasicEnumeration(styleTable.entryList);
 		styleTable.addEventListener("itemPress", this, "onStylePress");
 		styleTable.addEventListener("selectionChange", this, "onStyleChange");
 
-		for(var i = 0; i < 40; i++) {
+		/*for(var i = 0; i < 40; i++) {
 			styleTable.entryList.push({text: "Text" + i, flags: 0, editorId: "Style" + i, value: "(" + (Math.floor(Math.random()*(1+999-100))+100) + ")"});
 		}
 
-		styleTable.InvalidateData();
+		styleTable.InvalidateData();*/
+		
+		Mouse.addListener(this);
 		
 		FocusHandler.instance.setFocus(styleTable, 0);
+		
+		skse.SendModEvent("SSM_Initialized");
 	}
 	
-	// Hooks
-	public function setPlatform_Hook(a_platform: Number, a_bPS3Switch: Boolean): Void
+	public function HookMenu(): Void
 	{
-		_root.StyleMenu.setPlatform(a_platform, a_bPS3Switch);
+		_parentMenu.setPlatform = function(a_platform: Number, a_bPS3Switch: Boolean): Void
+		{
+			_root.StyleMenu.setPlatform(a_platform, a_bPS3Switch);
+		};
+		
+		_parentMenu.handleInput = function(details: InputDetails, pathToFocus: Array): Boolean
+		{
+			return _root.StyleMenu.handleInput(details, pathToFocus);
+		};
+		_parentMenu.onMouseDown = function(){};
+		_parentMenu.enabled = false;
+		_parentMenu._visible = false;
 	}
 	
-	public function handleInput_Hook(details: InputDetails, pathToFocus: Array): Boolean
-	{
-		return _root.StyleMenu.handleInput(details, pathToFocus);
+	public function UnhookMenu(): Void
+	{		
+		_parentMenu.handleInput = _parentHandleInput;
+		_parentMenu.setPlatform = _parentSetPlatform;
+		_parentMenu.onMouseDown = _parentMouseDown;
+		_parentMenu.enabled = true;
+		_parentMenu._visible = true;
 	}
 	
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
@@ -84,7 +104,8 @@ class StyleMenu extends MovieClip
 	
 		if (GlobalFunc.IsKeyPressed(details, false)) {
 			if (details.navEquivalent == NavigationCode.TAB) {
-				// Close panel
+				GameDelegate.call("CloseMenu", []);
+				GameDelegate.call("FadeDone", []);
 				return true;
 			}
 		}
@@ -107,7 +128,21 @@ class StyleMenu extends MovieClip
 	{
 		if(!a_entryObject)
 			return;
-			
-		trace("Selected option: " + a_entryObject.editorId);
+		
+		skse.SendModEvent("SSM_ChangeHeadPart", a_entryObject.editorId);
+	}
+	
+	/* Papyrus Calls */
+	public function SSM_AddHeadParts()
+	{
+		for(var i = 0; i < arguments.length; i++)
+		{
+			var headPartParams: Array = arguments[i].split(";;");
+			if(headPartParams[0] != "") {
+				styleTable.entryList.push({text: headPartParams[0], flags: 0, editorId: headPartParams[1], imageSource: headPartParams[2], value: Number(headPartParams[3])});
+			}
+		}
+		
+		styleTable.InvalidateData();
 	}
 }
