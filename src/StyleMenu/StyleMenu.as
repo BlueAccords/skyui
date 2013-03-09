@@ -8,12 +8,22 @@ import gfx.managers.FocusHandler;
 import skyui.defines.Input;
 import skyui.components.list.BasicEnumeration;
 import skyui.components.list.ScrollingList;
+import skyui.components.ButtonPanel;
 
 class StyleMenu extends MovieClip
 {
 	private var _platform: Number;
-	private var styleTable: MultiColumnScrollingList;
 	
+	/* Stage Clips */
+	public var styleTable: MultiColumnScrollingList;
+	public var bottomBar: BottomBar;
+	public var navPanel: ButtonPanel;
+	
+	/* CONTROLS */
+	private var _acceptControl: Object;
+	private var _cancelControl: Object;
+	
+	/* Hook Data */
 	private var _parentMenu: MovieClip;
 	private var _parentHandleInput: Function;
 	private var _parentSetPlatform: Function;
@@ -40,6 +50,9 @@ class StyleMenu extends MovieClip
 	{
 		super.onLoad();
 		
+		navPanel = bottomBar.buttonPanel;
+		bottomBar.hidePlayerInfo();
+		
 		_parentMenu = _root.DialogueMenu_mc;
 		_parentHandleInput = _parentMenu.handleInput;
 		_parentSetPlatform = _parentMenu.setPlatform;
@@ -60,6 +73,8 @@ class StyleMenu extends MovieClip
 		Mouse.addListener(this);
 		
 		FocusHandler.instance.setFocus(styleTable, 0);
+		
+		setPlatform(_global.platform, false);
 		
 		skse.SendModEvent("SSM_Initialized");
 	}
@@ -92,7 +107,20 @@ class StyleMenu extends MovieClip
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
 		_platform = a_platform;
-		// Buttonbar stuff
+		
+		if(a_platform == 0) {
+			_acceptControl = Input.Accept;
+			_cancelControl = {name: "Tween Menu", context: Input.CONTEXT_GAMEPLAY};
+		} else {
+			_acceptControl = Input.Accept;
+			_cancelControl = Input.Cancel;
+		}
+		
+		bottomBar.setPlatform(a_platform, a_bPS3Switch);
+		var leftEdge = Stage.visibleRect.x + Stage.safeRect.x;
+		var rightEdge = Stage.visibleRect.x + Stage.visibleRect.width - Stage.safeRect.x;
+		bottomBar.positionElements(leftEdge, rightEdge);
+		updateBottomBar();
 	}
 	
 	// @GFx
@@ -104,8 +132,7 @@ class StyleMenu extends MovieClip
 	
 		if (GlobalFunc.IsKeyPressed(details, false)) {
 			if (details.navEquivalent == NavigationCode.TAB) {
-				GameDelegate.call("CloseMenu", []);
-				GameDelegate.call("FadeDone", []);
+				onExitClicked();
 				return true;
 			}
 		}
@@ -121,7 +148,10 @@ class StyleMenu extends MovieClip
 	
 	private function onStyleChange(a_event: Object): Void
 	{
-		
+		var selectedEntry: Object = styleTable.entryList[a_event.index];
+		styleTable.listState.selectedEntry = selectedEntry;
+		updateBottomBar();
+		GameDelegate.call("PlaySound",["UIMenuFocus"]);
 	}
 	
 	private function selectOption(a_entryObject: Object): Void
@@ -130,6 +160,30 @@ class StyleMenu extends MovieClip
 			return;
 		
 		skse.SendModEvent("SSM_ChangeHeadPart", a_entryObject.editorId);
+	}
+	
+	private function updateBottomBar(): Void
+	{
+		navPanel.clearButtons();
+		navPanel.addButton({text: "$Exit", controls: _cancelControl}).addEventListener("click", this, "onExitClicked");
+		if(styleTable.listState.selectedEntry) {
+			navPanel.addButton({text: "$Choose Hair", controls: _acceptControl}).addEventListener("click", this, "onChooseHairClicked");
+		}
+		navPanel.updateButtons(true);		
+	}
+	
+	private function onExitClicked(): Void
+	{		
+		GameDelegate.call("CloseMenu", []);
+		GameDelegate.call("FadeDone", []);
+	}
+	
+	private function onChooseHairClicked(): Void
+	{		
+		var selectedEntry = styleTable.listState.selectedEntry;
+		if(selectedEntry) {
+			selectOption(selectedEntry);
+		}
 	}
 	
 	/* Papyrus Calls */

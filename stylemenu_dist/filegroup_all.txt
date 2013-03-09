@@ -1,4 +1,6 @@
 Interface\stylemenu.swf
+Interface\stylemenu\bottomBar.swf
+Interface\stylemenu\buttonArt.swf
 Interface\translations\StyleMenu_ENGLISH.txt
 Scripts\StyleMenu.pex
 Scripts\StyleMenuBase.pex

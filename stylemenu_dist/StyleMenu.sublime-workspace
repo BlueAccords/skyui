@@ -115,7 +115,7 @@
 			"file": "Data/Scripts/Source/StyleMenu.psc",
 			"settings":
 			{
-				"buffer_size": 1181,
+				"buffer_size": 14995,
 				"line_ending": "Windows"
 			}
 		},
@@ -123,7 +123,7 @@
 			"file": "Data/Scripts/Source/StyleMenuBase.psc",
 			"settings":
 			{
-				"buffer_size": 2337,
+				"buffer_size": 2771,
 				"line_ending": "Windows"
 			}
 		},
@@ -160,18 +160,21 @@
 	},
 	"file_history":
 	[
+		"/C/program files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/StyleMenuInject.psc",
+		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/modified/HeadPart.psc",
+		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/HeadPart.psc",
+		"/C/Users/Brendan/Documents/My Games/Skyrim/Logs/Script/Papyrus.0.log",
+		"/C/Users/Brendan/Desktop/SKSE/SkyUI/skyui/racemenu_dist/Data/Scripts/Source/RaceMenuBase.psc",
 		"/C/Users/Brendan/AppData/Roaming/Natural Selection 2/system_options.xml",
 		"/C/Users/Brendan/Desktop/SKSE/SkyUI/skyui/stylemenu_dist/Data/Scripts/Source/StyleMenuInject.psc",
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLPluginTrain.psc",
 		"/C/program files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/EXP__TIF__00000804.psc",
 		"/C/Users/Brendan/Desktop/SKSE/SkyUI/skyui/dist/Data/Scripts/Source/SKI_WidgetManager.psc",
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/StyleMenu.psc",
-		"/C/Users/Brendan/Desktop/SKSE/SkyUI/skyui/racemenu_dist/Data/Scripts/Source/RaceMenuBase.psc",
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/StyleMenuBase.psc",
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/StyleMenuLoad.psc",
 		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/build_src/Actor.psc",
 		"/C/Users/Brendan/Desktop/SKSE/SkyUI/skyui/racemenu_dist/Data/PluginTemplate.psc",
-		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/modified/HeadPart.psc",
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/NiRTTI.idc",
 		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/build_src/Game.psc",
 		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/modified/ColorComponent.psc",
@@ -190,7 +193,6 @@
 		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/modified/Actor.psc",
 		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/modified/ActorBase.psc",
 		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/vanilla/ActorBase.psc",
-		"/C/Users/Brendan/Documents/My Games/Skyrim/Logs/Script/Papyrus.0.log",
 		"/C/Users/Brendan/Desktop/minitrucktest/parts/.htaccess",
 		"/C/Users/Brendan/Desktop/minitrucktest/pinnaclecart.sql",
 		"/C/Users/Brendan/Desktop/minitrucktest/.htaccess",
@@ -285,9 +287,7 @@
 		"/C/Users/Brendan/Downloads/RaceMenu_Translations - Sheet1.tsv",
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/Dawnguard/DLC1VampireTurnRedEyesScript.psc",
 		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/Dawnguard/DLC1VampireTurnScript.psc",
-		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/modified/TextureSet.psc",
-		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLPanel.psc",
-		"/C/Program Files (x86)/Steam/steamapps/common/skyrim/Data/Scripts/Source/XFLLoadSettings.psc"
+		"/C/Users/Brendan/Desktop/SKSE/Latest/skse/scripts/modified/TextureSet.psc"
 	],
 	"find":
 	{
@@ -371,15 +371,15 @@
 					"file": "Data/Scripts/Source/StyleMenu.psc",
 					"settings":
 					{
-						"buffer_size": 1181,
+						"buffer_size": 14995,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								967,
-								967
+								14587,
+								14587
 							]
 						],
 						"settings":
@@ -388,7 +388,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 225.0,
+						"translation.y": 3583.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -398,15 +398,15 @@
 					"file": "Data/Scripts/Source/StyleMenuBase.psc",
 					"settings":
 					{
-						"buffer_size": 2337,
+						"buffer_size": 2771,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								478,
-								478
+								606,
+								606
 							]
 						],
 						"settings":
@@ -415,7 +415,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 360.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
