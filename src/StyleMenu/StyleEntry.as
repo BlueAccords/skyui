@@ -12,6 +12,7 @@ class StyleEntry extends BasicListEntry
 	public var valueField: TextField;
 	public var selectIndicator: MovieClip;
 	public var image: MovieClip;
+	public var backdrop: MovieClip;
 	
 	private var _movieLoader: MovieClipLoader;
 	
@@ -35,14 +36,19 @@ class StyleEntry extends BasicListEntry
 	public function setEntry(a_entryObject: Object, a_state: ListState): Void
 	{
 		var entryWidth = background._width;
-		var isSelected = a_entryObject == a_state.list.selectedEntry;
+		var isSelected = (a_entryObject != undefined && a_entryObject == a_state.list.selectedEntry);
 
 		var flags = a_entryObject.flags;
 		var isEnabled = !(flags & FLAG_DISABLED);
 		
 		selectIndicator._visible = isSelected;
-		
 		_alpha = isEnabled ? ALPHA_ENABLED : ALPHA_DISABLED;
+		
+		if(a_entryObject.text) {
+			backdrop.gotoAndStop("backdrop");
+		} else {
+			backdrop.gotoAndStop("empty");
+		}
 		
 		enabled = isEnabled;
 		textField.textAutoSize = "shrink";
@@ -66,6 +72,7 @@ class StyleEntry extends BasicListEntry
 	// @override MovieClipLoader
 	public function onLoadError(a_clip:MovieClip, a_errorCode: String): Void
 	{
+		skse.Log("Error " + a_errorCode + " failed to load image on: " + a_clip);
 		_movieLoader.unloadClip(a_clip);
 	}
 }

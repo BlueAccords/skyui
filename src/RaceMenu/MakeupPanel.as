@@ -8,8 +8,8 @@ import skyui.components.SearchWidget;
 import skyui.components.list.FilteredEnumeration;
 import skyui.components.list.ScrollingList;
 import skyui.components.ButtonPanel;
-import skyui.filter.ItemSorter;
-import skyui.filter.ItemNameFilter;
+import skyui.filter.SortFilter;
+import skyui.filter.NameFilter;
 import skyui.defines.Input;
 import skyui.util.GlobalFunctions;
 
@@ -23,8 +23,8 @@ class MakeupPanel extends MovieClip
 	private var _acceptButton: Object;
 	private var _cancelButton: Object;
 	
-	private var _sortFilter: ItemSorter;
-	private var _nameFilter: ItemNameFilter;
+	private var _sortFilter: SortFilter;
+	private var _nameFilter: NameFilter;
 	
 	private var _platform: Number;
 	private var _currentTexture: String;
@@ -42,8 +42,8 @@ class MakeupPanel extends MovieClip
 	{
 		super();
 		
-		_sortFilter = new ItemSorter();
-		_nameFilter = new ItemNameFilter();
+		_sortFilter = new SortFilter();
+		_nameFilter = new NameFilter();
 		
 		GlobalFunc.MaintainTextFormat();
 		GlobalFunc.SetLockFunction();

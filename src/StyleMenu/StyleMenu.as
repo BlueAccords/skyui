@@ -15,7 +15,7 @@ class StyleMenu extends MovieClip
 	private var _platform: Number;
 	
 	/* Stage Clips */
-	public var styleTable: MultiColumnScrollingList;
+	public var styleTable: ScrollingTable;
 	public var bottomBar: BottomBar;
 	public var navPanel: ButtonPanel;
 	
@@ -64,7 +64,8 @@ class StyleMenu extends MovieClip
 		styleTable.addEventListener("itemPress", this, "onStylePress");
 		styleTable.addEventListener("selectionChange", this, "onStyleChange");
 
-		/*for(var i = 0; i < 40; i++) {
+		// Test Code
+		/*for(var i = 0; i < 37; i++) {
 			styleTable.entryList.push({text: "Text" + i, flags: 0, editorId: "Style" + i, value: "(" + (Math.floor(Math.random()*(1+999-100))+100) + ")"});
 		}
 
@@ -76,7 +77,7 @@ class StyleMenu extends MovieClip
 		
 		setPlatform(_global.platform, false);
 		
-		skse.SendModEvent("SSM_Initialized");
+		skse.SendModEvent("SSM_Initialized", "", _global.menuMode);
 	}
 	
 	public function HookMenu(): Void

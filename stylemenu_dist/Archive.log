@@ -10,6 +10,26 @@ Adding File Group: filegroup_all.txt
 -Adding File: Data\Interface\stylemenu.swf
 -Adding File: Data\Interface\stylemenu\bottomBar.swf
 -Adding File: Data\Interface\stylemenu\buttonArt.swf
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\01.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\02.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\03.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\04.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\05.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\06.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\07.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\08.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\09.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\10.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\11.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\12.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\13.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\14.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\15.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\16.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\17.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\18.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\19.dds
+-Adding File: Data\Interface\stylemenu\thumbnails\hair\female\20.dds
 -Adding File: Data\Scripts\StyleMenu.pex
 -Adding File: Data\Scripts\StyleMenuBase.pex
 -Adding File: Data\Scripts\StyleMenuInject.pex
@@ -23,17 +43,37 @@ Saving archive: _generated\StyleMenu.bsa
 Writing files
 
 Offset          0: Wrote compressed file scripts\source\stylemenubase.psc
-Offset        828: Wrote compressed file scripts\source\stylemenuload.psc
-Offset        953: Wrote compressed file scripts\source\stylemenu.psc
-Offset       3211: Wrote compressed file scripts\source\stylemenuinject.psc
-Offset       3513: Wrote compressed file scripts\stylemenubase.pex
-Offset       5074: Wrote compressed file scripts\stylemenuload.pex
-Offset       5479: Wrote compressed file scripts\stylemenu.pex
-Offset       8665: Wrote compressed file scripts\stylemenuinject.pex
-Offset       9161: Wrote compressed file interface\stylemenu\bottombar.swf
-Offset      40109: Wrote compressed file interface\stylemenu\buttonart.swf
-Offset      59096: Wrote compressed file interface\stylemenu.swf
-Offset      91015: END OF FILE
+Offset        871: Wrote compressed file scripts\source\stylemenuload.psc
+Offset        996: Wrote compressed file scripts\source\stylemenu.psc
+Offset       3438: Wrote compressed file scripts\source\stylemenuinject.psc
+Offset       3740: Wrote compressed file scripts\stylemenubase.pex
+Offset       5361: Wrote compressed file scripts\stylemenuload.pex
+Offset       5765: Wrote compressed file scripts\stylemenu.pex
+Offset       9171: Wrote compressed file scripts\stylemenuinject.pex
+Offset       9668: Wrote compressed file interface\stylemenu\bottombar.swf
+Offset      40616: Wrote compressed file interface\stylemenu\buttonart.swf
+Offset      59603: Wrote compressed file interface\stylemenu.swf
+Offset      92150: Wrote compressed file interface\stylemenu\thumbnails\hair\female\01.dds
+Offset     100858: Wrote compressed file interface\stylemenu\thumbnails\hair\female\02.dds
+Offset     109660: Wrote compressed file interface\stylemenu\thumbnails\hair\female\03.dds
+Offset     118728: Wrote compressed file interface\stylemenu\thumbnails\hair\female\04.dds
+Offset     128190: Wrote compressed file interface\stylemenu\thumbnails\hair\female\05.dds
+Offset     137591: Wrote compressed file interface\stylemenu\thumbnails\hair\female\06.dds
+Offset     146035: Wrote compressed file interface\stylemenu\thumbnails\hair\female\07.dds
+Offset     154232: Wrote compressed file interface\stylemenu\thumbnails\hair\female\08.dds
+Offset     162373: Wrote compressed file interface\stylemenu\thumbnails\hair\female\09.dds
+Offset     170795: Wrote compressed file interface\stylemenu\thumbnails\hair\female\10.dds
+Offset     179251: Wrote compressed file interface\stylemenu\thumbnails\hair\female\11.dds
+Offset     186253: Wrote compressed file interface\stylemenu\thumbnails\hair\female\12.dds
+Offset     193027: Wrote compressed file interface\stylemenu\thumbnails\hair\female\13.dds
+Offset     200881: Wrote compressed file interface\stylemenu\thumbnails\hair\female\14.dds
+Offset     208299: Wrote compressed file interface\stylemenu\thumbnails\hair\female\15.dds
+Offset     216194: Wrote compressed file interface\stylemenu\thumbnails\hair\female\16.dds
+Offset     222021: Wrote compressed file interface\stylemenu\thumbnails\hair\female\17.dds
+Offset     229613: Wrote compressed file interface\stylemenu\thumbnails\hair\female\18.dds
+Offset     238660: Wrote compressed file interface\stylemenu\thumbnails\hair\female\19.dds
+Offset     247354: Wrote compressed file interface\stylemenu\thumbnails\hair\female\20.dds
+Offset     255577: END OF FILE
 
 Finished writing files
 

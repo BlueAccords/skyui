@@ -16,8 +16,8 @@ import skyui.components.list.ScrollingList;
 import skyui.components.ButtonPanel;
 
 import skyui.filter.ItemTypeFilter;
-import skyui.filter.ItemNameFilter;
-import skyui.filter.ItemSorter;
+import skyui.filter.NameFilter;
+import skyui.filter.SortFilter;
 import skyui.util.GlobalFunctions;
 import skyui.util.Debug;
 import skyui.defines.Input;
@@ -32,8 +32,8 @@ class RaceMenu extends MovieClip
 	/* PRIVATE VARIABLES */
 	private var _platform: Number;
 	private var _typeFilter: ItemTypeFilter;
-	private var _nameFilter: ItemNameFilter;
-	private var _sortFilter: ItemSorter;
+	private var _nameFilter: NameFilter;
+	private var _sortFilter: SortFilter;
 	private var _panelX: Number;
 	
 	private var _updateInterval: Number;
@@ -124,8 +124,8 @@ class RaceMenu extends MovieClip
 		EventDispatcher.initialize(this);
 		
 		_typeFilter = new ItemTypeFilter();
-		_nameFilter = new ItemNameFilter();
-		_sortFilter = new ItemSorter();
+		_nameFilter = new NameFilter();
+		_sortFilter = new SortFilter();
 		
 		GameDelegate.addCallBack("SetCategoriesList", this, "SetCategoriesList");
 		GameDelegate.addCallBack("ShowTextEntry", this, "ShowTextEntry");

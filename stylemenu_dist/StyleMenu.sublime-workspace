@@ -115,7 +115,7 @@
 			"file": "Data/Scripts/Source/StyleMenu.psc",
 			"settings":
 			{
-				"buffer_size": 14995,
+				"buffer_size": 19721,
 				"line_ending": "Windows"
 			}
 		},
@@ -123,7 +123,7 @@
 			"file": "Data/Scripts/Source/StyleMenuBase.psc",
 			"settings":
 			{
-				"buffer_size": 2771,
+				"buffer_size": 2881,
 				"line_ending": "Windows"
 			}
 		},
@@ -305,6 +305,7 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"stylemenu\\\\thumbnails\\\\hair\\\\female\\\\",
 			"minitruck.ca",
 			"settings",
 			"Game",
@@ -351,6 +352,7 @@
 		"regex": false,
 		"replace_history":
 		[
+			"stylemenu/thumbnails/hair/female/",
 			"Actors\\\\Character\\\\Character Assets\\\\TintMasks\\\\",
 			""
 		],
@@ -371,15 +373,15 @@
 					"file": "Data/Scripts/Source/StyleMenu.psc",
 					"settings":
 					{
-						"buffer_size": 14995,
+						"buffer_size": 19721,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								14587,
-								14587
+								10123,
+								10123
 							]
 						],
 						"settings":
@@ -388,7 +390,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 3583.0,
+						"translation.y": 2233.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"
@@ -398,15 +400,15 @@
 					"file": "Data/Scripts/Source/StyleMenuBase.psc",
 					"settings":
 					{
-						"buffer_size": 2771,
+						"buffer_size": 2881,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								606,
-								606
+								706,
+								706
 							]
 						],
 						"settings":
@@ -415,7 +417,7 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 360.0,
+						"translation.y": 225.0,
 						"zoom_level": 1.0
 					},
 					"type": "text"

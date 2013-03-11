@@ -36,7 +36,7 @@ Event OnStartup()
 EndEvent
 
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
-	OnHeadPartRequest(_targetActor, _targetActorBase, _targetActor.GetRace(), _targetActorBase.GetSex() as bool)
+	OnHeadPartRequest(numArg as int, _targetActor, _targetActorBase, _targetActor.GetRace(), _targetActorBase.GetSex() as bool)
 	AddHeadParts(_headParts01)
 	AddHeadParts(_headParts02)
 	OnInitializeMenu(_targetActor, _targetActorBase)
@@ -56,7 +56,7 @@ Event OnReloadSettings(Actor targetActor, ActorBase targetActorBase)
 	; Do nothing
 EndEvent
 
-Event OnHeadPartRequest(Actor targetActor, ActorBase targetActorBase, Race targetRace, bool isFemale)
+Event OnHeadPartRequest(int mode, Actor targetActor, ActorBase targetActorBase, Race targetRace, bool isFemale)
 	; Do nothing
 EndEvent
 
@@ -68,16 +68,20 @@ Event OnResetMenu(Actor targetActor, ActorBase targetActorBase)
 	; Do nothing
 EndEvent
 
-Function AddHeadPart(string name, string editorId, string thumbnailPath, int cost)
+Function AddHeadPart(string name, string editorId, string thumbnailPath, int cost, bool raceFilter = false, Race targetRace = None)
+	If raceFilter
+		HeadPart newPart = HeadPart.GetHeadPart(editorId)
+		If newPart
+			If !newPart.GetValidRaces().HasForm(targetRace)
+				return
+			Endif
+		Endif
+	Endif
+
 	If _headPartBuffer < 128
 		_headParts01[_headPartBuffer] = name + ";;" + editorId + ";;" + thumbnailPath + ";;" + cost
 	Elseif _headPartBuffer >= 128
 		_headParts02[_headPartBuffer - 128] = name + ";;" + editorId + ";;" + thumbnailPath + ";;" + cost
-	Endif
-
-	HeadPart newPart = HeadPart.GetHeadPart(editorId)
-	If !newPart
-		Debug.Trace("StyleMenu - Invalid HeadPart: " + editorId)
 	Endif
 
 	_headPartBuffer += 1
