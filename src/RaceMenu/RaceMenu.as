@@ -27,6 +27,8 @@ import TextEntryField;
 import ColorField;
 import MakeupPanel;
 
+import mx.data.binding.ObjectDumper;
+
 class RaceMenu extends MovieClip
 {
 	/* PRIVATE VARIABLES */
@@ -94,7 +96,7 @@ class RaceMenu extends MovieClip
 	public var addEventListener: Function;
 	public var removeEventListener: Function;
 	public var removeAllEventListeners: Function;
-	public var cleanUpEvents: Function;
+	public var cleanUpEvents: Function;	
 			
 	function RaceMenu()
 	{
@@ -651,6 +653,8 @@ class RaceMenu extends MovieClip
 	public function InitializeSliders()
 	{
 		if(!bMenuInitialized) {
+			
+			
 			skse.SendModEvent("RSM_Initialized");
 			bMenuInitialized = true;
 		} else {

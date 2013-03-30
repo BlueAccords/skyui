@@ -13,6 +13,7 @@ class ColorField extends MovieClip
 	public var buttonPanel: ButtonPanel;
 	public var colorSelector: HSVSelector;
 	public var colorText: TextField;
+	public var hexCode: TextField;
 	public var currentSelectionLeft: MovieClip;
 	public var currentSelectionRight: MovieClip;
 	
@@ -110,6 +111,20 @@ class ColorField extends MovieClip
 		UpdateSelection();
 	}
 	
+	public function hexToStr(a_AARRGGBB: Number, a_prefix: Boolean): String
+	{
+		var str:String = a_AARRGGBB.toString(16).toUpperCase();
+
+		var padding: String = '';
+		for (var i: Number = str.length; i < 8; i++) {
+			padding += '0';
+		}
+
+		str = ((a_prefix)? "0x": "") + padding + str;
+
+		return str;
+	}
+	
 	public function getColor(): Number
 	{
 		return _currentColor;
@@ -120,10 +135,16 @@ class ColorField extends MovieClip
 		colorText.text = a_text;
 	}
 	
+	public function updateHexCode(): Void
+	{
+		hexCode.text = hexToStr((colorSelector.getColor() | colorSelector.getAlpha() << 24), false);
+	}
+	
 	public function setColor(a_color: Number): Void
 	{
 		_currentColor = a_color;
 		colorSelector.setColor(_currentColor & 0x00FFFFFF, (_currentColor >>> 24));
+		updateHexCode();
 	}
 	
 	public function updateButtons(bInstant: Boolean)
@@ -147,6 +168,7 @@ class ColorField extends MovieClip
 	public function onSliderChange(event: Object): Void
 	{
 		dispatchEvent({type: "changeColor", color: (event.color | event.alpha << 24), apply: false});
+		updateHexCode();
 	}
 
 	public function onAccept(): Void
