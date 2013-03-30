@@ -82,9 +82,6 @@ endEvent
 
 ; @implements SKI_QuestBase
 event OnGameReload()
-	RegisterForModEvent("SKICP_configManagerReady", "OnConfigManagerReady")
-	RegisterForModEvent("SKICP_configManagerReset", "OnConfigManagerReset")
-
 	if (!_initialized)
 		_initialized = true
 
@@ -113,6 +110,9 @@ event OnGameReload()
 
 		Debug.Trace(self + " INITIALIZED")
 	endIf
+
+	RegisterForModEvent("SKICP_configManagerReady", "OnConfigManagerReady")
+	RegisterForModEvent("SKICP_configManagerReset", "OnConfigManagerReset")
 
 	CheckVersion()
 endEvent
@@ -256,19 +256,18 @@ endEvent
 
 event OnConfigManagerReady(string a_eventName, string a_strArg, float a_numArg, Form a_sender)
 	SKI_ConfigManager newManager = a_sender as SKI_ConfigManager
-
 	; Already registered?
 	if (_configManager == newManager)
 		return
 	endIf
-	
+
 	_configManager = newManager
-	
+
 	_configID = _configManager.RegisterMod(self, ModName)
 	if (_configID != -1)
 		OnConfigRegister()
 	endIf
-endEvent
+ endEvent
 
 event OnMessageDialogClose(string a_eventName, string a_strArg, float a_numArg, Form a_sender)
 	_messageResult = a_numArg as bool

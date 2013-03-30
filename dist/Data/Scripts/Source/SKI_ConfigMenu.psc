@@ -15,9 +15,11 @@ scriptname SKI_ConfigMenu extends SKI_ConfigBase
 ; 4:	- Converted script to use state options
 ;		- Added map menu version check
 ;		- Added active effects widget configuration
+;
+; 5:	- Fixed 3DItemDisablePositioning
 
 int function GetVersion()
-	return 4
+	return 5
 endFunction
 
 
@@ -106,6 +108,19 @@ float		_effectWidgetYOffset			= 0.0
 
 ; Flags
 int			_effectWidgetFlags
+
+; -- Version 5 --
+
+; Internal
+float		_fInventory3DItemPosZWide
+float		_fInventory3DItemPosZ
+float		_fMagic3DItemPosZWide
+float		_fMagic3DItemPosZ
+
+float		_fInventory3DItemPosScaleWide
+float		_fMagic3DItemPosScaleWide
+float		_fInventory3DItemPosScale
+float		_fMagic3DItemPosScale
 
 
 ; PROPERTIES --------------------------------------------------------------------------------------
@@ -246,6 +261,10 @@ event OnVersionUpdate(int a_version)
 		SKI_ActiveEffectsWidgetInstance.X					= _alignmentBaseOffsets[_effectWidgetHAnchorIdx] + _effectWidgetXOffset
 		SKI_ActiveEffectsWidgetInstance.Y					= _vertAlignmentBaseOffsets[_effectWidgetVAnchorIdx] + _effectWidgetYOffset
 	endIf
+
+	if (a_version >= 5 && CurrentVersion < 5)
+		Debug.Trace(self + ": Updating to script version 5")
+	endIf
 endEvent
 
 
@@ -276,13 +295,7 @@ event OnPageReset(string a_page)
 
 		AddHeaderOption("$Active Effects HUD")
 		AddToggleOptionST("EFFECT_WIDGET_ENABLED", "$Enabled", SKI_ActiveEffectsWidgetInstance.Enabled)
-		AddTextOptionST("EFFECT_WIDGET_ICON_SIZE","$Icon Size", _sizes[_effectWidgetIconSizeIdx])
-		AddTextOptionST("EFFECT_WIDGET_ORIENTATION", "$Orientation", _orientations[_effectWidgetOrientationIdx])
-		AddTextOptionST("EFFECT_WIDGET_HORIZONTAL_ANCHOR", "$Horizontal Anchor", _alignments[_effectWidgetHAnchorIdx])
-		AddTextOptionST("EFFECT_WIDGET_VERTICAL_ANCHOR", "$Vertical Anchor", _vertAlignments[_effectWidgetVAnchorIdx])
-		AddSliderOptionST("EFFECT_WIDGET_GROUP_COUNT", "$Icon Group Count", SKI_ActiveEffectsWidgetInstance.GroupEffectCount, "{0}")
-		AddSliderOptionST("EFFECT_WIDGET_XOFFSET", "$Horizontal Offset", _effectWidgetXOffset)
-		AddSliderOptionST("EFFECT_WIDGET_YOFFSET", "$Vertical Offset", _effectWidgetYOffset)
+		AddTextOptionST("EFFECT_WIDGET_ICON_SIZE","$Icon Size", _sizes[_effectWidgetIconSizeIdx], _effectWidgetFlags)
 
 		SetCursorPosition(1)
 
@@ -302,6 +315,24 @@ event OnPageReset(string a_page)
 	; -------------------------------------------------------
 	elseIf (a_page == "$Advanced")
 		SetCursorFillMode(TOP_TO_BOTTOM)
+		
+		AddHeaderOption("$3D Item")
+		AddSliderOptionST("XD_ITEM_XOFFSET", "$Horizontal Offset", _3DItemXOffset, "{0}", _3DItemFlags)
+		AddSliderOptionST("XD_ITEM_YOFFSET", "$Vertical Offset", _3DItemYOffset, "{0}", _3DItemFlags)
+		AddSliderOptionST("XD_ITEM_SCALE", "$Scale", _3DItemScale, "{1}", _3DItemFlags)
+		AddToggleOptionST("XD_ITEM_POSITIONING", "$Disable Positioning", _3DItemDisablePositioning)
+
+		AddEmptyOption()
+
+		AddHeaderOption("$Active Effects HUD")
+		AddTextOptionST("EFFECT_WIDGET_ORIENTATION", "$Orientation", _orientations[_effectWidgetOrientationIdx], _effectWidgetFlags)
+		AddTextOptionST("EFFECT_WIDGET_HORIZONTAL_ANCHOR", "$Horizontal Anchor", _alignments[_effectWidgetHAnchorIdx], _effectWidgetFlags)
+		AddTextOptionST("EFFECT_WIDGET_VERTICAL_ANCHOR", "$Vertical Anchor", _vertAlignments[_effectWidgetVAnchorIdx], _effectWidgetFlags)
+		AddSliderOptionST("EFFECT_WIDGET_GROUP_COUNT", "$Icon Group Count", SKI_ActiveEffectsWidgetInstance.GroupEffectCount, "{0}", _effectWidgetFlags)
+		AddSliderOptionST("EFFECT_WIDGET_XOFFSET", "$Horizontal Offset", _effectWidgetXOffset, "{0}", _effectWidgetFlags)
+		AddSliderOptionST("EFFECT_WIDGET_YOFFSET", "$Vertical Offset", _effectWidgetYOffset, "{0}", _effectWidgetFlags)
+
+		SetCursorPosition(1)
 
 		AddHeaderOption("$Item Card")
 		AddTextOptionST("ITEMCARD_ALIGN", "$Align", _alignments[_itemcardAlignIdx])
@@ -309,14 +340,7 @@ event OnPageReset(string a_page)
 		AddSliderOptionST("ITEMCARD_YOFFSET", "$Vertical Offset", _itemcardYOffset)
 
 		AddEmptyOption()
-
-		AddHeaderOption("$3D Item")
-		AddSliderOptionST("XD_ITEM_XOFFSET", "$Horizontal Offset", _3DItemXOffset, "{0}", _3DItemFlags)
-		AddSliderOptionST("XD_ITEM_YOFFSET", "$Vertical Offset", _3DItemYOffset, "{0}", _3DItemFlags)
-		AddSliderOptionST("XD_ITEM_SCALE", "$Scale", _3DItemScale, "{1}", _3DItemFlags)
-		AddToggleOptionST("XD_ITEM_POSITIONING", "$Disable Positioning", _3DItemDisablePositioning)
-
-		SetCursorPosition(1)
+		AddEmptyOption()
 
 		AddHeaderOption("$SWF Version Checking")
 		AddToggleOptionST("CHECK_INVENTORY_MENU", "Inventory Menu", SKI_MainInstance.InventoryMenuCheckEnabled)
@@ -443,12 +467,6 @@ state EFFECT_WIDGET_ENABLED ; TOGGLE
 		endIf
 
 		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_ICON_SIZE")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_ORIENTATION")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_HORIZONTAL_ANCHOR")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_VERTICAL_ANCHOR")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_GROUP_COUNT")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_XOFFSET")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_YOFFSET")
 		SetToggleOptionValueST(newVal)
 	endEvent
 
@@ -457,12 +475,6 @@ state EFFECT_WIDGET_ENABLED ; TOGGLE
 
 		_effectWidgetFlags = OPTION_FLAG_NONE
 		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_ICON_SIZE")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_ORIENTATION")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_HORIZONTAL_ANCHOR")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_VERTICAL_ANCHOR")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_GROUP_COUNT")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_XOFFSET")
-		SetOptionFlagsST(_effectWidgetFlags, true, "EFFECT_WIDGET_YOFFSET")
 		SetToggleOptionValueST(true)
 	endEvent
 
@@ -1018,6 +1030,7 @@ state XD_ITEM_POSITIONING ; SLIDER
 		SetToggleOptionValueST(newVal)
 		Apply3DItemXOffset()
 		Apply3DItemYOffset()
+		Apply3DItemScale()
 	endEvent
 
 	event OnDefaultST()
@@ -1029,6 +1042,7 @@ state XD_ITEM_POSITIONING ; SLIDER
 		SetToggleOptionValueST(false)
 		Apply3DItemXOffset()
 		Apply3DItemYOffset()
+		Apply3DItemScale()
 	endEvent
 
 	event OnHighlightST()
@@ -1159,10 +1173,20 @@ endState
 function ApplySettings()
 	; Apply settings that aren't handled by SKI_SettingsManagerInstance
 
-	_fInventory3DItemPosXWide	= Utility.GetINIFloat("fInventory3DItemPosXWide:Interface")
-	_fInventory3DItemPosX 		= Utility.GetINIFloat("fInventory3DItemPosX:Interface")
-	_fMagic3DItemPosXWide 		= Utility.GetINIFloat("fMagic3DItemPosXWide:Interface")
-	_fMagic3DItemPosX 			= Utility.GetINIFloat("fMagic3DItemPosX:Interface")
+	_fInventory3DItemPosXWide		= Utility.GetINIFloat("fInventory3DItemPosXWide:Interface")
+	_fInventory3DItemPosX 			= Utility.GetINIFloat("fInventory3DItemPosX:Interface")
+	_fMagic3DItemPosXWide 			= Utility.GetINIFloat("fMagic3DItemPosXWide:Interface")
+	_fMagic3DItemPosX 				= Utility.GetINIFloat("fMagic3DItemPosX:Interface")
+
+	_fInventory3DItemPosZWide		= Utility.GetINIFloat("fInventory3DItemPosZWide:Interface")
+	_fInventory3DItemPosZ 			= Utility.GetINIFloat("fInventory3DItemPosZ:Interface")
+	_fMagic3DItemPosZWide 			= Utility.GetINIFloat("fMagic3DItemPosZWide:Interface")
+	_fMagic3DItemPosZ 				= Utility.GetINIFloat("fMagic3DItemPosZ:Interface")
+
+	_fInventory3DItemPosScaleWide	= Utility.GetINIFloat("fInventory3DItemPosScaleWide:Interface")
+	_fMagic3DItemPosScaleWide		= Utility.GetINIFloat("fMagic3DItemPosScaleWide:Interface")
+	_fInventory3DItemPosScale		= Utility.GetINIFloat("fInventory3DItemPosScale:Interface")
+	_fMagic3DItemPosScale			= Utility.GetINIFloat("fMagic3DItemPosScale:Interface")
 
 	float h = Utility.GetINIInt("iSize H:Display")
 	float w = Utility.GetINIInt("iSize W:Display")
@@ -1235,17 +1259,31 @@ endFunction
 
 function Apply3DItemYOffset()
 	; Negative values shift the 3D item to the bottom
-	Utility.SetINIFloat("fInventory3DItemPosZWide:Interface", (12 + _3DItemYOffset))
-	Utility.SetINIFloat("fInventory3DItemPosZ:Interface", (16 + _3DItemYOffset))
-	Utility.SetINIFloat("fMagic3DItemPosZWide:Interface", (12 + _3DItemYOffset))
-	Utility.SetINIFloat("fMagic3DItemPosZ:Interface", (16 + _3DItemYOffset))
+	if (_3DItemDisablePositioning)
+		Utility.SetINIFloat("fInventory3DItemPosZWide:Interface", _fInventory3DItemPosZWide)
+		Utility.SetINIFloat("fInventory3DItemPosZ:Interface", _fInventory3DItemPosZ)
+		Utility.SetINIFloat("fMagic3DItemPosZWide:Interface", _fMagic3DItemPosZWide)
+		Utility.SetINIFloat("fMagic3DItemPosZ:Interface", _fMagic3DItemPosZ)
+	else
+		Utility.SetINIFloat("fInventory3DItemPosZWide:Interface", (12 + _3DItemYOffset))
+		Utility.SetINIFloat("fInventory3DItemPosZ:Interface", (16 + _3DItemYOffset))
+		Utility.SetINIFloat("fMagic3DItemPosZWide:Interface", (12 + _3DItemYOffset))
+		Utility.SetINIFloat("fMagic3DItemPosZ:Interface", (16 + _3DItemYOffset))
+	endIf
 endFunction
 
 function Apply3DItemScale()
-	Utility.SetINIFloat("fInventory3DItemPosScaleWide:Interface", _3DItemScale)
-	Utility.SetINIFloat("fMagic3DItemPosScaleWide:Interface", _3DItemScale)
-	Utility.SetINIFloat("fInventory3DItemPosScale:Interface", _3DItemScale)
-	Utility.SetINIFloat("fMagic3DItemPosScale:Interface", _3DItemScale)
+	if (_3DItemDisablePositioning)
+		Utility.SetINIFloat("fInventory3DItemPosScaleWide:Interface", _fInventory3DItemPosScaleWide)
+		Utility.SetINIFloat("fMagic3DItemPosScaleWide:Interface", _fMagic3DItemPosScaleWide)
+		Utility.SetINIFloat("fInventory3DItemPosScale:Interface", _fInventory3DItemPosScale)
+		Utility.SetINIFloat("fMagic3DItemPosScale:Interface", _fMagic3DItemPosScale)
+	else
+		Utility.SetINIFloat("fInventory3DItemPosScaleWide:Interface", _3DItemScale)
+		Utility.SetINIFloat("fMagic3DItemPosScaleWide:Interface", _3DItemScale)
+		Utility.SetINIFloat("fInventory3DItemPosScale:Interface", _3DItemScale)
+		Utility.SetINIFloat("fMagic3DItemPosScale:Interface", _3DItemScale)
+	endIf
 endFunction
 
 bool function ValidateKey(int a_keyCode, bool a_gamepad)

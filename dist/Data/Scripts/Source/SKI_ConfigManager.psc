@@ -1,5 +1,20 @@
 scriptname SKI_ConfigManager extends SKI_QuestBase hidden 
 
+; SCRIPT VERSION ----------------------------------------------------------------------------------
+;
+; History
+;
+; 1:	- Initial version
+;
+; 2:	- Added lock for API functions
+;
+; 3:	- Removed lock again until I have time to test it properly
+
+int function GetVersion()
+	return 3
+endFunction
+
+
 ; CONSTANTS ---------------------------------------------------------------------------------------
 
 string property		JOURNAL_MENU	= "Journal Menu" autoReadonly
@@ -8,25 +23,31 @@ string property		MENU_ROOT		= "_root.ConfigPanelFader.configPanel" autoReadonly
 
 ; PRIVATE VARIABLES -------------------------------------------------------------------------------
 
+; -- Version 1 --
+
 SKI_ConfigBase[]	_modConfigs
 string[]			_modNames
-int					_curConfigID
-int					_configCount
+int					_curConfigID	= 0
+int					_configCount	= 0
 
 SKI_ConfigBase		_activeConfig
+
+; -- Version 2 --
+
+; keep those for now
+bool				_lockInit		= false
+bool				_locked			= false
 
 
 ; INITIALIZATION ----------------------------------------------------------------------------------
 
 event OnInit()
-	_modConfigs		= new SKI_ConfigBase[128]
-	_modNames		= new string[128]
-	_curConfigID	= 0
-	_configCount	= 0
-	
+	_modConfigs	= new SKI_ConfigBase[128]
+	_modNames	= new string[128]
+
 	; Wait a few ticks until any initial menus have registered for events
-	Utility.Wait(0.1)
-	
+	Utility.Wait(0.5)
+
 	OnGameReload()
 endEvent
 
@@ -45,8 +66,11 @@ event OnGameReload()
 	RegisterForModEvent("SKICP_colorSelected", "OnColorSelect")
 	RegisterForModEvent("SKICP_colorAccepted", "OnColorAccept")
 	RegisterForModEvent("SKICP_dialogCanceled", "OnDialogCancel")
-	
+
 	RegisterForMenu(JOURNAL_MENU)
+
+	; no longer used but better safe than sorry
+	_lockInit = true
 
 	CleanUp()
 
@@ -63,7 +87,7 @@ function CleanUp()
 		else
 			_configCount += 1
 		endIf
-		
+
 		i += 1
 	endWhile
 endFunction
@@ -77,7 +101,6 @@ event OnMenuOpen(string a_menuName)
 endEvent
 
 event OnMenuClose(string a_menuName)
-
 	if (_activeConfig)
 		_activeConfig.CloseConfig()
 	endIf
@@ -191,6 +214,8 @@ endEvent
 
 ; @interface
 int function RegisterMod(SKI_ConfigBase a_menu, string a_modName)
+	;Log("Registering config menu: " + a_menu + "(" + a_modName + ")")
+
 	if (_configCount >= 128)
 		return -1
 	endIf
@@ -212,21 +237,19 @@ int function RegisterMod(SKI_ConfigBase a_menu, string a_modName)
 	
 	_configCount += 1
 
-	Log("Registered " + a_menu + ", id " + configID)
-	
 	return configID
 endFunction
 
 ; @interface
 bool function UnregisterMod(SKI_ConfigBase a_menu)
+	;Log("Unregistering config menu: " + a_menu)
+
 	int i = 0
 	while (i < _modConfigs.length)
 		if (_modConfigs[i] == a_menu)
 			_modConfigs[i] = none
 			_modNames[i] = ""
 			_configCount -= 1
-
-			Log("Unregistered " + a_menu + ", id " + i)
 
 			return true
 		endIf
@@ -239,7 +262,7 @@ endFunction
 
 ; @interface
 function ForceReset()
-	Log("Resetting config manager...")
+	Log("Forcing config manager reset...")
 	SendModEvent("SKICP_configManagerReset")
 
 	int i = 0
@@ -274,3 +297,5 @@ endFunction
 function Log(string a_msg)
 	Debug.Trace(self + ": " + a_msg)
 endFunction
+
+
