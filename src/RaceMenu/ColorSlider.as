@@ -10,27 +10,66 @@ class ColorSlider extends gfx.controls.Slider
 
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
-		if (details.navEquivalent == NavigationCode.GAMEPAD_L2 || details.navEquivalent == NavigationCode.GAMEPAD_R2) {
-			var increment: Number = 0;
-			if(details.navEquivalent == NavigationCode.GAMEPAD_L2)
-				increment = -10;
-			else if(details.navEquivalent == NavigationCode.GAMEPAD_R2)
-				increment = 10;
-
-			value = value + increment;
-			dispatchEventAndSound({type: "change"});
-			return true;
-		} else if (details.navEquivalent == NavigationCode.GAMEPAD_L1 || details.navEquivalent == NavigationCode.GAMEPAD_R1) {
-			var newValue = value;
-			if(details.navEquivalent == NavigationCode.GAMEPAD_L1)
-				newValue = minimum;
-			else if(details.navEquivalent == NavigationCode.GAMEPAD_R1)
-				newValue = maximum;
-				
-			value = newValue;
-			dispatchEventAndSound({type: "change"});
-			return true;
+		var previous: Number = this.value;
+		var keyState = details.value == "keyDown" || details.value == "keyHold";
+		if (details.navEquivalent === NavigationCode.RIGHT) 
+		{
+			if (keyState) 
+			{
+				value = value + _snapInterval;
+				if(value != previous)
+					dispatchEventAndSound({type: "change"});
+			}
 		}
-		return super.handleInput(details, pathToFocus);
+		else if (details.navEquivalent === NavigationCode.LEFT) 
+		{
+			if (keyState) 
+			{
+				value = value - _snapInterval;
+				if(value != previous)
+					dispatchEventAndSound({type: "change"});
+			}
+		}
+		else if (details.navEquivalent === NavigationCode.GAMEPAD_R2) 
+		{
+			if (keyState) 
+			{
+				value = value + 10;
+				if(value != previous)
+					dispatchEventAndSound({type: "change"});
+			}
+		}
+		else if (details.navEquivalent === NavigationCode.GAMEPAD_L2) 
+		{
+			if (keyState) 
+			{
+				value = value - 10;
+				if(value != previous)
+					dispatchEventAndSound({type: "change"});
+			}
+		}
+		else if (details.navEquivalent === NavigationCode.GAMEPAD_L1)
+		{
+			if (!keyState) 
+			{
+				value = this.minimum;
+				if(value != previous)
+					dispatchEventAndSound({type: "change"});
+			}
+		}
+		else if (details.navEquivalent === NavigationCode.GAMEPAD_R1)
+		{
+			if (!keyState) 
+			{
+				value = maximum;
+				if(value != previous)
+					dispatchEventAndSound({type: "change"});
+			}
+		}
+		else 
+		{
+			return false;
+		}
+		return true;
 	}
 }

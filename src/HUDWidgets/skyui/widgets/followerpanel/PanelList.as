@@ -8,17 +8,20 @@ import skyui.widgets.followerpanel.PanelDefines;
 
 class skyui.widgets.followerpanel.PanelList extends MovieClip
 {
-	private var fadeInDuration: Number;
-	private var fadeOutDuration: Number;
-	private var moveDuration: Number;
-	private var maxEntries: Number;
+	public var widgetPath: String;
 	private var paddingBottom: Number;
 	
 	private var mask: MovieClip;
 	private var _actorPanel: MovieClip;
 	
 	/* PRIVATE VARIABLES */
-	private var _actorArray: Array
+	private var _actorArray: Array;
+	
+	private var _maxEntries: Number = 5;
+	private var _fadeInDuration: Number = 0.25;
+	private var _fadeOutDuration: Number = 0.75;
+	private var _moveDuration: Number = 1.0;
+	private var _removeDuration: Number = 15000;
 	
 	/* GFX */
 	public var dispatchEvent: Function;
@@ -73,12 +76,14 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 									stamina: (a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].maximum),
 									fadeInDuration: this.fadeInDuration,
 									fadeOutDuration: this.fadeOutDuration,
-									moveDuration: this.moveDuration
+									moveDuration: this.moveDuration,
+									removeDuration: this.removeDuration,
+									widgetPath: this.widgetPath
 								  };
 								  
 		var entry: MovieClip = attachMovie("PanelEntry", a_actor.formId, getNextHighestDepth(), initObject);
 		_actorArray.push(entry);
-		updateBackground(moveDuration);
+		updateBackground();
 		return entry;
 	}
 	
@@ -97,19 +102,82 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 			for (var i: Number = actorIdx; i < _actorArray.length; i++) {
 				Clip = _actorArray[i];
 				Clip.updatePosition(i);
-				updateBackground(moveDuration);
+				updateBackground();
 			}
 		} else {
 			dispatchEvent({type:"startFadeOut"});
 		}
 		
-		updateBackground(moveDuration);
+		updateBackground();
 	}
 	
-	private function updateBackground(duration: Number)
+	private function updateBackground()
 	{
-		TweenLite.to(mask, duration, {_height: Math.min(totalHeight, maxHeight), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
-		dispatchEvent({type:"updateBackground", duration: duration, height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom)});
+		TweenLite.to(mask, moveDuration, {_height: Math.min(totalHeight, maxHeight), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		dispatchEvent({type:"updateBackground", duration: moveDuration, height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom)});
 		//TweenLite.to(_actorPanel.background, duration, {_height: Math.min(totalHeight + paddingBottom, maxHeight + paddingBottom), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+	}
+	
+	public function get maxEntries(): Number
+	{
+		return _maxEntries;
+	}
+	
+	public function get fadeInDuration(): Number
+	{
+		return _fadeInDuration;
+	}
+	
+	public function get fadeOutDuration(): Number
+	{
+		return _fadeOutDuration;
+	}
+	
+	public function get moveDuration(): Number
+	{
+		return _moveDuration;
+	}
+	
+	public function get removeDuration(): Number
+	{
+		return _removeDuration;
+	}
+	
+	public function set maxEntries(a_maxEntries: Number)
+	{
+		_maxEntries = a_maxEntries;
+		updateBackground();
+	}
+	
+	public function set fadeInDuration(a_fadeInDuration: Number)
+	{
+		_fadeInDuration = a_fadeInDuration;
+		for(var i = 0; i < _actorArray.length; i++) {
+			_actorArray[i].fadeInDuration = a_fadeInDuration;
+		}
+	}
+	
+	public function set fadeOutDuration(a_fadeOutDuration: Number)
+	{
+		_fadeOutDuration = a_fadeOutDuration;
+		for(var i = 0; i < _actorArray.length; i++) {
+			_actorArray[i].fadeOutDuration = a_fadeOutDuration;
+		}
+	}
+	
+	public function set moveDuration(a_moveDuration: Number)
+	{
+		_moveDuration = a_moveDuration;
+		for(var i = 0; i < _actorArray.length; i++) {
+			_actorArray[i].moveDuration = a_moveDuration;
+		}
+	}
+	
+	public function set removeDuration(a_removeDuration: Number)
+	{
+		_removeDuration = a_removeDuration;
+		for(var i = 0; i < _actorArray.length; i++) {
+			_actorArray[i].removeDuration = a_removeDuration;
+		}
 	}
 }

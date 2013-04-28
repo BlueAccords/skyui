@@ -27,9 +27,11 @@ class skyui.widgets.followerpanel.PanelEntry extends MovieClip
 	private var magicka: Number = 0;
 	private var stamina: Number = 0;
 	
-	public var fadeInDuration: Number;
-	public var fadeOutDuration: Number;
-	public var moveDuration: Number;
+	public var fadeInDuration: Number = 0.25;
+	public var fadeOutDuration: Number = 0.75;
+	public var moveDuration: Number = 1.00;
+	
+	public var widgetPath: String = "";
 	
 	private var _tweenLite: TweenLite = null;
 	private var _removing: Boolean = false;
@@ -50,9 +52,9 @@ class skyui.widgets.followerpanel.PanelEntry extends MovieClip
 		_magickaMeter = MagickaMeter.createEmptyMovieClip("meterMagicka", getNextHighestDepth());
 		_staminaMeter = StaminaMeter.createEmptyMovieClip("meterStamina", getNextHighestDepth());
 		
-		_meterLoader.loadClip("meter.swf", _healthMeter);
-		_meterLoader.loadClip("meter.swf", _magickaMeter);
-		_meterLoader.loadClip("meter.swf", _staminaMeter);
+		_meterLoader.loadClip(widgetPath + "skyui/meter.swf", _healthMeter);
+		_meterLoader.loadClip(widgetPath + "skyui/meter.swf", _magickaMeter);
+		_meterLoader.loadClip(widgetPath + "skyui/meter.swf", _staminaMeter);
 		
 		_y = index * background._height;		
 		TweenLite.from(this, fadeInDuration, {_alpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
@@ -60,36 +62,42 @@ class skyui.widgets.followerpanel.PanelEntry extends MovieClip
 		_intervalId = setInterval(this, "onUpdateInterval", _updateInterval);
 	}
 	
+	public function set removeDuration(a_duration: Number)
+	{
+		_updateInterval = a_duration;
+		resetTimer();
+	}
+	
 	private function onLoadInit(a_clip: MovieClip): Void
 	{
 		if(a_clip == _healthMeter) {
-			a_clip.widget.initNumbers(background._width, 20, 0xDF2020, 0x561818, 0xFF3232, health);
-			a_clip.widget.initStrings("left");
+			a_clip.widget.initNumbers(background._width, 20, 0x561818, 0xDF2020, 0xFF3232, health);
+			a_clip.widget.initStrings("right");
 			a_clip.widget.initCommit();
 			a_clip.widget._visible = true;
 			a_clip._visible = true;
 		} else if(a_clip == _magickaMeter) {
-			a_clip.widget.initNumbers(background._width, 20, 0x284BD7, 0x0C016D, 0x3366FF, magicka);
-			a_clip.widget.initStrings("left");
+			a_clip.widget.initNumbers(background._width, 20, 0x0C016D, 0x284BD7, 0x3366FF, magicka);
+			a_clip.widget.initStrings("right");
 			a_clip.widget.initCommit();
 			a_clip.widget._visible = true;
 			a_clip._visible = true;
 		} else if(a_clip == _staminaMeter) {
-			a_clip.widget.initNumbers(background._width, 20, 0x339966, 0x003300, 0x009900, stamina);
-			a_clip.widget.initStrings("left");
+			a_clip.widget.initNumbers(background._width, 20, 0x003300, 0x339966, 0x009900, stamina);
+			a_clip.widget.initStrings("right");
 			a_clip.widget.initCommit();
 			a_clip.widget._visible = true;
 			a_clip._visible = true;
 		}
 	}
-	private function onLoadError(a_clip: MovieClip): Void
+	private function onLoadError(a_clip: MovieClip, errorCode: String): Void
 	{
 		if(a_clip == _healthMeter) {
-			skse.Log("Failed to load health meter");
+			skse.Log("Failed to load health meter: " + errorCode);
 		} else if(a_clip == _magickaMeter) {
-			skse.Log("Failed to load magicka meter");
+			skse.Log("Failed to load magicka meter: " + errorCode);
 		} else if(a_clip == _staminaMeter) {
-			skse.Log("Failed to load stamina meter");
+			skse.Log("Failed to load stamina meter: " + errorCode);
 		}
 	}
 	
@@ -111,7 +119,7 @@ class skyui.widgets.followerpanel.PanelEntry extends MovieClip
 		var magickaPercent: Number = (a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].maximum);
 		var staminaPercent: Number = (a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].maximum);
 		
-		trace("Updating " + a_actor.actorBase.fullName + " Health: " + healthPercent + " Magicka: " + magickaPercent + " Stamina: " + staminaPercent);
+		//trace("Updating " + a_actor.actorBase.fullName + " Health: " + healthPercent + " Magicka: " + magickaPercent + " Stamina: " + staminaPercent);
 		
 		resetTimer();
 		

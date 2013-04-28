@@ -60,8 +60,12 @@ class RaceMenuList extends skyui.components.list.ScrollingList
 		}
 		return false;
 	}
-
 	
+	public function invalidateSelection(): Void
+	{
+		doSetSelectedIndex(-1, SELECT_MOUSE);
+	}
+
 	public function moveSelectionUp(a_bScrollPage: Boolean): Void
 	{
 		if (!disableSelection && !a_bScrollPage) {

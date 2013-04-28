@@ -3,6 +3,11 @@ import com.greensock.easing.*;
 import flash.geom.Transform;
 import flash.geom.ColorTransform;
 
+import Shared.GlobalFunc;
+
+import skyui.components.list.BasicEnumeration;
+import skyui.components.list.ScrollingList;
+
 import skyui.defines.Actor;
 import skyui.defines.Form;
 
@@ -56,6 +61,8 @@ class FollowerWheel extends MovieClip
 	private var TextRight02: TextField;
 	private var TextRight03: TextField;
 	
+	public var panelList: ScrollingList;
+	
 	function FollowerWheel()
 	{
 		super();
@@ -82,17 +89,23 @@ class FollowerWheel extends MovieClip
 			}
 		}
 		
+		GlobalFunc.MaintainTextFormat();
+		GlobalFunc.SetLockFunction();
+		
 		_movieLoader = new MovieClipLoader();
 		_movieLoader.addListener(this);
 		gfx.events.EventDispatcher.initialize(this);
 	}
 	
 	function onLoad()
-	{
-		Group._x = Name._x + Name._width;
+	{		
+		Name.autoSize = "center";
 		gfx.managers.FocusHandler.instance.setFocus(this, 0);
 		setWheelIconSource("skyui/skyui_icons_psychosteve.swf");
 		skse.SendModEvent("XFLWheel_LoadMenu");
+		
+		panelList.background._visible = false;
+		panelList.listEnumeration = new BasicEnumeration(panelList.entryList);
 	}
 	
 	function handleInput(details: gfx.ui.InputDetails, pathToFocus: Array): Boolean
@@ -100,8 +113,7 @@ class FollowerWheel extends MovieClip
 		var bHandledInput: Boolean = false;
 		if (Shared.GlobalFunc.IsKeyPressed(details)) 
 		{
-			if (details.navEquivalent == gfx.ui.NavigationCode.TAB) 
-			{
+			if (details.navEquivalent == gfx.ui.NavigationCode.TAB) {
 				closeMenu(255);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.LEFT) {
@@ -119,20 +131,28 @@ class FollowerWheel extends MovieClip
 				setWheelOption(deltaOption, false);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.UP) {
-				var deltaOption = _option;
-				if(deltaOption > 0) {
+				var deltaOption: Number = _option;
+				var top: Boolean = false;
+				if(deltaOption > 0)
 					deltaOption--;
-					deltaOption = GetNearestOption(deltaOption, false);
-					setWheelOption(deltaOption, false);
+				else {
+					deltaOption = _options.length - 1;
+					top = true;
 				}
+				deltaOption = GetNearestOption(deltaOption, top);
+				setWheelOption(deltaOption, false);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.DOWN) {
-				var deltaOption = _option;
-				if(deltaOption < _options.length - 1) {
+				var deltaOption: Number= _option;
+				var top: Boolean = true;
+				if(deltaOption < _options.length - 1)
 					deltaOption++;
-					deltaOption = GetNearestOption(deltaOption, true);
-					setWheelOption(deltaOption, false);
+				else {
+					deltaOption = 0;
+					top = false;
 				}
+				deltaOption = GetNearestOption(deltaOption, true);
+				setWheelOption(deltaOption, false);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.ENTER) {
 				onWheelOption(_option);
@@ -170,11 +190,16 @@ class FollowerWheel extends MovieClip
 		var foundUp: Number = -1;
 		var foundOption: Number = -1;
 		
+		var downSkip: Number = 0;
+		var upSkip: Number = 0;
+		
 		// Search Down
 		for(var i = option; i < TOTAL_OPTIONS; i++) {
 			if(_options[i].slice.enabled) {
 				foundDown = i;
 				break;
+			} else {
+				downSkip++;
 			}
 		}
 		// Search Up
@@ -182,15 +207,17 @@ class FollowerWheel extends MovieClip
 			if(_options[i].slice.enabled) {
 				foundUp = i;
 				break;
+			} else {
+				upSkip++;
 			}
 		}
 				
 		if(foundDown != -1 && foundUp != -1) { // Found item on both sides go for nearest
-			var deltaUp = Math.abs(option - foundUp);
-			var deltaDown = Math.abs(option - foundDown);
-			if(deltaDown < deltaUp) {
+			var deltaUp = Math.abs(option - foundUp) - upSkip;
+			var deltaDown = Math.abs(option - foundDown) - downSkip;
+			if(deltaDown < deltaUp && deltaDown != 0) {
 				foundOption = foundDown;
-			} else if(deltaUp < deltaDown) {
+			} else if(deltaUp < deltaDown && deltaUp != 0) {
 				foundOption = foundUp;
 			} else {
 				foundOption = top ? foundDown : foundUp;
@@ -266,15 +293,28 @@ class FollowerWheel extends MovieClip
 		_form = object;
 		if(object == undefined)
 			return;
+			
+		panelList.background._visible = false;
+		panelList.entryList.splice(0, panelList.entryList.length);
 		
 		skse.ExtendForm(_form.formId, _form, true, false);
 		if(_form.formType == Form.TYPE_FORMLIST) {
 			setWheelText("$Group");
-			Group.text = "(" + _form.forms.length + ")";
+			for(var i = 0; i < _form.forms.length; i++) {
+				skse.ExtendForm(_form.forms[i].formId, _form.forms[i], true, false);
+				skse.ExtendForm(_form.forms[i].actorBase.formId, _form.forms[i].actorBase, true, false);
+				panelList.entryList.push({actor: _form.forms[i]});
+			}
 		} else {
 			skse.ExtendForm(_form.actorBase.formId, _form.actorBase, true, false);
 			setWheelText(_form.actorBase.fullName);
-			Group.text = "";
+			panelList.entryList.push({actor: _form});
+		}
+		
+		panelList.InvalidateData();
+		
+		if(panelList.entryList.length > 0) {
+			panelList.background._visible = true;
 		}
 	}
 	
@@ -283,7 +323,6 @@ class FollowerWheel extends MovieClip
 	{
 		Name.text = a_text;
 		Group.text = "";
-		Group._x = Name._x + Name._width;
 	}
 	
 	// @Papyrus

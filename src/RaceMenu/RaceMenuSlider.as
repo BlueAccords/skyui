@@ -16,13 +16,15 @@ class RaceMenuSlider extends gfx.controls.Slider
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
+		var previous: Number = this.value;
 		var keyState = details.value == "keyDown" || details.value == "keyHold";
 		if (details.navEquivalent === gfx.ui.NavigationCode.RIGHT) 
 		{
 			if (keyState) 
 			{
 				this.value = this.value + this._snapInterval;
-				this.dispatchEventAndSound({type: "change"});
+				if(this.value != previous)
+					this.dispatchEventAndSound({type: "change"});
 			}
 		}
 		else if (details.navEquivalent === gfx.ui.NavigationCode.LEFT) 
@@ -30,7 +32,8 @@ class RaceMenuSlider extends gfx.controls.Slider
 			if (keyState) 
 			{
 				this.value = this.value - this._snapInterval;
-				this.dispatchEventAndSound({type: "change"});
+				if(this.value != previous)
+					this.dispatchEventAndSound({type: "change"});
 			}
 		}
 		else if (details.navEquivalent === NavigationCode.GAMEPAD_R2) 
@@ -38,7 +41,8 @@ class RaceMenuSlider extends gfx.controls.Slider
 			if (keyState) 
 			{
 				this.value = this.value + this.maximum / 8;
-				this.dispatchEventAndSound({type: "change"});
+				if(this.value != previous)
+					this.dispatchEventAndSound({type: "change"});
 			}
 		}
 		else if (details.navEquivalent === NavigationCode.GAMEPAD_L2) 
@@ -46,7 +50,8 @@ class RaceMenuSlider extends gfx.controls.Slider
 			if (keyState) 
 			{
 				this.value = this.value - this.maximum / 8;
-				this.dispatchEventAndSound({type: "change"});
+				if(this.value != previous)
+					this.dispatchEventAndSound({type: "change"});
 			}
 		}
 		else if (details.navEquivalent === gfx.ui.NavigationCode.HOME)
@@ -54,7 +59,8 @@ class RaceMenuSlider extends gfx.controls.Slider
 			if (!keyState) 
 			{
 				this.value = this.minimum;
-				this.dispatchEventAndSound({type: "change"});
+				if(this.value != previous)
+					this.dispatchEventAndSound({type: "change"});
 			}
 		}
 		else if (details.navEquivalent === gfx.ui.NavigationCode.END)
@@ -62,7 +68,8 @@ class RaceMenuSlider extends gfx.controls.Slider
 			if (!keyState) 
 			{
 				this.value = this.maximum;
-				this.dispatchEventAndSound({type: "change"});
+				if(this.value != previous)
+					this.dispatchEventAndSound({type: "change"});
 			}
 		}
 		else 

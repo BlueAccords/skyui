@@ -11,6 +11,9 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	static private var ACTOR_FADE_IN_DURATION: Number = 0.25;
 	static private var ACTOR_FADE_OUT_DURATION: Number = 0.75;
 	static private var ACTOR_MOVE_DURATION: Number = 1.00;
+	static private var ACTOR_REMOVE_DURATION: Number = 15000;
+	static private var ACTOR_MAX_ENTRIES: Number = 5;
+	static private var ACTOR_ENTRY_PADDING: Number = 10;
 	
 	/* STAGE ELEMENTS */
 	private var content: MovieClip;
@@ -19,35 +22,38 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 
 	/* PUBLIC VARIABLES */
 	public var updateInterval: Number = 150;
+	public var widgetPath: String = "";
 
 	/* PRIVATE VARIABLES */
 	private var _actorList: Array;
 	private var _intervalId: Number;
 	
 	// TEST CODE
-	public var _tempList: Array;
+	//public var _tempList: Array;
 
 	public function ActorPanel()
 	{
 		super();
 		panelList = content.list;
 		background = content.background;
-		panelList.fadeInDuration = ACTOR_FADE_IN_DURATION;
-		panelList.fadeOutDuration = ACTOR_FADE_OUT_DURATION;
-		panelList.moveDuration = ACTOR_MOVE_DURATION;
-		panelList.maxEntries = 5;
-		panelList.paddingBottom = 10;
 		_actorList = new Array();
-		_tempList = new Array(); // TEST CODE
+		//_tempList = new Array(); // TEST CODE
 	}
 	
 	// TEST CODE
 	public function onLoad()
 	{
+		panelList.fadeInDuration = ACTOR_FADE_IN_DURATION;
+		panelList.fadeOutDuration = ACTOR_FADE_OUT_DURATION;
+		panelList.moveDuration = ACTOR_MOVE_DURATION;
+		panelList.removeDuration = ACTOR_REMOVE_DURATION;
+		panelList.maxEntries = ACTOR_MAX_ENTRIES;
+		panelList.paddingBottom = ACTOR_ENTRY_PADDING;
+		panelList.widgetPath = _root.widgetLoaderContainer.widgetLoader._rootPath + "widgets/";
 		panelList.addEventListener("startFadeIn", this, "onFadeIn");
 		panelList.addEventListener("startFadeOut", this, "onFadeOut");
 		panelList.addEventListener("updateBackground", this, "onUpdateBackground");
-		
+		/*
 		var actor = {actorBase: {fullName: "Jack"}, formType: 1, formId: 1, actorValues: [{base: 0, current: 0, maximum: 0},
 												  {base: 10, current: 1, maximum: 0},
 												  {base: 10, current: 2, maximum: 0},
@@ -175,13 +181,13 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 		var totalActors = _actorList.length;
 		for(var i = 0; i < totalActors; i++) {
 			// Request new values
-			//var actorValues = new Array();
-			var actorValues = _tempList[i];// TEST CODE
-			/*skse.RequestActorValues(_actorList[i].formId, 
+			var actorValues = new Array();
+			//var actorValues = _tempList[i];// TEST CODE
+			skse.RequestActorValues(_actorList[i].formId, 
 									[PanelDefines.ACTORVALUE_HEALTH, 
 									 PanelDefines.ACTORVALUE_MAGICKA,
 									 PanelDefines.ACTORVALUE_STAMINA],
-									actorValues);*/
+									actorValues);
 			
 			// Get the old values
 			var oldValues = [_actorList[i].actorValues[PanelDefines.ACTORVALUE_HEALTH],
@@ -228,13 +234,13 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	}
 	
 	// TEST CODE
-	private function timeoutChange()
+	/*private function timeoutChange()
 	{
 		var index: Number = (_actorList.length * Math.random())|0;
 		_tempList[index][0].current = (100 * Math.random())|0;
 		_tempList[index][1].current = (100 * Math.random())|0;
 		_tempList[index][2].current = (100 * Math.random())|0;
-	}
+	}*/
 	
 	public function onFadeIn()
 	{
@@ -256,6 +262,7 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	{
 		if(a_form.formType == PanelDefines.FORMTYPE_LIST)
 		{
+			skse.ExtendForm(a_form.formId, a_form, true, false);
 			var totalForms: Number = a_form.forms.length;
 			for(var i = 0; i < totalForms; i++) {
 				addSingleActor(a_form.forms[i]);
@@ -271,6 +278,9 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 		if(_actorList.length == 0) {
 			clearInterval(_intervalId);
 			_intervalId = setInterval(this, "onUpdateInterval", updateInterval);
+		}
+		if(a_form.formId == undefined) {
+			skse.Log("Error, undefined formId");
 		}
 		
 		skse.ExtendForm(a_form.formId, a_form, true, false);
@@ -307,9 +317,42 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 			clearInterval(_intervalId);
 		}
 	}
+	
+	public function setScale(a_scale: Number)
+	{
+		_xscale = a_scale;
+		_yscale = a_scale;
+	}
+		
+	public function setEntryCount(a_entries: Number)
+	{
+		if(a_entries > 0) {
+			panelList.maxEntries = a_entries;
+		}
+	}
+	
+	public function setFadeInDuration(a_fadeInDuration: Number)
+	{
+		panelList.fadeInDuration = a_fadeInDuration;
+	}
+	
+	public function setFadeOutDuration(a_fadeOutDuration: Number)
+	{
+		panelList.fadeOutDuration = a_fadeOutDuration;
+	}
+	
+	public function setMoveDuration(a_moveDuration: Number)
+	{
+		panelList.moveDuration = a_moveDuration;
+	}
+	
+	public function setRemoveDuration(a_removeDuration: Number)
+	{
+		panelList.removeDuration = a_removeDuration;
+	}
 
 	/* PRIVATE FUNCTIONS */
-	function copyObject(obj)
+	/*function copyObject(obj)
 	{
 	   var i;
 	   var o;
@@ -329,6 +372,6 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	   }
 	
 	   return(o);
-	}
+	}*/
 }
 

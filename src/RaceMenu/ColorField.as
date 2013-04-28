@@ -2,7 +2,9 @@
 import gfx.ui.NavigationCode;
 import gfx.ui.InputDetails;
 import gfx.controls.Slider;
+import gfx.io.GameDelegate;
 import Shared.GlobalFunc;
+
 
 import skyui.components.ButtonPanel;
 import skyui.defines.Input;
@@ -60,12 +62,14 @@ class ColorField extends MovieClip
 				if(_currentSlider > 3)
 					_currentSlider = 0;
 				UpdateSelection();
+				GameDelegate.call("PlaySound",["UIMenuFocus"]);
 				bHandledInput = true;
 			} else if(details.navEquivalent == NavigationCode.UP) {
 				_currentSlider--;
 				if(_currentSlider < 0)
 					_currentSlider = 3;
 				UpdateSelection();
+				GameDelegate.call("PlaySound",["UIMenuFocus"]);
 				bHandledInput = true;
 			} else if (details.navEquivalent == NavigationCode.LEFT || 
 					   details.navEquivalent == NavigationCode.RIGHT || 
@@ -137,7 +141,11 @@ class ColorField extends MovieClip
 	
 	public function updateHexCode(): Void
 	{
-		hexCode.text = hexToStr((colorSelector.getColor() | colorSelector.getAlpha() << 24), false);
+		var alpha: Number = (colorSelector.getAlpha() >>> 0)
+		var red: Number = colorSelector.getColor() >>> 16;
+		var green: Number = (colorSelector.getColor() >>> 8) & 0xFF;
+		var blue: Number = colorSelector.getColor() & 0xFF;
+		hexCode.text = hexToStr((colorSelector.getColor() | colorSelector.getAlpha() << 24), false) + " (A:" + alpha + " R:" + red + " G:" + green + " B:" + blue + ")";
 	}
 	
 	public function setColor(a_color: Number): Void
@@ -168,6 +176,7 @@ class ColorField extends MovieClip
 	public function onSliderChange(event: Object): Void
 	{
 		dispatchEvent({type: "changeColor", color: (event.color | event.alpha << 24), apply: false});
+		GameDelegate.call("PlaySound",["UIMenuFocus"]);
 		updateHexCode();
 	}
 

@@ -27,8 +27,6 @@ import TextEntryField;
 import ColorField;
 import MakeupPanel;
 
-import mx.data.binding.ObjectDumper;
-
 class RaceMenu extends MovieClip
 {
 	/* PRIVATE VARIABLES */
@@ -182,7 +180,8 @@ class RaceMenu extends MovieClip
 		colorField.addEventListener("changeColor", this, "onChangeColor");
 		makeupPanel.addEventListener("changeTexture", this, "onChangeTexture");
 		
-		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face"];
+		// categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
+		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair"];
 		categoryList.listState.iconSource = "racemenu/racesex_icons.swf";
 		
 		_sortFilter.setSortBy(["text"], [0]);
@@ -410,6 +409,7 @@ class RaceMenu extends MovieClip
 	/* Component Toggles */
 	public function ShowTextEntry(abShowTextEntry: Boolean): Void
 	{
+		itemList.invalidateSelection();
 		textEntry._visible = textEntry.enabled = abShowTextEntry;
 		if(abShowTextEntry) {
 			if(colorField._visible) {
@@ -437,6 +437,7 @@ class RaceMenu extends MovieClip
 			return;
 		}
 		GameDelegate.call("ShowVirtualKeyboard", []);
+		GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
 	}
 	
 	public function ShowColorField(bShowField: Boolean): Void
@@ -536,6 +537,12 @@ class RaceMenu extends MovieClip
 	public function onNameChange(event: Object): Void
 	{
 		if (event.nameChanged == true) {
+			/* ECE Compatibility Start */
+			if(_global.skse.plugins.ExCharGen) {
+				if(_global.skse.plugins.ExCharGen.SaveSliderData != undefined)
+					_global.skse.plugins.ExCharGen.SaveSliderData();
+			}
+			/* ECE Compatibility End */
 			GameDelegate.call("ChangeName", [textEntry.TextInputInstance.text]);
 			ShowTextEntry(false);
 			ShowRacePanel(false);
@@ -544,6 +551,8 @@ class RaceMenu extends MovieClip
 			GameDelegate.call("ChangeName", []);
 			ShowTextEntry(false);
 		}
+		
+		GameDelegate.call("PlaySound", ["UIMenuBladeCloseSD"]);
 	}
 	
 	public function HideLoadingIcon(): Void
@@ -568,19 +577,35 @@ class RaceMenu extends MovieClip
 	private function SetCategoriesList(): Void
 	{
 		// Remove all categories except for All
+		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair"];
 		categoryList.entryList.splice(1, categoryList.entryList.length - 1);
 		
+		var categoryCount: Number = 1;
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.CAT_STRIDE) {
 			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: arguments[i + RaceMenuDefines.CAT_TEXT].toUpperCase(), flag: arguments[i + RaceMenuDefines.CAT_FLAG], enabled: true};			
 			if(bLimitedMenu && entryObject.flag & RaceMenuDefines.CATEGORY_RACE) {
 				entryObject.filterFlag = 0;
 			}
 			categoryList.entryList.push(entryObject);
+			categoryCount++;
 		}
+		
+		if(categoryCount > categoryList.iconArt.length) {
+			for(var i = 0; i < categoryCount - categoryList.iconArt.length; i++)
+				categoryList.iconArt.push("skyrim");
+		}
+		
+		categoryList.iconArt.push("palette");
+		categoryList.iconArt.push("face");
 		
 		// Add the new categories
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$COLORS", flag: RaceMenuDefines.CATEGORY_COLOR, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: (_global.skse != undefined), text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true});
+		
+		if(_global.skse.plugins.ExCharGen) {
+			categoryList.iconArt.push("skyrim");
+			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$ENHANCED", flag: RaceMenuDefines.CATEGORY_ECE, enabled: true});
+		}
 		
 		categoryList.requestInvalidate();
 	}
@@ -653,8 +678,6 @@ class RaceMenu extends MovieClip
 	public function InitializeSliders()
 	{
 		if(!bMenuInitialized) {
-			
-			
 			skse.SendModEvent("RSM_Initialized");
 			bMenuInitialized = true;
 		} else {
@@ -662,6 +685,96 @@ class RaceMenu extends MovieClip
 		}
 		
 		skse.SendModEvent("RSM_RequestSliders");
+		
+		/* ECE Compatibility Start */
+		var ECECharGen: Object = _global.skse.plugins.ExCharGen;
+		if(ECECharGen) {
+			var raceArray: Array = new Array();
+			var extraSliders: Array = new Array();
+			var sliderValues: Array = new Array();
+			
+			ECECharGen.itemList = this.itemList;
+			ECECharGen.sliders = new Array();
+			ECECharGen.GetPlayerRaceName(raceArray);
+			ECECharGen.raceName = raceArray[0].text;
+			ECECharGen.GetList(ECECharGen.raceName, extraSliders, 10000);
+			
+			for(var i = 0; i < extraSliders.length; i++) {
+				if(extraSliders[i].type >= 0 && extraSliders[i].type <= 4) {
+					if(extraSliders[i].text == undefined)
+						continue;
+					
+					var newSliderID = ECECharGen.sliders.length + RaceMenuDefines.ECE_SLIDER_OFFSET;
+					var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: extraSliders[i].text, filterFlag: RaceMenuDefines.CATEGORY_ECE, callbackName: "ChangeDoubleMorph", sliderMin: extraSliders[i].sliderMin, sliderMax: extraSliders[i].sliderMax, sliderID: newSliderID, position: 0, interval: extraSliders[i].interval, uniqueID: extraSliders[i].uniqueID, ECESlider: true, enabled: true};
+					ECECharGen.sliders.push(sliderObject);
+					itemList.entryList.push(sliderObject);
+				}
+			}
+			
+			ECECharGen.slotNumber = 0;
+			ECECharGen.GetSlotData(ECECharGen.raceName, ECECharGen.slotNumber, sliderValues);
+			for(var i = 0; i < ECECharGen.sliders.length; i++) {
+				for(var k = 0; k < sliderValues.length; k++) {
+					if(ECECharGen.sliders[i].uniqueID == sliderValues[k].uniqueID) {
+						ECECharGen.sliders[i].position = sliderValues[k].position;
+						continue;
+					}
+				}
+			}
+			
+			ECECharGen.UpdateMorphs = function()
+			{
+				var info: Array = new Array();
+				for(var i = 0; i < this.sliders.length; i++) {
+					info.push(this.sliders[i].uniqueID);
+					info.push(this.sliders[i].position);
+				}
+				
+				this.SetPlayerPreset(0, 33);
+				
+				if(this.slotNumber > 0) {
+					this.SetMergedMorphs(this.raceName, info, this.slotNumber);
+				}
+				
+				this.SetMergedMorphsMemory(this.raceName, info, this.slotNumber);
+			}
+			ECECharGen.LoadSliderData = function()
+			{
+				_global.skse.SendModEvent("ExCharGen_GetSliderPos");
+			}
+			ECECharGen.SaveSliderData = function()
+			{
+				var str: String = "version,2,"; // slider version.
+				for (var i: Number = 0; i < this.sliders.length; i++) {
+					str += this.sliders[i].uniqueID + "," + this.sliders[i].position + ",";
+				}
+				str = str.substr(0, str.length - 1);
+				_global.skse.SendModEvent("ExCharGen_SetSliderPos", str);
+			}
+			this["ExCharGenGetListCallback"] = function(str: String)
+			{
+				var ECECharGen: Object = _global.skse.plugins.ExCharGen;
+				if(ECECharGen) {
+					var sliderParams: Array = str.split(",");
+					sliderParams.splice(0, 2);
+					for(var i = 0; i < sliderParams.length; i += 2) {
+						var uniqueID: Number = Number(sliderParams[i]);
+						var position: Number = Number(sliderParams[i + 1]);
+						for(var k = 0; k < ECECharGen.sliders.length; k++) {
+							if(ECECharGen.sliders[k].uniqueID == uniqueID) {
+								ECECharGen.sliders[k].position = position;
+								break;
+							}
+						}
+					}
+				}
+				
+				ECECharGen.itemList.requestUpdate();
+			}
+			
+			ECECharGen.LoadSliderData();
+		}
+		/* ECE Compatibility End */
 		
 		itemList.requestInvalidate();
 		clearInterval(_updateInterval);
@@ -762,7 +875,8 @@ class RaceMenu extends MovieClip
 	{
 		itemList.listState.focusEntry = null;
 		itemList.selectedIndex = -1;
-		GameDelegate.call("PlaySound",["UIMenuFocus"]);
+		//GameDelegate.call("PlaySound",["UIMenuFocus"]);
+		GameDelegate.call("PlaySound", ["UIMenuPrevNext"]);
 	}
 		
 	public function onChangeTexture(event: Object): Void
@@ -782,8 +896,10 @@ class RaceMenu extends MovieClip
 				itemList.requestUpdate();
 		}
 		
-		if(event.apply)
+		if(event.apply) {
 			ShowMakeupPanel(false);
+			GameDelegate.call("PlaySound", ["UIMenuBladeCloseSD"]);
+		}
 	}
 	
 	public function onChangeColor(event: Object): Void
@@ -823,8 +939,10 @@ class RaceMenu extends MovieClip
 				itemList.requestUpdate();
 		}
 		
-		if(event.apply)
+		if(event.apply) {
 			ShowColorField(false);
+			GameDelegate.call("PlaySound", ["UIMenuBladeCloseSD"]);
+		}
 	}
 	
 	public function requestUpdate(pendingData: Object)
@@ -916,6 +1034,7 @@ class RaceMenu extends MovieClip
 		} else if(pressedEntry.isColorEnabled()) {
 			colorField.setText(pressedEntry.text);
 			colorField.setColor(pressedEntry.fillColor);
+			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
 			ShowColorField(true);
 		}/* else {
 			itemList.listState.focusEntry = entryObject;
@@ -932,6 +1051,7 @@ class RaceMenu extends MovieClip
 			makeupPanel.updateButtons(true);
 			makeupPanel.setSelectedEntry(pressedEntry.texture);
 			makeupPanel.setTexture(pressedEntry.text, pressedEntry.texture);
+			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
 			ShowMakeupPanel(true);
 		}
 	}
@@ -1041,6 +1161,7 @@ class RaceMenu extends MovieClip
 		if(selectedEntry.isColorEnabled()) {
 			colorField.setText(selectedEntry.text);
 			colorField.setColor(selectedEntry.fillColor);
+			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
 			ShowColorField(true);
 		}
 	}
@@ -1056,6 +1177,7 @@ class RaceMenu extends MovieClip
 			makeupPanel.updateButtons(true);
 			makeupPanel.setSelectedEntry(selectedEntry.texture);
 			makeupPanel.setTexture(selectedEntry.text, selectedEntry.texture);
+			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
 			ShowMakeupPanel(true);
 		}
 	}

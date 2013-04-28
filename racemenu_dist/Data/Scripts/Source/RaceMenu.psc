@@ -54,6 +54,13 @@ Function OnStartup()
 	Utility.SetINIFloat("fPlayerBodyEditDistance:Interface", 190.0)
 	Utility.SetINIFloat("fPlayerFaceEditDistance:Interface", 70.0)
 
+	If !_hairColor
+		_hairColor = Game.GetFormFromFile(0x801, "RaceMenu.esp") as ColorForm
+	Endif
+	If !_lightForm
+		_lightForm = Game.GetFormFromFile(0x803, "RaceMenu.esp")
+	Endif
+
 	If SKSE.GetVersionRelease() < 37
 		Debug.Notification("SKSE version mismatch. You are running SKSE Version " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta() + "." + SKSE.GetVersionRelease() + " you require 1.6.9 or greater.")
 	Endif

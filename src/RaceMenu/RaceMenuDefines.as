@@ -32,8 +32,10 @@
 	static var CATEGORY_BROW: Number = 64;
 	static var CATEGORY_MOUTH: Number = 128;
 	static var CATEGORY_HAIR: Number = 256;
-	static var CATEGORY_COLOR: Number = 512;
-	static var CATEGORY_MAKEUP: Number = 1024;
+	
+	static var CATEGORY_COLOR: Number = 8192;
+	static var CATEGORY_MAKEUP: Number = 16384;
+	static var CATEGORY_ECE: Number = 65536;
 	
 	static var STATIC_SLIDER_SEX: Number = -1;
 	static var STATIC_SLIDER_PRESET: Number = 0;
@@ -63,6 +65,7 @@
 	static var TINT_TYPE_DIRT: Number = 14;
 	
 	static var CUSTOM_SLIDER_OFFSET: Number = 1000;
+	static var ECE_SLIDER_OFFSET: Number = 10000;
 	
 	static var TINT_MAP: Array = [TINT_TYPE_SKINTONE,
 								  TINT_TYPE_DIRT,

@@ -24,7 +24,7 @@ class SliderListEntry extends BasicListEntry
 	public var focusIndicator: MovieClip;
 	public var textField: TextField;
 	public var valueField: TextField;
-	public var SliderInstance: Slider;
+	public var SliderInstance: RaceMenuSlider;
 	public var trigger: MovieClip;
 	public var colorSquare: MovieClip;
 		
@@ -212,9 +212,19 @@ class SliderListEntry extends BasicListEntry
 		SliderInstance.changedCallback = function()
 		{
 			GameDelegate.call(this.callbackName, [this.position, this.sliderID]);
+			GameDelegate.call("PlaySound",["UIMenuFocus"]);
+			
 			skse.SendModEvent("RSM_SliderChange", this.callbackName, this.position);
+			
 			this.entryObject.position = this.position;
 			_parent.valueField.SetText(((this.position * 100)|0)/100);
+			
+			/* ECE Compatibility Start */
+			if(_global.skse.plugins.ExCharGen && (this.callbackName == "ChangeDoubleMorph" || this.callbackName == "ChangePreset")) {
+				if(_global.skse.plugins.ExCharGen.UpdateMorphs != undefined)
+					_global.skse.plugins.ExCharGen.UpdateMorphs();
+			}
+			/* ECE Compatibility End */
 		};
 		SliderInstance.addEventListener("change", SliderInstance, "changedCallback");
 		SliderInstance.disabled = !a_entryObject.enabled;

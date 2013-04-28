@@ -1,5 +1,8 @@
 Scriptname RaceMenuPlugin extends RaceMenuBase
 
+bool Property HEIGHT_ENABLED = true AutoReadOnly ; Set this to false to rebuild if you don't want height
+bool Property WEAPONS_ENABLED = true AutoReadOnly ; Set this to false to rebuild if you don't want weapon scales
+
 string Property NINODE_NPC = "NPC" AutoReadOnly
 string Property NINODE_HEAD = "NPC Head [Head]" AutoReadOnly
 string Property NINODE_LEFT_BREAST = "NPC L Breast" AutoReadOnly
@@ -12,6 +15,15 @@ string Property NINODE_LEFT_BICEP = "NPC L UpperarmTwist1 [LUt1]" AutoReadOnly
 string Property NINODE_RIGHT_BICEP = "NPC R UpperarmTwist1 [RUt1]" AutoReadOnly
 string Property NINODE_LEFT_BICEP_2 = "NPC L UpperarmTwist2 [LUt2]" AutoReadOnly
 string Property NINODE_RIGHT_BICEP_2 = "NPC R UpperarmTwist2 [RUt2]" AutoReadOnly
+
+string Property NINODE_QUIVER = "QUIVER" AutoReadOnly
+string Property NINODE_BOW = "WeaponBow" AutoReadOnly
+string Property NINODE_AXE = "WeaponAxe" AutoReadOnly
+string Property NINODE_SWORD = "WeaponSword" AutoReadOnly
+string Property NINODE_MACE = "WeaponBack" AutoReadOnly
+string Property NINODE_SHIELD = "SHIELD" AutoReadOnly
+string Property NINODE_WEAPON_BACK = "WeaponBack" AutoReadOnly
+string Property NINODE_WEAPON = "WEAPON" AutoReadOnly
 
 ; Custom Properties
 float _height = 1.0
@@ -26,6 +38,16 @@ float _rightBicep = 1.0
 float _leftBicep = 1.0
 float _rightBicep2 = 1.0
 float _leftBicep2 = 1.0
+
+; Weapon related scales
+float _quiver = 1.0
+float _bow = 1.0
+float _axe = 1.0
+float _sword = 1.0
+float _mace = 1.0
+float _shield = 1.0
+float _weaponBack = 1.0
+float _weapon = 1.0
 
 bool hasInitialized = false ; For one time init, used for loading data inside OnGameLoad instead of Init (Unsafe)
 
@@ -49,15 +71,24 @@ EndEvent
 
 Function LoadPlayerNodeScales(Actor player)
 	Normalize()
-	NetImmerse.SetNodeScale(player, NINODE_NPC, _height, false)
+
+	If HEIGHT_ENABLED ; Load height only if enabled
+		NetImmerse.SetNodeScale(player, NINODE_NPC, _height, false)
+		NetImmerse.SetNodeScale(player, NINODE_NPC, _height, true)
+	Endif
+
 	NetImmerse.SetNodeScale(player, NINODE_HEAD, _head, false)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST, _leftBreast, false)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST, _rightBreast, false)
+	NetImmerse.SetNodeScale(player, NINODE_LEFT_BUTT, _leftButt, false)
+	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BUTT, _rightButt, false)
+	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST_FORWARD, _leftBreastF, false)
+	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST_FORWARD, _rightBreastF, false)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BICEP, _leftBicep, false)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BICEP, _rightBicep, false)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BICEP_2, _leftBicep2, false)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BICEP_2, _rightBicep2, false)
-	NetImmerse.SetNodeScale(player, NINODE_NPC, _height, true)
+
 	NetImmerse.SetNodeScale(player, NINODE_HEAD, _head, true)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST, _leftBreast, true)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST, _rightBreast, true)
@@ -69,6 +100,28 @@ Function LoadPlayerNodeScales(Actor player)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BICEP, _rightBicep, true)
 	NetImmerse.SetNodeScale(player, NINODE_LEFT_BICEP_2, _leftBicep, true)
 	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BICEP_2, _rightBicep, true)
+
+	If WEAPONS_ENABLED ; Load scales only if enabled
+		; Weapon scales 3rd
+		NetImmerse.SetNodeScale(player, NINODE_QUIVER, _quiver, false)
+		NetImmerse.SetNodeScale(player, NINODE_BOW, _bow, false)
+		NetImmerse.SetNodeScale(player, NINODE_AXE, _axe, false)
+		NetImmerse.SetNodeScale(player, NINODE_SWORD, _sword, false)
+		NetImmerse.SetNodeScale(player, NINODE_MACE, _mace, false)
+		NetImmerse.SetNodeScale(player, NINODE_SHIELD, _shield, false)
+		NetImmerse.SetNodeScale(player, NINODE_WEAPON_BACK, _weaponBack, false)
+		NetImmerse.SetNodeScale(player, NINODE_WEAPON, _weapon, false)
+
+		; Weapon scales 1st
+		NetImmerse.SetNodeScale(player, NINODE_QUIVER, _quiver, true)
+		NetImmerse.SetNodeScale(player, NINODE_BOW, _bow, true)
+		NetImmerse.SetNodeScale(player, NINODE_AXE, _axe, true)
+		NetImmerse.SetNodeScale(player, NINODE_SWORD, _sword, true)
+		NetImmerse.SetNodeScale(player, NINODE_MACE, _mace, true)
+		NetImmerse.SetNodeScale(player, NINODE_SHIELD, _shield, true)
+		NetImmerse.SetNodeScale(player, NINODE_WEAPON_BACK, _weaponBack, true)
+		NetImmerse.SetNodeScale(player, NINODE_WEAPON, _weapon, true)
+	Endif
 EndFunction
 
 Event On3DLoaded(ObjectReference akRef)
@@ -123,6 +176,30 @@ Function Normalize()
 	Endif
 	if _rightBicep2 == 0
 		_rightBicep2 = 1
+	Endif
+	if _quiver == 0
+		_quiver = 1
+	Endif
+	if _bow == 0
+		_bow = 1
+	Endif
+	if _axe == 0
+		_axe = 1
+	Endif
+	if _sword == 0
+		_sword = 1
+	Endif
+	if _mace == 0
+		_mace = 1
+	Endif
+	if _shield == 0
+		_shield = 1
+	Endif
+	if _weaponBack == 0
+		_weaponBack = 1
+	Endif
+	if _weapon == 0
+		_weapon = 1
 	Endif
 EndFunction
 
@@ -187,6 +264,46 @@ Function SavePlayerNodeScales(Actor player)
 	Else
 		_rightBicep2 = 1.0
 	Endif
+	If NetImmerse.HasNode(player, NINODE_QUIVER, false)
+		_quiver = NetImmerse.GetNodeScale(player, NINODE_QUIVER, false)
+	Else
+		_quiver = 1.0
+	Endif
+	If NetImmerse.HasNode(player, NINODE_BOW, false)
+		_bow = NetImmerse.GetNodeScale(player, NINODE_BOW, false)
+	Else
+		_bow = 1.0
+	Endif
+	If NetImmerse.HasNode(player, NINODE_AXE, false)
+		_axe = NetImmerse.GetNodeScale(player, NINODE_AXE, false)
+	Else
+		_axe = 1.0
+	Endif
+	If NetImmerse.HasNode(player, NINODE_SWORD, false)
+		_sword = NetImmerse.GetNodeScale(player, NINODE_SWORD, false)
+	Else
+		_sword = 1.0
+	Endif
+	If NetImmerse.HasNode(player, NINODE_MACE, false)
+		_mace = NetImmerse.GetNodeScale(player, NINODE_MACE, false)
+	Else
+		_mace = 1.0
+	Endif
+	If NetImmerse.HasNode(player, NINODE_SHIELD, false)
+		_shield = NetImmerse.GetNodeScale(player, NINODE_SHIELD, false)
+	Else
+		_shield = 1.0
+	Endif
+	If NetImmerse.HasNode(player, NINODE_WEAPON_BACK, false)
+		_weaponBack = NetImmerse.GetNodeScale(player, NINODE_WEAPON_BACK, false)
+	Else
+		_weaponBack = 1.0
+	Endif
+	If NetImmerse.HasNode(player, NINODE_WEAPON, false)
+		_weapon = NetImmerse.GetNodeScale(player, NINODE_WEAPON, false)
+	Else
+		_weapon = 1.0
+	Endif
 	Normalize()
 EndFunction
 
@@ -207,12 +324,22 @@ Event OnResetMenu(Actor player, ActorBase playerBase)
 	_leftBicep = 1.0
 	_rightBicep2 = 1.0
 	_leftBicep2 = 1.0
+	_quiver = 1.0
+	_bow = 1.0
+	_axe = 1.0
+	_sword = 1.0
+	_mace = 1.0
+	_shield = 1.0
+	_weaponBack = 1.0
+	_weapon = 1.0
 	LoadPlayerNodeScales(player)
 EndEvent
 
 ; Add Custom sliders here
 Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool isFemale)
-	AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 2.00, 0.01, _height)
+	If HEIGHT_ENABLED
+		AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 2.00, 0.01, _height)
+	Endif
 
 	If NetImmerse.HasNode(player, NINODE_HEAD, false)
 		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, _head)
@@ -244,6 +371,33 @@ Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool i
 
 	AddSlider("$Left Biceps 2", CATEGORY_BODY, "ChangeLeftBiceps2", 0.1, 2.00, 0.01, _leftBicep2)
 	AddSlider("$Right Biceps 2", CATEGORY_BODY, "ChangeRightBiceps2", 0.1, 2.00, 0.01, _rightBicep2)
+
+	If WEAPONS_ENABLED
+		If NetImmerse.HasNode(player, NINODE_QUIVER, false)
+			AddSlider("$Quiver Scale", CATEGORY_BODY, "ChangeQuiverScale", 0.1, 3.00, 0.01, _quiver)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_BOW, false)
+			AddSlider("$Bow Scale", CATEGORY_BODY, "ChangeBowScale", 0.1, 3.00, 0.01, _bow)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_AXE, false)
+			AddSlider("$Axe Scale", CATEGORY_BODY, "ChangeAxeScale", 0.1, 3.00, 0.01, _axe)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_SWORD, false)
+			AddSlider("$Sword Scale", CATEGORY_BODY, "ChangeSwordScale", 0.1, 3.00, 0.01, _sword)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_MACE, false)
+			AddSlider("$Mace Scale", CATEGORY_BODY, "ChangeMaceScale", 0.1, 3.00, 0.01, _mace)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_SHIELD, false)
+			AddSlider("$Shield Scale", CATEGORY_BODY, "ChangeShieldScale", 0.1, 3.00, 0.01, _shield)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_WEAPON_BACK, false)
+			AddSlider("$Weapon Back Scale", CATEGORY_BODY, "ChangeWeaponBackScale", 0.1, 3.00, 0.01, _weaponBack)
+		Endif
+		If NetImmerse.HasNode(player, NINODE_WEAPON, false)
+			AddSlider("$Weapon Scale", CATEGORY_BODY, "ChangeWeaponScale", 0.1, 3.00, 0.01, _weapon)
+		Endif
+	Endif
 EndEvent
 
 Event OnSliderChanged(string callback, float value)
@@ -295,5 +449,37 @@ Event OnSliderChanged(string callback, float value)
 		_rightBicep2 = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BICEP_2, _rightBicep2, false)
 		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BICEP_2, _rightBicep2, true)
+	Elseif callback == "ChangeQuiverScale"
+		_quiver = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_QUIVER, _quiver, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_QUIVER, _quiver, true)
+	Elseif callback == "ChangeBowScale"
+		_bow = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_BOW, _bow, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_BOW, _bow, true)
+	Elseif callback == "ChangeAxeScale"
+		_axe = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_AXE, _axe, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_AXE, _axe, true)
+	Elseif callback == "ChangeSwordScale"
+		_sword = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_SWORD, _sword, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_SWORD, _sword, true)
+	Elseif callback == "ChangeMaceScale"
+		_mace = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_MACE, _mace, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_MACE, _mace, true)
+	Elseif callback == "ChangeShieldScale"
+		_shield = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_SHIELD, _shield, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_SHIELD, _shield, true)
+	Elseif callback == "ChangeWeaponBackScale"
+		_weaponBack = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON_BACK, _weaponBack, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON_BACK, _weaponBack, true)
+	Elseif callback == "ChangeWeaponScale"
+		_weapon = value
+		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON, _weapon, false)
+		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON, _weapon, true)
 	Endif
 EndEvent

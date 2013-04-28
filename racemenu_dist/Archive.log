@@ -38,32 +38,32 @@ Saving archive: _generated\RaceMenu.bsa
 Writing files
 
 Offset          0: Wrote compressed file scripts\source\racemenuplugin.psc
-Offset       1867: Wrote compressed file scripts\source\racemenu.psc
-Offset       6665: Wrote compressed file scripts\source\racemenubase.psc
-Offset       7832: Wrote compressed file scripts\source\racemenuload.psc
-Offset       8016: Wrote compressed file scripts\racemenuplugin.pex
-Offset      10985: Wrote compressed file scripts\racemenu.pex
-Offset      18093: Wrote compressed file scripts\racemenubase.pex
-Offset      20239: Wrote compressed file scripts\racemenuload.pex
-Offset      20867: Wrote compressed file interface\translations\racemenu_japanese.txt
-Offset      22628: Wrote compressed file interface\translations\racemenu_czech.txt
-Offset      24505: Wrote compressed file interface\translations\racemenu_russian.txt
-Offset      26507: Wrote compressed file interface\translations\racemenu_polish.txt
-Offset      28423: Wrote compressed file interface\translations\racemenuplugin_english.txt
-Offset      28511: Wrote compressed file interface\translations\racemenu_french.txt
-Offset      30322: Wrote compressed file interface\translations\racemenu_english.txt
-Offset      31771: Wrote compressed file interface\translations\racemenu_spanish.txt
-Offset      33734: Wrote compressed file interface\translations\racemenu_german.txt
-Offset      35618: Wrote compressed file interface\translations\racemenu_italian.txt
-Offset      37488: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_01.dds
-Offset      39206: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_02.dds
-Offset      40909: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_03.dds
-Offset      42623: Wrote compressed file textures\actors\character\character assets\tintmasks\dragontattoo_01.dds
-Offset      75916: Wrote compressed file interface\racesex_menu.swf
-Offset     145475: Wrote compressed file interface\racemenu\racesex_icons.swf
-Offset     153565: Wrote compressed file interface\racemenu\bottombar.swf
-Offset     184513: Wrote compressed file interface\racemenu\buttonart.swf
-Offset     203500: END OF FILE
+Offset       2770: Wrote compressed file scripts\source\racemenu.psc
+Offset       7594: Wrote compressed file scripts\source\racemenubase.psc
+Offset       8761: Wrote compressed file scripts\source\racemenuload.psc
+Offset       8945: Wrote compressed file scripts\racemenuplugin.pex
+Offset      13127: Wrote compressed file scripts\racemenu.pex
+Offset      20280: Wrote compressed file scripts\racemenubase.pex
+Offset      22425: Wrote compressed file scripts\racemenuload.pex
+Offset      23049: Wrote compressed file interface\translations\racemenu_japanese.txt
+Offset      24810: Wrote compressed file interface\translations\racemenu_czech.txt
+Offset      26687: Wrote compressed file interface\translations\racemenu_russian.txt
+Offset      28689: Wrote compressed file interface\translations\racemenu_polish.txt
+Offset      30605: Wrote compressed file interface\translations\racemenuplugin_english.txt
+Offset      30693: Wrote compressed file interface\translations\racemenu_french.txt
+Offset      32504: Wrote compressed file interface\translations\racemenu_english.txt
+Offset      33953: Wrote compressed file interface\translations\racemenu_spanish.txt
+Offset      35916: Wrote compressed file interface\translations\racemenu_german.txt
+Offset      37800: Wrote compressed file interface\translations\racemenu_italian.txt
+Offset      39670: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_01.dds
+Offset      41388: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_02.dds
+Offset      43091: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_03.dds
+Offset      44805: Wrote compressed file textures\actors\character\character assets\tintmasks\dragontattoo_01.dds
+Offset      78098: Wrote compressed file interface\racesex_menu.swf
+Offset     149105: Wrote compressed file interface\racemenu\racesex_icons.swf
+Offset     157195: Wrote compressed file interface\racemenu\bottombar.swf
+Offset     188143: Wrote compressed file interface\racemenu\buttonart.swf
+Offset     207130: END OF FILE
 
 Finished writing files
 
