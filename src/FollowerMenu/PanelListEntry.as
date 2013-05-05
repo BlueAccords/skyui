@@ -36,9 +36,9 @@ class PanelListEntry extends MovieClip
 		_magickaMeter = MagickaMeter.createEmptyMovieClip("meterMagicka", getNextHighestDepth());
 		_staminaMeter = StaminaMeter.createEmptyMovieClip("meterStamina", getNextHighestDepth());
 		
-		_meterLoader.loadClip("xflmenus/meter.swf", _healthMeter);
-		_meterLoader.loadClip("xflmenus/meter.swf", _magickaMeter);
-		_meterLoader.loadClip("xflmenus/meter.swf", _staminaMeter);
+		_meterLoader.loadClip("extension_assets/meter.swf", _healthMeter);
+		_meterLoader.loadClip("extension_assets/meter.swf", _magickaMeter);
+		_meterLoader.loadClip("extension_assets/meter.swf", _staminaMeter);
 	}
 		
 	private function onLoadInit(a_clip: MovieClip): Void

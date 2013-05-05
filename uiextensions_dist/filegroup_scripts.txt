@@ -1,0 +1,12 @@
+Scripts\UIMagicMenu.pex
+Scripts\UIMenuBase.pex
+Scripts\UIMenuLoad.pex
+Scripts\UISelectionMenu.pex
+Scripts\UIStatsMenu.pex
+Scripts\UIWheelMenu.pex
+Scripts\Source\UIMagicMenu.psc
+Scripts\Source\UIMenuBase.psc
+Scripts\Source\UIMenuLoad.psc
+Scripts\Source\UISelectionMenu.psc
+Scripts\Source\UIStatsMenu.psc
+Scripts\Source\UIWheelMenu.psc

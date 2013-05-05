@@ -149,7 +149,7 @@ class ActorStatsPanel extends MovieClip
 		addActorValue("$Restoration", CATEGORY_FLAG_MAGIC, Actor.AV_RESTORATION);
 		
 		_categoryList.iconArt = ["inv_all", "mag_powers", "inv_armor", "inv_weapons", "inv_ingredients", "mag_all"];
-		_categoryList.listState.iconSource = "xflmenus/icons_category_psychosteve.swf";
+		_categoryList.listState.iconSource = "extension_assets/icons_category_psychosteve.swf";
 		
 		_categoryList.entryList.push({bDontHide: true, filterFlag: 1, flag: CATEGORY_FLAG_ALL, text: "$All"});
 		_categoryList.entryList.push({bDontHide: false, filterFlag: 1, flag: CATEGORY_FLAG_GENERAL, text: "$General"});
@@ -162,8 +162,8 @@ class ActorStatsPanel extends MovieClip
 		
 		startPage();
 		FocusHandler.instance.setFocus(_subList, 0);
-//		loadCustomContent("skyui_splash.swf");
-		skse.SendModEvent("XFLStatPanel_LoadMenu");
+
+		skse.SendModEvent("UIStatsMenu_LoadMenu");
 	}
 	
 	/* PAPYRUS INTERFACE */
@@ -195,7 +195,7 @@ class ActorStatsPanel extends MovieClip
 	}
 		
 	public function setActorStatsPanelActorNames(/* names */): Void
-	{		
+	{
 		_subList.clearList();
 		for (var i = 0; i < arguments.length; i++) {
 			_subList.entryList.push({text: arguments[i], align: "right", enabled: true});

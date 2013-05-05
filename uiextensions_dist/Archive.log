@@ -1,0 +1,64 @@
+Log started for script bsascript.txt
+Creating new archive
+Checking option: Compress Archive
+Checking option: Menus
+Checking option: Misc
+Checking option: Retain Directory Names
+Checking option: Retain File Names
+Setting File Group Root: 'Data\'
+Adding File Group: filegroup_all.txt
+-Adding File: Data\Interface\messagebox.swf
+-Adding File: Data\Interface\magicmenuext.swf
+-Adding File: Data\Interface\selectionmenu.swf
+-Adding File: Data\Interface\statssheetmenu.swf
+-Adding File: Data\Interface\wheelmenu.swf
+-Adding File: Data\Interface\listmenu.swf
+-Adding File: Data\Interface\extension_assets\meter.swf
+-Adding File: Data\Interface\extension_assets\bottombar.swf
+-Adding File: Data\Interface\extension_assets\buttonArt.swf
+-Adding File: Data\Interface\extension_assets\icons_category_psychosteve.swf
+-Adding File: Data\Interface\translations\UIExtensions_ENGLISH.txt
+-Adding File: Data\Scripts\UIMagicMenu.pex
+-Adding File: Data\Scripts\UIMenuBase.pex
+-Adding File: Data\Scripts\UIMenuLoad.pex
+-Adding File: Data\Scripts\UISelectionMenu.pex
+-Adding File: Data\Scripts\UIStatsMenu.pex
+-Adding File: Data\Scripts\UIWheelMenu.pex
+-Adding File: Data\Scripts\Source\UIMagicMenu.psc
+-Adding File: Data\Scripts\Source\UIMenuBase.psc
+-Adding File: Data\Scripts\Source\UIMenuLoad.psc
+-Adding File: Data\Scripts\Source\UISelectionMenu.psc
+-Adding File: Data\Scripts\Source\UIStatsMenu.psc
+-Adding File: Data\Scripts\Source\UIWheelMenu.psc
+Saving archive: _generated\UIExtensions.bsa
+
+Writing files
+
+Offset          0: Wrote compressed file scripts\source\uiwheelmenu.psc
+Offset       1141: Wrote compressed file scripts\source\uiselectionmenu.psc
+Offset       1983: Wrote compressed file scripts\source\uimagicmenu.psc
+Offset       2643: Wrote compressed file scripts\source\uistatsmenu.psc
+Offset       3016: Wrote compressed file scripts\source\uimenubase.psc
+Offset       3403: Wrote compressed file scripts\source\uimenuload.psc
+Offset       3527: Wrote compressed file scripts\uiwheelmenu.pex
+Offset       5837: Wrote compressed file scripts\uiselectionmenu.pex
+Offset       7350: Wrote compressed file scripts\uimagicmenu.pex
+Offset       8581: Wrote compressed file scripts\uistatsmenu.pex
+Offset       9292: Wrote compressed file scripts\uimenubase.pex
+Offset      10040: Wrote compressed file scripts\uimenuload.pex
+Offset      10445: Wrote compressed file interface\translations\uiextensions_english.txt
+Offset      11093: Wrote compressed file interface\extension_assets\icons_category_psychosteve.swf
+Offset      19408: Wrote compressed file interface\extension_assets\bottombar.swf
+Offset      50356: Wrote compressed file interface\extension_assets\meter.swf
+Offset      67358: Wrote compressed file interface\extension_assets\buttonart.swf
+Offset      86345: Wrote compressed file interface\selectionmenu.swf
+Offset     102636: Wrote compressed file interface\magicmenuext.swf
+Offset     156545: Wrote compressed file interface\messagebox.swf
+Offset     175115: Wrote compressed file interface\listmenu.swf
+Offset     206363: Wrote compressed file interface\statssheetmenu.swf
+Offset     240688: Wrote compressed file interface\wheelmenu.swf
+Offset     289433: END OF FILE
+
+Finished writing files
+
+Script bsascript.txt has finished.

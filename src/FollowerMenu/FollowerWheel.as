@@ -101,8 +101,8 @@ class FollowerWheel extends MovieClip
 	{		
 		Name.autoSize = "center";
 		gfx.managers.FocusHandler.instance.setFocus(this, 0);
-		setWheelIconSource("skyui/skyui_icons_psychosteve.swf");
-		skse.SendModEvent("XFLWheel_LoadMenu");
+		setWheelIconSource("extension_assets/skyui_icons_psychosteve.swf");
+		skse.SendModEvent("UIWheelMenu_LoadMenu");
 		
 		panelList.background._visible = false;
 		panelList.listEnumeration = new BasicEnumeration(panelList.entryList);
@@ -254,7 +254,7 @@ class FollowerWheel extends MovieClip
 			gfx.io.GameDelegate.call("PlaySound", ["UIMenuFocus"]);
 		}
 		
-		skse.SendModEvent("XFLWheel_SetOption", "", option);
+		skse.SendModEvent("UIWheelMenu_SetOption", "", option);
 	}
 	
 	private function closeMenu(option: Number)

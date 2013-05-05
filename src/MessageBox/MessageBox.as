@@ -24,11 +24,14 @@ class MessageBox extends MovieClip
 	var MessageButtons: Array;
 	
 	var proxyMenu: MovieClip;
+	var movieClipLoader: MovieClipLoader;
 	
 	
 	function MessageBox()
 	{
 		super();
+		movieClipLoader = new MovieClipLoader();
+		movieClipLoader.addListener(this);
 		MessageContainer = _root.MessageMenu;
 		Message = MessageText;
 		Message.noTranslate = true;
@@ -126,9 +129,22 @@ class MessageBox extends MovieClip
 				MessageContainer.enabled = false;
 				
 				proxyMenu = _root.createEmptyMovieClip(val, _root.getNextHighestDepth());
-				proxyMenu.loadMovie(val + ".swf");
+				movieClipLoader.loadClip(val + ".swf", proxyMenu);
 			}
 		}
+	}
+	
+	function onLoadInit(target_mc: MovieClip)
+	{
+		target_mc.onLoad();
+		skse.SendModEvent("MessageBox_LoadedClip", target_mc.toString());
+	}
+	
+	function onLoadError(target_mc: MovieClip, errorCode: String)
+	{
+		MessageContainer._visible = true;
+		MessageContainer.enabled = true;
+		Message.text = errorCode;
 	}
 
 	function ResetDimensions()

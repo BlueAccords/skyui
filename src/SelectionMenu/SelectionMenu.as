@@ -19,13 +19,15 @@
 
 	function onLoad()
 	{
+		super.onLoad();
+		
 		ItemList.InvalidateData();
 		ItemList.addEventListener("listMovedUp", this, "onListMoveUp");
 		ItemList.addEventListener("listMovedDown", this, "onListMoveDown");
 		ItemList.addEventListener("itemPress", this, "onItemSelect");
 		gfx.managers.FocusHandler.instance.setFocus(ItemList, 0);
 		_parent.gotoAndPlay("startFadeIn");
-		skse.SendModEvent("SelectionMenu_LoadMenu");
+		skse.SendModEvent("UISelectionMenu_LoadMenu");
 	}
 	
 	private function handleInput(details: gfx.ui.InputDetails, pathToFocus: Array): Boolean
@@ -94,12 +96,12 @@
 		if(_selectMode == SELECT_MODE_MULTI) {
 			for (var i = 0; i < ItemList.entryList.length; i++) {
 				if (ItemList.entryList[i].selectState != undefined && ItemList.entryList[i].selectState >= 1) {
-					skse.SendModEvent("SelectionMenu_SelectForm", "", _selectMode, ItemList.entryList[i].formId);
+					skse.SendModEvent("UISelectionMenu_SelectForm", "", _selectMode, ItemList.entryList[i].formId);
 					hasSelection = true;
 				}
 			}
 			if(hasSelection)
-				skse.SendModEvent("SelectionMenu_SelectionReady");
+				skse.SendModEvent("UISelectionMenu_SelectionReady");
 		}
 		gfx.io.GameDelegate.call("buttonPress", [hasSelection ? 1 : 0]);
 	}
@@ -124,8 +126,8 @@
 			}
 		} else if(_selectMode == SELECT_MODE_SINGLE) {
 			if(ItemList.entryList[index].formId != undefined) {
-				skse.SendModEvent("SelectionMenu_SelectForm", "", _selectMode, ItemList.entryList[index].formId);
-				skse.SendModEvent("SelectionMenu_SelectionReady");
+				skse.SendModEvent("UISelectionMenu_SelectForm", "", _selectMode, ItemList.entryList[index].formId);
+				skse.SendModEvent("UISelectionMenu_SelectionReady");
 				gfx.io.GameDelegate.call("buttonPress", [1]);
 			}
 		}
