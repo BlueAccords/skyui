@@ -19,6 +19,18 @@ ActorBase Property _playerActorBase Auto
 string[] _textures
 int _textureBuffer
 
+; Body Paint
+string[] _textures_body
+int _textureBuffer_body
+
+; Hand Paint
+string[] _textures_hand
+int _textureBuffer_hand
+
+; Feet Paint
+string[] _textures_feet
+int _textureBuffer_feet
+
 string[] _sliders
 int _sliderBuffer
 
@@ -37,6 +49,18 @@ Event OnInitialized()
 
 	_sliders = new string[128]
 	_sliderBuffer = 0
+
+	; Body Paint
+	_textures_body = new string[128]
+	_textureBuffer_body = 0
+
+	; Hand Paint
+	_textures_hand = new string[128]
+	_textureBuffer_hand = 0
+
+	; Feet Paint
+	_textures_feet = new string[128]
+	_textureBuffer_feet = 0
 EndEvent
 
 Event OnGameReload()
@@ -64,7 +88,13 @@ EndEvent
 
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
 	OnWarpaintRequest()
+	OnBodyPaintRequest()
+	OnHandPaintRequest()
+	OnFeetPaintRequest()
 	AddWarpaints(_textures)
+	AddBodyPaints(_textures_body)
+	AddHandPaints(_textures_hand)
+	AddFeetPaints(_textures_feet)
 	OnInitializeMenu(_playerActor, _playerActorBase)
 	OnSliderRequest(_playerActor, _playerActorBase, _playerActorBase.GetRace(), _playerActorBase.GetSex() as bool)
 	AddSliders(_sliders)
@@ -94,6 +124,18 @@ Event OnWarpaintRequest()
 	; Do nothing
 EndEvent
 
+Event OnBodyPaintRequest()
+	; Do nothing
+EndEvent
+
+Event OnHandPaintRequest()
+	; Do nothing
+EndEvent
+
+Event OnFeetPaintRequest()
+	; Do nothing
+EndEvent
+
 Event OnInitializeMenu(Actor player, ActorBase playerBase)
 	; Do nothing
 EndEvent
@@ -115,6 +157,21 @@ Function AddWarpaint(string name, string texturePath)
 	_textureBuffer += 1
 EndFunction
 
+Function AddBodyPaint(string name, string texturePath)
+	_textures_body[_textureBuffer_body] = name + ";;" + texturePath
+	_textureBuffer_body += 1
+EndFunction
+
+Function AddHandPaint(string name, string texturePath)
+	_textures_hand[_textureBuffer_hand] = name + ";;" + texturePath
+	_textureBuffer_hand += 1
+EndFunction
+
+Function AddFeetPaint(string name, string texturePath)
+	_textures_feet[_textureBuffer_feet] = name + ";;" + texturePath
+	_textureBuffer_feet += 1
+EndFunction
+
 Function AddSlider(string name, int section, string callback, float min, float max, float interval, float position)
 	_sliders[_sliderBuffer] = name + ";;" + section + ";;" + callback + ";;" + min + ";;" + max + ";;" + interval + ";;" + position
 	_sliderBuffer += 1
@@ -122,6 +179,18 @@ EndFunction
 
 Function AddWarpaints(string[] textures)
 	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddWarpaints", textures)
+EndFunction
+
+Function AddBodyPaints(string[] textures)
+	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddBodyPaints", textures)
+EndFunction
+
+Function AddHandPaints(string[] textures)
+	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddHandPaints", textures)
+EndFunction
+
+Function AddFeetPaints(string[] textures)
+	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddFeetPaints", textures)
 EndFunction
 
 Function AddSliders(string[] sliders)
@@ -146,6 +215,16 @@ Function FlushBuffer(int bufferType)
 	While i < 128
 		if bufferType == 0 || bufferType == 2
 			_textures[i] = ""
+
+			If _textures_body
+				_textures_body[i] = ""
+			Endif
+			If _textures_hand
+				_textures_hand[i] = ""
+			Endif
+			If _textures_feet
+				_textures_feet[i] = ""
+			Endif
 		Endif
 		If bufferType == 1 || bufferType == 2
 			_sliders[i] = ""
@@ -155,6 +234,9 @@ Function FlushBuffer(int bufferType)
 
 	if bufferType == 0 || bufferType == 2
 		_textureBuffer = 0
+		_textureBuffer_body = 0
+		_textureBuffer_hand = 0
+		_textureBuffer_feet = 0
 	Endif
 	If bufferType == 1 || bufferType == 2
 		_sliderBuffer = 0

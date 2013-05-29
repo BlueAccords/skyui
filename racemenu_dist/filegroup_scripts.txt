@@ -1,8 +1,10 @@
 Scripts\RaceMenu.pex
 Scripts\RaceMenuBase.pex
 Scripts\RaceMenuLoad.pex
+Scripts\RaceMenuOverlays.pex
 Scripts\RaceMenuPlugin.pex
 Scripts\Source\RaceMenu.psc
 Scripts\Source\RaceMenuBase.psc
 Scripts\Source\RaceMenuLoad.psc
+Scripts\Source\RaceMenuOverlays.psc
 Scripts\Source\RaceMenuPlugin.psc

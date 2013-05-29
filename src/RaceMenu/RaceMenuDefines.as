@@ -3,7 +3,10 @@
 	static var ENTRY_TYPE_CAT: Number = 0;
 	static var ENTRY_TYPE_RACE: Number = 1;
 	static var ENTRY_TYPE_SLIDER: Number = 2;
-	static var ENTRY_TYPE_MAKEUP: Number = 3;
+	static var ENTRY_TYPE_WARPAINT: Number = 3;
+	static var ENTRY_TYPE_BODYPAINT: Number = 4;
+	static var ENTRY_TYPE_HANDPAINT: Number = 5;
+	static var ENTRY_TYPE_FEETPAINT: Number = 6;
 	
 	static var CAT_TEXT: Number = 0;
 	static var CAT_FLAG: Number = 1;
@@ -34,8 +37,16 @@
 	static var CATEGORY_HAIR: Number = 256;
 	
 	static var CATEGORY_COLOR: Number = 8192;
-	static var CATEGORY_MAKEUP: Number = 16384;
-	static var CATEGORY_ECE: Number = 65536;
+	static var CATEGORY_WARPAINT: Number = 16384;
+	static var CATEGORY_BODYPAINT: Number = 32768;
+	static var CATEGORY_HANDPAINT: Number = 65536;
+	static var CATEGORY_FEETPAINT: Number = 131072;
+	static var CATEGORY_ECE: Number = 262144;
+	
+	static var PAINT_FACE: Number = 0;
+	static var PAINT_BODY: Number = 1;
+	static var PAINT_HAND: Number = 2;
+	static var PAINT_FEET: Number = 3;
 	
 	static var STATIC_SLIDER_SEX: Number = -1;
 	static var STATIC_SLIDER_PRESET: Number = 0;
@@ -47,6 +58,10 @@
 	
 	static var MAX_TINTS: Number = 15;
 	
+	static var TINT_TYPE_BODYPAINT: Number = 256;
+	static var TINT_TYPE_HANDPAINT: Number = 257;
+	static var TINT_TYPE_FEETPAINT: Number = 258;
+		
 	static var TINT_TYPE_HAIR: Number = 128;
 	static var TINT_TYPE_FRECKLES: Number = 0;
 	static var TINT_TYPE_LIPS: Number = 1;

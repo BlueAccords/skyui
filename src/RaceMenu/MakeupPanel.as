@@ -113,28 +113,24 @@ class MakeupPanel extends MovieClip
 	{
 		makeupList.InvalidateData();
 	}
-		
-	public function AddMakeup(a_name: String, a_texture: String)
-	{
-		var makeupObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: a_name, texture: a_texture, filterFlag: 1, enabled: true};
-						
-		// Strip Path and extension
-		var slashIndex: Number = -1;
-		for(var k = a_texture.length - 1; k > 0; k--) {
-			if(a_texture.charAt(k) == "\\" || a_texture.charAt(k) == "/") {
-				slashIndex = k;
-				break;
-			}
-		}
-		var formatIndex: Number = a_texture.lastIndexOf(".dds");
-		if(formatIndex == -1)
-			formatIndex = a_texture.length;
-		
-		var displayText: String = a_texture.substring(slashIndex + 1, formatIndex);
-		makeupObject.displayText = displayText;
-		makeupList.entryList.push(makeupObject);
-	}
 	
+	public function setMakeupList(list: Array): Void
+	{
+		if(makeupList.listEnumeration) {
+			delete makeupList.listEnumeration;
+			makeupList.listEnumeration = null;
+		}
+		
+		makeupList.entryList = list;
+		if(makeupList.entryList) {
+			var listEnumeration = new FilteredEnumeration(makeupList.entryList);
+			listEnumeration.addFilter(_sortFilter);
+			listEnumeration.addFilter(_nameFilter);
+			makeupList.listEnumeration = listEnumeration;
+			makeupList.InvalidateData();
+		}
+	}
+		
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
 		var bHandledInput: Boolean = false;

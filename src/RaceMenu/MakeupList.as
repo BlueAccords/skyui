@@ -19,6 +19,11 @@ class MakeupList extends skyui.components.list.ScrollingList
 		super();
 	}
 	
+	public function set entryList(a_list: Array): Void
+	{
+		_entryList = a_list;
+	}
+	
 	public function set listHeight(a_height: Number): Void
 	{
 		_listHeight = background._height = a_height;

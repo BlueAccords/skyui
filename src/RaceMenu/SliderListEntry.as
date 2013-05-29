@@ -149,7 +149,10 @@ class SliderListEntry extends BasicListEntry
 			}
 			break;
 			
-			case RaceMenuDefines.ENTRY_TYPE_MAKEUP:
+			case RaceMenuDefines.ENTRY_TYPE_WARPAINT:
+			case RaceMenuDefines.ENTRY_TYPE_BODYPAINT:
+			case RaceMenuDefines.ENTRY_TYPE_HANDPAINT:
+			case RaceMenuDefines.ENTRY_TYPE_FEETPAINT:
 			{
 				valueField._visible = valueField.enabled = false;
 				SliderInstance._visible = SliderInstance.enabled = false;

@@ -3,15 +3,19 @@ $ALL	ALL	TOUT	ALLES	TUTTO	Todos/Todas (Masculine/Feminie)	VŠE	WSZYSTKIE	ВСЕ	
 $COLORS	COLORS	COULEURS	FARBEN	COLORI	Colores	BARVY	KOLORY	ЦВЕТА	色	CORES	色彩	颜色
 $MAKEUP	MAKEUP	MAQUILLAGE	SCHMINKE	TRUCCO	Maquillaje	MAKEUP	MAKIJAŻ	МАКИЯЖ	化粧	MAQUIAGEM	化粧	化妆
 $FILTER	FILTER	FILTRE	FILTER	FILTRO	Filtro	FILTR	FILTR	ФИЛЬТР	フィルタ	Filtro	篩選	筛选
+$EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	Enfocar en		DODATEK					
+$BODY PAINT	BODY PAINT											
+$HAND PAINT	HAND PAINT											
+$FOOT PAINT	FOOT PAINT											
 $Zoom In	Zoom In	Zoom avant	Vergrößern	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
 $Zoom Out	Zoom Out	Zoom arrière	Verkleinern	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
 $Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить Расу	種族の変更	Mudar a raça	變更種族	更变种族
 $Choose Color	Choose Color	Choix de couleur	Farbe wählen	Scegli Colore	Elegir color	Vybrat Barvu	Wybierz Kolor	Выбор цвета	色の選択	Escolha a cor	選擇色彩	选择颜色
 $Choose Texture	Choose Texture	Choix de texture	Textur wählen	Scegli Texture	Elegir textura	Vybrat texturu	Wybierz Teksturę	Выбор текстуры	テクスチャーの選択	Escolha a textura	選擇材質	选择材质
 $Search	Search	Recherche	Suchen	Cerca	Buscar	Hledat	Szukaj	Найти	検索	Procura	搜尋	搜索
-$Change Category	Change Category	Changer catégorie	Kategorie ändern	Cambia Categoria	Cambiar categoría	Změnit kategorii	Zmień Kategorię	Сменить категорию	カテゴリーの変更	Mudar a categoria	變更類別	更变类别
-$Load Preset	Load Preset	Charger préréglage                                                                                 	Voreinstellung laden		Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード			读取预设
-$Save Preset	Save Preset	Sauver préréglage	Voreinstellung speichern		Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存			保存预设
+$Change Category	Change Category	Changer de catégorie	Kategorie ändern	Cambia Categoria	Cambiar categoría	Změnit kategorii	Zmień Kategorię	Сменить категорию	カテゴリーの変更	Mudar a categoria	變更類別	更变类别
+$Load Preset	Load Preset	Charger le préréglage                                                                                 	Voreinstellung laden	Carica Predisposto	Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード			读取预设
+$Save Preset	Save Preset	Sauver le préréglage	Voreinstellung speichern	Salva Predisposto	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存			保存预设
 $Light On	Light On	Avec lumière	Licht an	Luce Accesa	Luz encendida	Světlo zapnuté	Zapal	Светлее	ライトオン	Ligar a luz	開啟燈光	开启光照
 $Light Off	Light Off	Sans lumière	Licht aus	Luce Spenta	Luz apagada	Světlo vypnuté	Zgaś	Темнее	ライトオフ	Desligar a luz	關閉燈光	关闭光照
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
@@ -20,12 +24,20 @@ $Left Breast	Left Breast	Poitrine gauche	Linke Brust	Seno Sinistro	Seno izquierd
 $Right Breast	Right Breast	Poitrine droite	Rechte Brust	Seno Destro	Seno derecho	Pravé ňadro	Prawa Pierś	Правая грудь	右胸	Peito direito	右胸	右胸
 $Left Glute	Left Glute	Fessier gauche	Linke Pobacke	Gluteo Sinistro	Nalga izquierda	Levá půlka	Lewy Pośladek	Левая ягодица	左尻	Glúteo esquerdo	左臀	左臀
 $Right Glute	Right Glute	Fessier droit	Rechte Pobacke	Gluteo Destro	Nalga derecha	Pravá půlka	Prawy Pośladek	Правая ягодица	右尻	Glúteo direito	右臀	右臀
-$Left Breast Curve	Left Breast Curve	Courbe poitrine gauche	Linke Brustkurve		Curvatura seno izquierdo	Křivka levého ňadra	Krągłość Lewej Piersi	Изгиб левой груди				左胸曲线
-$Right Breast Curve	Right Breast Curve	Courbe poitrine droite	Rechte Brustkurve		Curvatura seno derecho	Křivka pravého ňadra	Krągłość Prawej Piersi	Изгиб правой груди				右胸曲线
-$Left Biceps	Left Biceps	Biceps gauche	Linker Bizeps	Bicipite Sinistro 2	Bíceps izquierdo	Levý biceps	Lewy Biceps	Левый бицепс	左腕の力こぶ	Bíceps esquerdo	右臂二頭肌	左肱二头肌
+$Left Breast Curve	Left Breast Curve	Courbe poitrine gauche	Linke Brustkurve	Curva Seno Sinistro	Curvatura seno izquierdo	Křivka levého ňadra	Krągłość Lewej Piersi	Изгиб левой груди				左胸曲线
+$Right Breast Curve	Right Breast Curve	Courbe poitrine droite	Rechte Brustkurve	Curva Seno Destro	Curvatura seno derecho	Křivka pravého ňadra	Krągłość Prawej Piersi	Изгиб правой груди				右胸曲线
+$Left Biceps	Left Biceps	Biceps gauche	Linker Bizeps	Bicipite Sinistro	Bíceps izquierdo	Levý biceps	Lewy Biceps	Левый бицепс	左腕の力こぶ	Bíceps esquerdo	右臂二頭肌	左肱二头肌
 $Right Biceps	Right Biceps	Biceps droit	Rechter Bizeps	Bicipite Destro	Bíceps derecho	Pravý biceps	Prawy Biceps	Правый бицепс	右腕の力こぶ	Bíceps direito	左臂二頭肌	右肱二头肌
 $Left Biceps 2	Left Biceps 2	Biceps gauche 2	Linker Bizeps 2	Bicipite Sinistro 2	Bíceps izquierdo 2	Levý biceps 2	Lewy Biceps 2	Левый бицепс 2	左腕の力こぶ 2	Bíceps esquerdo 2	右臂二頭肌 2	左肱二头肌 2
 $Right Biceps 2	Right Biceps 2	Biceps droit 2	Rechter Bizeps 2	Bicipite Destro 2	Bíceps derecho 2	Pravý biceps 2	Prawy Biceps 2	Правый бицепс 2	右腕の力こぶ 2	Bíceps direito 2	左臂二頭肌 2	右肱二头肌 2
+$Quiver Scale	Quiver Scale	Taille du carquois	Köchergröße	Dimensioni Faretra	Tamaño del carcaj		Skala Kołczanu					
+$Bow Scale	Bow Scale	Taille de l'arc	Bogengröße	Dimensioni Arco	Tamaño del arco		Skala Łuku					
+$Axe Scale	Axe Scale	Taille de la hache	Axtgröße	Dimensioni Ascia	Tamaño del hacha		Skala Toporu					
+$Sword Scale	Sword Scale	Taille de l'épée	Schwertgröße	Dimensioni Spada	Tamaño de la espada		Skala Mieczu					
+$Mace Scale	Mace Scale	Taille de la masse	Streitkolbengröße	Dimensioni Mazza	Tamaño del mazo		Skala Buławy					
+$Shield Scale	Shield Scale	Taille du bouclier	Schildgröße	Dimensioni Arma su schiena	Tamaño del escudo		Skala Tarczy					
+$Weapon Back Scale	Weapon Back Scale	Taille de l'arme dans le dos	Waffengröße hinten	Dimensioni Scudo	Tamaño del arma nueva		Skala Tylnej Broni					
+$Weapon Scale	Weapon Scale	Taille de l'arme	Waffengröße	Dimensioni Arma	Tamaño del arma 		Skala Broni					
 $Alteration	Alteration	Altération	Veränderung	Alterazione	Alteración	Proměny	Przemiana	Изменение	変性	Alteração		变化
 $Conjuration	Conjuration	Conjuration	Beschwörung	Evocazione	Conjuración	Vyvolávání	Przywoływanie	Колдовство	召喚	Conjuração		召唤
 $Destruction	Destruction	Destruction	Zerstörung	Distruzione	Destrucción	Ničení	Zniszczenie	Разрушение	破壊	Destruição		毁灭
@@ -33,7 +45,7 @@ $Illusion	Illusion	Illusion	Illusion	Illusione	Ilusión	Iluze	Iluzja	Иллюз�
 $Restoration	Restoration	Guérison 	Wiederherstellung	Recupero	Restauración	Obnova	Przywracanie	Восстонавление	回復	Restauração	回復	回复
 $One Handed	One Handed	Une main	Einhändig	Una Mano	A una mano	Jednoruční boj	Broń Jednoręczna	Одноручное	片手武器	Uma mão	單手武器	单手
 $Two Handed	Two Handed	Deux mains	Zweihändig	Due Mani	A dos manos	Obouruční boj	Broń Oburęczna	Двуручное	両手武器	Duas mãos	雙手武器	双手
-$Archery	Archery	Tir à l'arc	Bogenschießen	Arceria	Arquería	Lukostřelba	Łucznictwo	Стрельба из лука	弓術	Arquearia		箭术
+$Archery	Archery	Archerie	Bogenschießen	Arceria	Arquería	Lukostřelba	Łucznictwo	Стрельба из лука	弓術	Arquearia		箭术
 $Block	Block	Parade	Blocken	Parare	Bloqueo	Krytí	Blok	Блокирование	防御	Bloqueio		档格
 $Heavy Armor	Heavy Armor	Armure lourde	Schwere Rüstung	Armatura Pesante	Armadura pesada	Těžká zbroj	Ciężki Pancerz	Тяжелые доспехи	重装	Armadura pesada		重甲
 $Light Armor	Light Armor	Armure légère	Leichte Rüstung	Armatura Leggera	Armadura ligera	Lehké brnění	Lekki Pancerz	Легкие доспехи	軽装	Armadura leve		轻甲
@@ -157,8 +169,8 @@ $Female Breton Warpaint 04	Female Breton Warpaint 04	Peinture de guerre breton f
 $Female Breton Warpaint 05	Female Breton Warpaint 05	Peinture de guerre breton femme 05	Weibliche Bretonen Kriegsbemalung 05	Pittura di guerra Femminile Bretone 05	Pintura de guerra para mujer bretón 05	Válečné malování Bretonské ženy 05	Żeński Breton Barwa wojenna 05	Жен. Бретонская боевая раскраска 05	女性ブレトンの戦化粧 05	Tatuagem feminina para Breton 05		女布雷顿人战纹 05
 $Male Forsworn Tattoo 01	Male Forsworn Tattoo 01	Tatouage parjure homme 01	Männliches Abgeschworenen Tattoo 01	Tatuaggio Maschile Rinnegato 01	Tatuaje Renegado para hombre 01	Tetování Zapřisáhlého muže 01	Męski Renegat Tatuaż 01	Муж. Татуировка Изгоев 01	男性フォースウォーンのタトゥー 01	Tatuagem renegada masculina 01		男弃誓者纹身 01
 $Male Forsworn Tattoo 02	Male Forsworn Tattoo 02	Tatouage parjure homme 02	Männliches Abgeschworenen Tattoo 02	Tatuaggio Maschile Rinnegato 02	Tatuaje Renegado para hombre 02	Tetování Zapřisáhlého muže 02	Męski Renegat Tatuaż 02	Муж. Татуировка Изгоев 02	男性フォースウォーンのタトゥー 02	Tatuagem renegada masculina 02		男弃誓者纹身 02
-$Male Forsworn Tattoo 03	Male Forsworn Tattoo 03	Tatouage parjure Homme 03	Männliches Abgeschworenen Tattoo 03	Tatuaggio Maschile Rinnegato 03	Tatuaje Renegado para hombre 03	Tetování Zapřisáhlého muže 03	Męski Renegat Tatuaż 03	Муж. Татуировка Изгоев 03	男性フォースウォーンのタトゥー 03	Tatuagem renegada masculina 03		男弃誓者纹身 03
-$Male Forsworn Tattoo 04	Male Forsworn Tattoo 04	Tatouage parjure Homme 04	Männliches Abgeschworenen Tattoo 04	Tatuaggio Maschile Rinnegato 04	Tatuaje Renegado para hombre 04	Tetování Zapřisáhlého muže 04	Męski Renegat Tatuaż 04	Муж. Татуировка Изгоев 04	男性フォースウォーンのタトゥー 04	Tatuagem renegada masculina 04		男弃誓者纹身 04
+$Male Forsworn Tattoo 03	Male Forsworn Tattoo 03	Tatouage parjure homme 03	Männliches Abgeschworenen Tattoo 03	Tatuaggio Maschile Rinnegato 03	Tatuaje Renegado para hombre 03	Tetování Zapřisáhlého muže 03	Męski Renegat Tatuaż 03	Муж. Татуировка Изгоев 03	男性フォースウォーンのタトゥー 03	Tatuagem renegada masculina 03		男弃誓者纹身 03
+$Male Forsworn Tattoo 04	Male Forsworn Tattoo 04	Tatouage parjure homme 04	Männliches Abgeschworenen Tattoo 04	Tatuaggio Maschile Rinnegato 04	Tatuaje Renegado para hombre 04	Tetování Zapřisáhlého muže 04	Męski Renegat Tatuaż 04	Муж. Татуировка Изгоев 04	男性フォースウォーンのタトゥー 04	Tatuagem renegada masculina 04		男弃誓者纹身 04
 $Female Forsworn Tattoo 01	Female Forsworn Tattoo 01	Tatouage parjure femme 01	Weibliches Abgeschworenen Tattoo 01	Tatuaggio Femminile Rinnegato 01	Tatuaje Renegado para mujer 01	Tetování Zapřisáhlé ženy 01	Żeński Renegat Tatuaż 01	Жен. Татуировка Изгоев 01	女性フォースウォーンのタトゥー 01	Tatuagem renegada feminina 01		女弃誓者纹身 01
 $Female Forsworn Tattoo 02	Female Forsworn Tattoo 02	Tatouage parjure femme 02	Weibliches Abgeschworenen Tattoo 02	Tatuaggio Femminile Rinnegato 02	Tatuaje Renegado para mujer 02	Tetování Zapřisáhlé ženy 02	Żeński Renegat Tatuaż 02	Жен. Татуировка Изгоев 02	女性フォースウォーンのタトゥー 02	Tatuagem renegada feminina 02		女弃誓者纹身 02
 $Female Forsworn Tattoo 03	Female Forsworn Tattoo 03	Tatouage parjure femme 03	Weibliches Abgeschworenen Tattoo 03	Tatuaggio Femminile Rinnegato 03	Tatuaje Renegado para mujer 03	Tetování Zapřisáhlé ženy 03	Żeński Renegat Tatuaż 03	Жен. Татуировка Изгоев 03	女性フォースウォーンのタトゥー 03	Tatuagem renegada feminina 03		女弃誓者纹身 03
@@ -166,5 +178,5 @@ $Female Forsworn Tattoo 04	Female Forsworn Tattoo 04	Tatouage parjure femme 04	W
 $Male Black Blood Tattoo 01	Male Black Blood Tattoo 01	Tatouage sang noir homme 01	Männliches Schwarzblut Tattoo 01	Tatuaggio Maschile Blackblood 01	Tatuaje Sangre Negra para hombre 01	Tetování Gangu Blackblood 01	Męski Tatuaż Czarnej Krwii 01	Муж. Тату черной крови 01	男性ブラック・ブラッドのタトゥー 01	Tatuagem de sangue negro masculino 01		男黑血纹身 01
 $Male Black Blood Tattoo 02	Male Black Blood Tattoo 02	Tatouage sang noir homme 02	Männliches Schwarzblut Tattoo 02	Tatuaggio Maschile Blackblood 02	Tatuaje Sangre Negra para hombre 02	Tetování Gangu Blackblood 02	Męski Tatuaż Czarnej Krwii 02	Муж. Тату черной крови 02	男性ブラック・ブラッドのタトゥー 02	Tatuagem de sangue negro masculino 02		男黑血纹身 02
 												
-% Completion	100.00%	100.00%	100.00%	97.59%	100.00%	100.00%	100.00%	100.00%	98.80%	97.59%	34.94%	100.00%
-Total % Completion	94.08%	94.08%	94.08%	94.08%	94.08%	94.08%	94.08%	94.08%	94.08%	94.08%	94.08%	94.08%
+% Completion	100.00%	98.31%	98.31%	98.31%	98.31%	93.26%	98.31%	93.26%	92.13%	91.01%	32.58%	93.26%
+Total % Completion	90.59%	90.59%	90.59%	90.59%	90.59%	90.59%	90.59%	90.59%	90.59%	90.59%	90.59%	90.59%
