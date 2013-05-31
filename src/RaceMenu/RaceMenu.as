@@ -623,10 +623,7 @@ class RaceMenu extends MovieClip
 			categoryList.iconArt.push("skyrim");
 			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$ENHANCED", flag: RaceMenuDefines.CATEGORY_ECE, enabled: true});
 		}
-		
-		for(var i = 0; i < categoryList.iconArt.length; i++)
-			skse.Log(categoryList.iconArt[i]);
-		
+				
 		categoryList.requestInvalidate();
 	}
 
@@ -1406,7 +1403,7 @@ class RaceMenu extends MovieClip
 		for(var i = 0; i < arguments.length; i++)
 		{		
 			var tintParams: Array = arguments[i].split(";;");
-			if(Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "") {
+			if(tintParams.length > 0 && (Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "")) {
 				tintTypes.push(Number(tintParams[0]));
 				tintColors.push(Number(tintParams[1]));
 				tintTextures.push(tintParams[2]);
@@ -1440,7 +1437,7 @@ class RaceMenu extends MovieClip
 		for(var i = 0; i < arguments.length; i++)
 		{		
 			var tintParams: Array = arguments[i].split(";;");
-			if(Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "") {
+			if(tintParams.length > 0 && (Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "")) {
 				tintTypes.push(Number(tintParams[0]));
 				tintColors.push(Number(tintParams[1]));
 				tintTextures.push(tintParams[2]);
@@ -1466,7 +1463,7 @@ class RaceMenu extends MovieClip
 		for(var i = 0; i < arguments.length; i++)
 		{		
 			var tintParams: Array = arguments[i].split(";;");
-			if(Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "") {
+			if(tintParams.length > 0 && (Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "")) {
 				tintTypes.push(Number(tintParams[0]));
 				tintColors.push(Number(tintParams[1]));
 				tintTextures.push(tintParams[2]);
@@ -1492,7 +1489,7 @@ class RaceMenu extends MovieClip
 		for(var i = 0; i < arguments.length; i++)
 		{		
 			var tintParams: Array = arguments[i].split(";;");
-			if(Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "") {
+			if(tintParams.length > 0 && (Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "")) {
 				tintTypes.push(Number(tintParams[0]));
 				tintColors.push(Number(tintParams[1]));
 				tintTextures.push(tintParams[2]);

@@ -11,13 +11,13 @@ Event OnStartup()
 EndEvent
 
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
-	parent.OnMenuInitialized(eventName, strArg, numArg, formArg)
 	UpdateOverlays()
+	parent.OnMenuInitialized(eventName, strArg, numArg, formArg)
 EndEvent
 
 Event OnMenuReinitialized(string eventName, string strArg, float numArg, Form formArg)
-	parent.OnMenuReinitialized(eventName, strArg, numArg, formArg)
 	UpdateOverlays()
+	parent.OnMenuReinitialized(eventName, strArg, numArg, formArg)
 EndEvent
 
 Function UpdateOverlays()
@@ -26,9 +26,20 @@ Function UpdateOverlays()
 		string[] tints = new string[128]
 		int totalTints = NiOverride.GetNumBodyOverlays()
 		While i < totalTints
-			int rgb = NiOverride.GetNodePropertyInt(_playerActor, false, "Body [Ovl" + i + "]", 7, -1)
-			float alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, "Body [Ovl" + i + "]", 8, -1)
-			string texture = NiOverride.GetNodePropertyString(_playerActor, false, "Body [Ovl" + i + "]", 9, 0)
+			string nodeName = "Body [Ovl" + i + "]"
+			int rgb = 0
+			float alpha = 0
+			string texture = ""
+			If NetImmerse.HasNode(_playerActor, nodeName, false) ; Actor has the node, get the immediate property
+				rgb = NiOverride.GetNodePropertyInt(_playerActor, false, nodeName, 7, -1)
+				alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, nodeName, 8, -1)
+				texture = NiOverride.GetNodePropertyString(_playerActor, false, nodeName, 9, 0)
+			Else ; Doesn't have the node, get it from the override
+				bool isFemale = _playerActorBase.GetSex() as bool
+				rgb = NiOverride.GetNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1)
+				alpha = NiOverride.GetNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1)
+				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
+			Endif
 			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
 			tints[i] = TINT_TYPE_BODYPAINT + ";;" + color + ";;" + texture
 			i += 1
@@ -39,9 +50,20 @@ Function UpdateOverlays()
 		tints = new string[128]
 		totalTints = NiOverride.GetNumHandOverlays()
 		While i < totalTints
-			int rgb = NiOverride.GetNodePropertyInt(_playerActor, false, "Hands [Ovl" + i + "]", 7, -1)
-			float alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, "Hands [Ovl" + i + "]", 8, -1)
-			string texture = NiOverride.GetNodePropertyString(_playerActor, false, "Hands [Ovl" + i + "]", 9, 0)
+			string nodeName = "Hands [Ovl" + i + "]"
+			int rgb = 0
+			float alpha = 0
+			string texture = ""
+			If NetImmerse.HasNode(_playerActor, nodeName, false) ; Actor has the node, get the immediate property
+				rgb = NiOverride.GetNodePropertyInt(_playerActor, false, nodeName, 7, -1)
+				alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, nodeName, 8, -1)
+				texture = NiOverride.GetNodePropertyString(_playerActor, false, nodeName, 9, 0)
+			Else ; Doesn't have the node, get it from the override
+				bool isFemale = _playerActorBase.GetSex() as bool
+				rgb = NiOverride.GetNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1)
+				alpha = NiOverride.GetNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1)
+				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
+			Endif
 			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
 			tints[i] = TINT_TYPE_HANDPAINT + ";;" + color + ";;" + texture
 			i += 1
@@ -52,9 +74,20 @@ Function UpdateOverlays()
 		tints = new string[128]
 		totalTints = NiOverride.GetNumFeetOverlays()
 		While i < totalTints
-			int rgb = NiOverride.GetNodePropertyInt(_playerActor, false, "Feet [Ovl" + i + "]", 7, -1)
-			float alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, "Feet [Ovl" + i + "]", 8, -1)
-			string texture = NiOverride.GetNodePropertyString(_playerActor, false, "Feet [Ovl" + i + "]", 9, 0)
+			string nodeName = "Feet [Ovl" + i + "]"
+			int rgb = 0
+			float alpha = 0
+			string texture = ""
+			If NetImmerse.HasNode(_playerActor, nodeName, false) ; Actor has the node, get the immediate property
+				rgb = NiOverride.GetNodePropertyInt(_playerActor, false, nodeName, 7, -1)
+				alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, nodeName, 8, -1)
+				texture = NiOverride.GetNodePropertyString(_playerActor, false, nodeName, 9, 0)
+			Else ; Doesn't have the node, get it from the override
+				bool isFemale = _playerActorBase.GetSex() as bool
+				rgb = NiOverride.GetNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1)
+				alpha = NiOverride.GetNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1)
+				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
+			Endif
 			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
 			tints[i] = TINT_TYPE_FEETPAINT + ";;" + color + ";;" + texture
 			i += 1
