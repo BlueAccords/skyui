@@ -22,4 +22,7 @@
 	static function GetVMVariable(a_formid:Number, a_variableName:String);
 	static function EnableMapMenuMouseWheel(a_enable:Boolean):Void;
 	static function ShowOnMap(a_markerIndex:Number):Void;
+	static function StoreIndices(a_key:String, a_indicesIn):Void;
+	static function LoadIndices(a_key:String, a_indicesOut):Void;
+
 }

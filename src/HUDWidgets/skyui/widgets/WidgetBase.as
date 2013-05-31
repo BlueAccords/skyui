@@ -7,14 +7,14 @@ class skyui.widgets.WidgetBase extends MovieClip
 {
   /* CONSTANTS */
 	
-	private static var MODES: Array = ["All", "Favor", "MovementDisabled", "Swimming", "WarhorseMode", "HorseMode", "InventoryMode", "BookMode", "DialogueMode", "StealthMode", "SleepWaitMode", "BarterMode", "TweenMode", "WorldMapMode", "JournalMode", "CartMode", "VATSPlayback"];
+	private static var MODES: Array = ["All", "Favor", "MovementDisabled", "Swimming", "WarHorseMode", "HorseMode", "InventoryMode", "BookMode", "DialogueMode", "StealthMode", "SleepWaitMode", "BarterMode", "TweenMode", "WorldMapMode", "JournalMode", "CartMode", "VATSPlayback"];
 
 	private static var MODEMAP: Object = {
 		all: "All",
 		favor: "Favor",
 		movementdisabled: "MovementDisabled",
 		swimming: "Swimming",
-		warhorsemode: "WarhorseMode",
+		warhorsemode: "WarHorseMode",
 		horsemode: "HorseMode",
 		inventorymode: "InventoryMode",
 		bookmode: "BookMode",
@@ -232,55 +232,6 @@ class skyui.widgets.WidgetBase extends MovieClip
 
 	private function updatePosition(): Void
 	{
-		// Removed, because we want absolute positioning, not relative positioning.
-		/*
-		var newX: Number;
-		var newY: Number;
-
-		switch(_hAnchor) {
-			case ANCHOR_RIGHT:
-				// 0 -> _hudMetrics.hMax
-				// 1280 -> -_hudMetrics.hMin
-				newX = GlobalFunc.Lerp(_hudMetrics.hMax, -_hudMetrics.hMin, 0, 1280, __x);
-				break;
-
-			case ANCHOR_CENTER:
-				// 0 -> 0
-				// 640 -> _hudMetrics.hCenter
-				newX = GlobalFunc.Lerp(0, _hudMetrics.hCenter, 0, 640, __x);
-				break;
-			
-			case ANCHOR_LEFT:
-			default:
-				// 0 -> -_hudMetrics.hMin
-				// 1280 -> _hudMetrics.hMax
-				newX = GlobalFunc.Lerp(-_hudMetrics.hMin, _hudMetrics.hMax, 0, 1280, __x);
-		}
-
-		switch(_vAnchor) {
-			case ANCHOR_BOTTOM:
-				// 0 -> _hudMetrics.vMax
-				// 720 -> -_hudMetrics.vMin
-				newY = GlobalFunc.Lerp(_hudMetrics.vMax, -_hudMetrics.vMin, 0, 720, __y);
-				break;
-
-			case ANCHOR_CENTER:
-				// 0 -> 0
-				// 360 -> _hudMetrics.vCenter
-				newY = GlobalFunc.Lerp(0, _hudMetrics.hCenter, 0, 360, __x);
-				break;
-
-			case ANCHOR_TOP:
-			default:
-				// 0 -> -_hudMetrics.vMin
-				// 720 -> _hudMetrics.vMax
-				newY = GlobalFunc.Lerp(-_hudMetrics.vMin, _hudMetrics.vMax, 0, 720, __y);
-		}
-
-		_x = newX;
-		_y = newY;
-		*/
-
 		// 0 -> -_hudMetrics.hMin
 		// 1280 -> _hudMetrics.hMax
 		_x = GlobalFunc.Lerp(-_hudMetrics.hMin, _hudMetrics.hMax, 0, 1280, __x);

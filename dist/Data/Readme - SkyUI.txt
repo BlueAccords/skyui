@@ -7,9 +7,9 @@
 
 Team:			snakster, Mardoxx, T3T
 
-Contributors:	ianpatt, behippo, Kratos, psychosteve, MisterPete, GreatClone, gibbed, PurpleLunchBox, Gopher, Indie
+Contributors:	ianpatt, behippo, Kratos, psychosteve, MisterPete, GreatClone, gibbed, PurpleLunchBox, Verteiron, Gopher, Indie
 
-Version:		3.4
+Version:		4.0
 
 Download:		http://skyrim.nexusmods.com/mods/3863
 				http://steamcommunity.com/sharedfiles/filedetails/?id=8122
@@ -20,7 +20,7 @@ Source code:	https://github.com/schlangster/skyui
 
 The following mods/utilities are required for SkyUI:
 
-* The Skyrim Script Extender (SKSE), version 1.6.9 or newer
+* The Skyrim Script Extender (SKSE), version 1.6.14 or newer
 	http://skse.silverlock.org/
 
 ########################################################################################################################################
@@ -73,7 +73,7 @@ Further general objectives and design concepts are:
 
 Since improving the whole UI is a big undertaking, we only release single menus at a time as progress is made.
 The first menu we addressed was the Inventory. In version 2.0, we included new Barter, Container and Magic menus.
-Version 3.0 introduced an in-game configuration menu for mods.
+Version 3.0 introduced an in-game configuration menu for mods. The most recent addition was the Favorites menu in version 4.0.
 
 For a more detailed description, please see our mod description on Skyrim Nexus.
 
@@ -81,6 +81,28 @@ For a more detailed description, please see our mod description on Skyrim Nexus.
 ========================================================================================================================================
  2. Changelog
 ========================================================================================================================================
+
+------------------------------------------------------------
+4.0:
+
+[General]
+- Updated SKSE version requirement to 1.6.14.
+
+[ModConfigurationMenu]
+- Enabled nested translations for option and value text (uses the same format as SetInfoText).
+- Added OPTION_FLAG_HIDDEN to hide an option.
+- Added OPTION_FLAG_WITH_UNMAP. When set for keymap options, it enables an unmap button that'll send keycode -1.
+- Improved menu registration process to avoid missing menus on the first save load. For real this time.
+
+[MapMenu]
+- Fixed issue where search widget wasn't being completely disabled when hidden.
+
+[ActiveEffectsWidget]
+- With SKSE 1.6.14, inactive effects are now filtered out.
+- Added a configurable minimum time left to hide long lasting effects like blessings until they are about to expire.
+
+[FavoritesMenu]
+- Initial release
 
 ------------------------------------------------------------
 3.4:
@@ -485,10 +507,10 @@ Thanks to all the testers, who helped a great deal with improving the overall qu
 	(in random order)
 
 Thanks to all translators who helped localizing SkyUI to different languages, among them being:
-	Sagittarius22, LLFBandit (French)
-	xlwarrior (Spanish)
+	Sagittarius22, LLFBandit, xporc (French)
+	xlwarrior, aloot (Spanish)
 	Starfis (Czech)
-	Rhaegal (Italian)
+	Rhaegal, aloot (Italian)
 	patryk110 (Polish)
 	vova2112 (Russian)
 

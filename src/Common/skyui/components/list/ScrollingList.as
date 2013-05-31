@@ -37,7 +37,7 @@ class skyui.components.list.ScrollingList extends BasicList
 
 	private var _scrollPosition: Number = 0;
 	
-	public function get scrollPosition()
+	public function get scrollPosition(): Number
 	{
 		return _scrollPosition;
 	}
@@ -212,13 +212,13 @@ class skyui.components.list.ScrollingList extends BasicList
 		for (var i=0; i<_dataProcessors.length; i++)
 			_dataProcessors[i].processList(this);
 		
+		listEnumeration.invalidate();
+
 		if (_selectedIndex >= listEnumeration.size())
 			_selectedIndex = listEnumeration.size() - 1;
 			
-		if (listEnumeration.lookupEnumIndex(_selectedIndex) == undefined)
+		if (listEnumeration.lookupEnumIndex(_selectedIndex) == null)
 			_selectedIndex = -1;
-		
-		listEnumeration.invalidate();
 		
 		calculateMaxScrollPosition();		
 		UpdateList();
@@ -229,8 +229,7 @@ class skyui.components.list.ScrollingList extends BasicList
 				_curClipIndex = _listIndex - 1;
 			
 			var entryClip = getClipByIndex(_curClipIndex);
-			
-			doSetSelectedIndex(entryClip.itemIndex, SELECT_KEYBOARD);
+			doSetSelectedIndex(entryClip.itemIndex, SELECT_MOUSE);
 		}
 		
 		if (onInvalidate)

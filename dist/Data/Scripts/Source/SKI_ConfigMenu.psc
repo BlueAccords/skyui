@@ -17,9 +17,13 @@ scriptname SKI_ConfigMenu extends SKI_ConfigBase
 ;		- Added active effects widget configuration
 ;
 ; 5:	- Fixed 3DItemDisablePositioning
+;
+; 6:	- Added favorites menu options
+;
+; 7:	- Changed page layout
 
 int function GetVersion()
-	return 5
+	return 7
 endFunction
 
 
@@ -122,6 +126,14 @@ float		_fMagic3DItemPosScaleWide
 float		_fInventory3DItemPosScale
 float		_fMagic3DItemPosScale
 
+; -- Version 6 --
+
+; Lists
+string[]	_favGroupNames
+
+; State
+int			_favCurGroupIdx				= 0
+
 
 ; PROPERTIES --------------------------------------------------------------------------------------
 
@@ -132,7 +144,11 @@ SKI_Main property					SKI_MainInstance auto
 
 ; -- Version 4 --
 
-SKI_ActiveEffectsWidget property		SKI_ActiveEffectsWidgetInstance auto
+SKI_ActiveEffectsWidget property	SKI_ActiveEffectsWidgetInstance auto
+
+; -- Version 6 --
+
+SKI_FavoritesManager property		SKI_FavoritesManagerInstance auto
 
 
 ; INITIALIZATION ----------------------------------------------------------------------------------
@@ -162,7 +178,6 @@ endEvent
 ; @implements SKI_QuestBase
 event OnGameReload()
 	parent.OnGameReload()
-	
 	ApplySettings()
 endEvent
 
@@ -265,6 +280,34 @@ event OnVersionUpdate(int a_version)
 	if (a_version >= 5 && CurrentVersion < 5)
 		Debug.Trace(self + ": Updating to script version 5")
 	endIf
+
+	if (a_version >= 6 && CurrentVersion < 6)
+		Debug.Trace(self + ": Updating to script version 6")
+
+		Pages = new string[3]
+		Pages[0] = "$General"
+		Pages[1] = "$Favorite Groups"
+		Pages[2] = "$Advanced"
+
+		_favGroupNames = new string[8]
+		_favGroupNames[0] = "$Group {1}"
+		_favGroupNames[1] = "$Group {2}"
+		_favGroupNames[2] = "$Group {3}"
+		_favGroupNames[3] = "$Group {4}"
+		_favGroupNames[4] = "$Group {5}"
+		_favGroupNames[5] = "$Group {6}"
+		_favGroupNames[6] = "$Group {7}"
+		_favGroupNames[7] = "$Group {8}"
+	endIf
+
+	if (a_version >= 7 && CurrentVersion < 7)
+		Debug.Trace(self + ": Updating to script version 7")
+
+		Pages = new string[3]
+		Pages[0] = "$General"
+		Pages[1] = "$Controls"
+		Pages[2] = "$Advanced"
+	endIf
 endEvent
 
 
@@ -296,11 +339,32 @@ event OnPageReset(string a_page)
 		AddHeaderOption("$Active Effects HUD")
 		AddToggleOptionST("EFFECT_WIDGET_ENABLED", "$Enabled", SKI_ActiveEffectsWidgetInstance.Enabled)
 		AddTextOptionST("EFFECT_WIDGET_ICON_SIZE","$Icon Size", _sizes[_effectWidgetIconSizeIdx], _effectWidgetFlags)
+		AddSliderOptionST("EFFECT_WIDGET_MIN_TIME_LEFT", "$Minimum Time Left", SKI_ActiveEffectsWidgetInstance.MinimumTimeLeft, "{0} s", _effectWidgetFlags)
 
 		SetCursorPosition(1)
 
-		AddHeaderOption("$Controls")
-		if (! Game.UsingGamepad())
+		AddHeaderOption("$Favorites Menu")
+		AddToggleOptionST("FAV_MENU_HELP_ENABLED", "$Show Button Help", SKI_FavoritesManagerInstance.ButtonHelpEnabled)
+
+		AddEmptyOption()
+
+		int ARMOR_FLAG = SKI_FavoritesManagerInstance.GROUP_FLAG_UNEQUIP_ARMOR
+		int HANDS_FLAG = SKI_FavoritesManagerInstance.GROUP_FLAG_UNEQUIP_HANDS
+
+		AddHeaderOption("$Favorite Groups")
+		AddMenuOptionST("FAV_GROUP_SELECT", "", "$Group {" + (_favCurGroupIdx+1) + "}")
+		AddToggleOptionST("FAV_GROUP_UNEQUIP_ARMOR", "$Unequip Armor", SKI_FavoritesManagerInstance.GetGroupFlag(_favCurGroupIdx, ARMOR_FLAG))
+		AddToggleOptionST("FAV_GROUP_UNEQUIP_HANDS", "$Unequip Hands", SKI_FavoritesManagerInstance.GetGroupFlag(_favCurGroupIdx, HANDS_FLAG))		
+
+	; -------------------------------------------------------
+	elseIf (a_page == "$Controls")
+
+		bool isGamepad = Game.UsingGamepad()
+
+		SetCursorFillMode(TOP_TO_BOTTOM)
+
+		AddHeaderOption("$Item List")
+		if (! isGamepad)
 			AddKeyMapOptionST("SEARCH_KEY", "$Search", _searchKey)
 			AddKeyMapOptionST("SWITCH_TAB_KEY", "$Switch Tab", _switchTabKey)
 			AddKeyMapOptionST("EQUIP_MODE_KEY", "$Equip Mode", _equipModeKey)
@@ -310,6 +374,31 @@ event OnPageReset(string a_page)
 			AddKeyMapOptionST("PREV_COLUMN_BUTTON", "$Previous Column", _prevColumnButton)
 			AddKeyMapOptionST("NEXT_COLUMN_BUTTON", "$Next Column", _nextColumnButton)
 			AddKeyMapOptionST("SORT_ORDER_BUTTON", "$Order", _sortOrderButton)
+		endIf
+
+		AddEmptyOption()
+
+		if (! isGamepad)
+			AddHeaderOption("$Favorites Menu")
+			AddKeyMapOptionST("FAV_GROUP_ADD_KEY", "{$Group}/{$Ungroup}", SKI_FavoritesManagerInstance.GroupAddKey)
+			AddKeyMapOptionST("FAV_GROUP_USE_KEY", "$Group Use", SKI_FavoritesManagerInstance.GroupUseKey)
+			AddKeyMapOptionST("FAV_SET_ICON_KEY", "$Set Group Icon", SKI_FavoritesManagerInstance.SetIconKey)
+			AddKeyMapOptionST("FAV_EQUIP_STATE_KEY", "$Save Equip State", SKI_FavoritesManagerInstance.SaveEquipStateKey)
+			AddKeyMapOptionST("FAV_TOGGLE_FOCUS", "$Toggle Focus", SKI_FavoritesManagerInstance.ToggleFocusKey)
+
+			SetCursorPosition(1)
+
+			int[] groupHotkeys = SKI_FavoritesManagerInstance.GetGroupHotkeys()
+
+			AddHeaderOption("$Favorite Groups")
+			AddKeyMapOptionST("FAV_GROUP_USE_HOTKEY1", "$Group {1}", groupHotkeys[0], OPTION_FLAG_WITH_UNMAP)
+			AddKeyMapOptionST("FAV_GROUP_USE_HOTKEY2", "$Group {2}", groupHotkeys[1], OPTION_FLAG_WITH_UNMAP)
+			AddKeyMapOptionST("FAV_GROUP_USE_HOTKEY3", "$Group {3}", groupHotkeys[2], OPTION_FLAG_WITH_UNMAP)
+			AddKeyMapOptionST("FAV_GROUP_USE_HOTKEY4", "$Group {4}", groupHotkeys[3], OPTION_FLAG_WITH_UNMAP)
+			AddKeyMapOptionST("FAV_GROUP_USE_HOTKEY5", "$Group {5}", groupHotkeys[4], OPTION_FLAG_WITH_UNMAP)
+			AddKeyMapOptionST("FAV_GROUP_USE_HOTKEY6", "$Group {6}", groupHotkeys[5], OPTION_FLAG_WITH_UNMAP)
+			AddKeyMapOptionST("FAV_GROUP_USE_HOTKEY7", "$Group {7}", groupHotkeys[6], OPTION_FLAG_WITH_UNMAP)
+			AddKeyMapOptionST("FAV_GROUP_USE_HOTKEY8", "$Group {8}", groupHotkeys[7], OPTION_FLAG_WITH_UNMAP)
 		endIf
 
 	; -------------------------------------------------------
@@ -340,20 +429,362 @@ event OnPageReset(string a_page)
 		AddSliderOptionST("ITEMCARD_YOFFSET", "$Vertical Offset", _itemcardYOffset)
 
 		AddEmptyOption()
-		AddEmptyOption()
 
 		AddHeaderOption("$SWF Version Checking")
+		AddToggleOptionST("CHECK_MAP_MENU", "Map Menu", SKI_MainInstance.MapMenuCheckEnabled)
+		AddToggleOptionST("CHECK_FAVORITES_MENU", "Favorites Menu", SKI_MainInstance.FavoritesMenuCheckEnabled)
 		AddToggleOptionST("CHECK_INVENTORY_MENU", "Inventory Menu", SKI_MainInstance.InventoryMenuCheckEnabled)
 		AddToggleOptionST("CHECK_MAGIC_MENU", "Magic Menu", SKI_MainInstance.MagicMenuCheckEnabled)
 		AddToggleOptionST("CHECK_BARTER_MENU", "Barter Menu", SKI_MainInstance.BarterMenuCheckEnabled)
 		AddToggleOptionST("CHECK_CONTAINER_MENU", "Container Menu", SKI_MainInstance.ContainerMenuCheckEnabled)
 		AddToggleOptionST("CHECK_GIFT_MENU", "Gift Menu", SKI_MainInstance.GiftMenuCheckEnabled)
-		AddToggleOptionST("CHECK_MAP_MENU", "Map Menu", SKI_MainInstance.MapMenuCheckEnabled)
+		
 	endIf
 endEvent
 
 
 ; STATE OPTIONS -----------------------------------------------------------------------------------
+
+state FAV_GROUP_ADD_KEY ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		if (! ValidateKey(a_keyCode, false))
+			return
+		endIf
+
+		SKI_FavoritesManagerInstance.GroupAddKey = a_keyCode
+		RefreshFavoriteHotkeys()
+	endEvent
+
+	event OnDefaultST()
+		SKI_FavoritesManagerInstance.GroupAddKey = 33		
+		RefreshFavoriteHotkeys()
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{F}")
+	endEvent
+
+endState
+
+state FAV_GROUP_USE_KEY ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		if (! ValidateKey(a_keyCode, false))
+			return
+		endIf
+
+		SKI_FavoritesManagerInstance.GroupUseKey = a_keyCode
+		RefreshFavoriteHotkeys()
+	endEvent
+
+	event OnDefaultST()
+		SKI_FavoritesManagerInstance.GroupUseKey = 19		
+		RefreshFavoriteHotkeys()
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{R}")
+	endEvent
+
+endState
+
+state FAV_SET_ICON_KEY ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		if (! ValidateKey(a_keyCode, false))
+			return
+		endIf
+
+		SKI_FavoritesManagerInstance.SetIconKey = a_keyCode
+		RefreshFavoriteHotkeys()
+	endEvent
+
+	event OnDefaultST()
+		SKI_FavoritesManagerInstance.SetIconKey = 56		
+		RefreshFavoriteHotkeys()
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{LAlt}")
+	endEvent
+
+endState
+
+state FAV_EQUIP_STATE_KEY ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		if (! ValidateKey(a_keyCode, false))
+			return
+		endIf
+
+		SKI_FavoritesManagerInstance.SaveEquipStateKey = a_keyCode
+		RefreshFavoriteHotkeys()
+	endEvent
+
+	event OnDefaultST()
+		SKI_FavoritesManagerInstance.SaveEquipStateKey = 20	
+		RefreshFavoriteHotkeys()
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{T}")
+	endEvent
+
+endState
+
+state FAV_TOGGLE_FOCUS ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		if (! ValidateKey(a_keyCode, false))
+			return
+		endIf
+
+		SKI_FavoritesManagerInstance.ToggleFocusKey = a_keyCode
+		RefreshFavoriteHotkeys()
+	endEvent
+
+	event OnDefaultST()
+		SKI_FavoritesManagerInstance.ToggleFocusKey = 57		
+		RefreshFavoriteHotkeys()
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{Space}")
+	endEvent
+
+endState
+
+state FAV_GROUP_USE_HOTKEY1 ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		SetFavoritesGroupHotkey(0, a_keyCode, a_conflictControl, a_conflictName)
+	endEvent
+
+	event OnDefaultST()
+		SetFavoritesGroupHotkey(0, 59)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{F1}")
+	endEvent
+
+endState
+
+state FAV_GROUP_USE_HOTKEY2 ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		SetFavoritesGroupHotkey(1, a_keyCode, a_conflictControl, a_conflictName)
+	endEvent
+
+	event OnDefaultST()
+		SetFavoritesGroupHotkey(1, 60)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{F2}")
+	endEvent
+
+endState
+
+state FAV_GROUP_USE_HOTKEY3 ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		SetFavoritesGroupHotkey(2, a_keyCode, a_conflictControl, a_conflictName)
+	endEvent
+
+	event OnDefaultST()
+		SetFavoritesGroupHotkey(2, 61)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{F3}")
+	endEvent
+
+endState
+
+state FAV_GROUP_USE_HOTKEY4 ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		SetFavoritesGroupHotkey(3, a_keyCode, a_conflictControl, a_conflictName)
+	endEvent
+
+	event OnDefaultST()
+		SetFavoritesGroupHotkey(3, 62)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{F4}")
+	endEvent
+
+endState
+
+state FAV_GROUP_USE_HOTKEY5 ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		SetFavoritesGroupHotkey(4, a_keyCode, a_conflictControl, a_conflictName)
+	endEvent
+
+	event OnDefaultST()
+		SetFavoritesGroupHotkey(4, -1)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{$Off}")
+	endEvent
+
+endState
+
+state FAV_GROUP_USE_HOTKEY6 ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		SetFavoritesGroupHotkey(5, a_keyCode, a_conflictControl, a_conflictName)
+	endEvent
+
+	event OnDefaultST()
+		SetFavoritesGroupHotkey(5, -1)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{$Off}")
+	endEvent
+
+endState
+
+state FAV_GROUP_USE_HOTKEY7 ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		SetFavoritesGroupHotkey(6, a_keyCode, a_conflictControl, a_conflictName)
+	endEvent
+
+	event OnDefaultST()
+		SetFavoritesGroupHotkey(6, -1)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{$Off}")
+	endEvent
+
+endState
+
+state FAV_GROUP_USE_HOTKEY8 ; KEYMAP
+
+	event OnKeyMapChangeST(int a_keyCode, string a_conflictControl, string a_conflictName)
+		SetFavoritesGroupHotkey(7, a_keyCode, a_conflictControl, a_conflictName)
+	endEvent
+
+	event OnDefaultST()
+		SetFavoritesGroupHotkey(7, -1)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{$Off}")
+	endEvent
+
+endState
+
+state FAV_MENU_HELP_ENABLED ; TOGGLE
+
+	event OnSelectST()
+		bool newVal = !SKI_FavoritesManagerInstance.ButtonHelpEnabled
+		SKI_FavoritesManagerInstance.ButtonHelpEnabled = newVal
+
+		SetToggleOptionValueST(newVal)
+	endEvent
+
+	event OnDefaultST()
+		SKI_FavoritesManagerInstance.ButtonHelpEnabled = true
+
+		SetToggleOptionValueST(true)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO1{$On}")
+	endEvent
+	
+endState
+
+state FAV_GROUP_SELECT ; MENU
+
+	event OnMenuOpenST()
+		SetMenuDialogStartIndex(_favCurGroupIdx)
+		SetMenuDialogDefaultIndex(0)
+		SetMenuDialogOptions(_favGroupNames)
+	endEvent
+
+	event OnMenuAcceptST(int a_index)
+		_favCurGroupIdx = a_index
+
+		SetCurrentFavoriteGroup(_favCurGroupIdx)
+
+		SetMenuOptionValueST(_favGroupNames[_favCurGroupIdx])
+	endEvent
+
+	event OnDefaultST()
+		_favCurGroupIdx = 0
+
+		SetCurrentFavoriteGroup(_favCurGroupIdx)
+
+		SetTextOptionValueST(_favCurGroupIdx+1)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO6")
+	endEvent
+	
+endState
+
+state FAV_GROUP_UNEQUIP_ARMOR ; TOGGLE
+
+	event OnSelectST()
+		int ARMOR_FLAG = SKI_FavoritesManagerInstance.GROUP_FLAG_UNEQUIP_ARMOR
+
+		bool newVal = !SKI_FavoritesManagerInstance.GetGroupFlag(_favCurGroupIdx, ARMOR_FLAG)
+		SKI_FavoritesManagerInstance.SetGroupFlag(_favCurGroupIdx, ARMOR_FLAG, newVal)
+
+		SetToggleOptionValueST(newVal)
+	endEvent
+
+	event OnDefaultST()
+		int ARMOR_FLAG = SKI_FavoritesManagerInstance.GROUP_FLAG_UNEQUIP_ARMOR
+
+		SKI_FavoritesManagerInstance.SetGroupFlag(_favCurGroupIdx, ARMOR_FLAG, false)
+
+		SetToggleOptionValueST(false)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO7{$Off}")
+	endEvent
+	
+endState
+
+state FAV_GROUP_UNEQUIP_HANDS ; TOGGLE
+
+	event OnSelectST()
+		int HANDS_FLAG = SKI_FavoritesManagerInstance.GROUP_FLAG_UNEQUIP_HANDS
+
+		bool newVal = !SKI_FavoritesManagerInstance.GetGroupFlag(_favCurGroupIdx, HANDS_FLAG)
+		SKI_FavoritesManagerInstance.SetGroupFlag(_favCurGroupIdx, HANDS_FLAG, newVal)
+
+		SetToggleOptionValueST(newVal)
+	endEvent
+
+	event OnDefaultST()
+		int HANDS_FLAG = SKI_FavoritesManagerInstance.GROUP_FLAG_UNEQUIP_ARMOR
+
+		SKI_FavoritesManagerInstance.SetGroupFlag(_favCurGroupIdx, HANDS_FLAG, false)
+
+		SetToggleOptionValueST(false)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO8{$Off}")
+	endEvent
+	
+endState
+
+; -------------------------------------------------------
 
 state ITEMLIST_FONT_SIZE ; TEXT
 
@@ -586,6 +1017,31 @@ state EFFECT_WIDGET_VERTICAL_ANCHOR ; TEXT
 
 endState
 
+state EFFECT_WIDGET_MIN_TIME_LEFT ; SLIDER
+
+	event OnSliderOpenST()
+		SetSliderDialogStartValue(SKI_ActiveEffectsWidgetInstance.MinimumTimeLeft)
+		SetSliderDialogDefaultValue(180)
+		SetSliderDialogRange(0, 600)
+		SetSliderDialogInterval(10)
+	endEvent
+
+	event OnSliderAcceptST(float a_value)
+		SKI_ActiveEffectsWidgetInstance.MinimumTimeLeft = a_value as int
+		SetSliderOptionValueST(a_value as int, "{0} s")
+	endEvent
+
+	event OnDefaultST()
+		SKI_ActiveEffectsWidgetInstance.MinimumTimeLeft = 180
+		SetSliderOptionValueST(180)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO5{180}")
+	endEvent
+
+endState
+
 state EFFECT_WIDGET_GROUP_COUNT ; SLIDER
 
 	event OnSliderOpenST()
@@ -674,7 +1130,7 @@ state SEARCH_KEY ; KEYMAP
 			return
 		endIf
 
-		SwapKeys(a_keyCode, _searchKey)
+		SwapItemListKey(a_keyCode, _searchKey)
 
 		_searchKey = a_keyCode
 		SetKeyMapOptionValueST(_searchKey)
@@ -700,7 +1156,7 @@ state SWITCH_TAB_KEY ; KEYMAP
 			return
 		endIf
 
-		SwapKeys(a_keyCode, _switchTabKey)
+		SwapItemListKey(a_keyCode, _switchTabKey)
 
 		_switchTabKey = a_keyCode
 		SetKeyMapOptionValueST(_switchTabKey)
@@ -726,7 +1182,7 @@ state EQUIP_MODE_KEY ; KEYMAP
 			return
 		endIf
 
-		SwapKeys(a_keyCode, _equipModeKey)
+		SwapItemListKey(a_keyCode, _equipModeKey)
 
 		_equipModeKey = a_keyCode
 		SetKeyMapOptionValueST(_equipModeKey)
@@ -752,7 +1208,7 @@ state SWITCH_TAB_BUTTON ; KEYMAP
 			return
 		endIf
 
-		SwapKeys(a_keyCode, _switchTabButton)
+		SwapItemListKey(a_keyCode, _switchTabButton)
 
 		_switchTabButton = a_keyCode
 		SetKeyMapOptionValueST(_switchTabButton)
@@ -778,7 +1234,7 @@ state PREV_COLUMN_BUTTON ; KEYMAP
 			return
 		endIf
 
-		SwapKeys(a_keyCode, _prevColumnButton)
+		SwapItemListKey(a_keyCode, _prevColumnButton)
 
 		_prevColumnButton = a_keyCode
 		SetKeyMapOptionValueST(_prevColumnButton)
@@ -804,7 +1260,7 @@ state NEXT_COLUMN_BUTTON ; KEYMAP
 			return
 		endIf
 
-		SwapKeys(a_keyCode, _nextColumnButton)
+		SwapItemListKey(a_keyCode, _nextColumnButton)
 
 		_nextColumnButton = a_keyCode
 		SetKeyMapOptionValueST(_nextColumnButton)
@@ -830,7 +1286,7 @@ state SORT_ORDER_BUTTON ; KEYMAP
 			return
 		endIf
 
-		SwapKeys(a_keyCode, _sortOrderButton)
+		SwapItemListKey(a_keyCode, _sortOrderButton)
 
 		_sortOrderButton = a_keyCode
 		SetKeyMapOptionValueST(_sortOrderButton)
@@ -1167,8 +1623,39 @@ state CHECK_MAP_MENU ; SLIDER
 	
 endState
 
+state CHECK_FAVORITES_MENU ; SLIDER
+
+	event OnSelectST()
+		bool newVal = !SKI_MainInstance.FavoritesMenuCheckEnabled
+		SKI_MainInstance.FavoritesMenuCheckEnabled = newVal
+		SetToggleOptionValueST(newVal)
+	endEvent
+
+	event OnDefaultST()
+		SKI_MainInstance.FavoritesMenuCheckEnabled = true
+		SetToggleOptionValueST(true)
+	endEvent
+
+	event OnHighlightST()
+		SetInfoText("$SKI_INFO3{$On}")
+	endEvent
+	
+endState
+
 
 ; FUNCTIONS ---------------------------------------------------------------------------------------
+
+; @interface
+string function GetCustomControl(int a_keyCode)
+	int[] groupHotkeys = SKI_FavoritesManagerInstance.GetGroupHotkeys()
+
+	int index = groupHotkeys.Find(a_keyCode)
+	if (index != -1)
+		return ("Group " + (index+1))
+	endIf
+
+	return ""
+endFunction
 
 function ApplySettings()
 	; Apply settings that aren't handled by SKI_SettingsManagerInstance
@@ -1314,7 +1801,7 @@ bool function ValidateKey(int a_keyCode, bool a_gamepad)
 	return true
 endFunction
 
-function SwapKeys(int a_newKey, int a_curKey)
+function SwapItemListKey(int a_newKey, int a_curKey)
 	if (a_newKey == _searchKey)
 		_searchKey = a_curKey
 		SetKeyMapOptionValueST(_searchKey, true, "SEARCH_KEY")
@@ -1345,6 +1832,58 @@ function SwapKeys(int a_newKey, int a_curKey)
 		SetKeyMapOptionValueST(_sortOrderButton, true, "SORT_ORDER_BUTTON")
 		SKI_SettingsManagerInstance.SetOverride("Input$controls$gamepad$sortOrder", _sortOrderButton)
 	endIf
+endFunction
+
+function SetCurrentFavoriteGroup(int a_index)
+	int ARMOR_FLAG = SKI_FavoritesManagerInstance.GROUP_FLAG_UNEQUIP_ARMOR
+	int HANDS_FLAG = SKI_FavoritesManagerInstance.GROUP_FLAG_UNEQUIP_HANDS
+
+	SetToggleOptionValueST(SKI_FavoritesManagerInstance.GetGroupFlag(_favCurGroupIdx, ARMOR_FLAG), true, "FAV_GROUP_UNEQUIP_ARMOR")
+	SetToggleOptionValueST(SKI_FavoritesManagerInstance.GetGroupFlag(_favCurGroupIdx, HANDS_FLAG), true, "FAV_GROUP_UNEQUIP_HANDS")
+endFunction
+
+function SetFavoritesGroupHotkey(int a_groupIndex, int a_keyCode, string a_conflictControl = "", string a_conflictName = "")
+
+	bool continue = true
+
+	if (a_conflictControl != "" && a_conflictName != ModName)
+		string msg
+
+		if (a_conflictName != "")
+			msg = "$SKI_MSG2{" + a_conflictControl + " (" + a_conflictName + ")}"
+		else
+			msg = "$SKI_MSG2{" + a_conflictControl + "}"
+		endIf
+
+		continue = ShowMessage(msg, true, "$Yes", "$No")
+	endIf
+
+	if (!continue)
+		return
+	endIf
+
+	if (!SKI_FavoritesManagerInstance.SetGroupHotkey(a_groupIndex, a_keyCode))
+		return
+	endIf
+
+	; Update
+	int[] groupHotkeys = SKI_FavoritesManagerInstance.GetGroupHotkeys()
+	SetKeyMapOptionValueST(groupHotkeys[0], true, "FAV_GROUP_USE_HOTKEY1")
+	SetKeyMapOptionValueST(groupHotkeys[1], true, "FAV_GROUP_USE_HOTKEY2")
+	SetKeyMapOptionValueST(groupHotkeys[2], true, "FAV_GROUP_USE_HOTKEY3")
+	SetKeyMapOptionValueST(groupHotkeys[3], true, "FAV_GROUP_USE_HOTKEY4")
+	SetKeyMapOptionValueST(groupHotkeys[4], true, "FAV_GROUP_USE_HOTKEY5")
+	SetKeyMapOptionValueST(groupHotkeys[5], true, "FAV_GROUP_USE_HOTKEY6")
+	SetKeyMapOptionValueST(groupHotkeys[6], true, "FAV_GROUP_USE_HOTKEY7")
+	SetKeyMapOptionValueST(groupHotkeys[7], false, "FAV_GROUP_USE_HOTKEY8")
+endFunction
+
+function RefreshFavoriteHotkeys()
+	SetKeyMapOptionValueST(SKI_FavoritesManagerInstance.GroupAddKey, true, "FAV_GROUP_ADD_KEY")
+	SetKeyMapOptionValueST(SKI_FavoritesManagerInstance.GroupUseKey, true, "FAV_GROUP_USE_KEY")
+	SetKeyMapOptionValueST(SKI_FavoritesManagerInstance.SetIconKey, true, "FAV_SET_ICON_KEY")
+	SetKeyMapOptionValueST(SKI_FavoritesManagerInstance.ToggleFocusKey, true, "FAV_TOGGLE_FOCUS")
+	SetKeyMapOptionValueST(SKI_FavoritesManagerInstance.SaveEquipStateKey, false, "FAV_EQUIP_STATE_KEY")
 endFunction
 
 

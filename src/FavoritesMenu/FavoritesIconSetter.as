@@ -1,4 +1,4 @@
-﻿import skyui.components.list.BasicList;
+import skyui.components.list.BasicList;
 import skyui.components.list.IListProcessor;
 
 import skyui.defines.Actor;
@@ -31,7 +31,7 @@ class FavoritesIconSetter implements IListProcessor
   /* PRIVATE FUNCTIONS */
   
 	private function processEntry(a_entryObject: Object): Void
-	{
+	{		
 		switch (a_entryObject.formType) {
 			case Form.TYPE_SCROLLITEM:
 				a_entryObject.iconLabel = "default_scroll";

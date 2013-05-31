@@ -9,9 +9,11 @@ scriptname SKI_ConfigManager extends SKI_QuestBase hidden
 ; 2:	- Added lock for API functions
 ;
 ; 3:	- Removed lock again until I have time to test it properly
+;
+; 4:	- Added redundancy for registration process
 
 int function GetVersion()
-	return 3
+	return 4
 endFunction
 
 
@@ -38,15 +40,18 @@ SKI_ConfigBase		_activeConfig
 bool				_lockInit		= false
 bool				_locked			= false
 
+; -- Version 4 --
+
+bool				_cleanupFlag	= false
+int					_addCounter		= 0
+int					_updateCounter	= 0
+
 
 ; INITIALIZATION ----------------------------------------------------------------------------------
 
 event OnInit()
 	_modConfigs	= new SKI_ConfigBase[128]
 	_modNames	= new string[128]
-
-	; Wait a few ticks until any initial menus have registered for events
-	Utility.Wait(0.5)
 
 	OnGameReload()
 endEvent
@@ -72,35 +77,47 @@ event OnGameReload()
 	; no longer used but better safe than sorry
 	_lockInit = true
 
+	_cleanupFlag = true
+
 	CleanUp()
-
 	SendModEvent("SKICP_configManagerReady")
+
+	_updateCounter = 0
+	RegisterForSingleUpdate(5)
 endEvent
-
-function CleanUp()
-	_configCount = 0
-	int i = 0
-	while (i < _modConfigs.length)
-		if (_modConfigs[i] == none || _modConfigs[i].GetFormID() == 0)
-			_modConfigs[i] = none
-			_modNames[i] = ""
-		else
-			_configCount += 1
-		endIf
-
-		i += 1
-	endWhile
-endFunction
 
 
 ; EVENTS ------------------------------------------------------------------------------------------
 
+event OnUpdate()
+
+	if (_cleanupFlag)
+		CleanUp()
+	endIf
+
+	if (_addCounter > 0)
+		Debug.Notification("MCM: Registered " + _addCounter + " new menu(s).")
+		_addCounter = 0
+	endIf
+
+	SendModEvent("SKICP_configManagerReady")
+
+	if (_updateCounter < 6)
+		_updateCounter += 1
+		RegisterForSingleUpdate(5)
+	else
+		RegisterForSingleUpdate(30)
+	endIf
+endEvent
+
 event OnMenuOpen(string a_menuName)
+	GotoState("BUSY")
 	_activeConfig = none
 	UI.InvokeStringA(JOURNAL_MENU, MENU_ROOT + ".setModNames", _modNames);
 endEvent
 
 event OnMenuClose(string a_menuName)
+	GotoState("")
 	if (_activeConfig)
 		_activeConfig.CloseConfig()
 	endIf
@@ -214,9 +231,11 @@ endEvent
 
 ; @interface
 int function RegisterMod(SKI_ConfigBase a_menu, string a_modName)
+	GotoState("BUSY")
 	;Log("Registering config menu: " + a_menu + "(" + a_modName + ")")
 
 	if (_configCount >= 128)
+		GotoState("")
 		return -1
 	endIf
 
@@ -224,6 +243,7 @@ int function RegisterMod(SKI_ConfigBase a_menu, string a_modName)
 	int i = 0
 	while (i < _modConfigs.length)
 		if (_modConfigs[i] == a_menu)
+			GotoState("")
 			return i
 		endIf
 			
@@ -232,16 +252,28 @@ int function RegisterMod(SKI_ConfigBase a_menu, string a_modName)
 
 	; New registration
 	int configID = NextID()
+	
+	if (configID == -1)
+		GotoState("")
+		return -1
+	endIf
+
 	_modConfigs[configID] = a_menu
 	_modNames[configID] = a_modName
 	
 	_configCount += 1
 
+	; Track mods added in the current cycle so we don't have to display one message per mod
+	_addCounter += 1
+
+	GotoState("")
+
 	return configID
 endFunction
 
 ; @interface
-bool function UnregisterMod(SKI_ConfigBase a_menu)
+int function UnregisterMod(SKI_ConfigBase a_menu)
+	GotoState("BUSY")
 	;Log("Unregistering config menu: " + a_menu)
 
 	int i = 0
@@ -251,19 +283,23 @@ bool function UnregisterMod(SKI_ConfigBase a_menu)
 			_modNames[i] = ""
 			_configCount -= 1
 
-			return true
+			GotoState("")
+			return i
 		endIf
 			
 		i += 1
 	endWhile
 
-	return false
+	GotoState("")
+	return -1
 endFunction
 
 ; @interface
 function ForceReset()
 	Log("Forcing config manager reset...")
 	SendModEvent("SKICP_configManagerReset")
+
+	GotoState("BUSY")
 
 	int i = 0
 	while (i < _modConfigs.length)
@@ -275,7 +311,30 @@ function ForceReset()
 	_curConfigID = 0
 	_configCount = 0
 
+	GotoState("")
+
 	SendModEvent("SKICP_configManagerReady")
+endFunction
+
+function CleanUp()
+	GotoState("BUSY")
+
+	_cleanupFlag = false
+
+	_configCount = 0
+	int i = 0
+	while (i < _modConfigs.length)
+		if (_modConfigs[i] == none || _modConfigs[i].GetFormID() == 0)
+			_modConfigs[i] = none
+			_modNames[i] = ""
+		else
+			_configCount += 1
+		endIf
+
+		i += 1
+	endWhile
+
+	GotoState("")
 endFunction
 
 int function NextID()
@@ -299,3 +358,20 @@ function Log(string a_msg)
 endFunction
 
 
+; STATES ---------------------------------------------------------------------------------------
+
+state BUSY
+	int function RegisterMod(SKI_ConfigBase a_menu, string a_modName)
+		return -2
+	endFunction
+
+	int function UnregisterMod(SKI_ConfigBase a_menu)
+		return -2
+	endFunction
+
+	function ForceReset()
+	endFunction
+
+	function CleanUp()
+	endFunction
+endState

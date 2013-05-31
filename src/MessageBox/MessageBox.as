@@ -1,4 +1,4 @@
-﻿import gfx.io.GameDelegate;
+import gfx.io.GameDelegate;
 import gfx.controls.Button;
 import skse;
 

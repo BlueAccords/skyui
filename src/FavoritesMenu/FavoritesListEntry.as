@@ -20,6 +20,8 @@ class FavoritesListEntry extends BasicListEntry
 	public var textField: TextField;
   	public var selectIndicator: MovieClip;
 	public var hotkeyIcon: MovieClip;
+	public var mainHandIcon: MovieClip;
+	public var offHandIcon: MovieClip;
 	
 	
   /* INITIALIZATION */
@@ -35,8 +37,16 @@ class FavoritesListEntry extends BasicListEntry
 	
   	// @override BasicListEntry
 	public function setEntry(a_entryObject: Object, a_state: ListState): Void
-	{
-		var isSelected = a_entryObject == a_state.list.selectedEntry;
+	{		
+		var isAssigned = a_entryObject == a_state.assignedEntry;
+		var isSelected = a_entryObject == a_state.list.selectedEntry || isAssigned;
+		
+		var groupIndex = a_state.activeGroupIndex;
+		var isMainHand: Boolean = groupIndex != -1 && (a_entryObject.mainHandFlag & (1 << groupIndex)) != 0;
+		var isOffHand: Boolean = groupIndex != -1 && (a_entryObject.offHandFlag & (1 << groupIndex)) != 0;
+		
+		enabled = a_state.assignedEntry == null || isAssigned;
+		_alpha = enabled ? 100 : 25;
 		
 		if (selectIndicator != undefined)
 			selectIndicator._visible = isSelected;
@@ -76,6 +86,19 @@ class FavoritesListEntry extends BasicListEntry
 			equipIcon.gotoAndStop("None");
 		else
 			equipIcon.gotoAndStop(STATES[a_entryObject.equipState]);
+
+		var iconOffset = textField._x + textField.textWidth + 10;
+
+		if (isMainHand) {
+			mainHandIcon._x = iconOffset;
+			iconOffset += 15;
+		}
+		mainHandIcon._visible = isMainHand;
+		
+		if (isOffHand) {
+			offHandIcon._x = iconOffset;
+		}
+		offHandIcon._visible = isOffHand;
 	}
 	
 	

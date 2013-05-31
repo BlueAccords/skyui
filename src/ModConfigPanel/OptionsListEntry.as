@@ -21,6 +21,8 @@ class OptionsListEntry extends BasicListEntry
 	
 	// 1 byte
 	public static var FLAG_DISABLED = 0x01;
+	public static var FLAG_HIDDEN = 0x02;
+	public static var FLAG_WITH_UNMAP = 0x04;
 	
 	public static var ALPHA_SELECTED = 100;
 	public static var ALPHA_ACTIVE = 75;
@@ -71,20 +73,25 @@ class OptionsListEntry extends BasicListEntry
 		var isSelected = a_entryObject == a_state.list.selectedEntry;
 
 		var flags = a_entryObject.flags;
-		var isEnabled = !(flags & FLAG_DISABLED);
+		var isEnabled = !(flags & (FLAG_DISABLED | FLAG_HIDDEN));
 		
 		selectIndicator._visible = isSelected;
 		
 		_alpha = isEnabled ? ALPHA_ENABLED : ALPHA_DISABLED;
-			
-		switch (a_entryObject.optionType) {
+		
+		// If entry is hidden, treat like empty option
+		var optionType = a_entryObject.optionType;
+		if (flags & FLAG_HIDDEN)
+			optionType = OPTION_EMPTY;
+		
+		switch (optionType) {
 			
 			case OPTION_HEADER:
 				enabled = false;
 				gotoAndStop("header");
 				
 				labelTextField._width = entryWidth;
-				labelTextField.SetText(a_entryObject.text);
+				labelTextField.SetText(a_entryObject.text, true);
 				labelTextField._alpha = 100;
 
 				headerDecor._x = labelTextField.getLineMetrics(0).width + 10;
@@ -97,11 +104,11 @@ class OptionsListEntry extends BasicListEntry
 				gotoAndStop("text");
 				
 				labelTextField._width = entryWidth;
-				labelTextField.SetText(a_entryObject.text);
+				labelTextField.SetText(a_entryObject.text, true);
 				labelTextField._alpha = isSelected ? ALPHA_SELECTED : ALPHA_ACTIVE;
 				
 				valueTextField._width = entryWidth;
-				valueTextField.SetText(Translator.translate(a_entryObject.strValue).toUpperCase());
+				valueTextField.SetText(Translator.translateNested(a_entryObject.strValue).toUpperCase());
 				
 				break;
 				
@@ -110,7 +117,7 @@ class OptionsListEntry extends BasicListEntry
 				gotoAndStop("toggle");
 				
 				labelTextField._width = entryWidth;
-				labelTextField.SetText(a_entryObject.text);
+				labelTextField.SetText(a_entryObject.text, true);
 				labelTextField._alpha = isSelected ? ALPHA_SELECTED : ALPHA_ACTIVE;
 				
 				toggleIcon._x = entryWidth - toggleIcon._width;
@@ -123,7 +130,7 @@ class OptionsListEntry extends BasicListEntry
 				gotoAndStop("slider");
 				
 				labelTextField._width = entryWidth;
-				labelTextField.SetText(a_entryObject.text);
+				labelTextField.SetText(a_entryObject.text, true);
 				labelTextField._alpha = isSelected ? ALPHA_SELECTED : ALPHA_ACTIVE;
 				
 				valueTextField._width = entryWidth;
@@ -138,11 +145,11 @@ class OptionsListEntry extends BasicListEntry
 				gotoAndStop("menu");
 				
 				labelTextField._width = entryWidth;
-				labelTextField.SetText(a_entryObject.text);
+				labelTextField.SetText(a_entryObject.text, true);
 				labelTextField._alpha = isSelected ? ALPHA_SELECTED : ALPHA_ACTIVE;
 				
 				valueTextField._width = entryWidth;
-				valueTextField.SetText(Translator.translate(a_entryObject.strValue).toUpperCase());
+				valueTextField.SetText(Translator.translateNested(a_entryObject.strValue).toUpperCase());
 				
 				menuIcon._x = valueTextField.getLineMetrics(0).x - menuIcon._width;
 				
@@ -153,7 +160,7 @@ class OptionsListEntry extends BasicListEntry
 				gotoAndStop("color");
 				
 				labelTextField._width = entryWidth;
-				labelTextField.SetText(a_entryObject.text);
+				labelTextField.SetText(a_entryObject.text, true);
 				labelTextField._alpha = isSelected ? ALPHA_SELECTED : ALPHA_ACTIVE;
 				
 				colorIcon._x = entryWidth - colorIcon._width;
@@ -168,10 +175,13 @@ class OptionsListEntry extends BasicListEntry
 				gotoAndStop("keymap");
 				
 				labelTextField._width = entryWidth;
-				labelTextField.SetText(a_entryObject.text);
+				labelTextField.SetText(a_entryObject.text, true);
 				labelTextField._alpha = isSelected ? ALPHA_SELECTED : ALPHA_ACTIVE;
 				
-				buttonArt.gotoAndStop(a_entryObject.numValue);
+				var keyCode = a_entryObject.numValue;
+				if (keyCode == -1)
+					keyCode = 282; // "???"
+				buttonArt.gotoAndStop(keyCode);
 				buttonArt._x = entryWidth - buttonArt._width;
 				
 				break;
