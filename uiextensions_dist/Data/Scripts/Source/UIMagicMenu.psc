@@ -14,7 +14,7 @@ string Function GetMenuName()
 	return "UIMagicMenu"
 EndFunction
 
-int Function OpenMenu(Form akForm, Form akReceiver = None)
+int Function OpenMenu(Form akForm = None, Form akReceiver = None)
 	_actor = akForm as Actor
 	RegisterForMenu(ROOT_MENU)
 	return UIMagicMenuMessage.Show()

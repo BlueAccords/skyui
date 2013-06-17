@@ -4,6 +4,7 @@ Interface\selectionmenu.swf
 Interface\statssheetmenu.swf
 Interface\wheelmenu.swf
 Interface\listmenu.swf
+Interface\textentrymenu.swf
 Interface\extension_assets\meter.swf
 Interface\extension_assets\bottombar.swf
 Interface\extension_assets\buttonArt.swf
@@ -14,10 +15,12 @@ Scripts\UIMenuBase.pex
 Scripts\UIMenuLoad.pex
 Scripts\UISelectionMenu.pex
 Scripts\UIStatsMenu.pex
+Scripts\UITextEntryMenu.pex
 Scripts\UIWheelMenu.pex
 Scripts\Source\UIMagicMenu.psc
 Scripts\Source\UIMenuBase.psc
 Scripts\Source\UIMenuLoad.psc
 Scripts\Source\UISelectionMenu.psc
 Scripts\Source\UIStatsMenu.psc
+Scripts\Source\UITextEntryMenu.psc
 Scripts\Source\UIWheelMenu.psc

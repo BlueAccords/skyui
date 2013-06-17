@@ -4,6 +4,7 @@ Interface\selectionmenu.swf
 Interface\statssheetmenu.swf
 Interface\wheelmenu.swf
 Interface\listmenu.swf
+Interface\textentrymenu.swf
 Interface\extension_assets\meter.swf
 Interface\extension_assets\bottombar.swf
 Interface\extension_assets\buttonArt.swf

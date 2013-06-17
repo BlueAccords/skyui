@@ -260,6 +260,11 @@ Event OnTintColorChange(string eventName, string strArg, float numArg, Form form
 	int index = arg - (type * 1000)
 	Game.SetTintMaskColor(color, type, index)
 	Game.UpdateTintMaskColors()
+
+	; When UpdateTintMaskColors is called, it updates SkinTone shaders on every node
+	; including ones with overrides, we need to fix this by informing the plugin
+	; and reapplying the overrides
+	SendModEvent("RSM_ShadersInvalidated")
 EndEvent
 
 Event OnTintTextureChange(string eventName, string strArg, float numArg, Form formArg)
@@ -269,6 +274,11 @@ Event OnTintTextureChange(string eventName, string strArg, float numArg, Form fo
 	int index = arg - (type * 1000)
 	Game.SetTintMaskTexturePath(strArg, type, index)
 	Game.UpdateTintMaskColors()
+
+	 ; When UpdateTintMaskColors is called, it updates SkinTone shaders on every node
+	 ; including ones with overrides, we need to fix this by informing the plugin
+	 ; and reapplying the overrides
+	SendModEvent("RSM_ShadersInvalidated")
 EndEvent
 
 Event OnToggleLight(string eventName, string strArg, float numArg, Form formArg)

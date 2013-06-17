@@ -50,7 +50,7 @@ class ColorSlider extends gfx.controls.Slider
 		}
 		else if (details.navEquivalent === NavigationCode.GAMEPAD_L1)
 		{
-			if (!keyState) 
+			if (keyState) 
 			{
 				value = this.minimum;
 				if(value != previous)
@@ -59,9 +59,9 @@ class ColorSlider extends gfx.controls.Slider
 		}
 		else if (details.navEquivalent === NavigationCode.GAMEPAD_R1)
 		{
-			if (!keyState) 
+			if (keyState) 
 			{
-				value = maximum;
+				value = this.maximum;
 				if(value != previous)
 					dispatchEventAndSound({type: "change"});
 			}

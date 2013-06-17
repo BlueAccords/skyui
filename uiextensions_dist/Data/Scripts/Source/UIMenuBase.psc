@@ -1,6 +1,6 @@
 Scriptname UIMenuBase extends Quest
 
-int Function OpenMenu(Form akForm, Form akReceiver = None)
+int Function OpenMenu(Form akForm = None, Form akReceiver = None)
 	return -1
 EndFunction
 
@@ -16,7 +16,19 @@ Function ResetMenu()
 
 EndFunction
 
-Form Function GetFormResult()
+float Function GetResultFloat()
+	return 0.0
+EndFunction
+
+int Function GetResultInt()
+	return 0
+EndFunction
+
+string Function GetResultString()
+	return ""
+EndFunction
+
+Form Function GetResultForm()
 	return None
 EndFunction
 

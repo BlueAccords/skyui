@@ -22,6 +22,7 @@ Scripts\Source\RaceMenuBase.psc
 Scripts\Source\RaceMenuLoad.psc
 Scripts\Source\RaceMenuOverlays.psc
 Scripts\Source\RaceMenuPlugin.psc
+Textures\Actors\Character\Overlays\Default.dds
 Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_01.dds
 Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_02.dds
 Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_03.dds

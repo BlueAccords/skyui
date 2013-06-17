@@ -30,7 +30,7 @@ Function OnInit()
 	ResetMenu()
 EndFunction
 
-int Function OpenMenu(Form akForm, Form akReceiver = None)
+int Function OpenMenu(Form akForm = None, Form akReceiver = None)
 	_form = akForm
 	RegisterForModEvent("UIWheelMenu_SetOption", "OnSelectOption")
 	RegisterForModEvent("UIWheelMenu_LoadMenu", "OnLoadMenu")

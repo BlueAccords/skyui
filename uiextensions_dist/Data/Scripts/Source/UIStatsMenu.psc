@@ -11,7 +11,7 @@ string Function GetMenuName()
 	return "UIStatsMenu"
 EndFunction
 
-int Function OpenMenu(Form inForm, Form akReceiver = None)
+int Function OpenMenu(Form inForm = None, Form akReceiver = None)
 	_form = inForm
 	RegisterForModEvent("UIStatsMenu_LoadMenu", "OnLoadMenu")
 	return UIStatsMenuMessage.Show()

@@ -8,6 +8,14 @@ Event OnStartup()
 	parent.OnStartup()
 	RegisterForModEvent("RSM_OverlayTextureChange", "OnOverlayTextureChange")
 	RegisterForModEvent("RSM_OverlayColorChange", "OnOverlayColorChange")
+	RegisterForModEvent("RSM_ShadersInvalidated", "OnShadersInvalidated")
+EndEvent
+
+Event OnShadersInvalidated(string eventName, string strArg, float numArg, Form formArg)
+	If SKSE.GetPluginVersion("NiOverride") >= 1
+		NiOverride.ApplyOverrides(_playerActor)
+		NiOverride.ApplyNodeOverrides(_playerActor)
+	Endif
 EndEvent
 
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
@@ -41,6 +49,9 @@ Function UpdateOverlays()
 				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
 			Endif
 			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
+			If texture == ""
+				texture = "Actors\\Character\\Overlays\\Default.dds"
+			Endif
 			tints[i] = TINT_TYPE_BODYPAINT + ";;" + color + ";;" + texture
 			i += 1
 		EndWhile
@@ -65,6 +76,9 @@ Function UpdateOverlays()
 				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
 			Endif
 			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
+			If texture == ""
+				texture = "Actors\\Character\\Overlays\\Default.dds"
+			Endif
 			tints[i] = TINT_TYPE_HANDPAINT + ";;" + color + ";;" + texture
 			i += 1
 		EndWhile
@@ -89,6 +103,9 @@ Function UpdateOverlays()
 				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
 			Endif
 			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
+			If texture == ""
+				texture = "Actors\\Character\\Overlays\\Default.dds"
+			Endif
 			tints[i] = TINT_TYPE_FEETPAINT + ";;" + color + ";;" + texture
 			i += 1
 		EndWhile
@@ -143,8 +160,7 @@ Event OnOverlayTextureChange(string eventName, string strArg, float numArg, Form
 EndEvent
 
 Event OnBodyPaintRequest()
-	AddBodyPaint("Default", "Actors\\Character\\Overlays\\default.dds")
-	AddBodyPaint("Female Tattoo 0", "Actors\\Character\\Overlays\\FemaleBodyTattoo_0.dds")
+	AddBodyPaint("Default", "Actors\\Character\\Overlays\\Default.dds")
 	AddBodyPaint("Male Tattoo 0", "Actors\\Character\\Overlays\\MaleBodyTattoo_0.dds")
 	AddBodyPaint("Male Tattoo 1", "Actors\\Character\\Overlays\\MaleBodyTattoo_1.dds")
 	AddBodyPaint("Male Tattoo 2", "Actors\\Character\\Overlays\\MaleBodyTattoo_2.dds")
@@ -153,13 +169,31 @@ Event OnBodyPaintRequest()
 	AddBodyPaint("Male Tattoo 5", "Actors\\Character\\Overlays\\MaleBodyTattoo_5.dds")
 	AddBodyPaint("Male Tattoo 6", "Actors\\Character\\Overlays\\MaleBodyTattoo_6.dds")
 	AddBodyPaint("Male Tattoo 7", "Actors\\Character\\Overlays\\MaleBodyTattoo_7.dds")
+
+	AddBodyPaint("Female Tattoo 0", "Actors\\Character\\Overlays\\FemaleBodyTattoo_0.dds")
+
+	AddBodyPaint("Female Belly Button 0", "Actors\\Character\\Overlays\\FemaleBodyTattoo_0BB.dds")
+	AddBodyPaint("Female Belly Button 1", "Actors\\Character\\Overlays\\FemaleBodyTattoo_1BB.dds")
+	AddBodyPaint("Female Belly Button 2", "Actors\\Character\\Overlays\\FemaleBodyTattoo_2BB.dds")
+
+	AddBodyPaint("Female Chest 0", "Actors\\Character\\Overlays\\FemaleBodyTattoo_0Chest.dds")
+	AddBodyPaint("Female Chest 1", "Actors\\Character\\Overlays\\FemaleBodyTattoo_1Chest.dds")
+	AddBodyPaint("Female Chest 2", "Actors\\Character\\Overlays\\FemaleBodyTattoo_2Chest.dds")
+
+	AddBodyPaint("Female Lower Back 0", "Actors\\Character\\Overlays\\FemaleBodyTattoo_0LBack.dds")
+	AddBodyPaint("Female Lower Back 1", "Actors\\Character\\Overlays\\FemaleBodyTattoo_1LBack.dds")
+	AddBodyPaint("Female Lower Back 2", "Actors\\Character\\Overlays\\FemaleBodyTattoo_2LBack.dds")
+
+	AddBodyPaint("Female Upper Back 0", "Actors\\Character\\Overlays\\FemaleBodyTattoo_0UpperBack.dds")
+	AddBodyPaint("Female Upper Back 1", "Actors\\Character\\Overlays\\FemaleBodyTattoo_1UpperBack.dds")
+	AddBodyPaint("Female Upper Back 2", "Actors\\Character\\Overlays\\FemaleBodyTattoo_2UpperBack.dds")
 EndEvent
 
 Event OnHandPaintRequest()
-	AddHandPaint("Default", "Actors\\Character\\Overlays\\default.dds")
+	AddHandPaint("Default", "Actors\\Character\\Overlays\\Default.dds")
 	AddHandPaint("Nail Paint 0", "Actors\\Character\\Overlays\\FemaleHands_0.dds")
 EndEvent
 
 Event OnFeetPaintRequest()
-	AddFeetPaint("Default", "Actors\\Character\\Overlays\\default.dds")
+	AddFeetPaint("Default", "Actors\\Character\\Overlays\\Default.dds")
 EndEvent

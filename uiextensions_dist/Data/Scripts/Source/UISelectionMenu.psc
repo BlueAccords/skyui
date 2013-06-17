@@ -15,7 +15,7 @@ int _mode = 0
 
 float tempSoundDB = 0.0
 
-Form Function GetFormResult()
+Form Function GetResultForm()
 	if _mode == 0
 		return _selected
 	elseif _mode == 1
@@ -30,7 +30,7 @@ Function SetPropertyInt(string propertyName, int value)
 	Endif
 EndFunction
 
-int Function OpenMenu(Form aForm, Form aReceiver = None)
+int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	_form = aForm
 	_receiver = aReceiver
 	_selected = None
@@ -83,6 +83,9 @@ EndEvent
 Event OnMenuClose(string menuName)
 	If menuName == ROOT_MENU
 		UnregisterForMenu(ROOT_MENU)
+		UnregisterForModEvent("UISelectionMenu_LoadMenu")
+		UnregisterForModEvent("UISelectionMenu_SelectForm")
+		UnregisterForModEvent("UISelectionMenu_SelectionReady")
 		_receiver.UnregisterForModEvent("UISelectionMenu_SelectionChanged")
 		SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
 		sDescriptor.SetDecibelAttenuation(tempSoundDB)

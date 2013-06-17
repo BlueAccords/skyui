@@ -105,8 +105,8 @@ class MakeupPanel extends MovieClip
 	
 	public function clearFilter(): Void
 	{
-		searchWidget.endInput();
 		_nameFilter.filterText = "";
+		searchWidget.endInput();
 	}
 	
 	public function InvalidateList(): Void

@@ -35,19 +35,20 @@ class RaceMenu extends MovieClip
 	private var _nameFilter: NameFilter;
 	private var _sortFilter: SortFilter;
 	private var _panelX: Number;
-	
 	private var _updateInterval: Number;
-	private var _pendingData: Object;
-		
 	private var _raceList: Array;
 	
 	public var makeupList: Array;
 	
 	private var ITEMLIST_HEIGHT_FULL = 528;
 	private var ITEMLIST_HEIGHT_SHARED = 335;
+	private var ITEMLIST_HIDDEN_X = -478;
 	
 	private var DESCRIPTION_WIDTH_FULL = 405;
 	private var DESCRIPTION_WIDTH_SHARED = 262;
+	
+	private var BOTTOMBAR_SHOWN_Y = 645;
+	private var BOTTOMBAR_HIDDEN_Y = 745;	
 	
 	/* CONTROLS */
 	private var _activateControl: Object;
@@ -143,7 +144,7 @@ class RaceMenu extends MovieClip
 		GameDelegate.addCallBack("ShowTextEntryField", this, "ShowTextEntryField");
 		GameDelegate.addCallBack("HideLoadingIcon", this, "HideLoadingIcon");
 	}
-	
+				
 	private function onLoad()
 	{
 		super.onLoad();
@@ -528,16 +529,16 @@ class RaceMenu extends MovieClip
 			categoryList.disableSelection = categoryList.disableInput = true;
 			itemList.disableSelection = itemList.disableInput = true;
 			searchWidget.isDisabled = true;
-			TweenLite.to(racePanel, 0.5, {_alpha: 0, _x: -478, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(racePanel, 0.5, {_alpha: 0, _x: ITEMLIST_HIDDEN_X, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
 	
 	public function ShowBottomBar(bShowBottomBar: Boolean): Void
 	{
 		if(bShowBottomBar) {
-			TweenLite.to(bottomBar, 0.5, {_alpha: 100, _y: 645, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(bottomBar, 0.5, {_alpha: 100, _y: BOTTOMBAR_SHOWN_Y, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
-			TweenLite.to(bottomBar, 0.5, {_alpha: 0, _y: 745, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(bottomBar, 0.5, {_alpha: 0, _y: BOTTOMBAR_HIDDEN_Y, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
 	
@@ -976,29 +977,27 @@ class RaceMenu extends MovieClip
 	
 	public function requestUpdate(pendingData: Object)
 	{
-		_pendingData = pendingData;
 		if(!_updateInterval) {
-			_updateInterval = setInterval(this, "processDataUpdate", 100);
+			_updateInterval = setInterval(this, "processDataUpdate", 100, pendingData);
 		}
 	}
 	
-	public function processDataUpdate()
+	public function processDataUpdate(pendingData: Object)
 	{
-		switch(_pendingData.type) {
+		switch(pendingData.type) {
 			case "makeupTexture":
-			SendPlayerTexture(_pendingData.tintType, _pendingData.tintIndex, _pendingData.replacementTexture);
+			SendPlayerTexture(pendingData.tintType, pendingData.tintIndex, pendingData.replacementTexture);
 			break;
 			case "makeupColor":
-			SendPlayerTint(_pendingData.tintType, _pendingData.tintIndex, _pendingData.argbColor);
+			SendPlayerTint(pendingData.tintType, pendingData.tintIndex, pendingData.argbColor);
 			break;
 			case "sliderColor":
-			SendPlayerTintBySlider(_pendingData.slider, _pendingData.argbColor);
+			SendPlayerTintBySlider(pendingData.slider, pendingData.argbColor);
 			break;
 		}
 				
 		clearInterval(_updateInterval);
 		delete _updateInterval;
-		delete _pendingData;
 	}
 	
 	// This function is a mess right now
@@ -1082,7 +1081,6 @@ class RaceMenu extends MovieClip
 		var pressedEntry: Object = itemList.entryList[event.index];
 		var textureList: Array = pressedEntry.GetTextureList(this);
 		if(textureList) {
-			makeupPanel.clearFilter();
 			makeupPanel.setMakeupList(textureList);
 			makeupPanel.updateButtons(true);
 			makeupPanel.setSelectedEntry(pressedEntry.texture);
@@ -1210,7 +1208,6 @@ class RaceMenu extends MovieClip
 		var selectedEntry = itemList.listState.selectedEntry;
 		var textureList: Array = selectedEntry.GetTextureList(this);
 		if(textureList) {
-			makeupPanel.clearFilter();
 			makeupPanel.setMakeupList(textureList);
 			makeupPanel.updateButtons(true);
 			makeupPanel.setSelectedEntry(selectedEntry.texture);
