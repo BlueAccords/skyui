@@ -37,6 +37,7 @@ class RaceMenu extends MovieClip
 	private var _panelX: Number;
 	private var _updateInterval: Number;
 	private var _raceList: Array;
+	private var _exportInterval: Number;
 	
 	public var makeupList: Array;
 	
@@ -59,6 +60,7 @@ class RaceMenu extends MovieClip
 	private var _searchControl: Object;
 	private var _loadPresetControl: Object;
 	private var _savePresetControl: Object;
+	private var _exportHeadControl: Object;
 	
 	/* PUBLIC VARIABLES */
 	public var bLimitedMenu: Boolean;
@@ -84,6 +86,7 @@ class RaceMenu extends MovieClip
 	public var textEntry: TextEntryField;
 	public var loadingIcon: MovieClip;
 	public var colorField: ColorField;
+	public var textDisplay: TextField;
 	
 	public var bonusPanel: MovieClip;
 	public var bonusList: ScrollingList;
@@ -122,10 +125,13 @@ class RaceMenu extends MovieClip
 		makeupList.push(new Array()); // Hand Paint
 		makeupList.push(new Array()); // Feet Paint
 		
+		textDisplay._alpha = 0;
+		textDisplay.enabled = false;
+		
 		loadingIcon._visible = false;
 		textEntry._visible = false;
 		textEntry.enabled = false;
-				
+		
 		GlobalFunc.MaintainTextFormat();
 		GlobalFunc.SetLockFunction();
 		
@@ -158,6 +164,9 @@ class RaceMenu extends MovieClip
 		bottomBar.hidePlayerInfo();
 		var pInfo = bottomBar.attachMovie("PlayerInfo", "playerInfo", bottomBar.getNextHighestDepth());
 		pInfo._y = 25;
+		var sPanel = bottomBar.attachMovie("ButtonPanel", "staticPanel", bottomBar.getNextHighestDepth(), {buttonRenderer: "MappedButton", maxButtons: 6, buttonInitializer: {disableConstraints: false, disabled: false, disableFocus: true, hiddenBackground: true}});
+		sPanel._y = navPanel._y + 28;
+		sPanel._x = navPanel._x;
 		
 		var bonusEnumeration = new FilteredEnumeration(bonusList.entryList);
 		bonusEnumeration.addFilter(_sortFilter);
@@ -217,7 +226,7 @@ class RaceMenu extends MovieClip
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "MOUTH", flag: RaceMenuDefines.CATEGORY_MOUTH, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "HAIR", flag: RaceMenuDefines.CATEGORY_HAIR, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$COLORS", flag: RaceMenuDefines.CATEGORY_COLOR, savedItemIndex: -1, enabled: true});
-		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_MAKEUP, savedItemIndex: -1, enabled: true});
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_WARPAINT, savedItemIndex: -1, enabled: true});
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
 		
@@ -239,7 +248,8 @@ class RaceMenu extends MovieClip
 		
 		
 		var isEnabled: Function = function(): Boolean { return true; }
-		var colorIndex: Number = 0;	
+		var colorIndex: Number = 0;
+		var GetTextureList: Function = function(raceMenu: Object): Array { return raceMenu.makeupList[RaceMenuDefines.PAINT_FACE]; }
 		
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Sex", filterFlag: 4, callbackName: "ChangeSex", sliderMin: 0, sliderMax: 1, sliderID: -1, position: 0, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Presets", filterFlag: 4, callbackName: "ChangeHeadPreset", sliderMin: 0, sliderMax: 0, sliderID: 0, position: 0, interval: 1, enabled: true});
@@ -289,14 +299,16 @@ class RaceMenu extends MovieClip
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Chin Forward", filterFlag: 128, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 44, position: 0.18000000715256, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Lip Color", filterFlag: 128 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 7, sliderID: 45, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: "MyNigga", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, isTextureEnabled: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_MAKEUP, text: "MyNigga2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_MAKEUP, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, isTextureEnabled: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint1", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		*/
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
 		itemList.requestInvalidate();
 		
 		FocusHandler.instance.setFocus(itemList, 0);
+		
+		trace(Date().toString());
 		
 		// Test Code
 		//InitExtensions();
@@ -341,6 +353,7 @@ class RaceMenu extends MovieClip
 			_textureControl = Input.Wait;
 			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Quicksave", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Quickload", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_exportHeadControl =  {keyCode: GlobalFunctions.getMappedKey("Shout", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
 			_activateControl = Input.Activate;
 			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
@@ -350,6 +363,7 @@ class RaceMenu extends MovieClip
 			_searchControl = null;
 			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_exportHeadControl =  {keyCode: GlobalFunctions.getMappedKey("Shout", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		}
 		
 		textEntry.TextInputInstance.maxChars = 26;
@@ -360,6 +374,23 @@ class RaceMenu extends MovieClip
 		var leftEdge = Stage.visibleRect.x + Stage.safeRect.x;
 		var rightEdge = Stage.visibleRect.x + Stage.visibleRect.width - Stage.safeRect.x;
 		bottomBar.positionElements(leftEdge, rightEdge);
+		
+		var staticPanel = bottomBar["staticPanel"];
+		trace(staticPanel);
+		if(staticPanel) {
+			staticPanel.setPlatform(a_platform, a_bPS3Switch);
+			staticPanel._x = navPanel._x;
+			staticPanel._y = navPanel._y + 28;
+			
+			staticPanel.clearButtons();
+			staticPanel.addButton({text: "$Load Preset", controls: _loadPresetControl}).addEventListener("click", this, "onLoadPresetClicked");
+			staticPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", this, "onSavePresetClicked");
+			if(_global.skse.plugins.CharGen) {
+				staticPanel.addButton({text: "$Export Head", controls: _exportHeadControl}).addEventListener("click", this, "onExportHeadClicked");
+			}
+			staticPanel.updateButtons(true);
+		}
+		
 		updateBottomBar();
 	}
 	
@@ -394,6 +425,9 @@ class RaceMenu extends MovieClip
 				return true;
 			} else if(IsBoundKeyPressed(details, _savePresetControl, _platform) && !bTextEntryMode) {
 				onSavePresetClicked();
+				return true;
+			}  else if(IsBoundKeyPressed(details, _exportHeadControl, _platform) && !bTextEntryMode && _global.skse.plugins.CharGen) {
+				onExportHeadClicked();
 				return true;
 			}
 		}
@@ -1126,10 +1160,7 @@ class RaceMenu extends MovieClip
 			navPanel.addButton({text: "$Choose Color", controls: _activateControl}).addEventListener("click", this, "onChooseColorClicked");
 		if(selectedEntry.GetTextureList(this))
 			navPanel.addButton({text: "$Choose Texture", controls: _textureControl}).addEventListener("click", this, "onChooseTextureClicked");
-			
-		navPanel.addButton({text: "$Load Preset", controls: _loadPresetControl}).addEventListener("click", this, "onLoadPresetClicked");
-		navPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", this, "onSavePresetClicked");
-		
+				
 		navPanel.updateButtons(true);		
 	}
 	
@@ -1220,11 +1251,40 @@ class RaceMenu extends MovieClip
 	private function onSavePresetClicked(): Void
 	{
 		skse.SendModEvent("RSM_RequestSaveClipboard");
+		
+		textDisplay._alpha = 100;
+		textDisplay.text = "$Saved preset to clipboard";
+		TweenLite.to(textDisplay, 2.5, {_alpha: 0, easing: Linear.easeNone});
 	}
 	
 	private function onLoadPresetClicked(): Void
 	{
 		skse.SendModEvent("RSM_RequestLoadClipboard");
+	}
+	
+	private function onExportHeadClicked(): Void
+	{
+		if(!_exportInterval) {
+			var now: Date = new Date();
+			var dateStr: String = "" + (now.getMonth()+1) + "-" + now.getDate() + "-" + now.getFullYear() + " " + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds();
+			delete now;
+			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\" + dateStr + ".nif";
+			
+			textDisplay._alpha = 100;
+			textDisplay.text = "$Exported head";
+			
+			TweenLite.to(textDisplay, 2.5, {_alpha: 0, easing: Linear.easeNone});
+			
+			_global.skse.plugins.CharGen.ExportHead(filePath);
+			
+			_exportInterval = setInterval(this, "UnlockExportHead", 2500);
+		}
+	}
+	
+	private function UnlockExportHead(): Void
+	{
+		clearInterval(_exportInterval);
+		delete _exportInterval;
 	}
 	
 	private function GetSliderByType(tintType: Number): Object

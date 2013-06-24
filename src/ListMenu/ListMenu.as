@@ -59,7 +59,7 @@ class ListMenu extends MovieClip
 		itemList.addEventListener("selectionChange", this, "onSelectionChange");
 		itemList.addEventListener("itemPress", this, "onItemPressed");
 		
-		addTreeEntries("Item 1;;-1;;0;;0;;1", "Item 2;;-1;;1;;0;;0", "Item 3;;-1;;2;;0;;0", "Child 1;;0;;3;;0;;0");
+		//addTreeEntries("Item 1;;-1;;0;;0;;1", "Item 2;;-1;;1;;0;;0", "Item 3;;-1;;2;;0;;0", "Child 1;;0;;3;;0;;0");
 		
 		/*for(var i = 0; i < 25; i++) {
 			var entry: Object = {text: "Item " + i, parent: -1, id: _linearChildren.length, children: new Array()};
@@ -109,6 +109,7 @@ class ListMenu extends MovieClip
 			
 		itemList.requestInvalidate();
 		FocusHandler.instance.setFocus(itemList, 0);*/
+		skse.SendModEvent("UIListMenu_LoadMenu");
 	}
 	
 	public function InitExtensions(): Void
@@ -119,6 +120,11 @@ class ListMenu extends MovieClip
 	public function SetPlatform(aiPlatform: Number, abPS3Switch: Boolean): Void
 	{
 		
+	}
+	
+	private function closeMenu(option: Number): Void
+	{
+		GameDelegate.call("buttonPress", [option]);
 	}
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
@@ -163,7 +169,8 @@ class ListMenu extends MovieClip
 			if(pressedEntry.children.length > 0) {
 				openChildView(pressedEntry, pressedEntry.children);
 			} else {
-				trace("Activating: Id: " + pressedEntry.id + " Callback: " + pressedEntry.callback);
+				skse.SendModEvent("UIListMenu_SelectItem", Number(pressedEntry.id).toString(), pressedEntry.callback);
+				closeMenu(1);
 			}
 		}
 	}
@@ -186,8 +193,10 @@ class ListMenu extends MovieClip
 	public function closeChildView(): Void
 	{
 		var lastChild: Object = _childView[_childView.length - 1];
-		if(lastChild == itemView)
+		if(lastChild == itemView) {
+			closeMenu(0);
 			return;
+		}
 		
 		// Disable and fade view
 		lastChild.itemList.disableSelection = lastChild.itemList.disableInput = true;
@@ -231,7 +240,7 @@ class ListMenu extends MovieClip
 	}
 	
 	// Papyrus
-	public function addTreeEntries()
+	public function LM_AddTreeEntries()
 	{
 		var rootAdded: Boolean = false;
 		for(var i = 0; i < arguments.length; i++)

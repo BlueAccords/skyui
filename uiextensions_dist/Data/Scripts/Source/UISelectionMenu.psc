@@ -25,7 +25,7 @@ Form Function GetResultForm()
 EndFunction
 
 Function SetPropertyInt(string propertyName, int value)
-	If propertyName == "UISelectionMenuMode"
+	If propertyName == "menuMode"
 		_mode = value
 	Endif
 EndFunction
@@ -35,8 +35,8 @@ int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	_receiver = aReceiver
 	_selected = None
 	SelectedForms.Revert()
-	RegisterForMenu(ROOT_MENU)
 	RegisterForModEvent("UISelectionMenu_LoadMenu", "OnLoadMenu")
+	RegisterForModEvent("UISelectionMenu_CloseMenu", "OnUnloadMenu")
 	RegisterForModEvent("UISelectionMenu_SelectForm", "OnSelect")
 	RegisterForModEvent("UISelectionMenu_SelectionReady", "OnSelectForm")
 	_receiver.RegisterForModEvent("UISelectionMenu_SelectionChanged", "OnSelectForm")
@@ -80,14 +80,12 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	sDescriptor.SetDecibelAttenuation(100.0)
 EndEvent
 
-Event OnMenuClose(string menuName)
-	If menuName == ROOT_MENU
-		UnregisterForMenu(ROOT_MENU)
-		UnregisterForModEvent("UISelectionMenu_LoadMenu")
-		UnregisterForModEvent("UISelectionMenu_SelectForm")
-		UnregisterForModEvent("UISelectionMenu_SelectionReady")
-		_receiver.UnregisterForModEvent("UISelectionMenu_SelectionChanged")
-		SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
-		sDescriptor.SetDecibelAttenuation(tempSoundDB)
-	Endif
+Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
+	UnregisterForModEvent("UISelectionMenu_LoadMenu")
+	UnregisterForModEvent("UISelectionMenu_CloseMenu")
+	UnregisterForModEvent("UISelectionMenu_SelectForm")
+	UnregisterForModEvent("UISelectionMenu_SelectionReady")
+	_receiver.UnregisterForModEvent("UISelectionMenu_SelectionChanged")
+	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
+	sDescriptor.SetDecibelAttenuation(tempSoundDB)
 EndEvent

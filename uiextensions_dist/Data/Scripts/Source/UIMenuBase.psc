@@ -33,6 +33,25 @@ Form Function GetResultForm()
 EndFunction
 
 ; Property functions
+
+; Getters
+int Function GetPropertyInt(string propertyName)
+
+EndFunction
+
+bool Function GetPropertyBool(string propertyName)
+
+EndFunction
+
+string Function GetPropertyString(string propertyName)
+
+EndFunction
+
+float Function GetPropertyFloat(string propertyName)
+
+EndFunction
+
+; Setters
 Function SetPropertyInt(string propertyName, int value)
 
 EndFunction

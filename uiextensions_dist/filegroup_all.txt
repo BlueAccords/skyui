@@ -10,6 +10,8 @@ Interface\extension_assets\bottombar.swf
 Interface\extension_assets\buttonArt.swf
 Interface\extension_assets\icons_category_psychosteve.swf
 Interface\translations\UIExtensions_ENGLISH.txt
+Scripts\UIExtensions.pex
+Scripts\UIListMenu.pex
 Scripts\UIMagicMenu.pex
 Scripts\UIMenuBase.pex
 Scripts\UIMenuLoad.pex
@@ -17,6 +19,8 @@ Scripts\UISelectionMenu.pex
 Scripts\UIStatsMenu.pex
 Scripts\UITextEntryMenu.pex
 Scripts\UIWheelMenu.pex
+Scripts\Source\UIExtensions.psc
+Scripts\Source\UIListMenu.psc
 Scripts\Source\UIMagicMenu.psc
 Scripts\Source\UIMenuBase.psc
 Scripts\Source\UIMenuLoad.psc

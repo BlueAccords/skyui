@@ -89,6 +89,11 @@
 	{
 		_parent.gotoAndPlay("startFadeOut");
 	}
+	
+	private function closeMenu(option: Number)
+	{
+		gfx.io.GameDelegate.call("buttonPress", [option]);
+	}
 
 	private function onFadeOutCompletion()
 	{
@@ -103,7 +108,7 @@
 			if(hasSelection)
 				skse.SendModEvent("UISelectionMenu_SelectionReady");
 		}
-		gfx.io.GameDelegate.call("buttonPress", [hasSelection ? 1 : 0]);
+		closeMenu(hasSelection ? 1 : 0);
 	}
 
 	private function SetPlatform(aiPlatform: Number, abPS3Switch: Boolean)
@@ -128,7 +133,7 @@
 			if(ItemList.entryList[index].formId != undefined) {
 				skse.SendModEvent("UISelectionMenu_SelectForm", "", _selectMode, ItemList.entryList[index].formId);
 				skse.SendModEvent("UISelectionMenu_SelectionReady");
-				gfx.io.GameDelegate.call("buttonPress", [1]);
+				closeMenu(1);
 			}
 		}
 	}

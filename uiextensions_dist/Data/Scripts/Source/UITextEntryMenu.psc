@@ -19,9 +19,13 @@ string Function GetResultString()
 EndFunction
 
 Function SetPropertyString(string propertyName, string value)
-	If propertyName == "UITextEntryMenuText"
+	If propertyName == "text"
 		_internalString = value
 	Endif
+EndFunction
+
+Function ResetMenu()
+	_internalString = ""
 EndFunction
 
 int Function OpenMenu(Form inForm = None, Form akReceiver = None)
@@ -59,10 +63,3 @@ Function UpdateTextEntryString()
 	UI.InvokeString(ROOT_MENU, MENU_ROOT + "setTextEntryMenuText", _internalString)
 EndFunction
 
-Event OnMenuClose(string menuName)
-	If menuName == ROOT_MENU
-		UnregisterForMenu(ROOT_MENU)
-		UnregisterForModEvent("UITextEntryMenu_LoadMenu")
-		UnregisterForModEvent("UITextEntryMenu_TextChanged")
-	Endif
-EndEvent

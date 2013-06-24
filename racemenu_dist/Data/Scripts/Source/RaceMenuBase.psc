@@ -16,23 +16,23 @@ int Property CATEGORY_COLOR = 512 AutoReadOnly
 Actor Property _playerActor Auto
 ActorBase Property _playerActorBase Auto
 
-string[] _textures
-int _textureBuffer
+string[] _textures = None
+int _textureBuffer = 0
 
 ; Body Paint
-string[] _textures_body
-int _textureBuffer_body
+string[] _textures_body = None
+int _textureBuffer_body = 0
 
 ; Hand Paint
-string[] _textures_hand
-int _textureBuffer_hand
+string[] _textures_hand = None
+int _textureBuffer_hand = 0
 
 ; Feet Paint
-string[] _textures_feet
+string[] _textures_feet = None
 int _textureBuffer_feet
 
-string[] _sliders
-int _sliderBuffer
+string[] _sliders = None
+int _sliderBuffer = 0
 
 Event OnInit()
 	_playerActor = Game.GetPlayer()
@@ -63,8 +63,33 @@ Event OnInitialized()
 	_textureBuffer_feet = 0
 EndEvent
 
+; Reinitializes variables if necessary
+Function Reinitialize()
+	If !_textures
+		_textures = new string[128]
+		_textureBuffer = 0
+	Endif
+	If !_sliders
+		_sliders = new string[128]
+		_sliderBuffer = 0
+	Endif
+	If !_textures_body
+		_textures_body = new string[128]
+		_textureBuffer_body = 0
+	Endif
+	If !_textures_hand
+		_textures_hand = new string[128]
+		_textureBuffer_hand = 0
+	Endif
+	If !_textures_feet
+		_textures_feet = new string[128]
+		_textureBuffer_feet = 0
+	Endif
+EndFunction
+
 Event OnGameReload()
 	OnStartup()
+	Reinitialize()
 EndEvent
 
 Event OnCellLoaded(ObjectReference akRef)

@@ -8,6 +8,7 @@ string Property 	MENU_ROOT		= "_root.MessageMenu.proxyMenu.WheelPhase.WheelBase.
 Form _form = None
 bool _enabled = true
 int _lastIndex = 0
+bool _resetLock = false
 
 string[] _optionText
 string[] _optionLabelText
@@ -109,7 +110,7 @@ Function ResetMenu()
 EndFunction
 
 Function SetPropertyInt(string propertyName, int value)
-	if propertyName == "UIWheelLastIndex"
+	if propertyName == "lastIndex"
 		_lastIndex = value
 	Endif
 EndFunction
@@ -118,9 +119,9 @@ Function SetPropertyIndexInt(string propertyName, int index, int value)
 	If index < 0 || index > 7
 		return
 	Endif
-	If propertyName == "UIWheelOptionIconColor"
+	If propertyName == "optionIconColor"
 		_optionIconColor[index] = value
-	Elseif propertyName == "UIWheelOptionTextColor"
+	Elseif propertyName == "optionTextColor"
 		_optionTextColor[index] = value
 	Endif
 EndFunction
@@ -129,7 +130,7 @@ Function SetPropertyIndexBool(string propertyName, int index, bool value)
 	If index < 0 || index > 7
 		return
 	Endif
-	If propertyName == "UIWheelOptionEnabled"
+	If propertyName == "optionEnabled"
 		_optionEnabled[index] = value
 	Endif
 EndFunction
@@ -138,11 +139,11 @@ Function SetPropertyIndexString(string propertyName, int index, string value)
 	If index < 0 || index > 7
 		return
 	Endif
-	If propertyName == "UIWheelOptionText"
+	If propertyName == "optionText"
 		_optionText[index] = value
-	Elseif propertyName == "UIWheelOptionLabelText"
+	Elseif propertyName == "optionLabelText"
 		_optionLabelText[index] = value
-	Elseif propertyName == "UIWheelOptionIcon"
+	Elseif propertyName == "optionIcon"
 		_optionIcon[index] = value
 	Endif
 EndFunction

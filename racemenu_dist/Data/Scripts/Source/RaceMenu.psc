@@ -1,20 +1,25 @@
 Scriptname RaceMenu extends RaceMenuBase
 
+; --------- Constants DO NOT EDIT ----------------
 int Property TINT_TYPE_HAIR = 128 AutoReadOnly
+int Property TINT_TYPE_BODYPAINT = 256 AutoReadOnly
+int Property TINT_TYPE_HANDPAINT = 257 AutoReadOnly
+int Property TINT_TYPE_FEETPAINT = 258 AutoReadOnly
 
 int Property MAX_PRESETS = 4 AutoReadOnly
 int Property MAX_MORPHS = 19 AutoReadOnly
+; -------------------------------------------------
 
 ColorForm _hairColor = None
 Form _lightForm = None
 ObjectReference _light = None
 int _color = 0
 bool _customHair = false
-int[] _tintTypes
-int[] _tintColors
-string[] _tintTextures
-int[] _presets
-float[] _morphs
+int[] _tintTypes = None
+int[] _tintColors = None
+string[] _tintTextures = None
+int[] _presets = None
+float[] _morphs = None
 
 bool hasInitialized = false
 
@@ -43,6 +48,11 @@ Function OnStartup()
 	RegisterForModEvent("RSM_RequestTintSave", "OnTintSave") ; User-sent event to request tint save
 	RegisterForModEvent("RSM_SliderChange", "OnMenuSliderChange") ; Event sent when a slider's value is changed
 
+	; Overlay Management
+	RegisterForModEvent("RSM_OverlayTextureChange", "OnOverlayTextureChange") ; Event sent when an overlay's texture changes
+	RegisterForModEvent("RSM_OverlayColorChange", "OnOverlayColorChange") ; Event sent when an overlay's color changes
+	RegisterForModEvent("RSM_ShadersInvalidated", "OnShadersInvalidated") ; Event sent when a tint changes
+
 	; Handles clipboard data transfer DO NOT EDIT
 	RegisterForModEvent("RSM_RequestLoadClipboard", "OnLoadClipboard")
 	RegisterForModEvent("RSM_RequestSaveClipboard", "OnSaveClipboard")
@@ -54,13 +64,9 @@ Function OnStartup()
 	Utility.SetINIFloat("fPlayerBodyEditDistance:Interface", 190.0)
 	Utility.SetINIFloat("fPlayerFaceEditDistance:Interface", 70.0)
 
-	If !_hairColor
-		_hairColor = Game.GetFormFromFile(0x801, "RaceMenu.esp") as ColorForm
-	Endif
-	If !_lightForm
-		_lightForm = Game.GetFormFromFile(0x803, "RaceMenu.esp")
-	Endif
-
+	; Re-initialization in case of init failure?
+	Reinitialize()
+	
 	If SKSE.GetVersionRelease() < 37
 		Debug.Notification("SKSE version mismatch. You are running SKSE Version " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta() + "." + SKSE.GetVersionRelease() + " you require 1.6.9 or greater.")
 	Endif
@@ -69,6 +75,30 @@ Function OnStartup()
 	Endif
 EndFunction
 
+Function Reinitialize()
+	If !_hairColor
+		_hairColor = Game.GetFormFromFile(0x801, "RaceMenu.esp") as ColorForm
+	Endif
+	If !_lightForm
+		_lightForm = Game.GetFormFromFile(0x803, "RaceMenu.esp")
+	Endif
+	If !_tintTextures
+		_tintTextures = new string[128]
+	Endif
+	If !_tintTypes
+		_tintTypes = new int[128]
+	Endif
+	If !_tintColors
+		_tintColors = new int[128]
+	EndIf
+	If !_presets
+		_presets = new int[4]
+	Endif
+	If !_morphs
+		_morphs = new float[19]
+	Endif
+	parent.Reinitialize()
+EndFunction
 
 Event OnGameReload()
 	OnStartup()
@@ -124,6 +154,7 @@ Event OnMenuInitialized(string eventName, string strArg, float numArg, Form form
 	LoadTints()
 	LoadHair()
 	UpdateTints()
+	UpdateOverlays()
 	parent.OnMenuInitialized(eventName, strArg, numArg, formArg)
 EndEvent
 
@@ -131,6 +162,7 @@ Event OnMenuReinitialized(string eventName, string strArg, float numArg, Form fo
 	SaveHair()
 	SaveTints()
 	UpdateColors()
+	UpdateOverlays()
 EndEvent
 
 Event OnMenuSliderChange(string eventName, string strArg, float numArg, Form formArg)
@@ -279,6 +311,60 @@ Event OnTintTextureChange(string eventName, string strArg, float numArg, Form fo
 	 ; including ones with overrides, we need to fix this by informing the plugin
 	 ; and reapplying the overrides
 	SendModEvent("RSM_ShadersInvalidated")
+EndEvent
+
+
+Event OnOverlayColorChange(string eventName, string strArg, float numArg, Form formArg)
+	int color = strArg as int
+	int arg = numArg as int
+	int type = arg / 1000
+	int index = arg - (type * 1000)
+
+	string nodeName = ""
+	If type == TINT_TYPE_BODYPAINT
+		nodeName += "Body [Ovl"
+	Elseif type == TINT_TYPE_HANDPAINT
+		nodeName += "Hands [Ovl"
+	Elseif type == TINT_TYPE_FEETPAINT
+		nodeName += "Feet [Ovl"
+	Endif
+	nodeName += index + "]"
+
+	bool isFemale = _playerActorBase.GetSex() as bool
+	If SKSE.GetPluginVersion("NiOverride") >= 1 ; Checks to make sure the NiOverride plugin exists
+		int alpha = Math.RightShift(color, 24)
+		NiOverride.AddNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1, color, true) ; Set the tint color
+		NiOverride.AddNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1, alpha / 255.0, true) ; Set the alpha
+	Endif
+EndEvent
+
+Event OnOverlayTextureChange(string eventName, string strArg, float numArg, Form formArg)
+	string texture = strArg
+	int arg = numArg as int
+	int type = arg / 1000
+	int index = arg - (type * 1000)
+
+	string nodeName = ""
+	If type == TINT_TYPE_BODYPAINT
+		nodeName += "Body [Ovl"
+	Elseif type == TINT_TYPE_HANDPAINT
+		nodeName += "Hands [Ovl"
+	Elseif type == TINT_TYPE_FEETPAINT
+		nodeName += "Feet [Ovl"
+	Endif
+	nodeName += index + "]"
+
+	bool isFemale = _playerActorBase.GetSex() as bool
+	If SKSE.GetPluginVersion("NiOverride") >= 1
+		NiOverride.AddNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0, texture, true) ; Set the tint color
+	Endif
+EndEvent
+
+Event OnShadersInvalidated(string eventName, string strArg, float numArg, Form formArg)
+	If SKSE.GetPluginVersion("NiOverride") >= 1
+		NiOverride.ApplyOverrides(_playerActor)
+		NiOverride.ApplyNodeOverrides(_playerActor)
+	Endif
 EndEvent
 
 Event OnToggleLight(string eventName, string strArg, float numArg, Form formArg)
@@ -540,6 +626,18 @@ Function OnWarpaintRequest()
 	AddWarpaint("$Male Black Blood Tattoo 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadBlackBloodTattoo_02.dds")
 EndFunction
 
+Event OnBodyPaintRequest()
+	AddBodyPaint("Default", "Actors\\Character\\Overlays\\Default.dds")
+EndEvent
+
+Event OnHandPaintRequest()
+	AddHandPaint("Default", "Actors\\Character\\Overlays\\Default.dds")
+EndEvent
+
+Event OnFeetPaintRequest()
+	AddFeetPaint("Default", "Actors\\Character\\Overlays\\Default.dds")
+EndEvent
+
 Function LoadDefaults()
 	If _tintTypes[0] == 0
 		SaveHair()
@@ -588,6 +686,7 @@ Function LoadDefaultTypes(int[] loadedTypes)
 	loadedTypes[33] = 14;;16777215;;Actors\Character\Character Assets\TintMasks\MaleHeadDirt_03.dds
 EndFunction
 
+; Updates tint colors
 Function UpdateColors()
 	int i = 0
 	string[] tints = new string[128]
@@ -600,6 +699,7 @@ Function UpdateColors()
 	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddTints", tints)
 EndFunction
 
+; Indexes the races for extended bonus descriptions
 Function UpdateRaces()
 	int totalRaces = Race.GetNumPlayableRaces()
 	int i = 0
@@ -608,4 +708,90 @@ Function UpdateRaces()
 		UI.InvokeForm(RACESEX_MENU, MENU_ROOT + "RSM_ExtendRace", playableRace)
 		i += 1
 	EndWhile
+EndFunction
+
+; Update the color and selection listing of overlays
+Function UpdateOverlays()
+	If SKSE.GetPluginVersion("NiOverride") >= 1 ; Checks to make sure the NiOverride plugin exists
+		int i = 0
+		string[] tints = new string[128]
+		int totalTints = NiOverride.GetNumBodyOverlays()
+		While i < totalTints
+			string nodeName = "Body [Ovl" + i + "]"
+			int rgb = 0
+			float alpha = 0
+			string texture = ""
+			If NetImmerse.HasNode(_playerActor, nodeName, false) ; Actor has the node, get the immediate property
+				rgb = NiOverride.GetNodePropertyInt(_playerActor, false, nodeName, 7, -1)
+				alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, nodeName, 8, -1)
+				texture = NiOverride.GetNodePropertyString(_playerActor, false, nodeName, 9, 0)
+			Else ; Doesn't have the node, get it from the override
+				bool isFemale = _playerActorBase.GetSex() as bool
+				rgb = NiOverride.GetNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1)
+				alpha = NiOverride.GetNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1)
+				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
+			Endif
+			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
+			If texture == ""
+				texture = "Actors\\Character\\Overlays\\Default.dds"
+			Endif
+			tints[i] = TINT_TYPE_BODYPAINT + ";;" + color + ";;" + texture
+			i += 1
+		EndWhile
+		UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddBodyTints", tints)
+
+		i = 0
+		tints = new string[128]
+		totalTints = NiOverride.GetNumHandOverlays()
+		While i < totalTints
+			string nodeName = "Hands [Ovl" + i + "]"
+			int rgb = 0
+			float alpha = 0
+			string texture = ""
+			If NetImmerse.HasNode(_playerActor, nodeName, false) ; Actor has the node, get the immediate property
+				rgb = NiOverride.GetNodePropertyInt(_playerActor, false, nodeName, 7, -1)
+				alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, nodeName, 8, -1)
+				texture = NiOverride.GetNodePropertyString(_playerActor, false, nodeName, 9, 0)
+			Else ; Doesn't have the node, get it from the override
+				bool isFemale = _playerActorBase.GetSex() as bool
+				rgb = NiOverride.GetNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1)
+				alpha = NiOverride.GetNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1)
+				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
+			Endif
+			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
+			If texture == ""
+				texture = "Actors\\Character\\Overlays\\Default.dds"
+			Endif
+			tints[i] = TINT_TYPE_HANDPAINT + ";;" + color + ";;" + texture
+			i += 1
+		EndWhile
+		UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddHandTints", tints)
+
+		i = 0
+		tints = new string[128]
+		totalTints = NiOverride.GetNumFeetOverlays()
+		While i < totalTints
+			string nodeName = "Feet [Ovl" + i + "]"
+			int rgb = 0
+			float alpha = 0
+			string texture = ""
+			If NetImmerse.HasNode(_playerActor, nodeName, false) ; Actor has the node, get the immediate property
+				rgb = NiOverride.GetNodePropertyInt(_playerActor, false, nodeName, 7, -1)
+				alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, nodeName, 8, -1)
+				texture = NiOverride.GetNodePropertyString(_playerActor, false, nodeName, 9, 0)
+			Else ; Doesn't have the node, get it from the override
+				bool isFemale = _playerActorBase.GetSex() as bool
+				rgb = NiOverride.GetNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1)
+				alpha = NiOverride.GetNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1)
+				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
+			Endif
+			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
+			If texture == ""
+				texture = "Actors\\Character\\Overlays\\Default.dds"
+			Endif
+			tints[i] = TINT_TYPE_FEETPAINT + ";;" + color + ";;" + texture
+			i += 1
+		EndWhile
+		UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddFeetTints", tints)
+	Endif
 EndFunction
