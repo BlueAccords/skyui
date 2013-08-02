@@ -17,12 +17,32 @@ int[] _entryCallback = None
 bool[] _entryChildren = None
 int _entryBuffer = 0
 
+string[] _premadeEntries = None
+int _premadeBuffer = 0
+
 int Function GetResultInt()
 	return _resultInt
 EndFunction
 
 float Function GetResultFloat()
 	return _resultFloat
+EndFunction
+
+Function SetPropertyStringA(string propertyName, string[] value)
+	if propertyName == "appendEntries"
+		int i = 0
+		If _premadeBuffer > 127
+			return ; Can't add anymore premade entries
+		Endif
+		While i < value.length
+			_premadeEntries[_premadeBuffer] = value[i]
+			_premadeBuffer += 1
+			If _premadeBuffer > 127 ; End the buffer
+				i = value.length
+			Endif
+			i += 1
+		EndWhile
+	Endif
 EndFunction
 
 int Function AddEntryItem(string entryName, int entryParent = -1, int entryCallback = -1, bool entryHasChildren = false)
@@ -71,13 +91,13 @@ Function OnInit()
 	_entryParent = new int[128]
 	_entryCallback = new int[128]
 	_entryChildren = new bool[128]
+	_premadeEntries = new string[128]
 	ResetMenu()
 EndFunction
 
 Function ResetMenu()
-	_entryBuffer = 0
 	int i = 0
-	While i < 128
+	While i < _entryBuffer
 		_entryName[i] = ""
 		_entryId[i] = -1
 		_entryParent[i] = -1
@@ -85,6 +105,13 @@ Function ResetMenu()
 		_entryChildren[i] = false
 		i += 1
 	EndWhile
+	i = 0
+	While i < _premadeBuffer
+		_premadeEntries[i] = ""
+		i += 1
+	EndWhile
+	_premadeBuffer = 0
+	_entryBuffer = 0
 EndFunction
 
 int Function OpenMenu(Form aForm = None, Form aReceiver = None)
@@ -94,6 +121,10 @@ int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	RegisterForModEvent("UIListMenu_SelectItem", "OnSelect")
 	_selectionLock = true
 	int ret = UIListMenuMessage.Show()
+	If ret == 0
+		_selectionLock = false
+		return ret
+	Endif
 	int counter = 0
 	while _selectionLock
 		Utility.Wait(0.1)
@@ -124,4 +155,8 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	EndWhile
 
 	UI.InvokeStringA(ROOT_MENU, MENU_ROOT + "LM_AddTreeEntries", entries)
+
+	If _premadeBuffer > 0
+		UI.InvokeStringA(ROOT_MENU, MENU_ROOT + "LM_AddTreeEntries", _premadeEntries)
+	Endif
 EndEvent

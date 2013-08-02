@@ -42,6 +42,10 @@ int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	_receiver.RegisterForModEvent("UISelectionMenu_SelectionChanged", "OnSelectForm")
 	_selectionLock = true
 	int ret = UISelectionMessage.Show()
+	If ret == 0
+		_selectionLock = false
+		return ret
+	Endif
 	int counter = 0
 	while _selectionLock
 		Utility.Wait(0.1)

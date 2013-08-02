@@ -1268,7 +1268,7 @@ class RaceMenu extends MovieClip
 			var now: Date = new Date();
 			var dateStr: String = "" + (now.getMonth()+1) + "-" + now.getDate() + "-" + now.getFullYear() + " " + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds();
 			delete now;
-			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\" + dateStr + ".nif";
+			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\" + dateStr;
 			
 			textDisplay._alpha = 100;
 			textDisplay.text = "$Exported head";

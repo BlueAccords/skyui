@@ -45,6 +45,8 @@ class ListMenu extends MovieClip
 		_viewPosX = itemView._x;
 		_viewPosY = itemView._y;
 		
+		_visible = false;
+				
 		Mouse.addListener(this);
 		EventDispatcher.initialize(this);
 	}
@@ -258,7 +260,8 @@ class ListMenu extends MovieClip
 		}
 				
 		if(rootAdded) {
-			itemList.requestInvalidate();
+			itemList.InvalidateData();
+			_visible = true;
 		}
 	}
 }

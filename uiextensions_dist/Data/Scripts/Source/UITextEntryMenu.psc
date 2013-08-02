@@ -34,6 +34,10 @@ int Function OpenMenu(Form inForm = None, Form akReceiver = None)
 	RegisterForModEvent("UITextEntryMenu_TextChanged", "OnTextChanged")
 	_entryLock = true
 	int ret = UITextEntryMenuMessage.Show()
+	If ret == 0
+		_entryLock = false
+		return ret
+	Endif
 	int counter = 0
 	while _entryLock
 		Utility.Wait(0.1)
