@@ -35,6 +35,7 @@ int Function OpenMenu(Form akForm = None, Form akReceiver = None)
 	_form = akForm
 	RegisterForModEvent("UIWheelMenu_SetOption", "OnSelectOption")
 	RegisterForModEvent("UIWheelMenu_LoadMenu", "OnLoadMenu")
+	RegisterForModEvent("UIWheelMenu_CloseMenu", "OnUnloadMenu")
 	return UIWheelMenuMessage.Show()
 EndFunction
 
@@ -47,6 +48,12 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	UpdateWheelIconColors()
 	UpdateWheelSelection()
 	UpdateWheelTextColors()
+EndEvent
+
+Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
+	UnregisterForModEvent("UIWheelMenu_SetOption")
+	UnregisterForModEvent("UIWheelMenu_LoadMenu")
+	UnregisterForModEvent("UIWheelMenu_CloseMenu")
 EndEvent
 
 Event OnSelectOption(string eventName, string strArg, float numArg, Form formArg)

@@ -170,27 +170,38 @@ class ActorStatsPanel extends MovieClip
 	
 	public function setActorStatsPanelForm(a_object: Object): Void
 	{
+		if(a_object == undefined || a_object.formId == undefined)
+			return;
+		
 		if(a_object.formType == Form.TYPE_FORMLIST)
 		{
 			_subList.clearList();
 			for(var i = 0; i < a_object.forms.length; i++) {
-				skse.ExtendForm(a_object.forms[i].formId, a_object.forms[i], true, false);
-				skse.ExtendForm(a_object.forms[i].actorBase.formId, a_object.forms[i].actorBase, true, false);
-				a_object.forms[i].text = a_object.forms[i].actorBase.fullName;
-				a_object.forms[i].align = "right";
-				a_object.forms[i].enabled = true;
-				_subList.entryList.push(a_object.forms[i]);
+				if(a_object.forms[i].formId != undefined) {
+					skse.ExtendForm(a_object.forms[i].formId, a_object.forms[i], true, false);
+					if(a_object.forms[i].actorBase.formId != undefined) {
+						skse.ExtendForm(a_object.forms[i].actorBase.formId, a_object.forms[i].actorBase, true, false);
+						a_object.forms[i].text = a_object.forms[i].actorBase.fullName;
+						a_object.forms[i].align = "right";
+						a_object.forms[i].enabled = true;
+						_subList.entryList.push(a_object.forms[i]);
+					}
+				}
 			}
 			_subList.InvalidateData();
 		} else {
 			_subList.clearList();
-			skse.ExtendForm(a_object.formId, a_object, true, false);
-			skse.ExtendForm(a_object.actorBase.formId, a_object.actorBase, true, false);
-			a_object.text = a_object.actorBase.fullName;
-			a_object.align = "right";
-			a_object.enabled = true;
-			_subList.entryList.push(a_object);
-			_subList.InvalidateData();
+			if(a_object.formId != undefined) {
+				skse.ExtendForm(a_object.formId, a_object, true, false);
+				if(a_object.actorBase.formId != undefined) {
+					skse.ExtendForm(a_object.actorBase.formId, a_object.actorBase, true, false);
+					a_object.text = a_object.actorBase.fullName;
+					a_object.align = "right";
+					a_object.enabled = true;
+					_subList.entryList.push(a_object);
+					_subList.InvalidateData();
+				}
+			}
 		}
 	}
 		
@@ -343,6 +354,7 @@ class ActorStatsPanel extends MovieClip
   
 	private function closeMenu()
 	{
+		skse.SendModEvent("UIStatsMenu_CloseMenu");
 		gfx.io.GameDelegate.call("buttonPress", [0]);
 	}
 	

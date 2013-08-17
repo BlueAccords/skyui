@@ -39,7 +39,9 @@ int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	RegisterForModEvent("UISelectionMenu_CloseMenu", "OnUnloadMenu")
 	RegisterForModEvent("UISelectionMenu_SelectForm", "OnSelect")
 	RegisterForModEvent("UISelectionMenu_SelectionReady", "OnSelectForm")
-	_receiver.RegisterForModEvent("UISelectionMenu_SelectionChanged", "OnSelectForm")
+	If _receiver
+		_receiver.RegisterForModEvent("UISelectionMenu_SelectionChanged", "OnSelectForm")
+	Endif
 	_selectionLock = true
 	int ret = UISelectionMessage.Show()
 	If ret == 0
@@ -89,7 +91,9 @@ Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
 	UnregisterForModEvent("UISelectionMenu_CloseMenu")
 	UnregisterForModEvent("UISelectionMenu_SelectForm")
 	UnregisterForModEvent("UISelectionMenu_SelectionReady")
-	_receiver.UnregisterForModEvent("UISelectionMenu_SelectionChanged")
+	If _receiver
+		_receiver.UnregisterForModEvent("UISelectionMenu_SelectionChanged")
+	Endif
 	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
 	sDescriptor.SetDecibelAttenuation(tempSoundDB)
 EndEvent

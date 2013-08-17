@@ -260,6 +260,7 @@ class FollowerWheel extends MovieClip
 	private function closeMenu(option: Number)
 	{
 		//skse.SendModEvent("MenuClosing", "", 0);
+		skse.SendModEvent("UIWheelMenu_CloseMenu");
 		gfx.io.GameDelegate.call("buttonPress", [option]);
 		//skse.SendModEvent("MenuClosing", "", 1);
 	}
@@ -267,8 +268,8 @@ class FollowerWheel extends MovieClip
 	// @Papyrus
 	public function setWheelSelection(option: Number, silent: Number): Void
 	{
-		option = GetNearestOption(option, true);
-		setWheelOption(option, silent >= 1 ? true : false);
+		var newOption: Number = GetNearestOption(option, true);
+		setWheelOption(newOption, silent >= 1 ? true : false);
 	}
 	
 	// @Papyrus
@@ -291,7 +292,7 @@ class FollowerWheel extends MovieClip
 	public function setWheelForm(object: Object)
 	{
 		_form = object;
-		if(object == undefined)
+		if(object == undefined || object.formId == undefined)
 			return;
 			
 		panelList.background._visible = false;
@@ -301,14 +302,20 @@ class FollowerWheel extends MovieClip
 		if(_form.formType == Form.TYPE_FORMLIST) {
 			setWheelText("$Group");
 			for(var i = 0; i < _form.forms.length; i++) {
-				skse.ExtendForm(_form.forms[i].formId, _form.forms[i], true, false);
-				skse.ExtendForm(_form.forms[i].actorBase.formId, _form.forms[i].actorBase, true, false);
-				panelList.entryList.push({actor: _form.forms[i]});
+				if(_form.forms[i].formId != undefined) {
+					skse.ExtendForm(_form.forms[i].formId, _form.forms[i], true, false); // Extend the form itself
+					if(_form.forms[i].actorBase.formId != undefined) {
+						skse.ExtendForm(_form.forms[i].actorBase.formId, _form.forms[i].actorBase, true, false); // Extend actorBase
+						panelList.entryList.push({actor: _form.forms[i]});
+					}
+				}
 			}
 		} else {
-			skse.ExtendForm(_form.actorBase.formId, _form.actorBase, true, false);
-			setWheelText(_form.actorBase.fullName);
-			panelList.entryList.push({actor: _form});
+			if(_form.actorBase.formId != undefined) {
+				skse.ExtendForm(_form.actorBase.formId, _form.actorBase, true, false);
+				setWheelText(_form.actorBase.fullName);
+				panelList.entryList.push({actor: _form});
+			}
 		}
 		
 		panelList.InvalidateData();

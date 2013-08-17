@@ -31,6 +31,7 @@ EndFunction
 int Function OpenMenu(Form inForm = None, Form akReceiver = None)
 	_internalResult = ""
 	RegisterForModEvent("UITextEntryMenu_LoadMenu", "OnLoadMenu")
+	RegisterForModEvent("UITextEntryMenu_CloseMenu", "OnUnloadMenu")
 	RegisterForModEvent("UITextEntryMenu_TextChanged", "OnTextChanged")
 	_entryLock = true
 	int ret = UITextEntryMenuMessage.Show()
@@ -56,6 +57,12 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	UI.InvokeFloatA(ROOT_MENU, MENU_ROOT + "SetPlatform", params)
 	UI.Invoke(ROOT_MENU, MENU_ROOT + "SetupButtons")
 	UpdateTextEntryString()
+EndEvent
+
+Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
+	UnregisterForModEvent("UITextEntryMenu_LoadMenu")
+	UnregisterForModEvent("UITextEntryMenu_CloseMenu")
+	UnregisterForModEvent("UITextEntryMenu_TextChanged")
 EndEvent
 
 Event OnTextChanged(string eventName, string strArg, float numArg, Form formArg)

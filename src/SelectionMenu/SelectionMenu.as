@@ -92,6 +92,7 @@
 	
 	private function closeMenu(option: Number)
 	{
+		skse.SendModEvent("UISelectionMenu_CloseMenu");
 		gfx.io.GameDelegate.call("buttonPress", [option]);
 	}
 
@@ -159,9 +160,13 @@
 		{
 			for(var i = 0; i < aObject.forms.length; i++)
 			{
-				skse.ExtendForm(aObject.forms[i].formId, aObject.forms[i], true, false);
-				skse.ExtendForm(aObject.forms[i].actorBase.formId, aObject.forms[i].actorBase, true, false);
-				aObject.forms[i].text = aObject.forms[i].actorBase.fullName;
+				if(aObject.forms[i].formId != undefined) {
+					skse.ExtendForm(aObject.forms[i].formId, aObject.forms[i], true, false);
+					if(aObject.forms[i].actorBase.formId != undefined) {
+						skse.ExtendForm(aObject.forms[i].actorBase.formId, aObject.forms[i].actorBase, true, false);
+						aObject.forms[i].text = aObject.forms[i].actorBase.fullName;
+					}
+				}
 			}
 			
 			ItemList.entryList = aObject.forms;

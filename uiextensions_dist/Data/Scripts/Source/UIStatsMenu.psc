@@ -14,6 +14,7 @@ EndFunction
 int Function OpenMenu(Form inForm = None, Form akReceiver = None)
 	_form = inForm
 	RegisterForModEvent("UIStatsMenu_LoadMenu", "OnLoadMenu")
+	RegisterForModEvent("UIStatsMenu_CloseMenu", "OnUnloadMenu")
 	return UIStatsMenuMessage.Show()
 EndFunction
 
@@ -21,6 +22,12 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	UpdateStatsForm()
 EndEvent
 
+Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
+	UnregisterForModEvent("UIStatsMenu_LoadMenu")
+	UnregisterForModEvent("UIStatsMenu_CloseMenu")
+EndEvent
+
 Function UpdateStatsForm()
 	UI.InvokeForm(ROOT_MENU, MENU_ROOT + "setActorStatsPanelForm", _form)
 EndFunction
+

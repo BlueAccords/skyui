@@ -126,6 +126,7 @@ class ListMenu extends MovieClip
 	
 	private function closeMenu(option: Number): Void
 	{
+		skse.SendModEvent("UIListMenu_CloseMenu");
 		GameDelegate.call("buttonPress", [option]);
 	}
 	

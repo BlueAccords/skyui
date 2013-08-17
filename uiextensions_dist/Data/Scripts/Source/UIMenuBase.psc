@@ -51,6 +51,10 @@ float Function GetPropertyFloat(string propertyName)
 
 EndFunction
 
+Form Function GetPropertyForm(string propertyName)
+
+EndFunction
+
 ; Setters
 Function SetPropertyInt(string propertyName, int value)
 

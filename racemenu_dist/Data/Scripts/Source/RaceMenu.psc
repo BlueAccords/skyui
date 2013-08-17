@@ -73,6 +73,9 @@ Function OnStartup()
 	If SKSE.GetVersionRelease() != SKSE.GetScriptVersionRelease()
 		Debug.Notification("SKSE script version mismatch. Please reinstall your SKSE scripts to match your version.")
 	Endif
+	If RaceMenuBase.GetScriptVersionRelease() < 1
+		Debug.Notification("Invalid RaceMenuBase script version detected.")
+	Endif
 EndFunction
 
 Function Reinitialize()

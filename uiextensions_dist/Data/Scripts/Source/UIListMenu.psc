@@ -118,6 +118,7 @@ int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	_resultFloat = -1.0
 	_resultInt = -1
 	RegisterForModEvent("UIListMenu_LoadMenu", "OnLoadMenu")
+	RegisterForModEvent("UIListMenu_CloseMenu", "OnUnloadMenu")
 	RegisterForModEvent("UIListMenu_SelectItem", "OnSelect")
 	_selectionLock = true
 	int ret = UIListMenuMessage.Show()
@@ -159,4 +160,10 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	If _premadeBuffer > 0
 		UI.InvokeStringA(ROOT_MENU, MENU_ROOT + "LM_AddTreeEntries", _premadeEntries)
 	Endif
+EndEvent
+
+Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
+	UnregisterForModEvent("UIListMenu_LoadMenu")
+	UnregisterForModEvent("UIListMenu_CloseMenu")
+	UnregisterForModEvent("UIListMenu_SelectItem")
 EndEvent

@@ -7,6 +7,9 @@ string Property 	MENU_ROOT		= "_root.MessageMenu.proxyMenu." autoReadonly
 string property		CONFIG_ROOT		= "_global.skyui.util.ConfigManager" autoReadonly
 
 Actor _actor = None
+Actor _tradeActor = None
+
+Form _receiver = None
 
 float tempSoundDB = 0.0
 
@@ -16,37 +19,82 @@ EndFunction
 
 int Function OpenMenu(Form akForm = None, Form akReceiver = None)
 	_actor = akForm as Actor
-	RegisterForMenu(ROOT_MENU)
+	_receiver = akReceiver
+	RegisterForModEvent("UIMagicMenu_LoadMenu", "OnLoadMenu")
+	RegisterForModEvent("UIMagicMenu_CloseMenu", "OnUnloadMenu")
+	RegisterForModEvent("UIMagicMenu_AddRemoveSpell", "OnAddRemoveSpell")
+	If _receiver
+		_receiver.RegisterForModEvent("UIMagicMenu_AddRemoveSpell", "OnAddRemoveSpell")
+	Endif
 	return UIMagicMenuMessage.Show()
 EndFunction
 
-Event OnMenuOpen(string menuName)
-	If menuName == ROOT_MENU
-		UI.Invoke(ROOT_MENU, MENU_ROOT + "InitExtensions")
-		float[] params = new Float[2]
-		params[0] = Game.UsingGamepad() as float
-		params[1] = 0
-		UI.InvokeFloatA(ROOT_MENU, MENU_ROOT + "SetPlatform", params)
-		UI.InvokeForm(ROOT_MENU, MENU_ROOT + "Menu_mc.SetMagicMenuExtActor", _actor)
+Function SetPropertyString(string propertyName, String value)
+	If propertyName == "Notification"
+		UI.InvokeString(ROOT_MENU, MENU_ROOT + "Menu_mc.MagicMenu_PushMessage", value)
+	Endif
+EndFunction
 
-		string[] overrideKeys = new string[1]
-		string[] overrideValues = new string[1]
-		UI.InvokeStringA(ROOT_MENU, CONFIG_ROOT + ".setExternalOverrideKeys", overrideKeys)
-		UI.InvokeStringA(ROOT_MENU, CONFIG_ROOT + ".setExternalOverrideValues", overrideValues)
+Function SetPropertyForm(string propertyName, Form value)
+	If propertyName == "receivingActor"
+		_tradeActor = value as Actor
+	Elseif propertyName == "AddSpell"
+		UI.InvokeForm(ROOT_MENU, MENU_ROOT + "Menu_mc.MagicMenu_AddSpell", value)
+	Elseif propertyName == "RemoveSpell"
+		UI.InvokeForm(ROOT_MENU, MENU_ROOT + "Menu_mc.MagicMenu_RemoveSpell", value)
+	Endif
+EndFunction
 
-		; Kill the MessageBox UI OK Sound
-		SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
-		tempSoundDB = sDescriptor.GetDecibelAttenuation()
-		sDescriptor.SetDecibelAttenuation(100.0)
+Event OnAddRemoveSpell(string eventName, string strArg, float numArg, Form formArg)
+	Spell akSpell = formArg as Spell
+	ActorBase akBase = _actor.GetActorBase()
+	If akSpell
+		If numArg == 0
+			_actor.RemoveSpell(akSpell)
+			If !_actor.HasSpell(akSpell)
+				SetPropertyForm("RemoveSpell", akSpell)
+				SetPropertyString("Notification", "${" + akBase.GetName() + "} forgot {" + akSpell.GetName() +"}.")
+			Else
+				SetPropertyString("Notification", "$Could not forget {" + akSpell.GetName() +"}.")
+			Endif
+		Elseif numArg == 1
+			If !_actor.HasSpell(akSpell)
+				_actor.AddSpell(akSpell)
+				SetPropertyForm("AddSpell", formArg)
+				SetPropertyString("Notification", "$Taught {" + akSpell.GetName() +"} to {" + akBase.GetName() + "}.")
+			Else
+				SetPropertyString("Notification", "${" + akBase.GetName() + "} already knows this spell.")
+			Endif
+		Endif
 	Endif
 EndEvent
 
-Event OnMenuClose(string menuName)
-	If menuName == ROOT_MENU
-		UnregisterForMenu(ROOT_MENU)
+Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
+	UI.Invoke(ROOT_MENU, MENU_ROOT + "InitExtensions")
+	float[] params = new Float[2]
+	params[0] = Game.UsingGamepad() as float
+	params[1] = 0
+	UI.InvokeFloatA(ROOT_MENU, MENU_ROOT + "SetPlatform", params)
+	UI.InvokeForm(ROOT_MENU, MENU_ROOT + "Menu_mc.MagicMenu_SetActor", _actor)
+	UI.InvokeForm(ROOT_MENU, MENU_ROOT + "Menu_mc.MagicMenu_SetSecondaryActor", _tradeActor)
 
-		; Restore the MessageBox UI OK Sound
-		SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
-		sDescriptor.SetDecibelAttenuation(tempSoundDB)
+	string[] overrideKeys = new string[1]
+	string[] overrideValues = new string[1]
+	UI.InvokeStringA(ROOT_MENU, CONFIG_ROOT + ".setExternalOverrideKeys", overrideKeys)
+	UI.InvokeStringA(ROOT_MENU, CONFIG_ROOT + ".setExternalOverrideValues", overrideValues)
+
+	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
+	tempSoundDB = sDescriptor.GetDecibelAttenuation()
+	sDescriptor.SetDecibelAttenuation(100.0)
+EndEvent
+
+Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
+	UnregisterForModEvent("UIMagicMenu_LoadMenu")
+	UnregisterForModEvent("UIMagicMenu_CloseMenu")
+	UnregisterForModEvent("UIMagicMenu_AddRemoveSpell")
+	If _receiver
+		_receiver.UnregisterForModEvent("UIMagicMenu_AddRemoveSpell")
 	Endif
+	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
+	sDescriptor.SetDecibelAttenuation(tempSoundDB)
 EndEvent

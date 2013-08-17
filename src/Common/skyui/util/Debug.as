@@ -69,7 +69,7 @@ class skyui.util.Debug
 		for(var i = 0; i < padLevel; i++)
 			pad += "    ";
 
-		if (typeof a_obj == "object" || typeof a_obj == "function" ) {
+		if (typeof a_obj == "object" || typeof a_obj == "function" || typeof a_obj == "movieclip" ) {
 			logFn(pad + a_name);
 			for (var s in a_obj)
 				dump(s, a_obj[s], a_noTimestamp, padLevel + 1);

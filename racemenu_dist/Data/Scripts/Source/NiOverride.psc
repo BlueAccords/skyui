@@ -130,6 +130,16 @@ bool Function HasOverlays(ObjectReference ref) native global
 ; Removes overlays from an actor (Cannot remove from player)
 Function RemoveOverlays(ObjectReference ref) native global
 
+; Restores the original non-diffuse skin textures to all overlays
+Function RevertOverlays(ObjectReference ref) native global
+
+; Restores the original non-diffuse skin textures to particular overlay
+; Valid masks: Combining masks not recommended
+; 4 - Body
+; 8 - Hands
+; 128 - Feet
+Function RevertOverlay(ObjectReference ref, string nodeName, int armorMask, int addonMask) native global
+
 ; Sets a body morph value on an actor
 Function SetMorphValue(ObjectReference ref, string morphName, float value) native global
 

@@ -34,6 +34,10 @@ int _textureBuffer_feet
 string[] _sliders = None
 int _sliderBuffer = 0
 
+int Function GetScriptVersionRelease() global
+	return 1
+EndFunction
+
 Event OnInit()
 	_playerActor = Game.GetPlayer()
 	_playerActorBase = _playerActor.GetActorBase()

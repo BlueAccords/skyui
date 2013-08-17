@@ -103,6 +103,7 @@ class TextEntryField extends MovieClip
 		if (GetValidEntry()) {
 			skse.SendModEvent("UITextEntryMenu_TextChanged", TextInputInstance.text);
 			skse.AllowTextInput(false);
+			skse.SendModEvent("UITextEntryMenu_CloseMenu");
 			gfx.io.GameDelegate.call("buttonPress", [1]);
 		}
 	}
@@ -111,6 +112,7 @@ class TextEntryField extends MovieClip
 	{
 		skse.SendModEvent("UITextEntryMenu_TextChanged", "");
 		skse.AllowTextInput(false);
+		skse.SendModEvent("UITextEntryMenu_CloseMenu");
 		gfx.io.GameDelegate.call("buttonPress", [0]);
 	}
 	
