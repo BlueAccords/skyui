@@ -46,6 +46,7 @@ Function OnStartup()
 	RegisterForModEvent("RSM_TintTextureChange", "OnTintTextureChange") ; Event sent when a tint changes texture
 	RegisterForModEvent("RSM_ToggleLight", "OnToggleLight") ; Event sent when the Light button is pressed
 	RegisterForModEvent("RSM_RequestTintSave", "OnTintSave") ; User-sent event to request tint save
+	RegisterForModEvent("RSM_RequestTintLoad", "OnTintLoad") ; User-sent event to request tint load
 	RegisterForModEvent("RSM_SliderChange", "OnMenuSliderChange") ; Event sent when a slider's value is changed
 
 	; Overlay Management
@@ -59,6 +60,13 @@ Function OnStartup()
 
 	RegisterForModEvent("RSM_ClipboardData", "OnClipboardData")
 	RegisterForModEvent("RSM_ClipboardFinished", "OnClipboardFinished")
+	; --------------------------------------------
+
+	; RaceSexMenu Data Transfer
+	RegisterForModEvent("RSMDT_SendMenuName", "OnReceiveMenuName")
+	RegisterForModEvent("RSMDT_SendRootName", "OnReceiveRootName")
+	RegisterForModEvent("RSMDT_SendPaintRequest", "OnReceivePaintRequest")
+	RegisterForModEvent("RSMDT_SendRestore", "OnReceiveRestore")
 	; --------------------------------------------
 
 	Utility.SetINIFloat("fPlayerBodyEditDistance:Interface", 190.0)
@@ -76,6 +84,10 @@ Function OnStartup()
 	If RaceMenuBase.GetScriptVersionRelease() < 1
 		Debug.Notification("Invalid RaceMenuBase script version detected.")
 	Endif
+
+	_targetRoot = RACESEX_MENU
+	_targetMenu = MENU_ROOT
+	_targetActor = _playerActor
 EndFunction
 
 Function Reinitialize()
@@ -134,6 +146,10 @@ EndEvent
 
 Event OnMenuOpen(string menuName)
 	If menuName == RACESEX_MENU
+		_targetMenu = RACESEX_MENU
+		_targetRoot = MENU_ROOT
+		_targetActor = _playerActor
+
 		UpdateRaces()
 		_light = _playerActor.placeAtMe(_lightForm)
 		float zOffset = _light.GetHeadingAngle(_playerActor)
@@ -333,11 +349,12 @@ Event OnOverlayColorChange(string eventName, string strArg, float numArg, Form f
 	Endif
 	nodeName += index + "]"
 
-	bool isFemale = _playerActorBase.GetSex() as bool
+	ActorBase targetBase = _targetActor.GetActorBase()
+	bool isFemale = targetBase.GetSex() as bool
 	If SKSE.GetPluginVersion("NiOverride") >= 1 ; Checks to make sure the NiOverride plugin exists
 		int alpha = Math.RightShift(color, 24)
-		NiOverride.AddNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1, color, true) ; Set the tint color
-		NiOverride.AddNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1, alpha / 255.0, true) ; Set the alpha
+		NiOverride.AddNodeOverrideInt(_targetActor, isFemale, nodeName, 7, -1, color, true) ; Set the tint color
+		NiOverride.AddNodeOverrideFloat(_targetActor, isFemale, nodeName, 8, -1, alpha / 255.0, true) ; Set the alpha
 	Endif
 EndEvent
 
@@ -357,16 +374,17 @@ Event OnOverlayTextureChange(string eventName, string strArg, float numArg, Form
 	Endif
 	nodeName += index + "]"
 
-	bool isFemale = _playerActorBase.GetSex() as bool
+	ActorBase targetBase = _targetActor.GetActorBase()
+	bool isFemale = targetBase.GetSex() as bool
 	If SKSE.GetPluginVersion("NiOverride") >= 1
-		NiOverride.AddNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0, texture, true) ; Set the tint color
+		NiOverride.AddNodeOverrideString(_targetActor, isFemale, nodeName, 9, 0, texture, true) ; Set the tint color
 	Endif
 EndEvent
 
 Event OnShadersInvalidated(string eventName, string strArg, float numArg, Form formArg)
 	If SKSE.GetPluginVersion("NiOverride") >= 1
-		NiOverride.ApplyOverrides(_playerActor)
-		NiOverride.ApplyNodeOverrides(_playerActor)
+		NiOverride.ApplyOverrides(_targetActor)
+		NiOverride.ApplyNodeOverrides(_targetActor)
 	Endif
 EndEvent
 
@@ -386,10 +404,21 @@ Event OnTintSave(string eventName, string strArg, float numArg, Form formArg)
 	SaveTints()
 EndEvent
 
+Event OnTintLoad(string eventName, string strArg, float numArg, Form formArg)
+	LoadTints()
+	UpdateColors()
+	UpdateOverlays()
+	Game.UpdateTintMaskColors()
+	 ; When UpdateTintMaskColors is called, it updates SkinTone shaders on every node
+	 ; including ones with overrides, we need to fix this by informing the plugin
+	 ; and reapplying the overrides
+	SendModEvent("RSM_ShadersInvalidated")
+EndEvent
+
 ; ------------------------------- Clipboard Events -----------------------------------
 Event OnLoadClipboard(string eventName, string strArg, float numArg, Form formArg)
-	UI.InvokeBool(RACESEX_MENU, MENU_ROOT + "RSM_ToggleLoader", true)
-	UI.Invoke(RACESEX_MENU, MENU_ROOT + "RSM_LoadClipboard")
+	UI.InvokeBool(_targetMenu, _targetRoot + "RSM_ToggleLoader", true)
+	UI.Invoke(_targetMenu, _targetRoot + "RSM_LoadClipboard")
 EndEvent
 
 Event OnSaveClipboard(string eventName, string strArg, float numArg, Form formArg)
@@ -407,7 +436,7 @@ Event OnSaveClipboard(string eventName, string strArg, float numArg, Form formAr
 		i += 1
 	EndWhile
 
-	UI.InvokeFloatA(RACESEX_MENU, MENU_ROOT + "RSM_SaveClipboard", args)
+	UI.InvokeFloatA(_targetMenu, _targetRoot + "RSM_SaveClipboard", args)
 EndEvent
 
 Event OnClipboardData(string eventName, string strArg, float numArg, Form formArg)
@@ -424,7 +453,7 @@ Event OnClipboardFinished(string eventName, string strArg, float numArg, Form fo
 	LoadPresets()
 	LoadMorphs()
 	_playerActor.QueueNiNodeUpdate()
-	UI.InvokeBool(RACESEX_MENU, MENU_ROOT + "RSM_ToggleLoader", false)
+	UI.InvokeBool(_targetMenu, _targetRoot + "RSM_ToggleLoader", false)
 EndEvent
 ; ------------------------------------------------------------------------------------
 
@@ -699,7 +728,7 @@ Function UpdateColors()
 		tints[i + 1] = _tintTypes[i] + ";;" + _tintColors[i] + ";;" + _tintTextures[i]
 		i += 1
 	EndWhile
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddTints", tints)
+	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddTints", tints)
 EndFunction
 
 ; Indexes the races for extended bonus descriptions
@@ -708,7 +737,7 @@ Function UpdateRaces()
 	int i = 0
 	While i < totalRaces
 		Race playableRace = Race.GetNthPlayableRace(i)
-		UI.InvokeForm(RACESEX_MENU, MENU_ROOT + "RSM_ExtendRace", playableRace)
+		UI.InvokeForm(_targetMenu, _targetRoot + "RSM_ExtendRace", playableRace)
 		i += 1
 	EndWhile
 EndFunction
@@ -717,6 +746,7 @@ EndFunction
 Function UpdateOverlays()
 	If SKSE.GetPluginVersion("NiOverride") >= 1 ; Checks to make sure the NiOverride plugin exists
 		int i = 0
+		ActorBase targetBase = _targetActor.GetActorBase()
 		string[] tints = new string[128]
 		int totalTints = NiOverride.GetNumBodyOverlays()
 		While i < totalTints
@@ -724,15 +754,15 @@ Function UpdateOverlays()
 			int rgb = 0
 			float alpha = 0
 			string texture = ""
-			If NetImmerse.HasNode(_playerActor, nodeName, false) ; Actor has the node, get the immediate property
-				rgb = NiOverride.GetNodePropertyInt(_playerActor, false, nodeName, 7, -1)
-				alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, nodeName, 8, -1)
-				texture = NiOverride.GetNodePropertyString(_playerActor, false, nodeName, 9, 0)
+			If NetImmerse.HasNode(_targetActor, nodeName, false) ; Actor has the node, get the immediate property
+				rgb = NiOverride.GetNodePropertyInt(_targetActor, false, nodeName, 7, -1)
+				alpha = NiOverride.GetNodePropertyFloat(_targetActor, false, nodeName, 8, -1)
+				texture = NiOverride.GetNodePropertyString(_targetActor, false, nodeName, 9, 0)
 			Else ; Doesn't have the node, get it from the override
-				bool isFemale = _playerActorBase.GetSex() as bool
-				rgb = NiOverride.GetNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1)
-				alpha = NiOverride.GetNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1)
-				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
+				bool isFemale = targetBase.GetSex() as bool
+				rgb = NiOverride.GetNodeOverrideInt(_targetActor, isFemale, nodeName, 7, -1)
+				alpha = NiOverride.GetNodeOverrideFloat(_targetActor, isFemale, nodeName, 8, -1)
+				texture = NiOverride.GetNodeOverrideString(_targetActor, isFemale, nodeName, 9, 0)
 			Endif
 			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
 			If texture == ""
@@ -741,7 +771,7 @@ Function UpdateOverlays()
 			tints[i] = TINT_TYPE_BODYPAINT + ";;" + color + ";;" + texture
 			i += 1
 		EndWhile
-		UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddBodyTints", tints)
+		UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddBodyTints", tints)
 
 		i = 0
 		tints = new string[128]
@@ -751,15 +781,15 @@ Function UpdateOverlays()
 			int rgb = 0
 			float alpha = 0
 			string texture = ""
-			If NetImmerse.HasNode(_playerActor, nodeName, false) ; Actor has the node, get the immediate property
-				rgb = NiOverride.GetNodePropertyInt(_playerActor, false, nodeName, 7, -1)
-				alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, nodeName, 8, -1)
-				texture = NiOverride.GetNodePropertyString(_playerActor, false, nodeName, 9, 0)
+			If NetImmerse.HasNode(_targetActor, nodeName, false) ; Actor has the node, get the immediate property
+				rgb = NiOverride.GetNodePropertyInt(_targetActor, false, nodeName, 7, -1)
+				alpha = NiOverride.GetNodePropertyFloat(_targetActor, false, nodeName, 8, -1)
+				texture = NiOverride.GetNodePropertyString(_targetActor, false, nodeName, 9, 0)
 			Else ; Doesn't have the node, get it from the override
-				bool isFemale = _playerActorBase.GetSex() as bool
-				rgb = NiOverride.GetNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1)
-				alpha = NiOverride.GetNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1)
-				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
+				bool isFemale = targetBase.GetSex() as bool
+				rgb = NiOverride.GetNodeOverrideInt(_targetActor, isFemale, nodeName, 7, -1)
+				alpha = NiOverride.GetNodeOverrideFloat(_targetActor, isFemale, nodeName, 8, -1)
+				texture = NiOverride.GetNodeOverrideString(_targetActor, isFemale, nodeName, 9, 0)
 			Endif
 			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
 			If texture == ""
@@ -768,7 +798,7 @@ Function UpdateOverlays()
 			tints[i] = TINT_TYPE_HANDPAINT + ";;" + color + ";;" + texture
 			i += 1
 		EndWhile
-		UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddHandTints", tints)
+		UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddHandTints", tints)
 
 		i = 0
 		tints = new string[128]
@@ -778,15 +808,15 @@ Function UpdateOverlays()
 			int rgb = 0
 			float alpha = 0
 			string texture = ""
-			If NetImmerse.HasNode(_playerActor, nodeName, false) ; Actor has the node, get the immediate property
-				rgb = NiOverride.GetNodePropertyInt(_playerActor, false, nodeName, 7, -1)
-				alpha = NiOverride.GetNodePropertyFloat(_playerActor, false, nodeName, 8, -1)
-				texture = NiOverride.GetNodePropertyString(_playerActor, false, nodeName, 9, 0)
+			If NetImmerse.HasNode(_targetActor, nodeName, false) ; Actor has the node, get the immediate property
+				rgb = NiOverride.GetNodePropertyInt(_targetActor, false, nodeName, 7, -1)
+				alpha = NiOverride.GetNodePropertyFloat(_targetActor, false, nodeName, 8, -1)
+				texture = NiOverride.GetNodePropertyString(_targetActor, false, nodeName, 9, 0)
 			Else ; Doesn't have the node, get it from the override
-				bool isFemale = _playerActorBase.GetSex() as bool
-				rgb = NiOverride.GetNodeOverrideInt(_playerActor, isFemale, nodeName, 7, -1)
-				alpha = NiOverride.GetNodeOverrideFloat(_playerActor, isFemale, nodeName, 8, -1)
-				texture = NiOverride.GetNodeOverrideString(_playerActor, isFemale, nodeName, 9, 0)
+				bool isFemale = targetBase.GetSex() as bool
+				rgb = NiOverride.GetNodeOverrideInt(_targetActor, isFemale, nodeName, 7, -1)
+				alpha = NiOverride.GetNodeOverrideFloat(_targetActor, isFemale, nodeName, 8, -1)
+				texture = NiOverride.GetNodeOverrideString(_targetActor, isFemale, nodeName, 9, 0)
 			Endif
 			int color = Math.LogicalOr(Math.LogicalAnd(rgb, 0xFFFFFF), Math.LeftShift((alpha * 255) as Int, 24))
 			If texture == ""
@@ -795,6 +825,6 @@ Function UpdateOverlays()
 			tints[i] = TINT_TYPE_FEETPAINT + ";;" + color + ";;" + texture
 			i += 1
 		EndWhile
-		UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddFeetTints", tints)
+		UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddFeetTints", tints)
 	Endif
 EndFunction

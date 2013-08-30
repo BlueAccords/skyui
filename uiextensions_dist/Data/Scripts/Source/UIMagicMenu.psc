@@ -8,6 +8,7 @@ string property		CONFIG_ROOT		= "_global.skyui.util.ConfigManager" autoReadonly
 
 Actor _actor = None
 Actor _tradeActor = None
+bool _restricted = true
 
 Form _receiver = None
 
@@ -26,12 +27,23 @@ int Function OpenMenu(Form akForm = None, Form akReceiver = None)
 	If _receiver
 		_receiver.RegisterForModEvent("UIMagicMenu_AddRemoveSpell", "OnAddRemoveSpell")
 	Endif
+
+	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
+	tempSoundDB = sDescriptor.GetDecibelAttenuation()
+	sDescriptor.SetDecibelAttenuation(100.0)
+
 	return UIMagicMenuMessage.Show()
 EndFunction
 
 Function SetPropertyString(string propertyName, String value)
 	If propertyName == "Notification"
 		UI.InvokeString(ROOT_MENU, MENU_ROOT + "Menu_mc.MagicMenu_PushMessage", value)
+	Endif
+EndFunction
+
+Function SetPropertyBool(string propertyName, bool value)
+	If propertyName == "Restricted"
+		_restricted = value
 	Endif
 EndFunction
 
@@ -55,7 +67,7 @@ Event OnAddRemoveSpell(string eventName, string strArg, float numArg, Form formA
 				SetPropertyForm("RemoveSpell", akSpell)
 				SetPropertyString("Notification", "${" + akBase.GetName() + "} forgot {" + akSpell.GetName() +"}.")
 			Else
-				SetPropertyString("Notification", "$Could not forget {" + akSpell.GetName() +"}.")
+				SetPropertyString("Notification", "${" + akBase.GetName() + "} could not forget {" + akSpell.GetName() +"}.")
 			Endif
 		Elseif numArg == 1
 			If !_actor.HasSpell(akSpell)
@@ -75,6 +87,9 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	params[0] = Game.UsingGamepad() as float
 	params[1] = 0
 	UI.InvokeFloatA(ROOT_MENU, MENU_ROOT + "SetPlatform", params)
+
+	UI.SetBool(ROOT_MENU, MENU_ROOT + "bRestrictTrade", _restricted)
+
 	UI.InvokeForm(ROOT_MENU, MENU_ROOT + "Menu_mc.MagicMenu_SetActor", _actor)
 	UI.InvokeForm(ROOT_MENU, MENU_ROOT + "Menu_mc.MagicMenu_SetSecondaryActor", _tradeActor)
 
@@ -82,10 +97,6 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	string[] overrideValues = new string[1]
 	UI.InvokeStringA(ROOT_MENU, CONFIG_ROOT + ".setExternalOverrideKeys", overrideKeys)
 	UI.InvokeStringA(ROOT_MENU, CONFIG_ROOT + ".setExternalOverrideValues", overrideValues)
-
-	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
-	tempSoundDB = sDescriptor.GetDecibelAttenuation()
-	sDescriptor.SetDecibelAttenuation(100.0)
 EndEvent
 
 Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)

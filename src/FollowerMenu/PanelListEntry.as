@@ -79,7 +79,10 @@ class PanelListEntry extends MovieClip
 	{
 		var a_actor = a_entryObject.actor;
 		
-		NameField.text = a_actor.actorBase.fullName;
+		if(a_actor.fullName != undefined)
+			NameField.text = a_actor.fullName;
+		else
+			NameField.text = a_actor.actorBase.fullName;
 		
 		healthPercent = (a_actor.actorValues[Actor.AV_HEALTH].current / a_actor.actorValues[Actor.AV_HEALTH].maximum);
 		magickaPercent = (a_actor.actorValues[Actor.AV_MAGICKA].current / a_actor.actorValues[Actor.AV_MAGICKA].maximum);

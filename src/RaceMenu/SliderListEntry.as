@@ -211,23 +211,21 @@ class SliderListEntry extends BasicListEntry
 		SliderInstance.position = a_entryObject.position;
 		SliderInstance.callbackName = a_entryObject.callbackName;
 		SliderInstance.sliderID = a_entryObject.sliderID;
+		SliderInstance.internalCallback = a_entryObject.internalCallback;
 		SliderInstance.entryObject = a_entryObject;
 		SliderInstance.changedCallback = function()
 		{
 			GameDelegate.call(this.callbackName, [this.position, this.sliderID]);
 			GameDelegate.call("PlaySound",["UIMenuFocus"]);
 			
-			skse.SendModEvent("RSM_SliderChange", this.callbackName, this.position);
+			skse.SendModEvent(_global.eventPrefix + "SliderChange", this.callbackName, this.position);
 			
 			this.entryObject.position = this.position;
 			_parent.valueField.SetText(((this.position * 100)|0)/100);
 			
-			/* ECE Compatibility Start */
-			if(_global.skse.plugins.ExCharGen && (this.callbackName == "ChangeDoubleMorph" || this.callbackName == "ChangePreset")) {
-				if(_global.skse.plugins.ExCharGen.UpdateMorphs != undefined)
-					_global.skse.plugins.ExCharGen.UpdateMorphs();
+			if(this.internalCallback) {
+				this.internalCallback();
 			}
-			/* ECE Compatibility End */
 		};
 		SliderInstance.addEventListener("change", SliderInstance, "changedCallback");
 		SliderInstance.disabled = !a_entryObject.enabled;

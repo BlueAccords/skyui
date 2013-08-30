@@ -183,7 +183,7 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 			// Request new values
 			var actorValues = new Array();
 			//var actorValues = _tempList[i];// TEST CODE
-			skse.RequestActorValues(_actorList[i].formId, 
+			skse.RequestActorValues(_actorList[i].formId >>> 0, 
 									[PanelDefines.ACTORVALUE_HEALTH, 
 									 PanelDefines.ACTORVALUE_MAGICKA,
 									 PanelDefines.ACTORVALUE_STAMINA],
@@ -216,7 +216,7 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 				for(var n = 0; n < totalShown; n++)
 				{
 					// Actor is already shown
-					if(_actorList[i].formId == panelList.actors[n].formId) {
+					if((_actorList[i].formId >>> 0) == (panelList.actors[n].formId >>> 0)) {
 						//skse.Log("Updating: " + _actorList[i].actorBase.fullName + " C:" + (actorValues[0].current|0) + " " + (actorValues[1].current|0) + " " + (actorValues[2].current|0) + " M:" + (actorValues[0].maximum|0) + " " + (actorValues[1].maximum|0) + " " + (actorValues[2].maximum|0) + " B:" + (actorValues[0].base|0) + " " + (actorValues[1].base|0) + " " + (actorValues[2].base|0));
 						panelList.actors[n].update(_actorList[i]);
 						updated = true;
@@ -262,7 +262,7 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	{
 		if(a_form.formType == PanelDefines.FORMTYPE_LIST)
 		{
-			skse.ExtendForm(a_form.formId, a_form, true, false);
+			skse.ExtendForm(a_form.formId >>> 0, a_form, true, false);
 			var totalForms: Number = a_form.forms.length;
 			for(var i = 0; i < totalForms; i++) {
 				addSingleActor(a_form.forms[i]);
@@ -281,10 +281,11 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 		}
 		if(a_form.formId == undefined) {
 			skse.Log("Error, undefined formId");
+			return;
 		}
 		
-		skse.ExtendForm(a_form.formId, a_form, true, false);
-		skse.ExtendForm(a_form.actorBase.formId, a_form.actorBase, true, false);
+		skse.ExtendForm(a_form.formId >>> 0, a_form, true, false);
+		skse.ExtendForm(a_form.actorBase.formId >>> 0, a_form.actorBase, true, false);
 		
 		_actorList.push(a_form);
 	}
@@ -306,7 +307,7 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	{
 		var totalActors: Number = _actorList.length;
 		for(var i = 0; i < totalActors; i++) {
-			if(_actorList[i].formId == a_form.formId) {
+			if((_actorList[i].formId >>> 0) == (a_form.formId >>> 0)) {
 				panelList.removeActor(a_form);
 				_actorList.splice(i, 1);
 			}

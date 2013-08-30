@@ -80,9 +80,7 @@
 
 	private function onItemSelect(event)
 	{				
-		if (event.keyboardOrMouse != 0) {
-			SetSelectionMenuEntryByIndex(event.index);
-		}
+		SetSelectionMenuEntryByIndex(event.index);
 	}
 	
 	private function startFadeOut()
@@ -102,7 +100,7 @@
 		if(_selectMode == SELECT_MODE_MULTI) {
 			for (var i = 0; i < ItemList.entryList.length; i++) {
 				if (ItemList.entryList[i].selectState != undefined && ItemList.entryList[i].selectState >= 1) {
-					skse.SendModEvent("UISelectionMenu_SelectForm", "", _selectMode, ItemList.entryList[i].formId);
+					skse.SendModEvent("UISelectionMenu_SelectForm", "", _selectMode, ItemList.entryList[i].formId >>> 0);
 					hasSelection = true;
 				}
 			}
@@ -144,7 +142,7 @@
 	{
 		var index: Number = -1;
 		for (var i = 0; i < ItemList.entryList.length; i++) {
-			if (ItemList.entryList[i].formId != undefined && ItemList.entryList[i].formId == aObject.formId)
+			if (ItemList.entryList[i].formId != undefined && (ItemList.entryList[i].formId >>> 0) == (aObject.formId >>> 0))
 				index = i;
 		}
 		if(index == -1)
@@ -161,10 +159,13 @@
 			for(var i = 0; i < aObject.forms.length; i++)
 			{
 				if(aObject.forms[i].formId != undefined) {
-					skse.ExtendForm(aObject.forms[i].formId, aObject.forms[i], true, false);
+					skse.ExtendForm(aObject.forms[i].formId >>> 0, aObject.forms[i], true, false);
 					if(aObject.forms[i].actorBase.formId != undefined) {
-						skse.ExtendForm(aObject.forms[i].actorBase.formId, aObject.forms[i].actorBase, true, false);
-						aObject.forms[i].text = aObject.forms[i].actorBase.fullName;
+						skse.ExtendForm(aObject.forms[i].actorBase.formId >>> 0, aObject.forms[i].actorBase, true, false);
+						if(aObject.forms[i].fullName != undefined)
+							aObject.forms[i].text = aObject.forms[i].fullName;
+						else
+							aObject.forms[i].text = aObject.forms[i].actorBase.fullName;
 					}
 				}
 			}

@@ -16,6 +16,10 @@ int Property CATEGORY_COLOR = 512 AutoReadOnly
 Actor Property _playerActor Auto
 ActorBase Property _playerActorBase Auto
 
+string Property _targetMenu = "" Auto
+string Property _targetRoot = "" Auto
+Actor Property _targetActor = None Auto
+
 string[] _textures = None
 int _textureBuffer = 0
 
@@ -33,6 +37,10 @@ int _textureBuffer_feet
 
 string[] _sliders = None
 int _sliderBuffer = 0
+
+int Function GetScriptVersionRelease() global
+	return 1
+EndFunction
 
 Event OnInit()
 	_playerActor = Game.GetPlayer()
@@ -109,6 +117,65 @@ Event OnStartup()
 	RegisterForModEvent("RSM_Reinitialized", "OnMenuReinitialized")
 	RegisterForModEvent("RSM_SliderChange", "OnMenuSliderChange") ; Event sent when a slider's value is changed
 	RegisterForModEvent("RSM_LoadPlugins", "OnMenuLoadPlugins")
+
+	; RaceSexMenu Data Transfer
+	RegisterForModEvent("RSMDT_SendMenuName", "OnReceiveMenuName")
+	RegisterForModEvent("RSMDT_SendRootName", "OnReceiveRootName")
+	RegisterForModEvent("RSMDT_SendPaintRequest", "OnReceivePaintRequest")
+	RegisterForModEvent("RSMDT_SendRestore", "OnReceiveRestore")
+
+	_targetMenu = RACESEX_MENU
+	_targetRoot = MENU_ROOT
+	_targetActor = _playerActor
+EndEvent
+
+Event OnReceiveMenuName(string eventName, string strArg, float numArg, Form formArg)
+	_targetMenu = strArg
+EndEvent
+
+Event OnReceiveRootName(string eventName, string strArg, float numArg, Form formArg)
+	_targetRoot = strArg
+EndEvent
+
+Event OnReceiveRestore(string eventName, string strArg, float numArg, Form formArg)
+	_targetMenu = RACESEX_MENU
+	_targetRoot = MENU_ROOT
+	_targetActor = _playerActor
+EndEvent
+
+Event OnReceivePaintRequest(string eventName, string strArg, float numArg, Form formArg)
+	int requestFlag = numArg as int
+	bool sendFacePaint = Math.LogicalAnd(requestFlag, 0x01) == 0x01
+	bool sendBodyPaint = Math.LogicalAnd(requestFlag, 0x02) == 0x02
+	bool sendHandPaint = Math.LogicalAnd(requestFlag, 0x04) == 0x04
+	bool sendFeetPaint = Math.LogicalAnd(requestFlag, 0x08) == 0x08
+	If sendFacePaint
+		OnWarpaintRequest()
+	Endif
+	If sendBodyPaint
+		OnBodyPaintRequest()
+	Endif
+	If sendHandPaint
+		OnHandPaintRequest()
+	Endif
+	If sendFeetPaint
+		OnFeetPaintRequest()
+	Endif
+	If sendFacePaint
+		AddWarpaints(_textures)
+	Endif
+	If sendBodyPaint
+		AddBodyPaints(_textures_body)
+	Endif
+	If sendHandPaint
+		AddHandPaints(_textures_hand)
+	Endif
+	If sendFeetPaint
+		AddFeetPaints(_textures_feet)
+	Endif
+	If sendFacePaint || sendBodyPaint || sendHandPaint || sendFeetPaint
+		FlushBuffer(0)
+	Endif
 EndEvent
 
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
@@ -203,23 +270,23 @@ Function AddSlider(string name, int section, string callback, float min, float m
 EndFunction
 
 Function AddWarpaints(string[] textures)
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddWarpaints", textures)
+	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddWarpaints", textures)
 EndFunction
 
 Function AddBodyPaints(string[] textures)
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddBodyPaints", textures)
+	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddBodyPaints", textures)
 EndFunction
 
 Function AddHandPaints(string[] textures)
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddHandPaints", textures)
+	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddHandPaints", textures)
 EndFunction
 
 Function AddFeetPaints(string[] textures)
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddFeetPaints", textures)
+	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddFeetPaints", textures)
 EndFunction
 
 Function AddSliders(string[] sliders)
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_AddSliders", sliders)
+	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddSliders", sliders)
 EndFunction
 
 Function SetSliderParameters(string callback, float min, float max, float interval, float position)
@@ -229,7 +296,7 @@ Function SetSliderParameters(string callback, float min, float max, float interv
 	params[2] = max as string
 	params[3] = interval as string
 	params[4] = position as string
-	UI.InvokeStringA(RACESEX_MENU, MENU_ROOT + "RSM_SetSliderParameters", params)
+	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_SetSliderParameters", params)
 EndFunction
 
 ; 0 - Texture Buffers

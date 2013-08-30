@@ -172,16 +172,21 @@ class ActorStatsPanel extends MovieClip
 	{
 		if(a_object == undefined || a_object.formId == undefined)
 			return;
+			
+		skse.ExtendForm(a_object.formId >>> 0, a_object, true, false);
 		
 		if(a_object.formType == Form.TYPE_FORMLIST)
 		{
 			_subList.clearList();
 			for(var i = 0; i < a_object.forms.length; i++) {
 				if(a_object.forms[i].formId != undefined) {
-					skse.ExtendForm(a_object.forms[i].formId, a_object.forms[i], true, false);
+					skse.ExtendForm(a_object.forms[i].formId >>> 0, a_object.forms[i], true, false);
 					if(a_object.forms[i].actorBase.formId != undefined) {
-						skse.ExtendForm(a_object.forms[i].actorBase.formId, a_object.forms[i].actorBase, true, false);
-						a_object.forms[i].text = a_object.forms[i].actorBase.fullName;
+						skse.ExtendForm(a_object.forms[i].actorBase.formId >>> 0, a_object.forms[i].actorBase, true, false);
+						if(a_object.forms[i].fullName != undefined)
+							a_object.forms[i].text = a_object.forms[i].fullName;
+						else
+							a_object.forms[i].text = a_object.forms[i].actorBase.fullName;
 						a_object.forms[i].align = "right";
 						a_object.forms[i].enabled = true;
 						_subList.entryList.push(a_object.forms[i]);
@@ -191,16 +196,16 @@ class ActorStatsPanel extends MovieClip
 			_subList.InvalidateData();
 		} else {
 			_subList.clearList();
-			if(a_object.formId != undefined) {
-				skse.ExtendForm(a_object.formId, a_object, true, false);
-				if(a_object.actorBase.formId != undefined) {
-					skse.ExtendForm(a_object.actorBase.formId, a_object.actorBase, true, false);
+			if(a_object.actorBase.formId != undefined) {
+				skse.ExtendForm(a_object.actorBase.formId >>> 0, a_object.actorBase, true, false);
+				if(a_object.fullName != undefined)
+					a_object.text = a_object.fullName;
+				else
 					a_object.text = a_object.actorBase.fullName;
-					a_object.align = "right";
-					a_object.enabled = true;
-					_subList.entryList.push(a_object);
-					_subList.InvalidateData();
-				}
+				a_object.align = "right";
+				a_object.enabled = true;
+				_subList.entryList.push(a_object);
+				_subList.InvalidateData();
 			}
 		}
 	}

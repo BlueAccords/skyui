@@ -1,5 +1,10 @@
-import gfx.io.GameDelegate;
+﻿import gfx.io.GameDelegate;
 import gfx.controls.Button;
+import gfx.ui.InputDetails;
+import gfx.ui.NavigationCode;
+import gfx.events.EventDispatcher;
+import gfx.managers.FocusHandler;
+import Shared.GlobalFunc;
 import skse;
 
 class MessageBox extends MovieClip
@@ -26,7 +31,6 @@ class MessageBox extends MovieClip
 	var proxyMenu: MovieClip;
 	var movieClipLoader: MovieClipLoader;
 	
-	
 	function MessageBox()
 	{
 		super();
@@ -41,10 +45,17 @@ class MessageBox extends MovieClip
 		Key.addListener(this);
 		GameDelegate.addCallBack("setMessageText", this, "SetMessage");
 		GameDelegate.addCallBack("setButtons", this, "setupButtons");
+		
+		GlobalFunc.MaintainTextFormat();
+		GlobalFunc.SetLockFunction();
+		EventDispatcher.initialize(this);
 	}
 	
 	function setupButtons()
 	{
+		_root.currentIndex = -1;
+		FocusHandler.instance.setFocus(this, 0);
+		
 		if (undefined != ButtonContainer) 
 		{
 			ButtonContainer.removeMovieClip();
@@ -57,11 +68,14 @@ class MessageBox extends MovieClip
 			ButtonContainer = createEmptyMovieClip("Buttons", getNextHighestDepth());
 			var buttonXOffset: Number = 0;
 			
+			var buttonIndex = 0;
 			for (var i: Number = 1; i < arguments.length; i++){
 				if (arguments[i] == " ")
 					continue;
 				var buttonIdx: Number = i - 1;
 				var button: Button = Button(ButtonContainer.attachMovie("MessageBoxButton", "Button" + buttonIdx, ButtonContainer.getNextHighestDepth()));
+				button.callCode = buttonIdx;
+				button.buttonIndex = buttonIndex;
 				var buttonText: TextField = button.ButtonText;
 				buttonText.autoSize = "center";
 				buttonText.verticalAlign = "center";
@@ -73,6 +87,7 @@ class MessageBox extends MovieClip
 				button._x = buttonXOffset + button._width / 2;
 				buttonXOffset = buttonXOffset + (button._width + MessageBox.SELECTION_INDICATOR_WIDTH);
 				MessageButtons.push(button);
+				buttonIndex++;
 			}
 			InitButtons();
 			ResetDimensions();
@@ -127,6 +142,10 @@ class MessageBox extends MovieClip
 			{
 				MessageContainer._visible = false;
 				MessageContainer.enabled = false;
+				
+				if(proxyMenu) {
+					movieClipLoader.unloadClip(proxyMenu);
+				}
 				
 				proxyMenu = _root.createEmptyMovieClip(val, _root.getNextHighestDepth());
 				movieClipLoader.loadClip(val + ".swf", proxyMenu);
@@ -185,12 +204,64 @@ class MessageBox extends MovieClip
 
 	function ClickCallback(aEvent)
 	{
-		GameDelegate.call("buttonPress", [Number(aEvent.target._name.substr(-1))]);
+		_root.currentIndex = aEvent.target.buttonIndex;
+		GameDelegate.call("buttonPress", [aEvent.target.callCode]);
 	}
 
 	function FocusCallback(aEvent)
 	{
+		_root.currentIndex = aEvent.target.buttonIndex;
 		GameDelegate.call("PlaySound", ["UIMenuFocus"]);
+	}
+	
+	function handleInput(details: InputDetails, pathToFocus: Array): Boolean
+	{		
+		if(proxyMenu) {
+			return proxyMenu.handleInput(details, pathToFocus);
+		} else {
+			if (Shared.GlobalFunc.IsKeyPressed(details)) {
+				if (details.navEquivalent == NavigationCode.TAB) {
+					var targetIndex: Number = findEscapeIndex();
+					if(targetIndex >= 0) {
+						_root.currentIndex = targetIndex;
+						Selection.setFocus(MessageButtons[_root.currentIndex]);
+						return true;
+					}
+				} else if(details.navEquivalent == NavigationCode.LEFT) {
+					if(_root.currentIndex > 0) {
+						_root.currentIndex--;
+					} else if(_root.currentIndex <= 0) {
+						_root.currentIndex = MessageButtons.length - 1;
+					}
+					Selection.setFocus(MessageButtons[_root.currentIndex]);
+					return true;
+				} else if(details.navEquivalent == NavigationCode.RIGHT) {
+					if(_root.currentIndex < MessageButtons.length - 1) {
+						_root.currentIndex++;
+					} else if(_root.currentIndex == MessageButtons.length - 1){
+						_root.currentIndex = 0;
+					}
+					Selection.setFocus(MessageButtons[_root.currentIndex]);
+					return true;
+				} else if(details.navEquivalent == NavigationCode.ENTER) {
+					GameDelegate.call("buttonPress", [MessageButtons[_root.currentIndex].callCode]);
+					return true;
+				}
+			}
+		}
+		
+		return false;
+	}
+	
+	function findEscapeIndex(): Number
+	{
+		for (var i: Number = 0; i < MessageButtons.length; i++) {
+			var buttonText: String = MessageButtons[i].ButtonText.text;
+			if(buttonText == "Exit" || buttonText == "Return" || buttonText == "Cancel" || buttonText == "Back" || buttonText == "No")
+				return i;
+		}
+		
+		return -1;
 	}
 
 	function onKeyDown()

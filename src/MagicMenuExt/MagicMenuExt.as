@@ -21,7 +21,6 @@ class MagicMenuExt extends ItemMenu
   /* PRIVATE VARIABLES */
 	#include "../version.as"
   
-	private var _hideButtonFlag: Number = 0;
 	private var _bMenuClosing: Boolean = false;
 
 	private var _magicButtonArt: Object;
@@ -39,12 +38,15 @@ class MagicMenuExt extends ItemMenu
 	private var CATEGORY_ACTIVE_EFFECTS: Number = 8;
 	private var CATEGORY_END: Number = 9;
 	
+	private var _primaryActor: Object;
+	private var _secondaryActor: Object;
+	
 	public var MessagesBlock: MovieClip;
 	
 	
   /* PROPERTIES */
   
-	public var hideButtonFlag: Number;
+	public var bRestrictTrade: Boolean = true;
 	
 
   /* CONSTRUCTORS */
@@ -180,7 +182,7 @@ class MagicMenuExt extends ItemMenu
 			break;
 		}
 				
-		if(spell.castType == 0 || spell.isActive) { // Effect
+		if(spell.castType == 0 || spell.isActiveEffect) { // Effect
 			itemInfo.name = spell.spellName;
 			itemInfo.negativeEffect = ((spell.effectFlags & 0x04) == 0x04); // Detrimental
 			
@@ -191,11 +193,11 @@ class MagicMenuExt extends ItemMenu
 			itemInfo.type = Inventory.ICT_ACTIVE_EFFECT;
 		} else {
 			switch(spell.skillLevel) {
-				case 0:		itemInfo.castLevel = "$Novice";		break;
-				case 25:	itemInfo.castLevel = "$Apprentice";	break;
-				case 50:	itemInfo.castLevel = "$Adept";		break;
-				case 75:	itemInfo.castLevel = "$Expert";		break;
-				case 100:	itemInfo.castLevel = "$Master";	break;
+				case 0:		itemInfo.castLevel = skyui.util.Translator.translateNested("$Novice ({" + spell.skillLevel + "})");		break;
+				case 25:	itemInfo.castLevel = skyui.util.Translator.translateNested("$Apprentice ({" + spell.skillLevel + "})");	break;
+				case 50:	itemInfo.castLevel = skyui.util.Translator.translateNested("$Adept ({" + spell.skillLevel + "})");		break;
+				case 75:	itemInfo.castLevel = skyui.util.Translator.translateNested("$Expert ({" + spell.skillLevel + "})");		break;
+				case 100:	itemInfo.castLevel = skyui.util.Translator.translateNested("$Master ({" + spell.skillLevel + "})");		break;
 			}
 		}
 		
@@ -240,7 +242,7 @@ class MagicMenuExt extends ItemMenu
 			entry.filterFlag = Inventory.FILTERFLAG_MAGIC_POWERS << flagShift;
 		}
 		
-		if(spell.castType == 0 || spell.isActive) { // Effect
+		if(spell.castType == 0 || spell.isActiveEffect) { // Effect
 			entry.text = spell.effectName;
 			entry.filterFlag = Inventory.FILTERFLAG_MAGIC_ACTIVEEFFECTS << flagShift;
 		}
@@ -278,7 +280,7 @@ class MagicMenuExt extends ItemMenu
 	{
 		for(var k = 0; k < inventoryLists.categoryList.entryList.length; k++)
 		{
-			var entry: Object = inventoryLists.categoryList.entryList[i];
+			var entry: Object = inventoryLists.categoryList.entryList[k];
 			entry.filterFlag = 0;
 		}
 		for(var i = 0; i < inventoryLists.itemList.entryList.length; i++)
@@ -299,7 +301,8 @@ class MagicMenuExt extends ItemMenu
 		if(aObject.formId == undefined)
 			return;
 		
-		skse.ExtendForm(aObject.formId, aObject, true, true);
+		skse.ExtendForm(aObject.formId >>> 0, aObject, true, true);
+		
 		var spells: Array = new Array();
 		spells = spells.concat(aObject.race.spells, aObject.actorBase.spells, aObject.spells);
 		var shouts: Array = new Array();
@@ -332,13 +335,15 @@ class MagicMenuExt extends ItemMenu
 		for(var i = 0; i < effects.length; i++)
 		{
 			var entry: Object = effects[i];
-			entry.isActive = true;
+			entry.isActiveEffect = true;
 			DeflateSpellData(entry, effects[i], 0, 0);
 			UpdateCategoryAvailability(entry, 0, 0);
 			entry.isPrimary = true;
 			inventoryLists.itemList.entryList.push(entry);
 			//skse.Log(ObjectDumper.toString(entry));
 		}
+		
+		_primaryActor = aObject;
 		
 		inventoryLists.categoryList.InvalidateData();
 		inventoryLists.categoryList.onItemPress(CATEGORY_ALL, 0);
@@ -353,7 +358,7 @@ class MagicMenuExt extends ItemMenu
 			return;
 		}
 				
-		skse.ExtendForm(aObject.formId, aObject, true, true);
+		skse.ExtendForm(aObject.formId >>> 0, aObject, true, true);
 		var spells: Array = new Array();
 		spells = spells.concat(aObject.race.spells, aObject.actorBase.spells, aObject.spells);
 		var shouts: Array = new Array();
@@ -384,12 +389,14 @@ class MagicMenuExt extends ItemMenu
 		for(var i = 0; i < effects.length; i++)
 		{
 			var entry: Object = effects[i];
-			entry.isActive = true;
+			entry.isActiveEffect = true;
 			DeflateSpellData(entry, effects[i], 10, 8);
 			UpdateCategoryAvailability(entry, 10, 8);
 			inventoryLists.itemList.entryList.push(entry);
 			//skse.Log(ObjectDumper.toString(entry));
 		}
+		
+		_secondaryActor = aObject;
 		
 		inventoryLists.categoryList.InvalidateData();
 		//inventoryLists.categoryList.onItemPress(CATEGORY_ALL, 0);			
@@ -400,8 +407,8 @@ class MagicMenuExt extends ItemMenu
 	{
 		if(a_object.formId == undefined)
 			return;
-			
-		skse.ExtendForm(a_object.formId, a_object, true, true);
+					
+		skse.ExtendForm(a_object.formId >>> 0, a_object, true, true);
 		
 		var entry: Object = a_object;
 		DeflateSpellData(entry, a_object, 0, 0);
@@ -420,7 +427,7 @@ class MagicMenuExt extends ItemMenu
 		for(var i = 0; i < inventoryLists.itemList.entryList.length; i++)
 		{
 			var entry = inventoryLists.itemList.entryList[i];
-			if(entry.isPrimary && entry.formId == a_object.formId) {
+			if(entry.isPrimary && (entry.formId >>> 0) == (a_object.formId >>> 0)) {
 				inventoryLists.itemList.entryList.splice(i, 1);
 				break;
 			}
@@ -441,7 +448,7 @@ class MagicMenuExt extends ItemMenu
 			if (Shared.GlobalFunc.IsKeyPressed(details)) {
 				if (details.navEquivalent == NavigationCode.TAB) {
 					startMenuFade();
-					GameDelegate.call("CloseTweenMenu",[]);
+					//GameDelegate.call("CloseTweenMenu",[]);
 				}
 			}
 		}
@@ -457,7 +464,8 @@ class MagicMenuExt extends ItemMenu
 	public function onFadeCompletion(): Void
 	{
 		if (_bMenuClosing) {
-			GameDelegate.call("CloseMenu",[]);
+			//GameDelegate.call("CloseMenu",[]);
+			skse.SendModEvent("UIMagicMenu_CloseMenu");
 			GameDelegate.call("buttonPress",[1]);
 		}
 	}
@@ -502,18 +510,43 @@ class MagicMenuExt extends ItemMenu
 	// @override ItemMenu
 	public function onItemSelect(event: Object): Void
 	{
-		if (event.entry.enabled) {
-			if (event.keyboardOrMouse != 0) {
-				skse.SendModEvent("UIMagicMenu_AddRemoveSpell", "", inventoryLists.categoryList.activeSegment, event.entry.formId);
+		if (event.entry.enabled)
+		{
+			if(bRestrictTrade)
+			{
+				if(inventoryLists.categoryList.activeSegment == 1) // Only restrict learning spells
+				{
+					switch(event.entry.school)
+					{
+						case Actor.AV_ALTERATION:
+						case Actor.AV_CONJURATION:
+						case Actor.AV_DESTRUCTION:
+						case Actor.AV_ILLUSION:
+						case Actor.AV_RESTORATION:
+						{
+							if(event.entry.skillLevel > _primaryActor.actorValues[event.entry.school].current) {
+								MagicMenu_PushMessage("${" + _primaryActor.actorBase.fullName + "} is not skilled enough in {" + event.entry.itemInfo.magicSchoolName + "} to learn {" + event.entry.text + "}.");
+								return;
+							}
+						}
+						break;
+					}
+				}
 			}
+			
+			if(event.entry.formId == undefined || event.entry.isActiveEffect) {
+				return;
+			}
+					
+			skse.SendModEvent("UIMagicMenu_AddRemoveSpell", "", inventoryLists.categoryList.activeSegment, (event.entry.formId >>> 0));
 		}
 	}
 	
 	// currently only used for controller users when pressing the BACK button
 	private function openInventoryMenu(): Void
 	{
-		GameDelegate.call("CloseMenu",[]);
-		GameDelegate.call("CloseTweenMenu",[]);
+		//GameDelegate.call("CloseMenu",[]);
+		//GameDelegate.call("CloseTweenMenu",[]);
 		//skse.OpenMenu("Inventory Menu");
 	}
 	

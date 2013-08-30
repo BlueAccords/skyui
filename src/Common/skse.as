@@ -24,5 +24,6 @@
 	static function ShowOnMap(a_markerIndex:Number):Void;
 	static function StoreIndices(a_key:String, a_indicesIn):Void;
 	static function LoadIndices(a_key:String, a_indicesOut):Void;
+	static var plugins:Object;
 
 }

@@ -29,6 +29,8 @@ import MakeupPanel;
 
 class RaceMenu extends MovieClip
 {
+	#include "version.as"
+	
 	/* PRIVATE VARIABLES */
 	private var _platform: Number;
 	private var _typeFilter: ItemTypeFilter;
@@ -38,6 +40,7 @@ class RaceMenu extends MovieClip
 	private var _updateInterval: Number;
 	private var _raceList: Array;
 	private var _exportInterval: Number;
+	private var _reloadInterval: Number;
 	
 	public var makeupList: Array;
 	
@@ -49,7 +52,7 @@ class RaceMenu extends MovieClip
 	private var DESCRIPTION_WIDTH_SHARED = 262;
 	
 	private var BOTTOMBAR_SHOWN_Y = 645;
-	private var BOTTOMBAR_HIDDEN_Y = 745;	
+	private var BOTTOMBAR_HIDDEN_Y = 745;
 	
 	/* CONTROLS */
 	private var _activateControl: Object;
@@ -69,6 +72,7 @@ class RaceMenu extends MovieClip
 	public var bTextEntryMode: Boolean = false;
 	public var bMenuInitialized: Boolean = false;
 	public var bRaceChanging: Boolean = false;
+	public var bCustomMenu: Boolean = true;
 	
 	public var customSliders: Array;
 	
@@ -107,6 +111,8 @@ class RaceMenu extends MovieClip
 		super();
 		_global.tintCount = 0;
 		_global.maxTints = RaceMenuDefines.MAX_TINTS;
+		_global.eventPrefix = "RSM_";
+		_global.presetSlot = 0;
 		
 		itemList = racePanel.itemList;
 		categoryList = racePanel.categoryList;
@@ -308,7 +314,7 @@ class RaceMenu extends MovieClip
 		
 		FocusHandler.instance.setFocus(itemList, 0);
 		
-		trace(Date().toString());
+		//trace(Date().toString());
 		
 		// Test Code
 		//InitExtensions();
@@ -376,7 +382,6 @@ class RaceMenu extends MovieClip
 		bottomBar.positionElements(leftEdge, rightEdge);
 		
 		var staticPanel = bottomBar["staticPanel"];
-		trace(staticPanel);
 		if(staticPanel) {
 			staticPanel.setPlatform(a_platform, a_bPS3Switch);
 			staticPanel._x = navPanel._x;
@@ -601,7 +606,7 @@ class RaceMenu extends MovieClip
 	{
 		loadingIcon._visible = false;
 		if(bRaceChanging) {
-			skse.SendModEvent("RSM_RaceChanged");
+			skse.SendModEvent(_global.eventPrefix + "RaceChanged");
 			bRaceChanging = false;
 		}
 	}
@@ -696,6 +701,17 @@ class RaceMenu extends MovieClip
 			}
 		}
 		
+		if(_global.skse.plugins.CharGen) {
+			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "$Preset Slot", filterFlag: RaceMenuDefines.CATEGORY_BODY, callbackName: "ChangePresetSlot", sliderMin: 0, sliderMax: _global.skse.plugins.CharGen.iNumPresets, sliderID: -1, position: 0, interval: 1, enabled: true};
+			entryObject.internalCallback = function()
+			{
+				_global.presetSlot = this.position; 
+			}
+			entryObject.hasColor = function(): Boolean { return false; }
+			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }
+			itemList.entryList.push(entryObject);
+		}
+		
 		var colorIndex: Number = 0;
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.SLIDER_STRIDE) {
 			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: arguments[i + RaceMenuDefines.SLIDER_NAME], filterFlag: arguments[i + RaceMenuDefines.SLIDER_FILTERFLAG], callbackName: arguments[i + RaceMenuDefines.SLIDER_CALLBACKNAME], sliderMin: arguments[i + RaceMenuDefines.SLIDER_MIN], sliderMax: arguments[i + RaceMenuDefines.SLIDER_MAX], sliderID: arguments[i + RaceMenuDefines.SLIDER_ID], position: arguments[i + RaceMenuDefines.SLIDER_POSITION], interval: arguments[i + RaceMenuDefines.SLIDER_INTERVAL], enabled: true};
@@ -717,6 +733,17 @@ class RaceMenu extends MovieClip
 				entryObject.interval = 0.01;
 			}
 			
+			/* ECE Compatibility Start */
+			if(_global.skse.plugins.ExCharGen && (entryObject.callbackName == "ChangeDoubleMorph" || entryObject.callbackName == "ChangePreset")) {
+				if(_global.skse.plugins.ExCharGen.UpdateMorphs != undefined) {
+					entryObject.internalCallback = function()
+					{
+						_global.skse.plugins.ExCharGen.UpdateMorphs();
+					}
+				}
+			}
+			/* ECE Compatibility End */
+			
 			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }
 			
 			itemList.entryList.push(entryObject);
@@ -730,13 +757,13 @@ class RaceMenu extends MovieClip
 	public function InitializeSliders()
 	{
 		if(!bMenuInitialized) {
-			skse.SendModEvent("RSM_Initialized");
+			skse.SendModEvent(_global.eventPrefix + "Initialized");
 			bMenuInitialized = true;
 		} else {
-			skse.SendModEvent("RSM_Reinitialized");
+			skse.SendModEvent(_global.eventPrefix + "Reinitialized");
 		}
 		
-		skse.SendModEvent("RSM_RequestSliders");
+		skse.SendModEvent(_global.eventPrefix + "RequestSliders");
 		
 		/* ECE Compatibility Start */
 		var ECECharGen: Object = _global.skse.plugins.ExCharGen;
@@ -1071,20 +1098,20 @@ class RaceMenu extends MovieClip
 	private function SendPlayerTexture(tintType: Number, tintIndex: Number, replacementTexture: String)
 	{
 		if(isOverlayType(tintType)) {
-			skse.SendModEvent("RSM_OverlayTextureChange", replacementTexture, tintType * 1000 + tintIndex);
+			skse.SendModEvent(_global.eventPrefix + "OverlayTextureChange", replacementTexture, tintType * 1000 + tintIndex);
 		} else {
-			skse.SendModEvent("RSM_TintTextureChange", replacementTexture, tintType * 1000 + tintIndex);
+			skse.SendModEvent(_global.eventPrefix + "TintTextureChange", replacementTexture, tintType * 1000 + tintIndex);
 		}
 	}
 	
 	private function SendPlayerTint(tintType: Number, tintIndex: Number, argbColor: Number)
 	{
 		if(tintType == RaceMenuDefines.TINT_TYPE_HAIR) {
-			skse.SendModEvent("RSM_HairColorChange", Number(argbColor).toString(), 0);
+			skse.SendModEvent(_global.eventPrefix + "HairColorChange", Number(argbColor).toString(), 0);
 		} else if(isOverlayType(tintType)) {
-			skse.SendModEvent("RSM_OverlayColorChange", Number(argbColor).toString(), tintType * 1000 + tintIndex);
+			skse.SendModEvent(_global.eventPrefix + "OverlayColorChange", Number(argbColor).toString(), tintType * 1000 + tintIndex);
 		} else if(tintType != -1) {
-			skse.SendModEvent("RSM_TintColorChange", Number(argbColor).toString(), tintType * 1000 + tintIndex);
+			skse.SendModEvent(_global.eventPrefix + "TintColorChange", Number(argbColor).toString(), tintType * 1000 + tintIndex);
 		}
 	}
 	
@@ -1164,6 +1191,13 @@ class RaceMenu extends MovieClip
 		navPanel.updateButtons(true);		
 	}
 	
+	private function setDisplayText(a_text: String): Void
+	{
+		textDisplay._alpha = 100;
+		textDisplay.text = skyui.util.Translator.translateNested(a_text);
+		TweenLite.to(textDisplay, 2.5, {_alpha: 0, easing: Linear.easeNone});
+	}
+	
 	private function onDoneClicked(): Void
 	{
 		if(colorField._visible || textEntry._visible || makeupPanel._visible)
@@ -1196,7 +1230,7 @@ class RaceMenu extends MovieClip
 			return;
 		
 		bShowLight = !bShowLight;
-		skse.SendModEvent("RSM_ToggleLight", "", Number(bShowLight));
+		skse.SendModEvent(_global.eventPrefix + "ToggleLight", "", Number(bShowLight));
 		updateBottomBar();
 	}
 	
@@ -1250,16 +1284,42 @@ class RaceMenu extends MovieClip
 	
 	private function onSavePresetClicked(): Void
 	{
-		skse.SendModEvent("RSM_RequestSaveClipboard");
-		
-		textDisplay._alpha = 100;
-		textDisplay.text = "$Saved preset to clipboard";
-		TweenLite.to(textDisplay, 2.5, {_alpha: 0, easing: Linear.easeNone});
+		if(!_global.skse.plugins.CharGen) {
+			skse.SendModEvent(_global.eventPrefix + "RequestSaveClipboard");
+			setDisplayText("$Saved preset to clipboard");
+		} else {
+			setDisplayText("$Saved preset to slot {" + _global.presetSlot + "}");
+			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
+			_global.skse.plugins.CharGen.SavePreset(filePath);
+		}
 	}
 	
 	private function onLoadPresetClicked(): Void
 	{
-		skse.SendModEvent("RSM_RequestLoadClipboard");
+		if(!_global.skse.plugins.CharGen) {
+			skse.SendModEvent(_global.eventPrefix + "RequestLoadClipboard");
+		} else {
+			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
+			var dataObject: Object = new Object();
+			if(_global.skse.plugins.CharGen.LoadPreset(filePath, dataObject) == false) {
+				skse.SendModEvent(_global.eventPrefix + "RequestTintSave");
+				if(!_reloadInterval) {
+					_reloadInterval = setInterval(this, "ReloadSliders", 500, dataObject);
+				}
+			} else {
+				setDisplayText("$Failed to load preset from slot {" + _global.presetSlot + "}");
+			}
+		}
+	}
+	
+	private function ReloadSliders(dataObject: Object): Void
+	{
+		_global.skse.plugins.CharGen.ReloadSliders();
+		skse.SendModEvent(_global.eventPrefix + "RequestTintLoad");
+		SendPlayerTint(RaceMenuDefines.TINT_TYPE_HAIR, 0, dataObject.hairColor);
+		setDisplayText("$Loaded preset from slot {" + _global.presetSlot + "}");
+		clearInterval(_reloadInterval);
+		delete _reloadInterval;
 	}
 	
 	private function onExportHeadClicked(): Void
@@ -1269,11 +1329,8 @@ class RaceMenu extends MovieClip
 			var dateStr: String = "" + (now.getMonth()+1) + "-" + now.getDate() + "-" + now.getFullYear() + " " + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds();
 			delete now;
 			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\" + dateStr;
-			
-			textDisplay._alpha = 100;
-			textDisplay.text = "$Exported head";
-			
-			TweenLite.to(textDisplay, 2.5, {_alpha: 0, easing: Linear.easeNone});
+						
+			setDisplayText("$Exported head");
 			
 			_global.skse.plugins.CharGen.ExportHead(filePath);
 			
@@ -1591,13 +1648,18 @@ class RaceMenu extends MovieClip
 		var sliderArray: Array = clipboardData.split(',');
 		
 		for(var i = 0; i < sliderArray.length; i++) {
-			skse.SendModEvent("RSM_ClipboardData", Number(i).toString(), Number(sliderArray[i]));
+			skse.SendModEvent(_global.eventPrefix + "ClipboardData", Number(i).toString(), Number(sliderArray[i]));
 		}
-		skse.SendModEvent("RSM_ClipboardFinished");
+		skse.SendModEvent(_global.eventPrefix + "ClipboardFinished");
 	}
 	
 	public function RSM_ToggleLoader(a_toggle: Boolean)
 	{
 		loadingIcon._visible = a_toggle;
+	}
+	
+	public function RSM_SetPresetSlot(a_slot: Number)
+	{
+		_global.presetSlot = a_slot;
 	}
 }

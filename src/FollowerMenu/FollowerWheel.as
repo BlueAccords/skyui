@@ -1,5 +1,8 @@
-﻿import com.greensock.*;
-import com.greensock.easing.*;
+﻿import com.greensock.TweenLite;
+import com.greensock.plugins.TweenPlugin;
+import com.greensock.plugins.ShortRotationPlugin;
+import com.greensock.easing.Expo;
+
 import flash.geom.Transform;
 import flash.geom.ColorTransform;
 
@@ -20,7 +23,6 @@ class FollowerWheel extends MovieClip
 	private var _iconSource: String = "";
 	
 	private var _movieLoader: MovieClipLoader;
-	private var _form: Object;
 	
 	var TOTAL_OPTIONS: Number = 8;
 	var SLICE_COLUMN_SIZE: Number = 4;
@@ -66,6 +68,8 @@ class FollowerWheel extends MovieClip
 	function FollowerWheel()
 	{
 		super();
+		
+		TweenPlugin.activate([ShortRotationPlugin]);
 				
 		// 17 is for angle offset, each slice is 35 degrees
 		_options = [ {slice: Left00, label: TextLeft00, rot: -20 - 17, iconData: {icon: Icon0, name: "", size: 32, color: 0xFFFFFF}, option: "Option0"},
@@ -242,7 +246,7 @@ class FollowerWheel extends MovieClip
 		if(_option != -1) // De-select previous state
 			_options[_option].slice.gotoAndStop("Inactive");
 					
-		TweenMax.to(Knot, 0.5, {shortRotation:{_rotation:_options[option].rot}, ease:Expo.easeOut});
+		TweenLite.to(Knot, 0.5, {shortRotation:{_rotation:_options[option].rot}, ease:Expo.easeOut});
 		
 		// Select new state
 		_options[option].slice.gotoAndStop("Active");
@@ -289,32 +293,34 @@ class FollowerWheel extends MovieClip
 	}
 	
 	// @Papyrus
-	public function setWheelForm(object: Object)
+	public function setWheelForm(a_object: Object)
 	{
-		_form = object;
-		if(object == undefined || object.formId == undefined)
+		if(a_object == undefined || a_object.formId == undefined)
 			return;
-			
+		
 		panelList.background._visible = false;
 		panelList.entryList.splice(0, panelList.entryList.length);
-		
-		skse.ExtendForm(_form.formId, _form, true, false);
-		if(_form.formType == Form.TYPE_FORMLIST) {
+
+		skse.ExtendForm(a_object.formId >>> 0, a_object, true, false);
+		if(a_object.formType == Form.TYPE_FORMLIST) {
 			setWheelText("$Group");
-			for(var i = 0; i < _form.forms.length; i++) {
-				if(_form.forms[i].formId != undefined) {
-					skse.ExtendForm(_form.forms[i].formId, _form.forms[i], true, false); // Extend the form itself
-					if(_form.forms[i].actorBase.formId != undefined) {
-						skse.ExtendForm(_form.forms[i].actorBase.formId, _form.forms[i].actorBase, true, false); // Extend actorBase
-						panelList.entryList.push({actor: _form.forms[i]});
+			for(var i = 0; i < a_object.forms.length; i++) {
+				if(a_object.forms[i].formId != undefined) {
+					skse.ExtendForm(a_object.forms[i].formId >>> 0, a_object.forms[i], true, false); // Extend the form itself
+					if(a_object.forms[i].actorBase.formId != undefined) {
+						skse.ExtendForm(a_object.forms[i].actorBase.formId >>> 0, a_object.forms[i].actorBase, true, false); // Extend actorBase
+						panelList.entryList.push({actor: a_object.forms[i]});
 					}
 				}
 			}
 		} else {
-			if(_form.actorBase.formId != undefined) {
-				skse.ExtendForm(_form.actorBase.formId, _form.actorBase, true, false);
-				setWheelText(_form.actorBase.fullName);
-				panelList.entryList.push({actor: _form});
+			if(a_object.actorBase.formId != undefined) {
+				skse.ExtendForm(a_object.actorBase.formId >>> 0, a_object.actorBase, true, false);
+				if(a_object.fullName != undefined)
+					setWheelText(a_object.fullName);
+				else
+					setWheelText(a_object.actorBase.fullName);
+				panelList.entryList.push({actor: a_object});
 			}
 		}
 		

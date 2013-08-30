@@ -67,10 +67,16 @@ class skyui.widgets.followerpanel.PanelList extends MovieClip
 	{
 		if(_actorArray.length == 0) // Previously had no items, fadein
 			dispatchEvent({type:"startFadeIn"});
+			
+		var a_name: String = "";
+		if(a_actor.fullName != undefined)
+			a_name = a_actor.fullName;
+		else
+			a_name = a_actor.actorBase.fullName;
 		
 		var initObject: Object = {index: _actorArray.length,
 									formId: a_actor.formId,
-									name: a_actor.actorBase.fullName,
+									name: a_name,
 									health: (a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].current / a_actor.actorValues[PanelDefines.ACTORVALUE_HEALTH].maximum),
 									magicka: (a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_MAGICKA].maximum),
 									stamina: (a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].current / a_actor.actorValues[PanelDefines.ACTORVALUE_STAMINA].maximum),

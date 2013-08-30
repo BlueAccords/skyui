@@ -411,7 +411,7 @@ class skyui.widgets.status.StatusWidget extends WidgetBase
 		if (_labelTextColor == a_val)
 			return;
 			
-		_labelTextColor = _valueTextField.textColor = a_val;
+		_labelTextColor = _labelTextField.textColor = a_val;
 	}
 	
 	// @Papyrus

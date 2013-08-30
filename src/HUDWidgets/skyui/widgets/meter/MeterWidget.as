@@ -1,6 +1,10 @@
 ﻿import skyui.widgets.WidgetBase;
 import skyui.components.Meter;
 
+import com.greensock.TweenLite;
+import com.greensock.plugins.TweenPlugin;
+import com.greensock.plugins.HexColorsPlugin;
+
 class skyui.widgets.meter.MeterWidget extends WidgetBase
 {
   /* PRIVATE VARIABLES */
@@ -21,6 +25,7 @@ class skyui.widgets.meter.MeterWidget extends WidgetBase
 	{
 		super();
 		meter._visible = false;
+		TweenPlugin.activate([HexColorsPlugin]);
 	}
 
 	// @papyrus
@@ -73,7 +78,13 @@ class skyui.widgets.meter.MeterWidget extends WidgetBase
 		__height = meter.height;
 		invalidateSize();
 	}
-
+	
+	// @papyrus
+	public function transitionColors(a_lightColor: Number, a_darkColor: Number, a_flashColor: Number, a_duration: Number): Void
+	{
+		TweenLite.to(meter, a_duration / 1000, {hexColors:{_primaryColor:a_lightColor, _secondaryColor:a_darkColor, flashColor:a_flashColor}, onUpdate:function(a_meter: Object){if(a_meter._initialized) {a_meter.invalidateColor();}}, onUpdateParams:[meter]});
+	}
+	
 	// @papyrus
 	public function setColor(a_lightColor: Number): Void
 	{

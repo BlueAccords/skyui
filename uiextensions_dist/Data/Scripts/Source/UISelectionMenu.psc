@@ -43,6 +43,11 @@ int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 		_receiver.RegisterForModEvent("UISelectionMenu_SelectionChanged", "OnSelectForm")
 	Endif
 	_selectionLock = true
+
+	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
+	tempSoundDB = sDescriptor.GetDecibelAttenuation()
+	sDescriptor.SetDecibelAttenuation(100.0)
+
 	int ret = UISelectionMessage.Show()
 	If ret == 0
 		_selectionLock = false
@@ -80,10 +85,6 @@ EndEvent
 Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	UI.InvokeForm(ROOT_MENU, MENU_ROOT + "SetSelectionMenuFormData", _form)
 	UI.InvokeFloat(ROOT_MENU, MENU_ROOT + "SetSelectionMenuMode", _mode as float)
-
-	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
-	tempSoundDB = sDescriptor.GetDecibelAttenuation()
-	sDescriptor.SetDecibelAttenuation(100.0)
 EndEvent
 
 Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
