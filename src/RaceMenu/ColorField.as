@@ -13,6 +13,7 @@ import skyui.util.GlobalFunctions;
 class ColorField extends MovieClip
 {
 	public var buttonPanel: ButtonPanel;
+	public var presetPanel: ButtonPanel;
 	public var colorSelector: HSVSelector;
 	public var colorText: TextField;
 	public var hexCode: TextField;
@@ -22,8 +23,14 @@ class ColorField extends MovieClip
 	private var _platform: Number;
 	private var _acceptButton: Object;
 	private var _cancelButton: Object;
+	private var _switchModeButton: Object;
+	private var _loadColorButton: Object;
+	private var _saveColorButton: Object;
+	
 	private var _currentColor: Number;
 	public var _currentSlider: Number;
+	
+	private var _sliderCount: Number = 4;
 
 	public var dispatchEvent: Function;
 	public var dispatchQueue: Function;
@@ -47,6 +54,11 @@ class ColorField extends MovieClip
 		colorSelector.addEventListener("changeColor", this, "onSliderChange");
 	}
 	
+	public function IsBoundKeyPressed(details: InputDetails, boundKey: Object, platform: Number): Boolean
+	{
+		return ((details.control && details.control == boundKey.name) || (details.skseKeycode && boundKey.name && boundKey.context && details.skseKeycode == GlobalFunctions.getMappedKey(boundKey.name, Number(boundKey.context), platform != 0)) || (details.skseKeycode && details.skseKeycode == boundKey.keyCode));
+	}
+	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{			
 		var bHandledInput: Boolean = false;
@@ -59,7 +71,7 @@ class ColorField extends MovieClip
 				bHandledInput = true;
 			} else if (details.navEquivalent == NavigationCode.DOWN) {
 				_currentSlider++;
-				if(_currentSlider > 3)
+				if(_currentSlider > _sliderCount - 1)
 					_currentSlider = 0;
 				UpdateSelection();
 				GameDelegate.call("PlaySound",["UIMenuFocus"]);
@@ -67,7 +79,7 @@ class ColorField extends MovieClip
 			} else if(details.navEquivalent == NavigationCode.UP) {
 				_currentSlider--;
 				if(_currentSlider < 0)
-					_currentSlider = 3;
+					_currentSlider = _sliderCount - 1;
 				UpdateSelection();
 				GameDelegate.call("PlaySound",["UIMenuFocus"]);
 				bHandledInput = true;
@@ -87,6 +99,15 @@ class ColorField extends MovieClip
 					case 3:	sliderObject = colorSelector.aSlider;	break;
 				}
 				bHandledInput = sliderObject.handleInput(details, pathToFocus);
+			} else if (this["bCanSwitchMode"] == true && IsBoundKeyPressed(details, _switchModeButton, _platform)) {
+				onSwitchMode();
+				bHandledInput = true;
+			} else if (IsBoundKeyPressed(details, _loadColorButton, _platform)) {
+				onLoadColor();
+				bHandledInput = true;
+			} else if (IsBoundKeyPressed(details, _saveColorButton, _platform)) {
+				onSaveColor();
+				bHandledInput = true;
 			}
 		}
 
@@ -96,11 +117,27 @@ class ColorField extends MovieClip
 	public function SetupButtons(): Void
 	{
 		buttonPanel.clearButtons();
+		presetPanel.clearButtons();
+		
 		var acceptButton: MovieClip = buttonPanel.addButton({text: "$Accept", controls: _acceptButton});
-		var cancelButton: MovieClip = buttonPanel.addButton({text: "$Cancel", controls: _cancelButton});
 		acceptButton.addEventListener("click", this, "onAccept");
+		
+		var cancelButton: MovieClip = buttonPanel.addButton({text: "$Cancel", controls: _cancelButton});
 		cancelButton.addEventListener("click", this, "onCancel");
+		
+		if(this["bCanSwitchMode"]) {
+			var switchButton: MovieClip = buttonPanel.addButton({text: getModeText(), controls: _switchModeButton});
+			switchButton.addEventListener("click", this, "onSwitchMode");
+		}
+		
+		var loadColorButton: MovieClip = presetPanel.addButton({text: "$Load Color", controls: _loadColorButton});
+		loadColorButton.addEventListener("click", this, "onLoadColor");
+		
+		var saveColorButton: MovieClip = presetPanel.addButton({text: "$Save Color", controls: _saveColorButton});
+		saveColorButton.addEventListener("click", this, "onSaveColor");
+				
 		buttonPanel.updateButtons(true);
+		presetPanel.updateButtons(true);
 	}
 	
 	public function UpdateSelection(): Void
@@ -128,6 +165,38 @@ class ColorField extends MovieClip
 
 		return str;
 	}
+		
+	public function set initParams(a_object: Object): Void
+	{		
+		for(var i:String in a_object)
+		{
+			this[i] = a_object[i];
+		}
+		
+		disableAlpha(a_object["bNoAlpha"]);
+		SetupButtons();
+	}
+	
+	public function disableAlpha(a_disable: Boolean): Void
+	{
+		if(a_disable) {
+			_sliderCount = 3;
+			colorSelector.aSlider._visible = false;
+			colorSelector.aSlider.enabled = false;
+			colorSelector["_alphaValue"] = 0xFF;
+			if(_currentSlider == 3) {
+				_currentSlider = 0;
+				UpdateSelection();
+				updateHexCode();
+			}
+		} else {
+			_sliderCount = 4;
+			colorSelector.aSlider._visible = true;
+			colorSelector.aSlider.enabled = true;
+		}
+		
+		this["bNoAlpha"] = a_disable;
+	}
 	
 	public function getColor(): Number
 	{
@@ -148,7 +217,7 @@ class ColorField extends MovieClip
 		hexCode.text = hexToStr((colorSelector.getColor() | colorSelector.getAlpha() << 24), false) + " (A:" + alpha + " R:" + red + " G:" + green + " B:" + blue + ")";
 	}
 	
-	public function setColor(a_color: Number): Void
+	public function setColor(a_color: Number, bUpdate: Boolean): Void
 	{
 		_currentColor = a_color;
 		colorSelector.setColor(_currentColor & 0x00FFFFFF, (_currentColor >>> 24));
@@ -158,6 +227,7 @@ class ColorField extends MovieClip
 	public function updateButtons(bInstant: Boolean)
 	{
 		buttonPanel.updateButtons(bInstant);
+		presetPanel.updateButtons(bInstant);
 	}
 
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
@@ -166,27 +236,84 @@ class ColorField extends MovieClip
 		if(a_platform == 0) {
 			_acceptButton = Input.Accept;
 			_cancelButton = {name: "Tween Menu", context: Input.CONTEXT_GAMEPLAY};
+			_switchModeButton = Input.Wait;
+			_saveColorButton = {keyCode: GlobalFunctions.getMappedKey("Quicksave", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_loadColorButton = {keyCode: GlobalFunctions.getMappedKey("Quickload", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
 			_acceptButton = Input.Accept;
 			_cancelButton = Input.Cancel;
+			_switchModeButton = Input.YButton;
+			_saveColorButton = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_loadColorButton = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			
 		}
 		buttonPanel.setPlatform(a_platform, a_bPS3Switch);
+		presetPanel.setPlatform(a_platform, a_bPS3Switch);
+	}
+	
+	public function onSwitchMode(): Void
+	{
+		if(this["bCanSwitchMode"])
+		{
+			dispatchEvent({type: "changeColor", entry: this["entry"], mode: this["mode"], color: (colorSelector.getColor() | colorSelector.getAlpha() << 24), apply: true, closeField: false});
+			dispatchEvent({type: "switchMode", mode: this["mode"]});
+			SetupButtons();
+		}
+	}
+	
+	public function getModeText(): String
+	{
+		switch(this["mode"])
+		{
+			case "tint":
+			return "$Glow";
+			break;
+			case "glow":
+			return "$Tint";
+			break;
+		}
+		
+		return "";
+	}
+	
+	public function onLoadColor(): Void
+	{
+		var newColor: Number = 0;
+		switch(this["mode"])
+		{
+			case "glow":
+			newColor = (this["savedColor"] & 0x00FFFFFF) | 0xFF000000;
+			break;
+			default:
+			newColor = this["savedColor"];
+			break;
+		}
+		
+		colorSelector.setColor(newColor & 0x00FFFFFF, (newColor >>> 24));
+		updateHexCode();
+		
+		dispatchEvent({type: "changeColor", entry: this["entry"], mode: this["mode"], color: (colorSelector.getColor() | colorSelector.getAlpha() << 24), apply: false, closeField: false});
+	}
+	
+	public function onSaveColor(): Void
+	{
+		this["savedColor"] = (colorSelector.getColor() | colorSelector.getAlpha() << 24);
+		dispatchEvent({type: "saveColor", color: this["savedColor"]});
 	}
 	
 	public function onSliderChange(event: Object): Void
 	{
-		dispatchEvent({type: "changeColor", color: (event.color | event.alpha << 24), apply: false});
-		GameDelegate.call("PlaySound",["UIMenuFocus"]);
+		dispatchEvent({type: "changeColor", entry: this["entry"], mode: this["mode"], color: (event.color | event.alpha << 24), apply: false, closeField: false});
 		updateHexCode();
 	}
 
 	public function onAccept(): Void
 	{
-		dispatchEvent({type: "changeColor", color: (colorSelector.getColor() | colorSelector.getAlpha() << 24), apply: true});
+		dispatchEvent({type: "changeColor", entry: this["entry"], mode: this["mode"], color: (colorSelector.getColor() | colorSelector.getAlpha() << 24), apply: true, closeField: true});
 	}
 
 	public function onCancel(): Void
 	{
-		dispatchEvent({type: "changeColor", color: _currentColor >> 0, apply: true}); // Shift to make signed
+		dispatchEvent({type: "changeColor", entry: this["entry"], mode: this["mode"], color: _currentColor >> 0, apply: true, closeField: true}); // Shift to make signed
 	}
 }

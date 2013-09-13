@@ -39,7 +39,7 @@ string[] _sliders = None
 int _sliderBuffer = 0
 
 int Function GetScriptVersionRelease() global
-	return 1
+	return 2
 EndFunction
 
 Event OnInit()
@@ -254,8 +254,18 @@ Function AddBodyPaint(string name, string texturePath)
 	_textureBuffer_body += 1
 EndFunction
 
+Function AddBodyPaintEx(string name, string texture0, string texture1 = "ignore", string texture2 = "ignore", string texture3 = "ignore", string texture4 = "ignore", string texture5 = "ignore", string texture6 = "ignore", string texture7 = "ignore")
+	_textures_body[_textureBuffer_body] = name + ";;" + texture0 + "|" + texture1 + "|" + texture2 + "|" + texture3 + "|" + texture4 + "|" + texture5 + "|" + texture6 + "|" + texture7
+	_textureBuffer_body += 1
+EndFunction
+
 Function AddHandPaint(string name, string texturePath)
 	_textures_hand[_textureBuffer_hand] = name + ";;" + texturePath
+	_textureBuffer_hand += 1
+EndFunction
+
+Function AddHandPaintEx(string name, string texture0, string texture1 = "ignore", string texture2 = "ignore", string texture3 = "ignore", string texture4 = "ignore", string texture5 = "ignore", string texture6 = "ignore", string texture7 = "ignore")
+	_textures_hand[_textureBuffer_hand] = name + ";;" + texture0 + "|" + texture1 + "|" + texture2 + "|" + texture3 + "|" + texture4 + "|" + texture5 + "|" + texture6 + "|" + texture7
 	_textureBuffer_hand += 1
 EndFunction
 
@@ -263,6 +273,12 @@ Function AddFeetPaint(string name, string texturePath)
 	_textures_feet[_textureBuffer_feet] = name + ";;" + texturePath
 	_textureBuffer_feet += 1
 EndFunction
+
+Function AddFeetPaintEx(string name, string texture0, string texture1 = "ignore", string texture2 = "ignore", string texture3 = "ignore", string texture4 = "ignore", string texture5 = "ignore", string texture6 = "ignore", string texture7 = "ignore")
+	_textures_feet[_textureBuffer_feet] = name + ";;" + texture0 + "|" + texture1 + "|" + texture2 + "|" + texture3 + "|" + texture4 + "|" + texture5 + "|" + texture6 + "|" + texture7
+	_textureBuffer_feet += 1
+EndFunction
+
 
 Function AddSlider(string name, int section, string callback, float min, float max, float interval, float position)
 	_sliders[_sliderBuffer] = name + ";;" + section + ";;" + callback + ";;" + min + ";;" + max + ";;" + interval + ";;" + position

@@ -147,7 +147,7 @@ Function SetMorphValue(ObjectReference ref, string morphName, float value) nativ
 float Function GetMorphValue(ObjectReference ref, string morphName) native global
 
 ; Clears a body morph value on an actor
-float Function ClearMorphValue(ObjectReference ref, string morphName) native global
+Function ClearMorphValue(ObjectReference ref, string morphName) native global
 
 ; Clears all body morphs for an actor
 Function ClearMorphs(ObjectReference ref) native global

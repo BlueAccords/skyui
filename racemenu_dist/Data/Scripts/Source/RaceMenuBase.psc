@@ -39,7 +39,7 @@ string[] _sliders = None
 int _sliderBuffer = 0
 
 int Function GetScriptVersionRelease() global
-	return 1
+	return 2
 EndFunction
 
 Event OnInit()

@@ -27,6 +27,7 @@ class SliderListEntry extends BasicListEntry
 	public var SliderInstance: RaceMenuSlider;
 	public var trigger: MovieClip;
 	public var colorSquare: MovieClip;
+	public var glowSquare: MovieClip;
 		
 	/* PUBLIC FUNCTIONS */
 	
@@ -74,6 +75,15 @@ class SliderListEntry extends BasicListEntry
 			if (_parent.itemIndex != undefined && enabled)
 				list.onItemPress(_parent.itemIndex);
 		}
+		
+		glowSquare.onRollOver = trigger.onRollOver;
+		glowSquare.onPress = function()
+		{
+			var list = this._parent._parent;
+			
+			if (_parent.itemIndex != undefined && enabled)
+				list.onItemPressAux(_parent.itemIndex, undefined, 1);
+		}
 	}
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
@@ -116,9 +126,10 @@ class SliderListEntry extends BasicListEntry
 		{
 			case RaceMenuDefines.ENTRY_TYPE_RACE:
 			{
-				valueField._visible = valueField.enabled = false;
-				SliderInstance._visible = SliderInstance.enabled = false;
-				colorSquare._visible = colorSquare.enabled = false;
+				valueField.enabled = valueField._visible = false;
+				SliderInstance.enabled = SliderInstance._visible = false;
+				colorSquare.enabled = colorSquare._visible = false;
+				glowSquare.enabled = colorSquare._visible = false;
 			}
 			break;
 			
@@ -126,6 +137,7 @@ class SliderListEntry extends BasicListEntry
 			{
 				valueField._visible = valueField.enabled = true;
 				SliderInstance._visible = SliderInstance.enabled = true;
+				glowSquare.enabled = glowSquare._visible = false;
 				
 				a_entryObject.enabled = (!a_entryObject.hasColor() || a_entryObject.isColorEnabled());
 										
@@ -137,7 +149,7 @@ class SliderListEntry extends BasicListEntry
 					colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
 					colorSquare.enabled = colorSquare._visible = (_global.skse != undefined);
 				} else {
-					colorSquare.enabled = colorSquare._visible = false;
+					colorSquare.enabled = colorSquare._visible = a_entryObject.hasColor();
 				}
 				
 				// Yeah this is stupid, but its the only way to tell if the slider loaded
@@ -156,14 +168,19 @@ class SliderListEntry extends BasicListEntry
 			{
 				valueField._visible = valueField.enabled = false;
 				SliderInstance._visible = SliderInstance.enabled = false;
-				colorSquare._visible = colorSquare.enabled = true;
+				
+				colorSquare._visible = colorSquare.enabled = a_entryObject.hasColor();
+				glowSquare._visible = glowSquare.enabled = a_entryObject.hasGlow();
 				
 				a_entryObject.enabled = a_entryObject.isColorEnabled();
 				
 				var colorOverlay: Color = new Color(colorSquare.fill);
 				colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
 				colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
-				colorSquare.enabled = colorSquare._visible = true;
+				
+				var glowOverlay: Color = new Color(glowSquare.fill);
+				glowOverlay.setRGB(a_entryObject.glowColor & 0x00FFFFFF);
+				glowSquare.fill._alpha = ((a_entryObject.glowColor >>> 24) / 0xFF) * 100;
 			}
 			break;
 		}
@@ -174,11 +191,13 @@ class SliderListEntry extends BasicListEntry
 			valueField.textColor = disabledTextColor;
 			SliderInstance._alpha = 40;
 			colorSquare._alpha = 40;
+			glowSquare._alpha = 40;
 		} else {
 			textField.textColor = defaultTextColor;
 			valueField.textColor = defaultTextColor;
 			SliderInstance._alpha = 100;
 			colorSquare._alpha = 100;
+			glowSquare._alpha = 100;
 		}
 
 		if (textField != undefined) {			

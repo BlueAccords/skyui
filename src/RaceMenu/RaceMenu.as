@@ -41,6 +41,7 @@ class RaceMenu extends MovieClip
 	private var _raceList: Array;
 	private var _exportInterval: Number;
 	private var _reloadInterval: Number;
+	private var _savedColor: Number;
 	
 	public var makeupList: Array;
 	
@@ -191,6 +192,7 @@ class RaceMenu extends MovieClip
 		
 		itemList.addEventListener("itemPress", this, "onItemPress");
 		itemList.addEventListener("itemPressSecondary", this, "onItemPressSecondary");
+		itemList.addEventListener("itemPressAux", this, "onItemPressAux");
 		itemList.addEventListener("selectionChange", this, "onSelectionChange");
 		categoryList.addEventListener("itemPress", this, "onCategoryPress");
 		categoryList.addEventListener("selectionChange", this, "onCategoryChange");
@@ -201,6 +203,9 @@ class RaceMenu extends MovieClip
 		
 		textEntry.addEventListener("nameChange", this, "onNameChange");
 		colorField.addEventListener("changeColor", this, "onChangeColor");
+		colorField.addEventListener("switchMode", this, "onSwitchColorMode");
+		colorField.addEventListener("saveColor", this, "onSaveColor");
+		
 		makeupPanel.addEventListener("changeTexture", this, "onChangeTexture");
 		
 		// categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
@@ -487,11 +492,12 @@ class RaceMenu extends MovieClip
 		GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
 	}
 	
-	public function ShowColorField(bShowField: Boolean): Void
+	public function ShowColorField(bShowField: Boolean, initParams: Object): Void
 	{
 		colorField._visible = colorField.enabled = bShowField;
 		colorField.ResetSlider();
 		if(bShowField) {
+			colorField.initParams = initParams;
 			colorField.updateButtons(true);
 			FocusHandler.instance.setFocus(colorField.colorSelector, 0);
 		} else {
@@ -544,10 +550,11 @@ class RaceMenu extends MovieClip
 		}
 	}
 	
-	public function ShowMakeupPanel(bShowPanel: Boolean): Void
+	public function ShowMakeupPanel(bShowPanel: Boolean, initParams: Object): Void
 	{
 		makeupPanel._visible = makeupPanel.enabled = bShowPanel;
 		if(bShowPanel) {
+			makeupPanel.initParams = initParams;
 			FocusHandler.instance.setFocus(makeupPanel.makeupList, 0);
 		} else {
 			FocusHandler.instance.setFocus(itemList, 0);
@@ -702,12 +709,10 @@ class RaceMenu extends MovieClip
 		}
 		
 		if(_global.skse.plugins.CharGen) {
-			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "$Preset Slot", filterFlag: RaceMenuDefines.CATEGORY_BODY, callbackName: "ChangePresetSlot", sliderMin: 0, sliderMax: _global.skse.plugins.CharGen.iNumPresets, sliderID: -1, position: 0, interval: 1, enabled: true};
-			entryObject.internalCallback = function()
-			{
-				_global.presetSlot = this.position; 
-			}
+			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "$Preset Slot", filterFlag: RaceMenuDefines.CATEGORY_BODY, callbackName: "ChangePresetSlot", sliderMin: 0, sliderMax: _global.skse.plugins.CharGen.iNumPresets, sliderID: -1, position: _global.presetSlot, interval: 1, enabled: true};
+			entryObject.internalCallback = function() { _global.presetSlot = this.position; }
 			entryObject.hasColor = function(): Boolean { return false; }
+			entryObject.hasGlow = function(): Boolean { return false; }
 			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }
 			itemList.entryList.push(entryObject);
 		}
@@ -720,14 +725,13 @@ class RaceMenu extends MovieClip
 			if(entryObject.callbackName == "ChangeTintingMask" || entryObject.callbackName == "ChangeMaskColor" || entryObject.callbackName == "ChangeHairColorPreset") {
 				entryObject.filterFlag += RaceMenuDefines.CATEGORY_COLOR;
 				entryObject.tintType = RaceMenuDefines.TINT_MAP[colorIndex];
-				entryObject.isColorEnabled = function(): Boolean
-				{
-					return (_global.skse && (_global.tintCount < _global.maxTints || (this.fillColor >>> 24) != 0 || this.tintType == RaceMenuDefines.TINT_TYPE_HAIR)) || !_global.skse;
-				}
+				entryObject.isColorEnabled = function(): Boolean { return (_global.skse && (_global.tintCount < _global.maxTints || (this.fillColor >>> 24) != 0 || this.tintType == RaceMenuDefines.TINT_TYPE_HAIR)) || !_global.skse; }
 				entryObject.hasColor = function(): Boolean { return true; }
+				entryObject.hasGlow = function(): Boolean { return false; }
 				colorIndex++;
 			} else {
 				entryObject.hasColor = function(): Boolean { return false; }
+				entryObject.hasGlow = function(): Boolean { return false; }
 			}
 			if(entryObject.callbackName == "ChangeWeight") {
 				entryObject.interval = 0.01;
@@ -785,6 +789,10 @@ class RaceMenu extends MovieClip
 					
 					var newSliderID = ECECharGen.sliders.length + RaceMenuDefines.ECE_SLIDER_OFFSET;
 					var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: extraSliders[i].text, filterFlag: RaceMenuDefines.CATEGORY_ECE, callbackName: "ChangeDoubleMorph", sliderMin: extraSliders[i].sliderMin, sliderMax: extraSliders[i].sliderMax, sliderID: newSliderID, position: 0, interval: extraSliders[i].interval, uniqueID: extraSliders[i].uniqueID, ECESlider: true, enabled: true};
+					sliderObject.internalCallback = function()
+					{
+						_global.skse.plugins.ExCharGen.UpdateMorphs();
+					}
 					ECECharGen.sliders.push(sliderObject);
 					itemList.entryList.push(sliderObject);
 				}
@@ -860,7 +868,7 @@ class RaceMenu extends MovieClip
 		delete _updateInterval;
 	}
 	
-	public function SetMakeup(a_types: Array, a_colors: Array, a_textures: Array, a_tintType: Number, a_categoryFilter: Number, a_makeupType: Number, a_entryType: Number): Void
+	public function SetMakeup(a_types: Array, a_colors: Array, a_textures: Array, a_glows: Array, a_tintType: Number, a_categoryFilter: Number, a_makeupType: Number, a_entryType: Number): Void
 	{
 		// Remove only Makeup types
 		if(itemList.entryList.length > 0) {
@@ -882,6 +890,12 @@ class RaceMenu extends MovieClip
 				tintIndex = 0;
 				continue;
 			}
+			var nGlowColor: Number = 0xFF000000;
+			if(a_glows) {
+				nGlowColor = a_glows[i];
+			}
+			
+			nTintTexture = nTintTexture.split("|")[0];
 			
 			// Strip Path and extension
 			var slashIndex: Number = -1;
@@ -891,19 +905,17 @@ class RaceMenu extends MovieClip
 					break;
 				}
 			}
-			var formatIndex: Number = nTintTexture.lastIndexOf(".dds");
+			var formatIndex: Number = nTintTexture.indexOf(".dds");
 			if(formatIndex == -1)
 				formatIndex = nTintTexture.length;
 			
 			var displayText: String = nTintTexture.substring(slashIndex + 1, formatIndex);
 			
-			var entryObject: Object = {type: a_entryType, listType: a_makeupType, text: displayText, texture: nTintTexture, tintType: nTintType, tintIndex: nTintIndex, fillColor: nTintColor, filterFlag: a_categoryFilter, enabled: true};
-			entryObject.isColorEnabled = function(tintColors: Number): Boolean
-			{
-				return (_global.skse && (_global.tintCount < _global.maxTints || (this.fillColor >>> 24) != 0));
-			}
+			var entryObject: Object = {type: a_entryType, listType: a_makeupType, text: displayText, texture: nTintTexture, tintType: nTintType, tintIndex: nTintIndex, fillColor: nTintColor, glowColor: nGlowColor, filterFlag: a_categoryFilter, enabled: true};
+			entryObject.isColorEnabled = function(tintColors: Number): Boolean { return (_global.skse && (_global.tintCount < _global.maxTints || (this.fillColor >>> 24) != 0)); }
 			entryObject.GetTextureList = function(raceMenu: Object): Array { return raceMenu.makeupList[this.listType]; }
 			entryObject.hasColor = function(): Boolean { return true; }
+			entryObject.hasGlow = function(): Boolean { return (this.tintType == RaceMenuDefines.TINT_TYPE_BODYPAINT || this.tintType == RaceMenuDefines.TINT_TYPE_HANDPAINT || this.tintType == RaceMenuDefines.TINT_TYPE_FEETPAINT); }
 			
 			itemList.entryList.push(entryObject);
 		}
@@ -985,40 +997,57 @@ class RaceMenu extends MovieClip
 	{
 		if(event.color != undefined)
 		{
-			var selectedEntry = itemList.listState.selectedEntry;
-			if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
-				if(event.apply) {
-					// Update Tint Count
-					if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) == 0 && (event.color >>> 24) != 0) {
-						_global.tintCount++;
-						UpdateTintCount();
-					} else if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) != 0 && (event.color >>> 24) == 0) {
-						_global.tintCount--;
-						UpdateTintCount();
+			var selectedEntry = event.entry;
+			switch(event.mode)
+			{
+				case "tint":
+				{
+					if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_COLOR) {
+						if(event.apply) {
+							// Update Tint Count
+							if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) == 0 && (event.color >>> 24) != 0) {
+								_global.tintCount++;
+								UpdateTintCount();
+							} else if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) != 0 && (event.color >>> 24) == 0) {
+								_global.tintCount--;
+								UpdateTintCount();
+							}
+							selectedEntry.fillColor = event.color;
+						}
+						requestUpdate({type: "sliderColor", slider: selectedEntry, argbColor: event.color});
+					} else if(isMakeup(selectedEntry.tintType)) {
+						if(event.apply) {
+							// Update Tint Count
+							if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) == 0 && (event.color >>> 24) != 0) {
+								_global.tintCount++;
+								UpdateTintCount();
+							} else if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) != 0 && (event.color >>> 24) == 0) {
+								_global.tintCount--;
+								UpdateTintCount();
+							}
+							selectedEntry.fillColor = event.color;
+						}
+						requestUpdate({type: "makeupColor", tintType: selectedEntry.tintType, tintIndex: selectedEntry.tintIndex, argbColor: event.color});
 					}
-					selectedEntry.fillColor = event.color;
 				}
-				requestUpdate({type: "sliderColor", slider: selectedEntry, argbColor: event.color});
-			} else if(isMakeup(selectedEntry.tintType)) {
-				if(event.apply) {
-					// Update Tint Count
-					if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) == 0 && (event.color >>> 24) != 0) {
-						_global.tintCount++;
-						UpdateTintCount();
-					} else if(selectedEntry.tintType != RaceMenuDefines.TINT_TYPE_HAIR && (selectedEntry.fillColor >>> 24) != 0 && (event.color >>> 24) == 0) {
-						_global.tintCount--;
-						UpdateTintCount();
+				break;
+				
+				case "glow":
+				{
+					if(event.apply) {
+						selectedEntry.glowColor = event.color;
 					}
-					selectedEntry.fillColor = event.color;
+					
+					requestUpdate({type: "glowColor", tintType: selectedEntry.tintType, tintIndex: selectedEntry.tintIndex, argbColor: event.color});
 				}
-				requestUpdate({type: "makeupColor", tintType: selectedEntry.tintType, tintIndex: selectedEntry.tintIndex, argbColor: event.color});
+				break;
 			}
 			
 			if(event.apply)
 				itemList.requestUpdate();
 		}
 		
-		if(event.apply) {
+		if(event.closeField) {
 			ShowColorField(false);
 			GameDelegate.call("PlaySound", ["UIMenuBladeCloseSD"]);
 		}
@@ -1054,6 +1083,9 @@ class RaceMenu extends MovieClip
 			break;
 			case "sliderColor":
 			SendPlayerTintBySlider(pendingData.slider, pendingData.argbColor);
+			break;
+			case "glowColor":
+			SendPlayerGlow(pendingData.tintType, pendingData.tintIndex, pendingData.argbColor);
 			break;
 		}
 				
@@ -1115,6 +1147,11 @@ class RaceMenu extends MovieClip
 		}
 	}
 	
+	private function SendPlayerGlow(tintType: Number, tintIndex: Number, argbColor: Number)
+	{
+		skse.SendModEvent(_global.eventPrefix + "OverlayGlowColorChange", Number(argbColor).toString(), tintType * 1000 + tintIndex);
+	}
+	
 	private function onItemPress(event: Object): Void
 	{
 		var pressedEntry: Object = itemList.entryList[event.index];
@@ -1130,7 +1167,7 @@ class RaceMenu extends MovieClip
 			colorField.setText(pressedEntry.text);
 			colorField.setColor(pressedEntry.fillColor);
 			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
-			ShowColorField(true);
+			ShowColorField(true, {entry: pressedEntry, mode: "tint", bCanSwitchMode: isOverlayType(pressedEntry.tintType), savedColor: _savedColor});
 		}/* else {
 			itemList.listState.focusEntry = entryObject;
 			itemList.requestUpdate();
@@ -1147,8 +1184,41 @@ class RaceMenu extends MovieClip
 			makeupPanel.setSelectedEntry(pressedEntry.texture);
 			makeupPanel.setTexture(pressedEntry.text, pressedEntry.texture);
 			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
-			ShowMakeupPanel(true);
+			ShowMakeupPanel(true, {entry: pressedEntry});
 		}
+	}
+	
+	private function onItemPressAux(event: Object): Void
+	{
+		var pressedEntry: Object = itemList.entryList[event.index];
+		if(pressedEntry.hasGlow() && isOverlayType(pressedEntry.tintType)) {
+			colorField.setText(pressedEntry.text);
+			colorField.setColor(pressedEntry.glowColor); 
+			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
+			ShowColorField(true, {entry: pressedEntry, bNoAlpha: true, mode: "glow", bCanSwitchMode: true, savedColor: _savedColor});
+		}
+	}
+	
+	private function onSwitchColorMode(event: Object): Void
+	{
+		switch(event.mode) {
+			case "tint":
+			colorField["mode"] = "glow";
+			colorField.disableAlpha(true);
+			colorField.setColor(colorField["entry"].glowColor);
+			break;
+			case "glow":
+			colorField["mode"] = "tint";
+			colorField.disableAlpha(false);
+			colorField.setColor(colorField["entry"].fillColor);
+			break;
+		}
+	}
+	
+	private function onSaveColor(event: Object): Void
+	{
+		_savedColor = event.color;
+		setDisplayText("$Saved Color", _savedColor);
 	}
 	
 	private function onSelectionChange(event: Object): Void
@@ -1191,10 +1261,14 @@ class RaceMenu extends MovieClip
 		navPanel.updateButtons(true);		
 	}
 	
-	private function setDisplayText(a_text: String): Void
+	private function setDisplayText(a_text: String, a_color: Number): Void
 	{
 		textDisplay._alpha = 100;
 		textDisplay.text = skyui.util.Translator.translateNested(a_text);
+		if(a_color != undefined)
+			textDisplay.textColor = a_color;
+		else
+			textDisplay.textColor = 0xFFFFFF;
 		TweenLite.to(textDisplay, 2.5, {_alpha: 0, easing: Linear.easeNone});
 	}
 	
@@ -1261,7 +1335,7 @@ class RaceMenu extends MovieClip
 			colorField.setText(selectedEntry.text);
 			colorField.setColor(selectedEntry.fillColor);
 			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
-			ShowColorField(true);
+			ShowColorField(true, {entry: selectedEntry, mode: "tint", bCanSwitchMode: isOverlayType(selectedEntry.tintType), savedColor: _savedColor});
 		}
 	}
 	
@@ -1278,7 +1352,7 @@ class RaceMenu extends MovieClip
 			makeupPanel.setSelectedEntry(selectedEntry.texture);
 			makeupPanel.setTexture(selectedEntry.text, selectedEntry.texture);
 			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
-			ShowMakeupPanel(true);
+			ShowMakeupPanel(true, {entry: selectedEntry});
 		}
 	}
 	
@@ -1301,6 +1375,7 @@ class RaceMenu extends MovieClip
 		} else {
 			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
 			var dataObject: Object = new Object();
+			loadingIcon._visible = true;
 			if(_global.skse.plugins.CharGen.LoadPreset(filePath, dataObject) == false) {
 				skse.SendModEvent(_global.eventPrefix + "RequestTintSave");
 				if(!_reloadInterval) {
@@ -1318,6 +1393,7 @@ class RaceMenu extends MovieClip
 		skse.SendModEvent(_global.eventPrefix + "RequestTintLoad");
 		SendPlayerTint(RaceMenuDefines.TINT_TYPE_HAIR, 0, dataObject.hairColor);
 		setDisplayText("$Loaded preset from slot {" + _global.presetSlot + "}");
+		loadingIcon._visible = false;
 		clearInterval(_reloadInterval);
 		delete _reloadInterval;
 	}
@@ -1536,7 +1612,7 @@ class RaceMenu extends MovieClip
 		var category: Number = RaceMenuDefines.CATEGORY_WARPAINT;
 		var listIndex: Number = RaceMenuDefines.PAINT_FACE;
 		var entryType: Number = RaceMenuDefines.ENTRY_TYPE_WARPAINT;
-		SetMakeup(tintTypes, tintColors, tintTextures, tintType, category, listIndex, entryType);
+		SetMakeup(tintTypes, tintColors, tintTextures, null, tintType, category, listIndex, entryType);
 		delete tintTypes;
 		delete tintColors;
 		delete tintTextures;
@@ -1547,6 +1623,7 @@ class RaceMenu extends MovieClip
 		var tintTypes = new Array();
 		var tintColors = new Array();
 		var tintTextures = new Array();
+		var tintGlows = new Array();
 		
 		for(var i = 0; i < arguments.length; i++)
 		{		
@@ -1555,6 +1632,7 @@ class RaceMenu extends MovieClip
 				tintTypes.push(Number(tintParams[0]));
 				tintColors.push(Number(tintParams[1]));
 				tintTextures.push(tintParams[2]);
+				tintGlows.push(Number(tintParams[3]));
 			}
 		}
 		
@@ -1562,10 +1640,11 @@ class RaceMenu extends MovieClip
 		var category: Number = RaceMenuDefines.CATEGORY_BODYPAINT;
 		var listIndex: Number = RaceMenuDefines.PAINT_BODY;
 		var entryType: Number = RaceMenuDefines.ENTRY_TYPE_BODYPAINT;
-		SetMakeup(tintTypes, tintColors, tintTextures, tintType, category, listIndex, entryType);
+		SetMakeup(tintTypes, tintColors, tintTextures, tintGlows, tintType, category, listIndex, entryType);
 		delete tintTypes;
 		delete tintColors;
 		delete tintTextures;
+		delete tintGlows;
 	}
 	
 	public function RSM_AddHandTints()
@@ -1573,6 +1652,7 @@ class RaceMenu extends MovieClip
 		var tintTypes = new Array();
 		var tintColors = new Array();
 		var tintTextures = new Array();
+		var tintGlows = new Array();
 		
 		for(var i = 0; i < arguments.length; i++)
 		{		
@@ -1581,6 +1661,7 @@ class RaceMenu extends MovieClip
 				tintTypes.push(Number(tintParams[0]));
 				tintColors.push(Number(tintParams[1]));
 				tintTextures.push(tintParams[2]);
+				tintGlows.push(Number(tintParams[3]));
 			}
 		}
 		
@@ -1588,10 +1669,11 @@ class RaceMenu extends MovieClip
 		var category: Number = RaceMenuDefines.CATEGORY_HANDPAINT;
 		var listIndex: Number = RaceMenuDefines.PAINT_HAND;
 		var entryType: Number = RaceMenuDefines.ENTRY_TYPE_HANDPAINT;
-		SetMakeup(tintTypes, tintColors, tintTextures, tintType, category, listIndex, entryType);
+		SetMakeup(tintTypes, tintColors, tintTextures, tintGlows, tintType, category, listIndex, entryType);
 		delete tintTypes;
 		delete tintColors;
 		delete tintTextures;
+		delete tintGlows;
 	}
 	
 	public function RSM_AddFeetTints()
@@ -1599,6 +1681,7 @@ class RaceMenu extends MovieClip
 		var tintTypes = new Array();
 		var tintColors = new Array();
 		var tintTextures = new Array();
+		var tintGlows = new Array();
 		
 		for(var i = 0; i < arguments.length; i++)
 		{		
@@ -1607,6 +1690,7 @@ class RaceMenu extends MovieClip
 				tintTypes.push(Number(tintParams[0]));
 				tintColors.push(Number(tintParams[1]));
 				tintTextures.push(tintParams[2]);
+				tintGlows.push(Number(tintParams[3]));
 			}
 		}
 		
@@ -1614,10 +1698,11 @@ class RaceMenu extends MovieClip
 		var category: Number = RaceMenuDefines.CATEGORY_FEETPAINT;
 		var listIndex: Number = RaceMenuDefines.PAINT_FEET;
 		var entryType: Number = RaceMenuDefines.ENTRY_TYPE_FEETPAINT;
-		SetMakeup(tintTypes, tintColors, tintTextures, tintType, category, listIndex, entryType);
+		SetMakeup(tintTypes, tintColors, tintTextures, tintGlows, tintType, category, listIndex, entryType);
 		delete tintTypes;
 		delete tintColors;
 		delete tintTextures;
+		delete tintGlows;
 	}
 	
 	public function RSM_ExtendRace(a_object: Object)
