@@ -85,6 +85,21 @@ class RaceMenuList extends skyui.components.list.ScrollingList
 			scrollPosition = scrollPosition - scrollDelta;
 		}
 	}
+	
+	public function getClipGlobalCoordinate(): Object
+	{
+		var currentClip: MovieClip = getClipByIndex(_curClipIndex);
+		var totalX: Number = currentClip._x;
+		var totalY: Number = currentClip._y + (_curClipIndex * 0.95); // Not sure what the hell this offset is from
+		var clipParent: MovieClip = currentClip._parent;
+		while(clipParent) {
+			totalX += clipParent._x;
+			totalY += clipParent._y;
+			clipParent = clipParent._parent;
+		}
+		
+		return {x: totalX, y: totalY};
+	}
 
 	public function moveSelectionDown(a_bScrollPage: Boolean): Void
 	{

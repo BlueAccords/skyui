@@ -97,6 +97,7 @@ class RaceMenu extends MovieClip
 	public var bonusList: ScrollingList;
 	
 	public var makeupPanel: MakeupPanel;
+	public var itemDescriptor: MovieClip;
 	
 	/* GFx Dispatcher Functions */
 	public var dispatchEvent: Function;
@@ -135,9 +136,9 @@ class RaceMenu extends MovieClip
 		textDisplay._alpha = 0;
 		textDisplay.enabled = false;
 		
-		loadingIcon._visible = false;
-		textEntry._visible = false;
-		textEntry.enabled = false;
+		loadingIcon._visible = loadingIcon.enabled = false;
+		textEntry._visible = textEntry.enabled = false;
+		itemDescriptor._visible = itemDescriptor.enabled = false;
 		
 		GlobalFunc.MaintainTextFormat();
 		GlobalFunc.SetLockFunction();
@@ -215,7 +216,7 @@ class RaceMenu extends MovieClip
 		_sortFilter.setSortBy(["text"], [0]);
 		
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 508, savedItemIndex: -1, enabled: true});
-		/*
+		
 		_raceList.push({skillBonuses: [{skill: 10, bonus: 255},
 									   {skill: 11, bonus: 176},
 									   {skill: 12, bonus: 45},
@@ -226,7 +227,7 @@ class RaceMenu extends MovieClip
 									   ]});
 		
 		// Test Code
-		_global.skse = new Array();
+		/*_global.skse = new Array();
 				
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "RACE", flag: RaceMenuDefines.CATEGORY_RACE, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "BODY", flag: RaceMenuDefines.CATEGORY_BODY, savedItemIndex: -1, enabled: true});
@@ -261,6 +262,7 @@ class RaceMenu extends MovieClip
 		var isEnabled: Function = function(): Boolean { return true; }
 		var colorIndex: Number = 0;
 		var GetTextureList: Function = function(raceMenu: Object): Array { return raceMenu.makeupList[RaceMenuDefines.PAINT_FACE]; }
+		var showDescriptor: Function = function(): Boolean { return true; }
 		
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Sex", filterFlag: 4, callbackName: "ChangeSex", sliderMin: 0, sliderMax: 1, sliderID: -1, position: 0, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Presets", filterFlag: 4, callbackName: "ChangeHeadPreset", sliderMin: 0, sliderMax: 0, sliderID: 0, position: 0, interval: 1, enabled: true});
@@ -276,7 +278,7 @@ class RaceMenu extends MovieClip
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Facial Hair", filterFlag: 256, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 45, sliderID: 10, position: 41, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Hair Color", filterFlag: 256 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeHairColorPreset", sliderMin: 0, sliderMax: 6594, sliderID: 11, position: 6578, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Shape", filterFlag: 32, callbackName: "ChangePreset", sliderMin: 0, sliderMax: 37, sliderID: 12, position: 1, interval: 1, enabled: true});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Color", filterFlag: 32, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 1, sliderID: 13, position: 0, interval: 1, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Color", filterFlag: 32, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 1, sliderID: 13, position: 0, interval: 1, enabled: true, showDescriptor: showDescriptor});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Height", filterFlag: 32, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 14, position: 0.5, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Width", filterFlag: 32, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 15, position: -0.059999998658895, interval: 0.10000000149012, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Depth", filterFlag: 32, callbackName: "ChangeDoubleMorph", sliderMin: -1, sliderMax: 1, sliderID: 16, position: -0.63999998569489, interval: 0.10000000149012, enabled: true});
@@ -333,6 +335,7 @@ class RaceMenu extends MovieClip
 		bottomBar["playerInfo"].Lock("R");
 		
 		_panelX = racePanel._x;
+		itemDescriptor._x = _panelX + racePanel._width;
 
 		//raceDescription._x = racePanel._x + raceDescription._width / 2 + racePanel._width + 15;
 		//raceDescription._y = bottomBar._y - raceDescription._height / 2 - 15;
@@ -571,11 +574,13 @@ class RaceMenu extends MovieClip
 			itemList.disableSelection = itemList.disableInput = false;
 			searchWidget.isDisabled = false;
 			TweenLite.to(racePanel, 0.5, {_alpha: 100, _x: _panelX, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(itemDescriptor, 0.5, {_alpha: 100, _x: (_panelX + racePanel._width), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
 			categoryList.disableSelection = categoryList.disableInput = true;
 			itemList.disableSelection = itemList.disableInput = true;
 			searchWidget.isDisabled = true;
 			TweenLite.to(racePanel, 0.5, {_alpha: 0, _x: ITEMLIST_HIDDEN_X, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(itemDescriptor, 0.5, {_alpha: 0, _x: (ITEMLIST_HIDDEN_X + racePanel._width), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
 	
@@ -687,6 +692,9 @@ class RaceMenu extends MovieClip
 		var id = 0;
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.RACE_STRIDE, id++) {
 			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_RACE, text: arguments[i + RaceMenuDefines.RACE_NAME], filterFlag: RaceMenuDefines.CATEGORY_RACE, raceDescription: arguments[i + RaceMenuDefines.RACE_DESCRIPTION].length <= 0 ? "No race description for " + arguments[i + RaceMenuDefines.RACE_NAME] : arguments[i + RaceMenuDefines.RACE_DESCRIPTION], equipState: arguments[i + RaceMenuDefines.RACE_EQUIPSTATE], raceID: id, enabled: true};
+			entryObject.isColorEnabled = function(): Boolean { return false; }
+			entryObject.hasColor = function(): Boolean { return false; }
+			entryObject.hasGlow = function(): Boolean { return false; }
 			if (entryObject.equipState > 0) {
 				itemList.listState.activeEntry = entryObject;
 				SetRaceText(entryObject.text);
@@ -711,6 +719,7 @@ class RaceMenu extends MovieClip
 		if(_global.skse.plugins.CharGen) {
 			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "$Preset Slot", filterFlag: RaceMenuDefines.CATEGORY_BODY, callbackName: "ChangePresetSlot", sliderMin: 0, sliderMax: _global.skse.plugins.CharGen.iNumPresets, sliderID: -1, position: _global.presetSlot, interval: 1, enabled: true};
 			entryObject.internalCallback = function() { _global.presetSlot = this.position; }
+			entryObject.isColorEnabled = function(): Boolean { return false; }
 			entryObject.hasColor = function(): Boolean { return false; }
 			entryObject.hasGlow = function(): Boolean { return false; }
 			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }
@@ -737,12 +746,19 @@ class RaceMenu extends MovieClip
 				entryObject.interval = 0.01;
 			}
 			
+			if(_global.skse.plugins.CharGen.GetSliderData) {
+				entryObject.extraData = _global.skse.plugins.CharGen.GetSliderData(entryObject.sliderID);
+				entryObject.internalCallback = function() { this.entryObject.extraData = _global.skse.plugins.CharGen.GetSliderData(this.entryObject.sliderID); _root.RaceSexMenuBaseInstance.RaceSexPanelsInstance.updateItemDescriptor();};
+			}
+			
 			/* ECE Compatibility Start */
 			if(_global.skse.plugins.ExCharGen && (entryObject.callbackName == "ChangeDoubleMorph" || entryObject.callbackName == "ChangePreset")) {
 				if(_global.skse.plugins.ExCharGen.UpdateMorphs != undefined) {
+					entryObject.proxyCallback = entryObject.internalCallback;
 					entryObject.internalCallback = function()
 					{
 						_global.skse.plugins.ExCharGen.UpdateMorphs();
+						entryObject.proxyCallback();
 					}
 				}
 			}
@@ -1233,9 +1249,26 @@ class RaceMenu extends MovieClip
 			ShowRaceBonuses(null, false);
 			ShowRaceDescription(false);
 			raceDescription.textField.SetText("");
-		}
+		}		
+		
 		GameDelegate.call("PlaySound",["UIMenuFocus"]);
+		updateItemDescriptor();
 		updateBottomBar();
+	}
+	
+	private function updateItemDescriptor(): Void
+	{
+		var selectedEntry = itemList.listState.selectedEntry;
+		if(selectedEntry.extraData && selectedEntry.extraData.formId) {
+			var formName = selectedEntry.extraData.partName;
+			var formId = selectedEntry.extraData.formId;
+			itemDescriptor._y = itemList.getClipGlobalCoordinate().y - 10;
+			var modName: String = _global.skse.plugins.CharGen.GetModName(formId >>> 24);
+			itemDescriptor.setText(modName + " (" + formName + ")");
+			itemDescriptor._visible = itemDescriptor.enabled = true;
+		} else {
+			itemDescriptor._visible = itemDescriptor.enabled = false;
+		}
 	}
 	
 	private function updateBottomBar(): Void
@@ -1313,7 +1346,7 @@ class RaceMenu extends MovieClip
 		if(colorField._visible || textEntry._visible || makeupPanel._visible)
 			return;
 		
-		var selectedEntry = itemList.listState.selectedEntry
+		var selectedEntry = itemList.listState.selectedEntry;
 		if(selectedEntry) {
 			itemList.listState.activeEntry = selectedEntry;
 			itemList.requestUpdate();

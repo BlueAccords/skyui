@@ -7,6 +7,8 @@ Function OnStartup()
 	; Overlay Management
 	RegisterForModEvent("TTM_OverlayTextureChange", "OnOverlayTextureChange") ; Event sent when an overlay's texture changes
 	RegisterForModEvent("TTM_OverlayColorChange", "OnOverlayColorChange") ; Event sent when an overlay's color changes
+	RegisterForModEvent("TTM_OverlayGlowColorChange", "OnOverlayGlowColorChange") ; Event sent when an overlay's color changes
+	RegisterForModEvent("TTM_ShadersInvalidated", "OnShadersInvalidated") ; Event sent when a tint changes
 
 	; RaceSexMenu Data Transfer
 	RegisterForModEvent("RSMDT_SendMenuName", "OnReceiveMenuName")

@@ -130,6 +130,8 @@ class SliderListEntry extends BasicListEntry
 				SliderInstance.enabled = SliderInstance._visible = false;
 				colorSquare.enabled = colorSquare._visible = false;
 				glowSquare.enabled = colorSquare._visible = false;
+				
+				a_entryObject.enabled = true;
 			}
 			break;
 			
@@ -149,7 +151,7 @@ class SliderListEntry extends BasicListEntry
 					colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
 					colorSquare.enabled = colorSquare._visible = (_global.skse != undefined);
 				} else {
-					colorSquare.enabled = colorSquare._visible = a_entryObject.hasColor();
+					colorSquare.enabled = colorSquare._visible = false;
 				}
 				
 				// Yeah this is stupid, but its the only way to tell if the slider loaded
