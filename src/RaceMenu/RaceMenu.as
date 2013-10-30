@@ -6,6 +6,8 @@ import gfx.io.GameDelegate;
 import Shared.GlobalFunc;
 
 import com.greensock.TweenLite;
+import com.greensock.plugins.TweenPlugin;
+import com.greensock.plugins.AutoAlphaPlugin;
 import com.greensock.OverwriteManager;
 import com.greensock.easing.Linear;
 
@@ -83,6 +85,7 @@ class RaceMenu extends MovieClip
 	public var categoryList: CategoryList;
 	public var categoryLabel: TextField;
 	public var searchWidget: SearchWidget;
+	public var vertexEditor: VertexEditor;
 	
 	public var bottomBar: BottomBar;
 	public var navPanel: ButtonPanel;
@@ -111,6 +114,8 @@ class RaceMenu extends MovieClip
 	function RaceMenu()
 	{
 		super();
+		TweenPlugin.activate([AutoAlphaPlugin]);
+		
 		_global.tintCount = 0;
 		_global.maxTints = RaceMenuDefines.MAX_TINTS;
 		_global.eventPrefix = "RSM_";
@@ -134,7 +139,7 @@ class RaceMenu extends MovieClip
 		makeupList.push(new Array()); // Feet Paint
 		
 		textDisplay._alpha = 0;
-		textDisplay.enabled = false;
+		textDisplay._visible = textDisplay.enabled = false;
 		
 		loadingIcon._visible = loadingIcon.enabled = false;
 		textEntry._visible = textEntry.enabled = false;
@@ -217,6 +222,7 @@ class RaceMenu extends MovieClip
 		
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 508, savedItemIndex: -1, enabled: true});
 		
+		/*// Test Code
 		_raceList.push({skillBonuses: [{skill: 10, bonus: 255},
 									   {skill: 11, bonus: 176},
 									   {skill: 12, bonus: 45},
@@ -225,9 +231,7 @@ class RaceMenu extends MovieClip
 									   {skill: 15, bonus: 122},
 									   {skill: 16, bonus: 11}
 									   ]});
-		
-		// Test Code
-		/*_global.skse = new Array();
+		_global.skse = new Array();
 				
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "RACE", flag: RaceMenuDefines.CATEGORY_RACE, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "BODY", flag: RaceMenuDefines.CATEGORY_BODY, savedItemIndex: -1, enabled: true});
@@ -332,6 +336,7 @@ class RaceMenu extends MovieClip
 	{
 		racePanel.Lock("L");
 		raceDescription.Lock("L");
+		vertexEditor["Lock"]("L");
 		bottomBar["playerInfo"].Lock("R");
 		
 		_panelX = racePanel._x;
@@ -573,13 +578,13 @@ class RaceMenu extends MovieClip
 			categoryList.disableSelection = categoryList.disableInput = false;
 			itemList.disableSelection = itemList.disableInput = false;
 			searchWidget.isDisabled = false;
-			TweenLite.to(racePanel, 0.5, {_alpha: 100, _x: _panelX, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(racePanel, 0.5, {autoAlpha: 100, _x: _panelX, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 			TweenLite.to(itemDescriptor, 0.5, {_alpha: 100, _x: (_panelX + racePanel._width), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
 			categoryList.disableSelection = categoryList.disableInput = true;
 			itemList.disableSelection = itemList.disableInput = true;
 			searchWidget.isDisabled = true;
-			TweenLite.to(racePanel, 0.5, {_alpha: 0, _x: ITEMLIST_HIDDEN_X, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(racePanel, 0.5, {autoAlpha: 0, _x: ITEMLIST_HIDDEN_X, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 			TweenLite.to(itemDescriptor, 0.5, {_alpha: 0, _x: (ITEMLIST_HIDDEN_X + racePanel._width), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
@@ -587,9 +592,9 @@ class RaceMenu extends MovieClip
 	public function ShowBottomBar(bShowBottomBar: Boolean): Void
 	{
 		if(bShowBottomBar) {
-			TweenLite.to(bottomBar, 0.5, {_alpha: 100, _y: BOTTOMBAR_SHOWN_Y, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(bottomBar, 0.5, {autoAlpha: 100, _y: BOTTOMBAR_SHOWN_Y, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
-			TweenLite.to(bottomBar, 0.5, {_alpha: 0, _y: BOTTOMBAR_HIDDEN_Y, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(bottomBar, 0.5, {autoAlpha: 0, _y: BOTTOMBAR_HIDDEN_Y, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
 	
@@ -606,6 +611,7 @@ class RaceMenu extends MovieClip
 			ShowTextEntry(false);
 			ShowRacePanel(false);
 			ShowBottomBar(false);
+			vertexEditor.unloadAssets();
 		} else {
 			GameDelegate.call("ChangeName", []);
 			ShowTextEntry(false);
@@ -746,9 +752,23 @@ class RaceMenu extends MovieClip
 				entryObject.interval = 0.01;
 			}
 			
+			// CharGen 2.1.3 signature
 			if(_global.skse.plugins.CharGen.GetSliderData) {
-				entryObject.extraData = _global.skse.plugins.CharGen.GetSliderData(entryObject.sliderID);
-				entryObject.internalCallback = function() { this.entryObject.extraData = _global.skse.plugins.CharGen.GetSliderData(this.entryObject.sliderID); _root.RaceSexMenuBaseInstance.RaceSexPanelsInstance.updateItemDescriptor();};
+				
+				if(entryObject.sliderID != undefined && entryObject.position != undefined) {
+					entryObject.extraData = _global.skse.plugins.CharGen.GetSliderData(entryObject.sliderID, entryObject.position);
+				} else {
+					entryObject.extraData = null;
+				}
+				entryObject.internalCallback = function()
+				{
+					if(this.sliderID != undefined && this.position != undefined) {
+						this.entryObject.extraData = _global.skse.plugins.CharGen.GetSliderData(this.sliderID, this.position);
+					} else {
+						this.entryObject.extraData = null;
+					}
+					_root.RaceSexMenuBaseInstance.RaceSexPanelsInstance.updateItemDescriptor();
+				}
 			}
 			
 			/* ECE Compatibility Start */
@@ -783,101 +803,12 @@ class RaceMenu extends MovieClip
 			skse.SendModEvent(_global.eventPrefix + "Reinitialized");
 		}
 		
+		vertexEditor.unloadAssets();
+		vertexEditor.loadAssets();
+		
 		skse.SendModEvent(_global.eventPrefix + "RequestSliders");
 		
-		/* ECE Compatibility Start */
-		var ECECharGen: Object = _global.skse.plugins.ExCharGen;
-		if(ECECharGen) {
-			var raceArray: Array = new Array();
-			var extraSliders: Array = new Array();
-			var sliderValues: Array = new Array();
-			
-			ECECharGen.itemList = this.itemList;
-			ECECharGen.sliders = new Array();
-			ECECharGen.GetPlayerRaceName(raceArray);
-			ECECharGen.raceName = raceArray[0].text;
-			ECECharGen.GetList(ECECharGen.raceName, extraSliders, 10000);
-			
-			for(var i = 0; i < extraSliders.length; i++) {
-				if(extraSliders[i].type >= 0 && extraSliders[i].type <= 4) {
-					if(extraSliders[i].text == undefined)
-						continue;
-					
-					var newSliderID = ECECharGen.sliders.length + RaceMenuDefines.ECE_SLIDER_OFFSET;
-					var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: extraSliders[i].text, filterFlag: RaceMenuDefines.CATEGORY_ECE, callbackName: "ChangeDoubleMorph", sliderMin: extraSliders[i].sliderMin, sliderMax: extraSliders[i].sliderMax, sliderID: newSliderID, position: 0, interval: extraSliders[i].interval, uniqueID: extraSliders[i].uniqueID, ECESlider: true, enabled: true};
-					sliderObject.internalCallback = function()
-					{
-						_global.skse.plugins.ExCharGen.UpdateMorphs();
-					}
-					ECECharGen.sliders.push(sliderObject);
-					itemList.entryList.push(sliderObject);
-				}
-			}
-			
-			ECECharGen.slotNumber = 0;
-			ECECharGen.GetSlotData(ECECharGen.raceName, ECECharGen.slotNumber, sliderValues);
-			for(var i = 0; i < ECECharGen.sliders.length; i++) {
-				for(var k = 0; k < sliderValues.length; k++) {
-					if(ECECharGen.sliders[i].uniqueID == sliderValues[k].uniqueID) {
-						ECECharGen.sliders[i].position = sliderValues[k].position;
-						continue;
-					}
-				}
-			}
-			
-			ECECharGen.UpdateMorphs = function()
-			{
-				var info: Array = new Array();
-				for(var i = 0; i < this.sliders.length; i++) {
-					info.push(this.sliders[i].uniqueID);
-					info.push(this.sliders[i].position);
-				}
-				
-				this.SetPlayerPreset(0, 33);
-				
-				if(this.slotNumber > 0) {
-					this.SetMergedMorphs(this.raceName, info, this.slotNumber);
-				}
-				
-				this.SetMergedMorphsMemory(this.raceName, info, this.slotNumber);
-			}
-			ECECharGen.LoadSliderData = function()
-			{
-				_global.skse.SendModEvent("ExCharGen_GetSliderPos");
-			}
-			ECECharGen.SaveSliderData = function()
-			{
-				var str: String = "version,2,"; // slider version.
-				for (var i: Number = 0; i < this.sliders.length; i++) {
-					str += this.sliders[i].uniqueID + "," + this.sliders[i].position + ",";
-				}
-				str = str.substr(0, str.length - 1);
-				_global.skse.SendModEvent("ExCharGen_SetSliderPos", str);
-			}
-			this["ExCharGenGetListCallback"] = function(str: String)
-			{
-				var ECECharGen: Object = _global.skse.plugins.ExCharGen;
-				if(ECECharGen) {
-					var sliderParams: Array = str.split(",");
-					sliderParams.splice(0, 2);
-					for(var i = 0; i < sliderParams.length; i += 2) {
-						var uniqueID: Number = Number(sliderParams[i]);
-						var position: Number = Number(sliderParams[i + 1]);
-						for(var k = 0; k < ECECharGen.sliders.length; k++) {
-							if(ECECharGen.sliders[k].uniqueID == uniqueID) {
-								ECECharGen.sliders[k].position = position;
-								break;
-							}
-						}
-					}
-				}
-				
-				ECECharGen.itemList.requestUpdate();
-			}
-			
-			ECECharGen.LoadSliderData();
-		}
-		/* ECE Compatibility End */
+		EnhancedCharacterEdit.init(this);
 		
 		itemList.requestInvalidate();
 		clearInterval(_updateInterval);
@@ -1259,15 +1190,20 @@ class RaceMenu extends MovieClip
 	private function updateItemDescriptor(): Void
 	{
 		var selectedEntry = itemList.listState.selectedEntry;
-		if(selectedEntry.extraData && selectedEntry.extraData.formId) {
+		if(selectedEntry.extraData) {
 			var formName = selectedEntry.extraData.partName;
 			var formId = selectedEntry.extraData.formId;
-			itemDescriptor._y = itemList.getClipGlobalCoordinate().y - 10;
-			var modName: String = _global.skse.plugins.CharGen.GetModName(formId >>> 24);
-			itemDescriptor.setText(modName + " (" + formName + ")");
-			itemDescriptor._visible = itemDescriptor.enabled = true;
+			if(formName != undefined && formId != undefined) {
+				itemDescriptor._y = itemList.getClipGlobalCoordinate().y - 10;
+				var modName: String = _global.skse.plugins.CharGen.GetModName(formId >>> 24);
+				itemDescriptor.setText(modName + " (" + formName + ")");
+				itemDescriptor.toggle(true);
+				itemDescriptor.fadeOut();
+			} else {
+				itemDescriptor.toggle(false);
+			}
 		} else {
-			itemDescriptor._visible = itemDescriptor.enabled = false;
+			itemDescriptor.toggle(false);
 		}
 	}
 	
@@ -1296,13 +1232,14 @@ class RaceMenu extends MovieClip
 	
 	private function setDisplayText(a_text: String, a_color: Number): Void
 	{
+		textDisplay._visible = true;
 		textDisplay._alpha = 100;
 		textDisplay.text = skyui.util.Translator.translateNested(a_text);
 		if(a_color != undefined)
 			textDisplay.textColor = a_color;
 		else
 			textDisplay.textColor = 0xFFFFFF;
-		TweenLite.to(textDisplay, 2.5, {_alpha: 0, easing: Linear.easeNone});
+		TweenLite.to(textDisplay, 2.5, {autoAlpha: 0, easing: Linear.easeNone});
 	}
 	
 	private function onDoneClicked(): Void
@@ -1550,6 +1487,7 @@ class RaceMenu extends MovieClip
 	{
 		for(var i = 0; i < customSliders.length; i++) {
 			if(customSliders[i].callbackName.toLower() == arguments[0].toLower()) {
+				skse.Log("Changing slider: " + arguments[0] + " Min: " + Number(arguments[1]) + " Max: " + Number(arguments[2]) + " Interval: " + Number(arguments[3]) + " Position: " + Number(arguments[4]));
 				customSliders[i].sliderMin = Number(arguments[1]);
 				customSliders[i].sliderMax = Number(arguments[2]);
 				customSliders[i].interval = Number(arguments[3]);

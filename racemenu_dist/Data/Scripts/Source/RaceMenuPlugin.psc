@@ -477,6 +477,7 @@ Event OnSliderChanged(string callback, float value)
 		_weaponBack = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON_BACK, _weaponBack, false)
 		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON_BACK, _weaponBack, true)
+		SetSliderParameters("ChangeWeaponScale", 0.1, 3.0, 0.01, _weaponBack / 3)
 	Elseif callback == "ChangeWeaponScale"
 		_weapon = value
 		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON, _weapon, false)

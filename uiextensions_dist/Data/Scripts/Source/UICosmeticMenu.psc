@@ -19,6 +19,9 @@ int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	_form = aForm
 	RegisterForModEvent("UICosmeticMenu_LoadMenu", "OnLoadMenu")
 	RegisterForModEvent("UICosmeticMenu_CloseMenu", "OnUnloadMenu")
+
+	((self as Quest) as CosmeticMenu).RegisterEvents()
+
 	_selectionLock = true
 	int ret = UICosmeticMenuMessage.Show()
 	If ret == 0

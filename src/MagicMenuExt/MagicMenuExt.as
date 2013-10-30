@@ -54,7 +54,7 @@ class MagicMenuExt extends ItemMenu
 	public function MagicMenuExt()
 	{
 		super();
-		_categoryListIconArt = ["cat_favorites", "mag_all", "mag_alteration", "mag_illusion",
+		_categoryListIconArt = ["mag_all", "mag_alteration", "mag_illusion",
 							   "mag_destruction", "mag_conjuration", "mag_restoration", "mag_shouts",
 							   "mag_powers", "mag_activeeffects"];
 		_tabBarIconArt = ["take", "give"];

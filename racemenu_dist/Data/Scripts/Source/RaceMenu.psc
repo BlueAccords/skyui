@@ -36,9 +36,7 @@ Event OnInitialized()
 	_morphs = new float[19]
 EndEvent
 
-Function OnStartup()
-	RegisterForMenu(RACESEX_MENU)
-
+Function RegisterEvents()
 	RegisterForModEvent("RSM_Initialized", "OnMenuInitialized") ; Event sent when the menu initializes enough to load data
 	RegisterForModEvent("RSM_Reinitialized", "OnMenuReinitialized") ; Event sent when sliders have re-initialized
 	RegisterForModEvent("RSM_HairColorChange", "OnHairColorChange") ; Event sent when hair color changes
@@ -69,6 +67,12 @@ Function OnStartup()
 	RegisterForModEvent("RSMDT_SendPaintRequest", "OnReceivePaintRequest")
 	RegisterForModEvent("RSMDT_SendRestore", "OnReceiveRestore")
 	; --------------------------------------------
+EndFunction
+
+Function OnStartup()
+	RegisterForMenu(RACESEX_MENU)
+
+	RegisterEvents()
 
 	Utility.SetINIFloat("fPlayerBodyEditDistance:Interface", 190.0)
 	Utility.SetINIFloat("fPlayerFaceEditDistance:Interface", 70.0)

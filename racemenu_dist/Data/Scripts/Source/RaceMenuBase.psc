@@ -112,7 +112,7 @@ Event On3DLoaded(ObjectReference akRef)
 	; Do nothing
 EndEvent
 
-Event OnStartup()
+Function RegisterEvents()
 	RegisterForModEvent("RSM_Initialized", "OnMenuInitialized")
 	RegisterForModEvent("RSM_Reinitialized", "OnMenuReinitialized")
 	RegisterForModEvent("RSM_SliderChange", "OnMenuSliderChange") ; Event sent when a slider's value is changed
@@ -123,6 +123,10 @@ Event OnStartup()
 	RegisterForModEvent("RSMDT_SendRootName", "OnReceiveRootName")
 	RegisterForModEvent("RSMDT_SendPaintRequest", "OnReceivePaintRequest")
 	RegisterForModEvent("RSMDT_SendRestore", "OnReceiveRestore")
+EndFunction
+
+Event OnStartup()
+	RegisterEvents()
 
 	_targetMenu = RACESEX_MENU
 	_targetRoot = MENU_ROOT

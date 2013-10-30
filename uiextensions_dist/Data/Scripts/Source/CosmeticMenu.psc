@@ -1,6 +1,6 @@
 Scriptname CosmeticMenu extends RaceMenu
 
-Function OnStartup()
+Function RegisterEvents()
 	RegisterForModEvent("TTM_TintColorChange", "OnTintColorChange") ; Event sent when a tint changes color
 	RegisterForModEvent("TTM_TintTextureChange", "OnTintTextureChange") ; Event sent when a tint changes texture
 
@@ -16,6 +16,10 @@ Function OnStartup()
 	RegisterForModEvent("RSMDT_SendPaintRequest", "OnReceivePaintRequest")
 	RegisterForModEvent("RSMDT_SendRestore", "OnReceiveRestore")
 	; --------------------------------------------
+EndFunction
+
+Function OnStartup()
+	RegisterEvents()
 
 	; Re-initialization in case of init failure?
 	Reinitialize()
