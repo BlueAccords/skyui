@@ -1,4 +1,5 @@
 ﻿import gfx.events.EventDispatcher;
+import gfx.ui.InputDetails;
 
 class VertexEditor extends MovieClip
 {
@@ -14,6 +15,9 @@ class VertexEditor extends MovieClip
 
 		Mouse.addListener(this);
 		EventDispatcher.initialize(this);
+		
+		//uvDisplay.Show(false);
+		//wireframeDisplay.Show(false);
 	}
 	
 	function onLoad()
@@ -22,6 +26,17 @@ class VertexEditor extends MovieClip
 		uvDisplay.addEventListener("press", this, "onPressUVDisplay");
 		uvDisplay.addEventListener("select", this, "onSelectVertex");
 		wireframeDisplay.addEventListener("press", this, "onPressWireframeDisplay");
+	}
+	
+	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
+	{
+		return false;
+	}
+	
+	public function Show(a_show: Boolean)
+	{
+		// TODO: Reimplement to tween objects in
+		_visible = enabled = false;
 	}
 	
 	function loadAssets()

@@ -167,6 +167,7 @@ class SliderListEntry extends BasicListEntry
 			case RaceMenuDefines.ENTRY_TYPE_BODYPAINT:
 			case RaceMenuDefines.ENTRY_TYPE_HANDPAINT:
 			case RaceMenuDefines.ENTRY_TYPE_FEETPAINT:
+			case RaceMenuDefines.ENTRY_TYPE_FACEPAINT:
 			{
 				valueField._visible = valueField.enabled = false;
 				SliderInstance._visible = SliderInstance.enabled = false;

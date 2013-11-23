@@ -7,6 +7,7 @@ $EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	Enfocar en	DODATEK	DODATEK	ДОПОЛНИТЕЛЬ
 $BODY PAINT	BODY PAINT	PEINTURE SUR LE CORPS	KÖRPERBEMALUNG	TINTURA CORPO	PINTURA CORPORAL	BARVA TĚLA	BARWA CIAŁA	ТАТУИРОВКА ТЕЛА				
 $HAND PAINT	HAND PAINT	PEINTURE SUR LES MAINS	HANDBEMALUNG	TINTURA MANO	PINTURA EN LAS MANOS	BARVA RUKOU	BARWA RĘKI	ТАТУИРОВКА РУК				
 $FOOT PAINT	FOOT PAINT	PEINTURE SUR LES PIEDS	FUSSBEMALUNG	TINTURA PIEDI	PINTURA EN LOS PIES	BARVA NOHOU	BARWA STÓP	ТАТУИРОВКА НОГ				
+$FACE PAINT 	FACE PAINT											
 $Zoom In	Zoom In	Zoom avant	Vergrößern	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
 $Zoom Out	Zoom Out	Zoom arrière	Verkleinern	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
 $Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить Расу	種族の変更	Mudar a raça	變更種族	更变种族
@@ -190,5 +191,5 @@ $Female Forsworn Tattoo 04	Female Forsworn Tattoo 04	Tatouage parjure femme 04	W
 $Male Black Blood Tattoo 01	Male Black Blood Tattoo 01	Tatouage sang noir homme 01	Männliches Schwarzblut Tattoo 01	Tatuaggio Maschile Blackblood 01	Tatuaje Sangre Negra para hombre 01	Tetování Gangu Blackblood 01	Męski Tatuaż Czarnej Krwii 01	Муж. Тату черной крови 01	男性ブラック・ブラッドのタトゥー 01	Tatuagem de sangue negro masculino 01		男黑血纹身 01
 $Male Black Blood Tattoo 02	Male Black Blood Tattoo 02	Tatouage sang noir homme 02	Männliches Schwarzblut Tattoo 02	Tatuaggio Maschile Blackblood 02	Tatuaje Sangre Negra para hombre 02	Tetování Gangu Blackblood 02	Męski Tatuaż Czarnej Krwii 02	Муж. Тату черной крови 02	男性ブラック・ブラッドのタトゥー 02	Tatuagem de sangue negro masculino 02		男黑血纹身 02
 												
-% Completion	100.00%	100.00%	100.00%	100.00%	100.00%	100.00%	100.00%	100.00%	86.32%	85.26%	30.53%	87.37%
-Total % Completion	90.79%	90.79%	90.79%	90.79%	90.79%	90.79%	90.79%	90.79%	90.79%	90.79%	90.79%	90.79%
+% Completion	100.00%	99.48%	99.48%	99.48%	99.48%	99.48%	99.48%	99.48%	85.86%	84.82%	30.37%	86.91%
+Total % Completion	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%

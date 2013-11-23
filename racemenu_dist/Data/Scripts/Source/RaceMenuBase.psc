@@ -35,11 +35,15 @@ int _textureBuffer_hand = 0
 string[] _textures_feet = None
 int _textureBuffer_feet
 
+; Face Paint
+string[] _textures_face = None
+int _textureBuffer_face
+
 string[] _sliders = None
 int _sliderBuffer = 0
 
 int Function GetScriptVersionRelease() global
-	return 2
+	return 3
 EndFunction
 
 Event OnInit()
@@ -69,6 +73,10 @@ Event OnInitialized()
 	; Feet Paint
 	_textures_feet = new string[128]
 	_textureBuffer_feet = 0
+
+	; Face Paint
+	_textures_face = new string[128]
+	_textureBuffer_face = 0
 EndEvent
 
 ; Reinitializes variables if necessary
@@ -92,6 +100,10 @@ Function Reinitialize()
 	If !_textures_feet
 		_textures_feet = new string[128]
 		_textureBuffer_feet = 0
+	Endif
+	If !_textures_face
+		_textures_face = new string[128]
+		_textureBuffer_face = 0
 	Endif
 EndFunction
 
@@ -149,11 +161,12 @@ EndEvent
 
 Event OnReceivePaintRequest(string eventName, string strArg, float numArg, Form formArg)
 	int requestFlag = numArg as int
-	bool sendFacePaint = Math.LogicalAnd(requestFlag, 0x01) == 0x01
+	bool sendWarPaint = Math.LogicalAnd(requestFlag, 0x01) == 0x01
 	bool sendBodyPaint = Math.LogicalAnd(requestFlag, 0x02) == 0x02
 	bool sendHandPaint = Math.LogicalAnd(requestFlag, 0x04) == 0x04
 	bool sendFeetPaint = Math.LogicalAnd(requestFlag, 0x08) == 0x08
-	If sendFacePaint
+	bool sendFacePaint = Math.LogicalAnd(requestFlag, 0x10) == 0x10
+	If sendWarPaint
 		OnWarpaintRequest()
 	Endif
 	If sendBodyPaint
@@ -166,6 +179,9 @@ Event OnReceivePaintRequest(string eventName, string strArg, float numArg, Form 
 		OnFeetPaintRequest()
 	Endif
 	If sendFacePaint
+		OnFacePaintRequest()
+	Endif
+	If sendWarPaint
 		AddWarpaints(_textures)
 	Endif
 	If sendBodyPaint
@@ -177,7 +193,10 @@ Event OnReceivePaintRequest(string eventName, string strArg, float numArg, Form 
 	If sendFeetPaint
 		AddFeetPaints(_textures_feet)
 	Endif
-	If sendFacePaint || sendBodyPaint || sendHandPaint || sendFeetPaint
+	If sendFacePaint
+		AddFacePaints(_textures_face)
+	Endif
+	If sendWarPaint || sendBodyPaint || sendHandPaint || sendFeetPaint || sendFacePaint
 		FlushBuffer(0)
 	Endif
 EndEvent
@@ -187,10 +206,12 @@ Event OnMenuInitialized(string eventName, string strArg, float numArg, Form form
 	OnBodyPaintRequest()
 	OnHandPaintRequest()
 	OnFeetPaintRequest()
+	OnFacePaintRequest()
 	AddWarpaints(_textures)
 	AddBodyPaints(_textures_body)
 	AddHandPaints(_textures_hand)
 	AddFeetPaints(_textures_feet)
+	AddFacePaints(_textures_face)
 	OnInitializeMenu(_playerActor, _playerActorBase)
 	OnSliderRequest(_playerActor, _playerActorBase, _playerActorBase.GetRace(), _playerActorBase.GetSex() as bool)
 	AddSliders(_sliders)
@@ -229,6 +250,10 @@ Event OnHandPaintRequest()
 EndEvent
 
 Event OnFeetPaintRequest()
+	; Do nothing
+EndEvent
+
+Event OnFacePaintRequest()
 	; Do nothing
 EndEvent
 
@@ -283,6 +308,15 @@ Function AddFeetPaintEx(string name, string texture0, string texture1 = "ignore"
 	_textureBuffer_feet += 1
 EndFunction
 
+Function AddFacePaint(string name, string texturePath)
+	_textures_face[_textureBuffer_face] = name + ";;" + texturePath
+	_textureBuffer_face += 1
+EndFunction
+
+Function AddFacePaintEx(string name, string texture0, string texture1 = "ignore", string texture2 = "ignore", string texture3 = "ignore", string texture4 = "ignore", string texture5 = "ignore", string texture6 = "ignore", string texture7 = "ignore")
+	_textures_face[_textureBuffer_face] = name + ";;" + texture0 + "|" + texture1 + "|" + texture2 + "|" + texture3 + "|" + texture4 + "|" + texture5 + "|" + texture6 + "|" + texture7
+	_textureBuffer_face += 1
+EndFunction
 
 Function AddSlider(string name, int section, string callback, float min, float max, float interval, float position)
 	_sliders[_sliderBuffer] = name + ";;" + section + ";;" + callback + ";;" + min + ";;" + max + ";;" + interval + ";;" + position
@@ -303,6 +337,10 @@ EndFunction
 
 Function AddFeetPaints(string[] textures)
 	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddFeetPaints", textures)
+EndFunction
+
+Function AddFacePaints(string[] textures)
+	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddFacePaints", textures)
 EndFunction
 
 Function AddSliders(string[] sliders)
@@ -337,6 +375,9 @@ Function FlushBuffer(int bufferType)
 			If _textures_feet
 				_textures_feet[i] = ""
 			Endif
+			If _textures_face
+				_textures_face[i] = ""
+			Endif
 		Endif
 		If bufferType == 1 || bufferType == 2
 			_sliders[i] = ""
@@ -349,6 +390,7 @@ Function FlushBuffer(int bufferType)
 		_textureBuffer_body = 0
 		_textureBuffer_hand = 0
 		_textureBuffer_feet = 0
+		_textureBuffer_face = 0
 	Endif
 	If bufferType == 1 || bufferType == 2
 		_sliderBuffer = 0

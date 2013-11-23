@@ -1,3 +1,5 @@
+Meshes\Actors\Character\Character Assets\face_magicoverlay.nif
+Meshes\Actors\Character\Character Assets\face_overlay.nif
 Meshes\Actors\Character\Character Assets\body_magicoverlay.nif
 Meshes\Actors\Character\Character Assets\body_overlay.nif
 Meshes\Actors\Character\Character Assets\feet_magicoverlay.nif

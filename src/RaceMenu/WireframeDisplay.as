@@ -2917,6 +2917,11 @@ class WireframeDisplay extends gfx.core.UIComponent
 		}
 	}
 	
+	public function Show(a_show: Boolean)
+	{
+		_visible = enabled = a_show;
+	}
+	
 	public function loadAssets(headMesh: Object)
 	{
 		container = this.createEmptyMovieClip("container", this.getNextHighestDepth() );

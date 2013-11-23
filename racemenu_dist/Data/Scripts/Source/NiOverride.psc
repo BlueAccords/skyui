@@ -116,10 +116,12 @@ Function RemoveNodeOverride(ObjectReference ref, bool isFemale, string node, int
 int Function GetNumBodyOverlays() native global
 int Function GetNumHandOverlays() native global
 int Function GetNumFeetOverlays() native global
+int Function GetNumFaceOverlays() native global
 
 int Function GetNumSpellBodyOverlays() native global
 int Function GetNumSpellHandOverlays() native global
 int Function GetNumSpellFeetOverlays() native global
+int Function GetNumSpellFaceOverlays() native global
 
 ; Adds all enabled overlays to an Actor (Cannot add to player, always exists for player)
 Function AddOverlays(ObjectReference ref) native global
@@ -130,7 +132,7 @@ bool Function HasOverlays(ObjectReference ref) native global
 ; Removes overlays from an actor (Cannot remove from player)
 Function RemoveOverlays(ObjectReference ref) native global
 
-; Restores the original non-diffuse skin textures to all overlays
+; Restores the original non-diffuse skin textures to skin overlays
 Function RevertOverlays(ObjectReference ref) native global
 
 ; Restores the original non-diffuse skin textures to particular overlay
@@ -139,6 +141,16 @@ Function RevertOverlays(ObjectReference ref) native global
 ; 8 - Hands
 ; 128 - Feet
 Function RevertOverlay(ObjectReference ref, string nodeName, int armorMask, int addonMask) native global
+
+; Restores the original non-diffuse skin textures to all head overlays
+Function RevertHeadOverlays(ObjectReference ref) native global
+
+; Restores the original non-diffuse skin textures to particular overlay
+; Valid partTypes
+; 1 - Face
+; Valid shaderTypes
+; 4 - FaceTint
+Function RevertHeadOverlay(ObjectReference ref, string nodeName, int partType, int shaderType) native global
 
 ; Sets a body morph value on an actor
 Function SetMorphValue(ObjectReference ref, string morphName, float value) native global

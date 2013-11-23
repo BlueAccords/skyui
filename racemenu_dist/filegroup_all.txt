@@ -29,6 +29,8 @@ Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_01.dds
 Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_02.dds
 Textures\Actors\Character\Character Assets\TintMasks\BeautyMark_03.dds
 Textures\Actors\Character\Character Assets\TintMasks\DragonTattoo_01.dds
+Meshes\Actors\Character\Character Assets\face_magicoverlay.nif
+Meshes\Actors\Character\Character Assets\face_overlay.nif
 Meshes\Actors\Character\Character Assets\body_magicoverlay.nif
 Meshes\Actors\Character\Character Assets\body_overlay.nif
 Meshes\Actors\Character\Character Assets\feet_magicoverlay.nif
