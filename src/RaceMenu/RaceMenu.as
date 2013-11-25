@@ -1146,7 +1146,7 @@ class RaceMenu extends MovieClip
 			colorField.setText(pressedEntry.text);
 			colorField.setColor(pressedEntry.glowColor); 
 			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
-			ShowColorField(true, {entry: pressedEntry, bNoAlpha: true, mode: "glow", bCanSwitchMode: true, savedColor: _savedColor});
+			ShowColorField(true, {entry: pressedEntry, mode: "glow", bCanSwitchMode: true, savedColor: _savedColor});
 		}
 	}
 	
@@ -1155,7 +1155,8 @@ class RaceMenu extends MovieClip
 		switch(event.mode) {
 			case "tint":
 			colorField["mode"] = "glow";
-			colorField.disableAlpha(true);
+			//colorField.disableAlpha(true);
+			colorField.disableAlpha(false);
 			colorField.setColor(colorField["entry"].glowColor);
 			break;
 			case "glow":

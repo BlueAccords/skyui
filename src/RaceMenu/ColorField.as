@@ -278,15 +278,11 @@ class ColorField extends MovieClip
 	
 	public function onLoadColor(): Void
 	{
-		var newColor: Number = 0;
-		switch(this["mode"])
-		{
-			case "glow":
+		var newColor: Number = 0;		
+		if(this["bNoAlpha"]) {
 			newColor = (this["savedColor"] & 0x00FFFFFF) | 0xFF000000;
-			break;
-			default:
+		} else {
 			newColor = this["savedColor"];
-			break;
 		}
 		
 		colorSelector.setColor(newColor & 0x00FFFFFF, (newColor >>> 24));

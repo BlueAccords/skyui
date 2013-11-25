@@ -12,6 +12,7 @@ class CosmeticMenu extends MovieClip
 	static var COSMETIC_CATEGORY_BODYPAINT: Number = 2;
 	static var COSMETIC_CATEGORY_HANDPAINT: Number = 4;
 	static var COSMETIC_CATEGORY_FEETPAINT: Number = 8;
+	static var COSMETIC_CATEGORY_FACEPAINT: Number = 16;
 	
 	public var RaceMenuInstance: MovieClip;
 	
@@ -170,6 +171,10 @@ class CosmeticMenu extends MovieClip
 			if((a_categories & COSMETIC_CATEGORY_FEETPAINT) == COSMETIC_CATEGORY_FEETPAINT) {
 				RaceMenuInstance.categoryList.iconArt.push("feet");
 				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, enabled: true});
+			}
+			if((a_categories & COSMETIC_CATEGORY_FACEPAINT) == COSMETIC_CATEGORY_FACEPAINT) {
+				RaceMenuInstance.categoryList.iconArt.push("face");
+				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, enabled: true});
 			}
 		}
 		
