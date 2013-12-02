@@ -155,7 +155,7 @@ class MessageBox extends MovieClip
 	
 	function onLoadInit(target_mc: MovieClip)
 	{
-		target_mc.onLoad();
+		FocusHandler.instance.setFocus(target_mc, 0);
 		skse.SendModEvent("MessageBox_LoadedClip", target_mc.toString());
 	}
 	
@@ -281,7 +281,7 @@ class MessageBox extends MovieClip
 
 	function SetPlatform(aiPlatform: Number, abPS3Switch: Boolean)
 	{
-		if (aiPlatform != 0 && MessageButtons.length > 0) {
+		if (aiPlatform != 0 && MessageButtons.length > 0 && !proxyMenu) {
 			Selection.setFocus(MessageButtons[0]);
 		}
 		
