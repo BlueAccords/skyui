@@ -36,23 +36,27 @@ EndFunction
 
 ; Getters
 int Function GetPropertyInt(string propertyName)
-
+	return 0
 EndFunction
 
 bool Function GetPropertyBool(string propertyName)
-
+	return false
 EndFunction
 
 string Function GetPropertyString(string propertyName)
-
+	return ""
 EndFunction
 
 float Function GetPropertyFloat(string propertyName)
-
+	return 0.0
 EndFunction
 
 Form Function GetPropertyForm(string propertyName)
+	return None
+EndFunction
 
+Alias Function GetPropertyAlias(string propertyName)
+	return None
 EndFunction
 
 ; Setters
