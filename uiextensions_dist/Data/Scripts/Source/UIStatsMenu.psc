@@ -2,8 +2,8 @@ Scriptname UIStatsMenu extends UIMenuBase
 
 Message Property UIStatsMenuMessage Auto
 
-string property		ROOT_MENU		= "MessageBoxMenu" autoReadonly
-string Property 	MENU_ROOT		= "_root.MessageMenu.proxyMenu.ActorStatsPanelFader.actorStatsPanel." autoReadonly
+string property		ROOT_MENU		= "CustomMenu" autoReadonly
+string Property 	MENU_ROOT		= "_root.ActorStatsPanelFader.actorStatsPanel." autoReadonly
 
 Form _form = None
 
@@ -13,9 +13,16 @@ EndFunction
 
 int Function OpenMenu(Form inForm = None, Form akReceiver = None)
 	_form = inForm
+
+	If !BlockUntilClosed() || !WaitForReset()
+		return 0
+	Endif
+
 	RegisterForModEvent("UIStatsMenu_LoadMenu", "OnLoadMenu")
 	RegisterForModEvent("UIStatsMenu_CloseMenu", "OnUnloadMenu")
-	return UIStatsMenuMessage.Show()
+
+	UI.OpenCustomMenu("statssheetmenu")
+	return 1
 EndFunction
 
 Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)

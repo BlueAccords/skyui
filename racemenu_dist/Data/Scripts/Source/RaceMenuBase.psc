@@ -33,11 +33,11 @@ int _textureBuffer_hand = 0
 
 ; Feet Paint
 string[] _textures_feet = None
-int _textureBuffer_feet
+int _textureBuffer_feet = 0
 
 ; Face Paint
 string[] _textures_face = None
-int _textureBuffer_face
+int _textureBuffer_face = 0
 
 string[] _sliders = None
 int _sliderBuffer = 0

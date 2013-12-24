@@ -102,6 +102,8 @@ class RaceMenu extends MovieClip
 	public var makeupPanel: MakeupPanel;
 	public var itemDescriptor: MovieClip;
 	
+	public var modeSelect: ModeSwitcher;
+	
 	/* GFx Dispatcher Functions */
 	public var dispatchEvent: Function;
 	public var dispatchQueue: Function;
@@ -145,6 +147,7 @@ class RaceMenu extends MovieClip
 		loadingIcon._visible = loadingIcon.enabled = false;
 		textEntry._visible = textEntry.enabled = false;
 		itemDescriptor._visible = itemDescriptor.enabled = false;
+		vertexEditor._visible = vertexEditor.enabled = false;
 		
 		GlobalFunc.MaintainTextFormat();
 		GlobalFunc.SetLockFunction();
@@ -214,6 +217,7 @@ class RaceMenu extends MovieClip
 		colorField.addEventListener("saveColor", this, "onSaveColor");
 		
 		makeupPanel.addEventListener("changeTexture", this, "onChangeTexture");
+		modeSelect.addEventListener("changeMode", this, "onChangeMode");
 		
 		// categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
 		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair"];
@@ -223,7 +227,7 @@ class RaceMenu extends MovieClip
 		
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 508, savedItemIndex: -1, enabled: true});
 		
-		/*// Test Code
+		// Test Code
 		_raceList.push({skillBonuses: [{skill: 10, bonus: 255},
 									   {skill: 11, bonus: 176},
 									   {skill: 12, bonus: 45},
@@ -319,7 +323,7 @@ class RaceMenu extends MovieClip
 		
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint1", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
-		*/
+		
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
 		itemList.requestInvalidate();
@@ -329,15 +333,17 @@ class RaceMenu extends MovieClip
 		//trace(Date().toString());
 		
 		// Test Code
-		//InitExtensions();
-		//SetPlatform(1, false);
+		InitExtensions();
+		SetPlatform(1, false);
+		//vertexEditor.loadAssets();
 	}
 	
 	public function InitExtensions()
 	{
 		racePanel.Lock("L");
 		raceDescription.Lock("L");
-		vertexEditor["Lock"]("L");
+		vertexEditor.InitExtensions();
+		modeSelect.InitExtensions();
 		bottomBar["playerInfo"].Lock("R");
 		
 		_panelX = racePanel._x;
@@ -421,12 +427,14 @@ class RaceMenu extends MovieClip
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
 		// Consume input when these windows are open
-		if(colorField._visible) {
+		if(colorField.enabled) {
 			return colorField.handleInput(details, pathToFocus);
-		} else if(textEntry._visible) {
+		} else if(textEntry.enabled) {
 			return textEntry.handleInput(details, pathToFocus);
-		} else if(makeupPanel._visible) {
+		} else if(makeupPanel.enabled) {
 			return makeupPanel.handleInput(details, pathToFocus);
+		} else if(vertexEditor.enabled) {
+			return vertexEditor.handleInput(details, pathToFocus);
 		}
 			
 		if (GlobalFunc.IsKeyPressed(details)) {
@@ -486,6 +494,7 @@ class RaceMenu extends MovieClip
 		
 		ShowRacePanel(!abShowTextEntry);
 		ShowBottomBar(!abShowTextEntry);
+		ShowModeSwitcher(!abShowTextEntry);
 	}
 	
 	// No idea why they have two of these
@@ -514,6 +523,7 @@ class RaceMenu extends MovieClip
 		}
 		ShowRacePanel(!bShowField);
 		ShowBottomBar(!bShowField);
+		ShowModeSwitcher(!bShowField);
 	}
 	
 	public function ShowRaceDescription(bShowDescription: Boolean): Void
@@ -571,6 +581,7 @@ class RaceMenu extends MovieClip
 		
 		ShowRacePanel(!bShowPanel);
 		ShowBottomBar(!bShowPanel);
+		ShowModeSwitcher(!bShowPanel);
 	}
 	
 	public function ShowRacePanel(bShowPanel: Boolean): Void
@@ -596,6 +607,15 @@ class RaceMenu extends MovieClip
 			TweenLite.to(bottomBar, 0.5, {autoAlpha: 100, _y: BOTTOMBAR_SHOWN_Y, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
 			TweenLite.to(bottomBar, 0.5, {autoAlpha: 0, _y: BOTTOMBAR_HIDDEN_Y, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		}
+	}
+	
+	public function ShowModeSwitcher(bShowSwitcher: Boolean): Void
+	{
+		if(bShowSwitcher) {
+			TweenLite.to(modeSelect, 0.5, {autoAlpha: 100, _y: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		} else {
+			TweenLite.to(modeSelect, 0.5, {autoAlpha: 0, _y: -80, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
 	
@@ -806,9 +826,6 @@ class RaceMenu extends MovieClip
 			skse.SendModEvent(_global.eventPrefix + "Reinitialized");
 		}
 		
-		vertexEditor.unloadAssets();
-		vertexEditor.loadAssets();
-		
 		skse.SendModEvent(_global.eventPrefix + "RequestSliders");
 		
 		EnhancedCharacterEdit.init(this);
@@ -940,6 +957,22 @@ class RaceMenu extends MovieClip
 		if(event.apply) {
 			ShowMakeupPanel(false);
 			GameDelegate.call("PlaySound", ["UIMenuBladeCloseSD"]);
+		}
+	}
+	
+	public function onChangeMode(event: Object): Void
+	{
+		switch(event.index) {
+			case 0:
+			ShowRacePanel(true);
+			ShowBottomBar(true);
+			vertexEditor.ShowAll(false);
+			break;
+			case 1:
+			ShowRacePanel(false);
+			ShowBottomBar(false);
+			vertexEditor.ShowAll(true);
+			break;
 		}
 	}
 	

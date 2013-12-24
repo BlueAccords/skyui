@@ -111,12 +111,11 @@ class ListMenu extends MovieClip
 			
 		itemList.requestInvalidate();
 		FocusHandler.instance.setFocus(itemList, 0);*/
-		skse.SendModEvent("UIListMenu_LoadMenu");
 	}
 	
 	public function InitExtensions(): Void
 	{
-		
+		skse.SendModEvent("UIListMenu_LoadMenu");
 	}
 	
 	public function SetPlatform(aiPlatform: Number, abPS3Switch: Boolean): Void
@@ -124,16 +123,21 @@ class ListMenu extends MovieClip
 		
 	}
 	
-	private function closeMenu(option: Number): Void
+	private function closeMenu(): Void
 	{
 		skse.SendModEvent("UIListMenu_CloseMenu");
-		GameDelegate.call("buttonPress", [option]);
+		//GameDelegate.call("buttonPress", [option]);
+		skse.CloseMenu("CustomMenu");
 	}
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
-	{		
+	{
+		var currentView: Object = _childView[_childView.length - 1];
+		if(currentView && currentView.handleInput(details, pathToFocus)) {
+			return true;
+		}
+		
 		var nextClip = pathToFocus.shift();
-			
 		if (nextClip.handleInput(details, pathToFocus))
 			return true;
 			
@@ -173,7 +177,7 @@ class ListMenu extends MovieClip
 				openChildView(pressedEntry, pressedEntry.children);
 			} else {
 				skse.SendModEvent("UIListMenu_SelectItem", Number(pressedEntry.id).toString(), pressedEntry.callback);
-				closeMenu(1);
+				closeMenu();
 			}
 		}
 	}
@@ -197,7 +201,9 @@ class ListMenu extends MovieClip
 	{
 		var lastChild: Object = _childView[_childView.length - 1];
 		if(lastChild == itemView) {
-			closeMenu(0);
+			skse.SendModEvent("UIListMenu_SelectItem", Number(-1).toString(), -1);
+			closeMenu();
+			//skse.SendModEvent("UIListMenu_SelectItem", Number(-1).toString(), -1);
 			return;
 		}
 		

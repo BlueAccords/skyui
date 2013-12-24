@@ -217,7 +217,11 @@ class MessageBox extends MovieClip
 	function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{		
 		if(proxyMenu) {
-			return proxyMenu.handleInput(details, pathToFocus);
+			if(!proxyMenu.handleInput(details, pathToFocus)) {
+				var nextClip = pathToFocus.shift();
+				if(nextClip.handleInput(details, pathToFocus))
+					return true;
+			}
 		} else {
 			if (Shared.GlobalFunc.IsKeyPressed(details)) {
 				if (details.navEquivalent == NavigationCode.TAB) {

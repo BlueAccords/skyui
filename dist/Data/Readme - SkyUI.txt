@@ -9,7 +9,7 @@ Team:			snakster, Mardoxx, T3T
 
 Contributors:	ianpatt, behippo, Kratos, psychosteve, MisterPete, GreatClone, gibbed, PurpleLunchBox, Verteiron, Gopher, Indie
 
-Version:		4.0
+Version:		4.1
 
 Download:		http://skyrim.nexusmods.com/mods/3863
 				http://steamcommunity.com/sharedfiles/filedetails/?id=8122
@@ -20,7 +20,7 @@ Source code:	https://github.com/schlangster/skyui
 
 The following mods/utilities are required for SkyUI:
 
-* The Skyrim Script Extender (SKSE), version 1.6.14 or newer
+* The Skyrim Script Extender (SKSE), version 1.6.16 or newer
 	http://skse.silverlock.org/
 
 ########################################################################################################################################
@@ -83,22 +83,39 @@ For a more detailed description, please see our mod description on Skyrim Nexus.
 ========================================================================================================================================
 
 ------------------------------------------------------------
+4.1:
+
+[General]
+- Updated SKSE version requirement to 1.6.16.
+
+[FavoritesMenu]
+- Included ammo in Gear category.
+- Transforming into a Vampire Lord no longer resets group data.
+- Changing the load order index of a mod no longer removes its items from any groups.
+- Fixed issues when equipping a two-handed that's already equipped via Group Uses.
+- Fixed issue with 'Unequip Armor' flag, which would incorrectly unequip an armor piece if it's already worn.
+- Fixed Group Use crashes with 2 identical weapons.
+- Enabled group hotkey rebinding for gamepads.
+
+------------------------------------------------------------
 4.0:
 
 [General]
-- Updated SKSE version requirement to 1.6.14.
+- Updated SKSE version requirement to 1.6.15.
 
 [ModConfigurationMenu]
 - Enabled nested translations for option and value text (uses the same format as SetInfoText).
 - Added OPTION_FLAG_HIDDEN to hide an option.
 - Added OPTION_FLAG_WITH_UNMAP. When set for keymap options, it enables an unmap button that'll send keycode -1.
 - Improved menu registration process to avoid missing menus on the first save load. For real this time.
+- Enabled basic HTML formatting for option label text. Example: "<font color='#FF0000'>$Hello</font>".
+- Fixed an issue with gamepad/keyboard navigation where the wrong entry was selected when scrolling.
 
 [MapMenu]
 - Fixed issue where search widget wasn't being completely disabled when hidden.
 
 [ActiveEffectsWidget]
-- With SKSE 1.6.14, inactive effects are now filtered out.
+- With SKSE 1.6.15, inactive effects are now filtered out.
 - Added a configurable minimum time left to hide long lasting effects like blessings until they are about to expire.
 
 [FavoritesMenu]

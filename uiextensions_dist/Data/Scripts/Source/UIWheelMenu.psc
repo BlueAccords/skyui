@@ -2,13 +2,14 @@ Scriptname UIWheelMenu extends UIMenuBase
 
 Message Property UIWheelMenuMessage Auto
 
-string property		ROOT_MENU		= "MessageBoxMenu" autoReadonly
-string Property 	MENU_ROOT		= "_root.MessageMenu.proxyMenu.WheelPhase.WheelBase." autoReadonly
+string property		ROOT_MENU		= "CustomMenu" autoReadonly
+string Property 	MENU_ROOT		= "_root.WheelPhase.WheelBase." autoReadonly
 
 Form _form = None
 bool _enabled = true
 int _lastIndex = 0
-bool _resetLock = false
+bool _selectionLock = false
+int _returnValue = 0
 
 string[] _optionText
 string[] _optionLabelText
@@ -33,10 +34,23 @@ EndFunction
 
 int Function OpenMenu(Form akForm = None, Form akReceiver = None)
 	_form = akForm
+
+	If !BlockUntilClosed() || !WaitForReset()
+		return 255
+	Endif
+
+	RegisterForModEvent("UIWheelMenu_ChooseOption", "OnChooseOption")
 	RegisterForModEvent("UIWheelMenu_SetOption", "OnSelectOption")
 	RegisterForModEvent("UIWheelMenu_LoadMenu", "OnLoadMenu")
 	RegisterForModEvent("UIWheelMenu_CloseMenu", "OnUnloadMenu")
-	return UIWheelMenuMessage.Show()
+
+	Lock()
+	UI.OpenCustomMenu("wheelmenu")
+	If !WaitLock()
+		return 255
+	Endif
+
+	return _returnValue
 EndFunction
 
 Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
@@ -51,9 +65,15 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 EndEvent
 
 Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
+	UnregisterForModEvent("UIWheelMenu_ChooseOption")
 	UnregisterForModEvent("UIWheelMenu_SetOption")
 	UnregisterForModEvent("UIWheelMenu_LoadMenu")
 	UnregisterForModEvent("UIWheelMenu_CloseMenu")
+EndEvent
+
+Event OnChooseOption(string eventName, string strArg, float numArg, Form formArg)
+	_returnValue = numArg as Int
+	Unlock()
 EndEvent
 
 Event OnSelectOption(string eventName, string strArg, float numArg, Form formArg)
@@ -61,6 +81,7 @@ Event OnSelectOption(string eventName, string strArg, float numArg, Form formArg
 EndEvent
 
 Function ResetMenu()
+	isResetting = true
 	_optionText[0] = ""
 	_optionText[1] = ""
 	_optionText[2] = ""
@@ -114,6 +135,7 @@ Function ResetMenu()
 	_optionEnabled[5] = false
 	_optionEnabled[6] = false
 	_optionEnabled[7] = false
+	isResetting = false
 EndFunction
 
 Function SetPropertyInt(string propertyName, int value)

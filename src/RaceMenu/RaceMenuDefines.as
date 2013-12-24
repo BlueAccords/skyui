@@ -45,6 +45,14 @@
 	static var CATEGORY_FACEPAINT: Number = 262144;
 	static var CATEGORY_ECE: Number = 524288;
 	
+	static var HEADPART_MISC: Number = 0;
+	static var HEADPART_FACE: Number = 1;
+	static var HEADPART_EYES: Number = 2;
+	static var HEADPART_HAIR: Number = 3;
+	static var HEADPART_FACIALHAIR: Number = 4;
+	static var HEADPART_SCAR: Number = 5;
+	static var HEADPART_BROWS: Number = 6;
+	
 	static var PAINT_WAR: Number = 0;
 	static var PAINT_BODY: Number = 1;
 	static var PAINT_HAND: Number = 2;

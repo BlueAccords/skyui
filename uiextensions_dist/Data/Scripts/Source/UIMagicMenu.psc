@@ -2,8 +2,8 @@ Scriptname UIMagicMenu extends UIMenuBase
 
 Message Property UIMagicMenuMessage Auto
 
-string property		ROOT_MENU		= "MessageBoxMenu" autoReadonly
-string Property 	MENU_ROOT		= "_root.MessageMenu.proxyMenu." autoReadonly
+string property		ROOT_MENU		= "CustomMenu" autoReadonly
+string Property 	MENU_ROOT		= "_root." autoReadonly
 string property		CONFIG_ROOT		= "_global.skyui.util.ConfigManager" autoReadonly
 
 Actor _actor = None
@@ -12,8 +12,6 @@ bool _restricted = true
 
 Form _receiver = None
 
-float tempSoundDB = 0.0
-
 string Function GetMenuName()
 	return "UIMagicMenu"
 EndFunction
@@ -21,6 +19,11 @@ EndFunction
 int Function OpenMenu(Form akForm = None, Form akReceiver = None)
 	_actor = akForm as Actor
 	_receiver = akReceiver
+
+	If !BlockUntilClosed() || !WaitForReset()
+		return 0
+	Endif
+
 	RegisterForModEvent("UIMagicMenu_LoadMenu", "OnLoadMenu")
 	RegisterForModEvent("UIMagicMenu_CloseMenu", "OnUnloadMenu")
 	RegisterForModEvent("UIMagicMenu_AddRemoveSpell", "OnAddRemoveSpell")
@@ -28,11 +31,8 @@ int Function OpenMenu(Form akForm = None, Form akReceiver = None)
 		_receiver.RegisterForModEvent("UIMagicMenu_AddRemoveSpell", "OnAddRemoveSpell")
 	Endif
 
-	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
-	tempSoundDB = sDescriptor.GetDecibelAttenuation()
-	sDescriptor.SetDecibelAttenuation(100.0)
-
-	return UIMagicMenuMessage.Show()
+	UI.OpenCustomMenu("magicmenuext")
+	return 1
 EndFunction
 
 Function SetPropertyString(string propertyName, String value)
@@ -82,12 +82,6 @@ Event OnAddRemoveSpell(string eventName, string strArg, float numArg, Form formA
 EndEvent
 
 Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
-	UI.Invoke(ROOT_MENU, MENU_ROOT + "InitExtensions")
-	float[] params = new Float[2]
-	params[0] = Game.UsingGamepad() as float
-	params[1] = 0
-	UI.InvokeFloatA(ROOT_MENU, MENU_ROOT + "SetPlatform", params)
-
 	UI.SetBool(ROOT_MENU, MENU_ROOT + "bRestrictTrade", _restricted)
 
 	UI.InvokeForm(ROOT_MENU, MENU_ROOT + "Menu_mc.MagicMenu_SetActor", _actor)
@@ -106,6 +100,4 @@ Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
 	If _receiver
 		_receiver.UnregisterForModEvent("UIMagicMenu_AddRemoveSpell")
 	Endif
-	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
-	sDescriptor.SetDecibelAttenuation(tempSoundDB)
 EndEvent

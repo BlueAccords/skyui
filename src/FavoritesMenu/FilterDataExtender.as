@@ -2,6 +2,7 @@ import skyui.defines.Form;
 
 import skyui.components.list.BasicList;
 import skyui.components.list.IListProcessor;
+import skyui.util.Hash;
 
 
 class FilterDataExtender implements IListProcessor
@@ -52,10 +53,14 @@ class FilterDataExtender implements IListProcessor
   
 	private function processEntry(a_entryObject: Object): Void
 	{
+		// ItemID
+		a_entryObject.itemId &= 0xFFFFFFFF; // better safe than sorry
+	
 		var formType = a_entryObject.formType;
 
 		switch(formType) {
 			case Form.TYPE_ARMOR:
+			case Form.TYPE_AMMO:
 			case Form.TYPE_WEAPON:
 			case Form.TYPE_LIGHT:
 				a_entryObject.filterFlag = FILTERFLAG_GEAR;

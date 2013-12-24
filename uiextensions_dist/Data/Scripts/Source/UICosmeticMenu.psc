@@ -2,9 +2,9 @@ Scriptname UICosmeticMenu extends UIMenuBase
 
 Message Property UICosmeticMenuMessage Auto
 
-string property		ROOT_MENU		= "MessageBoxMenu" autoReadonly
-string Property 	MENU_ROOT		= "_root.MessageMenu.proxyMenu.cosmeticMenu.RaceMenuInstance." autoReadonly
-string Property 	THIS_ROOT		= "_root.MessageMenu.proxyMenu.cosmeticMenu." autoReadonly
+string property		ROOT_MENU		= "CustomMenu" autoReadonly
+string Property 	MENU_ROOT		= "_root.cosmeticMenu.RaceMenuInstance." autoReadonly
+string Property 	THIS_ROOT		= "_root.cosmeticMenu." autoReadonly
 
 string Property 	COSMETIC_CATEGORY_WARPAINT = 1 autoReadonly
 string Property 	COSMETIC_CATEGORY_BODYPAINT = 2 autoReadonly
@@ -14,30 +14,23 @@ string Property 	COSMETIC_CATEGORY_FACEPAINT = 16 autoReadonly
 
 Form _form = None
 int _categories = 0
-bool _selectionLock = false
 
 int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	_form = aForm
+
+	If !BlockUntilClosed() || !WaitForReset()
+		return 0
+	Endif
+
 	RegisterForModEvent("UICosmeticMenu_LoadMenu", "OnLoadMenu")
 	RegisterForModEvent("UICosmeticMenu_CloseMenu", "OnUnloadMenu")
+	RegisterForModEvent("UICosmeticMenu_FailedLoadMenu", "OnFailedLoadMenu")
 
 	((self as Quest) as CosmeticMenu).RegisterEvents()
+	((self as Quest) as CosmeticMenu).Reinitialize()
 
-	_selectionLock = true
-	int ret = UICosmeticMenuMessage.Show()
-	If ret == 0
-		_selectionLock = false
-		return ret
-	Endif
-	int counter = 0
-	while _selectionLock
-		Utility.Wait(0.1)
-		counter += 1
-		if counter > 30
-			_selectionLock = false
-		Endif
-	EndWhile
-	return ret
+	UI.OpenCustomMenu("cosmeticmenu")
+	return 1
 EndFunction
 
 string Function GetMenuName()
@@ -59,12 +52,6 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	((self as Quest) as CosmeticMenu)._targetRoot = MENU_ROOT
 	((self as Quest) as CosmeticMenu)._targetActor = targetActor
 
-	UI.Invoke(ROOT_MENU, MENU_ROOT + "InitExtensions")
-	float[] params = new Float[2]
-	params[0] = Game.UsingGamepad() as float
-	params[1] = 0
-	UI.InvokeFloatA(ROOT_MENU, MENU_ROOT + "SetPlatform", params)
-
 	SendModEvent("RSMDT_SendMenuName", ROOT_MENU)
 	SendModEvent("RSMDT_SendRootName", MENU_ROOT)
 
@@ -74,6 +61,12 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	UI.InvokeInt(ROOT_MENU, THIS_ROOT + "TTM_ShowCategories", _categories)
 
 	SendModEvent("RSMDT_SendPaintRequest", "", _categories as float)
+EndEvent
+
+Event OnFailedLoadMenu(string eventName, string strArg, float numArg, Form formArg)
+	Debug.Notification("RaceMenu version incompatible with cosmetic menu.")
+	UnregisterForModEvent("UICosmeticMenu_LoadMenu")
+	UnregisterForModEvent("UICosmeticMenu_CloseMenu")
 EndEvent
 
 Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)

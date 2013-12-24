@@ -3,17 +3,14 @@ Scriptname UISelectionMenu extends UIMenuBase
 Message Property UISelectionMessage Auto
 FormList Property SelectedForms  Auto  
 
-string property		ROOT_MENU		= "MessageBoxMenu" autoReadonly
-string Property 	MENU_ROOT		= "_root.MessageMenu.proxyMenu.MenuHolder.Menu_mc." autoReadonly
+string property		ROOT_MENU		= "CustomMenu" autoReadonly
+string Property 	MENU_ROOT		= "_root.MenuHolder.Menu_mc." autoReadonly
 
 Form _form = None
 Form _receiver = None
 Form _selected = None
 
-bool _selectionLock = false
 int _mode = 0
-
-float tempSoundDB = 0.0
 
 Form Function GetResultForm()
 	if _mode == 0
@@ -30,11 +27,21 @@ Function SetPropertyInt(string propertyName, int value)
 	Endif
 EndFunction
 
+Function ResetMenu()
+	isResetting = true
+	_selected = None
+	SelectedForms.Revert()
+	isResetting = false
+EndFunction
+
 int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	_form = aForm
 	_receiver = aReceiver
-	_selected = None
-	SelectedForms.Revert()
+	
+	If !BlockUntilClosed() || !WaitForReset()
+		return 0
+	Endif
+
 	RegisterForModEvent("UISelectionMenu_LoadMenu", "OnLoadMenu")
 	RegisterForModEvent("UISelectionMenu_CloseMenu", "OnUnloadMenu")
 	RegisterForModEvent("UISelectionMenu_SelectForm", "OnSelect")
@@ -42,26 +49,13 @@ int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	If _receiver
 		_receiver.RegisterForModEvent("UISelectionMenu_SelectionChanged", "OnSelectForm")
 	Endif
-	_selectionLock = true
-
-	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
-	tempSoundDB = sDescriptor.GetDecibelAttenuation()
-	sDescriptor.SetDecibelAttenuation(100.0)
-
-	int ret = UISelectionMessage.Show()
-	If ret == 0
-		_selectionLock = false
-		return ret
+	
+	Lock()
+	UI.OpenCustomMenu("selectionmenu")
+	If !WaitLock()
+		return 0
 	Endif
-	int counter = 0
-	while _selectionLock
-		Utility.Wait(0.1)
-		counter += 1
-		if counter > 30
-			_selectionLock = false
-		Endif
-	EndWhile
-	return ret
+	return 1
 EndFunction
 
 string Function GetMenuName()
@@ -79,7 +73,7 @@ EndEvent
 
 ; Unlock selection menu
 Event OnSelectForm(string eventName, string strArg, float numArg, Form formArg)
-	_selectionLock = false
+	Unlock()
 EndEvent
 
 Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
@@ -95,6 +89,4 @@ Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
 	If _receiver
 		_receiver.UnregisterForModEvent("UISelectionMenu_SelectionChanged")
 	Endif
-	SoundDescriptor sDescriptor = (Game.GetForm(0x137E7) as Sound).GetDescriptor()
-	sDescriptor.SetDecibelAttenuation(tempSoundDB)
 EndEvent

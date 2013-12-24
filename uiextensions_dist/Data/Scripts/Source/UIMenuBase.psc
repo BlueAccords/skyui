@@ -1,5 +1,56 @@
 Scriptname UIMenuBase extends Quest
 
+bool Property isResetting = false Auto
+bool _waitLock = false
+
+Function Lock()
+	_waitLock = true
+EndFunction
+
+bool Function WaitLock()
+	int lockOut = 0
+	While _waitLock
+		lockOut += 1
+		If lockOut > 50 ; Took more than 5 sec
+			_waitLock = false
+			return false
+		Endif
+		Utility.Wait(0.1)
+	EndWhile
+	return true
+EndFunction
+
+Function Unlock()
+	_waitLock = false
+EndFunction
+
+bool Function BlockUntilClosed()
+	int counter = 0
+	While UI.IsMenuOpen("CustomMenu")
+		counter += 1
+		If counter > 50
+			return false
+		Endif
+		Utility.Wait(0.1)
+	EndWhile
+
+	return true
+EndFunction
+
+bool Function WaitForReset()
+	int counter = 0
+	While isResetting
+		counter += 1
+		If counter > 50
+			isResetting = false
+			return false
+		Endif
+		Utility.Wait(0.1)
+	EndWhile
+
+	return true
+EndFunction
+
 int Function OpenMenu(Form akForm = None, Form akReceiver = None)
 	return -1
 EndFunction

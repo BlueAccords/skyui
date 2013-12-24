@@ -101,12 +101,16 @@ class FollowerWheel extends MovieClip
 		gfx.events.EventDispatcher.initialize(this);
 	}
 	
+	function InitExtensions()
+	{
+		skse.SendModEvent("UIWheelMenu_LoadMenu");
+	}
+	
 	function onLoad()
 	{		
 		Name.autoSize = "center";
 		gfx.managers.FocusHandler.instance.setFocus(this, 0);
 		setWheelIconSource("extension_assets/skyui_icons_psychosteve.swf");
-		skse.SendModEvent("UIWheelMenu_LoadMenu");
 		
 		panelList.background._visible = false;
 		panelList.listEnumeration = new BasicEnumeration(panelList.entryList);
@@ -118,7 +122,7 @@ class FollowerWheel extends MovieClip
 		if (Shared.GlobalFunc.IsKeyPressed(details)) 
 		{
 			if (details.navEquivalent == gfx.ui.NavigationCode.TAB) {
-				closeMenu(255);
+				closeMenu(-1);
 				bHandledInput = true;
 			} else if(details.navEquivalent == gfx.ui.NavigationCode.LEFT) {
 				var deltaOption = _option;
@@ -265,7 +269,9 @@ class FollowerWheel extends MovieClip
 	{
 		//skse.SendModEvent("MenuClosing", "", 0);
 		skse.SendModEvent("UIWheelMenu_CloseMenu");
-		gfx.io.GameDelegate.call("buttonPress", [option]);
+		skse.SendModEvent("UIWheelMenu_ChooseOption", "", option);
+		skse.CloseMenu("CustomMenu");
+		//gfx.io.GameDelegate.call("buttonPress", [option]);
 		//skse.SendModEvent("MenuClosing", "", 1);
 	}
 	

@@ -15,6 +15,8 @@ class UVDisplay extends gfx.core.UIComponent
 	private var _texture: Object;
 	private var _scale: Number = 25;
 	private var _dragOffset: Object;
+	private var _paiting: Boolean = false;
+	private var brush: MovieClip = null;
 	
 	private var _headMesh: Object = null;
 	
@@ -48,19 +50,77 @@ class UVDisplay extends gfx.core.UIComponent
 		}
 	}
 	
-	public function Show(a_show: Boolean)
+	function createBrush(a_radius: Number, a_hardness: Number)
 	{
-		_visible = enabled = a_show;
+		if(brush)
+			brush.removeMovieClip();
+
+		attachMovie("SelectionBrush", "brush", getNextHighestDepth());
+		brush.radius = a_radius;
+		brush.hardness = a_hardness;
+		brush.color = 0xFFFFFF;
+		if(a_hardness == 100) {
+			brush.intensity = function() { return 1.0; };
+		}
+		brush.drawBrush();
+		this.onMouseMove = this.moveBrush;
+	}
+	
+	function deleteBrush()
+	{
+		if(brush) {
+			delete brush;
+			delete onMouseMove;
+			_painting = false;
+		}
+	}
+	
+	function moveBrush()
+	{
+		var local:Object = {x:_xmouse, y:_ymouse};
+		this.globalToLocal(point);
+		this.brush.moveBrush(local.x, local.y);
+			
+		if(_painting)
+			paint(this.brush);
+	}
+	
+	function paint(a_brush: Object)
+	{
+		var point:Object = {x:a_brush._x, y:a_brush._y};
+		this.localToGlobal(point);
+					
+		for(var i = 0; i < this.buttonCount; i++) {
+			var vertexButton = this.container.buttons["v" + i];
+			if(a_brush.hitTest(vertexButton)) {
+				
+				var globalPt:Object = {x:vertexButton._x, y:vertexButton._y};
+				this.container.buttons.localToGlobal(globalPt);
+				
+				var diffX: Number = globalPt.x - point.x;
+				var diffY: Number = globalPt.y - point.y;
+				
+				var r: Number = a_brush.radius;
+				var d: Number = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
+				var intensity: Number = a_brush.intensity(d);
+				
+				if(d <= r) {
+					if(intensity > vertexButton.intensity)
+						vertexButton.setIntensity(intensity);
+				}
+			}
+		}
 	}
 	
 	public function loadAssets(mesh: Object)
 	{
 		container = this.createEmptyMovieClip("container", this.getNextHighestDepth());
 		
-		_texture = GetHeadTexture();
+		_texture = GetHeadTexture(RaceMenuDefines.HEADPART_FACE);
 		if(_texture) {
 			var textureClip = container.createEmptyMovieClip("texture", container.getNextHighestDepth());
-			_imageLoader.loadClip("img://" + _texture.relativePath, textureClip);
+			//_imageLoader.loadClip("img://" + _texture.relativePath, textureClip);
+			_imageLoader.loadClip("femalehead.dds", textureClip);
 		}
 		
 		_headMesh = mesh;
@@ -88,7 +148,6 @@ class UVDisplay extends gfx.core.UIComponent
 		a_clip._width = vertWidth;
 		a_clip._height = vertHeight;
 		
-		//var headMesh: Object = GetHeadMesh();
 		if(_headMesh.uv.length > 0) {
 			var triangleHolder: MovieClip = container.createEmptyMovieClip("triangles", container.getNextHighestDepth());
 			
@@ -121,6 +180,8 @@ class UVDisplay extends gfx.core.UIComponent
 		triangleHolder._alpha = 10;
 		scale = _scale;
 		_headMesh = null;
+		
+		createBrush(50.0, 50.0);
 	}
 	
 	public function onUVButtonPress(event): Void
@@ -129,12 +190,13 @@ class UVDisplay extends gfx.core.UIComponent
 		dispatchEvent({type: "select", vertex: index});
 	}
 	
-	private function GetHeadTexture(): Object
+	private function GetHeadTexture(a_partType: Number): Object
 	{
-		if(_global.skse.plugins.CharGen.GetHeadTexture)
-			return _global.skse.plugins.CharGen.GetHeadTexture();
+		/*if(_global.skse.plugins.CharGen.GetHeadTexture)
+			return _global.skse.plugins.CharGen.GetHeadTexture(a_partType);
 			
-		return undefined;
+		return undefined;*/
+		return {height: 1024, width: 1024};
 	}
 	
 	private function ReleaseHeadTexture()
@@ -210,21 +272,34 @@ class UVDisplay extends gfx.core.UIComponent
 		
 		_dragOffset = {x: _xmouse, y: _ymouse};
 		
+		if(this.brush) {
+			_painting = true;
+			paint(this.brush);
+		}
+		
 		dispatchEvent({type: event.type, controllerIdx: event.controllerIdx, button: event.button});
 	}
 
 	private function doDrag()
 	{
-		var diffX = _xmouse - _dragOffset.x;
-		var diffY = _ymouse - _dragOffset.y;
-		
-		_x += diffX;
-		_y += diffY;
+		if(!this.brush) {
+			var diffX = _xmouse - _dragOffset.x;
+			var diffY = _ymouse - _dragOffset.y;
+			
+			_x += diffX;
+			_y += diffY;
+		} else {
+			moveBrush();
+		}
 	}
 
 	private function endDrag()
 	{
 		delete onMouseUp;
 		delete onMouseMove;
+		if(this.brush) {
+			onMouseMove = moveBrush;
+		}
+		_painting = false;
 	}
 }

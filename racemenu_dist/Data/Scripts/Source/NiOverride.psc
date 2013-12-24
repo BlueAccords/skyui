@@ -163,3 +163,7 @@ Function ClearMorphValue(ObjectReference ref, string morphName) native global
 
 ; Clears all body morphs for an actor
 Function ClearMorphs(ObjectReference ref) native global
+
+; Updates the weight data post morph value
+; only to be used on actors who have morph values set
+Function UpdateModelWeight(ObjectReference ref) native global

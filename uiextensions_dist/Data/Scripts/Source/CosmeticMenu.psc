@@ -19,24 +19,7 @@ Function RegisterEvents()
 EndFunction
 
 Function OnStartup()
-	RegisterEvents()
 
-	; Re-initialization in case of init failure?
-	Reinitialize()
-	
-	If SKSE.GetVersionRelease() < 37
-		Debug.Notification("SKSE version mismatch. You are running SKSE Version " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta() + "." + SKSE.GetVersionRelease() + " you require 1.6.9 or greater.")
-	Endif
-	If SKSE.GetVersionRelease() != SKSE.GetScriptVersionRelease()
-		Debug.Notification("SKSE script version mismatch. Please reinstall your SKSE scripts to match your version.")
-	Endif
-	If RaceMenuBase.GetScriptVersionRelease() < 1
-		Debug.Notification("Invalid RaceMenuBase script version detected.")
-	Endif
-
-	_targetRoot = RACESEX_MENU
-	_targetMenu = MENU_ROOT
-	_targetActor = _playerActor
 EndFunction
 
 Event OnReceivePaintRequest(string eventName, string strArg, float numArg, Form formArg)

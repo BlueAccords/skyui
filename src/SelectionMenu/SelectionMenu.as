@@ -27,17 +27,27 @@
 		ItemList.addEventListener("itemPress", this, "onItemSelect");
 		gfx.managers.FocusHandler.instance.setFocus(ItemList, 0);
 		_parent.gotoAndPlay("startFadeIn");
+	}
+	
+	function InitExtensions()
+	{
 		skse.SendModEvent("UISelectionMenu_LoadMenu");
 	}
 	
 	private function handleInput(details: gfx.ui.InputDetails, pathToFocus: Array): Boolean
 	{
-		if (!pathToFocus[0].handleInput(details, pathToFocus.slice(1))) 
-		{
-			if (Shared.GlobalFunc.IsKeyPressed(details) && details.navEquivalent == gfx.ui.NavigationCode.TAB) 
+		if (Shared.GlobalFunc.IsKeyPressed(details)) {
+			if(details.navEquivalent == gfx.ui.NavigationCode.TAB) {
 				startFadeOut();
+				return true;
+			}
 		}
-		return true;
+		
+		if(ItemList.handleInput(details, pathToFocus)) {
+			return true;
+		}
+		
+		return false;
 	}
 
 	function get selectedIndex()
@@ -91,7 +101,8 @@
 	private function closeMenu(option: Number)
 	{
 		skse.SendModEvent("UISelectionMenu_CloseMenu");
-		gfx.io.GameDelegate.call("buttonPress", [option]);
+		//gfx.io.GameDelegate.call("buttonPress", [option]);
+		skse.CloseMenu("CustomMenu");
 	}
 
 	private function onFadeOutCompletion()

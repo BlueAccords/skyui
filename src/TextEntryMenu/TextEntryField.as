@@ -37,8 +37,6 @@ class TextEntryField extends MovieClip
 		TextInputInstance.focused = true;
 		Selection.setFocus(TextInputInstance.textField);
 		Selection.setSelection(0,0);
-		skse.AllowTextInput(true);
-		skse.SendModEvent("UITextEntryMenu_LoadMenu");
 	}
 
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
@@ -64,6 +62,12 @@ class TextEntryField extends MovieClip
 		}
 		
 		return false;
+	}
+	
+	public function InitExtensions(): Void
+	{
+		skse.AllowTextInput(true);
+		skse.SendModEvent("UITextEntryMenu_LoadMenu");
 	}
 
 	public function SetupButtons(): Void
@@ -91,6 +95,7 @@ class TextEntryField extends MovieClip
 			_cancelButton = Input.Cancel;
 		}
 		buttonPanel.setPlatform(a_platform, a_bPS3Switch);
+		SetupButtons();
 	}
 
 	public function GetValidEntry(): Boolean
@@ -104,7 +109,8 @@ class TextEntryField extends MovieClip
 			skse.SendModEvent("UITextEntryMenu_TextChanged", TextInputInstance.text);
 			skse.AllowTextInput(false);
 			skse.SendModEvent("UITextEntryMenu_CloseMenu");
-			gfx.io.GameDelegate.call("buttonPress", [1]);
+			//gfx.io.GameDelegate.call("buttonPress", [1]);
+			skse.CloseMenu("CustomMenu");
 		}
 	}
 
@@ -113,7 +119,8 @@ class TextEntryField extends MovieClip
 		skse.SendModEvent("UITextEntryMenu_TextChanged", "");
 		skse.AllowTextInput(false);
 		skse.SendModEvent("UITextEntryMenu_CloseMenu");
-		gfx.io.GameDelegate.call("buttonPress", [0]);
+		//gfx.io.GameDelegate.call("buttonPress", [0]);
+		skse.CloseMenu("CustomMenu");
 	}
 	
 	/* Papyrus */

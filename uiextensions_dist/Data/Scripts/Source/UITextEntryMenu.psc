@@ -1,12 +1,10 @@
 Scriptname UITextEntryMenu extends UIMenuBase
 
-string property		ROOT_MENU		= "MessageBoxMenu" autoReadonly
-string Property 	MENU_ROOT		= "_root.MessageMenu.proxyMenu.textEntry." autoReadonly
+string property		ROOT_MENU		= "CustomMenu" autoReadonly
+string Property 	MENU_ROOT		= "_root.textEntry." autoReadonly
 
 string _internalString = ""
 string _internalResult = ""
-
-bool _entryLock = false
 
 Message Property UITextEntryMenuMessage Auto
 
@@ -25,37 +23,32 @@ Function SetPropertyString(string propertyName, string value)
 EndFunction
 
 Function ResetMenu()
+	isResetting = true
 	_internalString = ""
+	_internalResult = ""
+	isResetting = false
 EndFunction
 
 int Function OpenMenu(Form inForm = None, Form akReceiver = None)
 	_internalResult = ""
+
+	If !BlockUntilClosed() || !WaitForReset()
+		return 0
+	Endif
+
 	RegisterForModEvent("UITextEntryMenu_LoadMenu", "OnLoadMenu")
 	RegisterForModEvent("UITextEntryMenu_CloseMenu", "OnUnloadMenu")
 	RegisterForModEvent("UITextEntryMenu_TextChanged", "OnTextChanged")
-	_entryLock = true
-	int ret = UITextEntryMenuMessage.Show()
-	If ret == 0
-		_entryLock = false
-		return ret
+
+	Lock()
+	UI.OpenCustomMenu("textentrymenu")
+	If !WaitLock()
+		return 0
 	Endif
-	int counter = 0
-	while _entryLock
-		Utility.Wait(0.1)
-		counter += 1
-		if counter > 30
-			_entryLock = false
-		Endif
-	EndWhile
-	return ret
+	return 1
 EndFunction
 
 Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
-	float[] params = new Float[2]
-	params[0] = Game.UsingGamepad() as float
-	params[1] = 0
-	UI.InvokeFloatA(ROOT_MENU, MENU_ROOT + "SetPlatform", params)
-	UI.Invoke(ROOT_MENU, MENU_ROOT + "SetupButtons")
 	UpdateTextEntryString()
 EndEvent
 
@@ -67,7 +60,7 @@ EndEvent
 
 Event OnTextChanged(string eventName, string strArg, float numArg, Form formArg)
 	_internalResult = strArg
-	_entryLock = false
+	Unlock()
 EndEvent
 
 Function UpdateTextEntryString()

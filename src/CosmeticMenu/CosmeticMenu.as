@@ -14,6 +14,9 @@ class CosmeticMenu extends MovieClip
 	static var COSMETIC_CATEGORY_FEETPAINT: Number = 8;
 	static var COSMETIC_CATEGORY_FACEPAINT: Number = 16;
 	
+	private var _platform: Number = 0;
+	private var _ps3Switch: Boolean = false;
+	
 	public var RaceMenuInstance: MovieClip;
 	
 	function CosmeticMenu()
@@ -25,7 +28,10 @@ class CosmeticMenu extends MovieClip
 	function onLoad()
 	{
 		super.onLoad();
-		
+	}
+	
+	public function InitExtensions(): Void
+	{
 		_raceMenuContainer = this.createEmptyMovieClip("RaceMenuContainer", this.getNextHighestDepth());
 		_movieLoader.loadClip("racesex_menu.swf", _raceMenuContainer);
 		_movieLoader.addListener(this);
@@ -39,9 +45,10 @@ class CosmeticMenu extends MovieClip
 			RaceMenuInstance = _raceMenuContainer.RaceSexMenuBaseInstance.RaceSexPanelsInstance;
 			if(RaceMenuInstance.RACEMENU_VERSION_IDX < 1) {
 				_movieLoader.unloadClip(a_clip);
-				_root.MessageMenu._visible = true;
-				_root.MessageMenu.enabled = true;
-				_root.MessageMenu.MessageText.text = "RaceMenu version incompatible.";
+				//_root.MessageMenu._visible = true;
+				//_root.MessageMenu.enabled = true;
+				//_root.MessageMenu.MessageText.text = "RaceMenu version incompatible.";
+				skse.SendModEvent("UICosmeticMenu_FailedLoadMenu");
 				return;
 			}
 			
@@ -139,11 +146,32 @@ class CosmeticMenu extends MovieClip
 			RaceMenuInstance.onDoneClicked = function(): Void
 			{
 				skse.SendModEvent("UICosmeticMenu_CloseMenu");
-				gfx.io.GameDelegate.call("buttonPress", [1]);
+				//gfx.io.GameDelegate.call("buttonPress", [1]);
+				skse.CloseMenu("CustomMenu");
 			}
 		}
 		
 		skse.SendModEvent("UICosmeticMenu_LoadMenu");
+		RaceMenuInstance.InitExtensions();
+		RaceMenuInstance.SetPlatform(_platform, _ps3Switch);
+	}
+	
+	public function handleInput(details: gfx.ui.InputDetails, pathToFocus: Array): Boolean
+	{
+		if(RaceMenuInstance) {
+			return RaceMenuInstance.handleInput(details, pathToFocus);
+		}
+		
+		return false;
+	}
+	
+	public function SetPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
+	{
+		_platform = a_platform;
+		_ps3Switch = a_bPS3Switch;
+		if(RaceMenuInstance) {
+			RaceMenuInstance.SetPlatform(_platform, _ps3Switch);
+		}
 	}
 	
 	public function TTM_ShowCategories(a_categories: Number): Void

@@ -76,9 +76,6 @@ class ActorStatsPanel extends MovieClip
 		_statsList.addEventListener("selectionChange", this, "onSelectionChange");
 		
 		// Debug
-		Shared.GlobalFunc.MaintainTextFormat();
-		
-		_global.skyui.platform = 0;
 		
 		_subList.InvalidateData();
 		
@@ -162,7 +159,10 @@ class ActorStatsPanel extends MovieClip
 		
 		startPage();
 		FocusHandler.instance.setFocus(_subList, 0);
-
+	}
+	
+	public function InitExtensions(): Void
+	{
 		skse.SendModEvent("UIStatsMenu_LoadMenu");
 	}
 	
@@ -360,7 +360,8 @@ class ActorStatsPanel extends MovieClip
 	private function closeMenu()
 	{
 		skse.SendModEvent("UIStatsMenu_CloseMenu");
-		gfx.io.GameDelegate.call("buttonPress", [0]);
+		//gfx.io.GameDelegate.call("buttonPress", [0]);
+		skse.CloseMenu("CustomMenu");
 	}
 	
 	private function addActorValue(a_text: String, a_filter: Number, a_actorValue: Number, a_type: String)

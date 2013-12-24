@@ -1,13 +1,29 @@
 ﻿import gfx.events.EventDispatcher;
 import gfx.ui.InputDetails;
+import skyui.components.ButtonPanel;
+
+import com.greensock.TweenLite;
+import com.greensock.plugins.TweenPlugin;
+import com.greensock.plugins.AutoAlphaPlugin;
+import com.greensock.OverwriteManager;
+import com.greensock.easing.Linear;
 
 class VertexEditor extends MovieClip
 {
 	public var wireframeDisplay: WireframeDisplay;
 	public var uvDisplay: UVDisplay;
 	
+	public var bottomBar: BottomBar;
+	public var navPanel: ButtonPanel;
+	public var scaleWidget: ScaleWidget;
+	
 	public var selectedVertex: Object;
 	public var vertexColor: Number = 0xFF000000;
+	
+	private var BOTTOMBAR_SHOWN_Y = 645;
+	private var BOTTOMBAR_HIDDEN_Y = 745;
+	
+	public var Lock: Function;
 	
 	function VertexEditor()
 	{
@@ -16,8 +32,12 @@ class VertexEditor extends MovieClip
 		Mouse.addListener(this);
 		EventDispatcher.initialize(this);
 		
-		//uvDisplay.Show(false);
-		//wireframeDisplay.Show(false);
+		navPanel = bottomBar.buttonPanel;
+		
+		uvDisplay._visible = uvDisplay.enabled = false;
+		wireframeDisplay._visible = wireframeDisplay.enabled = false;
+		
+		bottomBar._y = BOTTOMBAR_HIDDEN_Y;
 	}
 	
 	function onLoad()
@@ -26,6 +46,60 @@ class VertexEditor extends MovieClip
 		uvDisplay.addEventListener("press", this, "onPressUVDisplay");
 		uvDisplay.addEventListener("select", this, "onSelectVertex");
 		wireframeDisplay.addEventListener("press", this, "onPressWireframeDisplay");
+		bottomBar.hidePlayerInfo();
+	}
+	
+	function InitExtensions()
+	{
+		Lock("L");
+	}
+	
+	public function ShowAll(bShowAll: Boolean): Void
+	{
+		ShowBottomBar(bShowAll);
+		ShowWidget(bShowAll);
+		
+		if(bShowAll) {
+			TweenLite.to(this, 0.5, {autoAlpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		} else {
+			TweenLite.to(this, 0.5, {autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		}
+	}
+	
+	public function ShowUV(bShowUV: Boolean): Void
+	{
+		if(bShowUV) {
+			TweenLite.to(uvDisplay, 0.5, {autoAlpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		} else {
+			TweenLite.to(uvDisplay, 0.5, {autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		}
+	}
+	
+	public function ShowWidget(bShowWidget: Boolean): Void
+	{
+		if(bShowWidget) {
+			TweenLite.to(scaleWidget, 0.5, {autoAlpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		} else {
+			TweenLite.to(scaleWidget, 0.5, {autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		}
+	}
+	
+	public function ShowWireframe(bShowWireframe: Boolean): Void
+	{
+		if(bShowWireframe) {
+			TweenLite.to(wireframeDisplay, 0.5, {autoAlpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		} else {
+			TweenLite.to(wireframeDisplay, 0.5, {autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		}
+	}
+	
+	public function ShowBottomBar(bShowBottomBar: Boolean): Void
+	{
+		if(bShowBottomBar) {
+			TweenLite.to(bottomBar, 0.5, {autoAlpha: 100, _y: BOTTOMBAR_SHOWN_Y, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		} else {
+			TweenLite.to(bottomBar, 0.5, {autoAlpha: 0, _y: BOTTOMBAR_HIDDEN_Y, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		}
 	}
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
@@ -33,15 +107,9 @@ class VertexEditor extends MovieClip
 		return false;
 	}
 	
-	public function Show(a_show: Boolean)
-	{
-		// TODO: Reimplement to tween objects in
-		_visible = enabled = false;
-	}
-	
 	function loadAssets()
 	{
-		var headMesh: Object = GetHeadMesh();
+		var headMesh: Object = GetHeadMesh(RaceMenuDefines.HEADPART_FACE);
 		if(headMesh) {
 			uvDisplay.loadAssets(headMesh);
 			wireframeDisplay.loadAssets(headMesh);
@@ -56,24 +124,27 @@ class VertexEditor extends MovieClip
 		wireframeDisplay.unloadAssets();
 	}
 	
-	private function GetHeadMesh(): Object
+	private function GetHeadMesh(a_partType: Number): Object
 	{
-		if(_global.skse.plugins.CharGen.GetHeadMesh)
-			return _global.skse.plugins.CharGen.GetHeadMesh();
+		/*if(_global.skse.plugins.CharGen.GetHeadMesh)
+			return _global.skse.plugins.CharGen.GetHeadMesh(a_partType);
 			
-		return undefined;
+		return undefined;*/
+		return {uv: [{x: 0.5, y: 0.5},
+					 {x: 0.75, y: 0.75},
+					 {x: 1.0, y: 1.0}]};
 	}
 	
-	private function GetVertexColors(a_vertices: Array): Array
+	private function GetVertexColors(a_vertices: Array, a_partType: Number): Array
 	{
 		if(_global.skse.plugins.CharGen.GetHeadVertexColors)
-			return _global.skse.plugins.CharGen.GetHeadVertexColors(a_vertices);
+			return _global.skse.plugins.CharGen.GetHeadVertexColors(a_vertices, a_partType);
 	}
 	
-	private function SetVertexColors(a_vertices: Array): Array
+	private function SetVertexColors(a_vertices: Array, a_partType: Number): Array
 	{
 		if(_global.skse.plugins.CharGen.SetHeadVertexColors)
-			return _global.skse.plugins.CharGen.SetHeadVertexColors(a_vertices);
+			return _global.skse.plugins.CharGen.SetHeadVertexColors(a_vertices, a_partType);
 	}
 	
 	public function onPressUVDisplay(event): Void
@@ -92,13 +163,13 @@ class VertexEditor extends MovieClip
 	{
 		if(selectedVertex) {
 			if(selectedVertex.index != event.vertex) { // Reset the previous vertex color
-				SetVertexColors([selectedVertex]);
-				selectedVertex = GetVertexColors([Number(event.vertex)]);
-				SetVertexColors([{index: Number(event.vertex), color: Number(vertexColor)}]);
+				SetVertexColors([selectedVertex], RaceMenuDefines.HEADPART_FACE);
+				selectedVertex = GetVertexColors([Number(event.vertex)], RaceMenuDefines.HEADPART_FACE);
+				SetVertexColors([{index: Number(event.vertex), color: Number(vertexColor)}], RaceMenuDefines.HEADPART_FACE);
 			}
 		} else {
-			selectedVertex = GetVertexColors([Number(event.vertex)]);
-			SetVertexColors([{index: Number(event.vertex), color: Number(vertexColor)}]);
+			selectedVertex = GetVertexColors([Number(event.vertex)], RaceMenuDefines.HEADPART_FACE);
+			SetVertexColors([{index: Number(event.vertex), color: Number(vertexColor)}], RaceMenuDefines.HEADPART_FACE);
 		}
 	}
 }

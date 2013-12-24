@@ -64,7 +64,6 @@ class MagicMenuExt extends ItemMenu
 	public function onLoad(): Void
 	{
 		super.onLoad();
-		skse.SendModEvent("UIMagicMenu_LoadMenu");
 	}
 	
 	
@@ -120,15 +119,29 @@ class MagicMenuExt extends ItemMenu
 		inventoryLists.categoryList.InvalidateData();
 		updateBottomBar(false);
 		
+		inventoryLists.itemList.addEventListener("selectionChange", this, "onItemsListSelectionChange");
+		
 		// Initialize menu-specific list components
 		var categoryList: CategoryList = inventoryLists.categoryList;
 		categoryList.iconArt = _categoryListIconArt;
 		_visible = true;
+		
+		skse.SendModEvent("UIMagicMenu_LoadMenu");
 	}
 	
 	function onEnterFrame(): Void
 	{
 		MessagesBlock.Update();
+	}
+	
+	private function onItemsListSelectionChange(event: Object): Void
+	{
+		if (event.index != -1) {
+			var entry = inventoryLists.itemList.entryList[event.index];
+			GameDelegate.call("UpdateItem3D", [entry.formId]);
+		} else {
+			GameDelegate.call("UpdateItem3D", [0]);
+		}
 	}
 	
 	// @override ItemMenu
@@ -466,7 +479,8 @@ class MagicMenuExt extends ItemMenu
 		if (_bMenuClosing) {
 			//GameDelegate.call("CloseMenu",[]);
 			skse.SendModEvent("UIMagicMenu_CloseMenu");
-			GameDelegate.call("buttonPress",[1]);
+			//GameDelegate.call("buttonPress",[1]);
+			skse.CloseMenu("CustomMenu");
 		}
 	}
 

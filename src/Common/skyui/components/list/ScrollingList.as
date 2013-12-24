@@ -183,7 +183,7 @@ class skyui.components.list.ScrollingList extends BasicList
 		// Clear clipIndex for everything after the selected list portion
 		for (var i = _scrollPosition + _listIndex; i < getListEnumSize(); i++)
 			getListEnumEntry(i).clipIndex = undefined;
-		
+			
 		// Select entry under the cursor for mouse-driven navigation
 		if (isMouseDrivenNav)
 			for (var e = Mouse.getTopMostEntity(); e != undefined; e = e._parent)
@@ -342,11 +342,11 @@ class skyui.components.list.ScrollingList extends BasicList
 			
 			// New entry before visible portion, move scroll window up
 			if (enumIndex < _scrollPosition) {
-				scrollPosition -= scrollDelta;
+				scrollPosition = enumIndex;
 				
 			// New entry below visible portion, move scroll window down
 			} else if (enumIndex >= _scrollPosition + _listIndex) {
-				scrollPosition += scrollDelta;
+				scrollPosition = Math.min(enumIndex - _listIndex + scrollDelta, _maxScrollPosition);
 				
 			// No need to change the scroll window, just select new entry
 			} else {

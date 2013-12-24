@@ -2,10 +2,8 @@ Scriptname UIListMenu extends UIMenuBase
 
 Message Property UIListMenuMessage Auto
 
-string property		ROOT_MENU		= "MessageBoxMenu" autoReadonly
-string Property 	MENU_ROOT		= "_root.MessageMenu.proxyMenu.listMenu." autoReadonly
-
-bool _selectionLock = false
+string property		ROOT_MENU		= "CustomMenu" autoReadonly
+string Property 	MENU_ROOT		= "_root.listMenu." autoReadonly
 
 float _resultFloat = -1.0
 int _resultInt = -1
@@ -96,6 +94,7 @@ Function OnInit()
 EndFunction
 
 Function ResetMenu()
+	isResetting = true
 	int i = 0
 	While i < _entryBuffer
 		_entryName[i] = ""
@@ -112,29 +111,30 @@ Function ResetMenu()
 	EndWhile
 	_premadeBuffer = 0
 	_entryBuffer = 0
+	isResetting = false
 EndFunction
 
 int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	_resultFloat = -1.0
 	_resultInt = -1
+
+	If !BlockUntilClosed() || !WaitForReset()
+		return 0
+	Endif
+
 	RegisterForModEvent("UIListMenu_LoadMenu", "OnLoadMenu")
 	RegisterForModEvent("UIListMenu_CloseMenu", "OnUnloadMenu")
 	RegisterForModEvent("UIListMenu_SelectItem", "OnSelect")
-	_selectionLock = true
-	int ret = UIListMenuMessage.Show()
-	If ret == 0
-		_selectionLock = false
-		return ret
+
+	Lock()
+	UI.OpenCustomMenu("listmenu")
+	If !WaitLock()
+		return 0
 	Endif
-	int counter = 0
-	while _selectionLock
-		Utility.Wait(0.1)
-		counter += 1
-		if counter > 30
-			_selectionLock = false
-		Endif
-	EndWhile
-	return ret
+	If _resultFloat == -1.0 ; Back initiated
+		return 0
+	Endif
+	return 1
 EndFunction
 
 string Function GetMenuName()
@@ -144,7 +144,7 @@ EndFunction
 Event OnSelect(string eventName, string strArg, float numArg, Form formArg)
 	_resultInt = strArg as int
 	_resultFloat = numArg
-	_selectionLock = false
+	Unlock()
 EndEvent
 
 Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
@@ -160,6 +160,8 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	If _premadeBuffer > 0
 		UI.InvokeStringA(ROOT_MENU, MENU_ROOT + "LM_AddTreeEntries", _premadeEntries)
 	Endif
+
+	UI.InvokeBool(ROOT_MENU, MENU_ROOT + "LM_SetSortingEnabled", entries)
 EndEvent
 
 Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
