@@ -52,6 +52,7 @@ class CosmeticMenu extends MovieClip
 				return;
 			}
 			
+			RaceMenuInstance.modeSelect._visible = RaceMenuInstance.modeSelect.enabled = false;
 			RaceMenuInstance.racePanel.tintCount._visible = false;
 			RaceMenuInstance.handleInput = function(details: InputDetails, pathToFocus: Array): Boolean
 			{

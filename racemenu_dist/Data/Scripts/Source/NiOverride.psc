@@ -48,6 +48,10 @@ bool Function GetPropertyBool(ObjectReference ref, bool firstPerson, Armor arm, 
 string Function GetPropertyString(ObjectReference ref, bool firstPerson, Armor arm, ArmorAddon addon, string node, int key, int index) native global
 ;TextureSet is not stored on the node, individual textures are, however.
 
+; Returns whether the specified node could be found for the given parameters
+; Debug will report errors to NiOverrides log file
+bool Function HasArmorAddonNode(ObjectReference ref, bool firstPerson, Armor arm, ArmorAddon addon, string node, bool debug = false) native global
+
 ; Applies all armor properties visually to the actor, this shouldn't be necessary under normal circumstances
 Function ApplyOverrides(ObjectReference ref) native global
 

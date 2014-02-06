@@ -44,6 +44,8 @@ class RaceMenu extends MovieClip
 	private var _exportInterval: Number;
 	private var _reloadInterval: Number;
 	private var _savedColor: Number;
+	private var _artPrimary: Array;
+	private var _artSecondary: Array;
 	
 	public var makeupList: Array;
 	
@@ -117,6 +119,7 @@ class RaceMenu extends MovieClip
 	{
 		super();
 		TweenPlugin.activate([AutoAlphaPlugin]);
+		PapyrusInterface.initialize(this);
 		
 		_global.tintCount = 0;
 		_global.maxTints = RaceMenuDefines.MAX_TINTS;
@@ -188,8 +191,15 @@ class RaceMenu extends MovieClip
 		var bonusEnumeration = new FilteredEnumeration(bonusList.entryList);
 		bonusEnumeration.addFilter(_sortFilter);
 		bonusList.listEnumeration = bonusEnumeration;
-		
+						
 		categoryList.listEnumeration = new BasicEnumeration(categoryList.entryList);
+		categoryList["reinitClips"] = function()
+		{
+			for (var i = 0; i < this["_segmentLength"]; i++) {
+				var entryClip = this["getClipByIndex"](i);
+				entryClip.initialize(i, this.listState);
+			}
+		}
 		
 		var listEnumeration = new FilteredEnumeration(itemList.entryList);
 		listEnumeration.addFilter(_typeFilter);
@@ -228,6 +238,10 @@ class RaceMenu extends MovieClip
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 508, savedItemIndex: -1, enabled: true});
 		
 		// Test Code
+		/*
+		_artPrimary = categoryList.iconArt;
+		_artSecondary = ["face"];
+		
 		_raceList.push({skillBonuses: [{skill: 10, bonus: 255},
 									   {skill: 11, bonus: 176},
 									   {skill: 12, bonus: 45},
@@ -247,7 +261,21 @@ class RaceMenu extends MovieClip
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "MOUTH", flag: RaceMenuDefines.CATEGORY_MOUTH, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "HAIR", flag: RaceMenuDefines.CATEGORY_HAIR, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$COLORS", flag: RaceMenuDefines.CATEGORY_COLOR, savedItemIndex: -1, enabled: true});
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 0, flag: 0}); // Divider
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_WARPAINT, savedItemIndex: -1, enabled: true});
+		
+		_artSecondary.push("body");
+		_artSecondary.push("hand");
+		_artSecondary.push("feet");
+		_artSecondary.push("face");
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, enabled: true});
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, enabled: true});
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, enabled: true});
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, enabled: true});
+		
+		SetMakeup([RaceMenuDefines.TINT_TYPE_FACEPAINT,RaceMenuDefines.TINT_TYPE_FACEPAINT,RaceMenuDefines.TINT_TYPE_FACEPAINT], [0,0,0], ["FacePaint1.dds","FacePaint2.dds","FacePaint3.dds"], [0,0,0], RaceMenuDefines.TINT_TYPE_FACEPAINT, RaceMenuDefines.CATEGORY_FACEPAINT, RaceMenuDefines.PAINT_FACE, RaceMenuDefines.ENTRY_TYPE_FACEPAINT);
+		
+		categoryList.dividerIndex = 10;
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
 		
@@ -323,7 +351,7 @@ class RaceMenu extends MovieClip
 		
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint1", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
-		
+		*/
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
 		itemList.requestInvalidate();
@@ -333,9 +361,9 @@ class RaceMenu extends MovieClip
 		//trace(Date().toString());
 		
 		// Test Code
-		InitExtensions();
+		/*InitExtensions();
 		SetPlatform(1, false);
-		//vertexEditor.loadAssets();
+		vertexEditor.loadAssets();*/
 	}
 	
 	public function InitExtensions()
@@ -369,6 +397,7 @@ class RaceMenu extends MovieClip
 		bottomBar.setPlatform(a_platform, a_bPS3Switch);
 		colorField.setPlatform(a_platform, a_bPS3Switch);
 		makeupPanel.setPlatform(a_platform, a_bPS3Switch);
+		vertexEditor.setPlatform(a_platform, a_bPS3Switch);
 		
 		if(_platform == 0) {
 			_activateControl = Input.Activate;
@@ -632,6 +661,7 @@ class RaceMenu extends MovieClip
 			ShowTextEntry(false);
 			ShowRacePanel(false);
 			ShowBottomBar(false);
+			ShowModeSwitcher(false);
 			vertexEditor.unloadAssets();
 		} else {
 			GameDelegate.call("ChangeName", []);
@@ -676,35 +706,47 @@ class RaceMenu extends MovieClip
 			categoryCount++;
 		}
 		
+		// Add the new categories
+		
 		if(categoryCount > categoryList.iconArt.length) {
 			for(var i = 0; i < categoryCount - categoryList.iconArt.length; i++)
 				categoryList.iconArt.push("skyrim");
 		}
 		
 		categoryList.iconArt.push("palette");
-		categoryList.iconArt.push("face");
-		
-		// Add the new categories
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$COLORS", flag: RaceMenuDefines.CATEGORY_COLOR, enabled: true});
-		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: (_global.skse != undefined), text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true});
-		
-		if(_global.skse.plugins.NiOverride) {
-			categoryList.iconArt.push("body");
-			categoryList.iconArt.push("hand");
-			categoryList.iconArt.push("feet");
-			categoryList.iconArt.push("face");
-			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, enabled: true});
-			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, enabled: true});
-			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, enabled: true});
-			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, enabled: true});
-			categoryList.iconSize = 28;
-		}
 		
 		if(_global.skse.plugins.ExCharGen) {
 			categoryList.iconArt.push("skyrim");
 			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$ENHANCED", flag: RaceMenuDefines.CATEGORY_ECE, enabled: true});
 		}
-				
+		
+		categoryList.dividerIndex = categoryList.entryList.length;
+		
+		_artPrimary = new Array();
+		for(var i = 0; i < categoryList.iconArt.length; i++)
+			_artPrimary.push(categoryList.iconArt[i]);
+		
+		_artSecondary = new Array();
+		
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 0, flag: 0}); // Divider
+		
+		_artSecondary.push("face");
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true});
+		
+		
+		if(_global.skse.plugins.NiOverride) {
+			_artSecondary.push("body");
+			_artSecondary.push("hand");
+			_artSecondary.push("feet");
+			_artSecondary.push("face");
+			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, enabled: true});
+			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, enabled: true});
+			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, enabled: true});
+			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, enabled: true});
+			//categoryList.iconSize = 32;
+		}
+						
 		categoryList.requestInvalidate();
 	}
 
@@ -960,6 +1002,16 @@ class RaceMenu extends MovieClip
 		}
 	}
 	
+	private function ShowOverlays(abShow: Boolean): Void
+	{
+		categoryList.activeSegment = abShow ? CategoryList.RIGHT_SEGMENT : CategoryList.LEFT_SEGMENT;
+		categoryList.iconArt = abShow ? _artSecondary : _artPrimary;
+		categoryList["reinitClips"]();
+		categoryList.InvalidateData();
+		onCategoryPress();
+		itemList.InvalidateData();		
+	}
+	
 	public function onChangeMode(event: Object): Void
 	{
 		switch(event.index) {
@@ -967,8 +1019,15 @@ class RaceMenu extends MovieClip
 			ShowRacePanel(true);
 			ShowBottomBar(true);
 			vertexEditor.ShowAll(false);
+			ShowOverlays(false);
 			break;
 			case 1:
+			ShowRacePanel(true);
+			ShowBottomBar(true);
+			vertexEditor.ShowAll(false);
+			ShowOverlays(true);
+			break;
+			case 2:
 			ShowRacePanel(false);
 			ShowBottomBar(false);
 			vertexEditor.ShowAll(true);
@@ -1505,297 +1564,5 @@ class RaceMenu extends MovieClip
 		a_array.push(makeupObject);
 	}
 	
-	/* PAPYRUS INTERFACE */
-	public function RSM_AddSliders()
-	{
-		for(var i = 0; i < arguments.length; i++)
-		{
-			var sliderParams: Array = arguments[i].split(";;");
-			if(sliderParams[0] != "") {
-				var newSliderID = customSliders.length + RaceMenuDefines.CUSTOM_SLIDER_OFFSET;
-				var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: sliderParams[0], filterFlag: Number(sliderParams[1]), callbackName: sliderParams[2], sliderMin: Number(sliderParams[3]), sliderMax: Number(sliderParams[4]), sliderID: newSliderID, position: Number(sliderParams[6]), interval: Number(sliderParams[5]), enabled: true};
-				customSliders.push(sliderObject);
-				itemList.entryList.push(sliderObject);
-				itemList.requestInvalidate();
-			}
-		}
-	}
 	
-	public function RSM_SetSliderParameters()
-	{
-		for(var i = 0; i < customSliders.length; i++) {
-			if(customSliders[i].callbackName.toLowerCase() == arguments[0].toLowerCase()) {
-				customSliders[i].sliderMin = Number(arguments[1]);
-				customSliders[i].sliderMax = Number(arguments[2]);
-				customSliders[i].interval = Number(arguments[3]);
-				customSliders[i].position = Number(arguments[4]);
-				itemList.requestUpdate();
-				break;
-			}
-		}
-	}
-
-	public function RSM_AddWarpaints()
-	{
-		for(var i = 0; i < arguments.length; i++)
-		{
-			var warpaintParams: Array = arguments[i].split(";;");
-			if(warpaintParams[0] != "" && warpaintParams[1] != "") {
-				var a_name: String = warpaintParams[0];
-				var a_texture: String = warpaintParams[1];
-				
-				AddMakeup(RaceMenuDefines.ENTRY_TYPE_WARPAINT, makeupList[RaceMenuDefines.PAINT_WAR], a_name, a_texture);
-			}
-		}
-	}
-	
-	public function RSM_AddBodyPaints()
-	{
-		for(var i = 0; i < arguments.length; i++)
-		{
-			var bodypaintParams: Array = arguments[i].split(";;");
-			if(bodypaintParams[0] != "" && bodypaintParams[1] != "") {
-				var a_name: String = bodypaintParams[0];
-				var a_texture: String = bodypaintParams[1];
-				
-				AddMakeup(RaceMenuDefines.ENTRY_TYPE_BODYPAINT, makeupList[RaceMenuDefines.PAINT_BODY], a_name, a_texture);
-			}
-		}
-	}
-	
-	public function RSM_AddHandPaints()
-	{
-		for(var i = 0; i < arguments.length; i++)
-		{
-			var handpaintParams: Array = arguments[i].split(";;");
-			if(handpaintParams[0] != "" && handpaintParams[1] != "") {
-				var a_name: String = handpaintParams[0];
-				var a_texture: String = handpaintParams[1];
-				
-				AddMakeup(RaceMenuDefines.ENTRY_TYPE_HANDPAINT, makeupList[RaceMenuDefines.PAINT_HAND], a_name, a_texture);
-			}
-		}
-	}
-	
-	public function RSM_AddFeetPaints()
-	{
-		for(var i = 0; i < arguments.length; i++)
-		{
-			var feetpaintParams: Array = arguments[i].split(";;");
-			if(feetpaintParams[0] != "" && feetpaintParams[1] != "") {
-				var a_name: String = feetpaintParams[0];
-				var a_texture: String = feetpaintParams[1];
-				
-				AddMakeup(RaceMenuDefines.ENTRY_TYPE_FEETPAINT, makeupList[RaceMenuDefines.PAINT_FEET], a_name, a_texture);
-			}
-		}
-	}
-	
-	public function RSM_AddFacePaints()
-	{
-		for(var i = 0; i < arguments.length; i++)
-		{
-			var facepaintParams: Array = arguments[i].split(";;");
-			if(facepaintParams[0] != "" && facepaintParams[1] != "") {
-				var a_name: String = facepaintParams[0];
-				var a_texture: String = facepaintParams[1];
-				
-				AddMakeup(RaceMenuDefines.ENTRY_TYPE_FACEPAINT, makeupList[RaceMenuDefines.PAINT_FACE], a_name, a_texture);
-			}
-		}
-	}
-	
-	public function RSM_AddTints()
-	{
-		var tintTypes = new Array();
-		var tintColors = new Array();
-		var tintTextures = new Array();
-		
-		_global.tintCount = 0;
-		for(var i = 0; i < arguments.length; i++)
-		{		
-			var tintParams: Array = arguments[i].split(";;");
-			if(tintParams.length > 0 && (Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "")) {
-				tintTypes.push(Number(tintParams[0]));
-				tintColors.push(Number(tintParams[1]));
-				tintTextures.push(tintParams[2]);
-				
-				// Tint has a color
-				if(Number(tintParams[0]) != RaceMenuDefines.TINT_TYPE_HAIR && (Number(tintParams[1]) >>> 24) > 0) {
-					_global.tintCount++;
-				}
-			}
-		}
-		UpdateTintCount();
-		
-		SetSliderColors(tintTypes, tintColors);
-		
-		var tintType: Number = RaceMenuDefines.TINT_TYPE_WARPAINT;
-		var category: Number = RaceMenuDefines.CATEGORY_WARPAINT;
-		var listIndex: Number = RaceMenuDefines.PAINT_WAR;
-		var entryType: Number = RaceMenuDefines.ENTRY_TYPE_WARPAINT;
-		SetMakeup(tintTypes, tintColors, tintTextures, null, tintType, category, listIndex, entryType);
-		delete tintTypes;
-		delete tintColors;
-		delete tintTextures;
-	}
-	
-	public function RSM_AddBodyTints()
-	{
-		var tintTypes = new Array();
-		var tintColors = new Array();
-		var tintTextures = new Array();
-		var tintGlows = new Array();
-		
-		for(var i = 0; i < arguments.length; i++)
-		{		
-			var tintParams: Array = arguments[i].split(";;");
-			if(tintParams.length > 0 && (Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "")) {
-				tintTypes.push(Number(tintParams[0]));
-				tintColors.push(Number(tintParams[1]));
-				tintTextures.push(tintParams[2]);
-				tintGlows.push(Number(tintParams[3]));
-			}
-		}
-		
-		var tintType: Number = RaceMenuDefines.TINT_TYPE_BODYPAINT;
-		var category: Number = RaceMenuDefines.CATEGORY_BODYPAINT;
-		var listIndex: Number = RaceMenuDefines.PAINT_BODY;
-		var entryType: Number = RaceMenuDefines.ENTRY_TYPE_BODYPAINT;
-		SetMakeup(tintTypes, tintColors, tintTextures, tintGlows, tintType, category, listIndex, entryType);
-		delete tintTypes;
-		delete tintColors;
-		delete tintTextures;
-		delete tintGlows;
-	}
-	
-	public function RSM_AddHandTints()
-	{
-		var tintTypes = new Array();
-		var tintColors = new Array();
-		var tintTextures = new Array();
-		var tintGlows = new Array();
-		
-		for(var i = 0; i < arguments.length; i++)
-		{		
-			var tintParams: Array = arguments[i].split(";;");
-			if(tintParams.length > 0 && (Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "")) {
-				tintTypes.push(Number(tintParams[0]));
-				tintColors.push(Number(tintParams[1]));
-				tintTextures.push(tintParams[2]);
-				tintGlows.push(Number(tintParams[3]));
-			}
-		}
-		
-		var tintType: Number = RaceMenuDefines.TINT_TYPE_HANDPAINT;
-		var category: Number = RaceMenuDefines.CATEGORY_HANDPAINT;
-		var listIndex: Number = RaceMenuDefines.PAINT_HAND;
-		var entryType: Number = RaceMenuDefines.ENTRY_TYPE_HANDPAINT;
-		SetMakeup(tintTypes, tintColors, tintTextures, tintGlows, tintType, category, listIndex, entryType);
-		delete tintTypes;
-		delete tintColors;
-		delete tintTextures;
-		delete tintGlows;
-	}
-	
-	public function RSM_AddFeetTints()
-	{
-		var tintTypes = new Array();
-		var tintColors = new Array();
-		var tintTextures = new Array();
-		var tintGlows = new Array();
-		
-		for(var i = 0; i < arguments.length; i++)
-		{		
-			var tintParams: Array = arguments[i].split(";;");
-			if(tintParams.length > 0 && (Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "")) {
-				tintTypes.push(Number(tintParams[0]));
-				tintColors.push(Number(tintParams[1]));
-				tintTextures.push(tintParams[2]);
-				tintGlows.push(Number(tintParams[3]));
-			}
-		}
-		
-		var tintType: Number = RaceMenuDefines.TINT_TYPE_FEETPAINT;
-		var category: Number = RaceMenuDefines.CATEGORY_FEETPAINT;
-		var listIndex: Number = RaceMenuDefines.PAINT_FEET;
-		var entryType: Number = RaceMenuDefines.ENTRY_TYPE_FEETPAINT;
-		SetMakeup(tintTypes, tintColors, tintTextures, tintGlows, tintType, category, listIndex, entryType);
-		delete tintTypes;
-		delete tintColors;
-		delete tintTextures;
-		delete tintGlows;
-	}
-	
-	public function RSM_AddFaceTints()
-	{
-		var tintTypes = new Array();
-		var tintColors = new Array();
-		var tintTextures = new Array();
-		var tintGlows = new Array();
-		
-		for(var i = 0; i < arguments.length; i++)
-		{		
-			var tintParams: Array = arguments[i].split(";;");
-			if(tintParams.length > 0 && (Number(tintParams[0]) != 0 || Number(tintParams[1]) != 0 || tintParams[2] != "")) {
-				tintTypes.push(Number(tintParams[0]));
-				tintColors.push(Number(tintParams[1]));
-				tintTextures.push(tintParams[2]);
-				tintGlows.push(Number(tintParams[3]));
-			}
-		}
-		
-		var tintType: Number = RaceMenuDefines.TINT_TYPE_FACEPAINT;
-		var category: Number = RaceMenuDefines.CATEGORY_FACEPAINT;
-		var listIndex: Number = RaceMenuDefines.PAINT_FACE;
-		var entryType: Number = RaceMenuDefines.ENTRY_TYPE_FACEPAINT;
-		SetMakeup(tintTypes, tintColors, tintTextures, tintGlows, tintType, category, listIndex, entryType);
-		delete tintTypes;
-		delete tintColors;
-		delete tintTextures;
-		delete tintGlows;
-	}
-	
-	public function RSM_ExtendRace(a_object: Object)
-	{
-		if(a_object.formId != undefined) {
-			skse.ExtendForm(a_object.formId, a_object, true, false);
-		}
-		_raceList.push(a_object);
-	}
-	
-	/* Clipboard functions */
-	public function RSM_SaveClipboard()
-	{
-		var outputString: String = "";
-		for(var i = 0; i < arguments.length; i++) {
-			outputString += "" + ((arguments[i]*100|0)/100) + "";
-			
-			if(i < arguments.length - 1) {
-				outputString += ",";
-			}
-		}
-		skse.SetClipboardData(outputString);
-	}
-	
-	public function RSM_LoadClipboard()
-	{
-		var clipboardData: String = skse.GetClipboardData();
-		var sliderArray: Array = clipboardData.split(',');
-		
-		for(var i = 0; i < sliderArray.length; i++) {
-			skse.SendModEvent(_global.eventPrefix + "ClipboardData", Number(i).toString(), Number(sliderArray[i]));
-		}
-		skse.SendModEvent(_global.eventPrefix + "ClipboardFinished");
-	}
-	
-	public function RSM_ToggleLoader(a_toggle: Boolean)
-	{
-		loadingIcon._visible = a_toggle;
-	}
-	
-	public function RSM_SetPresetSlot(a_slot: Number)
-	{
-		_global.presetSlot = a_slot;
-	}
 }

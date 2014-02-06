@@ -119,8 +119,8 @@ class UVDisplay extends gfx.core.UIComponent
 		_texture = GetHeadTexture(RaceMenuDefines.HEADPART_FACE);
 		if(_texture) {
 			var textureClip = container.createEmptyMovieClip("texture", container.getNextHighestDepth());
-			//_imageLoader.loadClip("img://" + _texture.relativePath, textureClip);
-			_imageLoader.loadClip("femalehead.dds", textureClip);
+			_imageLoader.loadClip("img://" + _texture.relativePath, textureClip);
+			//_imageLoader.loadClip("femalehead.dds", textureClip);
 		}
 		
 		_headMesh = mesh;
@@ -192,11 +192,11 @@ class UVDisplay extends gfx.core.UIComponent
 	
 	private function GetHeadTexture(a_partType: Number): Object
 	{
-		/*if(_global.skse.plugins.CharGen.GetHeadTexture)
+		if(_global.skse.plugins.CharGen.GetHeadTexture)
 			return _global.skse.plugins.CharGen.GetHeadTexture(a_partType);
 			
-		return undefined;*/
-		return {height: 1024, width: 1024};
+		return undefined;
+		//return {height: 1024, width: 1024};
 	}
 	
 	private function ReleaseHeadTexture()

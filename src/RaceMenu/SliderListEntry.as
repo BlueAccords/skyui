@@ -129,7 +129,7 @@ class SliderListEntry extends BasicListEntry
 				valueField.enabled = valueField._visible = false;
 				SliderInstance.enabled = SliderInstance._visible = false;
 				colorSquare.enabled = colorSquare._visible = false;
-				glowSquare.enabled = colorSquare._visible = false;
+				glowSquare.enabled = glowSquare._visible = false;
 				
 				a_entryObject.enabled = true;
 			}

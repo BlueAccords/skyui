@@ -1,10 +1,11 @@
 ﻿import gfx.events.EventDispatcher;
 import gfx.ui.InputDetails;
+
 import skyui.components.ButtonPanel;
+import skyui.util.GlobalFunctions;
+import skyui.defines.Input;
 
 import com.greensock.TweenLite;
-import com.greensock.plugins.TweenPlugin;
-import com.greensock.plugins.AutoAlphaPlugin;
 import com.greensock.OverwriteManager;
 import com.greensock.easing.Linear;
 
@@ -25,6 +26,9 @@ class VertexEditor extends MovieClip
 	
 	public var Lock: Function;
 	
+	/* CONTROLS */
+	private var _acceptControl: Object;
+	
 	function VertexEditor()
 	{
 		super();
@@ -36,6 +40,8 @@ class VertexEditor extends MovieClip
 		
 		uvDisplay._visible = uvDisplay.enabled = false;
 		wireframeDisplay._visible = wireframeDisplay.enabled = false;
+		scaleWidget._visible = scaleWidget.enabled = false;
+		scaleWidget._alpha = 0;
 		
 		bottomBar._y = BOTTOMBAR_HIDDEN_Y;
 	}
@@ -51,7 +57,32 @@ class VertexEditor extends MovieClip
 	
 	function InitExtensions()
 	{
-		Lock("L");
+		
+	}
+	
+	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
+	{
+		bottomBar.setPlatform(a_platform, a_bPS3Switch);
+		
+		if(a_platform == 0) {
+			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+		} else {
+			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+		}
+		
+		var leftEdge = Stage.visibleRect.x + Stage.safeRect.x;
+		var rightEdge = Stage.visibleRect.x + Stage.visibleRect.width - Stage.safeRect.x;
+		bottomBar.positionElements(leftEdge, rightEdge);
+		
+		updateBottomBar();
+	}
+	
+	private function updateBottomBar(): Void
+	{
+		navPanel.clearButtons();
+		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", this, "onDoneClicked");
+		
+		navPanel.updateButtons(true);		
 	}
 	
 	public function ShowAll(bShowAll: Boolean): Void
@@ -126,13 +157,13 @@ class VertexEditor extends MovieClip
 	
 	private function GetHeadMesh(a_partType: Number): Object
 	{
-		/*if(_global.skse.plugins.CharGen.GetHeadMesh)
+		if(_global.skse.plugins.CharGen.GetHeadMesh)
 			return _global.skse.plugins.CharGen.GetHeadMesh(a_partType);
 			
-		return undefined;*/
-		return {uv: [{x: 0.5, y: 0.5},
+		return undefined;
+		/*return {uv: [{x: 0.5, y: 0.5},
 					 {x: 0.75, y: 0.75},
-					 {x: 1.0, y: 1.0}]};
+					 {x: 1.0, y: 1.0}]};*/
 	}
 	
 	private function GetVertexColors(a_vertices: Array, a_partType: Number): Array

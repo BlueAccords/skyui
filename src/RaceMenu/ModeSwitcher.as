@@ -5,6 +5,7 @@ import Shared.GlobalFunc;
 class ModeSwitcher extends MovieClip
 {
 	private var _offset: Number = 10;
+	private var _padding: Number = 25;
 	private var _modes: Array;
 	
 	private var buttonGroup: ButtonGroup;
@@ -32,10 +33,12 @@ class ModeSwitcher extends MovieClip
 		
 		buttonGroup = new ButtonGroup("tabs", this);
 		
-		var button0 = addMode("Sliders");
-		var button1 = addMode("Vertices");
+		var button0 = addMode("$Sliders");
+		var button1 = addMode("$Overlays");
+		var button2 = addMode("$Vertices");
 		buttonGroup.addButton(button0);
 		buttonGroup.addButton(button1);
+		buttonGroup.addButton(button2);
 		buttonGroup.setSelectedButton(button0);
 		
 		buttonGroup.addEventListener("change", this, "onItemChanged");		
@@ -50,7 +53,12 @@ class ModeSwitcher extends MovieClip
 	{
 		var modeTab: MovieClip = tabContainer.attachMovie("ModeTab", "tab" + _modes, tabContainer.getNextHighestDepth());
 		modeTab.tab.textField.text = a_text;
-		modeTab._x = _modes.length * (modeTab._width + _offset);
+		modeTab.tab.textField.autoSize = "center";
+		modeTab.tab.background._width = modeTab.tab.textField._width + _padding * 2;
+		var totalOffset = 0;
+		for(var i = 0; i < _modes.length; i++)
+			totalOffset += _modes[i].tab.background._width + _offset;		
+		modeTab._x = totalOffset + modeTab.tab.background._width/2;
 		_modes.push(modeTab);
 		updateAlignment();
 		return modeTab;
