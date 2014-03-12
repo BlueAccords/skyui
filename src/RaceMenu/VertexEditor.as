@@ -1,6 +1,8 @@
 ﻿import gfx.events.EventDispatcher;
 import gfx.ui.InputDetails;
 
+import org.papervision3d.core.geom.Vertex3D;
+
 import skyui.components.ButtonPanel;
 import skyui.util.GlobalFunctions;
 import skyui.defines.Input;
@@ -18,6 +20,8 @@ class VertexEditor extends MovieClip
 	public var navPanel: ButtonPanel;
 	public var scaleWidget: ScaleWidget;
 	
+	public var selection: VertexSelection;
+	
 	public var selectedVertex: Object;
 	public var vertexColor: Number = 0xFF000000;
 	
@@ -25,6 +29,8 @@ class VertexEditor extends MovieClip
 	private var BOTTOMBAR_HIDDEN_Y = 745;
 	
 	public var Lock: Function;
+	
+	public var tempText: TextField;
 	
 	/* CONTROLS */
 	private var _acceptControl: Object;
@@ -36,12 +42,18 @@ class VertexEditor extends MovieClip
 		Mouse.addListener(this);
 		EventDispatcher.initialize(this);
 		
+		selection = new VertexSelection();
 		navPanel = bottomBar.buttonPanel;
 		
 		uvDisplay._visible = uvDisplay.enabled = false;
 		wireframeDisplay._visible = wireframeDisplay.enabled = false;
 		scaleWidget._visible = scaleWidget.enabled = false;
+		uvDisplay._alpha = 0;
+		wireframeDisplay._alpha = 0;
 		scaleWidget._alpha = 0;
+		
+		tempText._visible = tempText.enabled = false;
+		tempText._alpha = 0;
 		
 		bottomBar._y = BOTTOMBAR_HIDDEN_Y;
 	}
@@ -52,6 +64,11 @@ class VertexEditor extends MovieClip
 		uvDisplay.addEventListener("press", this, "onPressUVDisplay");
 		uvDisplay.addEventListener("select", this, "onSelectVertex");
 		wireframeDisplay.addEventListener("press", this, "onPressWireframeDisplay");
+		
+		scaleWidget.addEventListener("beginScale", this, "onBeginScaleVertices");
+		scaleWidget.addEventListener("doScale", this, "onScaleVertices");
+		scaleWidget.addEventListener("endScale", this, "onEndScaleVertices");
+		
 		bottomBar.hidePlayerInfo();
 	}
 	
@@ -94,6 +111,18 @@ class VertexEditor extends MovieClip
 			TweenLite.to(this, 0.5, {autoAlpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
 			TweenLite.to(this, 0.5, {autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		}
+		
+		if(bShowAll) {
+			loadAssets();
+			ShowUV(true);
+			ShowWireframe(true);
+			TweenLite.to(tempText, 0.5, {autoAlpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		} else {
+			unloadAssets();
+			ShowUV(false);
+			ShowWireframe(false);
+			TweenLite.to(tempText, 0.5, {autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
 	
@@ -202,5 +231,69 @@ class VertexEditor extends MovieClip
 			selectedVertex = GetVertexColors([Number(event.vertex)], RaceMenuDefines.HEADPART_FACE);
 			SetVertexColors([{index: Number(event.vertex), color: Number(vertexColor)}], RaceMenuDefines.HEADPART_FACE);
 		}
+	}
+	
+	public function onBeginScaleVertices(event): Void
+	{
+		var functor: Function = function(data: Object, index: Number, button: Object): Void
+		{
+			if(button.intensity > 0) {
+				data.selection.AddSelection(index, button.intensity, data.vertices[index]);
+			}
+		};
+		uvDisplay.VisitSelection(functor, {selection: selection, vertices: wireframeDisplay.localVertices});
+		selection.StoreSelection();
+	}
+	
+	public function onScaleVertices(event): Void
+	{
+		var d = Math.sqrt(Math.pow(event.x, 2) + Math.pow(event.y, 2));
+		trace("Plane: " + event.plane + " Dist: " + d + " - X: " + event.x + " Y: " + event.y);
+		
+		/*var functor: Function = function(data: Object, vertex: Object, vertices: Array): Void
+		{
+			var storedVertex: Object = this.GetStoredVertex(vertex.index);
+			var strength = vertex.strength;
+			var factor = (data.scale * strength / 100);
+			if(data.plane == "x" || data.plane == "xy" || data.plane=="xz" || data.plane == "xyz")
+				vertices[vertex.index].x = storedVertex.x * factor;
+			if(data.plane == "y" || data.plane == "xy" || data.plane=="yz" || data.plane == "xyz")
+				vertices[vertex.index].y = storedVertex.y * factor;
+			if(data.plane == "z" || data.plane == "xz" || data.plane=="yz" || data.plane == "xyz")
+				vertices[vertex.index].z = storedVertex.z * factor;
+		};*/
+		
+		var functor: Function = function(data: Object, vertex: Object, vertices: Array): Void
+		{
+			var storedVertex: Object = this.GetStoredVertex(vertex.index);
+			var strength = vertex.strength;
+			var factor = (data.scale * strength / 100);
+						
+			if(data.plane == "x" || data.plane == "xy" || data.plane=="xz" || data.plane == "xyz") {
+				if(data.plane == "x" && data.x < 0 && data.y < 0)
+					factor *= -1;
+				vertices[vertex.index].x = storedVertex.x + factor;
+			}
+			if(data.plane == "y" || data.plane == "xy" || data.plane=="yz" || data.plane == "xyz") {
+				if(data.plane == "y" && data.x > 0 && data.y < 0)
+					factor *= -1;
+				vertices[vertex.index].y = storedVertex.y + factor;
+			}
+			if(data.plane == "z" || data.plane == "xz" || data.plane=="yz" || data.plane == "xyz") {
+				if(data.plane == "z" && data.y > 0)
+					factor *= -1;
+				vertices[vertex.index].z = storedVertex.z + factor;
+			}
+		};
+		
+		selection.VisitSelection(functor, {scale: d, plane: event.plane, x: event.x, y: event.y}, wireframeDisplay.localVertices);
+						
+		wireframeDisplay.CreateMesh();
+		wireframeDisplay.render();
+	}
+	
+	public function onEndScaleVertices(event): Void
+	{
+		selection.ClearStoredSelection();
 	}
 }

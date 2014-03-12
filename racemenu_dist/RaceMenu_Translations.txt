@@ -1,13 +1,16 @@
 Language	English	French	German	Italian	Spanish	Czech	Polish	Russian	Japanese	Portuguese	ChineseTraditional	ChineseSimplified
 $ALL	ALL	TOUT	ALLES	TUTTO	Todos/Todas (Masculine/Feminie)	VŠE	WSZYSTKIE	ВСЕ	全て	TUDO	全部	全部
 $COLORS	COLORS	COULEURS	FARBEN	COLORI	Colores	BARVY	KOLORY	ЦВЕТА	色	CORES	色彩	颜色
-$MAKEUP	MAKEUP	MAQUILLAGE	SCHMINKE	TRUCCO	Maquillaje	MAKEUP	MAKIJAŻ	МАКИЯЖ	化粧	MAQUIAGEM	化粧	化妆
+$MAKEUP	MAKEUP	MAQUILLAGE	MAKEUP	TRUCCO	Maquillaje	MAKEUP	MAKIJAŻ	МАКИЯЖ	化粧	MAQUIAGEM	化粧	化妆
 $FILTER	FILTER	FILTRE	FILTER	FILTRO	Filtro	FILTR	FILTR	ФИЛЬТР	フィルタ	Filtro	篩選	筛选
 $EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	Enfocar en	DODATEK	DODATEK	ДОПОЛНИТЕЛЬНО				
-$BODY PAINT	BODY PAINT	PEINTURE SUR LE CORPS	KÖRPERBEMALUNG	TINTURA CORPO	PINTURA CORPORAL	BARVA TĚLA	BARWA CIAŁA	ТАТУИРОВКА ТЕЛА				
+$BODY PAINT	BODY PAINT	PEINTURE SUR LE CORPS	KÖRPERBEMALUNG	TINTURA CORPO	PINTURA CORPORAL	BARVA NA TĚLE	BARWA CIAŁA	ТАТУИРОВКА ТЕЛА				
 $HAND PAINT	HAND PAINT	PEINTURE SUR LES MAINS	HANDBEMALUNG	TINTURA MANO	PINTURA EN LAS MANOS	BARVA RUKOU	BARWA RĘKI	ТАТУИРОВКА РУК				
-$FOOT PAINT	FOOT PAINT	PEINTURE SUR LES PIEDS	FUSSBEMALUNG	TINTURA PIEDI	PINTURA EN LOS PIES	BARVA NOHOU	BARWA STÓP	ТАТУИРОВКА НОГ				
-$FACE PAINT 	FACE PAINT											
+$FOOT PAINT	FOOT PAINT	PEINTURE SUR LES PIEDS	FUßBEMALUNG	TINTURA PIEDI	PINTURA EN LOS PIES	BARVA NOHOU	BARWA STÓP	ТАТУИРОВКА НОГ				
+$FACE PAINT	FACE PAINT	PEINTURE FACIALE	GESICHTSBEMALUNG	PITTURA FACCIALE		BARVA NA TVÁŘ	BARWA TWARZY					
+$Sliders	Sliders											
+$Overlays	Overlays											
+$Morphs	Morphs											
 $Zoom In	Zoom In	Zoom avant	Vergrößern	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
 $Zoom Out	Zoom Out	Zoom arrière	Verkleinern	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
 $Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить Расу	種族の変更	Mudar a raça	變更種族	更变种族
@@ -18,8 +21,8 @@ $Tint	Tint	Teinte	Tönung	Tinta	Tinte	Odstín	Odcień	Оттенок
 $Search	Search	Recherche	Suchen	Cerca	Buscar	Hledat	Szukaj	Найти	検索	Procura	搜尋	搜索
 $Change Category	Change Category	Changer de catégorie	Kategorie ändern	Cambia Categoria	Cambiar categoría	Změnit kategorii	Zmień Kategorię	Сменить категорию	カテゴリーの変更	Mudar a categoria	變更類別	更变类别
 $Load Color	Load Color	Charger couleur	Farbe laden	Carica Colore	Cargar color	Načíst barvu	Wczytaj Kolor	Загрузить цвет				
-$Save Color	Save Color	Enregisrer couleur	Farbe speichern	Salva Colore	Guardar color	Uložit barvu	Zapisz Kolor	Сохранить цвет				
-$Saved Color	Saved Color	couleurs enregistrées	Farbe wurde gespeichert	Colore Salvato	Color guardado	Uložená barva	Zapisano Kolor	Сохранённый цвет				
+$Save Color	Save Color	Enregistrer couleur	Farbe speichern	Salva Colore	Guardar color	Uložit barvu	Zapisz Kolor	Сохранить цвет				
+$Saved Color	Saved Color	Couleurs enregistrées	Gespeicherte Farbe	Colore Salvato	Color guardado	Uložená barva	Zapisano Kolor	Сохранённый цвет				
 $Load Preset	Load Preset	Charger le préréglage                                                                                 	Voreinstellung laden	Carica Predisposto	Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード			读取预设
 $Save Preset	Save Preset	Sauver le préréglage	Voreinstellung speichern	Salva Predisposto	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存			保存预设
 $Light On	Light On	Avec lumière	Licht an	Luce Accesa	Luz encendida	Světlo zapnuté	Zapal	Вкл. Подсветку	ライトオン	Ligar a luz	開啟燈光	开启光照
@@ -30,7 +33,7 @@ $Preset Slot	Preset Slot	Emplacement de réglages	Vorlageposition	Slot impostazi
 $Saved preset to clipboard	Saved preset to clipboard	Sauvegarder les réglages dans le presse-papier	Vorlage in Zwischenablage gespeichert	Impostazione salvata sugli appunti	Ajustes predefinidos guardados en el portapapeles	Předvolba uložena do schránky	Zapisano wygląd do schowka	Предустановка сохраненна в буфер				
 $Saved preset to slot {}	Saved preset to slot {}	Réglages sauvegardés dans l'emplacement {}	Vorlage in Position {} gespeichert	Impostazione salvata nello slot {}	Ajustes predefinidos guardados en la ranura	Předvolba uložena do slotu {}	Zapisano wygląd do gniazda {}	Сохранить предустановку в слот {}				
 $Loaded preset from slot {}	Loaded preset from slot {}	Réglages chargés depuis l'emplacement {}	Vorlage aus Position {} geladen	Carica impostazione dallo slot {}	Ajustes predefinidos cargados de la ranura	Načtena předvolba ze slotu {}	Wczytano wygląd z gniazda {}	Загрузить предустановку из слота {}				
-$Failed to load preset from slot {} 	Failed to load preset from slot {}	Echec du chargement des réglages depuis l'emplacement {}	Fehler beim Laden der Vorlage aus Position {}	Fallito caricamento dell'impostazione dallo slot {}	Fallo al cargar los ajustes predefinidos de la ranura	Načtení předvolby ze slotu {} selhalo	Nie powiodło się wczytanie wyglądu z gniazda {}	Не удалось загрузить предустановку из слота {}				
+$Failed to load preset from slot {}	Failed to load preset from slot {}	Echec du chargement des réglages depuis l'emplacement {}	Fehler beim Laden der Vorlage aus Position {}	Fallito caricamento dell'impostazione dallo slot {}	Fallo al cargar los ajustes predefinidos de la ranura	Načtení předvolby ze slotu {} selhalo	Nie powiodło się wczytanie wyglądu z gniazda {}	Не удалось загрузить предустановку из слота {}				
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
 $Head	Head	Tête	Kopf	Testa	Cabeza	Hlava	Głowa	Голова	頭部	Cabeça	頭部	头部
 $Left Breast	Left Breast	Poitrine gauche	Linke Brust	Seno Sinistro	Seno izquierdo	Levé ňadro	Lewa Pierś	Левая грудь	左胸	Peito esquerdo	左胸	左胸
@@ -191,5 +194,5 @@ $Female Forsworn Tattoo 04	Female Forsworn Tattoo 04	Tatouage parjure femme 04	W
 $Male Black Blood Tattoo 01	Male Black Blood Tattoo 01	Tatouage sang noir homme 01	Männliches Schwarzblut Tattoo 01	Tatuaggio Maschile Blackblood 01	Tatuaje Sangre Negra para hombre 01	Tetování Gangu Blackblood 01	Męski Tatuaż Czarnej Krwii 01	Муж. Тату черной крови 01	男性ブラック・ブラッドのタトゥー 01	Tatuagem de sangue negro masculino 01		男黑血纹身 01
 $Male Black Blood Tattoo 02	Male Black Blood Tattoo 02	Tatouage sang noir homme 02	Männliches Schwarzblut Tattoo 02	Tatuaggio Maschile Blackblood 02	Tatuaje Sangre Negra para hombre 02	Tetování Gangu Blackblood 02	Męski Tatuaż Czarnej Krwii 02	Муж. Тату черной крови 02	男性ブラック・ブラッドのタトゥー 02	Tatuagem de sangue negro masculino 02		男黑血纹身 02
 												
-% Completion	100.00%	99.48%	99.48%	99.48%	99.48%	99.48%	99.48%	99.48%	85.86%	84.82%	30.37%	86.91%
-Total % Completion	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%	90.36%
+% Completion	100.00%	98.45%	98.45%	98.45%	97.94%	98.45%	98.45%	97.94%	84.54%	83.51%	29.90%	85.57%
+Total % Completion	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%

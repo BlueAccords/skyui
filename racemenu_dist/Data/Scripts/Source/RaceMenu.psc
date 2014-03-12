@@ -54,6 +54,7 @@ Function RegisterEvents()
 	RegisterForModEvent("RSM_OverlayTextureChange", "OnOverlayTextureChange") ; Event sent when an overlay's texture changes
 	RegisterForModEvent("RSM_OverlayColorChange", "OnOverlayColorChange") ; Event sent when an overlay's color changes
 	RegisterForModEvent("RSM_OverlayGlowColorChange", "OnOverlayGlowColorChange") ; Event sent when an overlay's color changes
+	RegisterForModEvent("RSM_ShadersInvalidated", "OnShadersInvalidated")
 
 	; Handles clipboard data transfer DO NOT EDIT
 	RegisterForModEvent("RSM_RequestLoadClipboard", "OnLoadClipboard")

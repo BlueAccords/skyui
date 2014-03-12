@@ -1,4 +1,5 @@
 ﻿import flash.geom.*;
+import gfx.events.EventDispatcher;
 
 class ScaleWidget extends MovieClip
 {
@@ -21,6 +22,11 @@ class ScaleWidget extends MovieClip
 	public var colors: Array;
 	
 	private var _dragOffset: Object;
+	private var _dragPlane: String;
+	
+	// GFx Functions
+	public var dispatchEvent: Function;
+	public var addEventListener: Function;
 
 	function ScaleWidget()
 	{
@@ -35,7 +41,7 @@ class ScaleWidget extends MovieClip
 		xy_plane.onRollOver = function() { _parent.highlightComponent("xy", true); };
 		xy_plane.onRollOut =  function() { _parent.highlightComponent("xy", false); };
 		xy_plane.onReleaseOutside = xy_plane.onRollOut;
-		xy_plane.onPress =function() { trace("xy"); _parent.beginDrag({object: "xy"}); };
+		xy_plane.onPress =function() { _parent.beginDrag({plane: "xy"}); };
 		
 		yz_plane = this.createEmptyMovieClip("yz_plane", this.getNextHighestDepth());
 		fillYZPlane(yz_plane, innerSize, outerSize, colors[6]);
@@ -43,7 +49,7 @@ class ScaleWidget extends MovieClip
 		yz_plane.onRollOver = function() { _parent.highlightComponent("yz", true); };
 		yz_plane.onRollOut =  function() { _parent.highlightComponent("yz", false); };
 		yz_plane.onReleaseOutside = yz_plane.onRollOut;
-		yz_plane.onPress =function() { trace("yz"); _parent.beginDrag({object: "yz"}); };
+		yz_plane.onPress =function() { _parent.beginDrag({plane: "yz"}); };
 		
 		xz_plane = this.createEmptyMovieClip("xz_plane", this.getNextHighestDepth());
 		fillXZPlane(xz_plane, innerSize, outerSize, colors[6]);
@@ -51,7 +57,7 @@ class ScaleWidget extends MovieClip
 		xz_plane.onRollOver = function() { _parent.highlightComponent("xz", true); };
 		xz_plane.onRollOut =  function() { _parent.highlightComponent("xz", false); };
 		xz_plane.onReleaseOutside = xz_plane.onRollOut;
-		xz_plane.onPress =function() { trace("xz"); _parent.beginDrag({object: "xz"}); };
+		xz_plane.onPress =function() { _parent.beginDrag({plane: "xz"}); };
 		
 		xyz_plane = this.createEmptyMovieClip("xyz_plane", this.getNextHighestDepth());
 		fillXYZPlane(xyz_plane, innerSize, outerSize, colors[6]);
@@ -59,7 +65,7 @@ class ScaleWidget extends MovieClip
 		xyz_plane.onRollOver = function() { _parent.highlightComponent("xyz", true); };
 		xyz_plane.onRollOut =  function() { _parent.highlightComponent("xyz", false); };
 		xyz_plane.onReleaseOutside = xyz_plane.onRollOut;
-		xyz_plane.onPress =function() { trace("xyz"); _parent.beginDrag({object: "xyz"}); };
+		xyz_plane.onPress =function() { _parent.beginDrag({plane: "xyz"}); };
 		
 		x_axis = this.createEmptyMovieClip("x_axis", this.getNextHighestDepth());
 		drawXAxis(x_axis, innerSize, outerSize, colors[6]);
@@ -67,7 +73,7 @@ class ScaleWidget extends MovieClip
 		x_axis.onRollOver = function() { _parent.highlightComponent("x", true); };
 		x_axis.onRollOut =  function() { _parent.highlightComponent("x", false); };
 		x_axis.onReleaseOutside = x_axis.onRollOut;
-		x_axis.onPress =function() { trace("x"); _parent.beginDrag({object: "x"}); };
+		x_axis.onPress =function() { _parent.beginDrag({plane: "x"}); };
 		
 		y_axis = this.createEmptyMovieClip("y_axis", this.getNextHighestDepth());
 		drawYAxis(y_axis, innerSize, outerSize, colors[6]);
@@ -75,7 +81,7 @@ class ScaleWidget extends MovieClip
 		y_axis.onRollOver = function() { _parent.highlightComponent("y", true); };
 		y_axis.onRollOut =  function() { _parent.highlightComponent("y", false); };
 		y_axis.onReleaseOutside = y_axis.onRollOut;
-		y_axis.onPress =function() { trace("y"); _parent.beginDrag({object: "y"}); };
+		y_axis.onPress =function() { _parent.beginDrag({plane: "y"}); };
 		
 		z_axis = this.createEmptyMovieClip("z_axis", this.getNextHighestDepth());
 		drawZAxis(z_axis, innerSize, outerSize, colors[6]);
@@ -83,7 +89,9 @@ class ScaleWidget extends MovieClip
 		z_axis.onRollOver = function() { _parent.highlightComponent("z", true); };
 		z_axis.onRollOut =  function() { _parent.highlightComponent("z", false); };
 		z_axis.onReleaseOutside = z_axis.onRollOut;
-		z_axis.onPress =function() { trace("z"); _parent.beginDrag({object: "z"}); };
+		z_axis.onPress =function() { _parent.beginDrag({plane: "z"}); };
+		
+		EventDispatcher.initialize(this);
 	}
 	
 	private function beginDrag(event)
@@ -92,20 +100,23 @@ class ScaleWidget extends MovieClip
 		onMouseUp = endDrag;
 		
 		_dragOffset = {x: _xmouse, y: _ymouse};
+		_dragPlane = event.plane;
+		
+		dispatchEvent({type: "beginScale", plane: _dragPlane, x: _xmouse, y: _ymouse});
 	}
 
 	private function doDrag()
 	{
-		var diffX = _xmouse - _dragOffset.x;
-		var diffY = _ymouse - _dragOffset.y;
-		var d = Math.sqrt(Math.pow(diffX, 2) + Math.pow(diffY, 2));
-		trace(d + " - X: " + diffX + " Y: " + diffY);
+		dispatchEvent({type: "doScale", plane: _dragPlane, x: _xmouse, y: _ymouse});
 	}
 
 	private function endDrag()
 	{
 		delete onMouseUp;
 		delete onMouseMove;
+		
+		dispatchEvent({type: "endScale", plane: _dragPlane});
+		_dragPlane = null;		
 	}
 	
 	function fillXYPlane(canvas, innerSize, outerSize, color)

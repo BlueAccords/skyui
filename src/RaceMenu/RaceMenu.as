@@ -362,8 +362,10 @@ class RaceMenu extends MovieClip
 		
 		// Test Code
 		/*InitExtensions();
-		SetPlatform(1, false);
-		vertexEditor.loadAssets();*/
+		SetPlatform(1, false);*/
+		/*vertexEditor.loadAssets();
+		vertexEditor.ShowUV(true);
+		vertexEditor.ShowWireframe(true);*/
 	}
 	
 	public function InitExtensions()
@@ -496,6 +498,10 @@ class RaceMenu extends MovieClip
 			return true;
 		}
 		
+		if(modeSelect.handleInput(details, pathToFocus)) {
+			return true;
+		}
+		
 		/*var nextClip = pathToFocus.shift();
 		if (nextClip.handleInput(details, pathToFocus)) {
 			return true;
@@ -621,12 +627,14 @@ class RaceMenu extends MovieClip
 			searchWidget.isDisabled = false;
 			TweenLite.to(racePanel, 0.5, {autoAlpha: 100, _x: _panelX, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 			TweenLite.to(itemDescriptor, 0.5, {_alpha: 100, _x: (_panelX + racePanel._width), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(raceDescription, 0.5, {_alpha: 100, _x: _panelX, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
 			categoryList.disableSelection = categoryList.disableInput = true;
 			itemList.disableSelection = itemList.disableInput = true;
 			searchWidget.isDisabled = true;
 			TweenLite.to(racePanel, 0.5, {autoAlpha: 0, _x: ITEMLIST_HIDDEN_X, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 			TweenLite.to(itemDescriptor, 0.5, {_alpha: 0, _x: (ITEMLIST_HIDDEN_X + racePanel._width), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			TweenLite.to(raceDescription, 0.5, {_alpha: 0, _x: ITEMLIST_HIDDEN_X, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
 	
@@ -786,6 +794,7 @@ class RaceMenu extends MovieClip
 					itemList.entryList.splice(k, 1);
 			}
 		}
+		customSliders.splice(0, customSliders.length);
 		
 		if(_global.skse.plugins.CharGen) {
 			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "$Preset Slot", filterFlag: RaceMenuDefines.CATEGORY_BODY, callbackName: "ChangePresetSlot", sliderMin: 0, sliderMax: _global.skse.plugins.CharGen.iNumPresets, sliderID: -1, position: _global.presetSlot, interval: 1, enabled: true};
@@ -867,8 +876,6 @@ class RaceMenu extends MovieClip
 		} else {
 			skse.SendModEvent(_global.eventPrefix + "Reinitialized");
 		}
-		
-		skse.SendModEvent(_global.eventPrefix + "RequestSliders");
 		
 		EnhancedCharacterEdit.init(this);
 		

@@ -84,6 +84,44 @@ string Function GetNodePropertyString(ObjectReference ref, bool firstPerson, str
 Function ApplyNodeOverrides(ObjectReference ref) native global
 
 
+; Version 3 (Weapon Overrides)
+;-------------------------------------------------------
+; ObjectReference must be an Actor
+; If a weapon is templated it will inherit the properties of its parent first
+; Note that the player seems to be a special-case where they use the first person model for both first and third person
+;
+; Overrides will clean themselves if the Weapon no longer exists (i.e. you uninstalled the mod they were associated with)
+bool Function HasWeaponOverride(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index) native global
+
+Function AddWeaponOverrideFloat(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index, float value, bool persist) native global
+Function AddWeaponOverrideInt(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index, int value, bool persist) native global
+Function AddWeaponOverrideBool(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index, bool value, bool persist) native global
+Function AddWeaponOverrideString(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index, string value, bool persist) native global
+Function AddWeaponOverrideTextureSet(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index, TextureSet value, bool persist) native global
+
+; Gets the saved override value
+float Function GetWeaponOverrideFloat(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index) native global
+int Function GetWeaponOverrideInt(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index) native global
+bool Function GetWeaponOverrideBool(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index) native global
+string Function GetWeaponOverrideString(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index) native global
+TextureSet Function GetWeaponOverrideTextureSet(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index) native global
+
+; Gets the property straight from the node (Handy if you need the current value if an override D.N.E yet)
+float Function GetWeaponPropertyFloat(ObjectReference ref, bool firstPerson, Weapon weap, string node, int key, int index) native global
+int Function GetWeaponPropertyInt(ObjectReference ref, bool firstPerson, Weapon weap, string node, int key, int index) native global
+bool Function GetWeaponPropertyBool(ObjectReference ref, bool firstPerson, Weapon weap, string node, int key, int index) native global
+string Function GetWeaponPropertyString(ObjectReference ref, bool firstPerson, Weapon weap, string node, int key, int index) native global
+;TextureSet is not stored on the node, individual textures are, however.
+
+; Returns whether the specified node could be found for the given parameters
+; Debug will report errors to NiOverrides log file
+bool Function HasWeaponNode(ObjectReference ref, bool firstPerson, Weapon weap, string node, bool debug = false) native global
+
+; Applies all armor properties visually to the actor, this shouldn't be necessary under normal circumstances
+Function ApplyWeaponOverrides(ObjectReference ref) native global
+; ----------------------------------------------------
+
+
 ; Remove functions do not revert the modified state, only remove it from the save
 
 ; Removes ALL Armor based overrides from ALL actors (Global purge)
@@ -115,6 +153,20 @@ Function RemoveAllNodeNameOverrides(ObjectReference ref, bool isFemale, string n
 
 ; Removes one particular override from an actor, of a particular gender, nodeName, key, and index
 Function RemoveNodeOverride(ObjectReference ref, bool isFemale, string node, int key, int index) native global
+
+
+; Removes ALL weapon based overrides from ALL actors (Global purge)
+Function RemoveAllWeaponBasedOverrides() native global
+
+; Removes all weapon based overrides for a particular actor
+Function RemoveAllReferenceWeaponOverrides(ObjectReference ref) native global
+
+; Removes all weapon overrides for a particular actor, gender, view, and weapon
+Function RemoveAllWeaponOverrides(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap) native global
+
+; Removes all overrides for a particukar actor, gender, view, weapon, and nodeName
+Function RemoveAllWeaponNodeOverrides(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node) native global
+
 
 ; Overlay Data
 int Function GetNumBodyOverlays() native global

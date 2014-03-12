@@ -58,30 +58,30 @@ Offset       6575: Wrote compressed file scripts\source\uimenubase.psc
 Offset       7285: Wrote compressed file scripts\source\uimenuload.psc
 Offset       7409: Wrote compressed file scripts\source\uiextensions.psc
 Offset       8276: Wrote compressed file scripts\uitextentrymenu.pex
-Offset       9331: Wrote compressed file scripts\uicosmeticmenu.pex
-Offset      10893: Wrote compressed file scripts\cosmeticmenu.pex
-Offset      11707: Wrote compressed file scripts\uiwheelmenu.pex
-Offset      14262: Wrote compressed file scripts\uiselectionmenu.pex
-Offset      15585: Wrote compressed file scripts\uimagicmenu.pex
-Offset      17421: Wrote compressed file scripts\uistatsmenu.pex
-Offset      18269: Wrote compressed file scripts\uilistmenu.pex
-Offset      20443: Wrote compressed file scripts\uimenubase.pex
+Offset       9329: Wrote compressed file scripts\uicosmeticmenu.pex
+Offset      10889: Wrote compressed file scripts\cosmeticmenu.pex
+Offset      11712: Wrote compressed file scripts\uiwheelmenu.pex
+Offset      14264: Wrote compressed file scripts\uiselectionmenu.pex
+Offset      15595: Wrote compressed file scripts\uimagicmenu.pex
+Offset      17428: Wrote compressed file scripts\uistatsmenu.pex
+Offset      18272: Wrote compressed file scripts\uilistmenu.pex
+Offset      20442: Wrote compressed file scripts\uimenubase.pex
 Offset      21741: Wrote compressed file scripts\uimenuload.pex
-Offset      22148: Wrote compressed file scripts\uiextensions.pex
-Offset      24132: Wrote compressed file interface\translations\uiextensions_english.txt
-Offset      24943: Wrote compressed file interface\extension_assets\icons_category_psychosteve.swf
-Offset      33258: Wrote compressed file interface\extension_assets\bottombar.swf
-Offset      64206: Wrote compressed file interface\extension_assets\meter.swf
-Offset      81208: Wrote compressed file interface\extension_assets\buttonart.swf
-Offset     100195: Wrote compressed file interface\selectionmenu.swf
-Offset     116608: Wrote compressed file interface\magicmenuext.swf
-Offset     173247: Wrote compressed file interface\textentrymenu.swf
-Offset     192951: Wrote compressed file interface\cosmeticmenu.swf
-Offset     201061: Wrote compressed file interface\messagebox.swf
-Offset     220104: Wrote compressed file interface\listmenu.swf
-Offset     251508: Wrote compressed file interface\statssheetmenu.swf
-Offset     286174: Wrote compressed file interface\wheelmenu.swf
-Offset     323726: END OF FILE
+Offset      22149: Wrote compressed file scripts\uiextensions.pex
+Offset      24133: Wrote compressed file interface\translations\uiextensions_english.txt
+Offset      24944: Wrote compressed file interface\extension_assets\icons_category_psychosteve.swf
+Offset      33259: Wrote compressed file interface\extension_assets\bottombar.swf
+Offset      64207: Wrote compressed file interface\extension_assets\meter.swf
+Offset      81209: Wrote compressed file interface\extension_assets\buttonart.swf
+Offset     100196: Wrote compressed file interface\selectionmenu.swf
+Offset     116609: Wrote compressed file interface\magicmenuext.swf
+Offset     173248: Wrote compressed file interface\textentrymenu.swf
+Offset     192952: Wrote compressed file interface\cosmeticmenu.swf
+Offset     201082: Wrote compressed file interface\messagebox.swf
+Offset     220125: Wrote compressed file interface\listmenu.swf
+Offset     251529: Wrote compressed file interface\statssheetmenu.swf
+Offset     286195: Wrote compressed file interface\wheelmenu.swf
+Offset     323747: END OF FILE
 
 Finished writing files
 

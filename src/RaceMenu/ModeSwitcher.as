@@ -1,5 +1,7 @@
 ﻿import gfx.events.EventDispatcher;
 import gfx.controls.ButtonGroup;
+import gfx.ui.NavigationCode;
+import gfx.ui.InputDetails;
 import Shared.GlobalFunc;
 
 class ModeSwitcher extends MovieClip
@@ -35,13 +37,37 @@ class ModeSwitcher extends MovieClip
 		
 		var button0 = addMode("$Sliders");
 		var button1 = addMode("$Overlays");
-		var button2 = addMode("$Vertices");
+		var button2 = addMode("$Morphs");
 		buttonGroup.addButton(button0);
 		buttonGroup.addButton(button1);
 		buttonGroup.addButton(button2);
 		buttonGroup.setSelectedButton(button0);
 		
 		buttonGroup.addEventListener("change", this, "onItemChanged");		
+	}
+	
+	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
+	{			
+		var bHandledInput: Boolean = false;
+		if (GlobalFunc.IsKeyPressed(details)) {
+			if (details.navEquivalent == NavigationCode.GAMEPAD_R2) {
+				var i: Number = buttonGroup.indexOf(buttonGroup.selectedButton);
+				i += 1;
+				if(i >= buttonGroup.length)
+					i = 0;
+				buttonGroup.setSelectedButton(buttonGroup.getButtonAt(i));
+				bHandledInput = true;
+			} else if (details.navEquivalent == NavigationCode.GAMEPAD_L2) {
+				var i: Number = buttonGroup.indexOf(buttonGroup.selectedButton);
+				i -= 1;
+				if(i < 0)
+					i = buttonGroup.length - 1;
+				buttonGroup.setSelectedButton(buttonGroup.getButtonAt(i));
+				bHandledInput = true;
+			}
+		}
+
+		return bHandledInput;
 	}
 	
 	public function updateAlignment()

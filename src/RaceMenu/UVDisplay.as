@@ -126,6 +126,15 @@ class UVDisplay extends gfx.core.UIComponent
 		_headMesh = mesh;
 	}
 	
+	public function VisitSelection(functor: Function, data: Object): Void
+	{
+		for(var i = 0; i < buttonCount; ++i)
+		{
+			var vertexButton = container.buttons["v" + i];
+			functor(data, i, vertexButton);
+		}
+	}
+	
 	private function onLoadInit(a_clip: MovieClip): Void
 	{
 		EventDispatcher.initialize(a_clip);
@@ -207,10 +216,14 @@ class UVDisplay extends gfx.core.UIComponent
 	
 	public function unloadAssets()
 	{
+		_imageLoader.unloadClip(container.texture);
+		container.texture.removeMovieClip();
 		container.triangles.removeMovieClip();
+		for(var i = 0; i < buttonCount; i++)
+			container.buttons["v" + i].removeMovieClip();
 		container.buttons.removeMovieClip();
 		container.removeMovieClip();
-		_imageLoader.unloadClip(container.texture);
+		
 		ReleaseHeadTexture();
 		buttonCount = 0;
 	}

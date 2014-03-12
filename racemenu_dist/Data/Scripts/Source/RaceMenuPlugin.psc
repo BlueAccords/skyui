@@ -27,7 +27,7 @@ string Property NINODE_WEAPON = "WEAPON" AutoReadOnly
 
 ; Custom Properties
 float _height = 1.0
-float _head = 1.08
+float _head = 1.0
 float _leftBreast = 1.0
 float _rightBreast = 1.0
 float _leftBreastF = 1.0
@@ -145,7 +145,7 @@ Function Normalize()
 		_height = 1
 	Endif
 	if _head == 0
-		_head = 1.08
+		_head = 1
 	Endif
 	if _leftBreast == 0
 		_leftBreast = 1
@@ -212,7 +212,7 @@ Function SavePlayerNodeScales(Actor player)
 	If NetImmerse.HasNode(player, NINODE_HEAD, false)
 		_head = NetImmerse.GetNodeScale(player, NINODE_HEAD, false)
 	Else
-		_head = 1.08
+		_head = 1.0
 	Endif
 	If NetImmerse.HasNode(player, NINODE_LEFT_BREAST, false)
 		_leftBreast = NetImmerse.GetNodeScale(player, NINODE_LEFT_BREAST, false)
@@ -313,7 +313,7 @@ EndEvent
 
 Event OnResetMenu(Actor player, ActorBase playerBase)
 	_height = 1.0
-	_head = 1.08
+	_head = 1.0
 	_leftBreast = 1.0
 	_rightBreast = 1.0
 	_leftBreastF = 1.0
