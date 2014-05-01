@@ -97,7 +97,7 @@ class VertexEditor extends MovieClip
 	private function updateBottomBar(): Void
 	{
 		navPanel.clearButtons();
-		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", this, "onDoneClicked");
+		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", this._parent, "onDoneClicked");
 		
 		navPanel.updateButtons(true);		
 	}
@@ -124,6 +124,8 @@ class VertexEditor extends MovieClip
 			ShowWireframe(false);
 			TweenLite.to(tempText, 0.5, {autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
+		
+		enabled = bShowAll;
 	}
 	
 	public function ShowUV(bShowUV: Boolean): Void

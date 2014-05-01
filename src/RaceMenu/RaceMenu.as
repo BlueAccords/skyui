@@ -88,6 +88,7 @@ class RaceMenu extends MovieClip
 	public var categoryLabel: TextField;
 	public var searchWidget: SearchWidget;
 	public var vertexEditor: VertexEditor;
+	public var cameraEditor: CameraEditor;
 	
 	public var bottomBar: BottomBar;
 	public var navPanel: ButtonPanel;
@@ -151,6 +152,7 @@ class RaceMenu extends MovieClip
 		textEntry._visible = textEntry.enabled = false;
 		itemDescriptor._visible = itemDescriptor.enabled = false;
 		vertexEditor._visible = vertexEditor.enabled = false;
+		cameraEditor._visible = cameraEditor.enabled = false;
 		
 		GlobalFunc.MaintainTextFormat();
 		GlobalFunc.SetLockFunction();
@@ -357,7 +359,7 @@ class RaceMenu extends MovieClip
 		itemList.requestInvalidate();
 		
 		FocusHandler.instance.setFocus(itemList, 0);
-		
+				
 		//trace(Date().toString());
 		
 		// Test Code
@@ -367,13 +369,14 @@ class RaceMenu extends MovieClip
 		vertexEditor.ShowUV(true);
 		vertexEditor.ShowWireframe(true);*/
 	}
-	
+		
 	public function InitExtensions()
 	{
 		racePanel.Lock("L");
 		raceDescription.Lock("L");
 		vertexEditor.InitExtensions();
 		modeSelect.InitExtensions();
+		cameraEditor.InitExtensions();
 		bottomBar["playerInfo"].Lock("R");
 		
 		_panelX = racePanel._x;
@@ -400,6 +403,7 @@ class RaceMenu extends MovieClip
 		colorField.setPlatform(a_platform, a_bPS3Switch);
 		makeupPanel.setPlatform(a_platform, a_bPS3Switch);
 		vertexEditor.setPlatform(a_platform, a_bPS3Switch);
+		cameraEditor.setPlatform(a_platform, a_bPS3Switch);
 		
 		if(_platform == 0) {
 			_activateControl = Input.Activate;
@@ -465,7 +469,11 @@ class RaceMenu extends MovieClip
 		} else if(makeupPanel.enabled) {
 			return makeupPanel.handleInput(details, pathToFocus);
 		} else if(vertexEditor.enabled) {
-			return vertexEditor.handleInput(details, pathToFocus);
+			if(vertexEditor.handleInput(details, pathToFocus))
+				return true;
+		} else if(cameraEditor.enabled) {
+			if(cameraEditor.handleInput(details, pathToFocus))
+				return true;
 		}
 			
 		if (GlobalFunc.IsKeyPressed(details)) {
@@ -805,7 +813,7 @@ class RaceMenu extends MovieClip
 			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }
 			itemList.entryList.push(entryObject);
 		}
-		
+				
 		var colorIndex: Number = 0;
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.SLIDER_STRIDE) {
 			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: arguments[i + RaceMenuDefines.SLIDER_NAME], filterFlag: arguments[i + RaceMenuDefines.SLIDER_FILTERFLAG], callbackName: arguments[i + RaceMenuDefines.SLIDER_CALLBACKNAME], sliderMin: arguments[i + RaceMenuDefines.SLIDER_MIN], sliderMax: arguments[i + RaceMenuDefines.SLIDER_MAX], sliderID: arguments[i + RaceMenuDefines.SLIDER_ID], position: arguments[i + RaceMenuDefines.SLIDER_POSITION], interval: arguments[i + RaceMenuDefines.SLIDER_INTERVAL], enabled: true};
@@ -1016,7 +1024,8 @@ class RaceMenu extends MovieClip
 		categoryList["reinitClips"]();
 		categoryList.InvalidateData();
 		onCategoryPress();
-		itemList.InvalidateData();		
+		//itemList.InvalidateData();
+		itemList.UpdateList();
 	}
 	
 	public function onChangeMode(event: Object): Void
@@ -1026,18 +1035,27 @@ class RaceMenu extends MovieClip
 			ShowRacePanel(true);
 			ShowBottomBar(true);
 			vertexEditor.ShowAll(false);
+			cameraEditor.ShowAll(false);
 			ShowOverlays(false);
 			break;
 			case 1:
 			ShowRacePanel(true);
 			ShowBottomBar(true);
 			vertexEditor.ShowAll(false);
+			cameraEditor.ShowAll(false);
 			ShowOverlays(true);
 			break;
 			case 2:
 			ShowRacePanel(false);
 			ShowBottomBar(false);
+			cameraEditor.ShowAll(true);
+			vertexEditor.ShowAll(false);
+			break;
+			case 3:
+			ShowRacePanel(false);
+			ShowBottomBar(false);
 			vertexEditor.ShowAll(true);
+			cameraEditor.ShowAll(false);
 			break;
 		}
 	}

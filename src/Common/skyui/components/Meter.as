@@ -1,4 +1,4 @@
-import skyui.util.ColorFunctions;
+﻿import skyui.util.ColorFunctions;
 import Shared.GlobalFunc;
 import flash.geom.Transform;
 import flash.geom.ColorTransform;
@@ -157,8 +157,8 @@ class skyui.components.Meter extends MovieClip
 	public function setColors(a_primaryColor: Number, a_secondaryColor: Number, a_flashColor: Number): Void
 	{
 		// Wasteful checking..
-		//if (a_primaryColor != undefined && _primaryColor == a_primaryColor && _secondaryColor == a_secondaryColor)
-		//	return;
+		if (a_primaryColor != undefined && _primaryColor == a_primaryColor && _secondaryColor == a_secondaryColor)
+			return;
 		flashColor = a_flashColor;
 
 		if (a_secondaryColor == undefined || a_secondaryColor < 0x000000) {

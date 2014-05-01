@@ -167,6 +167,9 @@ Function RemoveAllWeaponOverrides(ObjectReference ref, bool isFemale, bool first
 ; Removes all overrides for a particukar actor, gender, view, weapon, and nodeName
 Function RemoveAllWeaponNodeOverrides(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node) native global
 
+; Removes a particular weapon override
+Function RemoveWeaponOverride(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index) native global
+
 
 ; Overlay Data
 int Function GetNumBodyOverlays() native global

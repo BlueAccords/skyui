@@ -1,21 +1,22 @@
 Language	English	French	German	Italian	Spanish	Czech	Polish	Russian	Japanese	Portuguese	ChineseTraditional	ChineseSimplified
-$ALL	ALL	TOUT	ALLES	TUTTO	Todos/Todas (Masculine/Feminie)	VŠE	WSZYSTKIE	ВСЕ	全て	TUDO	全部	全部
-$COLORS	COLORS	COULEURS	FARBEN	COLORI	Colores	BARVY	KOLORY	ЦВЕТА	色	CORES	色彩	颜色
-$MAKEUP	MAKEUP	MAQUILLAGE	MAKEUP	TRUCCO	Maquillaje	MAKEUP	MAKIJAŻ	МАКИЯЖ	化粧	MAQUIAGEM	化粧	化妆
-$FILTER	FILTER	FILTRE	FILTER	FILTRO	Filtro	FILTR	FILTR	ФИЛЬТР	フィルタ	Filtro	篩選	筛选
-$EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	Enfocar en	DODATEK	DODATEK	ДОПОЛНИТЕЛЬНО				
+$ALL	ALL	TOUT	ALLES	TUTTO	TODOS	VŠE	WSZYSTKIE	ВСЕ	全て	TUDO	全部	全部
+$COLORS	COLORS	COULEURS	FARBEN	COLORI	COLORES	BARVY	KOLORY	ЦВЕТА	色	CORES	色彩	颜色
+$MAKEUP	MAKEUP	MAQUILLAGE	MAKEUP	TRUCCO	MAQUILLAJE	MAKEUP	MAKIJAŻ	МАКИЯЖ	化粧	MAQUIAGEM	化粧	化妆
+$FILTER	FILTER	FILTRE	FILTER	FILTRO	FILTRO	FILTR	FILTR	ФИЛЬТР	フィルタ	Filtro	篩選	筛选
+$EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	DODATEK	DODATEK	ДОПОЛНИТЕЛЬНО				
 $BODY PAINT	BODY PAINT	PEINTURE SUR LE CORPS	KÖRPERBEMALUNG	TINTURA CORPO	PINTURA CORPORAL	BARVA NA TĚLE	BARWA CIAŁA	ТАТУИРОВКА ТЕЛА				
-$HAND PAINT	HAND PAINT	PEINTURE SUR LES MAINS	HANDBEMALUNG	TINTURA MANO	PINTURA EN LAS MANOS	BARVA RUKOU	BARWA RĘKI	ТАТУИРОВКА РУК				
-$FOOT PAINT	FOOT PAINT	PEINTURE SUR LES PIEDS	FUßBEMALUNG	TINTURA PIEDI	PINTURA EN LOS PIES	BARVA NOHOU	BARWA STÓP	ТАТУИРОВКА НОГ				
-$FACE PAINT	FACE PAINT	PEINTURE FACIALE	GESICHTSBEMALUNG	PITTURA FACCIALE		BARVA NA TVÁŘ	BARWA TWARZY					
-$Sliders	Sliders											
-$Overlays	Overlays											
-$Morphs	Morphs											
+$HAND PAINT	HAND PAINT	PEINTURE SUR LES MAINS	HANDBEMALUNG	TINTURA MANO	PINTURA DE MANOS	BARVA RUKOU	BARWA RĘKI	ТАТУИРОВКА РУК				
+$FOOT PAINT	FOOT PAINT	PEINTURE SUR LES PIEDS	FUßBEMALUNG	TINTURA PIEDI	PINTURA DE PIES	BARVA NOHOU	BARWA STÓP	ТАТУИРОВКА НОГ				
+$FACE PAINT	FACE PAINT	PEINTURE SUR LA TETE	GESICHTSBEMALUNG	PITTURA FACCIALE	PINTURA FACIAL	BARVA NA TVÁŘ	BARWA TWARZY	ТАТУИРОВКА ЛИЦА				
+$Sliders	Sliders	Curseurs	Regler	Cursori	Controles	Posuvníky	Suwaki	Бегунки				
+$Overlays	Overlays	Superposition	Überlagerungen	Sovrapposizioni	Superposición	Vrstvy	Pokrycie	Верхний слой				
+$Camera	Camera	Caméra	Kamera	Camera	Cámara	Kamera	Kamera					
+$Morphs	Morphs	Morphs	Morphs	Trasformazioni	Morfismo	Morfy	Morfy	Трансформирование				
 $Zoom In	Zoom In	Zoom avant	Vergrößern	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
 $Zoom Out	Zoom Out	Zoom arrière	Verkleinern	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
 $Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить Расу	種族の変更	Mudar a raça	變更種族	更变种族
 $Choose Color	Choose Color	Choix de couleur	Farbe wählen	Scegli Colore	Elegir color	Vybrat Barvu	Wybierz Kolor	Выбор цвета	色の選択	Escolha a cor	選擇色彩	选择颜色
-$Choose Texture	Choose Texture	Choix de texture	Textur wählen	Scegli Texture	Elegir textura	Vybrat texturu	Wybierz Teksturę	Выбор текстуры	テクスチャーの選択	Escolha a textura	選擇材質	选择材质
+$Choose Texture	Choose Texture	Choix de texture	Textur wählen	Scegli Texture	Elegir textura	Vybrat Texturu	Wybierz Teksturę	Выбор текстуры	テクスチャーの選択	Escolha a textura	選擇材質	选择材质
 $Glow	Glow	Lueur	Leuchten	Bagliore	Brillo	Záře	Blask	Свечение				
 $Tint	Tint	Teinte	Tönung	Tinta	Tinte	Odstín	Odcień	Оттенок				
 $Search	Search	Recherche	Suchen	Cerca	Buscar	Hledat	Szukaj	Найти	検索	Procura	搜尋	搜索
@@ -23,17 +24,22 @@ $Change Category	Change Category	Changer de catégorie	Kategorie ändern	Cambia 
 $Load Color	Load Color	Charger couleur	Farbe laden	Carica Colore	Cargar color	Načíst barvu	Wczytaj Kolor	Загрузить цвет				
 $Save Color	Save Color	Enregistrer couleur	Farbe speichern	Salva Colore	Guardar color	Uložit barvu	Zapisz Kolor	Сохранить цвет				
 $Saved Color	Saved Color	Couleurs enregistrées	Gespeicherte Farbe	Colore Salvato	Color guardado	Uložená barva	Zapisano Kolor	Сохранённый цвет				
-$Load Preset	Load Preset	Charger le préréglage                                                                                 	Voreinstellung laden	Carica Predisposto	Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード			读取预设
-$Save Preset	Save Preset	Sauver le préréglage	Voreinstellung speichern	Salva Predisposto	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存			保存预设
+$Load Preset	Load Preset	Charger le préréglage                                                                                 	Voreinstellung laden	Carica Impostazioni	Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード			读取预设
+$Save Preset	Save Preset	Sauver le préréglage	Voreinstellung speichern	Salva Impostazioni	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存			保存预设
 $Light On	Light On	Avec lumière	Licht an	Luce Accesa	Luz encendida	Světlo zapnuté	Zapal	Вкл. Подсветку	ライトオン	Ligar a luz	開啟燈光	开启光照
 $Light Off	Light Off	Sans lumière	Licht aus	Luce Spenta	Luz apagada	Světlo vypnuté	Zgaś	Выкл. Подстветку	ライトオフ	Desligar a luz	關閉燈光	关闭光照
 $Exported head	Exported head	Tête exportée	Kopf wurde exportiert	Testa Esportata	Cabeza exportada	Exportovaná hlava	Eksportowano głowę	Экспортированная голова				
 $Export Head	Export Head	Exporter tête	Kopf exportieren	Esporta Testa	Exportar cabeza	Exportovat hlavu	Eksportuj Głowę	Экспортировать голову				
+$Rotate	Rotate	Pivoter	Drehen	Ruota	Rotar	Otočit	Obróć					
+$Move Camera	Move Camera	Déplacer la caméra	Kamera bewegen	Muovi camera	Mover cámara	Posunout Kameru	Poruszaj Kamerą					
+$Rate ({})	Rate ({})	Vitesse ({})	Rate ({})		Indice ({})	Stupeň ({})	Ocena ({})					
+$Primary	Primary	Primaire	Primär	Primario	Primario	Primární	Pierwszorzędny					
+$Secondary	Secondary	Secondaire	Sekundär	Secondario	Secundario	Sekundární	Drugorzędny					
 $Preset Slot	Preset Slot	Emplacement de réglages	Vorlageposition	Slot impostazione	Ranura de ajustes predefinidos	Slot předvolby	Gniazdo Wyglądu	Слот предустановки				
-$Saved preset to clipboard	Saved preset to clipboard	Sauvegarder les réglages dans le presse-papier	Vorlage in Zwischenablage gespeichert	Impostazione salvata sugli appunti	Ajustes predefinidos guardados en el portapapeles	Předvolba uložena do schránky	Zapisano wygląd do schowka	Предустановка сохраненна в буфер				
-$Saved preset to slot {}	Saved preset to slot {}	Réglages sauvegardés dans l'emplacement {}	Vorlage in Position {} gespeichert	Impostazione salvata nello slot {}	Ajustes predefinidos guardados en la ranura	Předvolba uložena do slotu {}	Zapisano wygląd do gniazda {}	Сохранить предустановку в слот {}				
-$Loaded preset from slot {}	Loaded preset from slot {}	Réglages chargés depuis l'emplacement {}	Vorlage aus Position {} geladen	Carica impostazione dallo slot {}	Ajustes predefinidos cargados de la ranura	Načtena předvolba ze slotu {}	Wczytano wygląd z gniazda {}	Загрузить предустановку из слота {}				
-$Failed to load preset from slot {}	Failed to load preset from slot {}	Echec du chargement des réglages depuis l'emplacement {}	Fehler beim Laden der Vorlage aus Position {}	Fallito caricamento dell'impostazione dallo slot {}	Fallo al cargar los ajustes predefinidos de la ranura	Načtení předvolby ze slotu {} selhalo	Nie powiodło się wczytanie wyglądu z gniazda {}	Не удалось загрузить предустановку из слота {}				
+$Saved preset to clipboard	Saved preset to clipboard	Sauvegarder les réglages dans le presse-papier	Vorlage in Zwischenablage gespeichert	Impostazione salvata sugli appunti	Ajustes predefinidos guardados en el portapapeles	Předvolba uložena do schránky	Zapisano wygląd do schowka	Предустановка сохранена в буфер				
+$Saved preset to slot {}	Saved preset to slot {}	Réglages sauvegardés dans l'emplacement {}	Vorlage in Position {} gespeichert	Impostazione salvata nello slot {}	Ajustes predefinidos guardados {}	Předvolba uložena do slotu {}	Zapisano wygląd do gniazda {}	Сохранить предустановку в слот {}				
+$Loaded preset from slot {}	Loaded preset from slot {}	Réglages chargés depuis l'emplacement {}	Vorlage aus Position {} geladen	Carica impostazione dallo slot {}	Ajustes predefinidos cargados {}	Načtena předvolba ze slotu {}	Wczytano wygląd z gniazda {}	Загрузить предустановку из слота {}				
+$Failed to load preset from slot {}	Failed to load preset from slot {}	Echec du chargement des réglages depuis l'emplacement {}	Fehler beim Laden der Vorlage aus Position {}	Fallito caricamento dell'impostazione dallo slot {}	Fallo al cargar los ajustes predefinidos {}	Načtení předvolby ze slotu {} selhalo	Nie powiodło się wczytanie wyglądu z gniazda {}	Не удалось загрузить предустановку из слота {}				
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
 $Head	Head	Tête	Kopf	Testa	Cabeza	Hlava	Głowa	Голова	頭部	Cabeça	頭部	头部
 $Left Breast	Left Breast	Poitrine gauche	Linke Brust	Seno Sinistro	Seno izquierdo	Levé ňadro	Lewa Pierś	Левая грудь	左胸	Peito esquerdo	左胸	左胸
@@ -46,14 +52,14 @@ $Left Biceps	Left Biceps	Biceps gauche	Linker Bizeps	Bicipite Sinistro	Bíceps i
 $Right Biceps	Right Biceps	Biceps droit	Rechter Bizeps	Bicipite Destro	Bíceps derecho	Pravý biceps	Prawy Biceps	Правый бицепс	右腕の力こぶ	Bíceps direito	左臂二頭肌	右肱二头肌
 $Left Biceps 2	Left Biceps 2	Biceps gauche 2	Linker Bizeps 2	Bicipite Sinistro 2	Bíceps izquierdo 2	Levý biceps 2	Lewy Biceps 2	Левый бицепс 2	左腕の力こぶ 2	Bíceps esquerdo 2	右臂二頭肌 2	左肱二头肌 2
 $Right Biceps 2	Right Biceps 2	Biceps droit 2	Rechter Bizeps 2	Bicipite Destro 2	Bíceps derecho 2	Pravý biceps 2	Prawy Biceps 2	Правый бицепс 2	右腕の力こぶ 2	Bíceps direito 2	左臂二頭肌 2	右肱二头肌 2
-$Quiver Scale	Quiver Scale	Taille du carquois	Köchergröße	Dimensioni Faretra	Tamaño del carcaj	Měřítko toulce	Skala Kołczanu	Шкала колчана				
-$Bow Scale	Bow Scale	Taille de l'arc	Bogengröße	Dimensioni Arco	Tamaño del arco	Měřítko luku	Skala Łuku	Шкала лука				
-$Axe Scale	Axe Scale	Taille de la hache	Axtgröße	Dimensioni Ascia	Tamaño del hacha	Měřítko sekery	Skala Toporu	Шкала топора				
-$Sword Scale	Sword Scale	Taille de l'épée	Schwertgröße	Dimensioni Spada	Tamaño de la espada	Měřítko meče	Skala Mieczu	Шкала меча				
-$Mace Scale	Mace Scale	Taille de la masse	Streitkolbengröße	Dimensioni Mazza	Tamaño del mazo	Měřítko palice	Skala Buławy	Шкала булавы				
-$Shield Scale	Shield Scale	Taille du bouclier	Schildgröße	Dimensioni Arma su schiena	Tamaño del escudo	Měřítko štítu	Skala Tarczy	Шкала щита				
-$Weapon Back Scale	Weapon Back Scale	Taille de l'arme dans le dos	Waffengröße hinten	Dimensioni Scudo	Tamaño del arma nueva	Měřítko zbraně na zádech	Skala Tylnej Broni	Шкала оружия за спиной				
-$Weapon Scale	Weapon Scale	Taille de l'arme	Waffengröße	Dimensioni Arma	Tamaño del arma 	Měřítko zbraně	Skala Broni	Шкала оружия				
+$Quiver Scale	Quiver Scale	Taille du carquois	Köchergröße	Dimensioni Faretra	Escala del carcaj	Měřítko toulce	Skala Kołczanu	Шкала колчана				
+$Bow Scale	Bow Scale	Taille de l'arc	Bogengröße	Dimensioni Arco	Escala del arco	Měřítko luku	Skala Łuku	Шкала лука				
+$Axe Scale	Axe Scale	Taille de la hache	Axtgröße	Dimensioni Ascia	Escala del hacha	Měřítko sekery	Skala Toporu	Шкала топора				
+$Sword Scale	Sword Scale	Taille de l'épée	Schwertgröße	Dimensioni Spada	Escala de la espada	Měřítko meče	Skala Mieczu	Шкала меча				
+$Mace Scale	Mace Scale	Taille de la masse	Streitkolbengröße	Dimensioni Mazza	Escala del mazo	Měřítko palice	Skala Buławy	Шкала булавы				
+$Shield Scale	Shield Scale	Taille du bouclier	Schildgröße	Dimensioni Arma su schiena	Escala del escudo	Měřítko štítu	Skala Tarczy	Шкала щита				
+$Weapon Back Scale	Weapon Back Scale	Taille de l'arme dans le dos	Waffengröße hinten	Dimensioni Scudo	Escala del arma larga	Měřítko zbraně na zádech	Skala Tylnej Broni	Шкала оружия за спиной				
+$Weapon Scale	Weapon Scale	Taille de l'arme	Waffengröße	Dimensioni Arma	Escala del arma 	Měřítko zbraně	Skala Broni	Шкала оружия				
 $Alteration	Alteration	Altération	Veränderung	Alterazione	Alteración	Proměny	Przemiana	Изменение	変性	Alteração		变化
 $Conjuration	Conjuration	Conjuration	Beschwörung	Evocazione	Conjuración	Vyvolávání	Przywoływanie	Колдовство	召喚	Conjuração		召唤
 $Destruction	Destruction	Destruction	Zerstörung	Distruzione	Destrucción	Ničení	Zniszczenie	Разрушение	破壊	Destruição		毁灭
@@ -193,6 +199,91 @@ $Female Forsworn Tattoo 03	Female Forsworn Tattoo 03	Tatouage parjure femme 03	W
 $Female Forsworn Tattoo 04	Female Forsworn Tattoo 04	Tatouage parjure femme 04	Weibliches Abgeschworenen Tattoo 04	Tatuaggio Femminile Rinnegato 04	Tatuaje Renegado para mujer 04	Tetování Zapřisáhlé ženy 04	Żeński Renegat Tatuaż 04	Жен. Татуировка Изгоев 04	女性フォースウォーンのタトゥー 04	Tatuagem renegada feminina 04		女弃誓者纹身 04
 $Male Black Blood Tattoo 01	Male Black Blood Tattoo 01	Tatouage sang noir homme 01	Männliches Schwarzblut Tattoo 01	Tatuaggio Maschile Blackblood 01	Tatuaje Sangre Negra para hombre 01	Tetování Gangu Blackblood 01	Męski Tatuaż Czarnej Krwii 01	Муж. Тату черной крови 01	男性ブラック・ブラッドのタトゥー 01	Tatuagem de sangue negro masculino 01		男黑血纹身 01
 $Male Black Blood Tattoo 02	Male Black Blood Tattoo 02	Tatouage sang noir homme 02	Männliches Schwarzblut Tattoo 02	Tatuaggio Maschile Blackblood 02	Tatuaje Sangre Negra para hombre 02	Tetování Gangu Blackblood 02	Męski Tatuaż Czarnej Krwii 02	Муж. Тату черной крови 02	男性ブラック・ブラッドのタトゥー 02	Tatuagem de sangue negro masculino 02		男黑血纹身 02
+$RANs_Age	Age	Age	Alter	Età						Idade		
+$RANs_Weight	Face Weight	Poids de la tête	Gesichtsfülle/-rundung	Peso								
+$RANs_HeadShape	Head Shape	Forme de la tête	Kopfform	Forma della testa						Formato da Cabeca		
+$CME_FaceUpDown	Face Height	Hauteur du visage	Gesichtshöhe	Testa su/giù	Altura de rostro	Výška obličeje				Altura da Cabeca	臉部高度	
+$CME_ForeheadFix	Forehead Fix	Front	Stirn Fix	Fix per la fronte	Arreglo de la frente	Fix čela				Testa Correcao		
+$CME_NeckSize	Neck Size	Taille du cou	Halsgröße	Spessore collo	Tamaño de cuello	Tloušťka krku						
+$CME_CheeksUpDown	Cheekbone Height	Hauteur des pomettes	Wangenknochenhöhe		Altura de pómulo	Výška lícních kostí					頰骨高度	
+$CME_CheeksBoneInOut	Cheekbone Width	Largeur des pomettes	Wangenknochenbreite		Ancho de pómulo	Předsunutí lícních kostí					頰骨闊度	
+$CME_CheeksWidth	Cheekback Width	Largeur des joues (arriére)	Backenbreite (hinten)		Anchura de pómulo (atrás)	Šířka lícních kostí					臉頰後方闊度	
+$CME_CheeksBlow	Cheekfront Width	Largeur des joues (avant)	Backenbreite (vorne)		Anchura de pómulo (adelante)	Šířka lícních kostí					臉頰前方闊度	
+$CME_JawWidth	Jaw Width	Largeur de la mâchoire	Kieferbreite	Larghezza mascella	Ancho de mandíbula	Šířka čelisti					下顎闊度	
+$CME_JawUpDown	Jaw Height	Hauteur de la mâchoire	Kieferhöhe	Mascella su/giù	Altura de mandíbula	Výška čelisti					下顎高度	
+$CME_JawBackForward	Jaw Depth	Avancée de la mâchoire	Kiefertiefe	Mascella avanti/indietro	Profundidad de mandíbula	Hloubka čelisti					下顎深度	
+$CME_ChinWidth	Chin Width	Largeur du menton	Kinnbreite	Larghezza mento	Ancho de barbilla	Šířka brady					下巴闊度	
+$CME_ChinUpDown	Chin Length	Longueur du menton 	Kinnlänge	Mento su/giù	Largo de barbilla	Délka brady					下巴長度	
+$CME_ChinBackForward	Chin Depth	Avancée du menton	Kinntiefe	Mento avanti/indietro	Profundidad de barbilla	Hloubka brady					下巴深度	
+$ECE_ChinBackForward	Chin Jut Depth	Profondeur de la saillie du menton	Kinntiefe 2		Profundidad del mentón	Vysunutí brady					下頜深度	
+$CME_UnderChinSlope	Chin Angle Height	Hauteur de l'angle du  menton	Kinnwinkelhöhe		Altura de ángulo de barbilla	Výška a úhel podbradku					下巴角度	
+$CME_EyesType	Eye Type	Hauteur de l'angle du  menton	Augentyp	Tipo di occhi	Tipo de ojos	Typ očí					眼睛類型	
+$CME_EyesSize	Eye Size	Hauteur de l'angle du  menton	Augengröße	Grandezza occhi	Tamaño de ojos	Velikost očí					眼睛尺寸	
+$CME_EyesHeight	Eyelid Height	Écartement des paupières	Augenlidhöhe	Altezza occhi	Altura de párpados	Výška očního víčka						
+$CME_UpperEyesHeight	Upper Eyelid Height	Hauteur de la paupière supérieure	Augenlidhöhe (oben)		Altura de párpado superior	Výška horního víčka						
+$CME_LowerEyesHeight	Lower Eyelid Height	Hauteur de la paupière inférieure	Augenlidhöhe (unten)		Altura de párpado inferior	Výška spodního víčka						
+$CME_EyesSlope	Eye Tilt	Inclinaison des yeux	Augenneigung		Inclinación de ojos	Naklonění očí						
+$CME_EyeballSize	Iris Size	Taille de l'iris	Irisgröße		Tamaño de iris	Velikost duhovky						
+$CME_EyeballInOut	Iris Spread	Extension de l'iris	Irisversetzung		Extensión del iris	Rozšíření duhovky						
+$CME_EyeballUpDown	Iris Height	Hauteur de l'iris	Irishöhe		Altura de iris	Výška duhovky						
+$CME_EyelashLength	Eyelash Length	Longueur des cils	Wimpernlänge		Largo de pestañas	Délka řas						
+$CME_EyesUpDown	Eyes Height	Hauteur des yeux	Augenhöhe		Altura de ojos	Výška očí						
+$CME_EyesInOut	Eyes Spread	Écartement des yeux	Augenversetzung		Distancia entre los ojos	Vzdálennost očí						
+$CME_EyesBackForward	Eyes Depth	Profondeur des yeux	Augentiefe		Profundidad de ojos	Hloubka očí						
+$CME_BrowSlope	Brow Slope	Inclinaison des sourcils	Brauenneigung		Inclinación de las cejas	Sklon obočí						
+$CME_BrowArch	Brow Arch	Courbe des sourcils	Brauenwölbung		Arco de cejas	Oblouk obočí						
+$CME_BrowUpDown	Brow Height	Hauteur des sourcils	Brauenhöhe		Altura de cejas	Výška obočí						
+$CME_BrowInOut	Brow Width	Largeur des sourcils	Brauenbreite		Ancho de cejas	Šířka obočí						
+$CME_BrowBackForward	Brow Depth	Avancée des sourcils	Brauentiefe		Profundida de cejas	Hloubka obočí						
+$RANs_ForeheadBackForward	Forehead Depth	Avancée du front	Stirntiefe		Profundida de frente	Hloubka čela						
+$CME_LipType	Mouth Type	Forme de la bouche	Mundtyp	Tipo di labbra	Tipo de boca	Typ úst						
+$RANs_LipDuckly	Lip Pout	Pulbabilitée des  lèvres	Lippen Schmollen		Mohín	Stisknutí rtů						
+$CME_MouthWidth	Mouth Width	Largeur de la bouche	Mundbreite		Ancho de boca	Śířka úst						
+$CME_MouthHeight	Lip Height	Hauteur des lèvres	Lippenhöhe		Altura de labios	Výška rtů						
+$CME_UpperLipHeight	Upper Lip Height	Hauteur de la lèvre supérieure	Lippenhöhe (oben)		Altura de labio superior	Výška horního rtu						
+$CME_LowerLipHeight	Lower Lip Height	Hauteur de la lèvre inférieure	Lippenhöhe (unten)		Altura de labio inferior	Výška spodního rtu						
+$CME_MouthCornerUpDown	Mouth Corner Height	Hauteur des coins de la bouche	Mundwinkelhöhe		Altura de la comisura	Výška koutku úst						
+$CME_MouthCornerBackForward	Mouth Corner Depth	Avancée des coins de la bouche	Mundwinkeltiefe		Profunidad de comisura	Hloubka koutku úst						
+$CME_MouthUpDown	Mouth Height	Hauteur de la bouche	Mundhöhe	Bocca su/giù	Altura de boca	Výška úst						
+$CME_MouthBackForward	Mouth Depth	Avancée de la bouche	Mundtiefe		Profundida de boca	Hloubka úst						
+$CME_NoseType	Nose Type	Type de nez	Nasentyp		Tipo de nariz	Typ nosu						
+$CME_NoseUpDown	Nose Height	Hauteur du nez	Nasenhöhe		Altura de nariz	Výška nosu						
+$CME_NoseLength	Nose Length	Longueur du nez	Nasenlänge		Largo de nariz	Délka nosu						
+$CME_NoseBackForward	Nose Depth	Profondeur du nez	Nasentiefe		Profudidad de nariz	Hloubka nosu						
+$ECE_NoseBridgeWidth	Nose Bridge Width	Largeur du dos du nez	Nasenbrückenbreite		Ancho de puente de nariz	Tloušťka nosního můstku						
+$ECE_NoseTipWidth	Nose Tip Width	Largeur de la pointe du nez	Nasenspitzenbreite		Anchura de la punta de la nariz	Šířka špičky nosu						
+$CME_NoseHoleSlope	Nose Tip Slope	Élevation de la pointe du nez	Nasenspitze Neigung		Altura de la punta de la nariz	Sklon špičky nosu						
+$CME_NoseSellionBackForward	Nose Sellion Depth	Profondeur de la racine du nez	Nasenübergang Tiefe		Profundidad del tabique nasal	Hloubka kořene nosu						
+$CME_NoseSellionUpDown	Nose Sellion Height	Hauteur de la racine du nez	Nasenübergang Höhe		Altura del tabique nasal	Výška kořene nosu						
+$CME_NoseSellionWidth	Nose Sellion Width	Largeur de la racine du nez	Nasenübergang Breite		Anchura del tabique nasal	Síla kořene nosu						
+$RANs_NoseRidgeShape	Nose Bridge Depth	Profondeur du dos du nez	Nasenbrückentiefe		Profundidad del puente de la nariz	Hloubka nosního můstku						
+$CME_AroundNoseBackForward	Nose Area Depth	Profondeur de la zone du nez	Nasenumgebung Tiefe		Profundidad del área de la nariz	Hloubka oblasti nosu						
+$ECE_EarShape	Ear Shape	Forme des oreilles	Ohrenform	Forma orecchie	Forma de orejas	Tvar uší		Форма ушей				
+$ECE_EarSize	Ear Size	Taille des oreilles	Ohrengröße	Grandezza orecchie	Tamaño de orejas	Velikost uší		Размер ушей				
+$CME_EarUpDown	Ear Height	Hauteur des oreilles	Ohrenhöhe	Orecchie su/giù	Altura de orejas	Výška uší		Уровень ушей				
+$CME_ElfEar	Elf Ear Tip	Oreilles d'elf	Elfenohren Spitze	Orecchie da elfo	Orejas de elfo	Špička elfích uší		Тип эльф. ушей				
+$CME_Nord	Nord	Nordique	Nord	Nord	Norteño	Seveřan		Норд				
+$CME_Breton	Breton	Bréton	Breton		Bretón	Bretonec		Бретонец				
+$CME_Imperial	Imperial	Impérial	Kaiserlich		Imperial	Císařský		Имперец				
+$CME_Redguard	Redguard	Rougegarde	Rothwardon		Guardia roja	Redguard		Редгард				
+$CME_WoodElf	Wood Elf	Elf des Bois	Waldelf		Elfo del bosque	Lesní elf		Лесной Эльф 				
+$CME_DarkElf	Dark Elf	Elf Noir	Dunkelelf		Elfo oscuro	Temný elf		Темный Эльф				
+$CME_HighElf	High Elf	Haut-Elf	Hochelf		Alto elfo	Vysoký elf		Высший Эльф				
+$NSK_NoseWidth	Nose Width	Largeur du nez	Nasenbreite	Larghezza naso	Ancho de Nariz	Šířka nosu	Szerokość nosa	Ширина носа			鼻寛	
+$NSK_NoseBridge	Nose Bridge	Arête du nez	Nasenbrücke		Puente de Nariz	Nosní můstek	Szerokość kości nosowej	Переносица			鼻樑	
+$NSK_LipThickness	Lip Thickness	Épaisseur des lèvres	Lippenfülle	Spessore labbra	Grosor de Labios	Plnost rtů		Толщина губ			嘴唇厚度	
+$NSK_ElfEar	Elf Ear	Oreilles d'elfe	Elfenohren	Orecchie da elfo	Orejas de elfo	Elfí uši	Elfie uszy	Эльфийские уши			耳尖長度	
+$NSK_EyeSize	Eye Size	Taille des yeux	Augengröße	Grandezza occhi	Tamaño de Ojos	Velikost očí	Rozmiar oczu	Размер глаз			眼睛大小	
+$NSK_EyeAngle	Eye Angle	Inclinaison des yeux	Augenwinkel		Angulo de Ojos	Úhel očí	Kąt oczu	Угол наклона глаз			眼睛角度	
+$NSK_EyelidOpen	Eyelid Open	Ouverture des paupières	Augenlid-Öffnung		Apertura de Párpados	Otevření očních víček		Раскрыть веки			眼瞼開合	
+$NSK_JawShape	Jaw Shape	Forme de la mâchoire	Kieferform	Forma della mascella	Forma de Mandibula	Tvar čelisti		Форма челюсти			下顎形狀	
+$NSK_CheekShape	Cheek Shape	Forme des joues	Backenform		Forma de mejilla	Tvar líce		Форма щёк			臉頰形狀	
+$NSK_BrowAngle	Brow Angle	Inclinaison des sourcils	Brauenwinkel		Ángulo de Cejas	Úhel obočí	Kąt brwi	Угол бровей			眼眉角度	
+$NSK_LipsOpen	Lips Open	Ouverture des lèvres	Lippen-Öffnung	Labbra aperte	Labios Abiertos	Otevření rtů	Otwarte usta	Раскрыть губы			嘴唇開合	
+$NSK_NoseSellionWidth	Nose Sellion Width	Largeur des narines	Nasenübergangsbreite		Ancho Nasal	Šířka kořene nosu	Szerokość nozdrzy	Ширина переносицы			印堂闊度	
+$NSK_NoseTilt	Nose Tilt	Inclinaison du nez	Nasenneigung		Ángulo de Nariz	Naklonění nosu	Nachylenie nosa	Наклон носа			鼻尖	
+$NSK_MouthWidth	Mouth Width	Largeur de la bouche	Mundbreite	Larghezza bocca	Ancho de Boca	Śířka úst	Szerokość ust	Ширина рта			嘴唇闊度	
+$NSK_MouthSmile	Mouth Smile	Sourire	Lächeln	Sorriso	Sonrisa	Úsměv	Uśmiech	Улыбка			嘴角高度	
 												
-% Completion	100.00%	98.45%	98.45%	98.45%	97.94%	98.45%	98.45%	97.94%	84.54%	83.51%	29.90%	85.57%
-Total % Completion	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%	89.30%
+% Completion	100.00%	100.00%	100.00%	80.35%	98.95%	98.95%	74.04%	77.19%	57.54%	58.25%	30.88%	58.25%
+Total % Completion	77.87%	77.87%	77.87%	77.87%	77.87%	77.87%	77.87%	77.87%	77.87%	77.87%	77.87%	77.87%
