@@ -839,6 +839,15 @@ class RaceMenu extends MovieClip
 				
 				if(entryObject.sliderID != undefined && entryObject.position != undefined) {
 					entryObject.extraData = _global.skse.plugins.CharGen.GetSliderData(entryObject.sliderID, entryObject.position);
+					switch(entryObject.extraData.type) {
+						case 5: // ChangeHairColorPreset
+							entryObject.tintType = RaceMenuDefines.TINT_TYPE_HAIR;
+							break;
+						case 4: // ChangeTintingMask
+						case 9: // ChangeMaskColor
+							entryObject.tintType = entryObject.extraData.index;
+							break;
+					}
 				} else {
 					entryObject.extraData = null;
 				}
@@ -1018,14 +1027,13 @@ class RaceMenu extends MovieClip
 	}
 	
 	private function ShowOverlays(abShow: Boolean): Void
-	{
+	{		
 		categoryList.activeSegment = abShow ? CategoryList.RIGHT_SEGMENT : CategoryList.LEFT_SEGMENT;
 		categoryList.iconArt = abShow ? _artSecondary : _artPrimary;
 		categoryList["reinitClips"]();
 		categoryList.InvalidateData();
 		onCategoryPress();
-		//itemList.InvalidateData();
-		itemList.UpdateList();
+		itemList.requestUpdate();
 	}
 	
 	public function onChangeMode(event: Object): Void

@@ -96,7 +96,7 @@ class SliderListEntry extends BasicListEntry
 		if(!SliderInstance.disabled) {
 			var handledInput: Boolean = SliderInstance.handleInput(details, pathToFocus);
 			if(handledInput) {
-				list.requestUpdate();
+				//list.requestUpdate();
 				return true;
 			}
 		}
@@ -112,7 +112,7 @@ class SliderListEntry extends BasicListEntry
 	
 	public function onSliderLoad(event: Object)
 	{
-		setSlider(proxyObject);
+		setSlider(event.object, proxyObject);
 	}
 
 	public function setEntry(a_entryObject: Object, a_state: ListState): Void
@@ -158,7 +158,7 @@ class SliderListEntry extends BasicListEntry
 				if(!SliderInstance.initialized) {
 					proxyObject = a_entryObject;
 				} else {
-					setSlider(a_entryObject);
+					setSlider(SliderInstance, a_entryObject);
 				}
 			}
 			break;
@@ -225,17 +225,20 @@ class SliderListEntry extends BasicListEntry
 		SliderInstance.changedCallback();
 	}
 	
-	private function setSlider(a_entryObject: Object): Void
+	private function setSlider(slider:Object, a_entryObject: Object): Void
 	{
-		SliderInstance.minimum = a_entryObject.sliderMin;
-		SliderInstance.maximum = a_entryObject.sliderMax;
-		SliderInstance.snapInterval = a_entryObject.interval;
-		SliderInstance.position = a_entryObject.position;
-		SliderInstance.callbackName = a_entryObject.callbackName;
-		SliderInstance.sliderID = a_entryObject.sliderID;
-		SliderInstance.internalCallback = a_entryObject.internalCallback;
-		SliderInstance.entryObject = a_entryObject;
-		SliderInstance.changedCallback = function()
+		if(!slider)
+			return;
+		
+		slider.minimum = a_entryObject.sliderMin;
+		slider.maximum = a_entryObject.sliderMax;
+		slider.snapInterval = a_entryObject.interval;
+		slider.position = a_entryObject.position;
+		slider.callbackName = a_entryObject.callbackName;
+		slider.sliderID = a_entryObject.sliderID;
+		slider.internalCallback = a_entryObject.internalCallback;
+		slider.entryObject = a_entryObject;
+		slider.changedCallback = function()
 		{
 			GameDelegate.call(this.callbackName, [this.position, this.sliderID]);
 			GameDelegate.call("PlaySound",["UIMenuFocus"]);
@@ -249,7 +252,7 @@ class SliderListEntry extends BasicListEntry
 				this.internalCallback();
 			}
 		};
-		SliderInstance.addEventListener("change", SliderInstance, "changedCallback");
-		SliderInstance.disabled = !a_entryObject.enabled;
+		slider.addEventListener("change", slider, "changedCallback");
+		slider.disabled = !a_entryObject.enabled;
 	}
 }

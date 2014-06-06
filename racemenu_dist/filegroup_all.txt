@@ -12,11 +12,13 @@ Interface\translations\RaceMenu_polish.txt
 Interface\translations\RaceMenu_russian.txt
 Interface\translations\RaceMenu_spanish.txt
 Interface\translations\RaceMenuPlugin_ENGLISH.txt
+Scripts\CharGen.pex
 Scripts\NiOverride.pex
 Scripts\RaceMenu.pex
 Scripts\RaceMenuBase.pex
 Scripts\RaceMenuLoad.pex
 Scripts\RaceMenuPlugin.pex
+Scripts\Source\CharGen.psc
 Scripts\Source\NiOverride.psc
 Scripts\Source\RaceMenu.psc
 Scripts\Source\RaceMenuBase.psc

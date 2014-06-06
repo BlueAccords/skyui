@@ -290,8 +290,8 @@ class VertexEditor extends MovieClip
 		
 		selection.VisitSelection(functor, {scale: d, plane: event.plane, x: event.x, y: event.y}, wireframeDisplay.localVertices);
 						
-		wireframeDisplay.CreateMesh();
-		wireframeDisplay.render();
+		//wireframeDisplay.CreateMesh();
+		//wireframeDisplay.render();
 	}
 	
 	public function onEndScaleVertices(event): Void

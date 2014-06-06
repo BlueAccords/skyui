@@ -19,6 +19,7 @@ class MakeupPanel extends MovieClip
 	public var makeupList: MakeupList;
 	public var searchWidget: SearchWidget;
 	public var bTextEntryMode: Boolean = false;
+	public var textureCount: TextField;
 	
 	private var _acceptButton: Object;
 	private var _cancelButton: Object;
@@ -60,6 +61,9 @@ class MakeupPanel extends MovieClip
 		listEnumeration.addFilter(_sortFilter);
 		listEnumeration.addFilter(_nameFilter);
 		makeupList.listEnumeration = listEnumeration;
+		makeupList.onInvalidate = function() {
+			_parent.textureCount.text = this.itemCount.toString();
+		}
 		
 		_sortFilter.setSortBy(["text"], [0]);
 		_sortFilter.addEventListener("filterChange", this, "onFilterChange");
@@ -120,7 +124,7 @@ class MakeupPanel extends MovieClip
 	
 	public function InvalidateList(): Void
 	{
-		makeupList.InvalidateData();
+		makeupList.requestInvalidate();
 	}
 	
 	public function setMakeupList(list: Array): Void
@@ -136,7 +140,7 @@ class MakeupPanel extends MovieClip
 			listEnumeration.addFilter(_sortFilter);
 			listEnumeration.addFilter(_nameFilter);
 			makeupList.listEnumeration = listEnumeration;
-			makeupList.InvalidateData();
+			makeupList.requestInvalidate();
 		}
 	}
 		

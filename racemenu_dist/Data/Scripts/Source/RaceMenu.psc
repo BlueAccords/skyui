@@ -10,6 +10,15 @@ int Property TINT_TYPE_FACEPAINT = 259 AutoReadOnly
 int Property MAX_PRESETS = 4 AutoReadOnly
 int Property MAX_MORPHS = 19 AutoReadOnly
 
+; Minimum SKSE version statistics
+int Property SKSE_MAJOR_VERSION = 1 AutoReadOnly
+int Property SKSE_MINOR_VERSION = 6 AutoReadOnly
+int Property SKSE_BETA_VERSION = 9 AutoReadOnly
+int Property SKSE_RELEASE_VERSION = 37 AutoReadOnly
+
+; Minimum RaceMenuBase version
+int Property RACEMENUBASE_SCRIPT_VERSION = 3 AutoReadOnly
+
 string Property DEFAULT_OVERLAY = "Actors\\Character\\Overlays\\Default.dds" AutoReadOnly
 ; -------------------------------------------------
 
@@ -83,16 +92,17 @@ Function OnStartup()
 	; Re-initialization in case of init failure?
 	Reinitialize()
 	
-	If SKSE.GetVersionRelease() < 37
-		Debug.Notification("SKSE version mismatch. You are running SKSE Version " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta() + "." + SKSE.GetVersionRelease() + " you require 1.6.9 or greater.")
+	If SKSE.GetVersionRelease() < SKSE_RELEASE_VERSION
+		Debug.Notification("SKSE version mismatch. You are running SKSE Version " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta() + "." + SKSE.GetVersionRelease() + " you expected "+SKSE_MAJOR_VERSION+"."+SKSE_MINOR_VERSION+"."+SKSE_BETA_VERSION+"."+SKSE_RELEASE_VERSION+" or greater.")
 	Endif
 	If SKSE.GetVersionRelease() != SKSE.GetScriptVersionRelease()
 		Debug.Notification("SKSE script version mismatch. Please reinstall your SKSE scripts to match your version.")
 	Endif
-	If RaceMenuBase.GetScriptVersionRelease() < 3
-		Debug.Notification("Invalid RaceMenuBase script version detected. Please update your base script.")
+	If RaceMenuBase.GetScriptVersionRelease() < RACEMENUBASE_SCRIPT_VERSION
+		Debug.Notification("Invalid RaceMenuBase script version detected (" + RaceMenuBase.GetScriptVersionRelease() + "). Expected (" + RACEMENUBASE_SCRIPT_VERSION + "). Please update your base script.")
 	Endif
 
+	; Incompatible version
 	int chargenVersion = SKSE.GetPluginVersion("CharGen")
 	If chargenVersion > 0 && chargenVersion < 2
 		Debug.Notification("Outdated CharGen version detected, please update.")

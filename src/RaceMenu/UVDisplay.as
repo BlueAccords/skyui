@@ -120,6 +120,7 @@ class UVDisplay extends gfx.core.UIComponent
 		if(_texture) {
 			var textureClip = container.createEmptyMovieClip("texture", container.getNextHighestDepth());
 			_imageLoader.loadClip("img://" + _texture.relativePath, textureClip);
+			//_imageLoader.loadClip("img://headMesh", textureClip);
 			//_imageLoader.loadClip("femalehead.dds", textureClip);
 		}
 		
