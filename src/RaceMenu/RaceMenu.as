@@ -231,7 +231,6 @@ class RaceMenu extends MovieClip
 		makeupPanel.addEventListener("changeTexture", this, "onChangeTexture");
 		modeSelect.addEventListener("changeMode", this, "onChangeMode");
 		
-		// categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
 		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair"];
 		categoryList.listState.iconSource = "racemenu/racesex_icons.swf";
 		
@@ -239,8 +238,8 @@ class RaceMenu extends MovieClip
 		
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 508, savedItemIndex: -1, enabled: true});
 		
-		// Test Code
-		/*
+		/*// Test Code
+		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
 		_artPrimary = categoryList.iconArt;
 		_artSecondary = ["face"];
 		
@@ -303,6 +302,8 @@ class RaceMenu extends MovieClip
 		var GetTextureList: Function = function(raceMenu: Object): Array { return raceMenu.makeupList[RaceMenuDefines.PAINT_WAR]; }
 		var showDescriptor: Function = function(): Boolean { return true; }
 		
+		var extraData = {partName: "TestPart", formId: 1234};
+		
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Sex", filterFlag: 4, callbackName: "ChangeSex", sliderMin: 0, sliderMax: 1, sliderID: -1, position: 0, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Presets", filterFlag: 4, callbackName: "ChangeHeadPreset", sliderMin: 0, sliderMax: 0, sliderID: 0, position: 0, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Skin Tone", filterFlag: 4 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 2892, sliderID: 1, position: 2885, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
@@ -313,7 +314,7 @@ class RaceMenu extends MovieClip
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Scars", filterFlag: 8, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 12, sliderID: 6, position: 7, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "War Paint", filterFlag: 8, callbackName: "ChangeMask", sliderMin: -1, sliderMax: 14, sliderID: 7, position: -1, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "War Paint Color", filterFlag: 8 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeMaskColor", sliderMin: 1, sliderMax: 23, sliderID: 8, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
-		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Hair", filterFlag: 256, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 69, sliderID: 9, position: 10, interval: 1, enabled: true});
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Hair", filterFlag: 256, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 69, sliderID: 9, position: 10, interval: 1, enabled: true, extraData: extraData});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Facial Hair", filterFlag: 256, callbackName: "ChangeHeadPart", sliderMin: 0, sliderMax: 45, sliderID: 10, position: 41, interval: 1, enabled: true});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Hair Color", filterFlag: 256 + RaceMenuDefines.CATEGORY_COLOR, callbackName: "ChangeHairColorPreset", sliderMin: 0, sliderMax: 6594, sliderID: 11, position: 6578, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Eye Shape", filterFlag: 32, callbackName: "ChangePreset", sliderMin: 0, sliderMax: 37, sliderID: 12, position: 1, interval: 1, enabled: true});
@@ -354,6 +355,8 @@ class RaceMenu extends MovieClip
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint1", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		*/
+		// Test Code End
+		
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
 		itemList.requestInvalidate();
@@ -678,7 +681,7 @@ class RaceMenu extends MovieClip
 			ShowRacePanel(false);
 			ShowBottomBar(false);
 			ShowModeSwitcher(false);
-			vertexEditor.unloadAssets();
+			vertexEditor.Finalize();
 		} else {
 			GameDelegate.call("ChangeName", []);
 			ShowTextEntry(false);
@@ -1042,14 +1045,14 @@ class RaceMenu extends MovieClip
 			case 0:
 			ShowRacePanel(true);
 			ShowBottomBar(true);
-			vertexEditor.ShowAll(false);
+			vertexEditor.ShowAll(false, false, true);
 			cameraEditor.ShowAll(false);
 			ShowOverlays(false);
 			break;
 			case 1:
 			ShowRacePanel(true);
 			ShowBottomBar(true);
-			vertexEditor.ShowAll(false);
+			vertexEditor.ShowAll(false, false, true);
 			cameraEditor.ShowAll(false);
 			ShowOverlays(true);
 			break;
@@ -1057,12 +1060,13 @@ class RaceMenu extends MovieClip
 			ShowRacePanel(false);
 			ShowBottomBar(false);
 			cameraEditor.ShowAll(true);
-			vertexEditor.ShowAll(false);
+			vertexEditor.ShowAll(false, false, false);
 			break;
 			case 3:
+			ShowRacePanel(true);
 			ShowRacePanel(false);
 			ShowBottomBar(false);
-			vertexEditor.ShowAll(true);
+			vertexEditor.ShowAll(true, true, false);
 			cameraEditor.ShowAll(false);
 			break;
 		}
@@ -1324,6 +1328,7 @@ class RaceMenu extends MovieClip
 			var formName = selectedEntry.extraData.partName;
 			var formId = selectedEntry.extraData.formId;
 			if(formName != undefined && formId != undefined) {
+				//itemDescriptor._x = itemList.disableSelection ? (ITEMLIST_HIDDEN_X + racePanel._width) : (_panelX + racePanel._width);
 				itemDescriptor._y = itemList.getClipGlobalCoordinate().y - 10;
 				var modName: String = _global.skse.plugins.CharGen.GetModName(formId >>> 24);
 				itemDescriptor.setText(modName + " (" + formName + ")");

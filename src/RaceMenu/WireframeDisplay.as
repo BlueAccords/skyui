@@ -2,7 +2,9 @@
 
 class WireframeDisplay extends gfx.core.UIComponent
 {
+	public var foreground: MovieClip;
 	public var background: MovieClip;
+	public var wireframe: MovieClip;
 	
 	public var buttonCount: Number = 0;
 	public var paddingTop: Number = 25;
@@ -12,9 +14,9 @@ class WireframeDisplay extends gfx.core.UIComponent
 	
 	private var _dragOffset: Object;
 	
-	public var wireframe: MovieClip;
-	
 	public var disableInput: Boolean = false;
+	
+	public var bLoadedAssets: Boolean = false;
 		
 	// GFx Functions
 	public var dispatchEvent: Function;
@@ -44,42 +46,145 @@ class WireframeDisplay extends gfx.core.UIComponent
 		}
 	}
 	
-	public function loadAssets(headMesh: Object)
+	public function loadAssets()
 	{
-		container = this.createEmptyMovieClip("container", this.getNextHighestDepth() );		
-		wireframe = container.createEmptyMovieClip("wireframe", container.getNextHighestDepth());
-		_imageLoader.loadClip("img://headMesh", wireframe);
-		//_imageLoader.loadClip("femalehead.dds", wireframe);
+		if(bLoadedAssets) // Don't load if it already occured
+			return;
+		
+		if(_global.skse.plugins.CharGen.CreateMorphEditor) {
+			_global.skse.plugins.CharGen.CreateMorphEditor();
+			
+			wireframe = foreground.createEmptyMovieClip("wireframe", foreground.getNextHighestDepth());
+			_imageLoader.loadClip("img://headMesh", wireframe);
+		}
+		
+		/*wireframe = foreground.createEmptyMovieClip("wireframe", foreground.getNextHighestDepth());
+		_imageLoader.loadClip("femalehead.dds", wireframe);*/
 	}
 		
 	public function unloadAssets()
-	{				
-		container.removeMovieClip();
+	{
+		if(!bLoadedAssets) // Don't unload if there's nothing to unload
+			return;
+		
+		if(_global.skse.plugins.CharGen.ReleaseMorphEditor)
+			_global.skse.plugins.CharGen.ReleaseMorphEditor();
+
+		wireframe.removeMovieClip();
+		bLoadedAssets = false;
 	}
 	
 	private function calculateBackground()
 	{
-		background._width = paddingLeft + container._width + paddingRight;
-		background._height = paddingTop + container._height + paddingBottom;
-		container._x = paddingLeft - background._width / 2;
-		container._y = paddingTop - background._height / 2;
+		background._width = paddingLeft + foreground._width + paddingRight;
+		background._height = paddingTop + foreground._height + paddingBottom;
+		foreground._x = paddingLeft - background._width / 2;
+		foreground._y = paddingTop - background._height / 2;
 	}	
 	
 	private function onLoadInit(a_clip: MovieClip): Void
 	{
 		EventDispatcher.initialize(a_clip);
-		a_clip.onPress = function(controllerIdx, keyboardOrMouse, button)
-		{
-			if (this.disabled) 
-				return undefined;
-		
-			dispatchEvent({type: "press", controllerIdx: controllerIdx, button: button});
-		}
-		a_clip.addEventListener("press", this, "beginMeshDrag");
 		
 		a_clip._width = 1024;
 		a_clip._height = 1024;
+		
+		foreground.fixedWidth = 1024;
+		foreground.fixedHeight = 1024;
+				
+		foreground["doRotateMesh"] = function()
+		{
+			var width: Number = this.fixedWidth;
+			var height: Number = this.fixedHeight;
+			var x: Number = Math.max(0, Math.min(_xmouse, width));
+			var y: Number = Math.max(0, Math.min(_ymouse, height));
+			
+			trace("Rotate: X: " + x + " Y: " + y);
+			_global.skse.plugins.CharGen.DoRotateMesh(x, y);
+		}
+		foreground["endRotateMesh"] = function(mouseIdx:Number, keyboardOrMouse:Number, buttonIdx:Number)
+		{
+			if(this.painting) // Don't interrupt existing action
+				return undefined;
+			
+			if(buttonIdx != 1) // Right mouse only
+				return undefined;
+			
+			this.rotating = false;
+			this.onMouseMove = null;
+			this.onReleaseAux = null;
+			this.onReleaseOutsideAux = null;
+			
+			_global.skse.plugins.CharGen.EndRotateMesh();
+		}
+		foreground["endRotateMeshAux"] = function(keyboardOrMouse:Number, buttonIdx:Number)
+		{
+			return this.endRotateMesh(0, keyboardOrMouse, buttonIdx);
+		}
+		foreground["beginRotateMesh"] = function(mouseIdx:Number, keyboardOrMouse:Number, buttonIdx:Number)
+		{
+			if(this.painting) // Don't interrupt existing action
+				return undefined;
+			if(buttonIdx != 1) // Right mouse only
+				return undefined;
+			
+			this.rotating = true;
+			this.onMouseMove = this.doRotateMesh;
+			this.onReleaseAux = this.endRotateMesh;
+			this.onReleaseOutsideAux = this.endRotateMeshAux;
+			
+			var width: Number = this.fixedWidth;
+			var height: Number = this.fixedHeight;
+			var x: Number = Math.max(0, Math.min(_xmouse, width));
+			var y: Number = Math.max(0, Math.min(_ymouse, height));
+			
+			_global.skse.plugins.CharGen.BeginRotateMesh(x, y);
+		}
+		foreground["onPressAux"] = foreground["beginRotateMesh"];
+		
+		foreground["doPaintMesh"] = function()
+		{
+			var width: Number = this.fixedWidth;
+			var height: Number = this.fixedHeight;
+			var x: Number = Math.max(0, Math.min(_xmouse, width));
+			var y: Number = Math.max(0, Math.min(_ymouse, height));
+			
+			_global.skse.plugins.CharGen.DoPaintMesh(x, y);
+		}
+		foreground["endPaintMesh"] = function(mouseIdx:Number, keyboardOrMouse:Number, buttonIdx:Number)
+		{
+			if(this.rotating) // Don't interrupt existing action
+				return undefined;
+				
+			this.painting = false;
+			this.onMouseMove = null;
+			this.onRelease = null;
+			this.onReleaseOutside = null;
+			
+			_global.skse.plugins.CharGen.EndPaintMesh();
+		}
+		foreground["beginPaintMesh"] = function(mouseIdx:Number, keyboardOrMouse:Number, buttonIdx:Number)
+		{
+			if(this.rotating) // Don't interrupt existing action
+				return undefined;
+			if(this.onMouseMove) // Don't interrupt existing action
+				return undefined;
+			
+			this.painting = true;
+			this.onMouseMove = this.doPaintMesh;
+			this.onRelease = this.endPaintMesh;
+			this.onReleaseOutside = this.onRelease;
+			
+			var width: Number = this.fixedWidth;
+			var height: Number = this.fixedHeight;
+			var x: Number = Math.max(0, Math.min(_xmouse, width));
+			var y: Number = Math.max(0, Math.min(_ymouse, height));
+			
+			_global.skse.plugins.CharGen.BeginPaintMesh(x, y);
+		}
+		foreground["onPress"] = foreground["beginPaintMesh"];
 		calculateBackground();
+		bLoadedAssets = true;
 	}
 	
 	// @GFx	
@@ -91,54 +196,22 @@ class WireframeDisplay extends gfx.core.UIComponent
 		for (var target = Mouse.getTopMostEntity(); target && target != undefined; target = target._parent) {
 			if (target == this) {
 				if (a_delta < 0) {
-					wireframe._xscale += 10;
-					wireframe._yscale += 10;
+					foreground._xscale += 10;
+					foreground._yscale += 10;
 				} else if (a_delta > 0) {
-					wireframe._xscale -= 10;
-					wireframe._yscale -= 10;
+					foreground._xscale -= 10;
+					foreground._yscale -= 10;
+					if(foreground._xscale < 10)
+						foreground._xscale = 10;
+					if(foreground._yscale < 10)
+						foreground._yscale = 10;
 				}
 				
 				calculateBackground();
 			}
 		}
 	}
-	
-	private function onPressedMesh(event)
-	{
-		dispatchEvent({type: event.type, controllerIdx: event.controllerIdx, button: event.button});
-	}
-	
-	// Move mesh
-	private function beginMeshDrag(event)
-	{
-		onMouseMove = doMeshDrag;
-		onMouseUp = endMeshDrag;
-		
-		var width: Number = wireframe._width;
-		var height: Number = wireframe._height;
-		var x: Number = Math.max(0, Math.min(_xmouse + width / 2, width));
-		var y: Number = Math.max(0, Math.min(_ymouse + height / 2, height));
-		
-		_global.skse.plugins.CharGen.BeginDragMesh(x, y);
-	}
-	private function doMeshDrag()
-	{
-		var width: Number = wireframe._width;
-		var height: Number = wireframe._height;
-		var x: Number = Math.max(0, Math.min(_xmouse + width / 2, width));
-		var y: Number = Math.max(0, Math.min(_ymouse + height / 2, height));
-				
-		_global.skse.plugins.CharGen.OnDragMesh(x, y);
-	}
-
-	private function endMeshDrag()
-	{
-		delete onMouseUp;
-		delete onMouseMove;
-		
-		_global.skse.plugins.CharGen.EndDragMesh();
-	}
-	
+			
 	// Move background
 	private function beginDrag(event)
 	{

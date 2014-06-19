@@ -24,13 +24,13 @@ class ItemDescriptor extends MovieClip
 	
 	public function fadeOut(): Void
 	{
-		TweenLite.to(this, 1.0, {delay: 1.5, autoAlpha: 0});
+		TweenLite.to(this, 1.0, {delay: 1.5, autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 	}
 	
 	public function toggle(a_toggle: Boolean): Void
 	{
 		this._visible = this.enabled = a_toggle;
-		TweenLite.killTweensOf(this, false, {autoAlpha:true});
+		TweenLite.killTweensOf(this, false, {_alpha:true, autoAlpha:true});
 		if(a_toggle) {
 			_alpha = 100;
 		} else {

@@ -11,7 +11,7 @@ $FACE PAINT	FACE PAINT	PEINTURE SUR LA TETE	GESICHTSBEMALUNG	PITTURA FACCIALE	PI
 $Sliders	Sliders	Curseurs	Regler	Cursori	Controles	Posuvníky	Suwaki	Бегунки				
 $Overlays	Overlays	Superposition	Überlagerungen	Sovrapposizioni	Superposición	Vrstvy	Pokrycie	Верхний слой				
 $Camera	Camera	Caméra	Kamera	Camera	Cámara	Kamera	Kamera					
-$Morphs	Morphs	Morphs	Morphs	Trasformazioni	Morfismo	Morfy	Morfy	Трансформирование				
+$Sculpt	Sculpt											
 $Zoom In	Zoom In	Zoom avant	Vergrößern	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
 $Zoom Out	Zoom Out	Zoom arrière	Verkleinern	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
 $Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить Расу	種族の変更	Mudar a raça	變更種族	更变种族
@@ -32,7 +32,7 @@ $Exported head	Exported head	Tête exportée	Kopf wurde exportiert	Testa Esporta
 $Export Head	Export Head	Exporter tête	Kopf exportieren	Esporta Testa	Exportar cabeza	Exportovat hlavu	Eksportuj Głowę	Экспортировать голову				
 $Rotate	Rotate	Pivoter	Drehen	Ruota	Rotar	Otočit	Obróć					
 $Move Camera	Move Camera	Déplacer la caméra	Kamera bewegen	Muovi camera	Mover cámara	Posunout Kameru	Poruszaj Kamerą					
-$Rate ({})	Rate ({})	Vitesse ({})	Rate ({})		Índice ({})	Stupeň ({})	Ocena ({})					
+$Rate ({})	Rate ({})	Vitesse ({})	Schrittweite ({})		Índice ({})	Stupeň ({})	Ocena ({})					
 $Primary	Primary	Primaire	Primär	Primario	Primario	Primární	Pierwszorzędny					
 $Secondary	Secondary	Secondaire	Sekundär	Secondario	Secundario	Sekundární	Drugorzędny					
 $Preset Slot	Preset Slot	Emplacement de réglages	Vorlageposition	Slot impostazione	Ranura de ajustes predefinidos	Slot předvolby	Gniazdo Wyglądu	Слот предустановки				
@@ -285,8 +285,8 @@ $NSK_NoseTilt	Nose Tilt	Inclinaison du nez	Nasenneigung		Ángulo de la nariz	Nak
 $NSK_MouthWidth	Mouth Width 2	Largeur de la bouche	Mundbreite	Larghezza bocca	Anchura de la boca	Śířka úst	Szerokość ust	Ширина рта			嘴唇闊度	
 $NSK_MouthSmile	Mouth Smile	Sourire	Lächeln	Sorriso	Sonrisa	Úsměv	Uśmiech	Улыбка			嘴角高度	
 												
-% Completion	100.00%	100.00%	100.00%	80.35%	100.00%	100.00%	85.96%	77.19%	57.54%	58.25%	30.88%	58.25%
-Total % Completion	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%
+% Completion	100.00%	99.65%	99.65%	80.00%	99.65%	99.65%	85.61%	76.84%	57.54%	58.25%	30.88%	58.25%
+Total % Completion	78.83%	78.83%	78.83%	78.83%	78.83%	78.83%	78.83%	78.83%	78.83%	78.83%	78.83%	78.83%
 												
 	Google Translate	fr	de	it	es	cs	pl	ru	ja	pt	zh-TW	zh-CN
 	ALL	ALL	ALL	ALL	ALL	ALL	ALL	ALL	All	ALL	Whole	Whole
@@ -301,7 +301,7 @@ Total % Completion	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04
 	Sliders	Cursors	Regulator	Sliders	Controls	Sliders	Sliders	Runners				
 	Overlays	Superposition	Overlays	Overlays	Superposition	Layers	Coverage	Upper layer				
 	Camera	Camera	Camera	Room	Camera	Camera	Camera					
-	Morphs	Morphs	Morphs	Transformations	Morphism	Morphy	Polymorphs	Transformation				
+	Sculpt											
 	Zoom In	Zoom	Enlarge	Enlarge	Approach	Approximate	Zoom	Bring closer	Zoom in	Zoom	Closer	Enlarge
 	Zoom Out	Zoom	Reduce	Collapse	Move away	Delay	Zoom	Zoom	Zoom out	Zoom	Pull away	Narrow
 	Change Race	Change race	Change race	Choose Breed	Change Race	Change race	Change Race	Change Race	Change of race	Change the race	Change Race	More variable race
@@ -322,7 +322,7 @@ Total % Completion	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04%	79.04
 	Export Head	Export head	Export head	Export Head	Export head	Export head	Export Head	Export head				
 	Rotate	Rotate	Turn	Wheel	Rotate	Turn over	Turn					
 	Move Camera	Move the camera	Move camera	Move room	Move Camera	Move the camera	Move Camera					
-	Rate ({})	Speed ​​({})	Rate ({})		Index ({})	Step ({})	Rating ({})					
+	Rate ({})	Speed ​​({})	Increment ({})		Index ({})	Step ({})	Rating ({})					
 	Primary	Primary	Primarily	Primary	Primary	Primary	First-class					
 	Secondary	Secondary	Secondary	Secondary	Secondary	Secondary	Secondary					
 	Preset Slot	Location Settings	Original location	Slot setting	Slot presets	Slot preferences	Socket Appearance	Slot preset				
