@@ -138,9 +138,9 @@ Adding File Group: filegroup_all.txt
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEEyesFemaleLeft.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEEyesFemaleRight.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEHeadbrowsFemale.tri
--Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEHeadFemale.tri
--Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEHeadFemale1.tri
--Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEHeadFemale_mouthfixbefore.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEHeadFemale_1.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEHeadFemale_2.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEHeadFemale_3.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEHeadmaskFemaleLeft.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEHeadmaskFemaleRight.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\ECEMouthhumanFemale.tri
@@ -336,6 +336,126 @@ Adding File Group: filegroup_all.txt
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\RANs_humanbeardshort32chargen.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\RANs_MouthhumanFemale.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\ece\RANs_MouthhumanMale.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\EXPR_eyesfemale.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\EXPR_eyeskhajiit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\EXPR_eyeskhajiitfemale.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\EXPR_eyesmale.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\EXPR_femalehead.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\EXPR_femaleheadargonian.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\EXPR_femaleheadkhajiit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\EXPR_malehead.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\EXPR_maleheadargonian.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\EXPR_maleheadkhajiit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong01.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong01_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong02.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong03.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong03_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong04_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong05.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong06.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong07.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong07_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong08_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong09_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong10.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong11.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong11_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong12.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong12_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong13.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong13_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong14.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong14_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong15.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong15_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong16.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong16_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong17.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardlong17_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardmedium01.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardmedium01_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardmedium03.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardmedium03_1bit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardmedium04.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardmedium07.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardmedium08.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardmedium09.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort01.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort02.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort03.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort04.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort05.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort07.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort08.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort09.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort10.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort11.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort12.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort13.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort14.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort15.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort16.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort17.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort18.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort19.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort20.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort21.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort22.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort23.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort24.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort25.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort26.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort27.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort28.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort29.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort30.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort31.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_humanbeardshort32.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_khajiitbeard.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_khajiitbeard01.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_khajiitbeard02.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_khajiitbeardalpha.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_khajiitmustache01.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_khajiitmustache01alpha.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_khajiitmustache02.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\beards\EXPR_khajiitmustache02alpha.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_argonianbrow01.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_argonianbrow02.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_eyesfemaleleft.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_eyesfemaleright.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_eyesmaleleft.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_eyesmaleright.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_femaleargonianscar.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_femaleheadbrows.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_femaleheadmaskleftside.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_femaleheadmaskrightside.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_femalekhajiitscar.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_khajiitearrings.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_khajiitearrings01.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_khajiitearrings02.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_khajiitearrings03.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_khajiitearrings04.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_khajiitearrings05.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_khajiitearrings06.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_maleargonianscar.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_maleheadbrows.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_maleheadmaskleftside.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_maleheadmaskrightside.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_malekhajiitscar01.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_maleorcbrows_01.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_maleorcbrows_02.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_maleorcbrows_03.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_maleorcbrows_04.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\faceparts\EXPR_maleorcbrows_05.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\mouth\EXPR_malemouthkhajiit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\mouth\EXPR_mouthargonian.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\mouth\EXPR_mouthhuman.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\mouth\EXPR_mouthhumanf.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\mouth\EXPR_mouthkhajiit.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\mouth\EXPR_mouthkhajiitfemale.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\mouth\EXPR_mouthorc.tri
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\expressions\mouth\EXPR_mouthorcfemale.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\nuska\eyesfemalechargen.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\nuska\eyesmalechargen.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\nuska\femaleheadchargen.tri
@@ -417,423 +537,545 @@ Adding File Group: filegroup_all.txt
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\morphs\nuska\faceparts\maleheadmaskrightsidechargen.tri
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\RaceMenu.esp\morphs.ini
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\RaceMenu.esp\races.ini
+-Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\RaceMenu.esp\sliders\beast.ini
 -Adding File: Data\Meshes\Actors\Character\FaceGenMorphs\RaceMenu.esp\sliders\human.ini
 Saving archive: _generated\RaceMenu.bsa
 
 Writing files
 
 Offset          0: Wrote compressed file meshes\actors\character\facegenmorphs\racemenu.esp\races.ini
-Offset        200: Wrote compressed file meshes\actors\character\facegenmorphs\racemenu.esp\morphs.ini
-Offset       1780: Wrote compressed file scripts\source\racemenuplugin.psc
-Offset       4552: Wrote compressed file scripts\source\racemenu.psc
-Offset      11317: Wrote compressed file scripts\source\racemenubase.psc
-Offset      13420: Wrote compressed file scripts\source\racemenuload.psc
-Offset      13604: Wrote compressed file scripts\source\chargen.psc
-Offset      13953: Wrote compressed file scripts\source\nioverride.psc
-Offset      16370: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceeyesfemale.tri
-Offset      64856: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong05chargen.tri
-Offset      85395: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesfemaleright.tri
-Offset     101947: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium07chargen.tri
-Offset     128503: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong17chargen.tri
-Offset     149358: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium03chargen.tri
-Offset     220216: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort11chargen.tri
-Offset     269164: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadmaskfemaleright.tri
-Offset     313227: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort23chargen.tri
-Offset     359095: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong15_1bitchargen.tri
-Offset     385480: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort32chargen.tri
-Offset     407368: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headfemale.tri
-Offset     447168: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort02chargen.tri
-Offset     464553: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort11chargen.tri
-Offset     469018: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort08chargen.tri
-Offset     490490: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort14chargen.tri
-Offset     506669: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort23chargen.tri
-Offset     511514: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort26chargen.tri
-Offset     519737: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_eyesmaleright.tri
-Offset     526167: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesmaleleft.tri
-Offset     529028: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong15_1bitchargen.tri
-Offset     629909: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium03_1bitchargen.tri
-Offset     692800: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium04chargen.tri
-Offset     743308: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong01_1bitchargen.tri
-Offset     748992: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium07chargen.tri
-Offset     757975: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort12chargen.tri
-Offset     806923: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort21chargen.tri
-Offset     825948: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort24chargen.tri
-Offset     867981: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesfemale.tri
-Offset     882197: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong11chargen.tri
-Offset     889382: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort03chargen.tri
-Offset     906768: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort12chargen.tri
-Offset     911232: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort09chargen.tri
-Offset     932700: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort15chargen.tri
-Offset     948880: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort24chargen.tri
-Offset     953427: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong12_1bitchargen.tri
-Offset     964903: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong17_1bitchargen.tri
-Offset     972100: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium07chargen.tri
-Offset     987757: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort27chargen.tri
-Offset     989819: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong11_1bitchargen.tri
-Offset    1008989: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong16_1bitchargen.tri
-Offset    1017895: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort01chargen.tri
-Offset    1090088: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesfemale.tri
-Offset    1094432: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort10chargen.tri
-Offset    1113525: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort13chargen.tri
-Offset    1152361: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesmaleleft.tri
-Offset    1155591: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort22chargen.tri
-Offset    1174616: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort25chargen.tri
-Offset    1219438: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_eyesmaleleft.tri
-Offset    1225892: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort01chargen.tri
-Offset    1234017: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_mouthhumanmale.tri
-Offset    1239409: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong12chargen.tri
-Offset    1246864: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort04chargen.tri
-Offset    1264250: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort13chargen.tri
-Offset    1267786: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong11chargen.tri
-Offset    1337074: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesfemaleleft.tri
-Offset    1339814: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort16chargen.tri
-Offset    1355995: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort25chargen.tri
-Offset    1361009: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong13_1bitchargen.tri
-Offset    1400177: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\basemouthhumanmale.tri
-Offset    1404229: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort28chargen.tri
-Offset    1406419: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadbrowsfemale.tri
-Offset    1452573: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesfemaleleft.tri
-Offset    1469209: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort02chargen.tri
-Offset    1545935: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort11chargen.tri
-Offset    1570361: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadmaskfemaleleft.tri
-Offset    1637018: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort14chargen.tri
-Offset    1702854: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort23chargen.tri
-Offset    1721879: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceeyesfemaleright.tri
-Offset    1741689: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong01chargen.tri
-Offset    1749399: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort26chargen.tri
-Offset    1791636: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort02chargen.tri
-Offset    1799246: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong13_1bitchargen.tri
-Offset    1904593: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium01_1bitchargen.tri
-Offset    1916886: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong13chargen.tri
-Offset    1923894: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort05chargen.tri
-Offset    1941280: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong04_1bitchargen.tri
-Offset    1954555: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort14chargen.tri
-Offset    1961242: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong12chargen.tri
-Offset    2030396: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort17chargen.tri
-Offset    2036653: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort26chargen.tri
-Offset    2041251: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadmaskmaleright.tri
-Offset    2092223: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort29chargen.tri
-Offset    2097174: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headmaskmaleright.tri
-Offset    2108228: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong15_1bitchargen.tri
-Offset    2114237: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong14_1bitchargen.tri
-Offset    2133495: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort03chargen.tri
-Offset    2206531: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium07chargen.tri
-Offset    2317123: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort12chargen.tri
-Offset    2341548: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort15chargen.tri
-Offset    2407398: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort24chargen.tri
-Offset    2424037: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium03_1bitchargen.tri
-Offset    2430324: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong02chargen.tri
-Offset    2432370: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort30chargen.tri
-Offset    2445103: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort27chargen.tri
-Offset    2454173: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong01_1bitchargen.tri
-Offset    2465311: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headbrowsmale.tri
-Offset    2478251: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort03chargen.tri
-Offset    2485863: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong01chargen.tri
-Offset    2556879: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong14chargen.tri
-Offset    2562767: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort15chargen.tri
-Offset    2569453: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong13chargen.tri
-Offset    2630858: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort18chargen.tri
-Offset    2637115: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadmaskfemaleright.tri
-Offset    2703976: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium03_1bitchargen.tri
-Offset    2721039: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort27chargen.tri
-Offset    2721924: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headmaskfemaleleft.tri
-Offset    2753210: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headmaskmaleright.tri
-Offset    2771903: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong11chargen.tri
-Offset    2788541: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong11_1bitchargen.tri
-Offset    2820549: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong16_1bitchargen.tri
-Offset    2835028: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort01chargen.tri
-Offset    2868561: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong01_1bitchargen.tri
-Offset    2913570: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort04chargen.tri
-Offset    2986583: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort13chargen.tri
-Offset    3006657: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort16chargen.tri
-Offset    3072407: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_eyesmale.tri
-Offset    3084159: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort25chargen.tri
-Offset    3103158: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort31chargen.tri
-Offset    3115891: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort28chargen.tri
-Offset    3124769: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort04chargen.tri
-Offset    3132381: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong02chargen.tri
-Offset    3150065: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong15chargen.tri
-Offset    3153269: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort07chargen.tri
-Offset    3170654: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort16chargen.tri
-Offset    3177343: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong14chargen.tri
-Offset    3232461: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceeyesfemaleleft.tri
-Offset    3252280: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort19chargen.tri
-Offset    3258537: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headbrowsfemale.tri
-Offset    3263094: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort28chargen.tri
-Offset    3264121: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium03_1bitchargen.tri
-Offset    3273113: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium01chargen.tri
-Offset    3305426: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong11chargen.tri
-Offset    3335371: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong11_1bitchargen.tri
-Offset    3470054: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong16_1bitchargen.tri
-Offset    3530726: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headbrowsfemale.tri
-Offset    3553393: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadbrowsmale.tri
-Offset    3585236: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong12chargen.tri
-Offset    3602484: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort02chargen.tri
-Offset    3634782: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesfemaleright.tri
-Offset    3637483: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort05chargen.tri
-Offset    3710519: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort14chargen.tri
-Offset    3739173: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort17chargen.tri
-Offset    3776770: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadmaskfemaleleft.tri
-Offset    3820811: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong13_1bitchargen.tri
-Offset    3831112: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesfemaleright.tri
-Offset    3839125: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesmaleright.tri
-Offset    3842336: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort26chargen.tri
-Offset    3859130: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong04chargen.tri
-Offset    3866873: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort32chargen.tri
-Offset    3878541: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort29chargen.tri
-Offset    3895499: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong12_1bitchargen.tri
-Offset    3921672: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort05chargen.tri
-Offset    3929284: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong17_1bitchargen.tri
-Offset    3942627: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong16chargen.tri
-Offset    3946583: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort08chargen.tri
-Offset    3956609: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort17chargen.tri
-Offset    3960166: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong15chargen.tri
-Offset    3985785: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium01_1bitchargen.tri
-Offset    3987245: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort29chargen.tri
-Offset    3989080: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong12chargen.tri
-Offset    4019624: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong04_1bitchargen.tri
-Offset    4041400: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong01chargen.tri
-Offset    4058871: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium01chargen.tri
-Offset    4066496: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_headmaskmaleleft.tri
-Offset    4074336: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headmaskfemaleright.tri
-Offset    4105760: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong13chargen.tri
-Offset    4120879: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium01_1bitchargen.tri
-Offset    4129420: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort30chargen.tri
-Offset    4163961: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadmaskmaleleft.tri
-Offset    4214528: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort03chargen.tri
-Offset    4246827: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headbrowsmale.tri
-Offset    4252022: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort15chargen.tri
-Offset    4280676: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_headmaskmaleright.tri
-Offset    4288493: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium01chargen.tri
-Offset    4305897: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort21chargen.tri
-Offset    4316004: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort18chargen.tri
-Offset    4352820: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort30chargen.tri
-Offset    4357023: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong14_1bitchargen.tri
-Offset    4393593: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort27chargen.tri
-Offset    4398295: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong05chargen.tri
-Offset    4403775: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesmale.tri
-Offset    4408694: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong04chargen.tri
-Offset    4479793: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong04_1bitchargen.tri
-Offset    4558184: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong17chargen.tri
-Offset    4563399: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort09chargen.tri
-Offset    4573428: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort18chargen.tri
-Offset    4576987: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong16chargen.tri
-Offset    4616355: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_headmale.tri
-Offset    4651840: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong01chargen.tri
-Offset    4683874: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium03chargen.tri
-Offset    4715927: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong13chargen.tri
-Offset    4743623: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesmaleright.tri
-Offset    4765290: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong02chargen.tri
-Offset    4770773: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong14chargen.tri
-Offset    4782432: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headmaskmaleleft.tri
-Offset    4801113: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium01_1bitchargen.tri
-Offset    4804979: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong01_1bitchargen.tri
-Offset    4809008: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort31chargen.tri
-Offset    4842804: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong14_1bitchargen.tri
-Offset    4959257: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort04chargen.tri
-Offset    4991556: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesmale.tri
-Offset    4997072: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort10chargen.tri
-Offset    5006292: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort07chargen.tri
-Offset    5079277: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort16chargen.tri
-Offset    5107931: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headmaskfemaleleft.tri
-Offset    5115091: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort22chargen.tri
-Offset    5125198: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort19chargen.tri
-Offset    5162010: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headmaskmaleleft.tri
-Offset    5173079: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort31chargen.tri
-Offset    5177282: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort28chargen.tri
-Offset    5182887: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort07chargen.tri
-Offset    5190496: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong05chargen.tri
-Offset    5239468: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesmaleleft.tri
-Offset    5260657: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort19chargen.tri
-Offset    5264216: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong17chargen.tri
-Offset    5312666: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong11_1bitchargen.tri
-Offset    5321017: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong02chargen.tri
-Offset    5332008: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesmale.tri
-Offset    5371317: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong16_1bitchargen.tri
-Offset    5376213: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium04chargen.tri
-Offset    5398473: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong14chargen.tri
-Offset    5420726: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadfemale1.tri
-Offset    5659354: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong15_1bitchargen.tri
-Offset    5681655: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium03chargen.tri
-Offset    5689265: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong15chargen.tri
-Offset    5700156: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort32chargen.tri
-Offset    5729745: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesmaleright.tri
-Offset    5732510: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort05chargen.tri
-Offset    5764809: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort11chargen.tri
-Offset    5778570: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort08chargen.tri
-Offset    5829512: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort17chargen.tri
-Offset    5841409: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium03chargen.tri
-Offset    5858753: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort23chargen.tri
-Offset    5868860: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort32chargen.tri
-Offset    5872640: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort29chargen.tri
-Offset    5883314: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_mouthhumanmale.tri
-Offset    5886601: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadfemale.tri
-Offset    6042153: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort08chargen.tri
-Offset    6047635: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadfemale_mouthfixbefore.tri
-Offset    6286263: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong12_1bitchargen.tri
-Offset    6330993: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong17_1bitchargen.tri
-Offset    6354415: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headmale.tri
-Offset    6400398: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong15chargen.tri
-Offset    6419375: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium01chargen.tri
-Offset    6490387: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong04chargen.tri
-Offset    6507889: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\basemouthhumanfemale.tri
-Offset    6513533: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium04chargen.tri
-Offset    6519205: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadfemale.tri
-Offset    6757266: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong16chargen.tri
-Offset    6764463: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort21chargen.tri
-Offset    6810702: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort30chargen.tri
-Offset    6834742: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort12chargen.tri
-Offset    6848500: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort09chargen.tri
-Offset    6895699: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort21chargen.tri
-Offset    6900544: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort18chargen.tri
-Offset    6912452: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium04chargen.tri
-Offset    6922711: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort24chargen.tri
-Offset    6930886: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong04_1bitchargen.tri
-Offset    6939735: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong12_1bitchargen.tri
-Offset    7078675: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong17_1bitchargen.tri
-Offset    7170635: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headmale.tri
-Offset    7265710: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort09chargen.tri
-Offset    7271183: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_headbrowsmale.tri
-Offset    7277804: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong04chargen.tri
-Offset    7309888: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_mouthhumanfemale.tri
-Offset    7317529: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong16chargen.tri
-Offset    7331698: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong05chargen.tri
-Offset    7341626: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort10chargen.tri
-Offset    7386328: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadmale.tri
-Offset    7599990: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong17chargen.tri
-Offset    7610458: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong14_1bitchargen.tri
-Offset    7621172: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort22chargen.tri
-Offset    7667040: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort31chargen.tri
-Offset    7691080: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_mouthhumanfemale.tri
-Offset    7694584: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort01chargen.tri
-Offset    7712442: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong13_1bitchargen.tri
-Offset    7732378: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesfemale.tri
-Offset    7760820: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort10chargen.tri
-Offset    7765856: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort07chargen.tri
-Offset    7798152: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadbrowsfemale.tri
-Offset    7829992: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort13chargen.tri
-Offset    7841766: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_mouthhumanmale.tri
-Offset    7846525: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort22chargen.tri
-Offset    7851370: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort19chargen.tri
-Offset    7863278: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort25chargen.tri
-Offset    7872433: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headfemale.tri
-Offset    7996220: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesfemaleleft.tri
-Offset    8004494: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ecemouthhumanfemale.tri
-Offset    8010019: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headmaskfemaleright.tri
-Offset    8017197: Wrote compressed file scripts\racemenuplugin.pex
-Offset    8021370: Wrote compressed file scripts\racemenu.pex
-Offset    8031748: Wrote compressed file scripts\racemenubase.pex
-Offset    8035679: Wrote compressed file scripts\racemenuload.pex
-Offset    8036306: Wrote compressed file scripts\chargen.pex
-Offset    8036795: Wrote compressed file scripts\nioverride.pex
-Offset    8038475: Wrote compressed file textures\actors\character\overlays\default.dds
-Offset    8038607: Wrote compressed file meshes\actors\character\character assets\feet_magicoverlay.nif
-Offset    8038997: Wrote compressed file meshes\actors\character\character assets\body_overlay.nif
-Offset    8039313: Wrote compressed file meshes\actors\character\character assets\face_overlay.nif
-Offset    8039629: Wrote compressed file meshes\actors\character\character assets\feet_overlay.nif
-Offset    8039945: Wrote compressed file meshes\actors\character\character assets\hands_overlay.nif
-Offset    8040263: Wrote compressed file meshes\actors\character\character assets\hands_magicoverlay.nif
-Offset    8040654: Wrote compressed file meshes\actors\character\character assets\face_magicoverlay.nif
-Offset    8041045: Wrote compressed file meshes\actors\character\character assets\body_magicoverlay.nif
-Offset    8041436: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\eyesmalerightchargen.tri
-Offset    8046100: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\eyesmalechargen.tri
-Offset    8067619: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\femaleheadbrowschargen.tri
-Offset    8079769: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\eyesmaleleftchargen.tri
-Offset    8084539: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\femaleheadmaskrightsidechargen.tri
-Offset    8098856: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\maleheadmaskrightsidechargen.tri
-Offset    8111704: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\maleheadmaskleftsidechargen.tri
-Offset    8126075: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\femaleheadmaskleftsidechargen.tri
-Offset    8145759: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\maleheadbrowschargen.tri
-Offset    8154678: Wrote compressed file interface\translations\racemenu_japanese.txt
-Offset    8157769: Wrote compressed file interface\translations\racemenu_czech.txt
-Offset    8161248: Wrote compressed file interface\translations\racemenu_russian.txt
-Offset    8164903: Wrote compressed file interface\translations\racemenu_polish.txt
-Offset    8168422: Wrote compressed file interface\translations\racemenuplugin_english.txt
-Offset    8168510: Wrote compressed file interface\translations\racemenu_french.txt
-Offset    8171967: Wrote compressed file interface\translations\racemenu_english.txt
-Offset    8174723: Wrote compressed file interface\translations\racemenu_spanish.txt
-Offset    8178256: Wrote compressed file interface\translations\racemenu_german.txt
-Offset    8181718: Wrote compressed file interface\translations\racemenu_italian.txt
-Offset    8185153: Wrote compressed file meshes\actors\character\facegenmorphs\racemenu.esp\sliders\human.ini
-Offset    8187011: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_01.dds
-Offset    8188729: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_02.dds
-Offset    8190432: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_03.dds
-Offset    8192146: Wrote compressed file textures\actors\character\character assets\tintmasks\dragontattoo_01.dds
-Offset    8225439: Wrote compressed file interface\racesex_menu.swf
-Offset    8312379: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort11chargen.tri
-Offset    8328571: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort23chargen.tri
-Offset    8343603: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong15_1bitchargen.tri
-Offset    8374495: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium03_1bitchargen.tri
-Offset    8392618: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium04chargen.tri
-Offset    8409396: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort12chargen.tri
-Offset    8425594: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort24chargen.tri
-Offset    8439528: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong10chargen.tri
-Offset    8468122: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort01chargen.tri
-Offset    8492975: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort13chargen.tri
-Offset    8506676: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort25chargen.tri
-Offset    8521905: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong11chargen.tri
-Offset    8544271: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong03_1bitchargen.tri
-Offset    8574851: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong08_1bitchargen.tri
-Offset    8611634: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort02chargen.tri
-Offset    8635027: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort14chargen.tri
-Offset    8656628: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort26chargen.tri
-Offset    8670304: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong13_1bitchargen.tri
-Offset    8705663: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium01_1bitchargen.tri
-Offset    8710703: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong12chargen.tri
-Offset    8733468: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort03chargen.tri
-Offset    8756864: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium07chargen.tri
-Offset    8788019: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort15chargen.tri
-Offset    8809605: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort27chargen.tri
-Offset    8812905: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong01chargen.tri
-Offset    8836453: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong13chargen.tri
-Offset    8856832: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong01_1bitchargen.tri
-Offset    8869302: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort04chargen.tri
-Offset    8892698: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium08chargen.tri
-Offset    8918700: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort16chargen.tri
-Offset    8940262: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort28chargen.tri
-Offset    8943946: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong02chargen.tri
-Offset    8950716: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong14chargen.tri
-Offset    8967626: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong11_1bitchargen.tri
-Offset    8997164: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong16_1bitchargen.tri
-Offset    9015482: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort05chargen.tri
-Offset    9038878: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium09chargen.tri
-Offset    9069648: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort17chargen.tri
-Offset    9080779: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort29chargen.tri
-Offset    9087097: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong03chargen.tri
-Offset    9103096: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong15chargen.tri
-Offset    9116364: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort30chargen.tri
-Offset    9132170: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort06chargen.tri
-Offset    9155566: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort18chargen.tri
-Offset    9166705: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong04chargen.tri
-Offset    9190292: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong04_1bitchargen.tri
-Offset    9215909: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong09_1bitchargen.tri
-Offset    9254418: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort31chargen.tri
-Offset    9270224: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong14_1bitchargen.tri
-Offset    9307681: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort07chargen.tri
-Offset    9331080: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort19chargen.tri
-Offset    9342219: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong05chargen.tri
-Offset    9358492: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong17chargen.tri
-Offset    9374557: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort20chargen.tri
-Offset    9386436: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort32chargen.tri
-Offset    9400711: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort08chargen.tri
-Offset    9417155: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong06chargen.tri
-Offset    9432360: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium01chargen.tri
-Offset    9455768: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong07_1bitchargen.tri
-Offset    9493707: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort21chargen.tri
-Offset    9508739: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort09chargen.tri
-Offset    9525216: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong12_1bitchargen.tri
-Offset    9566717: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong17_1bitchargen.tri
-Offset    9591839: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong07chargen.tri
-Offset    9607053: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort10chargen.tri
-Offset    9622300: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort22chargen.tri
-Offset    9637332: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\eyesmalechargen.tri
-Offset    9645416: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\eyesfemalechargen.tri
-Offset    9654350: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\femaleheadchargen.tri
-Offset    9730177: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\maleheadcustomizations.tri
-Offset    9803797: Wrote compressed file interface\racemenu\racesex_icons.swf
-Offset    9812684: Wrote compressed file interface\racemenu\bottombar.swf
-Offset    9843923: Wrote compressed file interface\racemenu\buttonart.swf
-Offset    9862910: END OF FILE
+Offset        236: Wrote compressed file meshes\actors\character\facegenmorphs\racemenu.esp\morphs.ini
+Offset       2448: Wrote compressed file scripts\source\racemenuplugin.psc
+Offset       5220: Wrote compressed file scripts\source\racemenu.psc
+Offset      11985: Wrote compressed file scripts\source\racemenubase.psc
+Offset      14088: Wrote compressed file scripts\source\racemenuload.psc
+Offset      14272: Wrote compressed file scripts\source\chargen.psc
+Offset      14517: Wrote compressed file scripts\source\nioverride.psc
+Offset      16934: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_maleheadmaskrightside.tri
+Offset      48156: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_maleheadmaskleftside.tri
+Offset      79131: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_eyesfemaleleft.tri
+Offset      84396: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_eyesmaleright.tri
+Offset      90331: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_femaleheadmaskleftside.tri
+Offset     117377: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_khajiitearrings.tri
+Offset     168401: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_argonianbrow01.tri
+Offset     195931: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_argonianbrow02.tri
+Offset     223650: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_femaleargonianscar.tri
+Offset     245141: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_eyesfemaleright.tri
+Offset     250364: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_maleorcbrows_01.tri
+Offset     273259: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_maleorcbrows_02.tri
+Offset     290571: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_maleorcbrows_03.tri
+Offset     308181: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_maleorcbrows_04.tri
+Offset     322869: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_maleorcbrows_05.tri
+Offset     348654: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_maleheadbrows.tri
+Offset     363109: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_femaleheadmaskrightside.tri
+Offset     389196: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_malekhajiitscar01.tri
+Offset     427155: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_khajiitearrings01.tri
+Offset     451148: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_khajiitearrings02.tri
+Offset     467692: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_khajiitearrings03.tri
+Offset     475806: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_khajiitearrings04.tri
+Offset     488236: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_khajiitearrings05.tri
+Offset     509493: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_khajiitearrings06.tri
+Offset     516847: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_eyesmaleleft.tri
+Offset     522770: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_femaleheadbrows.tri
+Offset     533985: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_maleargonianscar.tri
+Offset     566752: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\faceparts\expr_femalekhajiitscar.tri
+Offset     609056: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceeyesfemale.tri
+Offset     657542: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong05chargen.tri
+Offset     678081: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesfemaleright.tri
+Offset     694633: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium07chargen.tri
+Offset     721189: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong17chargen.tri
+Offset     742044: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium03chargen.tri
+Offset     812902: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort11chargen.tri
+Offset     861850: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadmaskfemaleright.tri
+Offset     905913: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort23chargen.tri
+Offset     951781: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong15_1bitchargen.tri
+Offset     978166: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort32chargen.tri
+Offset    1000054: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headfemale.tri
+Offset    1039854: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort02chargen.tri
+Offset    1057239: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort11chargen.tri
+Offset    1061704: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort08chargen.tri
+Offset    1083176: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort14chargen.tri
+Offset    1099355: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort23chargen.tri
+Offset    1104200: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort26chargen.tri
+Offset    1112423: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_eyesmaleright.tri
+Offset    1118853: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesmaleleft.tri
+Offset    1121714: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong15_1bitchargen.tri
+Offset    1222595: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium03_1bitchargen.tri
+Offset    1285486: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium04chargen.tri
+Offset    1335994: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong01_1bitchargen.tri
+Offset    1341678: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium07chargen.tri
+Offset    1350661: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort12chargen.tri
+Offset    1399609: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort21chargen.tri
+Offset    1418634: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort24chargen.tri
+Offset    1460667: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesfemale.tri
+Offset    1474883: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong11chargen.tri
+Offset    1482068: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort03chargen.tri
+Offset    1499454: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort12chargen.tri
+Offset    1503918: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort09chargen.tri
+Offset    1525386: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort15chargen.tri
+Offset    1541566: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort24chargen.tri
+Offset    1546113: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong12_1bitchargen.tri
+Offset    1557589: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong17_1bitchargen.tri
+Offset    1564786: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium07chargen.tri
+Offset    1580443: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort27chargen.tri
+Offset    1582505: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong11_1bitchargen.tri
+Offset    1601675: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong16_1bitchargen.tri
+Offset    1610581: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort01chargen.tri
+Offset    1682774: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesfemale.tri
+Offset    1687118: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort10chargen.tri
+Offset    1706211: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort13chargen.tri
+Offset    1745047: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesmaleleft.tri
+Offset    1748277: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort22chargen.tri
+Offset    1767302: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort25chargen.tri
+Offset    1812124: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_eyesmaleleft.tri
+Offset    1818578: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort01chargen.tri
+Offset    1826703: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_mouthhumanmale.tri
+Offset    1832095: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong12chargen.tri
+Offset    1839550: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort04chargen.tri
+Offset    1856936: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort13chargen.tri
+Offset    1860472: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong11chargen.tri
+Offset    1929760: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesfemaleleft.tri
+Offset    1932500: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort16chargen.tri
+Offset    1948681: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort25chargen.tri
+Offset    1953695: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong13_1bitchargen.tri
+Offset    1992863: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\basemouthhumanmale.tri
+Offset    1996915: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort28chargen.tri
+Offset    1999105: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadbrowsfemale.tri
+Offset    2045259: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesfemaleleft.tri
+Offset    2061895: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort02chargen.tri
+Offset    2138621: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort11chargen.tri
+Offset    2163047: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadmaskfemaleleft.tri
+Offset    2229704: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort14chargen.tri
+Offset    2295540: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort23chargen.tri
+Offset    2314565: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceeyesfemaleright.tri
+Offset    2334375: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong01chargen.tri
+Offset    2342085: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort26chargen.tri
+Offset    2384322: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort02chargen.tri
+Offset    2391932: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong13_1bitchargen.tri
+Offset    2497279: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium01_1bitchargen.tri
+Offset    2509572: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong13chargen.tri
+Offset    2516580: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort05chargen.tri
+Offset    2533966: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong04_1bitchargen.tri
+Offset    2547241: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort14chargen.tri
+Offset    2553928: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong12chargen.tri
+Offset    2623082: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort17chargen.tri
+Offset    2629339: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort26chargen.tri
+Offset    2633937: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadmaskmaleright.tri
+Offset    2684909: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort29chargen.tri
+Offset    2689860: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headmaskmaleright.tri
+Offset    2700914: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong15_1bitchargen.tri
+Offset    2706923: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong14_1bitchargen.tri
+Offset    2726181: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort03chargen.tri
+Offset    2799217: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium07chargen.tri
+Offset    2909809: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort12chargen.tri
+Offset    2934234: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort15chargen.tri
+Offset    3000084: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort24chargen.tri
+Offset    3016723: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium03_1bitchargen.tri
+Offset    3023010: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong02chargen.tri
+Offset    3025056: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort30chargen.tri
+Offset    3037789: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort27chargen.tri
+Offset    3046859: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong01_1bitchargen.tri
+Offset    3057997: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headbrowsmale.tri
+Offset    3070937: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort03chargen.tri
+Offset    3078549: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong01chargen.tri
+Offset    3149565: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong14chargen.tri
+Offset    3155453: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort15chargen.tri
+Offset    3162139: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong13chargen.tri
+Offset    3223544: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort18chargen.tri
+Offset    3229801: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadmaskfemaleright.tri
+Offset    3296662: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium03_1bitchargen.tri
+Offset    3313725: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort27chargen.tri
+Offset    3314610: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headmaskfemaleleft.tri
+Offset    3345896: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headmaskmaleright.tri
+Offset    3364589: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong11chargen.tri
+Offset    3381227: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong11_1bitchargen.tri
+Offset    3413235: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong16_1bitchargen.tri
+Offset    3427714: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort01chargen.tri
+Offset    3461247: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong01_1bitchargen.tri
+Offset    3506256: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort04chargen.tri
+Offset    3579269: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort13chargen.tri
+Offset    3599343: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort16chargen.tri
+Offset    3665093: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_eyesmale.tri
+Offset    3676845: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort25chargen.tri
+Offset    3695844: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort31chargen.tri
+Offset    3708577: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort28chargen.tri
+Offset    3717455: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort04chargen.tri
+Offset    3725067: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong02chargen.tri
+Offset    3742751: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong15chargen.tri
+Offset    3745955: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort07chargen.tri
+Offset    3763340: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort16chargen.tri
+Offset    3770029: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong14chargen.tri
+Offset    3825147: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceeyesfemaleleft.tri
+Offset    3844966: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort19chargen.tri
+Offset    3851223: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headbrowsfemale.tri
+Offset    3855780: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort28chargen.tri
+Offset    3856807: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium03_1bitchargen.tri
+Offset    3865799: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium01chargen.tri
+Offset    3898112: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong11chargen.tri
+Offset    3928057: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong11_1bitchargen.tri
+Offset    4062740: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong16_1bitchargen.tri
+Offset    4123412: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headbrowsfemale.tri
+Offset    4146079: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadbrowsmale.tri
+Offset    4177922: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong12chargen.tri
+Offset    4195170: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort02chargen.tri
+Offset    4227468: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadfemale_1.tri
+Offset    4366792: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadfemale_2.tri
+Offset    4497745: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\eceheadfemale_3.tri
+Offset    4537529: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesfemaleright.tri
+Offset    4540230: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort05chargen.tri
+Offset    4613266: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort14chargen.tri
+Offset    4641920: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort17chargen.tri
+Offset    4679517: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadmaskfemaleleft.tri
+Offset    4723558: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong13_1bitchargen.tri
+Offset    4733859: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesfemaleright.tri
+Offset    4741872: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesmaleright.tri
+Offset    4745083: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort26chargen.tri
+Offset    4761877: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong04chargen.tri
+Offset    4769620: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort32chargen.tri
+Offset    4781288: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort29chargen.tri
+Offset    4798246: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong12_1bitchargen.tri
+Offset    4824419: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort05chargen.tri
+Offset    4832031: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong17_1bitchargen.tri
+Offset    4845374: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong16chargen.tri
+Offset    4849330: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort08chargen.tri
+Offset    4859356: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort17chargen.tri
+Offset    4862913: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong15chargen.tri
+Offset    4888532: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium01_1bitchargen.tri
+Offset    4889992: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort29chargen.tri
+Offset    4891827: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong12chargen.tri
+Offset    4922371: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong04_1bitchargen.tri
+Offset    4944147: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong01chargen.tri
+Offset    4961618: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium01chargen.tri
+Offset    4969243: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_headmaskmaleleft.tri
+Offset    4977083: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headmaskfemaleright.tri
+Offset    5008507: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong13chargen.tri
+Offset    5023626: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium01_1bitchargen.tri
+Offset    5032167: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort30chargen.tri
+Offset    5066708: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadmaskmaleleft.tri
+Offset    5117275: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort03chargen.tri
+Offset    5149574: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headbrowsmale.tri
+Offset    5154769: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort15chargen.tri
+Offset    5183423: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_headmaskmaleright.tri
+Offset    5191240: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium01chargen.tri
+Offset    5208644: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort21chargen.tri
+Offset    5218751: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort18chargen.tri
+Offset    5255567: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort30chargen.tri
+Offset    5259770: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong14_1bitchargen.tri
+Offset    5296340: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort27chargen.tri
+Offset    5301042: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong05chargen.tri
+Offset    5306522: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesmale.tri
+Offset    5311441: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong04chargen.tri
+Offset    5382540: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong04_1bitchargen.tri
+Offset    5460931: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong17chargen.tri
+Offset    5466146: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort09chargen.tri
+Offset    5476175: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort18chargen.tri
+Offset    5479734: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong16chargen.tri
+Offset    5519102: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_headmale.tri
+Offset    5554587: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong01chargen.tri
+Offset    5586621: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium03chargen.tri
+Offset    5618674: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong13chargen.tri
+Offset    5646370: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesmaleright.tri
+Offset    5668037: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong02chargen.tri
+Offset    5673520: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong14chargen.tri
+Offset    5685179: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headmaskmaleleft.tri
+Offset    5703860: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium01_1bitchargen.tri
+Offset    5707726: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong01_1bitchargen.tri
+Offset    5711755: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort31chargen.tri
+Offset    5745551: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong14_1bitchargen.tri
+Offset    5862004: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort04chargen.tri
+Offset    5894303: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesmale.tri
+Offset    5899819: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort10chargen.tri
+Offset    5909039: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort07chargen.tri
+Offset    5982024: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort16chargen.tri
+Offset    6010678: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headmaskfemaleleft.tri
+Offset    6017838: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort22chargen.tri
+Offset    6027945: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort19chargen.tri
+Offset    6064757: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headmaskmaleleft.tri
+Offset    6075826: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort31chargen.tri
+Offset    6080029: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort28chargen.tri
+Offset    6085634: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort07chargen.tri
+Offset    6093243: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong05chargen.tri
+Offset    6142215: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesmaleleft.tri
+Offset    6163404: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort19chargen.tri
+Offset    6166963: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong17chargen.tri
+Offset    6215413: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong11_1bitchargen.tri
+Offset    6223764: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong02chargen.tri
+Offset    6234755: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesmale.tri
+Offset    6274064: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong16_1bitchargen.tri
+Offset    6278960: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardmedium04chargen.tri
+Offset    6301220: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong14chargen.tri
+Offset    6323473: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong15_1bitchargen.tri
+Offset    6345774: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium03chargen.tri
+Offset    6353384: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong15chargen.tri
+Offset    6364275: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort32chargen.tri
+Offset    6393864: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_eyesmaleright.tri
+Offset    6396629: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort05chargen.tri
+Offset    6428928: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort11chargen.tri
+Offset    6442689: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort08chargen.tri
+Offset    6493631: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort17chargen.tri
+Offset    6505528: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium03chargen.tri
+Offset    6522872: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort23chargen.tri
+Offset    6532979: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort32chargen.tri
+Offset    6536759: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort29chargen.tri
+Offset    6547433: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_mouthhumanmale.tri
+Offset    6550720: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadfemale.tri
+Offset    6706272: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort08chargen.tri
+Offset    6711754: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong12_1bitchargen.tri
+Offset    6756484: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong17_1bitchargen.tri
+Offset    6779906: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headmale.tri
+Offset    6825889: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong15chargen.tri
+Offset    6844866: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardmedium01chargen.tri
+Offset    6915878: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong04chargen.tri
+Offset    6933380: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\basemouthhumanfemale.tri
+Offset    6939024: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardmedium04chargen.tri
+Offset    6944696: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong16chargen.tri
+Offset    6951893: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort21chargen.tri
+Offset    6998132: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort30chargen.tri
+Offset    7022172: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort12chargen.tri
+Offset    7035930: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort09chargen.tri
+Offset    7083129: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort21chargen.tri
+Offset    7087974: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort18chargen.tri
+Offset    7099882: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardmedium04chargen.tri
+Offset    7110141: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort24chargen.tri
+Offset    7118316: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong04_1bitchargen.tri
+Offset    7127165: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong12_1bitchargen.tri
+Offset    7266105: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardlong17_1bitchargen.tri
+Offset    7358065: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headmale.tri
+Offset    7453140: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort09chargen.tri
+Offset    7458613: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_headbrowsmale.tri
+Offset    7465234: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong04chargen.tri
+Offset    7497318: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_mouthhumanfemale.tri
+Offset    7504959: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardlong16chargen.tri
+Offset    7519128: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong05chargen.tri
+Offset    7529056: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort10chargen.tri
+Offset    7573758: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadmale.tri
+Offset    7787420: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong17chargen.tri
+Offset    7797888: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardlong14_1bitchargen.tri
+Offset    7808602: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\humanbeardshort22chargen.tri
+Offset    7854470: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort31chargen.tri
+Offset    7878510: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_mouthhumanfemale.tri
+Offset    7882014: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort01chargen.tri
+Offset    7899872: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardlong13_1bitchargen.tri
+Offset    7919808: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseeyesfemale.tri
+Offset    7948250: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort10chargen.tri
+Offset    7953286: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort07chargen.tri
+Offset    7985582: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\baseheadbrowsfemale.tri
+Offset    8017422: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort13chargen.tri
+Offset    8029196: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_mouthhumanmale.tri
+Offset    8033955: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ece_humanbeardshort22chargen.tri
+Offset    8038800: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_humanbeardshort19chargen.tri
+Offset    8050708: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_humanbeardshort25chargen.tri
+Offset    8059863: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_headfemale.tri
+Offset    8183650: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\cme_eyesfemaleleft.tri
+Offset    8191924: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\ecemouthhumanfemale.tri
+Offset    8197449: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\ece\rans_headmaskfemaleright.tri
+Offset    8204627: Wrote compressed file scripts\racemenuplugin.pex
+Offset    8208816: Wrote compressed file scripts\racemenu.pex
+Offset    8219210: Wrote compressed file scripts\racemenubase.pex
+Offset    8223150: Wrote compressed file scripts\racemenuload.pex
+Offset    8223775: Wrote compressed file scripts\chargen.pex
+Offset    8224223: Wrote compressed file scripts\nioverride.pex
+Offset    8225896: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\expr_malehead.tri
+Offset    8364967: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\expr_femaleheadkhajiit.tri
+Offset    8608235: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\expr_femalehead.tri
+Offset    8723366: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\expr_maleheadargonian.tri
+Offset    8943605: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\expr_eyesfemale.tri
+Offset    8952341: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\expr_eyesmale.tri
+Offset    8962985: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\expr_eyeskhajiitfemale.tri
+Offset    8964988: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\expr_femaleheadargonian.tri
+Offset    9185821: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\expr_maleheadkhajiit.tri
+Offset    9435286: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\expr_eyeskhajiit.tri
+Offset    9437281: Wrote compressed file textures\actors\character\overlays\default.dds
+Offset    9437413: Wrote compressed file meshes\actors\character\character assets\feet_magicoverlay.nif
+Offset    9437803: Wrote compressed file meshes\actors\character\character assets\body_overlay.nif
+Offset    9438119: Wrote compressed file meshes\actors\character\character assets\face_overlay.nif
+Offset    9438435: Wrote compressed file meshes\actors\character\character assets\feet_overlay.nif
+Offset    9438751: Wrote compressed file meshes\actors\character\character assets\hands_overlay.nif
+Offset    9439069: Wrote compressed file meshes\actors\character\character assets\hands_magicoverlay.nif
+Offset    9439460: Wrote compressed file meshes\actors\character\character assets\face_magicoverlay.nif
+Offset    9439851: Wrote compressed file meshes\actors\character\character assets\body_magicoverlay.nif
+Offset    9440242: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\eyesmalerightchargen.tri
+Offset    9444906: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\eyesmalechargen.tri
+Offset    9466425: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\femaleheadbrowschargen.tri
+Offset    9478575: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\eyesmaleleftchargen.tri
+Offset    9483345: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\femaleheadmaskrightsidechargen.tri
+Offset    9497662: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\maleheadmaskrightsidechargen.tri
+Offset    9510510: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\maleheadmaskleftsidechargen.tri
+Offset    9524881: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\femaleheadmaskleftsidechargen.tri
+Offset    9544565: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\faceparts\maleheadbrowschargen.tri
+Offset    9553484: Wrote compressed file interface\translations\racemenu_japanese.txt
+Offset    9557089: Wrote compressed file interface\translations\racemenu_czech.txt
+Offset    9561048: Wrote compressed file interface\translations\racemenu_russian.txt
+Offset    9565187: Wrote compressed file interface\translations\racemenu_polish.txt
+Offset    9569190: Wrote compressed file interface\translations\racemenuplugin_english.txt
+Offset    9569278: Wrote compressed file interface\translations\racemenu_french.txt
+Offset    9573206: Wrote compressed file interface\translations\racemenu_english.txt
+Offset    9576438: Wrote compressed file interface\translations\racemenu_spanish.txt
+Offset    9580443: Wrote compressed file interface\translations\racemenu_german.txt
+Offset    9584367: Wrote compressed file interface\translations\racemenu_italian.txt
+Offset    9588382: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\mouth\expr_mouthargonian.tri
+Offset    9630098: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\mouth\expr_malemouthkhajiit.tri
+Offset    9695971: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\mouth\expr_mouthhuman.tri
+Offset    9707955: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\mouth\expr_mouthkhajiitfemale.tri
+Offset    9775927: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\mouth\expr_mouthorc.tri
+Offset    9801127: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\mouth\expr_mouthkhajiit.tri
+Offset    9866115: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\mouth\expr_mouthhumanf.tri
+Offset    9873421: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\mouth\expr_mouthorcfemale.tri
+Offset    9892654: Wrote compressed file meshes\actors\character\facegenmorphs\racemenu.esp\sliders\beast.ini
+Offset    9893617: Wrote compressed file meshes\actors\character\facegenmorphs\racemenu.esp\sliders\human.ini
+Offset    9895998: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_01.dds
+Offset    9897716: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_02.dds
+Offset    9899419: Wrote compressed file textures\actors\character\character assets\tintmasks\beautymark_03.dds
+Offset    9901133: Wrote compressed file textures\actors\character\character assets\tintmasks\dragontattoo_01.dds
+Offset    9934426: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong07_1bit.tri
+Offset   10044760: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong16_1bit.tri
+Offset   10077837: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardmedium01_1bit.tri
+Offset   10089969: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_khajiitbeard.tri
+Offset   10230002: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort01.tri
+Offset   10283733: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort02.tri
+Offset   10334143: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort03.tri
+Offset   10384554: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort04.tri
+Offset   10434965: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort05.tri
+Offset   10485376: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort07.tri
+Offset   10535867: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort08.tri
+Offset   10573150: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort09.tri
+Offset   10610381: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort10.tri
+Offset   10644573: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort11.tri
+Offset   10679801: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort12.tri
+Offset   10715050: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort13.tri
+Offset   10743042: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort14.tri
+Offset   10788475: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort15.tri
+Offset   10833908: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort16.tri
+Offset   10879358: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort17.tri
+Offset   10902708: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort18.tri
+Offset   10926021: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort19.tri
+Offset   10949334: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort20.tri
+Offset   10973857: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort21.tri
+Offset   11007115: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort22.tri
+Offset   11040913: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort23.tri
+Offset   11074711: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort24.tri
+Offset   11105856: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort25.tri
+Offset   11140285: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort26.tri
+Offset   11171048: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort27.tri
+Offset   11179055: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort28.tri
+Offset   11187919: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort29.tri
+Offset   11203758: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort30.tri
+Offset   11236922: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort31.tri
+Offset   11270086: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardshort32.tri
+Offset   11299652: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong11_1bit.tri
+Offset   11384816: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong08_1bit.tri
+Offset   11489328: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_khajiitbeard01.tri
+Offset   11605484: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_khajiitbeard02.tri
+Offset   11689191: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong17_1bit.tri
+Offset   11746328: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong03_1bit.tri
+Offset   11839517: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardmedium01.tri
+Offset   11889766: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardmedium03.tri
+Offset   11940013: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardmedium04.tri
+Offset   11978863: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardmedium07.tri
+Offset   12046732: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardmedium08.tri
+Offset   12102985: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardmedium09.tri
+Offset   12183114: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_khajiitmustache01alpha.tri
+Offset   12200047: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong12_1bit.tri
+Offset   12315946: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong09_1bit.tri
+Offset   12431078: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong04_1bit.tri
+Offset   12480879: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_khajiitmustache02alpha.tri
+Offset   12497581: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardmedium03_1bit.tri
+Offset   12555182: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong13_1bit.tri
+Offset   12648228: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong14_1bit.tri
+Offset   12740267: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_khajiitmustache01.tri
+Offset   12762262: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_khajiitmustache02.tri
+Offset   12815317: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_khajiitbeardalpha.tri
+Offset   12851921: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong15_1bit.tri
+Offset   12918055: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong01.tri
+Offset   12968355: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong02.tri
+Offset   12984987: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong03.tri
+Offset   13021771: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong05.tri
+Offset   13058722: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong06.tri
+Offset   13093344: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong07.tri
+Offset   13127983: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong10.tri
+Offset   13201721: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong11.tri
+Offset   13249574: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong12.tri
+Offset   13299340: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong13.tri
+Offset   13345542: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong14.tri
+Offset   13385726: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong15.tri
+Offset   13411579: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong16.tri
+Offset   13438251: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong17.tri
+Offset   13475014: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\expressions\beards\expr_humanbeardlong01_1bit.tri
+Offset   13502672: Wrote compressed file interface\racesex_menu.swf
+Offset   13589527: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort11chargen.tri
+Offset   13605719: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort23chargen.tri
+Offset   13620751: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong15_1bitchargen.tri
+Offset   13651643: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium03_1bitchargen.tri
+Offset   13669766: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium04chargen.tri
+Offset   13686544: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort12chargen.tri
+Offset   13702742: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort24chargen.tri
+Offset   13716676: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong10chargen.tri
+Offset   13745270: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort01chargen.tri
+Offset   13770123: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort13chargen.tri
+Offset   13783824: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort25chargen.tri
+Offset   13799053: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong11chargen.tri
+Offset   13821419: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong03_1bitchargen.tri
+Offset   13851999: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong08_1bitchargen.tri
+Offset   13888782: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort02chargen.tri
+Offset   13912175: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort14chargen.tri
+Offset   13933776: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort26chargen.tri
+Offset   13947452: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong13_1bitchargen.tri
+Offset   13982811: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium01_1bitchargen.tri
+Offset   13987851: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong12chargen.tri
+Offset   14010616: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort03chargen.tri
+Offset   14034012: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium07chargen.tri
+Offset   14065167: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort15chargen.tri
+Offset   14086753: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort27chargen.tri
+Offset   14090053: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong01chargen.tri
+Offset   14113601: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong13chargen.tri
+Offset   14133980: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong01_1bitchargen.tri
+Offset   14146450: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort04chargen.tri
+Offset   14169846: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium08chargen.tri
+Offset   14195848: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort16chargen.tri
+Offset   14217410: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort28chargen.tri
+Offset   14221094: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong02chargen.tri
+Offset   14227864: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong14chargen.tri
+Offset   14244774: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong11_1bitchargen.tri
+Offset   14274312: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong16_1bitchargen.tri
+Offset   14292630: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort05chargen.tri
+Offset   14316026: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium09chargen.tri
+Offset   14346796: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort17chargen.tri
+Offset   14357927: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort29chargen.tri
+Offset   14364245: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong03chargen.tri
+Offset   14380244: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong15chargen.tri
+Offset   14393512: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort30chargen.tri
+Offset   14409318: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort06chargen.tri
+Offset   14432714: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort18chargen.tri
+Offset   14443853: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong04chargen.tri
+Offset   14467440: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong04_1bitchargen.tri
+Offset   14493057: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong09_1bitchargen.tri
+Offset   14531566: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort31chargen.tri
+Offset   14547372: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong14_1bitchargen.tri
+Offset   14584829: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort07chargen.tri
+Offset   14608228: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort19chargen.tri
+Offset   14619367: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong05chargen.tri
+Offset   14635640: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong17chargen.tri
+Offset   14651705: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort20chargen.tri
+Offset   14663584: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort32chargen.tri
+Offset   14677859: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort08chargen.tri
+Offset   14694303: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong06chargen.tri
+Offset   14709508: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardmedium01chargen.tri
+Offset   14732916: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong07_1bitchargen.tri
+Offset   14770855: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort21chargen.tri
+Offset   14785887: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort09chargen.tri
+Offset   14802364: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong12_1bitchargen.tri
+Offset   14843865: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong17_1bitchargen.tri
+Offset   14868987: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardlong07chargen.tri
+Offset   14884201: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort10chargen.tri
+Offset   14899448: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\beards\humanbeardshort22chargen.tri
+Offset   14914480: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\eyesmalechargen.tri
+Offset   14922564: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\eyesfemalechargen.tri
+Offset   14931498: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\femaleheadchargen.tri
+Offset   15007325: Wrote compressed file meshes\actors\character\facegenmorphs\morphs\nuska\maleheadcustomizations.tri
+Offset   15080945: Wrote compressed file interface\racemenu\racesex_icons.swf
+Offset   15089832: Wrote compressed file interface\racemenu\bottombar.swf
+Offset   15121071: Wrote compressed file interface\racemenu\buttonart.swf
+Offset   15140058: END OF FILE
 
 Finished writing files
 

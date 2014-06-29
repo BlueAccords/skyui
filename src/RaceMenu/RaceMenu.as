@@ -236,7 +236,7 @@ class RaceMenu extends MovieClip
 		
 		_sortFilter.setSortBy(["text"], [0]);
 		
-		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 508, savedItemIndex: -1, enabled: true});
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 2044, savedItemIndex: -1, enabled: true});
 		
 		/*// Test Code
 		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
@@ -726,10 +726,11 @@ class RaceMenu extends MovieClip
 		}
 		
 		// Add the new categories
-		
 		if(categoryCount > categoryList.iconArt.length) {
-			for(var i = 0; i < categoryCount - categoryList.iconArt.length; i++)
+			var remainingCategories: Number = categoryCount - categoryList.iconArt.length;
+			for(var i = 0; i < remainingCategories; i++) {
 				categoryList.iconArt.push("skyrim");
+			}
 		}
 		
 		categoryList.iconArt.push("palette");
