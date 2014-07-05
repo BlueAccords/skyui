@@ -193,7 +193,7 @@ class RaceMenu extends MovieClip
 		var bonusEnumeration = new FilteredEnumeration(bonusList.entryList);
 		bonusEnumeration.addFilter(_sortFilter);
 		bonusList.listEnumeration = bonusEnumeration;
-						
+		
 		categoryList.listEnumeration = new BasicEnumeration(categoryList.entryList);
 		categoryList["reinitClips"] = function()
 		{
@@ -949,7 +949,13 @@ class RaceMenu extends MovieClip
 			var displayText: String = nTintTexture.substring(slashIndex + 1, formatIndex);
 			
 			var entryObject: Object = {type: a_entryType, listType: a_makeupType, text: displayText, texture: nTintTexture, tintType: nTintType, tintIndex: nTintIndex, fillColor: nTintColor, glowColor: nGlowColor, filterFlag: a_categoryFilter, enabled: true};
-			entryObject.isColorEnabled = function(tintColors: Number): Boolean { return (_global.skse && (_global.tintCount < _global.maxTints || (this.fillColor >>> 24) != 0)); }
+			
+			if(a_entryType == RaceMenuDefines.ENTRY_TYPE_WARPAINT) {
+				entryObject.isColorEnabled = function(tintColors: Number): Boolean { return (_global.skse && (_global.tintCount < _global.maxTints || (this.fillColor >>> 24) != 0)); }
+			} else {
+				entryObject.isColorEnabled = function(tintColors: Number): Boolean { return true; }
+			}
+			
 			entryObject.GetTextureList = function(raceMenu: Object): Array { return raceMenu.makeupList[this.listType]; }
 			entryObject.hasColor = function(): Boolean { return true; }
 			entryObject.hasGlow = function(): Boolean { return (this.tintType == RaceMenuDefines.TINT_TYPE_BODYPAINT || this.tintType == RaceMenuDefines.TINT_TYPE_HANDPAINT || this.tintType == RaceMenuDefines.TINT_TYPE_FEETPAINT || this.tintType == RaceMenuDefines.TINT_TYPE_FACEPAINT); }
@@ -1363,7 +1369,7 @@ class RaceMenu extends MovieClip
 		if(selectedEntry.GetTextureList(this))
 			navPanel.addButton({text: "$Choose Texture", controls: _textureControl}).addEventListener("click", this, "onChooseTextureClicked");
 				
-		navPanel.updateButtons(true);		
+		navPanel.updateButtons(true);
 	}
 	
 	private function setDisplayText(a_text: String, a_color: Number): Void
