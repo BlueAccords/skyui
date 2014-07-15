@@ -1,4 +1,3 @@
-Interface\messagebox.swf
 Interface\magicmenuext.swf
 Interface\selectionmenu.swf
 Interface\statssheetmenu.swf

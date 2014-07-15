@@ -1,66 +1,66 @@
 Language	English	French	German	Italian	Spanish	Czech	Polish	Russian	Japanese	Portuguese	ChineseTraditional	ChineseSimplified
-$ALL	ALL	TOUT	ALLES	TUTTO	TODOS	VŠE	WSZYSTKIE	ВСЕ	全て	TUDO	全部	全部
-$COLORS	COLORS	COULEURS	FARBEN	COLORI	COLORES	BARVY	KOLORY	ЦВЕТА	色	CORES	色彩	颜色
-$MAKEUP	MAKEUP	MAQUILLAGE	MAKEUP	TRUCCO	MAQUILLAJE	MAKEUP	MAKIJAŻ	МАКИЯЖ	化粧	MAQUIAGEM	化粧	化妆
+$ALL	ALL	TOUT	ALLES	TUTTO	TODOS	VŠE	WSZYSTKIE	ВСЕ	全て	Tudo	全部	全部
+$COLORS	COLORS	COULEURS	FARBEN	COLORI	COLORES	BARVY	KOLORY	ЦВЕТА	色	Cores	色彩	颜色
+$MAKEUP	MAKEUP	MAQUILLAGE	MAKEUP	TRUCCO	MAQUILLAJE	MAKEUP	MAKIJAŻ	МАКИЯЖ	化粧	Maquiagem	化粧	化妆
 $FILTER	FILTER	FILTRE	FILTER	FILTRO	FILTRO	FILTR	FILTR	ФИЛЬТР	フィルタ	Filtro	篩選	筛选
-$EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	DODATEK	DODATEK	ДОПОЛНИТЕЛЬНО				
-$EXPRESSIONS	EXPRESSIONS											
-$BODY PAINT	BODY PAINT	PEINTURE SUR LE CORPS	KÖRPERBEMALUNG	TINTURA CORPO	PINTURA CORPORAL	BARVA NA TĚLE	BARWA CIAŁA	ТАТУИРОВКА ТЕЛА				
-$HAND PAINT	HAND PAINT	PEINTURE SUR LES MAINS	HANDBEMALUNG	TINTURA MANO	PINTURA DE MANOS	BARVA RUKOU	BARWA RĘKI	ТАТУИРОВКА РУК				
-$FOOT PAINT	FOOT PAINT	PEINTURE SUR LES PIEDS	FUßBEMALUNG	TINTURA PIEDI	PINTURA DE PIES	BARVA NOHOU	BARWA STÓP	ТАТУИРОВКА НОГ				
-$FACE PAINT	FACE PAINT	PEINTURE SUR LA TETE	GESICHTSBEMALUNG	PITTURA FACCIALE	PINTURA FACIAL	BARVA NA TVÁŘ	BARWA TWARZY	ТАТУИРОВКА ЛИЦА				
-$Sliders	Sliders	Curseurs	Regler	Cursori	Controles	Posuvníky	Suwaki	Бегунки				
-$Overlays	Overlays	Superposition	Überlagerungen	Sovrapposizioni	Superposición	Vrstvy	Pokrycie	Верхний слой				
-$Camera	Camera	Caméra	Kamera	Camera	Cámara	Kamera	Kamera					
-$Sculpt	Sculpt	Sculpter		Scolpisci			Rzeźbić					
+$EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	DODATEK	DODATEK	ДОПОЛНИТЕЛЬНО		Extra	額外	额外
+$EXPRESSIONS	EXPRESSIONS	EXPRESSIONS	GESICHTSAUSDRUCK	ESPRESSIONI	EXPRESIONES	VÝRAZY		ВЫРАЖЕНИЕ ЛИЦА		Expressões		表情
+$BODY PAINT	BODY PAINT	PEINTURE SUR LE CORPS	KÖRPERBEMALUNG	TINTURA CORPO	PINTURA CORPORAL	BARVA NA TĚLE	BARWA CIAŁA	ТАТУИРОВКА ТЕЛА		Pintura corporal	紋身	纹身 
+$HAND PAINT	HAND PAINT	PEINTURE SUR LES MAINS	HANDBEMALUNG	TINTURA MANO	PINTURA DE MANOS	BARVA RUKOU	BARWA RĘKI	ТАТУИРОВКА РУК		Pintura da mão		
+$FOOT PAINT	FOOT PAINT	PEINTURE SUR LES PIEDS	FUßBEMALUNG	TINTURA PIEDI	PINTURA DE PIES	BARVA NOHOU	BARWA STÓP	ТАТУИРОВКА НОГ		Pintura do pé		
+$FACE PAINT	FACE PAINT	PEINTURE SUR LA TETE	GESICHTSBEMALUNG	PITTURA FACCIALE	PINTURA FACIAL	BARVA NA TVÁŘ	BARWA TWARZY	ТАТУИРОВКА ЛИЦА		Pintura do rosto		
+$Sliders	Sliders	Curseurs	Regler	Cursori	Controles	Posuvníky	Suwaki	Бегунки		Sliders		
+$Overlays	Overlays	Superposition	Überlagerungen	Sovrapposizioni	Superposición	Vrstvy	Pokrycie	Верхний слой		Sobreposições		
+$Camera	Camera	Caméra	Kamera	Camera	Cámara	Kamera	Kamera	Камера		Camera		
+$Sculpt	Sculpt	Sculpter	Formen	Scolpisci	Escultor		Rzeźbić	Резать		Esculpir		
 $Zoom In	Zoom In	Zoom avant	Vergrößern	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
 $Zoom Out	Zoom Out	Zoom arrière	Verkleinern	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
 $Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить Расу	種族の変更	Mudar a raça	變更種族	更变种族
-$Choose Color	Choose Color	Choix de couleur	Farbe wählen	Scegli Colore	Elegir color	Vybrat Barvu	Wybierz Kolor	Выбор цвета	色の選択	Escolha a cor	選擇色彩	选择颜色
-$Choose Texture	Choose Texture	Choix de texture	Textur wählen	Scegli Texture	Elegir textura	Vybrat Texturu	Wybierz Teksturę	Выбор текстуры	テクスチャーの選択	Escolha a textura	選擇材質	选择材质
-$Glow	Glow	Lueur	Leuchten	Bagliore	Brillo	Záře	Blask	Свечение				
-$Tint	Tint	Teinte	Tönung	Tinta	Tinte	Odstín	Odcień	Оттенок				
-$Search	Search	Recherche	Suchen	Cerca	Buscar	Hledat	Szukaj	Найти	検索	Procura	搜尋	搜索
+$Choose Color	Choose Color	Choix de couleur	Farbe wählen	Scegli Colore	Elegir color	Vybrat Barvu	Wybierz Kolor	Выбор цвета	色の選択	Escolher a cor	選擇色彩	选择颜色
+$Choose Texture	Choose Texture	Choix de texture	Textur wählen	Scegli Texture	Elegir textura	Vybrat Texturu	Wybierz Teksturę	Выбор текстуры	テクスチャーの選択	Escolher a textura	選擇材質	选择材质
+$Glow	Glow	Lueur	Leuchten	Bagliore	Brillo	Záře	Blask	Свечение		Brilho		
+$Tint	Tint	Teinte	Tönung	Tinta	Tinte	Odstín	Odcień	Оттенок		Tom/Matiz		
+$Search	Search	Recherche	Suchen	Cerca	Buscar	Hledat	Szukaj	Найти	検索	Procurar	搜尋	搜索
 $Change Category	Change Category	Changer de catégorie	Kategorie ändern	Cambia Categoria	Cambiar categoría	Změnit kategorii	Zmień Kategorię	Сменить категорию	カテゴリーの変更	Mudar a categoria	變更類別	更变类别
-$Load Color	Load Color	Charger couleur	Farbe laden	Carica Colore	Cargar color	Načíst barvu	Wczytaj Kolor	Загрузить цвет	色の読み込み			
-$Save Color	Save Color	Enregistrer couleur	Farbe speichern	Salva Colore	Guardar color	Uložit barvu	Zapisz Kolor	Сохранить цвет	色の保存			
-$Saved Color	Saved Color	Couleurs enregistrées	Gespeicherte Farbe	Colore Salvato	Color guardado	Uložená barva	Zapisano Kolor	Сохранённый цвет	保存した色			
-$Load Preset	Load Preset	Charger le préréglage                                                                                 	Voreinstellung laden	Carica Impostazioni	Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード			读取预设
-$Save Preset	Save Preset	Sauver le préréglage	Voreinstellung speichern	Salva Impostazioni	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存			保存预设
+$Load Color	Load Color	Charger couleur	Farbe laden	Carica Colore	Cargar color	Načíst barvu	Wczytaj Kolor	Загрузить цвет	色の読み込み	Carregar cor		载入颜色
+$Save Color	Save Color	Enregistrer couleur	Farbe speichern	Salva Colore	Guardar color	Uložit barvu	Zapisz Kolor	Сохранить цвет	色の保存	Salvar cor		保存颜色
+$Saved Color	Saved Color	Couleurs enregistrées	Gespeicherte Farbe	Colore Salvato	Color guardado	Uložená barva	Zapisano Kolor	Сохранённый цвет	保存した色	Cor salva		已保存颜色
+$Load Preset	Load Preset	Charger le préréglage                                                                                 	Voreinstellung laden	Carica Impostazioni	Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード	Carregar predefinição		读取预设
+$Save Preset	Save Preset	Sauver le préréglage	Voreinstellung speichern	Salva Impostazioni	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存	Salvar predefinição		保存预设
 $Light On	Light On	Avec lumière	Licht an	Luce Accesa	Luz encendida	Světlo zapnuté	Zapal	Вкл. Подсветку	ライトオン	Ligar a luz	開啟燈光	开启光照
 $Light Off	Light Off	Sans lumière	Licht aus	Luce Spenta	Luz apagada	Světlo vypnuté	Zgaś	Выкл. Подстветку	ライトオフ	Desligar a luz	關閉燈光	关闭光照
-$Exported head	Exported head	Tête exportée	Kopf wurde exportiert	Testa Esportata	Cabeza exportada	Exportovaná hlava	Eksportowano głowę	Экспортированная голова	出力された頭部			
-$Export Head	Export Head	Exporter tête	Kopf exportieren	Esporta Testa	Exportar cabeza	Exportovat hlavu	Eksportuj Głowę	Экспортировать голову	頭部の出力			
-$Rotate	Rotate	Pivoter	Drehen	Ruota	Rotar	Otočit	Obróć					
-$Move Camera	Move Camera	Déplacer la caméra	Kamera bewegen	Muovi camera	Mover cámara	Posunout Kameru	Poruszaj Kamerą		カメラの移動			
-$Rate ({})	Rate ({})	Vitesse ({})	Schrittweite ({})	Velocità ({})	Índice ({})	Stupeň ({})	Ocena ({})					
-$Primary	Primary	Primaire	Primär	Primario	Primario	Primární	Pierwszorzędny					
-$Secondary	Secondary	Secondaire	Sekundär	Secondario	Secundario	Sekundární	Drugorzędny					
-$Preset Slot	Preset Slot	Emplacement de réglages	Vorlageposition	Slot impostazione	Ranura de ajustes predefinidos	Slot předvolby	Gniazdo Wyglądu	Слот предустановки				
-$Saved preset to clipboard	Saved preset to clipboard	Sauvegarder les réglages dans le presse-papier	Vorlage in Zwischenablage gespeichert	Impostazione salvata sugli appunti	Ajustes predefinidos guardados en el portapapeles	Předvolba uložena do schránky	Zapisano wygląd do schowka	Предустановка сохранена в буфер				
-$Saved preset to slot {}	Saved preset to slot {}	Réglages sauvegardés dans l'emplacement {}	Vorlage in Position {} gespeichert	Impostazione salvata nello slot {}	Ajustes predefinidos guardados {}	Předvolba uložena do slotu {}	Zapisano wygląd do gniazda {}	Сохранить предустановку в слот {}				
-$Loaded preset from slot {}	Loaded preset from slot {}	Réglages chargés depuis l'emplacement {}	Vorlage aus Position {} geladen	Carica impostazione dallo slot {}	Ajustes predefinidos cargados {}	Načtena předvolba ze slotu {}	Wczytano wygląd z gniazda {}	Загрузить предустановку из слота {}				
-$Failed to load preset from slot {}	Failed to load preset from slot {}	Echec du chargement des réglages depuis l'emplacement {}	Fehler beim Laden der Vorlage aus Position {}	Fallito caricamento dell'impostazione dallo slot {}	Fallo al cargar los ajustes predefinidos {}	Načtení předvolby ze slotu {} selhalo	Nie powiodło się wczytanie wyglądu z gniazda {}	Не удалось загрузить предустановку из слота {}				
+$Exported head	Exported head	Tête exportée	Kopf wurde exportiert	Testa Esportata	Cabeza exportada	Exportovaná hlava	Eksportowano głowę	Экспортированная голова	出力された頭部	Cabeça exportada		已导出的头部 
+$Export Head	Export Head	Exporter tête	Kopf exportieren	Esporta Testa	Exportar cabeza	Exportovat hlavu	Eksportuj Głowę	Экспортировать голову	頭部の出力	Exportar cabeça		导出头部
+$Rotate	Rotate	Pivoter	Drehen	Ruota	Rotar	Otočit	Obróć	 Поворот		Girar		旋转
+$Move Camera	Move Camera	Déplacer la caméra	Kamera bewegen	Muovi camera	Mover cámara	Posunout Kameru	Poruszaj Kamerą	Движение камеры	カメラの移動	Mover camera		移动镜头
+$Rate ({})	Rate ({})	Vitesse ({})	Schrittweite ({})	Velocità ({})	Índice ({})	Stupeň ({})	Ocena ({})	Оценка ({})		Taxa		
+$Primary	Primary	Primaire	Primär	Primario	Primario	Primární	Pierwszorzędny	Основной		Primário		主要
+$Secondary	Secondary	Secondaire	Sekundär	Secondario	Secundario	Sekundární	Drugorzędny	Дополнительный		Secundário		次要
+$Preset Slot	Preset Slot	Emplacement de réglages	Vorlageposition	Slot impostazione	Ranura de ajustes predefinidos	Slot předvolby	Gniazdo Wyglądu	Слот предустановки		Espaço de predefinição		当前设置
+$Saved preset to clipboard	Saved preset to clipboard	Sauvegarder les réglages dans le presse-papier	Vorlage in Zwischenablage gespeichert	Impostazione salvata sugli appunti	Ajustes predefinidos guardados en el portapapeles	Předvolba uložena do schránky	Zapisano wygląd do schowka	Предустановка сохранена в буфер		Predefinição salva para a área de transferencia		保存当前设置到剪贴板 
+$Saved preset to slot {}	Saved preset to slot {}	Réglages sauvegardés dans l'emplacement {}	Vorlage in Position {} gespeichert	Impostazione salvata nello slot {}	Ajustes predefinidos guardados {}	Předvolba uložena do slotu {}	Zapisano wygląd do gniazda {}	Сохранить предустановку в слот {}		Predefinição salva no espaço		读取到记录{} 
+$Loaded preset from slot {}	Loaded preset from slot {}	Réglages chargés depuis l'emplacement {}	Vorlage aus Position {} geladen	Carica impostazione dallo slot {}	Ajustes predefinidos cargados {}	Načtena předvolba ze slotu {}	Wczytano wygląd z gniazda {}	Загрузить предустановку из слота {}		Predefinição carregada do espaço		读取记录{} 
+$Failed to load preset from slot {}	Failed to load preset from slot {}	Echec du chargement des réglages depuis l'emplacement {}	Fehler beim Laden der Vorlage aus Position {}	Fallito caricamento dell'impostazione dallo slot {}	Fallo al cargar los ajustes predefinidos {}	Načtení předvolby ze slotu {} selhalo	Nie powiodło się wczytanie wyglądu z gniazda {}	Не удалось загрузить предустановку из слота {}		Falha ao carregar predefinição do espaço		从记录{}读取失败 
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
 $Head	Head	Tête	Kopf	Testa	Cabeza	Hlava	Głowa	Голова	頭部	Cabeça	頭部	头部
 $Left Breast	Left Breast	Poitrine gauche	Linke Brust	Seno Sinistro	Pecho izquierdo	Levé ňadro	Lewa Pierś	Левая грудь	左胸	Peito esquerdo	左胸	左胸
 $Right Breast	Right Breast	Poitrine droite	Rechte Brust	Seno Destro	Pecho derecho	Pravé ňadro	Prawa Pierś	Правая грудь	右胸	Peito direito	右胸	右胸
 $Left Glute	Left Glute	Fessier gauche	Linke Pobacke	Gluteo Sinistro	Nalga izquierda	Levá půlka	Lewy Pośladek	Левая ягодица	左尻	Glúteo esquerdo	左臀	左臀
 $Right Glute	Right Glute	Fessier droit	Rechte Pobacke	Gluteo Destro	Nalga derecha	Pravá půlka	Prawy Pośladek	Правая ягодица	右尻	Glúteo direito	右臀	右臀
-$Left Breast Curve	Left Breast Curve	Courbe poitrine gauche	Linke Brustkurve	Curva Seno Sinistro	Curvatura del pecho izquierdo	Křivka levého ňadra	Krągłość Lewej Piersi	Изгиб левой груди				左胸曲线
-$Right Breast Curve	Right Breast Curve	Courbe poitrine droite	Rechte Brustkurve	Curva Seno Destro	Curvatura del pecho derecho	Křivka pravého ňadra	Krągłość Prawej Piersi	Изгиб правой груди				右胸曲线
+$Left Breast Curve	Left Breast Curve	Courbe poitrine gauche	Linke Brustkurve	Curva Seno Sinistro	Curvatura del pecho izquierdo	Křivka levého ňadra	Krągłość Lewej Piersi	Изгиб левой груди		Curva do peito esquerdo		左胸曲线
+$Right Breast Curve	Right Breast Curve	Courbe poitrine droite	Rechte Brustkurve	Curva Seno Destro	Curvatura del pecho derecho	Křivka pravého ňadra	Krągłość Prawej Piersi	Изгиб правой груди		Curva do peito direito		右胸曲线
 $Left Biceps	Left Biceps	Biceps gauche	Linker Bizeps	Bicipite Sinistro	Bíceps izquierdo	Levý biceps	Lewy Biceps	Левый бицепс	左腕の力こぶ	Bíceps esquerdo	右臂二頭肌	左肱二头肌
 $Right Biceps	Right Biceps	Biceps droit	Rechter Bizeps	Bicipite Destro	Bíceps derecho	Pravý biceps	Prawy Biceps	Правый бицепс	右腕の力こぶ	Bíceps direito	左臂二頭肌	右肱二头肌
 $Left Biceps 2	Left Biceps 2	Biceps gauche 2	Linker Bizeps 2	Bicipite Sinistro 2	Bíceps izquierdo 2	Levý biceps 2	Lewy Biceps 2	Левый бицепс 2	左腕の力こぶ 2	Bíceps esquerdo 2	右臂二頭肌 2	左肱二头肌 2
 $Right Biceps 2	Right Biceps 2	Biceps droit 2	Rechter Bizeps 2	Bicipite Destro 2	Bíceps derecho 2	Pravý biceps 2	Prawy Biceps 2	Правый бицепс 2	右腕の力こぶ 2	Bíceps direito 2	左臂二頭肌 2	右肱二头肌 2
-$Quiver Scale	Quiver Scale	Taille du carquois	Köchergröße	Dimensioni Faretra	Escala del carcaj	Měřítko toulce	Skala Kołczanu	Шкала колчана				
-$Bow Scale	Bow Scale	Taille de l'arc	Bogengröße	Dimensioni Arco	Escala del arco	Měřítko luku	Skala Łuku	Шкала лука				
-$Axe Scale	Axe Scale	Taille de la hache	Axtgröße	Dimensioni Ascia	Escala del hacha	Měřítko sekery	Skala Toporu	Шкала топора				
-$Sword Scale	Sword Scale	Taille de l'épée	Schwertgröße	Dimensioni Spada	Escala de la espada	Měřítko meče	Skala Mieczu	Шкала меча				
-$Mace Scale	Mace Scale	Taille de la masse	Streitkolbengröße	Dimensioni Mazza	Escala de la maza	Měřítko palice	Skala Buławy	Шкала булавы				
-$Shield Scale	Shield Scale	Taille du bouclier	Schildgröße	Dimensioni Scudo	Escala del escudo	Měřítko štítu	Skala Tarczy	Шкала щита				
-$Weapon Back Scale	Weapon Back Scale	Taille de l'arme dans le dos	Waffengröße hinten	Dimensioni Arma su schiena	Escala del arma envainada en la espalda	Měřítko zbraně na zádech	Skala Tylnej Broni	Шкала оружия за спиной				
-$Weapon Scale	Weapon Scale	Taille de l'arme	Waffengröße	Dimensioni Arma	Escala del arma desenvainada	Měřítko zbraně	Skala Broni	Шкала оружия				
+$Quiver Scale	Quiver Scale	Taille du carquois	Köchergröße	Dimensioni Faretra	Escala del carcaj	Měřítko toulce	Skala Kołczanu	Шкала колчана		Tamanho da aljava		
+$Bow Scale	Bow Scale	Taille de l'arc	Bogengröße	Dimensioni Arco	Escala del arco	Měřítko luku	Skala Łuku	Шкала лука		Tamanho do arco		
+$Axe Scale	Axe Scale	Taille de la hache	Axtgröße	Dimensioni Ascia	Escala del hacha	Měřítko sekery	Skala Toporu	Шкала топора		Tamanho do machado de duas mãos		
+$Sword Scale	Sword Scale	Taille de l'épée	Schwertgröße	Dimensioni Spada	Escala de la espada	Měřítko meče	Skala Mieczu	Шкала меча		Tamanho da espada		
+$Mace Scale	Mace Scale	Taille de la masse	Streitkolbengröße	Dimensioni Mazza	Escala de la maza	Měřítko palice	Skala Buławy	Шкала булавы		Tamanho da maça		
+$Shield Scale	Shield Scale	Taille du bouclier	Schildgröße	Dimensioni Scudo	Escala del escudo	Měřítko štítu	Skala Tarczy	Шкала щита		Tamanho do escudo		
+$Weapon Back Scale	Weapon Back Scale	Taille de l'arme dans le dos	Waffengröße hinten	Dimensioni Arma su schiena	Escala del arma envainada en la espalda	Měřítko zbraně na zádech	Skala Tylnej Broni	Шкала оружия за спиной		Tamanho da parte de trás da arma		
+$Weapon Scale	Weapon Scale	Taille de l'arme	Waffengröße	Dimensioni Arma	Escala del arma desenvainada	Měřítko zbraně	Skala Broni	Шкала оружия		Tamanho da arma		
 $Alteration	Alteration	Altération	Veränderung	Alterazione	Alteración	Proměny	Przemiana	Изменение	変性	Alteração		变化
 $Conjuration	Conjuration	Conjuration	Beschwörung	Evocazione	Conjuración	Vyvolávání	Przywoływanie	Колдовство	召喚	Conjuração		召唤
 $Destruction	Destruction	Destruction	Zerstörung	Distruzione	Destrucción	Ničení	Zniszczenie	Разрушение	破壊	Destruição		毁灭
@@ -200,72 +200,72 @@ $Female Forsworn Tattoo 03	Female Forsworn Tattoo 03	Tatouage parjure femme 03	W
 $Female Forsworn Tattoo 04	Female Forsworn Tattoo 04	Tatouage parjure femme 04	Weibliches Abgeschworenen Tattoo 04	Tatuaggio Femminile Rinnegato 04	Tatuaje para mujer Renegada 04	Tetování Zapřisáhlé ženy 04	Żeński Renegat Tatuaż 04	Жен. Татуировка Изгоев 04	女性フォースウォーンのタトゥー 04	Tatuagem renegada feminina 04		女弃誓者纹身 04
 $Male Black Blood Tattoo 01	Male Black Blood Tattoo 01	Tatouage sang noir homme 01	Männliches Schwarzblut Tattoo 01	Tatuaggio Maschile Blackblood 01	Tatuaje para hombre Sangre Negra 01	Tetování Gangu Blackblood 01	Męski Tatuaż Czarnej Krwii 01	Муж. Тату черной крови 01	男性ブラック・ブラッドのタトゥー 01	Tatuagem de sangue negro masculino 01		男黑血纹身 01
 $Male Black Blood Tattoo 02	Male Black Blood Tattoo 02	Tatouage sang noir homme 02	Männliches Schwarzblut Tattoo 02	Tatuaggio Maschile Blackblood 02	Tatuaje para hombre Sangre Negra 02	Tetování Gangu Blackblood 02	Męski Tatuaż Czarnej Krwii 02	Муж. Тату черной крови 02	男性ブラック・ブラッドのタトゥー 02	Tatuagem de sangue negro masculino 02		男黑血纹身 02
-$RANs_Age	Age	Age	Alter	Età	Edad	Věk	Wiek		年齢	Idade		
-$RANs_Weight	Face Weight	Poids de la tête	Gesichtsfülle/-rundung	Peso	Peso	Váha v obličeji			体重			
-$RANs_HeadShape	Head Shape	Forme de la tête	Kopfform	Forma della testa	Forma de la cabeza	Tvar hlavy	Kształt głowy			Formato da Cabeca		
-$CME_FaceUpDown	Face Height	Hauteur du visage	Gesichtshöhe	Testa su/giù	Altura del rostro	Výška obličeje	Wysokość twarzy			Altura da Cabeca	臉部高度	
-$CME_ForeheadFix	Forehead Fix	Front	Stirn Fix	Fix per la fronte	Arreglo de la frente	Fix čela	Czoło			Testa Correcao		
-$CME_NeckSize	Neck Size	Taille du cou	Halsgröße	Spessore collo	Tamaño del cuello	Tloušťka krku	Rozmiar szyi					
-$CME_CheeksUpDown	Cheekbone Height 2	Hauteur des pomettes	Wangenknochenhöhe	Guance su/giù	Altura de pómulo	Výška lícních kostí					頰骨高度	
-$CME_CheeksBoneInOut	Cheekbone Width 2	Largeur des pomettes	Wangenknochenbreite	Zigomi su/giù	Ancho de pómulo	Předsunutí lícních kostí					頰骨闊度	
-$CME_CheeksWidth	Cheekback Width	Largeur des joues (arriére)	Wangenbreite (hinten)	Ampiezza guance	Anchura del pómulo (detrás)	Šířka lícních kostí					臉頰後方闊度	
-$CME_CheeksBlow	Cheekfront Width	Largeur des joues (avant)	Wangenbreite (vorne)	Gonfia guance	Anchura del pómulo (delante)	Šířka lícních kostí					臉頰前方闊度	
-$CME_JawWidth	Jaw Width 2	Largeur de la mâchoire	Kieferbreite	Larghezza mascella	Anchura de la mandíbula	Šířka čelisti	Szerokość szczęki				下顎闊度	
-$CME_JawUpDown	Jaw Height 2	Hauteur de la mâchoire	Kieferhöhe	Mascella su/giù	Altura de la mandíbula	Výška čelisti	Wysokość szczęki				下顎高度	
-$CME_JawBackForward	Jaw Depth	Avancée de la mâchoire	Kiefertiefe	Mascella indietro/avanti	Profundidad de la mandíbula	Hloubka čelisti	Głębokość szczęki				下顎深度	
-$CME_ChinWidth	Chin Width 2	Largeur du menton	Kinnbreite	Larghezza mento	Anchura de la barbilla	Šířka brady	Szerokość podbródki				下巴闊度	
-$CME_ChinUpDown	Chin Length 2	Longueur du menton 	Kinnlänge	Mento su/giù	Longitud de la barbilla	Délka brady	Wysokość podbródki				下巴長度	
-$CME_ChinBackForward	Chin Depth	Avancée du menton	Kinntiefe	Mento avanti/indietro	Profundidad de la barbilla	Hloubka brady					下巴深度	
-$ECE_ChinBackForward	Chin Jut Depth	Profondeur de la saillie du menton	Kinntiefe 2	Mento avanti/indietro	Profundidad del mentón	Vysunutí brady					下頜深度	
-$CME_UnderChinSlope	Chin Angle Height	Hauteur de l'angle du  menton	Kinnwinkelhöhe	Pendenza sottomento	Altura del ángulo de la barbilla	Výška a úhel podbradku					下巴角度	
-$CME_EyesType	Eye Type	Hauteur de l'angle du  menton	Augentyp	Tipo di occhi	Tipo de ojos	Typ očí	Typ oczów				眼睛類型	
-$CME_EyesSize	Eye Size	Hauteur de l'angle du  menton	Augengröße	Grandezza occhi	Tamaño de los ojos	Velikost očí	Rozmiar oczów				眼睛尺寸	
-$CME_EyesHeight	Eyelid Height	Écartement des paupières	Augenlidhöhe	Altezza occhi	Altura de los párpados	Výška očního víčka						
-$CME_UpperEyesHeight	Upper Eyelid Height	Hauteur de la paupière supérieure	Augenlidhöhe (oben)	Altezza palbebra superiore	Altura del párpado superior	Výška horního víčka						
-$CME_LowerEyesHeight	Lower Eyelid Height	Hauteur de la paupière inférieure	Augenlidhöhe (unten)	Altezza palbebra inferiore	Altura del párpado inferior	Výška spodního víčka						
-$CME_EyesSlope	Eye Tilt	Inclinaison des yeux	Augenneigung	Inclinazione degli occhi	Inclinación de los ojos	Naklonění očí						
-$CME_EyeballSize	Iris Size	Taille de l'iris	Irisgröße	Grandezza bulbo oculare	Tamaño del iris	Velikost duhovky						
-$CME_EyeballInOut	Iris Spread	Extension de l'iris	Irisversetzung	Bulbo oculare dentro/fuori	Expansión del iris	Rozšíření duhovky						
-$CME_EyeballUpDown	Iris Height	Hauteur de l'iris	Irishöhe	Bulbo oculare su/giù	Altura del iris	Výška duhovky						
-$CME_EyelashLength	Eyelash Length	Longueur des cils	Wimpernlänge	Lunghezza ciglia	Longitud de las pestañas	Délka řas						
-$CME_EyesUpDown	Eye Height 2	Hauteur des yeux	Augenhöhe	Occhi su/giù	Altura de los ojos	Výška očí						
-$CME_EyesInOut	Eye Spread	Écartement des yeux	Augenversetzung	Occhi dentro/fuori	Distancia entre los ojos	Vzdálennost očí						
-$CME_EyesBackForward	Eye Depth 2	Profondeur des yeux	Augentiefe	Occhi indietro/avanti	Profundidad de los ojos	Hloubka očí						
-$CME_BrowSlope	Brow Slope	Inclinaison des sourcils	Brauenneigung	Angolo sopracciglia	Inclinación de las cejas	Sklon obočí						
-$CME_BrowArch	Brow Arch	Courbe des sourcils	Brauenwölbung	Arco sopracciglia	Arco de las cejas	Oblouk obočí						
-$CME_BrowUpDown	Brow Height 2	Hauteur des sourcils	Brauenhöhe	Sopracciglia su/giù	Altura de las cejas	Výška obočí						
-$CME_BrowInOut	Brow Width	Largeur des sourcils	Brauenbreite	Sopracciglia dentro/fuori	Anchura de las cejas	Šířka obočí						
-$CME_BrowBackForward	Brow Depth	Avancée des sourcils	Brauentiefe	Sopracciglia indietro/avanti	Profundidad de las cejas	Hloubka obočí						
-$RANs_ForeheadBackForward	Forehead Depth	Avancée du front	Stirntiefe	Fronte indietro/avanti	Profundidad de la frente	Hloubka čela	Głębokość czoła					
-$CME_LipType	Mouth Type 2	Forme de la bouche	Mundtyp	Tipo di labbra	Tipo de boca	Typ úst	Typ ust					
-$CME_OrcLipType	Orc Mouth Type											
-$CME_ElfEyesType	Elf Eyes Type											
-$CME_OrcNoseType	Orc Nose Type											
-$RANs_LipDuckly	Lip Pout	Pulbabilitée des  lèvres	Lippen Schmollen	Labbra pronunciate	Mueca	Stisknutí rtů						
-$CME_MouthWidth	Mouth Width	Largeur de la bouche	Mundbreite	Larghezza booca	Anchura de la boca	Śířka úst						
-$CME_MouthHeight	Lip Height	Hauteur des lèvres	Lippenhöhe	Altezza bocca	Altura de los labios	Výška rtů						
-$CME_UpperLipHeight	Upper Lip Height	Hauteur de la lèvre supérieure	Lippenhöhe (oben)	Altezza labbro superiore	Altura del labio superior	Výška horního rtu	Wysokość górnej wargi					
-$CME_LowerLipHeight	Lower Lip Height	Hauteur de la lèvre inférieure	Lippenhöhe (unten)	Altezza labbro inferiore	Altura del labio inferior	Výška spodního rtu	Wysokość dolnej wargi					
-$CME_MouthCornerUpDown	Mouth Corner Height	Hauteur des coins de la bouche	Mundwinkelhöhe	Angolo bocca su/giù	Altura de la comisura	Výška koutku úst						
-$CME_MouthCornerBackForward	Mouth Corner Depth	Avancée des coins de la bouche	Mundwinkeltiefe	Angolo bocca indietro/avanti	Profundidad de la comisura	Hloubka koutku úst						
-$CME_MouthUpDown	Mouth Height 2	Hauteur de la bouche	Mundhöhe	Bocca su/giù	Altura de la boca	Výška úst						
-$CME_MouthBackForward	Mouth Depth	Avancée de la bouche	Mundtiefe	Bocca indietro/avanti	Profundidad de la boca	Hloubka úst						
-$CME_NoseType	Nose Type 2	Type de nez	Nasentyp	Tipo di naso	Tipo de nariz	Typ nosu	Typ nosa					
-$CME_NoseUpDown	Nose Height 2	Hauteur du nez	Nasenhöhe	Naso su/giù	Altura de la nariz	Výška nosu	Wysokość nosa					
-$CME_NoseLength	Nose Length 2	Longueur du nez	Nasenlänge	Lunghezza naso	Longitud de la nariz	Délka nosu	Długość nosa					
-$CME_NoseBackForward	Nose Depth	Profondeur du nez	Nasentiefe	Naso indietro/avanti	Profundidad de la nariz	Hloubka nosu	Głębokość nosa					
-$ECE_NoseBridgeWidth	Nose Bridge Width	Largeur du dos du nez	Nasenbrückenbreite	Larghezza ponte nasale	Ancho de puente de nariz	Tloušťka nosního můstku						
-$ECE_NoseTipWidth	Nose Tip Width	Largeur de la pointe du nez	Nasenspitzenbreite	Larghezza punta del naso	Anchura de la punta de la nariz	Šířka špičky nosu						
-$CME_NoseHoleSlope	Nose Tip Slope	Élevation de la pointe du nez	Nasenspitze Neigung	Inclinazione punta del naso	Altura de la punta de la nariz	Sklon špičky nosu						
-$CME_NoseSellionBackForward	Nose Sellion Depth	Profondeur de la racine du nez	Nasenübergang Tiefe	Radice del naso indietro/avanti	Profundidad del tabique nasal	Hloubka kořene nosu						
-$CME_NoseSellionUpDown	Nose Sellion Height	Hauteur de la racine du nez	Nasenübergang Höhe	Radice del naso su/giù	Altura del tabique nasal	Výška kořene nosu						
-$CME_NoseSellionWidth	Nose Sellion Width	Largeur de la racine du nez	Nasenübergang Breite	Ampiezza radice del naso	Anchura del tabique nasal	Síla kořene nosu						
-$RANs_NoseRidgeShape	Nose Bridge Depth	Profondeur du dos du nez	Nasenbrückentiefe	Forma del setto nasale	Profundidad del puente de la nariz	Hloubka nosního můstku						
-$CME_AroundNoseBackForward	Nose Area Depth	Profondeur de la zone du nez	Nasenumgebung Tiefe	Zona intorno al naso indietro/avanti	Profundidad del área de la nariz	Hloubka oblasti nosu						
-$ECE_EarShape	Ear Shape	Forme des oreilles	Ohrenform	Forma orecchie	Forma de las orejas	Tvar uší	Kształt ucha	Форма ушей				
-$ECE_EarSize	Ear Size	Taille des oreilles	Ohrengröße	Grandezza orecchie	Tamaño de las orejas	Velikost uší	Rozmiar ucha	Размер ушей				
+$RANs_Age	Age	Age	Alter	Età	Edad	Věk	Wiek	Возраст	年齢	Idade		年龄
+$RANs_Weight	Face Weight	Poids de la tête	Gesichtsfülle/-rundung	Peso	Peso	Váha v obličeji	Waga twarzy	Вес	体重	Peso		体重
+$RANs_HeadShape	Head Shape	Forme de la tête	Kopfform	Forma della testa	Forma de la cabeza	Tvar hlavy	Kształt głowy	Форма головы		Formato da Cabeca		头部形状
+$CME_FaceUpDown	Face Height	Hauteur du visage	Gesichtshöhe	Testa su/giù	Altura del rostro	Výška obličeje	Wysokość twarzy	Высота лица		Altura da Cabeca	臉部高度	脸部高度
+$CME_ForeheadFix	Forehead Fix	Front	Stirn Fix	Fix per la fronte	Arreglo de la frente	Fix čela	Czoło	Исправление лба		Correção da testa		额头修正
+$CME_NeckSize	Neck Size	Taille du cou	Halsgröße	Spessore collo	Tamaño del cuello	Tloušťka krku	Rozmiar szyi	Толщина шеи		Tamanho do pescoço		颈部大小
+$CME_CheeksUpDown	Cheekbone Height 2	Hauteur des pomettes	Wangenknochenhöhe 2	Guance su/giù	Altura de pómulo	Výška lícních kostí	Wysokość kości policzkowej 2	Высота скул		Altura das bochechas	頰骨高度	颊骨高度
+$CME_CheeksBoneInOut	Cheekbone Width 2	Largeur des pomettes	Wangenknochenbreite 2	Zigomi su/giù	Ancho de pómulo	Předsunutí lícních kostí	Szerokość kości policzkowej 2	Скулы вперед		Grossura da maçã do rosto	頰骨闊度	颊骨阔度
+$CME_CheeksWidth	Cheekback Width	Largeur des joues (arriére)	Wangenbreite (hinten)	Ampiezza guance	Anchura del pómulo (detrás)	Šířka lícních kostí		Ширина щек (сзади)		Largura das bochechas	臉頰後方闊度	脸颊後方阔度
+$CME_CheeksBlow	Cheekfront Width	Largeur des joues (avant)	Wangenbreite (vorne)	Gonfia guance	Anchura del pómulo (delante)	Šířka lícních kostí		Ширина щек (спереди)			臉頰前方闊度	脸颊前方阔度 
+$CME_JawWidth	Jaw Width 2	Largeur de la mâchoire	Kieferbreite 2	Larghezza mascella	Anchura de la mandíbula	Šířka čelisti	Szerokość szczęki	Ширина челюсти		Largura do maxilar	下顎闊度	下顎闊度
+$CME_JawUpDown	Jaw Height 2	Hauteur de la mâchoire	Kieferhöhe 2	Mascella su/giù	Altura de la mandíbula	Výška čelisti	Wysokość szczęki	Высота челюсти		Altura do maxilar	下顎高度	下顎高度
+$CME_JawBackForward	Jaw Depth	Avancée de la mâchoire	Kiefertiefe	Mascella indietro/avanti	Profundidad de la mandíbula	Hloubka čelisti	Głębokość szczęki	Глубина челюсти		Maxilar para frente ou para trás	下顎深度	下顎深度
+$CME_ChinWidth	Chin Width 2	Largeur du menton	Kinnbreite 2	Larghezza mento	Anchura de la barbilla	Šířka brady	Szerokość podbródki	Ширина подбородка			下巴闊度	下巴闊度
+$CME_ChinUpDown	Chin Length 2	Longueur du menton 	Kinnlänge 2	Mento su/giù	Longitud de la barbilla	Délka brady	Wysokość podbródki	Длина подбородка			下巴長度	下巴长度 
+$CME_ChinBackForward	Chin Depth	Avancée du menton	Kinntiefe	Mento avanti/indietro	Profundidad de la barbilla	Hloubka brady		Глубина подбородка			下巴深度	下巴深度
+$ECE_ChinBackForward	Chin Jut Depth	Profondeur de la saillie du menton	Kinnüberbisstiefe	Mento avanti/indietro	Profundidad del mentón	Vysunutí brady		Глубина подбородка			下頜深度	下颌深度
+$CME_UnderChinSlope	Chin Angle Height	Hauteur de l'angle du  menton	Kinnwinkelhöhe	Pendenza sottomento	Altura del ángulo de la barbilla	Výška a úhel podbradku		Высота и угол поворота подбородка			下巴角度	下巴角度
+$CME_EyesType	Eye Type	Hauteur de l'angle du  menton	Augentyp	Tipo di occhi	Tipo de ojos	Typ očí	Typ oczu	Тип глаз			眼睛類型	眼睛类型 
+$CME_EyesSize	Eye Size	Hauteur de l'angle du  menton	Augengröße	Grandezza occhi	Tamaño de los ojos	Velikost očí	Rozmiar oczu	Размер глаз			眼睛尺寸	眼睛尺寸
+$CME_EyesHeight	Eyelid Height	Écartement des paupières	Augenlidhöhe	Altezza occhi	Altura de los párpados	Výška očního víčka	Wysokość powieki	Высота век				眼睛高度
+$CME_UpperEyesHeight	Upper Eyelid Height	Hauteur de la paupière supérieure	Augenlidhöhe (oben)	Altezza palbebra superiore	Altura del párpado superior	Výška horního víčka		Высота верхнего века				上眼高度 
+$CME_LowerEyesHeight	Lower Eyelid Height	Hauteur de la paupière inférieure	Augenlidhöhe (unten)	Altezza palbebra inferiore	Altura del párpado inferior	Výška spodního víčka		Высота нижнего века				下眼高度
+$CME_EyesSlope	Eye Tilt	Inclinaison des yeux	Augenneigung	Inclinazione degli occhi	Inclinación de los ojos	Naklonění očí		Наклон глаз				
+$CME_EyeballSize	Iris Size	Taille de l'iris	Irisgröße	Grandezza bulbo oculare	Tamaño del iris	Velikost duhovky		Размер радужки				眼球大小
+$CME_EyeballInOut	Iris Spread	Extension de l'iris	Irisversetzung	Bulbo oculare dentro/fuori	Expansión del iris	Rozšíření duhovky		Глубина глазных яблок				
+$CME_EyeballUpDown	Iris Height	Hauteur de l'iris	Irishöhe	Bulbo oculare su/giù	Altura del iris	Výška duhovky		Высота глазных яблок				眼球高度
+$CME_EyelashLength	Eyelash Length	Longueur des cils	Wimpernlänge	Lunghezza ciglia	Longitud de las pestañas	Délka řas		Длина ресниц				
+$CME_EyesUpDown	Eye Height 2	Hauteur des yeux	Augenhöhe 2	Occhi su/giù	Altura de los ojos	Výška očí		Высота глаз				
+$CME_EyesInOut	Eye Spread	Écartement des yeux	Augenabstand	Occhi dentro/fuori	Distancia entre los ojos	Vzdálennost očí		Расстояние между глаз				
+$CME_EyesBackForward	Eye Depth 2	Profondeur des yeux	Augentiefe 2	Occhi indietro/avanti	Profundidad de los ojos	Hloubka očí		Глубина глазниц				
+$CME_BrowSlope	Brow Slope	Inclinaison des sourcils	Brauenneigung	Angolo sopracciglia	Inclinación de las cejas	Sklon obočí		Угол наклона бровей				
+$CME_BrowArch	Brow Arch	Courbe des sourcils	Brauenwölbung	Arco sopracciglia	Arco de las cejas	Oblouk obočí		Изгиб бровей				
+$CME_BrowUpDown	Brow Height 2	Hauteur des sourcils	Brauenhöhe 2	Sopracciglia su/giù	Altura de las cejas	Výška obočí		Высота бровей				
+$CME_BrowInOut	Brow Width	Largeur des sourcils	Brauenbreite	Sopracciglia dentro/fuori	Anchura de las cejas	Šířka obočí		Ширина бровей				
+$CME_BrowBackForward	Brow Depth	Avancée des sourcils	Brauentiefe	Sopracciglia indietro/avanti	Profundidad de las cejas	Hloubka obočí		Глубина бровей				
+$RANs_ForeheadBackForward	Forehead Depth	Avancée du front	Stirntiefe	Fronte indietro/avanti	Profundidad de la frente	Hloubka čela	Głębokość czoła	Лоб вперед				
+$CME_LipType	Mouth Type 2	Forme de la bouche	Mundtyp 2	Tipo di labbra	Tipo de boca	Typ úst	Typ ust	Тип губ				
+$CME_OrcLipType	Orc Mouth Type	Type de bouche orque	Ork Mundtyp		Tipo de boca (Orco)		Orkowy typ ust	Тип орочьих губ				
+$CME_ElfEyesType	Elf Eyes Type	Type d'oeil elfe	Elf Augentyp		Tipo de boca (Elfo)		Elfi typ oczu	Тип эльфийских ушей				
+$CME_OrcNoseType	Orc Nose Type	Type de nez orque	Ork Nasentyp		Tipo de nariz (Orco)		Orkowy typ nosa	Тип орочьего носа				
+$RANs_LipDuckly	Lip Pout	Pulbabilitée des  lèvres	Lippen Schmollen	Labbra pronunciate	Mueca	Stisknutí rtů	Grymas wargi	Пухлые губы				
+$CME_MouthWidth	Mouth Width	Largeur de la bouche	Mundbreite	Larghezza booca	Anchura de la boca	Śířka úst	Szerokość ust	Ширина рта				
+$CME_MouthHeight	Lip Height	Hauteur des lèvres	Lippenhöhe	Altezza bocca	Altura de los labios	Výška rtů	Wysokość wargi	Высота рта				
+$CME_UpperLipHeight	Upper Lip Height	Hauteur de la lèvre supérieure	Lippenhöhe (oben)	Altezza labbro superiore	Altura del labio superior	Výška horního rtu	Wysokość górnej wargi	Высота верхней губы				
+$CME_LowerLipHeight	Lower Lip Height	Hauteur de la lèvre inférieure	Lippenhöhe (unten)	Altezza labbro inferiore	Altura del labio inferior	Výška spodního rtu	Wysokość dolnej wargi	Высота нижней губы				
+$CME_MouthCornerUpDown	Mouth Corner Height	Hauteur des coins de la bouche	Mundwinkelhöhe	Angolo bocca su/giù	Altura de la comisura	Výška koutku úst	Wysokość kącika ust	Высота уголков рта				
+$CME_MouthCornerBackForward	Mouth Corner Depth	Avancée des coins de la bouche	Mundwinkeltiefe	Angolo bocca indietro/avanti	Profundidad de la comisura	Hloubka koutku úst	Głębokość kącika ust	Глубина уголков рта				
+$CME_MouthUpDown	Mouth Height 2	Hauteur de la bouche	Mundhöhe 2	Bocca su/giù	Altura de la boca	Výška úst	Wysokość ust 2	Высота рта 2				
+$CME_MouthBackForward	Mouth Depth	Avancée de la bouche	Mundtiefe	Bocca indietro/avanti	Profundidad de la boca	Hloubka úst	Głebokość ust	Глубина рта				
+$CME_NoseType	Nose Type 2	Type de nez	Nasentyp 2	Tipo di naso	Tipo de nariz	Typ nosu	Typ nosa	Тип носа				
+$CME_NoseUpDown	Nose Height 2	Hauteur du nez	Nasenhöhe 2	Naso su/giù	Altura de la nariz	Výška nosu	Wysokość nosa	Высота носа				
+$CME_NoseLength	Nose Length 2	Longueur du nez	Nasenlänge 2	Lunghezza naso	Longitud de la nariz	Délka nosu	Długość nosa	Длина носа				
+$CME_NoseBackForward	Nose Depth	Profondeur du nez	Nasentiefe	Naso indietro/avanti	Profundidad de la nariz	Hloubka nosu	Głębokość nosa	Глубина носа				
+$ECE_NoseBridgeWidth	Nose Bridge Width	Largeur du dos du nez	Nasenbrückenbreite	Larghezza ponte nasale	Ancho de puente de nariz	Tloušťka nosního můstku	Szerokość mostka nosa	Ширина переносицы				
+$ECE_NoseTipWidth	Nose Tip Width	Largeur de la pointe du nez	Nasenspitzenbreite	Larghezza punta del naso	Anchura de la punta de la nariz	Šířka špičky nosu	Szerokość czubka nosa	Ширина кончика носа				
+$CME_NoseHoleSlope	Nose Tip Slope	Élevation de la pointe du nez	Nasenspitze Neigung	Inclinazione punta del naso	Altura de la punta de la nariz	Sklon špičky nosu	Nachylanie czubka nosa	Угол наклона кончика носа				
+$CME_NoseSellionBackForward	Nose Sellion Depth	Profondeur de la racine du nez	Nasenübergang Tiefe	Radice del naso indietro/avanti	Profundidad del tabique nasal	Hloubka kořene nosu		Глубина переносицы				
+$CME_NoseSellionUpDown	Nose Sellion Height	Hauteur de la racine du nez	Nasenübergang Höhe	Radice del naso su/giù	Altura del tabique nasal	Výška kořene nosu		Высота переносицы				
+$CME_NoseSellionWidth	Nose Sellion Width	Largeur de la racine du nez	Nasenübergang Breite	Ampiezza radice del naso	Anchura del tabique nasal	Síla kořene nosu		Ширина переносицы				
+$RANs_NoseRidgeShape	Nose Bridge Depth	Profondeur du dos du nez	Nasenbrückentiefe	Forma del setto nasale	Profundidad del puente de la nariz	Hloubka nosního můstku	Głębokość mostka nosa	Форма переносицы				
+$CME_AroundNoseBackForward	Nose Area Depth	Profondeur de la zone du nez	Nasenumgebung Tiefe	Zona intorno al naso indietro/avanti	Profundidad del área de la nariz	Hloubka oblasti nosu	Głębokość obszaru nosa	Глубина области носа				
+$ECE_EarShape	Ear Shape	Forme des oreilles	Ohrenform	Forma orecchie	Forma de las orejas	Tvar uší	Kształt ucha	Форма ушей				耳朵形状
+$ECE_EarSize	Ear Size	Taille des oreilles	Ohrengröße	Grandezza orecchie	Tamaño de las orejas	Velikost uší	Rozmiar ucha	Размер ушей				耳朵大小 
 $CME_EarUpDown	Ear Height	Hauteur des oreilles	Ohrenhöhe	Orecchie su/giù	Altura de las orejas	Výška uší	Wysokość ucha	Уровень ушей				
-$CME_ElfEar	Elf Ear Tip	Oreilles d'elfe	Elfenohren Spitze	Orecchie da elfo	Puntas de orejas de Elfo	Špička elfích uší		Тип эльф. ушей				
+$CME_ElfEar	Elf Ear Tip	Oreilles d'elfe	Elfenohren Spitze	Orecchie da elfo	Puntas de orejas de Elfo	Špička elfích uší	Czubek elfiego ucha	Тип эльф. ушей				
 $CME_Nord	Nord	Nordique	Nord	Nord	Nórdico	Seveřan	Nord	Норд				
 $CME_Breton	Breton	Bréton	Breton	Bretone	Bretón	Bretonec	Breton	Бретонец				
 $CME_Imperial	Imperial	Impérial	Kaiserlich	Imperiale	Imperial	Císařský	Cesarski	Имперец				
@@ -273,135 +273,135 @@ $CME_Redguard	Redguard	Rougegarde	Rothwardon	Redguard	Guardia Roja	Redguard	Redg
 $CME_WoodElf	Wood Elf	Elfe des Bois	Waldelf	Elfo dei boschi	Elfo del Bosque	Lesní elf	Leśny Elf	Лесной Эльф 				
 $CME_DarkElf	Dark Elf	Elfe Noir	Dunkelelf	Elfo scuro	Elfo Oscuro	Temný elf	Mroczny Elf	Темный Эльф				
 $CME_HighElf	High Elf	Haut-Elfe	Hochelf	Elfo alto	Alto Elfo	Vysoký elf	Wysoki Elf	Высший Эльф				
-$NSK_NoseWidth	Nose Width	Largeur du nez	Nasenbreite	Larghezza naso	Anchura de la nariz	Šířka nosu	Szerokość nosa	Ширина носа			鼻寛	
-$NSK_NoseBridge	Nose Bridge	Arête du nez	Nasenbrücke	Ponte nasale	Puente de la nariz	Nosní můstek	Szerokość kości nosowej	Переносица			鼻樑	
-$NSK_LipThickness	Lip Thickness	Épaisseur des lèvres	Lippenfülle	Spessore labbra	Grosor de los labios	Plnost rtů	Grubość wargi	Толщина губ			嘴唇厚度	
-$NSK_ElfEar	Elf Ear	Oreilles d'elfe	Elfenohren	Orecchie da elfo	Orejas de elfo	Elfí uši	Elfie uszy	Эльфийские уши			耳尖長度	
-$NSK_EyeSize	Eye Size 2	Taille des yeux	Augengröße	Grandezza occhi	Tamaño de los ojos	Velikost očí	Rozmiar oczu	Размер глаз			眼睛大小	
-$NSK_EyeAngle	Eye Angle	Inclinaison des yeux	Augenwinkel	Angolo occhi	Ángulo de los ojos	Úhel očí	Kąt oczu	Угол наклона глаз			眼睛角度	
-$NSK_EyelidOpen	Eyelid Open	Ouverture des paupières	Augenlid-Öffnung	Palpebre aperte	Apertura de los párpados	Otevření očních víček	Otwarte powieki	Раскрыть веки			眼瞼開合	
-$NSK_JawShape	Jaw Shape	Forme de la mâchoire	Kieferform	Forma della mascella	Forma de la mandíbula	Tvar čelisti	Kształt szczęki	Форма челюсти			下顎形狀	
-$NSK_CheekShape	Cheek Shape	Forme des joues	Backenform	Forma delle guance	Forma de la mejilla	Tvar líce	Kształt policzka	Форма щёк			臉頰形狀	
+$NSK_NoseWidth	Nose Width	Largeur du nez	Nasenbreite	Larghezza naso	Anchura de la nariz	Šířka nosu	Szerokość nosa	Ширина носа			鼻寛	鼻宽 
+$NSK_NoseBridge	Nose Bridge	Arête du nez	Nasenbrücke	Ponte nasale	Puente de la nariz	Nosní můstek	Szerokość kości nosowej	Переносица			鼻樑	鼻梁
+$NSK_LipThickness	Lip Thickness	Épaisseur des lèvres	Lippenfülle	Spessore labbra	Grosor de los labios	Plnost rtů	Grubość wargi	Толщина губ			嘴唇厚度	嘴唇厚度
+$NSK_ElfEar	Elf Ear	Oreilles d'elfe	Elfenohren	Orecchie da elfo	Orejas de elfo	Elfí uši	Elfie uszy	Эльфийские уши			耳尖長度	耳朵长度
+$NSK_EyeSize	Eye Size 2	Taille des yeux	Augengröße	Grandezza occhi	Tamaño de los ojos	Velikost očí	Rozmiar oczu	Размер глаз			眼睛大小	眼睛大小
+$NSK_EyeAngle	Eye Angle	Inclinaison des yeux	Augenwinkel	Angolo occhi	Ángulo de los ojos	Úhel očí	Kąt oczu	Угол наклона глаз			眼睛角度	眼睛角度
+$NSK_EyelidOpen	Eyelid Open	Ouverture des paupières	Augenlid-Öffnung	Palpebre aperte	Apertura de los párpados	Otevření očních víček	Otwarte powieki	Раскрыть веки			眼瞼開合	眼睑开合 
+$NSK_JawShape	Jaw Shape	Forme de la mâchoire	Kieferform	Forma della mascella	Forma de la mandíbula	Tvar čelisti	Kształt szczęki	Форма челюсти			下顎形狀	下颚形状
+$NSK_CheekShape	Cheek Shape	Forme des joues	Backenform	Forma delle guance	Forma de la mejilla	Tvar líce	Kształt policzka	Форма щёк			臉頰形狀	脸颊形状
 $NSK_BrowAngle	Brow Angle	Inclinaison des sourcils	Brauenwinkel	Inclinazione ciglia	Ángulo de las cejas	Úhel obočí	Kąt brwi	Угол бровей			眼眉角度	
 $NSK_LipsOpen	Lips Open	Ouverture des lèvres	Lippen-Öffnung	Labbra aperte	Labios abiertos	Otevření rtů	Otwarte usta	Раскрыть губы			嘴唇開合	
 $NSK_NoseSellionWidth	Nose Sellion Width	Largeur des narines	Nasenübergangsbreite	Ampiezza radice nasale	Anchura nasal	Šířka kořene nosu	Szerokość nozdrzy	Ширина переносицы			印堂闊度	
 $NSK_NoseTilt	Nose Tilt	Inclinaison du nez	Nasenneigung	Inclinazione naso	Ángulo de la nariz	Naklonění nosu	Nachylenie nosa	Наклон носа			鼻尖	
 $NSK_MouthWidth	Mouth Width 2	Largeur de la bouche	Mundbreite	Larghezza bocca	Anchura de la boca	Śířka úst	Szerokość ust	Ширина рта			嘴唇闊度	
 $NSK_MouthSmile	Mouth Smile	Sourire	Lächeln	Sorriso	Sonrisa	Úsměv	Uśmiech	Улыбка			嘴角高度	
-$EXPR_BlinkLeft	Blink Left											
-$EXPR_BlinkRight	Blink Right											
-$EXPR_DialogueAnger	Dialogue Anger											
-$EXPR_DialogueHappy	Dialogue Happy											
-$EXPR_DialogueSad	Dialogue Sad											
-$EXPR_DialogueSurprise	Dialogue Surprise											
-$EXPR_DialogueDisgusted	Dialogue Disgusted											
-$EXPR_DialogueFear	Dialogue Fear											
-$EXPR_DialoguePuzzled	Dialogue Puzzled											
-$EXPR_BrowDownLeft	Brow Down Left											
-$EXPR_BrowDownRight	Brow Down Right											
-$EXPR_BrowInLeft	Brow In Left											
-$EXPR_BrowInRight	Brow In Right											
-$EXPR_BrowUpLeft	Brow Up Left											
-$EXPR_BrowUpRight	Brow Up Right											
-$EXPR_LookDown	Look Down											
-$EXPR_LookLeft	Look Left											
-$EXPR_LookRight	Look Right											
-$EXPR_LookUp	Look Up											
-$EXPR_MoodAnger	Mood Anger											
-$EXPR_MoodDisgusted	Mood Disgusted											
-$EXPR_MoodFear	Mood Fear											
-$EXPR_MoodHappy	Mood Happy											
-$EXPR_MoodPuzzled	Mood Puzzled											
-$EXPR_MoodSad	Mood Sad											
-$EXPR_MoodSurprise	Mood Surprise											
-$EXPR_SquintLeft	Squint Left											
-$EXPR_SquintRight	Squint Right											
-$EXPR_CombatAnger	Combat Anger											
-$EXPR_CombatShout	Combat Shout											
-$EXPR_Aah	Aah											
-$EXPR_BigAah	Big Aah											
-$EXPR_BMP	BMP											
-$EXPR_ChJSh	ChJSh											
-$EXPR_DST	DST											
-$EXPR_Eee	Eee											
-$EXPR_Eh	Eh											
-$EXPR_FV	FV											
-$EXPR_I	I											
-$EXPR_K	K											
-$EXPR_N	N											
-$EXPR_Oh	Oh											
-$EXPR_OohQ	OohQ											
-$EXPR_R	R											
-$EXPR_Th	Th											
-$EXPR_W	W											
+$EXPR_BlinkLeft	Blink Left	Cligner gauche	Links Zwinkern					Подмигивание левым глазом				
+$EXPR_BlinkRight	Blink Right	Cligner droite	Rechts Zwinkern					Подмигивание правым глазом				
+$EXPR_DialogueAnger	Dialogue Anger	Dialogue colère	Dialog Verärgert				Dialog Gniew	Злость (диалог)				
+$EXPR_DialogueHappy	Dialogue Happy	Dialogue content	Dialog Glücklich				Dialog Radosny	Радость (диалог)				
+$EXPR_DialogueSad	Dialogue Sad	Dialogue triste	Dialog Traurig				Dialog Smutny	Грусть (диалог)				
+$EXPR_DialogueSurprise	Dialogue Surprise	Dialogue surprise	Dialog Überrascht				Dialog Zaskoczony	Удивление (диалог)				
+$EXPR_DialogueDisgusted	Dialogue Disgusted	Dialogue dégouté	Dialog Angewidert					Отвращение (диалог)				
+$EXPR_DialogueFear	Dialogue Fear	Dialogue peur	Dialog Ängstlich				Dialog Strach	Страх (диалог)				
+$EXPR_DialoguePuzzled	Dialogue Puzzled	Dialogue perplexe	Dialog Verwundert					Замешательство (диалог)				
+$EXPR_BrowDownLeft	Brow Down Left	Sourcil gauche en bas	Braue Runter Links					Опустить левую бровь				
+$EXPR_BrowDownRight	Brow Down Right	Sourcil droit en bas	Braue Runter Rechts					Опустить правую бровь				
+$EXPR_BrowInLeft	Brow In Left	Sourcil à gauche	Braue Nach Innen Links					Приблизить левую бровь				
+$EXPR_BrowInRight	Brow In Right	Sourcil à droite	Braue Nach Innen Rechts					Приблизить правую бровь				
+$EXPR_BrowUpLeft	Brow Up Left	Sourcil gauche en haut	Braue Hoch Links					Приподнять левую бровь				
+$EXPR_BrowUpRight	Brow Up Right	Sourcil droit en haut	Braue Hoch Rechts					Приподнять правую бровь				
+$EXPR_LookDown	Look Down	Regarder en bas	Nach Unten Schauen				Spójrz w dół	Посмотреть вниз				
+$EXPR_LookLeft	Look Left	Regarder à gauche	Nach Links Schauen				Spójrz w lewo	Посмотреть влево				
+$EXPR_LookRight	Look Right	Regarder à droite	Nach Rechts Schauen				Spójrz w prawo	Посмотреть вправо				
+$EXPR_LookUp	Look Up	Regarder en haut	Nach Oben Schauen				Spójrz w dół	Посмотреть вверх				
+$EXPR_MoodAnger	Mood Anger	Humeur colère	Laune Verärgert					Злость				
+$EXPR_MoodDisgusted	Mood Disgusted	Humeur dégouté	Laune Angewidert					Отвращение				
+$EXPR_MoodFear	Mood Fear	Humeur peur	Laune Ängstlich					Страх				
+$EXPR_MoodHappy	Mood Happy	Humeur content	Laune Glücklich					Радость				
+$EXPR_MoodPuzzled	Mood Puzzled	Humeur perplexe	Laune Verwundert					Замешательство				
+$EXPR_MoodSad	Mood Sad	Humeur triste	Laune Traurig					Грусть				
+$EXPR_MoodSurprise	Mood Surprise	Humeur surprise	Laune Überrascht					Удивление				
+$EXPR_SquintLeft	Squint Left	Loucher gauche	Links Blinzeln					Взгляд искоса налево				
+$EXPR_SquintRight	Squint Right	Loucher droite	Rechts Blinzeln					Взгляд искоза направо				
+$EXPR_CombatAnger	Combat Anger	Combat colère	Kampf Verärgert					Боевая ярость				
+$EXPR_CombatShout	Combat Shout	Combat cri	Kampf Schrei				Krzyk Bojowy	Боевой крик				
+$EXPR_Aah	Aah	Aah	Aah				Aah	Аах				
+$EXPR_BigAah	Big Aah	Grand Aah	Großes Aah					Большой аах				
+$EXPR_BMP	BMP	BMP	BMP				BMP	BMP				
+$EXPR_ChJSh	ChJSh	ChJSh	ChJSh				ChJSh	ChJSh				
+$EXPR_DST	DST	DST	DST				DST	DST				
+$EXPR_Eee	Eee	Eee	Eee				Eee	Eee				
+$EXPR_Eh	Eh	Eh	Eh				Eh	Eh				
+$EXPR_FV	FV	FV	FV				FV	FV				
+$EXPR_I	I	I	I				I	I				
+$EXPR_K	K	K	K				K	K				
+$EXPR_N	N	N	N				N	N				
+$EXPR_Oh	Oh	Oh	Oh				Oh	Oh				
+$EXPR_OohQ	OohQ	OohQ	OohQ				OohQ	OohQ				
+$EXPR_R	R	R	R				R	R				
+$EXPR_Th	Th	Th	Th				Th	Th				
+$EXPR_W	W	W	W				W	W				
 												
 												
 												
-% Completion	100.00%	98.62%	98.27%	98.62%	98.27%	98.27%	84.78%	75.78%	59.52%	57.44%	30.45%	57.44%
-Total % Completion	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%
+% Completion	100.00%	100.00%	100.00%	98.96%	100.00%	98.62%	91.70%	100.00%	59.52%	73.70%	31.14%	75.78%
+Total % Completion	85.78%	85.78%	85.78%	85.78%	85.78%	85.78%	85.78%	85.78%	85.78%	85.78%	85.78%	85.78%
 												
 	Google Translate	fr	de	it	es	cs	pl	ru	ja	pt	zh-TW	zh-CN
-	ALL	ALL	ALL	ALL	ALL	ALL	ALL	ALL	All	ALL	Whole	Whole
-	COLORS	COLOURS	COLORS	COLOURS	COLORS	COLOURS	COLOURS	COLOURS	Color	COLORS	Color	Color
-	MAKEUP	MAKEUP	MAKEUP	MAKEUP	MAKEUP	MAKEUP	MAKE-UP	MAKEUP	Makeup	MAKEUP	Makeup	Makeup
+	ALL	ALL	ALL	All over	ALL	ALL	ALL	ALL	All	All	Whole	Whole
+	COLORS	COLOURS	COLORS	COLOURS	COLORS	COLOURS	COLOURS	COLOURS	Color	Colors	Color	Color
+	MAKEUP	Make up	MAKEUP	Make up	Make up	MAKEUP	MAKE-UP	MAKEUP	Makeup	Makeup	Make up	Make up
 	FILTER	FILTER	FILTER	FILTER	FILTER	FILTER	FILTER	FILTER	Filter	Filter	Filter	Filter
-	EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	APPENDIX	APPENDIX	OPTIONAL				
-	BODY PAINT	PAINTING ON THE BODY	BODY PAINTING	DYING BODY	BODY PAINTING	Coat color	BODY COLOUR	Body Tattoo				
-	HAND PAINT	PAINTING ON HANDS	HAND PAINTING	HAND DYE	HAND PAINTING	COLOR HAND	COLOUR HAND	TATTOO HAND				
-	FOOT PAINT	PAINTING ON FEET	FUßBEMALUNG	DYE FEET	FOOT PAINTING	COLOR LEG	COLOUR OF INTEREST	TATTOO FOOT				
-	FACE PAINT	PAINTING ON THE HEAD	FACE PAINTING	FACE PAINTING	FACE PAINTING	Paint on face	COLOUR FACE	FACE TATTOO				
-	Sliders	Cursors	Regulator	Sliders	Controls	Sliders	Sliders	Runners				
-	Overlays	Superposition	Overlays	Overlays	Superposition	Layers	Coverage	Upper layer				
-	Camera	Camera	Camera	Room	Camera	Camera	Camera					
-	Sculpt	Sculpt		Sculpt			Carve					
+	EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	APPENDIX	APPENDIX	OPTIONAL		Extra	Additional	Additional
+	BODY PAINT	PAINTING ON THE BODY	BODY PAINTING	DYING BODY	BODY PAINTING	Coat color	BODY COLOUR	Body Tattoo		Body Painting	Tattoo	Tattoo 
+	HAND PAINT	PAINTING ON HANDS	HAND PAINTING	HAND DYE	HAND PAINTING	COLOR HAND	COLOUR HAND	TATTOO HAND		Hand Painting		
+	FOOT PAINT	PAINTING ON FEET	FUßBEMALUNG	DYE FEET	FOOT PAINTING	COLOR LEG	COLOUR OF INTEREST	TATTOO FOOT		Foot paint		
+	FACE PAINT	PAINTING ON THE HEAD	FACE PAINTING	FACE PAINTING	FACE PAINTING	Paint on face	COLOUR FACE	FACE TATTOO		Face painting		
+	Sliders	Cursors	Regulator	Sliders	Controls	Sliders	Sliders	Runners		Sliders		
+	Overlays	Superposition	Overlays	Overlays	Superposition	Layers	Coverage	Upper layer		Overlays		
+	Camera	Camera	Camera	Room	Camera	Camera	Camera	Camera		Camera		
+	Sculpt	Sculpt	Molding	Sculpt	Sculptor		Carve	Cut		Carve		
 	Zoom In	Zoom	Enlarge	Enlarge	Approach	Approximate	Zoom	Bring closer	Zoom in	Zoom	Closer	Enlarge
 	Zoom Out	Zoom	Reduce	Collapse	Move away	Delay	Zoom	Zoom	Zoom out	Zoom	Pull away	Narrow
 	Change Race	Change race	Change race	Choose Breed	Change Race	Change race	Change Race	Change Race	Change of race	Change the race	Change Race	More variable race
 	Choose Color	Choice of color	Select Color	Choose Color	Choose a color	Pick a color	Select a Color	Choice of color	The choice of color	Choose a color	Choose a color	Select a color
 	Choose Texture	Choice of texture	Select texture	Select Texture	Choose texture	Select Texture	Select Texture	Select a texture	The choice of texture	Choose the texture	Select Material	Select Material
-	Glow	Glow	Glow	Flare	Brightness	Glow	Sparkle	Glow				
-	Tint	Hue	Tint	Tint	Dye	Shade	Hue	Shade				
-	Search	Search	Search	Search	Search	Search	Search	Find	Search	Search	Search	Search
+	Glow	Glow	Glow	Flare	Brightness	Glow	Sparkle	Glow		Brightness		
+	Tint	Hue	Tint	Tint	Dye	Shade	Hue	Shade		Tom / Tint		
+	Search	Sought after	Look for	Search	Search for	Search	Search	Find	Search	Search for	Search	Search for
 	Change Category	Change category	Change category	Change Category	Change category	Change category	Change category	Change category	Category change	Change category	Change Category	More variable category
-	Load Color	Load color	Load color	Upload a Color	Load Color	Load color	Load Color	Download color	Reading of color			
-	Save Color	Save color	Save color	Save Color	Save Color	Save color	Save the Colour	Save color	Color preservation			
-	Saved Color	Colors recorded	Saved color	Color Saved	Color saved	Saved color	Filed Color	Saved by color	Color that you saved			
-	Load Preset	Load the preset                                                                                 	Load default	Upload Settings	Load preset	Load preset	Load Appearance	Contaminants. preset	Load preset			Read Default
-	Save Preset	Save the preset	Save Preset	Save Settings	Save Preset	Save Preset	Save Appearance	Save. preset	Save Preset			Save Preset
+	Load Color	Load color	Load color	Upload a Color	Load Color	Load color	Load Color	Download color	Reading of color	Carrying color		Loaded color
+	Save Color	Save color	Save color	Save Color	Save Color	Save color	Save the Colour	Save color	Color preservation	Save color		Save Colors
+	Saved Color	Colors recorded	Saved color	Color Saved	Color saved	Saved color	Filed Color	Saved by color	Color that you saved	Color saved		Saved colors
+	Load Preset	Load the preset                                                                                 	Load default	Upload Settings	Load preset	Load preset	Load Appearance	Contaminants. preset	Load preset	Load Preset		Read Default
+	Save Preset	Save the preset	Save Preset	Save Settings	Save Preset	Save Preset	Save Appearance	Save. preset	Save Preset	Save Preset		Save Preset
 	Light On	With light	Light on	Light On	Light on	The light is on	Light	Incl. Backlight	Light on	Switching light	Turn on the lights	Turn on the light
 	Light Off	Without light	Light from	Lights off	Light off	Light off	Put	Off. Podstvetkoj	Light-off	Light Switch	Turn off the lights	Turn off the light
-	Exported head	Head exported	Head was exported	Head Exported	Head exported	Exported head	Exported head	Exported head	Head and output			
-	Export Head	Export head	Export head	Export Head	Export head	Export head	Export Head	Export head	The output of the head			
-	Rotate	Rotate	Turn	Wheel	Rotate	Turn over	Turn					
-	Move Camera	Move the camera	Move camera	Move room	Move Camera	Move the camera	Move Camera		Movement of the camera			
-	Rate ({})	Speed ​​({})	Increment ({})	Speed ​​({})	Index ({})	Step ({})	Rating ({})					
-	Primary	Primary	Primarily	Primary	Primary	Primary	First-class					
-	Secondary	Secondary	Secondary	Secondary	Secondary	Secondary	Secondary					
-	Preset Slot	Location Settings	Original location	Slot setting	Slot presets	Slot preferences	Socket Appearance	Slot preset				
-	Saved preset to clipboard	Save the settings to the clipboard	Template stored in clipboard	Setting saved to the clipboard	Presets saved to the clipboard	Preferences are stored in the clipboard	Filed look to clipboard	Preset is stored in the buffer				
-	Saved preset to slot {}	Saved in the location {Settings}	Template stored in position {}	Setting Saved in slot {}	Presets saved {}	Preferences are stored in the slot {}	Filed look into the slot {}	Save preset slot {}				
-	Loaded preset from slot {}	Settings loaded from location {}	Loaded template from position {}	Upload setting the slot {}	Preset loaded {}	Preset from the slot {}	Loaded appearance of the slot {}	Download preset from the slot {}				
-	Failed to load preset from slot {}	Failed to load settings from the location {}	Error loading the template from position {}	Failed loading the slot {}	Failed to load presets {}	Preset from the slot {} failed	Failed to load the appearance of the slot {}	Failed to load preset from the slot {}				
+	Exported head	Head exported	Head was exported	Head Exported	Head exported	Exported head	Exported head	Exported head	Head and output	Exported Head		Exported head 
+	Export Head	Export head	Export head	Export Head	Export head	Export head	Export Head	Export head	The output of the head	Export head		Export head
+	Rotate	Rotate	Turn	Wheel	Rotate	Turn over	Turn	 Turn		Spin		Rotation
+	Move Camera	Move the camera	Move camera	Move room	Move Camera	Move the camera	Move Camera	Traffic Cameras	Movement of the camera	Move camera		Moving the lens
+	Rate ({})	Speed ​​({})	Increment ({})	Speed ​​({})	Index ({})	Step ({})	Rating ({})	Rating ({})		Rate		
+	Primary	Primary	Primarily	Primary	Primary	Primary	First-class	Main		Primary		Main
+	Secondary	Secondary	Secondary	Secondary	Secondary	Secondary	Secondary	Additional		Secondary		Minor
+	Preset Slot	Location Settings	Original location	Slot setting	Slot presets	Slot preferences	Socket Appearance	Slot preset		Preset space		Current settings
+	Saved preset to clipboard	Save the settings to the clipboard	Template stored in clipboard	Setting saved to the clipboard	Presets saved to the clipboard	Preferences are stored in the clipboard	Filed look to clipboard	Preset is stored in the buffer		Default saved to the clipboard		Save the current settings to clipboard 
+	Saved preset to slot {}	Saved in the location {Settings}	Template stored in position {}	Setting Saved in slot {}	Presets saved {}	Preferences are stored in the slot {}	Filed look into the slot {}	Save preset slot {}		Saved preset in space		Read the record {} 
+	Loaded preset from slot {}	Settings loaded from location {}	Loaded template from position {}	Upload setting the slot {}	Preset loaded {}	Preset from the slot {}	Loaded appearance of the slot {}	Download preset from the slot {}		Template charged space		Read the record {} 
+	Failed to load preset from slot {}	Failed to load settings from the location {}	Error loading the template from position {}	Failed loading the slot {}	Failed to load presets {}	Preset from the slot {} failed	Failed to load the appearance of the slot {}	Failed to load preset from the slot {}		Failed to load default space		Failed to read from the record {} 
 	Height	Size	Size	Height	Height	Height	Height	Growth	Height	Height	Height	Height
 	Head	Head	Head	Head	Head	Head	Head	Head	Head	Head	Head	Head
 	Left Breast	Left chest	Left chest	Left Breast	Left chest	Left breast	Left Chest	Left breast	Left chest	Left chest	Left chest	Left chest
 	Right Breast	Right chest	Right chest	Right Breast	Right chest	Right breast	Right Chest	Right breast	Right chest	Right chest	Right chest	Right chest
 	Left Glute	Left gluteal	Left buttock	Left buttock	Left buttock	The left half	Left Buttock	Left buttock	Hidarishiri	Left gluteal	Left hip	Left hip
 	Right Glute	Right gluteal	Right buttock	Right Buttock	Right buttock	The right half	Right Buttock	Right buttock	Right ass	Right gluteus	Right hip	Right hip
-	Left Breast Curve	Curve left chest	Left chest curve	Curve Left Breast	Curvature of the left breast	Curve left breast	Roundness of the Left Breast	Bend left breast				Left chest curve
-	Right Breast Curve	Curve right chest	Right chest curve	Curve Right Breast	Curvature of the right breast	Curve right breast	Roundness of the Right Breast	Bending right breast				Right chest curve
+	Left Breast Curve	Curve left chest	Left chest curve	Curve Left Breast	Curvature of the left breast	Curve left breast	Roundness of the Left Breast	Bend left breast		Curve of the left breast		Left chest curve
+	Right Breast Curve	Curve right chest	Right chest curve	Curve Right Breast	Curvature of the right breast	Curve right breast	Roundness of the Right Breast	Bending right breast		Curve of the right chest		Right chest curve
 	Left Biceps	Left biceps	Left biceps	Left Bicep	Left biceps	The left biceps	Left Biceps	Left biceps	Bicep left arm	Left biceps	Right arm biceps	Left biceps
 	Right Biceps	Right biceps	Right biceps	Right Bicep	Right biceps	Right biceps	Right Biceps	Right bicep	Right arm bicep	Right biceps	Left arm biceps	Right biceps
 	Left Biceps 2	Left biceps 2	Left biceps 2	Left biceps 2	Left biceps 2	The left biceps 2	Left Biceps 2	Left biceps 2	2 bicep of his left arm	Left biceps 2	Right arm biceps 2	2 left biceps
 	Right Biceps 2	Right biceps 2	Right biceps 2	Right Bicep 2	Right biceps 2	Right biceps 2	Right Biceps 2	Right biceps 2	2 bicep of his right arm	Right biceps 2	Left arm biceps 2	Right biceps 2
-	Quiver Scale	Size quiver	Quiver size	Dimensions Quiver	Scale quiver	Scale quivers	Scale quiver	Scale quiver				
-	Bow Scale	Arc Size	Sheet Size	Size Arch	Bow Scale	Scale bow	The scale of Arc	Scale onion				
-	Axe Scale	Size ax	Axtgröße	Size Axe	Scale Axe	Scale axes	Scale ax	Scale ax				
-	Sword Scale	Size sword	Sword Height	Dimensions Sword	Scale Sword	Scale Sword	Scale Sword	Scale sword				
-	Mace Scale	Size of the mass	Mace size	Bat Size	Scale mace	Scale buds	Scale Maces	Scale maces				
-	Shield Scale	Size shield	Sign Size	Dimensions Shield	Scale Coat	Scale Shield	Scale Shield	Scale Shield				
-	Weapon Back Scale	Size of the weapon in the back	Weapons size rear	Dimensions Weapon on back	Scale back sheathed weapon	Scale back on weapons	Scale Back Weapons	Range weapons behind				
-	Weapon Scale	Size of the weapon	Weapon Size	Dimensions Weapon	Scale unsheathed weapon	Scale weapons	Scale Weapons	Range weapons				
+	Quiver Scale	Size quiver	Quiver size	Dimensions Quiver	Scale quiver	Scale quivers	Scale quiver	Scale quiver		Size quiver		
+	Bow Scale	Arc Size	Sheet Size	Size Arch	Bow Scale	Scale bow	The scale of Arc	Scale onion		Size of Arc		
+	Axe Scale	Size ax	Axtgröße	Size Axe	Scale Axe	Scale axes	Scale ax	Scale ax		Size two-handed ax		
+	Sword Scale	Size sword	Sword Height	Dimensions Sword	Scale Sword	Scale Sword	Scale Sword	Scale sword		Size sword		
+	Mace Scale	Size of the mass	Mace size	Bat Size	Scale mace	Scale buds	Scale Maces	Scale maces		Size of mace		
+	Shield Scale	Size shield	Sign Size	Dimensions Shield	Scale Coat	Scale Shield	Scale Shield	Scale Shield		Size of the shield		
+	Weapon Back Scale	Size of the weapon in the back	Weapons size rear	Dimensions Weapon on back	Scale back sheathed weapon	Scale back on weapons	Scale Back Weapons	Range weapons behind		Size of the back of the gun		
+	Weapon Scale	Size of the weapon	Weapon Size	Dimensions Weapon	Scale unsheathed weapon	Scale weapons	Scale Weapons	Range weapons		Size Gun		
 	Alteration	Alteration	Change	Alteration	Disturbance	Transformations	Transformation	Change	Degeneration	Change		Change
 	Conjuration	Conspiracy	Invocation	Evocation	Conjuration	Calling	Evocation	Witchcraft	Summons	Conjuring		Call
 	Destruction	Destruction	Destruction	Destruction	Destruction	Destruction	Destruction	Destruction	Destruction	Destruction		Destroy
@@ -541,69 +541,69 @@ Total % Completion	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79
 	Female Forsworn Tattoo 04	Tattoo perjury woman 04	Female Tattoo Forsworn 04	Female Tattoo Renegade 04	Tattoo Womens Renegade 04	Tattoos avowed women 04	Female Renegade Tattoo 04	Wives. Tattoo Outlaws 04	Tattoo 04 women Force Warne	Tattoo Sleeve renegade 04		Female Tattoo 04 Forsworn
 	Male Black Blood Tattoo 01	Blood tattoo black man 01	Male Black Blood Tattoo 01	Male Tattoo Blackblood 01	Mens Tattoo Black Blood 01	Gang Tattoos Blackblood 01	Men's Tattoo Black blood 01	Husband. Tattoo black blood 01	Tattoo 01 Male Black Blood	Blood Tattoo black male 01		Male black blood tattoo 01
 	Male Black Blood Tattoo 02	Blood tattoo black man 02	Male Black Blood Tattoo 02	Male Tattoo Blackblood 02	Mens Tattoo Black Blood 02	Gang Tattoos Blackblood 02	Men's Tattoo Black blood 02	Husband. Tattoo black blood 02	Tattoo 02 Male Black Blood	Blood Tattoo black male 02		Male black blood tattoo 02
-	Age	Age	Age	Age	Age	Age	Age		Age	Age		
-	Face Weight	Head weight	Face abundance / rounding	Weight	Weight	Weight in the face			Weight			
-	Head Shape	Head shape	Head shape	Shape of head	Head Shape	Head shape	The shape of the head			Head of Format		
-	Face Height	Face height	Face height	Head up / down	Face Height	Height of face	The height of the face			Height of Head	Facial height	
-	Forehead Fix	Front	Forehead Fix	Fix for the front	Arrangement of front	Fix the front	Forehead			Testa Correction		
-	Neck Size	Neck size	Neck size	Thickness of neck	Neck size	The thickness of the neck	Neck Size					
-	Cheekbone Height 2	Height of cheekbones	Cheekbone height	Cheeks up / down	Cheekbone height	Height cheekbones					Cheekbone height	
-	Cheekbone Width 2	Width of the cheekbones	Cheekbone width	Cheekbones up / down	Cheekbone width	The cantilever cheekbones					Cheekbone width	
-	Cheekback Width	Width of the cheeks (rear)	Cheeks width (rear)	Width cheeks	Cheekbone width (back)	Width cheekbones					Rear Width cheek	
-	Cheekfront Width	Width of the cheeks (front)	Cheeks width (front)	Swollen cheeks	Cheekbone width (front)	Width cheekbones					Cheek front width	
-	Jaw Width 2	Width of jaw	Jaw width	Jaw width	Jaw width	Jaw width	Jaw Width				Jaw width	
-	Jaw Height 2	Height of the jaw	Jaw height	Jaw up / down	Height of jaw	Height of jaw	Height of jaw				Jaw height	
-	Jaw Depth	Advanced jaw	Kiefer depth	Jaw backward / forward	Depth of the jaw	Depth of jaw	Depth of jaw				Jaw depth	
-	Chin Width 2	Width of the chin	Chin Width	Width chin	Chin Width	Width brady	Width chins				Chin Width	
-	Chin Length 2	Chin length	Chin length	Chin up / down	Chin Length	The length of the chin	The amount of chins				Chin length	
-	Chin Depth	Advanced chin	Chin depth	Chin up / down	Depth chin	Depth brady					Chin depth	
-	Chin Jut Depth	Depth of the projection of the chin	Chin depth 2	Chin up / down	Depth chin	Her chin					Mandibular depth	
-	Chin Angle Height	Height angle chin	Chin angle height	Sloping chin	Elevation angle of the chin	The height and angle of the chin					Chin angle	
-	Eye Type	Height angle chin	Eye type	Type of eyes	Type of eyes	Type Eye	Type of eyes				Eyes Type	
-	Eye Size	Height angle chin	Eye size	Size eyes	Size Eye	Size of eyes	Size of eyes				Eye size	
-	Eyelid Height	Retraction of the eyelids	Eyelid height	Height eyes	Height of the eyelids	The height of the eyelid						
-	Upper Eyelid Height	Height of the upper eyelid	Eyelid height (top)	Height palbebra top	Height of the upper eyelid	The height of the upper eyelid						
-	Lower Eyelid Height	Height of the lower eyelid	Eyelid height (below)	Height palbebra lower	Height of the lower eyelid	The height of the lower eyelid						
-	Eye Tilt	Tilt eyes	Eyes inclination	Tilt Eye	Tilt Eye	Tilting eyes						
-	Iris Size	Size of the iris	Iris Size	Size eyeball	Iris size	Size iris						
-	Iris Spread	Extension of the iris	Iris dislocation	Eyeball inside / outside	Expansion of the iris	Extension of the iris						
-	Iris Height	Height of the iris	Iris height	Eyeball up / down	Iris height	Height iris						
-	Eyelash Length	Eyelash length	Eyelash length	Length lashes	Eyelashes length	Length of algae						
-	Eye Height 2	Eye	Eye level	Eyes up / down	Eye height	Eye height						
-	Eye Spread	Distance between the eyes	Eye displacement	Eyes in / out	Distance between the eyes	The distance to the eye						
-	Eye Depth 2	Depth Eye	Eye depth	Eyes forward / backward	Depth of eyes	Depth of eyes						
-	Brow Slope	Tilt eyebrows	Brewing inclination	Angle eyebrows	Angling eyebrows	Inclination eyebrows						
-	Brow Arch	Curve of the eyebrows	Brewing curvature	Arch Eyebrows	Arch Eyebrows	The arch eyebrows						
-	Brow Height 2	Height eyebrows	Brewing height	Eyebrows up / down	Brow height	Height eyebrows						
-	Brow Width	Width eyebrows	Brewing width	Eyebrows inside / outside	Width eyebrows	Width eyebrows						
-	Brow Depth	Advanced eyebrows	Brewing depth	Eyebrows backward / forward	Depth eyebrows	Depth eyebrows						
-	Forehead Depth	Advanced front	Forehead depth	Front back / forward	Depth versus	Depth of head	Depth face					
-	Mouth Type 2	Shape of the mouth	Mouth type	Type of lips	Type mouth	Type mouth	Type paragraph					
-	Lip Pout	Pulbabilitée lips	Pouting lips	Pronounced lips	Grin	Pressing lips						
-	Mouth Width	Width of the mouth	Mouth width	Width booca	Mouth width	The width of the mouth						
-	Lip Height	Height lips	Lip height	Height mouth	Height of the lips	Height lips						
-	Upper Lip Height	Height of the upper lip	Lip height (top)	Height of upper lip	Height of upper lip	The height of the upper lip	The height of the upper lip					
-	Lower Lip Height	Height of the lower lip	Lip height (below)	Height of lower lip	Height of lower lip	The height of the lower lip	The height of the lower lip					
-	Mouth Corner Height	Height of the corners of the mouth	Corner of the mouth height	Corner of mouth up / down	Height of the corner	Height of the corner of his mouth						
-	Mouth Corner Depth	Advanced corners of the mouth	Mouth angle depth	Corner of mouth backward / forward	Depth of the corner	The depth of his mouth						
-	Mouth Height 2	Mouth height	Mouth height	Mouth up / down	Height of the mouth	Height mouth						
-	Mouth Depth	Advanced mouth	Mouth depth	Mouth backward / forward	Depth of the mouth	Depth mouth						
-	Nose Type 2	Type nose	Nose type	Type of nose	Nose type	Type the nose	Type the nose					
-	Nose Height 2	Nose height	Nose height	Nose up / down	Height of the nose	Height nose	The height of the nose					
-	Nose Length 2	Length nose	Nose length	Length of nose	Length of nose	Length of nose	Length of nose					
-	Nose Depth	Depth nose	Nose depth	Nose back / forward	Depth Nose	Depth nose	Depth nose					
-	Nose Bridge Width	Width of the dorsum	Nose bridge width	Wide nasal bridge	Nose bridge width	The thickness of the nasal bridge						
-	Nose Tip Width	Width of the tip	Nose width	Width of the tip of the nose	Width of the tip of the nose	Width of the tip of the nose						
-	Nose Tip Slope	Elevation of the nasal tip	Nasal tip inclination	Tilt the tip of the nose	Height from the tip of the nose	The slope of the tip of the nose						
-	Nose Sellion Depth	Depth of the root of the nose	Nose junction depth	Root of the nose back / forward	Depth of the nasal septum	The depth of the root of the nose						
-	Nose Sellion Height	Height of the root of the nose	Nose transition altitude	Root of the nose up / down	Height of nasal septum	Height of the base of the nose						
-	Nose Sellion Width	Width of the bridge of the nose	Nose transition width	Width root of the nose	Width of the nasal septum	The strength of the root of the nose						
-	Nose Bridge Depth	Depth of the dorsum	Nose Bridge Depth	Shape of the nasal septum	Cross the bridge of the nose	The depth of the nasal bridge						
-	Nose Area Depth	Depth of the nose area	Nose around depth	Area around the nose back / forward	Depth nose area	The depth of the nose						
-	Ear Shape	Shape of the ears	Ear shape	Shaped ears	Ear shape	The shape of the ear	The shape of the ear	Shape of the ears				
-	Ear Size	Size of the ears	Ear size	Size ears	Size of the ears	Size ears	Size ear	Size ears				
+	Age	Age	Age	Age	Age	Age	Age	Age	Age	Age		Age
+	Face Weight	Head weight	Face abundance / rounding	Weight	Weight	Weight in the face	Weight facial	Weight	Weight	Weight		Body weight
+	Head Shape	Head shape	Head shape	Shape of head	Head Shape	Head shape	The shape of the head	Head shape		Head of Format		Head shape
+	Face Height	Face height	Face height	Head up / down	Face Height	Height of face	The height of the face	Facial height		Height of Head	Facial height	Facial height
+	Forehead Fix	Front	Forehead Fix	Fix for the front	Arrangement of front	Fix the front	Forehead	Correction forehead		Correction Forehead		Forehead correction
+	Neck Size	Neck size	Neck size	Thickness of neck	Neck size	The thickness of the neck	Neck Size	The thickness of the neck		Neck size		Neck size
+	Cheekbone Height 2	Height of cheekbones	Cheekbone height 2	Cheeks up / down	Cheekbone height	Height cheekbones	Cheekbone height 2	Height cheekbones		Height of the cheeks	Cheekbone height	Cheekbone height
+	Cheekbone Width 2	Width of the cheekbones	Cheekbone width 2	Cheekbones up / down	Cheekbone width	The cantilever cheekbones	Cheekbone width 2	Cheeks forward		Thickness of the cheekbone	Cheekbone width	Cheekbone width
+	Cheekback Width	Width of the cheeks (rear)	Cheeks width (rear)	Width cheeks	Cheekbone width (back)	Width cheekbones		The width of the cheeks (rear)		Width of cheeks	Rear Width cheek	Rear Width cheek
+	Cheekfront Width	Width of the cheeks (front)	Cheeks width (front)	Swollen cheeks	Cheekbone width (front)	Width cheekbones		The width of the cheeks (front)			Cheek front width	Cheek front width 
+	Jaw Width 2	Width of jaw	Jaw width 2	Jaw width	Jaw width	Jaw width	Jaw Width	Width of jaw		Width of jaw	Jaw width	Jaw width
+	Jaw Height 2	Height of the jaw	Pine height 2	Jaw up / down	Height of jaw	Height of jaw	Height of jaw	Height of jaw		Height of the maxillary	Jaw height	Jaw height
+	Jaw Depth	Advanced jaw	Kiefer depth	Jaw backward / forward	Depth of the jaw	Depth of jaw	Depth of jaw	Depth of jaw		Jaw forward or backward	Jaw depth	Jaw depth
+	Chin Width 2	Width of the chin	Chin width 2	Width chin	Chin Width	Width brady	Width chins	Chin Width			Chin Width	Chin Width
+	Chin Length 2	Chin length	Chin length 2	Chin up / down	Chin Length	The length of the chin	The amount of chins	Chin length			Chin length	Chin length 
+	Chin Depth	Advanced chin	Chin depth	Chin up / down	Depth chin	Depth brady		Depth chin			Chin depth	Chin depth
+	Chin Jut Depth	Depth of the projection of the chin	Chin overbite depth	Chin up / down	Depth chin	Her chin		Depth chin			Mandibular depth	Mandibular depth
+	Chin Angle Height	Height angle chin	Chin angle height	Sloping chin	Elevation angle of the chin	The height and angle of the chin		The height and angle of the chin			Chin angle	Chin angle
+	Eye Type	Height angle chin	Eye type	Type of eyes	Type of eyes	Type Eye	Type Eye	Type Eye			Eyes Type	Eyes Type 
+	Eye Size	Height angle chin	Eye size	Size eyes	Size Eye	Size of eyes	Size Eye	Size of the eye			Eye size	Eye size
+	Eyelid Height	Retraction of the eyelids	Eyelid height	Height eyes	Height of the eyelids	The height of the eyelid	The height of the eyelid	Height Century				Touched upon height 
+	Upper Eyelid Height	Height of the upper eyelid	Eyelid height (top)	Height palbebra top	Height of the upper eyelid	The height of the upper eyelid		The height of the upper eyelid				Under eye height
+	Lower Eyelid Height	Height of the lower eyelid	Eyelid height (below)	Height palbebra lower	Height of the lower eyelid	The height of the lower eyelid		The height of the lower eyelid				Under eye height
+	Eye Tilt	Tilt eyes	Eyes inclination	Tilt Eye	Tilt Eye	Tilting eyes		The slope of the eye				
+	Iris Size	Size of the iris	Iris Size	Size eyeball	Iris size	Size iris		The size of the iris				Eye size
+	Iris Spread	Extension of the iris	Iris dislocation	Eyeball inside / outside	Expansion of the iris	Extension of the iris		Depth eyeballs				
+	Iris Height	Height of the iris	Iris height	Eyeball up / down	Iris height	Height iris		Height eyeballs				Eye height
+	Eyelash Length	Eyelash length	Eyelash length	Length lashes	Eyelashes length	Length of algae		Long eyelashes				
+	Eye Height 2	Eye	Eye level 2	Eyes up / down	Eye height	Eye height		Eye height				
+	Eye Spread	Distance between the eyes	Eye Relief	Eyes in / out	Distance between the eyes	The distance to the eye		The distance between the eyes				
+	Eye Depth 2	Depth Eye	Eye Depth 2	Eyes forward / backward	Depth of eyes	Depth of eyes		Depth sockets				
+	Brow Slope	Tilt eyebrows	Brewing inclination	Angle eyebrows	Angling eyebrows	Inclination eyebrows		Tilt angle of eyebrows				
+	Brow Arch	Curve of the eyebrows	Brewing curvature	Arch Eyebrows	Arch Eyebrows	The arch eyebrows		Bending eyebrows				
+	Brow Height 2	Height eyebrows	Brewing height 2	Eyebrows up / down	Brow height	Height eyebrows		Height eyebrows				
+	Brow Width	Width eyebrows	Brewing width	Eyebrows inside / outside	Width eyebrows	Width eyebrows		Width eyebrows				
+	Brow Depth	Advanced eyebrows	Brewing depth	Eyebrows backward / forward	Depth eyebrows	Depth eyebrows		Depth eyebrows				
+	Forehead Depth	Advanced front	Forehead depth	Front back / forward	Depth versus	Depth of head	Depth face	Forehead forward				
+	Mouth Type 2	Shape of the mouth	Oral type 2	Type of lips	Type mouth	Type mouth	Type paragraph	Type lips				
+	Lip Pout	Pulbabilitée lips	Pouting lips	Pronounced lips	Grin	Pressing lips	Grimace lips	Plump Lips				
+	Mouth Width	Width of the mouth	Mouth width	Width booca	Mouth width	The width of the mouth	Width paragraph	Width of mouth				
+	Lip Height	Height lips	Lip height	Height mouth	Height of the lips	Height lips	The height of the lip	Height mouth				
+	Upper Lip Height	Height of the upper lip	Lip height (top)	Height of upper lip	Height of upper lip	The height of the upper lip	The height of the upper lip	The height of the upper lip				
+	Lower Lip Height	Height of the lower lip	Lip height (below)	Height of lower lip	Height of lower lip	The height of the lower lip	The height of the lower lip	The height of the lower lip				
+	Mouth Corner Height	Height of the corners of the mouth	Corner of the mouth height	Corner of mouth up / down	Height of the corner	Height of the corner of his mouth	The height of his mouth	Height corners of the mouth				
+	Mouth Corner Depth	Advanced corners of the mouth	Mouth angle depth	Corner of mouth backward / forward	Depth of the corner	The depth of his mouth	The depth of his mouth	Depth corners of the mouth				
+	Mouth Height 2	Mouth height	Mouth height 2	Mouth up / down	Height of the mouth	Height mouth	The height of paragraph 2	Height mouth 2				
+	Mouth Depth	Advanced mouth	Mouth depth	Mouth backward / forward	Depth of the mouth	Depth mouth	Depth paragraph	Depth mouth				
+	Nose Type 2	Type nose	Nose type 2	Type of nose	Nose type	Type the nose	Type the nose	Type of nose				
+	Nose Height 2	Nose height	Nose height 2	Nose up / down	Height of the nose	Height nose	The height of the nose	The height of the nose				
+	Nose Length 2	Length nose	Nose length 2	Length of nose	Length of nose	Length of nose	Length of nose	Length of the nose				
+	Nose Depth	Depth nose	Nose depth	Nose back / forward	Depth Nose	Depth nose	Depth nose	Depth nose				
+	Nose Bridge Width	Width of the dorsum	Nose bridge width	Wide nasal bridge	Nose bridge width	The thickness of the nasal bridge	Width of the bridge of the nose	The width of the nose				
+	Nose Tip Width	Width of the tip	Nose width	Width of the tip of the nose	Width of the tip of the nose	Width of the tip of the nose	Width of the tip of the nose	The width of the nose tip				
+	Nose Tip Slope	Elevation of the nasal tip	Nasal tip inclination	Tilt the tip of the nose	Height from the tip of the nose	The slope of the tip of the nose	Tilting the nose	The angle of inclination of the tip of the nose,				
+	Nose Sellion Depth	Depth of the root of the nose	Nose junction depth	Root of the nose back / forward	Depth of the nasal septum	The depth of the root of the nose		Depth nose				
+	Nose Sellion Height	Height of the root of the nose	Nose transition altitude	Root of the nose up / down	Height of nasal septum	Height of the base of the nose		Bridge height				
+	Nose Sellion Width	Width of the bridge of the nose	Nose transition width	Width root of the nose	Width of the nasal septum	The strength of the root of the nose		The width of the nose				
+	Nose Bridge Depth	Depth of the dorsum	Nose Bridge Depth	Shape of the nasal septum	Cross the bridge of the nose	The depth of the nasal bridge	The depth of the bridge of the nose	Form bridge				
+	Nose Area Depth	Depth of the nose area	Nose around depth	Area around the nose back / forward	Depth nose area	The depth of the nose	The depth of the nose area	Depth of the nose				
+	Ear Shape	Shape of the ears	Ear shape	Shaped ears	Ear shape	The shape of the ear	The shape of the ear	Shape of the ears				Ear shape
+	Ear Size	Size of the ears	Ear size	Size ears	Size of the ears	Size ears	Size ear	Size ears				Ear size 
 	Ear Height	Ear height	Ear level	Ears up / down	Ear height	Height ears	The height of the ear	Level ears				
-	Elf Ear Tip	Elf ears	Elf Ears tip	Elf Ears	Elf Ear Tips	The tip of the elven ears		Type elf. ears				
+	Elf Ear Tip	Elf ears	Elf Ears tip	Elf Ears	Elf Ear Tips	The tip of the elven ears	The tip of the elf ear	Type elf. ears				
 	Nord	Nordic	North	North	Nordic	Norseman	Nord	North				
 	Breton	Bréton	Breton	Breton	Breton	Breton	Breton	Breton				
 	Imperial	Imperial	Imperial	Breton	Imperial	Imperial	Imperial	An Imperial				
@@ -611,51 +611,51 @@ Total % Completion	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79%	79.79
 	Wood Elf	Wood Elf	Wood Elf	Wood elf	Elf Forest	Forest elf	Forest Elf	Forest Elf				
 	Dark Elf	Elf Black	Dark Elf	Dark elf	Dark Elf	Dark elf	The Dark Elf	Dark Elf				
 	High Elf	High Elf	High Elf	High elf	High Elf	High elf	High Elf	High Elf				
-	Nose Width	Nose width	Nose width	Nose width	Nose width	Width of nose	Width of the nose	Nose width			Nose Width	
-	Nose Bridge	Bridge of the nose	Nose bridge	Nasal bridge	Nose bridge	Nasal bridge	Width of the nasal bone	Bridge			Bridge of the nose	
-	Lip Thickness	Thick lips	Lip fullness	Thick lips	Thickness of the lips	The fullness of the lips		The thickness of the lips			Lip thickness	
-	Elf Ear	Elf ears	Elf Ears	Elf Ears	Elf ears	Elven ears	Elf ears	Elven ears			Apex length	
-	Eye Size 2	Eye Size	Eye size	Size eyes	Size Eye	Size of eyes	Size Eye	Size of the eye			Eye size	
-	Eye Angle	Tilt eyes	Canthus	Angle eyes	Eye angle	Angle eyes	Angle Eyes	The angle of inclination of the eye			Eye angle	
-	Eyelid Open	Eyelid opening	Eyelid opening	Eyelids open	Eye opening	The opening of the eyelids	Open eyelids	Disclose eyelids			Eyelids open and close	
-	Jaw Shape	Shape jaw	Jaw shape	Shape of the jaw	Jaw shape	The shape of the jaw	The shape of the jaw	Shape of the jaw			Jaw shape	
-	Cheek Shape	Shape of the cheeks	Baking dish	Shape of the cheeks	Form cheek	The shape of the face	The shape of the cheek	Form cheeks			Cheek shape	
+	Nose Width	Nose width	Nose width	Nose width	Nose width	Width of nose	Width of the nose	Nose width			Nose Width	Nose width 
+	Nose Bridge	Bridge of the nose	Nose bridge	Nasal bridge	Nose bridge	Nasal bridge	Width of the nasal bone	Bridge			Bridge of the nose	Bridge of the nose
+	Lip Thickness	Thick lips	Lip fullness	Thick lips	Thickness of the lips	The fullness of the lips		The thickness of the lips			Lip thickness	Lip thickness
+	Elf Ear	Elf ears	Elf Ears	Elf Ears	Elf ears	Elven ears	Elf ears	Elven ears			Apex length	Ear length
+	Eye Size 2	Eye Size	Eye size	Size eyes	Size Eye	Size of eyes	Size Eye	Size of the eye			Eye size	Eye size
+	Eye Angle	Tilt eyes	Canthus	Angle eyes	Eye angle	Angle eyes	Angle Eyes	The angle of inclination of the eye			Eye angle	Eye angle
+	Eyelid Open	Eyelid opening	Eyelid opening	Eyelids open	Eye opening	The opening of the eyelids	Open eyelids	Disclose eyelids			Eyelids open and close	Eyelids open and close 
+	Jaw Shape	Shape jaw	Jaw shape	Shape of the jaw	Jaw shape	The shape of the jaw	The shape of the jaw	Shape of the jaw			Jaw shape	Jaw shape
+	Cheek Shape	Shape of the cheeks	Baking dish	Shape of the cheeks	Form cheek	The shape of the face	The shape of the cheek	Form cheeks			Cheek shape	Cheek shape
 	Brow Angle	Tilt eyebrows	Brewing angle	Tilt eyelashes	Angle eyebrows	Angle eyebrows	The angle of the eyebrows	Angle Brow			Eyebrow angle	
 	Lips Open	Lip opening	Lip opening	Open lips	Lips open	Opening the lips	Open mouth	Disclose lips			Opening and closing of the lips	
 	Nose Sellion Width	Width of the nostrils	Nose transition width	Width nasal root	Nasal width	Width of the bridge of the nose	The width of the nostrils	The width of the nose			Yintang Width	
 	Nose Tilt	Inclination of	Nose inclination	Tilt nose	Nose angle	Tilting the nose	The slope of the nose	The slope of the nose			Tip of the nose	
 	Mouth Width 2	Width of the mouth	Mouth width	Width mouth	Mouth width	The width of the mouth	Width paragraph	Width of mouth			Lips Width	
 	Mouth Smile	Smile	Smile	Smile	Smile	Smile	Smile	Smile			Mouth height	
-	Blink Left											
-	Blink Right											
-	Dialogue Anger											
-	Dialogue Happy											
-	Dialogue Sad											
-	Dialogue Surprise											
-	Dialogue Disgusted											
-	Dialogue Fear											
-	Dialogue Puzzled											
-	Brow Down Left											
-	Brow Down Right											
-	Brow In Left											
-	Brow In Right											
-	Brow Up Left											
-	Brow Up Right											
-	Look Down											
-	Look Left											
-	Look Right											
-	Look Up											
-	Mood Anger											
-	Mood Disgusted											
-	Mood Fear											
-	Mood Happy											
-	Mood Puzzled											
-	Mood Sad											
-	Mood Surprise											
-	Squint Left											
-	Squint Right											
-	Combat Anger											
-	Combat Shout											
-	Aah											
-	Big Aah											
-	BMP											
+	Blink Left	Blink left	Links wink					Winks his left eye				
+	Blink Right	Blink right	Right wink					Winks right eye				
+	Dialogue Anger	Anger dialogue	Annoyed dialogue				Dialog Anger	Rage (dialogue)				
+	Dialogue Happy	Happy Dialogue	Dialogue Happy				Dialog Happy	Joy (dialogue)				
+	Dialogue Sad	Sad dialogue	Dialogue Sad				Dialog Sad	Sadness (dialogue)				
+	Dialogue Surprise	Surprise Dialogue	Surprised dialogue				Dialog Surprised	Surprise (dialogue)				
+	Dialogue Disgusted	Disgusted dialogue	Dialogue Disgusted					Aversion (dialogue)				
+	Dialogue Fear	Dialogue fear	Dialogue Afraid				Dialog Fear	Fear (dialogue)				
+	Dialogue Puzzled	Puzzled dialogue	Dialogue Surprised					Confusion (dialogue)				
+	Brow Down Left	Left eyebrow down	Brow Down Left					Lower the left eyebrow				
+	Brow Down Right	Right eyebrow down	Brow Down Right					Lower right eyebrow				
+	Brow In Left	Left eyebrow	Brow Inside Links					Bring the left eyebrow				
+	Brow In Right	Right eyebrow	Brow Inside Right					Zoom right eyebrow				
+	Brow Up Left	Left eyebrow up	High brow Links					Raise the left eyebrow				
+	Brow Up Right	Right eyebrow top	Eyebrow up right					Lift the right eyebrow				
+	Look Down	Look down on	Down Look				Look down	Look down				
+	Look Left	Look left	After links Look				Look to the left	View left				
+	Look Right	Look right	After Right Look				Look to the right	View right				
+	Look Up	Look up	After Looking Up				Look down	Look up				
+	Mood Anger	Angry mood	Angry mood					Anger				
+	Mood Disgusted	Disgusted mood	Disgusted mood					Aversion				
+	Mood Fear	Mood fear	Anxious mood					Fear				
+	Mood Happy	Happy mood	Happy mood					Joy				
+	Mood Puzzled	Humor puzzled	Mood Surprised					Confusion				
+	Mood Sad	Sad mood	Sad mood					Sorrow				
+	Mood Surprise	Mood surprise	Surprised mood					Surprise				
+	Squint Left	Squint left	Links Blink					Squint left				
+	Squint Right	Squint right	Right Blink					Iskoza look right				
+	Combat Anger	Combat anger	Annoyed fight					Battle Fury				
+	Combat Shout	Battle cry	Battle Cry				Cry of Battle	Battle Shout				
+	Aah	Aah	Aah				Aah	Aah				
+	Big Aah	Grand Aah	Large Aah					Large aah				
+	BMP	BMP	BMP				BMP	BMP				

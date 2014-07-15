@@ -1,10 +1,21 @@
 Scriptname CharGen Hidden
 
+int Function GetScriptVersion() global
+	return 1
+EndFunction
+
 ; Saves a character's appearances to a preset file as well as a tint mask DDS
 Function SaveCharacter(string characterName) native global
 
 ; Loads a character's appearance preset file onto an Actor
 bool Function LoadCharacter(Actor akDestination, Race akRace, string characterName) native global
+
+; Deletes the slot,dds,nif
+Function DeleteCharacter(string characterName) native global
+
+; Unmaps the presets to their corresponding NPC
+Function ClearPreset(ActorBase npc) native global
+Function ClearPresets() native global
 
 ; External Mode
 ; Saves the characters slot, nif, and dds

@@ -183,9 +183,6 @@ class RaceMenu extends MovieClip
 		ShowMakeupPanel(false);
 		
 		raceDescription.textField.textAutoSize = "shrink";
-		bottomBar.hidePlayerInfo();
-		var pInfo = bottomBar.attachMovie("PlayerInfo", "playerInfo", bottomBar.getNextHighestDepth());
-		pInfo._y = 25;
 		var sPanel = bottomBar.attachMovie("ButtonPanel", "staticPanel", bottomBar.getNextHighestDepth(), {buttonRenderer: "MappedButton", maxButtons: 6, buttonInitializer: {disableConstraints: false, disabled: false, disableFocus: true, hiddenBackground: true}});
 		sPanel._y = navPanel._y + 28;
 		sPanel._x = navPanel._x;
@@ -238,8 +235,8 @@ class RaceMenu extends MovieClip
 		
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 2044, savedItemIndex: -1, enabled: true});
 		
-		/*// Test Code
-		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
+		// Test Code
+		/*categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
 		_artPrimary = categoryList.iconArt;
 		_artSecondary = ["face"];
 		
@@ -380,7 +377,7 @@ class RaceMenu extends MovieClip
 		vertexEditor.InitExtensions();
 		modeSelect.InitExtensions();
 		cameraEditor.InitExtensions();
-		bottomBar["playerInfo"].Lock("R");
+		bottomBar.playerInfo.Lock("R");
 		
 		_panelX = racePanel._x;
 		itemDescriptor._x = _panelX + racePanel._width;
@@ -547,7 +544,7 @@ class RaceMenu extends MovieClip
 	public function ShowTextEntryField(): Void
 	{
 		if (textEntry.enabled) {
-			textEntry.TextInputInstance.text = bottomBar["playerInfo"].PlayerName.text;
+			textEntry.TextInputInstance.text = bottomBar.playerInfo.PlayerName.text;
 			textEntry.TextInputInstance.focused = true;
 			GameDelegate.call("SetAllowTextInput", []);
 			return;
@@ -701,12 +698,12 @@ class RaceMenu extends MovieClip
 	
 	public function SetNameText(astrPlayerName: String): Void
 	{
-		bottomBar["playerInfo"].PlayerName.SetText(astrPlayerName);
+		bottomBar.playerInfo.PlayerName.SetText(astrPlayerName);
 	}
 
 	public function SetRaceText(astrPlayerRace: String): Void
 	{
-		bottomBar["playerInfo"].PlayerRace.SetText(astrPlayerRace);
+		bottomBar.playerInfo.PlayerRace.SetText(astrPlayerRace);
 	}
 	
 	private function SetCategoriesList(): Void
