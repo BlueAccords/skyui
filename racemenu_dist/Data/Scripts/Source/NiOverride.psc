@@ -1,5 +1,9 @@
 Scriptname NiOverride Hidden
 
+int Function GetScriptVersion() global
+	return 1
+EndFunction
+
 ; Valid keys
 ; ID - TYPE - Name
 ; 0 - int - ShaderEmissiveColor
@@ -226,3 +230,38 @@ Function ClearMorphs(ObjectReference ref) native global
 ; Updates the weight data post morph value
 ; only to be used on actors who have morph values set
 Function UpdateModelWeight(ObjectReference ref) native global
+
+; Call this function prior to frequent changes in dyes to prevent massive lag
+Function EnableTintTextureCache() native global
+; Call this when finished frequent dye edits
+Function ReleaseTintTextureCache() native global
+
+; Dye functions
+
+; Returns a number for a unique item, if the item is not unique it will be made unique, returns 0 when invalid
+int Function GetItemUniqueID(ObjectReference akActor, int weaponSlot, int slotMask, bool makeUnique = true) native global
+
+; Uses the uniqueId acquired from GetItemUniqueID
+Function SetItemDyeColor(int uniqueId, int maskIndex, int color) native global
+int Function GetItemDyeColor(int uniqueId, int maskIndex) native global
+Function ClearItemDyeColor(int uniqudId, int maskIndex) native global
+
+; Regenerates the tintmask of the dyed object, use after assigning/clearing dye colors
+Function UpdateItemDyeColor(ObjectReference akActor, int uniqueId) native global
+
+; ------ NON PERSISTENT FUNCTIONS --------------
+; These functions do not persist in game sessions but are instead 
+; very fast and are suitable to be used on a game load event
+
+; Returns true if the Form has been registered as a Dye
+bool Function IsFormDye(Form akForm) native global
+
+; Returns the dye color bound to this form
+int Function GetFormDyeColor(Form akForm) native global
+
+; Registers the Form as a Dye with a color, 0x00FFFFFF is the universal dye
+Function RegisterFormDyeColor(Form akForm, int color) native global
+
+; Removes this form as a 
+Function UnregisterFormDyeColor(Form akForm) native global
+; -------------------------------------------------

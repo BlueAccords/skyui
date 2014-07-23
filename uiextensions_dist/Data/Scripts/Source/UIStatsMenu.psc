@@ -1,7 +1,5 @@
 Scriptname UIStatsMenu extends UIMenuBase
 
-Message Property UIStatsMenuMessage Auto
-
 string property		ROOT_MENU		= "CustomMenu" autoReadonly
 string Property 	MENU_ROOT		= "_root.ActorStatsPanelFader.actorStatsPanel." autoReadonly
 

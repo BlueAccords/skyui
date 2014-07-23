@@ -1,5 +1,6 @@
 Scripts\CosmeticMenu.pex
 Scripts\UICosmeticMenu.pex
+Scripts\UIDyeMenu.pex
 Scripts\UIExtensions.pex
 Scripts\UIListMenu.pex
 Scripts\UIMagicMenu.pex
@@ -11,6 +12,7 @@ Scripts\UITextEntryMenu.pex
 Scripts\UIWheelMenu.pex
 Scripts\Source\CosmeticMenu.psc
 Scripts\Source\UICosmeticMenu.psc
+Scripts\Source\UIDyeMenu.psc
 Scripts\Source\UIExtensions.psc
 Scripts\Source\UIListMenu.psc
 Scripts\Source\UIMagicMenu.psc

@@ -1,7 +1,5 @@
 Scriptname UIWheelMenu extends UIMenuBase
 
-Message Property UIWheelMenuMessage Auto
-
 string property		ROOT_MENU		= "CustomMenu" autoReadonly
 string Property 	MENU_ROOT		= "_root.WheelPhase.WheelBase." autoReadonly
 

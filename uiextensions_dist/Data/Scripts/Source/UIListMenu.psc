@@ -1,7 +1,5 @@
 Scriptname UIListMenu extends UIMenuBase
 
-Message Property UIListMenuMessage Auto
-
 string property		ROOT_MENU		= "CustomMenu" autoReadonly
 string Property 	MENU_ROOT		= "_root.listMenu." autoReadonly
 

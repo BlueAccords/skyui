@@ -1,6 +1,5 @@
 Scriptname UISelectionMenu extends UIMenuBase
 
-Message Property UISelectionMessage Auto
 FormList Property SelectedForms  Auto  
 
 string property		ROOT_MENU		= "CustomMenu" autoReadonly

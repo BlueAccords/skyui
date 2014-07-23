@@ -6,8 +6,6 @@ string Property 	MENU_ROOT		= "_root.textEntry." autoReadonly
 string _internalString = ""
 string _internalResult = ""
 
-Message Property UITextEntryMenuMessage Auto
-
 string Function GetMenuName()
 	return "UITextEntryMenu"
 EndFunction

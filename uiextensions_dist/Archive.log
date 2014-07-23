@@ -14,6 +14,7 @@ Adding File Group: filegroup_all.txt
 -Adding File: Data\Interface\listmenu.swf
 -Adding File: Data\Interface\textentrymenu.swf
 -Adding File: Data\Interface\cosmeticmenu.swf
+-Adding File: Data\Interface\dyemenu.swf
 -Adding File: Data\Interface\extension_assets\meter.swf
 -Adding File: Data\Interface\extension_assets\bottombar.swf
 -Adding File: Data\Interface\extension_assets\buttonArt.swf
@@ -21,6 +22,7 @@ Adding File Group: filegroup_all.txt
 -Adding File: Data\Interface\translations\UIExtensions_ENGLISH.txt
 -Adding File: Data\Scripts\CosmeticMenu.pex
 -Adding File: Data\Scripts\UICosmeticMenu.pex
+-Adding File: Data\Scripts\UIDyeMenu.pex
 -Adding File: Data\Scripts\UIExtensions.pex
 -Adding File: Data\Scripts\UIListMenu.pex
 -Adding File: Data\Scripts\UIMagicMenu.pex
@@ -32,6 +34,7 @@ Adding File Group: filegroup_all.txt
 -Adding File: Data\Scripts\UIWheelMenu.pex
 -Adding File: Data\Scripts\Source\CosmeticMenu.psc
 -Adding File: Data\Scripts\Source\UICosmeticMenu.psc
+-Adding File: Data\Scripts\Source\UIDyeMenu.psc
 -Adding File: Data\Scripts\Source\UIExtensions.psc
 -Adding File: Data\Scripts\Source\UIListMenu.psc
 -Adding File: Data\Scripts\Source\UIMagicMenu.psc
@@ -46,40 +49,43 @@ Saving archive: _generated\UIExtensions.bsa
 Writing files
 
 Offset          0: Wrote compressed file scripts\source\uitextentrymenu.psc
-Offset        570: Wrote compressed file scripts\source\uicosmeticmenu.psc
-Offset       1406: Wrote compressed file scripts\source\cosmeticmenu.psc
-Offset       1911: Wrote compressed file scripts\source\uiwheelmenu.psc
-Offset       3200: Wrote compressed file scripts\source\uiselectionmenu.psc
-Offset       3939: Wrote compressed file scripts\source\uimagicmenu.psc
-Offset       4916: Wrote compressed file scripts\source\uistatsmenu.psc
-Offset       5370: Wrote compressed file scripts\source\uilistmenu.psc
-Offset       6575: Wrote compressed file scripts\source\uimenubase.psc
-Offset       7285: Wrote compressed file scripts\source\uimenuload.psc
-Offset       7409: Wrote compressed file scripts\source\uiextensions.psc
-Offset       8276: Wrote compressed file scripts\uitextentrymenu.pex
-Offset       9331: Wrote compressed file scripts\uicosmeticmenu.pex
-Offset      10892: Wrote compressed file scripts\cosmeticmenu.pex
-Offset      11715: Wrote compressed file scripts\uiwheelmenu.pex
-Offset      14265: Wrote compressed file scripts\uiselectionmenu.pex
-Offset      15590: Wrote compressed file scripts\uimagicmenu.pex
-Offset      17431: Wrote compressed file scripts\uistatsmenu.pex
-Offset      18281: Wrote compressed file scripts\uilistmenu.pex
-Offset      20452: Wrote compressed file scripts\uimenubase.pex
-Offset      21759: Wrote compressed file scripts\uimenuload.pex
-Offset      22166: Wrote compressed file scripts\uiextensions.pex
-Offset      24150: Wrote compressed file interface\translations\uiextensions_english.txt
-Offset      24985: Wrote compressed file interface\extension_assets\icons_category_psychosteve.swf
-Offset      33300: Wrote compressed file interface\extension_assets\bottombar.swf
-Offset      64248: Wrote compressed file interface\extension_assets\meter.swf
-Offset      81250: Wrote compressed file interface\extension_assets\buttonart.swf
-Offset     100237: Wrote compressed file interface\selectionmenu.swf
-Offset     116650: Wrote compressed file interface\magicmenuext.swf
-Offset     173289: Wrote compressed file interface\textentrymenu.swf
-Offset     192993: Wrote compressed file interface\cosmeticmenu.swf
-Offset     201123: Wrote compressed file interface\listmenu.swf
-Offset     232527: Wrote compressed file interface\statssheetmenu.swf
-Offset     267193: Wrote compressed file interface\wheelmenu.swf
-Offset     304745: END OF FILE
+Offset        554: Wrote compressed file scripts\source\uicosmeticmenu.psc
+Offset       1376: Wrote compressed file scripts\source\cosmeticmenu.psc
+Offset       1881: Wrote compressed file scripts\source\uiwheelmenu.psc
+Offset       3155: Wrote compressed file scripts\source\uidyemenu.psc
+Offset       3877: Wrote compressed file scripts\source\uiselectionmenu.psc
+Offset       4604: Wrote compressed file scripts\source\uimagicmenu.psc
+Offset       5569: Wrote compressed file scripts\source\uistatsmenu.psc
+Offset       6008: Wrote compressed file scripts\source\uilistmenu.psc
+Offset       7199: Wrote compressed file scripts\source\uimenubase.psc
+Offset       7909: Wrote compressed file scripts\source\uimenuload.psc
+Offset       8033: Wrote compressed file scripts\source\uiextensions.psc
+Offset       8910: Wrote compressed file scripts\uitextentrymenu.pex
+Offset       9933: Wrote compressed file scripts\uicosmeticmenu.pex
+Offset      11462: Wrote compressed file scripts\cosmeticmenu.pex
+Offset      12286: Wrote compressed file scripts\uiwheelmenu.pex
+Offset      14807: Wrote compressed file scripts\uidyemenu.pex
+Offset      16185: Wrote compressed file scripts\uiselectionmenu.pex
+Offset      17477: Wrote compressed file scripts\uimagicmenu.pex
+Offset      19274: Wrote compressed file scripts\uistatsmenu.pex
+Offset      20072: Wrote compressed file scripts\uilistmenu.pex
+Offset      22202: Wrote compressed file scripts\uimenubase.pex
+Offset      23499: Wrote compressed file scripts\uimenuload.pex
+Offset      23908: Wrote compressed file scripts\uiextensions.pex
+Offset      25923: Wrote compressed file interface\translations\uiextensions_english.txt
+Offset      26815: Wrote compressed file interface\extension_assets\icons_category_psychosteve.swf
+Offset      35130: Wrote compressed file interface\extension_assets\bottombar.swf
+Offset      66078: Wrote compressed file interface\extension_assets\meter.swf
+Offset      83080: Wrote compressed file interface\extension_assets\buttonart.swf
+Offset     102067: Wrote compressed file interface\selectionmenu.swf
+Offset     118480: Wrote compressed file interface\magicmenuext.swf
+Offset     175119: Wrote compressed file interface\textentrymenu.swf
+Offset     194823: Wrote compressed file interface\cosmeticmenu.swf
+Offset     202953: Wrote compressed file interface\listmenu.swf
+Offset     234357: Wrote compressed file interface\dyemenu.swf
+Offset     291250: Wrote compressed file interface\statssheetmenu.swf
+Offset     325916: Wrote compressed file interface\wheelmenu.swf
+Offset     363468: END OF FILE
 
 Finished writing files
 

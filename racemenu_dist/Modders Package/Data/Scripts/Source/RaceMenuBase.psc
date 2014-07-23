@@ -11,7 +11,7 @@ int Property CATEGORY_EYES = 32 AutoReadOnly
 int Property CATEGORY_BROW = 64 AutoReadOnly
 int Property CATEGORY_MOUTH = 128 AutoReadOnly
 int Property CATEGORY_HAIR = 256 AutoReadOnly
-int Property CATEGORY_COLOR = 512 AutoReadOnly
+int Property CATEGORY_EXTRA = 512 AutoReadOnly
 
 Actor Property _playerActor Auto
 ActorBase Property _playerActorBase Auto
@@ -43,7 +43,7 @@ string[] _sliders = None
 int _sliderBuffer = 0
 
 int Function GetScriptVersionRelease() global
-	return 3
+	return 4
 EndFunction
 
 Event OnInit()

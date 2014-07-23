@@ -16,6 +16,8 @@ UIMenuBase Function GetMenu(string menuName, bool reset = true) global
 		menuBase = (Game.GetFormFromFile(0xE00, "UIExtensions.esp") as UIMenuBase)
 	Elseif menuName == "UICosmeticMenu"
 		menuBase = (Game.GetFormFromFile(0xE06, "UIExtensions.esp") as UIMenuBase)
+	Elseif menuName == "UIDyeMenu"
+		menuBase = (Game.GetFormFromFile(0xE07, "UIExtensions.esp") as UIMenuBase)
 	Endif
 	if menuBase
 		if reset

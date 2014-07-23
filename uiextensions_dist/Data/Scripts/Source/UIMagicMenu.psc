@@ -1,7 +1,5 @@
 Scriptname UIMagicMenu extends UIMenuBase  
 
-Message Property UIMagicMenuMessage Auto
-
 string property		ROOT_MENU		= "CustomMenu" autoReadonly
 string Property 	MENU_ROOT		= "_root." autoReadonly
 string property		CONFIG_ROOT		= "_global.skyui.util.ConfigManager" autoReadonly

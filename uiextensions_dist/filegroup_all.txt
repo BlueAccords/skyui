@@ -5,6 +5,7 @@ Interface\wheelmenu.swf
 Interface\listmenu.swf
 Interface\textentrymenu.swf
 Interface\cosmeticmenu.swf
+Interface\dyemenu.swf
 Interface\extension_assets\meter.swf
 Interface\extension_assets\bottombar.swf
 Interface\extension_assets\buttonArt.swf
@@ -12,6 +13,7 @@ Interface\extension_assets\icons_category_psychosteve.swf
 Interface\translations\UIExtensions_ENGLISH.txt
 Scripts\CosmeticMenu.pex
 Scripts\UICosmeticMenu.pex
+Scripts\UIDyeMenu.pex
 Scripts\UIExtensions.pex
 Scripts\UIListMenu.pex
 Scripts\UIMagicMenu.pex
@@ -23,6 +25,7 @@ Scripts\UITextEntryMenu.pex
 Scripts\UIWheelMenu.pex
 Scripts\Source\CosmeticMenu.psc
 Scripts\Source\UICosmeticMenu.psc
+Scripts\Source\UIDyeMenu.psc
 Scripts\Source\UIExtensions.psc
 Scripts\Source\UIListMenu.psc
 Scripts\Source\UIMagicMenu.psc

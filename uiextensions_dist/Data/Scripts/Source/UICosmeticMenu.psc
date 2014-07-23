@@ -1,7 +1,5 @@
 Scriptname UICosmeticMenu extends UIMenuBase
 
-Message Property UICosmeticMenuMessage Auto
-
 string property		ROOT_MENU		= "CustomMenu" autoReadonly
 string Property 	MENU_ROOT		= "_root.cosmeticMenu.RaceMenuInstance." autoReadonly
 string Property 	THIS_ROOT		= "_root.cosmeticMenu." autoReadonly

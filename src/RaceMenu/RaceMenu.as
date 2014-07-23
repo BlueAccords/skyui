@@ -40,6 +40,7 @@ class RaceMenu extends MovieClip
 	private var _sortFilter: SortFilter;
 	private var _panelX: Number;
 	private var _updateInterval: Number;
+	private var _pendingData: Object = null;
 	private var _raceList: Array;
 	private var _exportInterval: Number;
 	private var _reloadInterval: Number;
@@ -1151,28 +1152,30 @@ class RaceMenu extends MovieClip
 	
 	public function requestUpdate(pendingData: Object)
 	{
+		_pendingData = pendingData;
 		if(!_updateInterval) {
 			_updateInterval = setInterval(this, "processDataUpdate", 100, pendingData);
 		}
 	}
 	
-	public function processDataUpdate(pendingData: Object)
+	public function processDataUpdate()
 	{
-		switch(pendingData.type) {
+		switch(_pendingData.type) {
 			case "makeupTexture":
-			SendPlayerTexture(pendingData.tintType, pendingData.tintIndex, pendingData.replacementTexture);
+			SendPlayerTexture(_pendingData.tintType, _pendingData.tintIndex, _pendingData.replacementTexture);
 			break;
 			case "makeupColor":
-			SendPlayerTint(pendingData.tintType, pendingData.tintIndex, pendingData.argbColor);
+			SendPlayerTint(_pendingData.tintType, _pendingData.tintIndex, _pendingData.argbColor);
 			break;
 			case "sliderColor":
-			SendPlayerTintBySlider(pendingData.slider, pendingData.argbColor);
+			SendPlayerTintBySlider(_pendingData.slider, _pendingData.argbColor);
 			break;
 			case "glowColor":
-			SendPlayerGlow(pendingData.tintType, pendingData.tintIndex, pendingData.argbColor);
+			SendPlayerGlow(_pendingData.tintType, _pendingData.tintIndex, _pendingData.argbColor);
 			break;
 		}
-				
+		
+		_pendingData = null;
 		clearInterval(_updateInterval);
 		delete _updateInterval;
 	}
