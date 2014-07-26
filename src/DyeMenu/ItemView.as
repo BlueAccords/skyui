@@ -31,7 +31,7 @@ class ItemView extends MovieClip
 		GlobalFunc.SetLockFunction();
 	}
 	
-	public function setLayerSelected(a_colorId: Number)
+	public function setLayerSelected(a_colorId: Number, a_playSound: Boolean)
 	{
 		for(var i = 0; i < 15; i++) {
 			var entry: MovieClip = layerSelect["color"+i];
@@ -42,7 +42,7 @@ class ItemView extends MovieClip
 		}
 		
 		_selection = a_colorId;
-		dispatchEvent({type: "selectionChange", index: a_colorId});
+		dispatchEvent({type: "selectionChange", index: a_colorId, playSound: a_playSound});
 	}
 	
 	public function get focusedLayer(): Object
@@ -93,7 +93,7 @@ class ItemView extends MovieClip
 			entry.onRollOver = function()
 			{
 				var view = this._parent._parent;
-				view.setLayerSelected(this.id);
+				view.setLayerSelected(this.id, true);
 			}
 			entry.onRollOut = function()
 			{
@@ -142,7 +142,7 @@ class ItemView extends MovieClip
 					if(_selection < 0)
 						_selection = 14;
 					
-					setLayerSelected(_selection);
+					setLayerSelected(_selection, true);
 					return true;
 				}
 			}
@@ -152,7 +152,7 @@ class ItemView extends MovieClip
 					if(_selection > 14)
 						_selection = 0;
 						
-					setLayerSelected(_selection);
+					setLayerSelected(_selection, true);
 					return true;
 				}
 			}

@@ -1,0 +1,10 @@
+Scripts\DyeManager.pex
+Scripts\DyeManagerAlias.pex
+Scripts\DyeManagerDefaults.pex
+Scripts\DyeManagerDefaultsAlias.pex
+Scripts\DyeManagerPerk.pex
+Scripts\Source\DyeManager.psc
+Scripts\Source\DyeManagerAlias.psc
+Scripts\Source\DyeManagerDefaults.psc
+Scripts\Source\DyeManagerDefaultsAlias.psc
+Scripts\Source\DyeManagerPerk.psc

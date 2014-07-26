@@ -120,8 +120,22 @@ class DyeView extends MovieClip
 		calculateResult(true);
 	}
 	
-	public function consumeItems()
+	public function clearDyes(a_update: Boolean): Void
 	{
+		for(var k: Number = activeList.length; k >= 0; k--) {
+			activeList[k].active = false;
+			activeList.splice(k, 1);
+		}
+		itemList.invalidateSelection();
+		itemList.requestUpdate();
+		updateBlendCountText();
+		itemList.listState.activeCount = activeCount;
+		calculateResult(a_update);
+	}
+	
+	public function consumeItems(): Boolean
+	{
+		var consumed: Boolean = false;
 		if(_consume) {
 			for(var k: Number = activeList.length; k >= 0; k--) {
 				var entry = activeList[k];
@@ -137,8 +151,10 @@ class DyeView extends MovieClip
 					}
 				}
 				
-				if(entry.formId)
+				if(entry.formId) {
 					_global.skse.SendModEvent("UIDyeMenu_ConsumeItem", "", 0, entry.formId);
+					consumed = true;
+				}
 			}
 		}
 		
@@ -146,6 +162,7 @@ class DyeView extends MovieClip
 		itemList.listState.activeCount = activeCount;
 		itemList.requestInvalidate();
 		calculateResult(false);
+		return consumed;
 	}
 	
 	public function updateBlendCountText(): Void

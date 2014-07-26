@@ -377,6 +377,7 @@ class RaceMenu extends MovieClip
 		raceDescription.Lock("L");
 		vertexEditor.InitExtensions();
 		modeSelect.InitExtensions();
+		modeSelect.Lock("TR");
 		cameraEditor.InitExtensions();
 		bottomBar.playerInfo.Lock("R");
 		

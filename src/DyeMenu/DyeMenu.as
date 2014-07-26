@@ -117,6 +117,8 @@ class DyeMenu extends MovieClip
 		dyeView._x = _dyeViewX;
 		
 		skse.SendModEvent("UIDyeMenu_LoadMenu");
+		
+		GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
 	}
 	
 	public function SetPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
@@ -172,6 +174,7 @@ class DyeMenu extends MovieClip
 		
 	private function closeMenu(): Void
 	{
+		GameDelegate.call("PlaySound", ["UIMenuBladeCloseSD"]);
 		skse.SendModEvent("UIDyeMenu_CloseMenu");
 		//GameDelegate.call("buttonPress", [option]);
 		skse.CloseMenu("CustomMenu");
@@ -213,8 +216,10 @@ class DyeMenu extends MovieClip
 			colorField.initParams = initParams;
 			colorField.updateButtons(true);
 			FocusHandler.instance.setFocus(colorField.colorSelector, 0);
+			GameDelegate.call("PlaySound", ["UIMenuBladeOpenSD"]);
 		} else {
 			FocusHandler.instance.setFocus(dyeList, 0);
+			GameDelegate.call("PlaySound", ["UIMenuBladeCloseSD"]);
 		}
 	}
 	
@@ -224,10 +229,12 @@ class DyeMenu extends MovieClip
 			dyeList.disableSelection = dyeList.disableInput = false;
 			itemList.disableSelection = itemList.disableInput = true;
 			TweenMin.to(dyeView, 0.5, {autoAlpha: 100, _x: _dyeViewX + itemView._width, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			GameDelegate.call("PlaySound", ["UIInventoryOpenSD"]);
 		} else {
 			itemList.disableSelection = itemList.disableInput = false;
 			dyeList.disableSelection = dyeList.disableInput = true;
 			TweenMin.to(dyeView, 0.5, {autoAlpha: 0, _x: _dyeViewX, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			GameDelegate.call("PlaySound", ["UIInventoryOpenSD"]);
 		}
 		
 		updateBottomBar();
@@ -236,20 +243,31 @@ class DyeMenu extends MovieClip
 	private function onSelectionChange(event: Object): Void
 	{
 		var selectedEntry: Object = itemView.entryList[event.index];
+		if(selectedEntry)
+			GameDelegate.call("PlaySound", ["UIMenuPrevNextSD"]);
+			
 		itemList.listState.selectedEntry = selectedEntry;
 		itemView.setColorList(selectedEntry.colors);
 		updateBottomBar();
+		GameDelegate.call("PlaySound", ["UIMenuPrevNextSD"]);
 	}
 	
 	private function onDyeSelectionChange(event: Object): Void
 	{
 		var selectedEntry: Object = dyeView.entryList[event.index];
+		if(selectedEntry)
+			GameDelegate.call("PlaySound", ["UIMenuPrevNextSD"]);
+			
 		dyeList.listState.selectedEntry = selectedEntry;
 		updateBottomBar();
+		
 	}
 	
 	private function onEntrySelectionChange(event: Object): Void
 	{
+		if(event.playSound)
+			GameDelegate.call("PlaySound", ["UIMenuPrevNextSD"]);
+		
 		updateBottomBar();
 	}
 	
@@ -270,10 +288,13 @@ class DyeMenu extends MovieClip
 		if(dyeView.activeCount >= dyeView.maxCount && !pressedEntry.active)
 			return;
 		
-		if(pressedEntry.active)
+		if(pressedEntry.active) {
 			dyeView.deactivate(pressedEntry);
-		else
+			GameDelegate.call("PlaySound", ["UISelectOff"]);
+		} else {
 			dyeView.activate(pressedEntry);
+			GameDelegate.call("PlaySound", ["UISelectOn"]);
+		}
 		
 		dyeList.requestUpdate();
 	}
@@ -300,11 +321,11 @@ class DyeMenu extends MovieClip
 		
 		if(!entry) {
 			itemView.setLayerFocused(-1);
-			itemView.setLayerSelected(-1);
-			dyeList.invalidateSelection();
+			itemView.setLayerSelected(-1, false);
+			dyeView.clearDyes(false);
 			ShowDyePanel(false);
 		} else {
-			itemView.setLayerSelected(0);
+			itemView.setLayerSelected(0, false);
 			itemView.setLayerFocused(0);
 			ShowDyePanel(true);
 		}
@@ -333,7 +354,11 @@ class DyeMenu extends MovieClip
 				event.color = null;
 				
 			if(event.color != null) {
-				dyeView.consumeItems();
+				if(dyeView.consumeItems()) {
+					GameDelegate.call("PlaySound", ["ITMPotionUpSD"]);
+				} else {
+					GameDelegate.call("PlaySound", ["UIMenuOKSD"]);
+				}
 			}
 			
 			var layerId = itemView.focusedLayer.id;
@@ -380,6 +405,7 @@ class DyeMenu extends MovieClip
 		var listEntry = itemList.listState.focusEntry;
 		if(listEntry) {
 			itemView.setLayerFocused(event.entry.id);
+			GameDelegate.call("PlaySound", ["UISelectOn"]);
 		}
 		
 		updateBottomBar();
@@ -418,7 +444,25 @@ class DyeMenu extends MovieClip
 			
 		var inventory: Array = _global.skse.plugins.NiOverride.GetDyeItems(_formId);
 		for(var i = 0; i < inventory.length; i++) {
-			var entry: Object = {text: inventory[i].name, enabled: true, formId: inventory[i].formId, count: inventory[i].count, fillColor: inventory[i].color, colorized: (inventory[i].color == 0x00FFFFFF ? true : false)};
+			var fillColor: Number = 0;
+			if(inventory[i].color)
+				fillColor = inventory[i].color;
+			if(inventory[i].colors) {
+				var aSum = 0;
+				var rSum = 0;
+				var gSum = 0;
+				var bSum = 0;
+				for(var k = 0; k < inventory[i].colors.length; k++) {
+					var color = inventory[i].colors[k];
+					aSum += (color >>> 24 & 0xFF);
+					rSum += (color >>> 16 & 0xFF);
+					gSum += (color >>> 8 & 0xFF);
+					bSum += (color & 0xFF);
+				}
+				fillColor = ((aSum / inventory[i].colors.length) << 24 | (rSum / inventory[i].colors.length) << 16 | (gSum / inventory[i].colors.length) << 8 | (bSum / inventory[i].colors.length));
+			}
+			
+			var entry: Object = {text: inventory[i].name, enabled: true, formId: inventory[i].formId, count: inventory[i].count, fillColor: fillColor, colorized: (fillColor == 0x00FFFFFF ? true : false)};
 			dyeList.entryList.push(entry);
 		}
 		

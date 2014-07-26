@@ -140,10 +140,10 @@ Function OnStartup()
 	Endif
 
 	; Plugins installed but scripts wrong version
-	If nioverrideVersion > 0 && nioverrideScriptVersion < NIOVERRIDE_SCRIPT_VERSION
+	If nioverrideScriptVersion > 0 && nioverrideScriptVersion < NIOVERRIDE_SCRIPT_VERSION
 		startupError += ("Invalid NiOverride script version detected (" + nioverrideScriptVersion + ") expected (" + NIOVERRIDE_SCRIPT_VERSION + "). ")
 	Endif
-	If chargenVersion > 0 && chargenScriptVersion < CHARGEN_SCRIPT_VERSION
+	If chargenScriptVersion > 0 && chargenScriptVersion < CHARGEN_SCRIPT_VERSION
 		startupError += ("Invalid CharGen script version detected (" + chargenScriptVersion + ") expected (" + CHARGEN_SCRIPT_VERSION + "). ")
 	Endif
 

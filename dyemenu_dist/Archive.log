@@ -1,0 +1,38 @@
+Log started for script bsascript.txt
+Creating new archive
+Checking option: Compress Archive
+Checking option: Menus
+Checking option: Misc
+Checking option: Retain Directory Names
+Checking option: Retain File Names
+Setting File Group Root: 'Data\'
+Adding File Group: filegroup_all.txt
+-Adding File: Data\Scripts\DyeManager.pex
+-Adding File: Data\Scripts\DyeManagerAlias.pex
+-Adding File: Data\Scripts\DyeManagerDefaults.pex
+-Adding File: Data\Scripts\DyeManagerDefaultsAlias.pex
+-Adding File: Data\Scripts\DyeManagerPerk.pex
+-Adding File: Data\Scripts\Source\DyeManager.psc
+-Adding File: Data\Scripts\Source\DyeManagerAlias.psc
+-Adding File: Data\Scripts\Source\DyeManagerDefaults.psc
+-Adding File: Data\Scripts\Source\DyeManagerDefaultsAlias.psc
+-Adding File: Data\Scripts\Source\DyeManagerPerk.psc
+Saving archive: _generated\DyeManager.bsa
+
+Writing files
+
+Offset          0: Wrote compressed file scripts\source\dyemanagerperk.psc
+Offset        260: Wrote compressed file scripts\source\dyemanagerdefaults.psc
+Offset       1226: Wrote compressed file scripts\source\dyemanager.psc
+Offset       1929: Wrote compressed file scripts\source\dyemanageralias.psc
+Offset       2054: Wrote compressed file scripts\source\dyemanagerdefaultsalias.psc
+Offset       2184: Wrote compressed file scripts\dyemanagerperk.pex
+Offset       2665: Wrote compressed file scripts\dyemanagerdefaults.pex
+Offset       3527: Wrote compressed file scripts\dyemanager.pex
+Offset       4768: Wrote compressed file scripts\dyemanageralias.pex
+Offset       5173: Wrote compressed file scripts\dyemanagerdefaultsalias.pex
+Offset       5591: END OF FILE
+
+Finished writing files
+
+Script bsascript.txt has finished.
