@@ -90,6 +90,7 @@ class RaceMenu extends MovieClip
 	public var searchWidget: SearchWidget;
 	public var vertexEditor: VertexEditor;
 	public var cameraEditor: CameraEditor;
+	public var presetEditor: PresetEditor;
 	
 	public var bottomBar: BottomBar;
 	public var navPanel: ButtonPanel;
@@ -154,6 +155,7 @@ class RaceMenu extends MovieClip
 		itemDescriptor._visible = itemDescriptor.enabled = false;
 		vertexEditor._visible = vertexEditor.enabled = false;
 		cameraEditor._visible = cameraEditor.enabled = false;
+		presetEditor._visible = presetEditor.enabled = false;
 		
 		GlobalFunc.MaintainTextFormat();
 		GlobalFunc.SetLockFunction();
@@ -235,9 +237,9 @@ class RaceMenu extends MovieClip
 		_sortFilter.setSortBy(["text"], [0]);
 		
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 2044, savedItemIndex: -1, enabled: true});
-		
+		/*
 		// Test Code
-		/*categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
+		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
 		_artPrimary = categoryList.iconArt;
 		_artSecondary = ["face"];
 		
@@ -352,9 +354,9 @@ class RaceMenu extends MovieClip
 		
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint1", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
-		*/
-		// Test Code End
 		
+		// Test Code End
+		*/
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
 		itemList.requestInvalidate();
@@ -380,6 +382,7 @@ class RaceMenu extends MovieClip
 		modeSelect.Lock("TR");
 		cameraEditor.InitExtensions();
 		bottomBar.playerInfo.Lock("R");
+		presetEditor.InitExtensions();
 		
 		_panelX = racePanel._x;
 		itemDescriptor._x = _panelX + racePanel._width;
@@ -406,6 +409,7 @@ class RaceMenu extends MovieClip
 		makeupPanel.setPlatform(a_platform, a_bPS3Switch);
 		vertexEditor.setPlatform(a_platform, a_bPS3Switch);
 		cameraEditor.setPlatform(a_platform, a_bPS3Switch);
+		presetEditor.setPlatform(a_platform, a_bPS3Switch);
 		
 		if(_platform == 0) {
 			_activateControl = Input.Activate;
@@ -475,6 +479,9 @@ class RaceMenu extends MovieClip
 				return true;
 		} else if(cameraEditor.enabled) {
 			if(cameraEditor.handleInput(details, pathToFocus))
+				return true;
+		} else if(presetEditor.enabled) {
+			if(presetEditor.handleInput(details, pathToFocus))
 				return true;
 		}
 			
@@ -839,7 +846,6 @@ class RaceMenu extends MovieClip
 			
 			// CharGen 2.1.3 signature
 			if(_global.skse.plugins.CharGen.GetSliderData) {
-				
 				if(entryObject.sliderID != undefined && entryObject.position != undefined) {
 					entryObject.extraData = _global.skse.plugins.CharGen.GetSliderData(entryObject.sliderID, entryObject.position);
 					switch(entryObject.extraData.type) {
@@ -878,7 +884,7 @@ class RaceMenu extends MovieClip
 			}
 			/* ECE Compatibility End */
 			
-			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }
+			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }		
 			
 			itemList.entryList.push(entryObject);
 		}
@@ -1053,27 +1059,38 @@ class RaceMenu extends MovieClip
 			ShowBottomBar(true);
 			vertexEditor.ShowAll(false, false, true);
 			cameraEditor.ShowAll(false);
+			presetEditor.ShowAll(false);
 			ShowOverlays(false);
 			break;
 			case 1:
+			ShowRacePanel(false);
+			ShowBottomBar(false);
+			vertexEditor.ShowAll(false, false, true);
+			cameraEditor.ShowAll(false);
+			presetEditor.ShowAll(true);
+			break;
+			case 2:
 			ShowRacePanel(true);
 			ShowBottomBar(true);
 			vertexEditor.ShowAll(false, false, true);
 			cameraEditor.ShowAll(false);
+			presetEditor.ShowAll(false);
 			ShowOverlays(true);
 			break;
-			case 2:
+			case 3:
 			ShowRacePanel(false);
 			ShowBottomBar(false);
 			cameraEditor.ShowAll(true);
 			vertexEditor.ShowAll(false, false, false);
+			presetEditor.ShowAll(false);
 			break;
-			case 3:
+			case 4:
 			ShowRacePanel(true);
 			ShowRacePanel(false);
 			ShowBottomBar(false);
 			vertexEditor.ShowAll(true, true, false);
 			cameraEditor.ShowAll(false);
+			presetEditor.ShowAll(false);
 			break;
 		}
 	}
@@ -1490,6 +1507,7 @@ class RaceMenu extends MovieClip
 			var dataObject: Object = new Object();
 			loadingIcon._visible = true;
 			if(_global.skse.plugins.CharGen.LoadPreset(filePath, dataObject) == false) {
+				//skyui.util.Debug.dump("slot", dataObject);
 				skse.SendModEvent(_global.eventPrefix + "RequestTintSave");
 				if(!_reloadInterval) {
 					_reloadInterval = setInterval(this, "ReloadSliders", 500, dataObject);
@@ -1522,6 +1540,7 @@ class RaceMenu extends MovieClip
 			setDisplayText("$Exported head");
 			
 			_global.skse.plugins.CharGen.ExportHead(filePath);
+			//_global.skse.plugins.CharGen.ImportHead("Data\\meshes\\CharGen\\Exported\\Maya");
 			
 			_exportInterval = setInterval(this, "UnlockExportHead", 2500);
 		}

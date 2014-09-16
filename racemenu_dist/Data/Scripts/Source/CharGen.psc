@@ -1,7 +1,7 @@
 Scriptname CharGen Hidden
 
 int Function GetScriptVersion() global
-	return 1
+	return 2
 EndFunction
 
 ; Saves a character's appearances to a preset file as well as a tint mask DDS
@@ -12,6 +12,11 @@ bool Function LoadCharacter(Actor akDestination, Race akRace, string characterNa
 
 ; Deletes the slot,dds,nif
 Function DeleteCharacter(string characterName) native global
+
+; Deletes
+; Data\\Meshes\\Actors\\Character\\FaceGenData\\FaceGeom\\%s\\%08X.nif
+; Data\\Textures\\Actors\\Character\\FaceGenData\\FaceTint\\%s\\%08X.dds
+int Function DeleteFaceGenData(ActorBase actorBase) native global
 
 ; Unmaps the presets to their corresponding NPC
 Function ClearPreset(ActorBase npc) native global
@@ -29,3 +34,8 @@ bool Function IsExternalEnabled() native global
 
 ; Exports the player's head mesh and tint mask DDS relative to Data\SKSE\Plugins\CharGen\
 Function ExportHead(string fileName) native global
+
+; Exports only the player's slot file, can be used in conjunction 
+; with LoadCharacter if being applied to the player as the player
+; does not require a tintmask, it is always generated
+Function ExportSlot(string fileName) native global

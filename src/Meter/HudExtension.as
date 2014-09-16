@@ -52,7 +52,7 @@
 											return createEmptyMovieClipFn.apply(this, [name, depth]);
 										}
 	}
-
+	
 	public function onLoad(): Void
 	{
 		// [1]

@@ -40,6 +40,10 @@ Event OnGameReload()
 	If nioverrideScriptVersion < NIOVERRIDE_SCRIPT_VERSION
 		startupError += ("Invalid NiOverride script version detected (" + nioverrideScriptVersion + ") expected (" + NIOVERRIDE_SCRIPT_VERSION + ") or greater. ")
 	Endif
+	bool MENUCheck = (Game.GetFormFromFile(0xE07, "UIExtensions.esp") != None)
+	if !MENUCheck
+		startupError += ("Could not find UIExtensions.esp or DyeManager.")
+	Endif
 
 	If startupError != ""
 		Debug.MessageBox("DyeManager Error(s): " + startupError)
