@@ -1,7 +1,7 @@
 Scriptname NiOverride Hidden
 
 int Function GetScriptVersion() global
-	return 1
+	return 2
 EndFunction
 
 ; Valid keys
@@ -265,3 +265,76 @@ Function RegisterFormDyeColor(Form akForm, int color) native global
 ; Removes this form as a 
 Function UnregisterFormDyeColor(Form akForm) native global
 ; -------------------------------------------------
+
+
+
+; ----------------- Node manipulation functions --------------
+; These functions should only be used on nodes that either exist
+; directly on the skeleton, or are injected via armor templates
+; Armor Template injections are as follows:
+; NiStringsExtraData - Name: EXTN (Count divisible by 3)
+; [0] - TargetNode Name
+; [1] - SourceNode Name
+; [2] - Absolute nif path, relative to skyrim directory
+; Notes: Template will take only the first root node and all
+; its children, the Source Node should be the name of this
+; root node. The TargetNode will be the parent to Source
+; ------------------------------------------------------------
+
+; Checks whether there is a positon override for the particular parameters
+bool Function HasNodeTransformPosition(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key) native global
+
+; Adds a position override for the particular key, pos[0-2] correspond to x,y,z
+Function AddNodeTransformPosition(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key, float[] pos) native global
+
+; Returns a position override for the particular key into pos[0-2] corresponding to x,y,z, returns true if an override existed
+bool Function GetNodeTransformPosition(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key, float[] pos) native global
+
+; Removes a particular position override, returns true if it removed, false if did not exist
+bool Function RemoveNodeTransformPosition(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key) native global
+
+
+; Checks whether there is a scale override for the particular parameters
+bool Function HasNodeTransformScale(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key) native global
+
+; Adds a scale override for the particular key, pos[0-2] correspond to x,y,z
+Function AddNodeTransformScale(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key, float scale) native global
+
+; Returns a scale value override for the particular key, 0.0 if did not exist or failed
+float Function GetNodeTransformScale(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key) native global
+
+; Removes a particular scale override, returns true if it removed, false if did not exist
+bool Function RemoveNodeTransformScale(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key) native global
+
+
+; Checks whether there is a rotation override for the particular parameters
+bool Function HasNodeTransformRotation(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key) native global
+
+; Adds a rotation override for the particular key given either a size 3 or 9 array
+; rotation[0-8] corresponding to the linear indices of a 3x3 matrix in radians
+; rotation[0-2] corresponding to heading, attitude, and bank in degrees
+Function AddNodeTransformRotation(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key, float[] rotation) native global
+
+; Returns a rotation override for the particular key into either a size 3 or 9 array
+; rotation[0-8] corresponding to the linear indices of a 3x3 matrix in radians
+; rotation[0-2] corresponding to heading, attitude, and bank in degrees
+bool Function GetNodeTransformRotation(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key, float[] rotation) native global
+
+; Returns the inverse scale, alters the in pos to the inverse out pos and the in rotation to the out inverse rotation
+; Accepts either a size 3 rotation of euler degrees, or a 9 radian matrix
+float Function GetInverseTransform(float[] in_out_pos, float[] in_out_rotation, float in_scale = 1.0) native global
+
+; Removes a particular scale override, returns true if it removed, false if did not exist
+bool Function RemoveNodeTransformRotation(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key) native global
+
+; Updates and computes ALL resulting transformation overrides for the particular reference
+; This should not need to be called under normal circumstances
+Function UpdateAllReferenceTransforms(ObjectReference akRef) native global
+
+; Removes all transforms for a particular reference
+Function RemoveAllReferenceTransforms(ObjectReference akRef) native global
+
+; Updates and computes a particular node's transformation override
+; Use this after changing a particular override
+Function UpdateNodeTransform(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName) native global
+; --------------------------------------------------------------------

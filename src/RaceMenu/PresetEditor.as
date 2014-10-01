@@ -1,6 +1,9 @@
 ﻿import gfx.events.EventDispatcher;
 import gfx.ui.InputDetails;
 import gfx.ui.NavigationCode;
+import gfx.managers.FocusHandler;
+
+import Shared.GlobalFunc;
 
 import skyui.components.ButtonPanel;
 import skyui.util.GlobalFunctions;
@@ -33,6 +36,8 @@ class PresetEditor extends MovieClip
 	private var _acceptControl: Object;
 	private var _activateControl: Object;
 	private var _cancelControl: Object;
+	private var _loadPresetControl: Object;
+	private var _savePresetControl: Object;
 		
 	
 	function PresetEditor()
@@ -62,23 +67,28 @@ class PresetEditor extends MovieClip
 		presetPanel._x = ITEMLIST_HIDDEN_X;
 		
 		itemList.listEnumeration = new BasicEnumeration(itemList.entryList);
-		for(var i = 0; i < 50; i++) {
-			var slider = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Test Item" + i, filterFlag: 4, callbackName: "", sliderMin: 0, sliderMax: 50, sliderID: -1, position: i, interval: 1, enabled: true, sliderEnabled: false};
-			slider.hasColor = function() : Boolean
+		if(_global.skse.plugins.CharGen) {
+			var entryObject: Object = {presetEditor: this, type: RaceMenuDefines.PRESET_ENTRY_TYPE_SLIDER, text: "$Preset Slot", filterFlag: 1, callbackName: "ChangePresetSlot", sliderMin: 0, sliderMax: _global.skse.plugins.CharGen.iNumPresets, sliderID: -1, position: _global.presetSlot, interval: 1, enabled: true};
+			entryObject.internalCallback = function()
 			{
-				return true;
+				_global.presetSlot = this.position;
+				this.entryObject.presetEditor.onReadPreset();
 			}
-			slider.isColorEnabled = function(): Boolean
-			{
-				return true;
-			}
-			slider.hasGlow = function(): Boolean
-			{
-				return true;
-			}
-			itemList.entryList.push(slider);
+			entryObject.sliderEnabled = true;
+			entryObject.isColorEnabled = function(): Boolean { return false; }
+			entryObject.hasColor = function(): Boolean { return false; }
+			entryObject.hasGlow = function(): Boolean { return false; }
+			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }
+			itemList.entryList.push(entryObject);
+		} else {
+			var entryObject: Object = {type: RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT, text: "CharGen Presets Unavailable", filterFlag: 1, enabled: true};
+			itemList.entryList.push(entryObject);
 		}
-		itemList.requestInvalidate();
+		
+		onReadPreset();
+		FocusHandler.instance.setFocus(itemList, 0);
+		itemList.selectDefaultIndex(true);
+		//itemList.requestInvalidate();
 	}
 	
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
@@ -90,8 +100,12 @@ class PresetEditor extends MovieClip
 		
 		if(_platform == 0) {
 			_cancelControl = {name: "Tween Menu", context: Input.CONTEXT_GAMEPLAY};
+			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Quicksave", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Quickload", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
 			_cancelControl = Input.Cancel;
+			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		}
 		
 		_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
@@ -108,8 +122,9 @@ class PresetEditor extends MovieClip
 	private function updateBottomBar(): Void
 	{
 		navPanel.clearButtons();
-		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", this._parent, "onDoneClicked");
-		
+		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", _parent, "onDoneClicked");
+		navPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", this, "onSavePresetClicked");
+		navPanel.addButton({text: "$Load Preset", controls: _loadPresetControl}).addEventListener("click", this, "onLoadPresetClicked");
 		navPanel.updateButtons(true);		
 	}
 	
@@ -152,7 +167,127 @@ class PresetEditor extends MovieClip
 	}
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
-	{		
+	{
+		if (GlobalFunc.IsKeyPressed(details)) {
+			if(IsBoundKeyPressed(details, _loadPresetControl, _platform) && !_parent.bTextEntryMode) {
+				onLoadPresetClicked();
+				return true;
+			} else if(IsBoundKeyPressed(details, _savePresetControl, _platform) && !_parent.bTextEntryMode) {
+				onSavePresetClicked();
+				return true;
+			}
+		}
+		
+		if(itemList.handleInput(details, pathToFocus)) {
+			return true;
+		}
+		
 		return false;
+	}
+	
+	public function onReadPreset(): Void
+	{
+		itemList.entryList.splice(1, itemList.entryList.length - 1);
+		var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
+		var preset: Object = new Object;
+		if(_global.skse.plugins.CharGen.ReadPreset(filePath, preset) == false) {
+			
+			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER, text: "$Mods", filterFlag: 1, enabled: true});
+			
+			for(var i = 0; i < preset.mods.length; i++) {
+				var mod = preset.mods[i];
+				var textColor: Number = 0x189515;
+				if(mod.loadedIndex == 255) {
+					textColor = 0xFF0000;
+				}
+				
+				itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT, text: mod.name, filterFlag: 1, textFieldColor: textColor, enabled: true});
+			}
+			
+			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER, text: "$Head Parts", filterFlag: 1, enabled: true});
+			
+			for(var i = 0; i < preset.headParts.length; i++) {
+				itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT, text: preset.headParts[i], filterFlag: 1, enabled: true});
+			}
+			
+			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER, text: "$Colors", filterFlag: 1, enabled: true});
+			
+			var hairColor: Object = {type: RaceMenuDefines.PRESET_ENTRY_TYPE_COLOR, text: preset.hair.name, fillColor: (0xFF000000 | preset.hair.value), filterFlag: 1, enabled: true};
+			hairColor.isColorEnabled = function(): Boolean { return true; }
+			hairColor.hasColor = function(): Boolean { return true; }
+			hairColor.hasGlow = function(): Boolean { return false; }
+			itemList.entryList.push(hairColor);
+			
+			for(var i = 0; i < preset.tints.length; i++) {
+				var tint = preset.tints[i];
+				if((tint.color >>> 24) > 0) {
+					var tintEntry: Object = {type: RaceMenuDefines.PRESET_ENTRY_TYPE_COLOR, text: stripTexturePath(tint.texture), fillColor: tint.color, filterFlag: 1, enabled: true};
+					tintEntry.isColorEnabled = function(): Boolean { return true; }
+					tintEntry.hasColor = function(): Boolean { return true; }
+					tintEntry.hasGlow = function(): Boolean { return false; }
+					itemList.entryList.push(tintEntry);
+				}
+			}
+			
+			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER, text: "$Sliders", filterFlag: 1, enabled: true});
+			
+			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT_VALUE, text: preset.weight.name, position: preset.weight.value, filterFlag: 1, enabled: true});
+			
+			for(var i = 0; i < preset.morphs.length; i++) {
+				var morph = preset.morphs[i];
+				if(morph.name)
+					itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT_VALUE, text: morph.name, position: morph.value, filterFlag: 1, enabled: true});
+			}
+		}
+		
+		itemList.InvalidateData();
+	}
+	
+	private function stripTexturePath(a_texture: String): String
+	{
+		// Strip Path and extension
+		var slashIndex: Number = -1;
+		for(var k = a_texture.length - 1; k > 0; k--) {
+			if(a_texture.charAt(k) == "\\" || a_texture.charAt(k) == "/") {
+				slashIndex = k;
+				break;
+			}
+		}
+		var formatIndex: Number = a_texture.indexOf(".dds");
+		if(formatIndex == -1)
+			formatIndex = a_texture.length;
+		
+		return a_texture.substring(slashIndex + 1, formatIndex);
+	}
+	
+	private function onSavePresetClicked(): Void
+	{
+		if(!_global.skse.plugins.CharGen) {
+			skse.SendModEvent(_global.eventPrefix + "RequestSaveClipboard");
+			_parent.setDisplayText("$Saved preset to clipboard");
+		} else {
+			_parent.setDisplayText("$Saved preset to slot {" + _global.presetSlot + "}");
+			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
+			_global.skse.plugins.CharGen.SavePreset(filePath);
+			onReadPreset();
+		}
+	}
+	
+	private function onLoadPresetClicked(): Void
+	{
+		if(!_global.skse.plugins.CharGen) {
+			skse.SendModEvent(_global.eventPrefix + "RequestLoadClipboard");
+		} else {
+			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
+			var dataObject: Object = new Object();
+			_parent.loadingIcon._visible = true;
+			if(_global.skse.plugins.CharGen.LoadPreset(filePath, dataObject) == false) {
+				skse.SendModEvent(_global.eventPrefix + "RequestTintSave");
+				_parent.requestSliderUpdate(dataObject);
+			} else {
+				_parent.setDisplayText("$Failed to load preset from slot {" + _global.presetSlot + "}");
+				_parent.loadingIcon._visible = false;
+			}
+		}
 	}
 }

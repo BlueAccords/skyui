@@ -22,6 +22,7 @@ class PresetListEntry extends BasicListEntry
 	public var activeIndicator: MovieClip;
 	public var selectIndicator: MovieClip;
 	public var focusIndicator: MovieClip;
+	public var centerField: TextField;
 	public var textField: TextField;
 	public var valueField: TextField;
 	public var SliderInstance: RaceMenuSlider;
@@ -121,25 +122,46 @@ class PresetListEntry extends BasicListEntry
 		var isActive = (a_state.activeEntry != undefined && a_entryObject == a_state.activeEntry);
 		var isFocus = (a_entryObject == a_state.focusEntry);
 		var hasFocus = (a_state.focusEntry != undefined);
-		
+				
 		switch(a_entryObject.type)
 		{
-			case RaceMenuDefines.ENTRY_TYPE_RACE:
+			case RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT:
 			{
+				textField.enabled = textField._visible = true;
 				valueField.enabled = valueField._visible = false;
 				SliderInstance.enabled = SliderInstance._visible = false;
 				colorSquare.enabled = colorSquare._visible = false;
 				glowSquare.enabled = glowSquare._visible = false;
+				centerField.enabled = centerField._visible = false;
 				
+				a_entryObject.sliderVisible = false;
 				a_entryObject.enabled = true;
 			}
 			break;
 			
-			case RaceMenuDefines.ENTRY_TYPE_SLIDER:
+			case RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT_VALUE:
 			{
+				textField.enabled = textField._visible = true;
+				valueField.enabled = valueField._visible = true;
+				SliderInstance.enabled = SliderInstance._visible = false;
+				colorSquare.enabled = colorSquare._visible = false;
+				glowSquare.enabled = glowSquare._visible = false;
+				centerField.enabled = centerField._visible = false;
+				
+				valueField.SetText(((a_entryObject.position * 100)|0)/100);
+				
+				a_entryObject.sliderVisible = false;
+				a_entryObject.enabled = true;
+			}
+			break;
+			
+			case RaceMenuDefines.PRESET_ENTRY_TYPE_SLIDER:
+			{
+				textField.enabled = textField._visible = true;
 				valueField._visible = valueField.enabled = true;
 				SliderInstance._visible = SliderInstance.enabled = true;
 				glowSquare.enabled = glowSquare._visible = false;
+				centerField.enabled = centerField._visible = false;
 				
 				a_entryObject.enabled = (!a_entryObject.hasColor() || a_entryObject.isColorEnabled());
 										
@@ -153,6 +175,7 @@ class PresetListEntry extends BasicListEntry
 				} else {
 					colorSquare.enabled = colorSquare._visible = false;
 				}
+				a_entryObject.sliderVisible = true;
 				
 				// Yeah this is stupid, but its the only way to tell if the slider loaded
 				if(!SliderInstance.initialized) {
@@ -163,14 +186,12 @@ class PresetListEntry extends BasicListEntry
 			}
 			break;
 			
-			case RaceMenuDefines.ENTRY_TYPE_WARPAINT:
-			case RaceMenuDefines.ENTRY_TYPE_BODYPAINT:
-			case RaceMenuDefines.ENTRY_TYPE_HANDPAINT:
-			case RaceMenuDefines.ENTRY_TYPE_FEETPAINT:
-			case RaceMenuDefines.ENTRY_TYPE_FACEPAINT:
+			case RaceMenuDefines.PRESET_ENTRY_TYPE_COLOR:
 			{
+				textField.enabled = textField._visible = true;
 				valueField._visible = valueField.enabled = false;
 				SliderInstance._visible = SliderInstance.enabled = false;
+				centerField.enabled = centerField._visible = false;
 				
 				colorSquare._visible = colorSquare.enabled = a_entryObject.hasColor();
 				glowSquare._visible = glowSquare.enabled = a_entryObject.hasGlow();
@@ -186,9 +207,25 @@ class PresetListEntry extends BasicListEntry
 				glowSquare.fill._alpha = ((a_entryObject.glowColor >>> 24) / 0xFF) * 100;
 			}
 			break;
+			
+			case RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER:
+			{
+				textField.enabled = textField._visible = false;
+				valueField.enabled = valueField._visible = false;
+				SliderInstance.enabled = SliderInstance._visible = false;
+				colorSquare.enabled = colorSquare._visible = false;
+				glowSquare.enabled = glowSquare._visible = false;
+				centerField.enabled = centerField._visible = true;
+				centerField.SetText(a_entryObject.text ? a_entryObject.text : " ");
+				
+				a_entryObject.sliderVisible = false;
+				a_entryObject.enabled = false;
+			}
+			break;
 		}
 		
 		enabled = a_entryObject.enabled;
+		
 		if((hasFocus && !isFocus) || !enabled) {
 			textField.textColor = disabledTextColor;
 			valueField.textColor = disabledTextColor;
@@ -196,8 +233,14 @@ class PresetListEntry extends BasicListEntry
 			colorSquare._alpha = 40;
 			glowSquare._alpha = 40;
 		} else {
-			textField.textColor = defaultTextColor;
-			valueField.textColor = defaultTextColor;
+			if(!a_entryObject.textFieldColor)
+				textField.textColor = defaultTextColor;
+			else
+				textField.textColor = a_entryObject.textFieldColor;
+			if(!a_entryObject.valueFieldColor)
+				valueField.textColor = defaultTextColor;
+			else
+				valueField.textColor = a_entryObject.valueFieldColor;
 			SliderInstance._alpha = 100;
 			colorSquare._alpha = 100;
 			glowSquare._alpha = 100;
@@ -253,6 +296,7 @@ class PresetListEntry extends BasicListEntry
 			}
 		};
 		slider.addEventListener("change", slider, "changedCallback");
+		slider._visible = a_entryObject.sliderVisible;
 		slider.disabled = !a_entryObject.sliderEnabled;
 	}
 }

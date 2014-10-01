@@ -9,6 +9,12 @@
 	static var ENTRY_TYPE_FEETPAINT: Number = 6;
 	static var ENTRY_TYPE_FACEPAINT: Number = 7;
 	
+	static var PRESET_ENTRY_TYPE_TEXT: Number = 0;
+	static var PRESET_ENTRY_TYPE_TEXT_VALUE: Number = 1;
+	static var PRESET_ENTRY_TYPE_SLIDER: Number = 2;
+	static var PRESET_ENTRY_TYPE_COLOR: Number = 3;
+	static var PRESET_ENTRY_TYPE_HEADER: Number = 4;
+	
 	static var CAT_TEXT: Number = 0;
 	static var CAT_FLAG: Number = 1;
 	static var CAT_STRIDE: Number = 2;

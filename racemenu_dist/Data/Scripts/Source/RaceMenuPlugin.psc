@@ -25,112 +25,14 @@ string Property NINODE_SHIELD = "SHIELD" AutoReadOnly
 string Property NINODE_WEAPON_BACK = "WeaponBack" AutoReadOnly
 string Property NINODE_WEAPON = "WEAPON" AutoReadOnly
 
-; Custom Properties
-float _height = 1.0
-float _head = 1.0
-float _leftBreast = 1.0
-float _rightBreast = 1.0
-float _leftBreastF = 1.0
-float _rightBreastF = 1.0
-float _leftButt = 1.0
-float _rightButt = 1.0
-float _rightBicep = 1.0
-float _leftBicep = 1.0
-float _rightBicep2 = 1.0
-float _leftBicep2 = 1.0
+; If you are making your own scaling mod, use your own key name
+string Property MOD_OVERRIDE_KEY = "RSMPlugin" AutoReadOnly
 
-; Weapon related scales
-float _quiver = 1.0
-float _bow = 1.0
-float _axe = 1.0
-float _sword = 1.0
-float _mace = 1.0
-float _shield = 1.0
-float _weaponBack = 1.0
-float _weapon = 1.0
+; NiOverride version data
+int Property NIOVERRIDE_VERSION = 3 AutoReadOnly
+int Property NIOVERRIDE_SCRIPT_VERSION = 2 AutoReadOnly
 
-bool hasInitialized = false ; For one time init, used for loading data inside OnGameLoad instead of Init (Unsafe)
-
-Event OnStartup()
-	parent.OnStartup()
-	RegisterForModEvent("RSM_RequestNodeSave", "OnSaveScales")
-EndEvent
-
-Event OnSaveScales(string eventName, string strArg, float numArg, Form formArg)
-	SavePlayerNodeScales(_playerActor)
-EndEvent
-
-Event OnReloadSettings(Actor player, ActorBase playerBase)
-	If !hasInitialized ; Init script values from current player
-		SavePlayerNodeScales(player)
-		hasInitialized = true
-	Else
-		LoadPlayerNodeScales(player)
-	Endif
-EndEvent
-
-Function LoadPlayerNodeScales(Actor player)
-	Normalize()
-
-	If HEIGHT_ENABLED ; Load height only if enabled
-		NetImmerse.SetNodeScale(player, NINODE_NPC, _height, false)
-		NetImmerse.SetNodeScale(player, NINODE_NPC, _height, true)
-	Endif
-
-	NetImmerse.SetNodeScale(player, NINODE_HEAD, _head, false)
-	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST, _leftBreast, false)
-	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST, _rightBreast, false)
-	NetImmerse.SetNodeScale(player, NINODE_LEFT_BUTT, _leftButt, false)
-	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BUTT, _rightButt, false)
-	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST_FORWARD, _leftBreastF, false)
-	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST_FORWARD, _rightBreastF, false)
-	NetImmerse.SetNodeScale(player, NINODE_LEFT_BICEP, _leftBicep, false)
-	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BICEP, _rightBicep, false)
-	NetImmerse.SetNodeScale(player, NINODE_LEFT_BICEP_2, _leftBicep2, false)
-	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BICEP_2, _rightBicep2, false)
-
-	NetImmerse.SetNodeScale(player, NINODE_HEAD, _head, true)
-	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST, _leftBreast, true)
-	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST, _rightBreast, true)
-	NetImmerse.SetNodeScale(player, NINODE_LEFT_BUTT, _leftButt, true)
-	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BUTT, _rightButt, true)
-	NetImmerse.SetNodeScale(player, NINODE_LEFT_BREAST_FORWARD, _leftBreastF, true)
-	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BREAST_FORWARD, _rightBreastF, true)
-	NetImmerse.SetNodeScale(player, NINODE_LEFT_BICEP, _leftBicep, true)
-	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BICEP, _rightBicep, true)
-	NetImmerse.SetNodeScale(player, NINODE_LEFT_BICEP_2, _leftBicep, true)
-	NetImmerse.SetNodeScale(player, NINODE_RIGHT_BICEP_2, _rightBicep, true)
-
-	If WEAPONS_ENABLED ; Load scales only if enabled
-		; Weapon scales 3rd
-		NetImmerse.SetNodeScale(player, NINODE_QUIVER, _quiver, false)
-		NetImmerse.SetNodeScale(player, NINODE_BOW, _bow, false)
-		NetImmerse.SetNodeScale(player, NINODE_AXE, _axe, false)
-		NetImmerse.SetNodeScale(player, NINODE_SWORD, _sword, false)
-		NetImmerse.SetNodeScale(player, NINODE_MACE, _mace, false)
-		NetImmerse.SetNodeScale(player, NINODE_SHIELD, _shield, false)
-		NetImmerse.SetNodeScale(player, NINODE_WEAPON_BACK, _weaponBack, false)
-		NetImmerse.SetNodeScale(player, NINODE_WEAPON, _weapon, false)
-
-		; Weapon scales 1st
-		NetImmerse.SetNodeScale(player, NINODE_QUIVER, _quiver, true)
-		NetImmerse.SetNodeScale(player, NINODE_BOW, _bow, true)
-		NetImmerse.SetNodeScale(player, NINODE_AXE, _axe, true)
-		NetImmerse.SetNodeScale(player, NINODE_SWORD, _sword, true)
-		NetImmerse.SetNodeScale(player, NINODE_MACE, _mace, true)
-		NetImmerse.SetNodeScale(player, NINODE_SHIELD, _shield, true)
-		NetImmerse.SetNodeScale(player, NINODE_WEAPON_BACK, _weaponBack, true)
-		NetImmerse.SetNodeScale(player, NINODE_WEAPON, _weapon, true)
-	Endif
-EndFunction
-
-Event On3DLoaded(ObjectReference akRef)
-	OnReloadSettings(_playerActor, _playerActorBase)
-EndEvent
-
-Event OnCellLoaded(ObjectReference akRef)
-	LoadPlayerNodeScales(_playerActor)
-EndEvent
+bool _versionValid = false
 
 ; Add Custom Warpaint here
 Event OnWarpaintRequest()
@@ -140,346 +42,177 @@ Event OnWarpaintRequest()
 	AddWarpaint("$Dragon Tattoo 01", "Actors\\Character\\Character Assets\\TintMasks\\DragonTattoo_01.dds")
 EndEvent
 
-Function Normalize()
-	if _height == 0
-		_height = 1
-	Endif
-	if _head == 0
-		_head = 1
-	Endif
-	if _leftBreast == 0
-		_leftBreast = 1
-	Endif
-	if _rightBreast == 0
-		_rightBreast = 1
-	Endif
-	if _leftBreastF == 0
-		_leftBreastF = 1
-	Endif
-	if _rightBreastF == 0
-		_rightBreastF = 1
-	Endif
-	if _leftButt == 0
-		_leftButt = 1
-	Endif
-	if _rightButt == 0
-		_rightButt = 1
-	Endif
-	if _leftBicep == 0
-		_leftBicep = 1
-	Endif
-	if _rightBicep == 0
-		_rightBicep = 1
-	Endif
-	if _leftBicep2 == 0
-		_leftBicep2 = 1
-	Endif
-	if _rightBicep2 == 0
-		_rightBicep2 = 1
-	Endif
-	if _quiver == 0
-		_quiver = 1
-	Endif
-	if _bow == 0
-		_bow = 1
-	Endif
-	if _axe == 0
-		_axe = 1
-	Endif
-	if _sword == 0
-		_sword = 1
-	Endif
-	if _mace == 0
-		_mace = 1
-	Endif
-	if _shield == 0
-		_shield = 1
-	Endif
-	if _weaponBack == 0
-		_weaponBack = 1
-	Endif
-	if _weapon == 0
-		_weapon = 1
-	Endif
-EndFunction
+Event OnStartup()
+	parent.OnStartup()
 
-Function SavePlayerNodeScales(Actor player)
-	If NetImmerse.HasNode(player, NINODE_NPC, false)
-		_height = NetImmerse.GetNodeScale(player, NINODE_NPC, false)
-	Else
-		_height = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_HEAD, false)
-		_head = NetImmerse.GetNodeScale(player, NINODE_HEAD, false)
-	Else
-		_head = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_LEFT_BREAST, false)
-		_leftBreast = NetImmerse.GetNodeScale(player, NINODE_LEFT_BREAST, false)
-	Else
-		_leftBreast = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_RIGHT_BREAST, false)
-		_rightBreast = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BREAST, false)
-	Else
-		_rightBreast = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_LEFT_BREAST_FORWARD, false)
-		_leftBreastF = NetImmerse.GetNodeScale(player, NINODE_LEFT_BREAST_FORWARD, false)
-	Else
-		_leftBreastF = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_RIGHT_BREAST_FORWARD, false)
-		_rightBreastF = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BREAST_FORWARD, false)
-	Else
-		_rightBreastF = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_LEFT_BUTT, false)
-		_leftButt = NetImmerse.GetNodeScale(player, NINODE_LEFT_BUTT, false)
-	Else
-		_leftButt = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_RIGHT_BUTT, false)
-		_rightButt = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BUTT, false)
-	Else
-		_rightButt = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_LEFT_BICEP, false)
-		_leftBicep = NetImmerse.GetNodeScale(player, NINODE_LEFT_BICEP, false)
-	Else
-		_leftBicep = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_RIGHT_BICEP, false)
-		_rightBicep = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BICEP, false)
-	Else
-		_rightBicep = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_LEFT_BICEP_2, false)
-		_leftBicep2 = NetImmerse.GetNodeScale(player, NINODE_LEFT_BICEP_2, false)
-	Else
-		_leftBicep2 = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_RIGHT_BICEP_2, false)
-		_rightBicep2 = NetImmerse.GetNodeScale(player, NINODE_RIGHT_BICEP_2, false)
-	Else
-		_rightBicep2 = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_QUIVER, false)
-		_quiver = NetImmerse.GetNodeScale(player, NINODE_QUIVER, false)
-	Else
-		_quiver = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_BOW, false)
-		_bow = NetImmerse.GetNodeScale(player, NINODE_BOW, false)
-	Else
-		_bow = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_AXE, false)
-		_axe = NetImmerse.GetNodeScale(player, NINODE_AXE, false)
-	Else
-		_axe = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_SWORD, false)
-		_sword = NetImmerse.GetNodeScale(player, NINODE_SWORD, false)
-	Else
-		_sword = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_MACE, false)
-		_mace = NetImmerse.GetNodeScale(player, NINODE_MACE, false)
-	Else
-		_mace = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_SHIELD, false)
-		_shield = NetImmerse.GetNodeScale(player, NINODE_SHIELD, false)
-	Else
-		_shield = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_WEAPON_BACK, false)
-		_weaponBack = NetImmerse.GetNodeScale(player, NINODE_WEAPON_BACK, false)
-	Else
-		_weaponBack = 1.0
-	Endif
-	If NetImmerse.HasNode(player, NINODE_WEAPON, false)
-		_weapon = NetImmerse.GetNodeScale(player, NINODE_WEAPON, false)
-	Else
-		_weapon = 1.0
-	Endif
-	Normalize()
-EndFunction
+	int nioverrideVersion = SKSE.GetPluginVersion("NiOverride")
+	int nioverrideScriptVersion = NiOverride.GetScriptVersion()
 
-Event OnInitializeMenu(Actor player, ActorBase playerBase)
-	SavePlayerNodeScales(player)
+	; Check NiOverride version, disable most features if this fails
+	if nioverrideVersion >= NIOVERRIDE_VERSION && nioverrideScriptVersion >= NIOVERRIDE_SCRIPT_VERSION
+		_versionValid = true
+	Else
+		_versionValid = false
+	Endif
 EndEvent
 
 Event OnResetMenu(Actor player, ActorBase playerBase)
-	_height = 1.0
-	_head = 1.0
-	_leftBreast = 1.0
-	_rightBreast = 1.0
-	_leftBreastF = 1.0
-	_rightBreastF = 1.0
-	_leftButt = 1.0
-	_rightButt = 1.0
-	_rightBicep = 1.0
-	_leftBicep = 1.0
-	_rightBicep2 = 1.0
-	_leftBicep2 = 1.0
-	_quiver = 1.0
-	_bow = 1.0
-	_axe = 1.0
-	_sword = 1.0
-	_mace = 1.0
-	_shield = 1.0
-	_weaponBack = 1.0
-	_weapon = 1.0
-	LoadPlayerNodeScales(player)
+	bool isFemale = _playerActorBase.GetSex() as bool
+	If _versionValid ; Delete all the previous scales
+		RemoveNodeTransforms(player, isFemale, NINODE_NPC)
+		RemoveNodeTransforms(player, isFemale, NINODE_HEAD)
+		RemoveNodeTransforms(player, isFemale, NINODE_LEFT_BREAST)
+		RemoveNodeTransforms(player, isFemale, NINODE_RIGHT_BREAST)
+		RemoveNodeTransforms(player, isFemale, NINODE_LEFT_BREAST_FORWARD)
+		RemoveNodeTransforms(player, isFemale, NINODE_RIGHT_BREAST_FORWARD)
+		RemoveNodeTransforms(player, isFemale, NINODE_LEFT_BUTT)
+		RemoveNodeTransforms(player, isFemale, NINODE_RIGHT_BUTT)
+		RemoveNodeTransforms(player, isFemale, NINODE_LEFT_BICEP)
+		RemoveNodeTransforms(player, isFemale, NINODE_RIGHT_BICEP)
+		RemoveNodeTransforms(player, isFemale, NINODE_LEFT_BICEP_2)
+		RemoveNodeTransforms(player, isFemale, NINODE_RIGHT_BICEP_2)
+		RemoveNodeTransforms(player, isFemale, NINODE_QUIVER)
+		RemoveNodeTransforms(player, isFemale, NINODE_BOW)
+		RemoveNodeTransforms(player, isFemale, NINODE_AXE)
+		RemoveNodeTransforms(player, isFemale, NINODE_SWORD)
+		RemoveNodeTransforms(player, isFemale, NINODE_MACE)
+		RemoveNodeTransforms(player, isFemale, NINODE_SHIELD)
+		RemoveNodeTransforms(player, isFemale, NINODE_WEAPON_BACK)
+		RemoveNodeTransforms(player, isFemale, NINODE_WEAPON)
+	Endif
 EndEvent
 
 ; Add Custom sliders here
 Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool isFemale)
 	If HEIGHT_ENABLED
-		AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 2.00, 0.01, _height)
+		AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 2.00, 0.01, GetNodeScale(player, isFemale, NINODE_NPC))
 	Endif
 
 	If NetImmerse.HasNode(player, NINODE_HEAD, false)
-		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, _head)
+		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_HEAD))
 	Endif
 
 	If isFemale == true		
 		If NetImmerse.HasNode(player, NINODE_LEFT_BREAST, false)
-			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 3.00, 0.01, _leftBreast)
+			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_LEFT_BREAST))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_RIGHT_BREAST, false)
-			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 3.00, 0.01, _rightBreast)
+			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_RIGHT_BREAST))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_LEFT_BREAST_FORWARD, false)
-			AddSlider("$Left Breast Curve", CATEGORY_BODY, "ChangeLeftBreastCurve", 0.1, 3.00, 0.01, _leftBreastF)
+			AddSlider("$Left Breast Curve", CATEGORY_BODY, "ChangeLeftBreastCurve", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_LEFT_BREAST_FORWARD))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_RIGHT_BREAST_FORWARD, false)
-			AddSlider("$Right Breast Curve", CATEGORY_BODY, "ChangeRightBreastCurve", 0.1, 3.00, 0.01, _rightBreastF)
+			AddSlider("$Right Breast Curve", CATEGORY_BODY, "ChangeRightBreastCurve", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_RIGHT_BREAST_FORWARD))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_LEFT_BUTT, false)
-			AddSlider("$Left Glute", CATEGORY_BODY, "ChangeLeftButt", 0.1, 3.00, 0.01, _leftButt)
+			AddSlider("$Left Glute", CATEGORY_BODY, "ChangeLeftButt", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_LEFT_BUTT))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_RIGHT_BUTT, false)
-			AddSlider("$Right Glute", CATEGORY_BODY, "ChangeRightButt", 0.1, 3.00, 0.01, _rightButt)
+			AddSlider("$Right Glute", CATEGORY_BODY, "ChangeRightButt", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_RIGHT_BUTT))
 		Endif
 	Endif
 
-	AddSlider("$Left Biceps", CATEGORY_BODY, "ChangeLeftBiceps", 0.1, 2.00, 0.01, _leftBicep)
-	AddSlider("$Right Biceps", CATEGORY_BODY, "ChangeRightBiceps", 0.1, 2.00, 0.01, _rightBicep)
+	AddSlider("$Left Biceps", CATEGORY_BODY, "ChangeLeftBiceps", 0.1, 2.00, 0.01, GetNodeScale(player, isFemale, NINODE_LEFT_BICEP))
+	AddSlider("$Right Biceps", CATEGORY_BODY, "ChangeRightBiceps", 0.1, 2.00, 0.01, GetNodeScale(player, isFemale, NINODE_RIGHT_BICEP))
 
-	AddSlider("$Left Biceps 2", CATEGORY_BODY, "ChangeLeftBiceps2", 0.1, 2.00, 0.01, _leftBicep2)
-	AddSlider("$Right Biceps 2", CATEGORY_BODY, "ChangeRightBiceps2", 0.1, 2.00, 0.01, _rightBicep2)
+	AddSlider("$Left Biceps 2", CATEGORY_BODY, "ChangeLeftBiceps2", 0.1, 2.00, 0.01, GetNodeScale(player, isFemale, NINODE_LEFT_BICEP_2))
+	AddSlider("$Right Biceps 2", CATEGORY_BODY, "ChangeRightBiceps2", 0.1, 2.00, 0.01, GetNodeScale(player, isFemale, NINODE_RIGHT_BICEP_2))
 
 	If WEAPONS_ENABLED
 		If NetImmerse.HasNode(player, NINODE_QUIVER, false)
-			AddSlider("$Quiver Scale", CATEGORY_BODY, "ChangeQuiverScale", 0.1, 3.00, 0.01, _quiver)
+			AddSlider("$Quiver Scale", CATEGORY_BODY, "ChangeQuiverScale", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_QUIVER))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_BOW, false)
-			AddSlider("$Bow Scale", CATEGORY_BODY, "ChangeBowScale", 0.1, 3.00, 0.01, _bow)
+			AddSlider("$Bow Scale", CATEGORY_BODY, "ChangeBowScale", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_BOW))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_AXE, false)
-			AddSlider("$Axe Scale", CATEGORY_BODY, "ChangeAxeScale", 0.1, 3.00, 0.01, _axe)
+			AddSlider("$Axe Scale", CATEGORY_BODY, "ChangeAxeScale", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_AXE))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_SWORD, false)
-			AddSlider("$Sword Scale", CATEGORY_BODY, "ChangeSwordScale", 0.1, 3.00, 0.01, _sword)
+			AddSlider("$Sword Scale", CATEGORY_BODY, "ChangeSwordScale", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_SWORD))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_MACE, false)
-			AddSlider("$Mace Scale", CATEGORY_BODY, "ChangeMaceScale", 0.1, 3.00, 0.01, _mace)
+			AddSlider("$Mace Scale", CATEGORY_BODY, "ChangeMaceScale", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_MACE))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_SHIELD, false)
-			AddSlider("$Shield Scale", CATEGORY_BODY, "ChangeShieldScale", 0.1, 3.00, 0.01, _shield)
+			AddSlider("$Shield Scale", CATEGORY_BODY, "ChangeShieldScale", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_SHIELD))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_WEAPON_BACK, false)
-			AddSlider("$Weapon Back Scale", CATEGORY_BODY, "ChangeWeaponBackScale", 0.1, 3.00, 0.01, _weaponBack)
+			AddSlider("$Weapon Back Scale", CATEGORY_BODY, "ChangeWeaponBackScale", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_WEAPON_BACK))
 		Endif
 		If NetImmerse.HasNode(player, NINODE_WEAPON, false)
-			AddSlider("$Weapon Scale", CATEGORY_BODY, "ChangeWeaponScale", 0.1, 3.00, 0.01, _weapon)
+			AddSlider("$Weapon Scale", CATEGORY_BODY, "ChangeWeaponScale", 0.1, 3.00, 0.01, GetNodeScale(player, isFemale, NINODE_WEAPON))
 		Endif
 	Endif
 EndEvent
 
 Event OnSliderChanged(string callback, float value)
-	If callback == "ChangeHeight"
-		_height = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_NPC, _height, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_NPC, _height, true)
-	ElseIf callback == "ChangeHeadSize"
-		_head = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_HEAD, _head, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_HEAD, _head, true)
-	Elseif callback == "ChangeLeftBreast"
-		_leftBreast = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BREAST, _leftBreast, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BREAST, _leftBreast, true)
-	Elseif callback == "ChangeRightBreast"
-		_rightBreast = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BREAST, _rightBreast, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BREAST, _rightBreast, true)
-	Elseif callback == "ChangeLeftBreastCurve"
-		_leftBreastF = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BREAST_FORWARD, _leftBreastF, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BREAST_FORWARD, _leftBreastF, true)
-	Elseif callback == "ChangeRightBreastCurve"
-		_rightBreastF = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BREAST_FORWARD, _rightBreastF, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BREAST_FORWARD, _rightBreastF, true)
-	Elseif callback == "ChangeLeftButt"
-		_leftButt = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BUTT, _leftButt, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BUTT, _leftButt, true)
-	Elseif callback == "ChangeRightButt"
-		_rightButt = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BUTT, _rightButt, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BUTT, _rightButt, true)
-	Elseif callback == "ChangeLeftBiceps"
-		_leftBicep = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BICEP, _leftBicep, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BICEP, _leftBicep, true)
-	Elseif callback == "ChangeRightBiceps"
-		_rightBicep = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BICEP, _rightBicep, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BICEP, _rightBicep, true)
-	Elseif callback == "ChangeLeftBiceps2"
-		_leftBicep2 = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BICEP_2, _leftBicep2, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_LEFT_BICEP_2, _leftBicep2, true)
-	Elseif callback == "ChangeRightBiceps2"
-		_rightBicep2 = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BICEP_2, _rightBicep2, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_RIGHT_BICEP_2, _rightBicep2, true)
-	Elseif callback == "ChangeQuiverScale"
-		_quiver = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_QUIVER, _quiver, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_QUIVER, _quiver, true)
-	Elseif callback == "ChangeBowScale"
-		_bow = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_BOW, _bow, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_BOW, _bow, true)
-	Elseif callback == "ChangeAxeScale"
-		_axe = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_AXE, _axe, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_AXE, _axe, true)
-	Elseif callback == "ChangeSwordScale"
-		_sword = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_SWORD, _sword, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_SWORD, _sword, true)
-	Elseif callback == "ChangeMaceScale"
-		_mace = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_MACE, _mace, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_MACE, _mace, true)
-	Elseif callback == "ChangeShieldScale"
-		_shield = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_SHIELD, _shield, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_SHIELD, _shield, true)
-	Elseif callback == "ChangeWeaponBackScale"
-		_weaponBack = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON_BACK, _weaponBack, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON_BACK, _weaponBack, true)
-	Elseif callback == "ChangeWeaponScale"
-		_weapon = value
-		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON, _weapon, false)
-		NetImmerse.SetNodeScale(_playerActor, NINODE_WEAPON, _weapon, true)
+	bool isFemale = _playerActorBase.GetSex() as bool
+	If _versionValid
+		If callback == "ChangeHeight"
+			SetNodeScale(_playerActor, isFemale, NINODE_NPC, value)
+		ElseIf callback == "ChangeHeadSize"
+			SetNodeScale(_playerActor, isFemale, NINODE_HEAD, value)
+		Elseif callback == "ChangeLeftBreast"
+			SetNodeScale(_playerActor, isFemale, NINODE_LEFT_BREAST, value)
+		Elseif callback == "ChangeRightBreast"
+			SetNodeScale(_playerActor, isFemale, NINODE_RIGHT_BREAST, value)
+		Elseif callback == "ChangeLeftBreastCurve"
+			SetNodeScale(_playerActor, isFemale, NINODE_LEFT_BREAST_FORWARD, value)
+		Elseif callback == "ChangeRightBreastCurve"
+			SetNodeScale(_playerActor, isFemale, NINODE_RIGHT_BREAST_FORWARD, value)
+		Elseif callback == "ChangeLeftButt"
+			SetNodeScale(_playerActor, isFemale, NINODE_LEFT_BUTT, value)
+		Elseif callback == "ChangeRightButt"
+			SetNodeScale(_playerActor, isFemale, NINODE_RIGHT_BUTT, value)
+		Elseif callback == "ChangeLeftBiceps"
+			SetNodeScale(_playerActor, isFemale, NINODE_LEFT_BICEP, value)
+		Elseif callback == "ChangeRightBiceps"
+			SetNodeScale(_playerActor, isFemale, NINODE_RIGHT_BICEP, value)
+		Elseif callback == "ChangeLeftBiceps2"
+			SetNodeScale(_playerActor, isFemale, NINODE_LEFT_BICEP_2, value)
+		Elseif callback == "ChangeRightBiceps2"
+			SetNodeScale(_playerActor, isFemale, NINODE_RIGHT_BICEP_2, value)
+		Elseif callback == "ChangeQuiverScale"
+			SetNodeScale(_playerActor, isFemale, NINODE_QUIVER, value)
+		Elseif callback == "ChangeBowScale"
+			SetNodeScale(_playerActor, isFemale, NINODE_BOW, value)
+		Elseif callback == "ChangeAxeScale"
+			SetNodeScale(_playerActor, isFemale, NINODE_AXE, value)
+		Elseif callback == "ChangeSwordScale"
+			SetNodeScale(_playerActor, isFemale, NINODE_SWORD, value)
+		Elseif callback == "ChangeMaceScale"
+			SetNodeScale(_playerActor, isFemale, NINODE_MACE, value)
+		Elseif callback == "ChangeShieldScale"
+			SetNodeScale(_playerActor, isFemale, NINODE_SHIELD, value)
+		Elseif callback == "ChangeWeaponBackScale"
+			SetNodeScale(_playerActor, isFemale, NINODE_WEAPON_BACK, value)
+		Elseif callback == "ChangeWeaponScale"
+			SetNodeScale(_playerActor, isFemale, NINODE_WEAPON, value)
+		Endif
 	Endif
 EndEvent
+
+Function RemoveNodeTransforms(Actor akActor, bool isFemale, string nodeName)
+	NiOverride.RemoveNodeTransformScale(akActor, false, isFemale, nodeName, MOD_OVERRIDE_KEY)
+	NiOverride.RemoveNodeTransformScale(akActor, true, isFemale, nodeName, MOD_OVERRIDE_KEY)
+	NiOverride.UpdateNodeTransform(akActor, false, isFemale, nodeName)
+	NiOverride.UpdateNodeTransform(akActor, true, isFemale, nodeName)
+EndFunction
+
+Function SetNodeScale(Actor akActor, bool isFemale, string nodeName, float value)
+	If value != 1.0
+		NiOverride.AddNodeTransformScale(akActor, false, isFemale, nodeName, MOD_OVERRIDE_KEY, value)
+		NiOverride.AddNodeTransformScale(akActor, true, isFemale, nodeName, MOD_OVERRIDE_KEY, value)
+	Else
+		NiOverride.RemoveNodeTransformScale(akActor, false, isFemale, nodeName, MOD_OVERRIDE_KEY)
+		NiOverride.RemoveNodeTransformScale(akActor, true, isFemale, nodeName, MOD_OVERRIDE_KEY)
+	Endif
+	NiOverride.UpdateNodeTransform(akActor, false, isFemale, nodeName)
+	NiOverride.UpdateNodeTransform(akActor, true, isFemale, nodeName)
+EndFunction
+
+float Function GetNodeScale(Actor akActor, bool isFemale, string nodeName)
+	return NiOverride.GetNodeTransformScale(akActor, false, isFemale, nodeName, MOD_OVERRIDE_KEY)
+EndFunction

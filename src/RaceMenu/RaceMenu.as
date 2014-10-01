@@ -67,8 +67,6 @@ class RaceMenu extends MovieClip
 	private var _lightControl: Object;
 	private var _textureControl: Object;
 	private var _searchControl: Object;
-	private var _loadPresetControl: Object;
-	private var _savePresetControl: Object;
 	private var _exportHeadControl: Object;
 	
 	/* PUBLIC VARIABLES */
@@ -237,9 +235,9 @@ class RaceMenu extends MovieClip
 		_sortFilter.setSortBy(["text"], [0]);
 		
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 2044, savedItemIndex: -1, enabled: true});
-		/*
+		
 		// Test Code
-		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
+		/*categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
 		_artPrimary = categoryList.iconArt;
 		_artSecondary = ["face"];
 		
@@ -354,9 +352,9 @@ class RaceMenu extends MovieClip
 		
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint1", texture: "actors\\character\\Character assets\\tintmasks\\femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
 		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_WARPAINT, text: "Warpaint2", texture: "actors/character/Character assets/tintmasks/femalenordeyelinerstyle_01.dds", filterFlag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, GetTextureList: GetTextureList, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
-		
-		// Test Code End
 		*/
+		// Test Code End
+		
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
 		itemList.requestInvalidate();
@@ -418,8 +416,6 @@ class RaceMenu extends MovieClip
 			_zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_searchControl = Input.Jump;
 			_textureControl = Input.Wait;
-			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Quicksave", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Quickload", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_exportHeadControl =  {keyCode: GlobalFunctions.getMappedKey("Shout", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
 			_activateControl = Input.Activate;
@@ -428,8 +424,6 @@ class RaceMenu extends MovieClip
 			_zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_textureControl = Input.YButton;
 			_searchControl = null;
-			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_exportHeadControl =  {keyCode: GlobalFunctions.getMappedKey("Shout", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		}
 		
@@ -449,8 +443,6 @@ class RaceMenu extends MovieClip
 			staticPanel._y = navPanel._y + 28;
 			
 			staticPanel.clearButtons();
-			staticPanel.addButton({text: "$Load Preset", controls: _loadPresetControl}).addEventListener("click", this, "onLoadPresetClicked");
-			staticPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", this, "onSavePresetClicked");
 			if(_global.skse.plugins.CharGen) {
 				staticPanel.addButton({text: "$Export Head", controls: _exportHeadControl}).addEventListener("click", this, "onExportHeadClicked");
 			}
@@ -495,12 +487,6 @@ class RaceMenu extends MovieClip
 			} else if(IsBoundKeyPressed(details, _lightControl, _platform) && !bTextEntryMode) {
 				onLightClicked();
 				return true;
-			} else if(IsBoundKeyPressed(details, _loadPresetControl, _platform) && !bTextEntryMode) {
-				onLoadPresetClicked();
-				return true;
-			} else if(IsBoundKeyPressed(details, _savePresetControl, _platform) && !bTextEntryMode) {
-				onSavePresetClicked();
-				return true;
 			}  else if(IsBoundKeyPressed(details, _exportHeadControl, _platform) && !bTextEntryMode && _global.skse.plugins.CharGen) {
 				onExportHeadClicked();
 				return true;
@@ -544,6 +530,7 @@ class RaceMenu extends MovieClip
 			FocusHandler.instance.setFocus(itemList, 0);
 		}
 		
+		modeSelect.setMode(0);
 		ShowRacePanel(!abShowTextEntry);
 		ShowBottomBar(!abShowTextEntry);
 		ShowModeSwitcher(!abShowTextEntry);
@@ -813,16 +800,6 @@ class RaceMenu extends MovieClip
 			}
 		}
 		customSliders.splice(0, customSliders.length);
-		
-		if(_global.skse.plugins.CharGen) {
-			var entryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "$Preset Slot", filterFlag: RaceMenuDefines.CATEGORY_BODY, callbackName: "ChangePresetSlot", sliderMin: 0, sliderMax: _global.skse.plugins.CharGen.iNumPresets, sliderID: -1, position: _global.presetSlot, interval: 1, enabled: true};
-			entryObject.internalCallback = function() { _global.presetSlot = this.position; }
-			entryObject.isColorEnabled = function(): Boolean { return false; }
-			entryObject.hasColor = function(): Boolean { return false; }
-			entryObject.hasGlow = function(): Boolean { return false; }
-			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }
-			itemList.entryList.push(entryObject);
-		}
 				
 		var colorIndex: Number = 0;
 		for (var i: Number = 0; i < arguments.length; i += RaceMenuDefines.SLIDER_STRIDE) {
@@ -1063,19 +1040,19 @@ class RaceMenu extends MovieClip
 			ShowOverlays(false);
 			break;
 			case 1:
-			ShowRacePanel(false);
-			ShowBottomBar(false);
-			vertexEditor.ShowAll(false, false, true);
-			cameraEditor.ShowAll(false);
-			presetEditor.ShowAll(true);
-			break;
-			case 2:
 			ShowRacePanel(true);
 			ShowBottomBar(true);
 			vertexEditor.ShowAll(false, false, true);
 			cameraEditor.ShowAll(false);
 			presetEditor.ShowAll(false);
 			ShowOverlays(true);
+			break;
+			case 2:
+			ShowRacePanel(false);
+			ShowBottomBar(false);
+			vertexEditor.ShowAll(false, false, true);
+			cameraEditor.ShowAll(false);
+			presetEditor.ShowAll(true);
 			break;
 			case 3:
 			ShowRacePanel(false);
@@ -1176,6 +1153,13 @@ class RaceMenu extends MovieClip
 		}
 	}
 	
+	public function requestSliderUpdate(pendingData: Object)
+	{
+		if(!_reloadInterval) {
+			_reloadInterval = setInterval(this, "ReloadSliders", 500, pendingData);
+		}
+	}
+	
 	public function processDataUpdate()
 	{
 		switch(_pendingData.type) {
@@ -1205,7 +1189,7 @@ class RaceMenu extends MovieClip
 		var tintIndex: Number = 0;
 		
 		if(argbColor == undefined) {
-			Debug.log("RSM Warning: Invalid color.");
+			skyui.util.Debug.log("RSM Warning: Invalid color.");
 			return;
 		}
 						
@@ -1485,39 +1469,7 @@ class RaceMenu extends MovieClip
 			ShowMakeupPanel(true, {entry: selectedEntry});
 		}
 	}
-	
-	private function onSavePresetClicked(): Void
-	{
-		if(!_global.skse.plugins.CharGen) {
-			skse.SendModEvent(_global.eventPrefix + "RequestSaveClipboard");
-			setDisplayText("$Saved preset to clipboard");
-		} else {
-			setDisplayText("$Saved preset to slot {" + _global.presetSlot + "}");
-			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
-			_global.skse.plugins.CharGen.SavePreset(filePath);
-		}
-	}
-	
-	private function onLoadPresetClicked(): Void
-	{
-		if(!_global.skse.plugins.CharGen) {
-			skse.SendModEvent(_global.eventPrefix + "RequestLoadClipboard");
-		} else {
-			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
-			var dataObject: Object = new Object();
-			loadingIcon._visible = true;
-			if(_global.skse.plugins.CharGen.LoadPreset(filePath, dataObject) == false) {
-				//skyui.util.Debug.dump("slot", dataObject);
-				skse.SendModEvent(_global.eventPrefix + "RequestTintSave");
-				if(!_reloadInterval) {
-					_reloadInterval = setInterval(this, "ReloadSliders", 500, dataObject);
-				}
-			} else {
-				setDisplayText("$Failed to load preset from slot {" + _global.presetSlot + "}");
-			}
-		}
-	}
-	
+		
 	private function ReloadSliders(dataObject: Object): Void
 	{
 		_global.skse.plugins.CharGen.ReloadSliders();
@@ -1536,12 +1488,8 @@ class RaceMenu extends MovieClip
 			var dateStr: String = "" + (now.getMonth()+1) + "-" + now.getDate() + "-" + now.getFullYear() + " " + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds();
 			delete now;
 			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\" + dateStr;
-						
 			setDisplayText("$Exported head");
-			
 			_global.skse.plugins.CharGen.ExportHead(filePath);
-			//_global.skse.plugins.CharGen.ImportHead("Data\\meshes\\CharGen\\Exported\\Maya");
-			
 			_exportInterval = setInterval(this, "UnlockExportHead", 2500);
 		}
 	}
