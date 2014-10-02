@@ -287,8 +287,8 @@ bool Function HasNodeTransformPosition(ObjectReference akRef, bool firstPerson, 
 ; Adds a position override for the particular key, pos[0-2] correspond to x,y,z
 Function AddNodeTransformPosition(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key, float[] pos) native global
 
-; Returns a position override for the particular key into pos[0-2] corresponding to x,y,z, returns true if an override existed
-bool Function GetNodeTransformPosition(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key, float[] pos) native global
+; Returns a position override for the particular key an array of size 3 corresponding to x,y,z
+float[] Function GetNodeTransformPosition(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key) native global
 
 ; Removes a particular position override, returns true if it removed, false if did not exist
 bool Function RemoveNodeTransformPosition(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key) native global
@@ -315,10 +315,10 @@ bool Function HasNodeTransformRotation(ObjectReference akRef, bool firstPerson, 
 ; rotation[0-2] corresponding to heading, attitude, and bank in degrees
 Function AddNodeTransformRotation(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key, float[] rotation) native global
 
-; Returns a rotation override for the particular key into either a size 3 or 9 array
-; rotation[0-8] corresponding to the linear indices of a 3x3 matrix in radians
-; rotation[0-2] corresponding to heading, attitude, and bank in degrees
-bool Function GetNodeTransformRotation(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key, float[] rotation) native global
+; Returns a rotation override for the particular key
+; type 0 - size 3 euler angles in degrees
+; type 1 - size 9 matrix
+float[] Function GetNodeTransformRotation(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key, int type = 0) native global
 
 ; Returns the inverse scale, alters the in pos to the inverse out pos and the in rotation to the out inverse rotation
 ; Accepts either a size 3 rotation of euler degrees, or a 9 radian matrix
