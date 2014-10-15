@@ -56,8 +56,8 @@
 	public function onLoad(): Void
 	{
 		// [1]
-		var meterContainer: MovieClip = _root.createEmptyMovieClip("MeterContainer", _root.getNextHighestDepth());
-		_root["HUDMovieBaseInstance"].swapDepths(_root["MeterContainer"]);
-		this._parent["hudMeters"].initialize(meterContainer);
+		var floatingContainer: MovieClip = _root.createEmptyMovieClip("FloatingContainer", _root.getNextHighestDepth());
+		_root["HUDMovieBaseInstance"].swapDepths(_root["FloatingContainer"]);
+		this._parent["floatingWidgets"].initialize(floatingContainer);
 	}
 }

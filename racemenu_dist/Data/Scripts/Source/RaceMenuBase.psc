@@ -18,7 +18,9 @@ ActorBase Property _playerActorBase Auto
 
 string Property _targetMenu = "" Auto
 string Property _targetRoot = "" Auto
+
 Actor Property _targetActor = None Auto
+ActorBase Property _targetActorBase = None Auto
 
 string[] _textures = None
 int _textureBuffer = 0
@@ -43,7 +45,7 @@ string[] _sliders = None
 int _sliderBuffer = 0
 
 int Function GetScriptVersionRelease() global
-	return 4
+	return 5
 EndFunction
 
 Event OnInit()
@@ -142,8 +144,14 @@ Event OnStartup()
 
 	_targetMenu = RACESEX_MENU
 	_targetRoot = MENU_ROOT
-	_targetActor = _playerActor
+	
+	SetTargetActor(_playerActor)
 EndEvent
+
+Function SetTargetActor(Actor target)
+	_targetActor = target
+	_targetActorBase = _targetActor.GetActorBase()
+EndFunction
 
 Event OnReceiveMenuName(string eventName, string strArg, float numArg, Form formArg)
 	_targetMenu = strArg
@@ -156,7 +164,8 @@ EndEvent
 Event OnReceiveRestore(string eventName, string strArg, float numArg, Form formArg)
 	_targetMenu = RACESEX_MENU
 	_targetRoot = MENU_ROOT
-	_targetActor = _playerActor
+
+	SetTargetActor(_playerActor)
 EndEvent
 
 Event OnReceivePaintRequest(string eventName, string strArg, float numArg, Form formArg)
@@ -212,15 +221,15 @@ Event OnMenuInitialized(string eventName, string strArg, float numArg, Form form
 	AddHandPaints(_textures_hand)
 	AddFeetPaints(_textures_feet)
 	AddFacePaints(_textures_face)
-	OnInitializeMenu(_playerActor, _playerActorBase)
-	OnSliderRequest(_playerActor, _playerActorBase, _playerActorBase.GetRace(), _playerActorBase.GetSex() as bool)
+	OnInitializeMenu(_targetActor, _targetActorBase)
+	OnSliderRequest(_targetActor, _targetActorBase, _targetActorBase.GetRace(), _targetActorBase.GetSex() as bool)
 	AddSliders(_sliders)
 	FlushBuffer(2)
 EndEvent
 
 Event OnMenuReinitialized(string eventName, string strArg, float numArg, Form formArg)
-	OnResetMenu(_playerActor, _playerActorBase)
-	OnSliderRequest(_playerActor, _playerActorBase, _playerActorBase.GetRace(), _playerActorBase.GetSex() as bool)
+	OnResetMenu(_targetActor, _targetActorBase)
+	OnSliderRequest(_targetActor, _targetActorBase, _targetActorBase.GetRace(), _targetActorBase.GetSex() as bool)
 	AddSliders(_sliders)
 	FlushBuffer(1)
 EndEvent
@@ -230,7 +239,7 @@ Event OnMenuSliderChange(string eventName, string strArg, float numArg, Form for
 EndEvent
 
 Event OnMenuLoadPlugins(string eventName, string strArg, float numArg, Form formArg)
-	OnReloadSettings(_playerActor, _playerActorBase)
+	OnReloadSettings(_targetActor, _targetActorBase)
 EndEvent
 
 Event OnReloadSettings(Actor player, ActorBase playerBase)

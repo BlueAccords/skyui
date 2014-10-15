@@ -19,7 +19,7 @@ Function DeleteCharacter(string characterName) native global
 int Function DeleteFaceGenData(ActorBase actorBase) native global
 
 ; Unmaps the presets to their corresponding NPC
-Function ClearPreset(ActorBase npc) native global
+bool Function ClearPreset(ActorBase npc) native global
 Function ClearPresets() native global
 
 ; External Mode

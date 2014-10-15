@@ -48,7 +48,7 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 
 	((self as Quest) as CosmeticMenu)._targetMenu = ROOT_MENU
 	((self as Quest) as CosmeticMenu)._targetRoot = MENU_ROOT
-	((self as Quest) as CosmeticMenu)._targetActor = targetActor
+	((self as Quest) as CosmeticMenu).SetTargetActor(targetActor)
 
 	SendModEvent("RSMDT_SendMenuName", ROOT_MENU)
 	SendModEvent("RSMDT_SendRootName", MENU_ROOT)

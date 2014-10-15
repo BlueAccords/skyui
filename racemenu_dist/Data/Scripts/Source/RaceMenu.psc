@@ -13,12 +13,12 @@ int Property MAX_MORPHS = 19 AutoReadOnly
 
 ; Minimum SKSE version statistics
 int Property SKSE_MAJOR_VERSION = 1 AutoReadOnly
-int Property SKSE_MINOR_VERSION = 6 AutoReadOnly
-int Property SKSE_BETA_VERSION = 9 AutoReadOnly
-int Property SKSE_RELEASE_VERSION = 37 AutoReadOnly
+int Property SKSE_MINOR_VERSION = 7 AutoReadOnly
+int Property SKSE_BETA_VERSION = 1 AutoReadOnly
+int Property SKSE_RELEASE_VERSION = 46 AutoReadOnly
 
 ; Minimum RaceMenuBase version
-int Property RACEMENUBASE_SCRIPT_VERSION = 4 AutoReadOnly
+int Property RACEMENUBASE_SCRIPT_VERSION = 5 AutoReadOnly
 
 ; CharGen version data
 int Property CHARGEN_VERSION = 3 AutoReadOnly
@@ -26,7 +26,7 @@ int Property CHARGEN_SCRIPT_VERSION = 1 AutoReadOnly
 
 ; NiOverride version data
 int Property NIOVERRIDE_VERSION = 3 AutoReadOnly
-int Property NIOVERRIDE_SCRIPT_VERSION = 2 AutoReadOnly
+int Property NIOVERRIDE_SCRIPT_VERSION = 3 AutoReadOnly
 
 string Property DEFAULT_OVERLAY = "Actors\\Character\\Overlays\\Default.dds" AutoReadOnly
 ; -------------------------------------------------
@@ -102,18 +102,22 @@ Function OnStartup()
 	Reinitialize()
 
 	string startupError = ""
+	string errorCodes = ""
 	
 	; SKSE Version Check
 	If SKSE.GetVersionRelease() < SKSE_RELEASE_VERSION
-		startupError += ("SKSE version error. You are running SKSE Version " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta() + "." + SKSE.GetVersionRelease() + " expected "+SKSE_MAJOR_VERSION+"."+SKSE_MINOR_VERSION+"."+SKSE_BETA_VERSION+"."+SKSE_RELEASE_VERSION+" or greater. ")
+		startupError += ("You are running SKSE Version " + SKSE.GetVersion() + "." + SKSE.GetVersionMinor() + "." + SKSE.GetVersionBeta() + "." + SKSE.GetVersionRelease() + " expected "+SKSE_MAJOR_VERSION+"."+SKSE_MINOR_VERSION+"."+SKSE_BETA_VERSION+"."+SKSE_RELEASE_VERSION+" or greater. ")
+		errorCodes += "(0)"
 	Endif
 	If SKSE.GetVersionRelease() != SKSE.GetScriptVersionRelease()
 		startupError += ("SKSE script version mismatch detected (" + SKSE.GetScriptVersionRelease() + ") expected (" + SKSE.GetVersionRelease() + "). Please reinstall your SKSE scripts to match your version. ")
+		errorCodes += "(1)"
 	Endif
 
 	; RaceMenu version check
 	If RaceMenuBase.GetScriptVersionRelease() < RACEMENUBASE_SCRIPT_VERSION
 		startupError += ("Invalid RaceMenuBase script version detected (" + RaceMenuBase.GetScriptVersionRelease() + ") expected (" + RACEMENUBASE_SCRIPT_VERSION + "). Please update your base script. ")
+		errorCodes += "(2)"
 	Endif
 
 	; Plugin version check
@@ -126,34 +130,51 @@ Function OnStartup()
 	; Plugins not installed
 	If nioverrideVersion == 0
 		startupError += ("NiOverride plugin not detected, various features may be unavailable. ")
+		errorCodes += "(3)"
 	Endif
 	If chargenVersion == 0
 		startupError += ("CharGen plugin not detected, various features may be unavailable. ")
+		errorCodes += "(4)"
+	Endif
+
+	; Scripts not installed
+	If nioverrideScriptVersion == 0
+		startupError += ("NiOverride script not detected, various features may be unavailable. ")
+		errorCodes += "(5)"
+	Endif
+	If chargenScriptVersion == 0
+		startupError += ("CharGen script not detected, various features may be unavailable. ")
+		errorCodes += "(6)"
 	Endif
 
 	; Plugin installed but wrong version
 	If nioverrideVersion > 0 && nioverrideVersion < NIOVERRIDE_VERSION
 		startupError += ("Invalid NiOverride plugin version detected (" + nioverrideVersion + ") expected (" + NIOVERRIDE_VERSION + "). ")
+		errorCodes += "(7)"
 	Endif
 	If chargenVersion > 0 && chargenVersion < CHARGEN_VERSION
 		startupError += ("Invalid CharGen plugin version detected (" + chargenVersion + ") expected (" + CHARGEN_VERSION + "). ")
+		errorCodes += "(8)"
 	Endif
 
 	; Plugins installed but scripts wrong version
 	If nioverrideScriptVersion > 0 && nioverrideScriptVersion < NIOVERRIDE_SCRIPT_VERSION
 		startupError += ("Invalid NiOverride script version detected (" + nioverrideScriptVersion + ") expected (" + NIOVERRIDE_SCRIPT_VERSION + "). ")
+		errorCodes += "(9)"
 	Endif
 	If chargenScriptVersion > 0 && chargenScriptVersion < CHARGEN_SCRIPT_VERSION
 		startupError += ("Invalid CharGen script version detected (" + chargenScriptVersion + ") expected (" + CHARGEN_SCRIPT_VERSION + "). ")
+		errorCodes += "(10)"
 	Endif
 
 	If startupError != ""
-		Debug.MessageBox("RaceMenu Error(s): " + startupError)
-	Endif	
+		Debug.MessageBox("RaceMenu Error(s): " + startupError + "\nError Codes: " + errorCodes)
+	Endif
 
 	_targetRoot = RACESEX_MENU
 	_targetMenu = MENU_ROOT
 	_targetActor = _playerActor
+	_targetActorBase = _targetActor.GetActorBase()
 EndFunction
 
 Function Reinitialize()

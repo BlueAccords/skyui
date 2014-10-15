@@ -12,7 +12,7 @@ $FACE PAINT	FACE PAINT	PEINTURE SUR LA TETE	GESICHTSBEMALUNG	PITTURA FACCIALE	PI
 $Sliders	Sliders	Curseurs	Regler	Cursori	Controles	Posuvníky	Suwaki	Ползунки	スライダー	Sliders		
 $Overlays	Overlays	Superposition	Überlagerungen	Sovrapposizioni	Superposición	Vrstvy	Pokrycie	Верхний слой	オーバーレイ	Sobreposições		
 $Camera	Camera	Caméra	Kamera	Camera	Cámara	Kamera	Kamera	Камера	カメラ	Camera		
-$Sculpt	Sculpt	Sculpter	Formen	Scolpisci	Escultor		Rzeźbić	Резать	カット	Esculpir		
+$Sculpt	Sculpt	Sculpter	Formen	Scolpisci	Escultor	Sculpt	Rzeźbić	Резать	カット	Esculpir		
 $Zoom In	Zoom In	Zoom avant	Vergrößern	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
 $Zoom Out	Zoom Out	Zoom arrière	Verkleinern	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
 $Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить Расу	種族の変更	Mudar a raça	變更種族	更变种族
@@ -27,8 +27,8 @@ $Save Color	Save Color	Enregistrer couleur	Farbe speichern	Salva Colore	Guardar 
 $Saved Color	Saved Color	Couleurs enregistrées	Gespeicherte Farbe	Colore Salvato	Color guardado	Uložená barva	Zapisano Kolor	Сохранённый цвет	保存した色	Cor salva		已保存颜色
 $Load Preset	Load Preset	Charger le préréglage                                                                                 	Voreinstellung laden	Carica Impostazioni	Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード	Carregar predefinição	讀取預設	读取预设
 $Save Preset	Save Preset	Sauver le préréglage	Voreinstellung speichern	Salva Impostazioni	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存	Salvar predefinição	保存預設	保存预设
-$Light On	Light On	Avec lumière	Licht an	Luce Accesa	Luz encendida	Světlo zapnuté	Zapal	Вкл. Подсветку	ライトオン	Ligar a luz	開啟燈光	开启光照
-$Light Off	Light Off	Sans lumière	Licht aus	Luce Spenta	Luz apagada	Světlo vypnuté	Zgaś	Выкл. Подстветку	ライトオフ	Desligar a luz	關閉燈光	关闭光照
+$Light On	Light On	Avec lumière	Licht an	Luce Accesa	Luz encendida	Světlo zapnuté	Włącz Światło	Вкл. Подсветку	ライトオン	Ligar a luz	開啟燈光	开启光照
+$Light Off	Light Off	Sans lumière	Licht aus	Luce Spenta	Luz apagada	Světlo vypnuté	Wyłącz Światło	Выкл. Подстветку	ライトオフ	Desligar a luz	關閉燈光	关闭光照
 $Exported head	Exported head	Tête exportée	Kopf wurde exportiert	Testa Esportata	Cabeza exportada	Exportovaná hlava	Eksportowano głowę	Экспортированная голова	出力された頭部	Cabeça exportada		已导出的头部 
 $Export Head	Export Head	Exporter tête	Kopf exportieren	Esporta Testa	Exportar cabeza	Exportovat hlavu	Eksportuj Głowę	Экспортировать голову	頭部の出力	Exportar cabeça		导出头部
 $Rotate	Rotate	Pivoter	Drehen	Ruota	Rotar	Otočit	Obróć	 Поворот	回転	Girar		旋转
@@ -42,9 +42,9 @@ $Saved preset to slot {}	Saved preset to slot {}	Réglages sauvegardés dans l'e
 $Loaded preset from slot {}	Loaded preset from slot {}	Réglages chargés depuis l'emplacement {}	Vorlage aus Position {} geladen	Carica impostazione dallo slot {}	Ajustes predefinidos cargados {}	Načtena předvolba ze slotu {}	Wczytano wygląd z gniazda {}	Загрузить предустановку из слота {}	スロットからプリセットをロード	Predefinição carregada do espaço		读取记录{} 
 $Failed to load preset from slot {}	Failed to load preset from slot {}	Echec du chargement des réglages depuis l'emplacement {}	Fehler beim Laden der Vorlage aus Position {}	Fallito caricamento dell'impostazione dallo slot {}	Fallo al cargar los ajustes predefinidos {}	Načtení předvolby ze slotu {} selhalo	Nie powiodło się wczytanie wyglądu z gniazda {}	Не удалось загрузить предустановку из слота {}	スロットからのプリセットのロードに失敗	Falha ao carregar predefinição do espaço		从记录{}读取失败 
 $Colors	Colors	Couleurs	Farben	Colori	Colores	Barvy	Kolory					
-$Presets	Presets		Vorgaben		Presets							
-$Mods	Mods		Mods		Mods							
-$Head Parts	Head Parts		Kopf Bauteile		Partes de la cabeza							
+$Presets	Presets		Vorgaben		Presets	Předvolby	Wyglądy					
+$Mods	Mods		Mods		Mods	Modyfikace	Modyfikacje					
+$Head Parts	Head Parts		Kopf Bauteile		Partes de la cabeza	Části hlavy	Części Głowy					
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
 $Head	Head	Tête	Kopf	Testa	Cabeza	Hlava	Głowa	Голова	頭部	Cabeça	頭部	头部
 $Left Breast	Left Breast	Poitrine gauche	Linke Brust	Seno Sinistro	Pecho izquierdo	Levé ňadro	Lewa Pierś	Левая грудь	左胸	Peito esquerdo	左胸	左胸
@@ -242,9 +242,9 @@ $CME_BrowInOut	Brow Width	Largeur des sourcils	Brauenbreite	Sopracciglia dentro/
 $CME_BrowBackForward	Brow Depth	Avancée des sourcils	Brauentiefe	Sopracciglia indietro/avanti	Profundidad de las cejas	Hloubka obočí	Głębokość brwi	Глубина бровей				
 $RANs_ForeheadBackForward	Forehead Depth	Avancée du front	Stirntiefe	Fronte indietro/avanti	Profundidad de la frente	Hloubka čela	Głębokość czoła	Лоб вперед	額の奥行き			
 $CME_LipType	Mouth Type 2	Forme de la bouche	Mundtyp 2	Tipo di labbra	Tipo de boca	Typ úst	Typ ust	Тип губ	口の種類			
-$CME_OrcLipType	Orc Mouth Type	Type de bouche orque	Ork Mundtyp	Tipo di labbra (Orco)	Tipo de boca (Orco)		Orkowy typ ust	Тип орочьих губ	オーク口の種類			
-$CME_ElfEyesType	Elf Eyes Type	Type d'oeil elfe	Elf Augentyp	Tipo di occhi (Elfo)	Tipo de boca (Elfo)		Elfi typ oczu	Тип эльфийских ушей	エルフ口の種類			
-$CME_OrcNoseType	Orc Nose Type	Type de nez orque	Ork Nasentyp	Tipo di naso (Orco)	Tipo de nariz (Orco)		Orkowy typ nosa	Тип орочьего носа	オーク鼻の種類			
+$CME_OrcLipType	Orc Mouth Type	Type de bouche orque	Ork Mundtyp	Tipo di labbra (Orco)	Tipo de boca (Orco)	Typ úst (ork)	Orkowy typ ust	Тип орочьих губ	オーク口の種類			
+$CME_ElfEyesType	Elf Eyes Type	Type d'oeil elfe	Elf Augentyp	Tipo di occhi (Elfo)	Tipo de boca (Elfo)	Typ očí (elf)	Elfi typ oczu	Тип эльфийских ушей	エルフ口の種類			
+$CME_OrcNoseType	Orc Nose Type	Type de nez orque	Ork Nasentyp	Tipo di naso (Orco)	Tipo de nariz (Orco)	Typ nosu (ork)	Orkowy typ nosa	Тип орочьего носа	オーク鼻の種類			
 $RANs_LipDuckly	Lip Pout	Pulbabilitée des  lèvres	Lippen Schmollen	Labbra pronunciate	Mueca	Stisknutí rtů	Grymas wargi	Пухлые губы	アヒル口			
 $CME_MouthWidth	Mouth Width	Largeur de la bouche	Mundbreite	Larghezza booca	Anchura de la boca	Śířka úst	Szerokość ust	Ширина рта	口の幅			
 $CME_MouthHeight	Lip Height	Hauteur des lèvres	Lippenhöhe	Altezza bocca	Altura de los labios	Výška rtů	Wysokość wargi	Высота рта	口の高さ			
@@ -292,57 +292,57 @@ $NSK_NoseSellionWidth	Nose Sellion Width	Largeur des narines	Nasenübergangsbrei
 $NSK_NoseTilt	Nose Tilt	Inclinaison du nez	Nasenneigung	Inclinazione naso	Ángulo de la nariz	Naklonění nosu	Nachylenie nosa	Наклон носа			鼻尖	
 $NSK_MouthWidth	Mouth Width 2	Largeur de la bouche	Mundbreite	Larghezza bocca	Anchura de la boca	Śířka úst	Szerokość ust	Ширина рта			嘴唇闊度	
 $NSK_MouthSmile	Mouth Smile	Sourire	Lächeln	Sorriso	Sonrisa	Úsměv	Uśmiech	Улыбка			嘴角高度	
-$EXPR_BlinkLeft	Blink Left	Cligner gauche	Links Zwinkern	Strizza occhio sinistro			Mrużyć Lewo	Подмигивание левым глазом				
-$EXPR_BlinkRight	Blink Right	Cligner droite	Rechts Zwinkern	Strizza occhio destro			Mrużyć Prawo	Подмигивание правым глазом				
-$EXPR_DialogueAnger	Dialogue Anger	Dialogue colère	Dialog Verärgert	Dialogo arrabbiato			Dialog Gniew	Злость (диалог)	怒り			
-$EXPR_DialogueHappy	Dialogue Happy	Dialogue content	Dialog Glücklich	Dialogo felice			Dialog Radosny	Радость (диалог)	喜び			
-$EXPR_DialogueSad	Dialogue Sad	Dialogue triste	Dialog Traurig	Dialogo triste			Dialog Smutny	Грусть (диалог)	悲しみ			
-$EXPR_DialogueSurprise	Dialogue Surprise	Dialogue surprise	Dialog Überrascht	Dialogo sorpreso			Dialog Zaskoczony	Удивление (диалог)	驚き			
-$EXPR_DialogueDisgusted	Dialogue Disgusted	Dialogue dégouté	Dialog Angewidert	Dialogo disgustato			Dialog Zdegustowany	Отвращение (диалог)	うんざり顔			
-$EXPR_DialogueFear	Dialogue Fear	Dialogue peur	Dialog Ängstlich	Dialogo spaventato			Dialog Strach	Страх (диалог)	恐れ			
-$EXPR_DialoguePuzzled	Dialogue Puzzled	Dialogue perplexe	Dialog Verwundert	Dialogo perplesso			Dialog Zakłopotany	Замешательство (диалог)	混乱			
-$EXPR_BrowDownLeft	Brow Down Left	Sourcil gauche en bas	Braue Runter Links	Sopracciglia sinistra giù			Dolne Lewe Brwi	Опустить левую бровь				
-$EXPR_BrowDownRight	Brow Down Right	Sourcil droit en bas	Braue Runter Rechts	Sopracciglia destra giù			Dolne Prawe Brwi	Опустить правую бровь				
+$EXPR_BlinkLeft	Blink Left	Cligner gauche	Links Zwinkern	Strizza occhio sinistro		Mrknutí levým okem	Mrużyć Lewo	Подмигивание левым глазом				
+$EXPR_BlinkRight	Blink Right	Cligner droite	Rechts Zwinkern	Strizza occhio destro		Mrknutí pravým okem	Mrużyć Prawo	Подмигивание правым глазом				
+$EXPR_DialogueAnger	Dialogue Anger	Dialogue colère	Dialog Verärgert	Dialogo arrabbiato		Výraz hněvu (dialog)	Dialog Gniew	Злость (диалог)	怒り			
+$EXPR_DialogueHappy	Dialogue Happy	Dialogue content	Dialog Glücklich	Dialogo felice		Výraz radosti (dialog)	Dialog Radosny	Радость (диалог)	喜び			
+$EXPR_DialogueSad	Dialogue Sad	Dialogue triste	Dialog Traurig	Dialogo triste		Výraz smutku (dialog)	Dialog Smutny	Грусть (диалог)	悲しみ			
+$EXPR_DialogueSurprise	Dialogue Surprise	Dialogue surprise	Dialog Überrascht	Dialogo sorpreso		Výraz překvapení (dialog)	Dialog Zaskoczony	Удивление (диалог)	驚き			
+$EXPR_DialogueDisgusted	Dialogue Disgusted	Dialogue dégouté	Dialog Angewidert	Dialogo disgustato		Výraz znechucení (dialog)	Dialog Zdegustowany	Отвращение (диалог)	うんざり顔			
+$EXPR_DialogueFear	Dialogue Fear	Dialogue peur	Dialog Ängstlich	Dialogo spaventato		Výraz strachu (dialog)	Dialog Strach	Страх (диалог)	恐れ			
+$EXPR_DialoguePuzzled	Dialogue Puzzled	Dialogue perplexe	Dialog Verwundert	Dialogo perplesso		Výraz zmatení (dialog)	Dialog Zakłopotany	Замешательство (диалог)	混乱			
+$EXPR_BrowDownLeft	Brow Down Left	Sourcil gauche en bas	Braue Runter Links	Sopracciglia sinistra giù		Obočí dolů, levé	Dolne Lewe Brwi	Опустить левую бровь				
+$EXPR_BrowDownRight	Brow Down Right	Sourcil droit en bas	Braue Runter Rechts	Sopracciglia destra giù		Obočí dolů, pravé	Dolne Prawe Brwi	Опустить правую бровь				
 $EXPR_BrowInLeft	Brow In Left	Sourcil à gauche	Braue Nach Innen Links				Brwi w lewo	Приблизить левую бровь				
 $EXPR_BrowInRight	Brow In Right	Sourcil à droite	Braue Nach Innen Rechts				Brwi w prawo	Приблизить правую бровь				
 $EXPR_BrowUpLeft	Brow Up Left	Sourcil gauche en haut	Braue Hoch Links				Górne Lewe Brwi	Приподнять левую бровь				
 $EXPR_BrowUpRight	Brow Up Right	Sourcil droit en haut	Braue Hoch Rechts				Górne Prawe Brwi	Приподнять правую бровь				
-$EXPR_LookDown	Look Down	Regarder en bas	Nach Unten Schauen				Spójrz w dół	Посмотреть вниз				
-$EXPR_LookLeft	Look Left	Regarder à gauche	Nach Links Schauen				Spójrz w lewo	Посмотреть влево				
-$EXPR_LookRight	Look Right	Regarder à droite	Nach Rechts Schauen				Spójrz w prawo	Посмотреть вправо				
-$EXPR_LookUp	Look Up	Regarder en haut	Nach Oben Schauen				Spójrz w dół	Посмотреть вверх				
-$EXPR_MoodAnger	Mood Anger	Humeur colère	Laune Verärgert				Gniewny Nastrój	Злость				
-$EXPR_MoodDisgusted	Mood Disgusted	Humeur dégouté	Laune Angewidert				Zdegustowany Nastrój	Отвращение				
-$EXPR_MoodFear	Mood Fear	Humeur peur	Laune Ängstlich				Straszny Nastrój	Страх				
-$EXPR_MoodHappy	Mood Happy	Humeur content	Laune Glücklich				Szczęśliwy Nastrój	Радость				
-$EXPR_MoodPuzzled	Mood Puzzled	Humeur perplexe	Laune Verwundert				Zakłopotany Nastrój	Замешательство				
-$EXPR_MoodSad	Mood Sad	Humeur triste	Laune Traurig				Smutny Nastrój	Грусть				
-$EXPR_MoodSurprise	Mood Surprise	Humeur surprise	Laune Überrascht				Zaskoczony Nastrój	Удивление				
-$EXPR_SquintLeft	Squint Left	Loucher gauche	Links Blinzeln				Lewy Zez	Взгляд искоса налево				
-$EXPR_SquintRight	Squint Right	Loucher droite	Rechts Blinzeln				Prawy Zez	Взгляд искоза направо				
-$EXPR_CombatAnger	Combat Anger	Combat colère	Kampf Verärgert				Gniew Bojowy	Боевая ярость				
-$EXPR_CombatShout	Combat Shout	Combat cri	Kampf Schrei				Krzyk Bojowy	Боевой крик				
-$EXPR_Aah	Aah	Aah	Aah				Aah	Аах				
-$EXPR_BigAah	Big Aah	Grand Aah	Großes Aah				Wielkie Aah	Большой аах				
-$EXPR_BMP	BMP	BMP	BMP				BMP	BMP				
-$EXPR_ChJSh	ChJSh	ChJSh	ChJSh				ChJSh	ChJSh				
-$EXPR_DST	DST	DST	DST				DST	DST				
-$EXPR_Eee	Eee	Eee	Eee				Eee	Eee				
-$EXPR_Eh	Eh	Eh	Eh				Eh	Eh				
-$EXPR_FV	FV	FV	FV				FV	FV				
-$EXPR_I	I	I	I				I	I				
-$EXPR_K	K	K	K				K	K				
-$EXPR_N	N	N	N				N	N				
-$EXPR_Oh	Oh	Oh	Oh				Oh	Oh				
-$EXPR_OohQ	OohQ	OohQ	OohQ				OohQ	OohQ				
-$EXPR_R	R	R	R				R	R				
-$EXPR_Th	Th	Th	Th				Th	Th				
-$EXPR_W	W	W	W				W	W				
+$EXPR_LookDown	Look Down	Regarder en bas	Nach Unten Schauen			Pohled dolů	Spójrz w dół	Посмотреть вниз				
+$EXPR_LookLeft	Look Left	Regarder à gauche	Nach Links Schauen			Pohled vlevo	Spójrz w lewo	Посмотреть влево				
+$EXPR_LookRight	Look Right	Regarder à droite	Nach Rechts Schauen			Pohled vpravo	Spójrz w prawo	Посмотреть вправо				
+$EXPR_LookUp	Look Up	Regarder en haut	Nach Oben Schauen			Pohled nahoru	Spójrz w dół	Посмотреть вверх				
+$EXPR_MoodAnger	Mood Anger	Humeur colère	Laune Verärgert			Hněv	Gniewny Nastrój	Злость				
+$EXPR_MoodDisgusted	Mood Disgusted	Humeur dégouté	Laune Angewidert			Znechucení	Zdegustowany Nastrój	Отвращение				
+$EXPR_MoodFear	Mood Fear	Humeur peur	Laune Ängstlich			Strach	Straszny Nastrój	Страх				
+$EXPR_MoodHappy	Mood Happy	Humeur content	Laune Glücklich			Radost	Szczęśliwy Nastrój	Радость				
+$EXPR_MoodPuzzled	Mood Puzzled	Humeur perplexe	Laune Verwundert			Zmatení	Zakłopotany Nastrój	Замешательство				
+$EXPR_MoodSad	Mood Sad	Humeur triste	Laune Traurig			Smutek	Smutny Nastrój	Грусть				
+$EXPR_MoodSurprise	Mood Surprise	Humeur surprise	Laune Überrascht			Překvapení	Zaskoczony Nastrój	Удивление				
+$EXPR_SquintLeft	Squint Left	Loucher gauche	Links Blinzeln			Šilhání vlevo	Lewy Zez	Взгляд искоса налево				
+$EXPR_SquintRight	Squint Right	Loucher droite	Rechts Blinzeln			Šilhání vpravo	Prawy Zez	Взгляд искоза направо				
+$EXPR_CombatAnger	Combat Anger	Combat colère	Kampf Verärgert			Bojový pokřík	Gniew Bojowy	Боевая ярость				
+$EXPR_CombatShout	Combat Shout	Combat cri	Kampf Schrei			Bojový křík	Krzyk Bojowy	Боевой крик				
+$EXPR_Aah	Aah	Aah	Aah			Aah	Aah	Аах				
+$EXPR_BigAah	Big Aah	Grand Aah	Großes Aah			Velké Aah	Wielkie Aah	Большой аах				
+$EXPR_BMP	BMP	BMP	BMP			BMP	BMP	BMP				
+$EXPR_ChJSh	ChJSh	ChJSh	ChJSh			ChJsh	ChJSh	ChJSh				
+$EXPR_DST	DST	DST	DST			DST	DST	DST				
+$EXPR_Eee	Eee	Eee	Eee			Eee	Eee	Eee				
+$EXPR_Eh	Eh	Eh	Eh			Eh	Eh	Eh				
+$EXPR_FV	FV	FV	FV			FV	FV	FV				
+$EXPR_I	I	I	I			I	I	I				
+$EXPR_K	K	K	K			K	K	K				
+$EXPR_N	N	N	N			N	N	N				
+$EXPR_Oh	Oh	Oh	Oh			Oh	Oh	Oh				
+$EXPR_OohQ	OohQ	OohQ	OohQ			OohQ	OohQ	OohQ				
+$EXPR_R	R	R	R			R	R	R				
+$EXPR_Th	Th	Th	Th			TH	Th	Th				
+$EXPR_W	W	W	W			W	W	W				
 												
 												
 												
-% Completion	100.00%	99.12%	100.00%	88.79%	86.43%	84.37%	99.12%	98.82%	79.94%	62.83%	28.61%	64.60%
-Total % Completion	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%
+% Completion	100.00%	99.12%	100.00%	88.79%	86.43%	98.82%	100.00%	98.82%	79.94%	62.83%	28.61%	64.60%
+Total % Completion	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%
 												
 	Google Translate	fr	de	it	es	cs	pl	ru	ja	pt	zh-TW	zh-CN
 	ALL	ALL	ALL	All	ALL	ALL	ALL	ALL	All	Everything	All	All
@@ -357,7 +357,7 @@ Total % Completion	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72
 	Sliders	Sliders	Controller	Sliders	Controls	Sliders	Sliders	Sliders	Slider	Sliders		
 	Overlays	Superposition	Overlays	Overlays	Overlay	Layers	Coverage	Upper layer	Overlay	Overlays		
 	Camera	Camera	Camera	Room	Camera	Camera	Camera	Luggage	Camera	Camera		
-	Sculpt	Sculpt	Form	Sculpt	Sculptor		Sculpt	Cut	Cut	Carve		
+	Sculpt	Sculpt	Form	Sculpt	Sculptor	Sculpt	Sculpt	Cut	Cut	Carve		
 	Zoom In	Zoom	Enlarge	Enlarge	Approaching	Zoom	Zoom	Zoom	Zoom	Zoom	Closer	Enlarge
 	Zoom Out	Zoom	Reduce	Minimize	Away	Out	Zoom	Alienate	Zoom Out	Zoom	Pull away	Narrowing
 	Change Race	Change race	Change race	Choose Breed	Change Race	Change race	Change Race	Change Race	Change of tribe	Change the race	Change Race	More variable race
@@ -366,14 +366,14 @@ Total % Completion	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72
 	Glow	Glow	Shine	Flare	Brightness	Glow	Glow	Glow	Gleam	Brightness		
 	Tint	Hue	Tint	Tint	Tint	Hue	Tint	Tint	Tint	Tom / Tint		
 	Search	Research	Look for	Search	Search for	Search	Search	Find	Search	Search for	Search	Search for
-	Change Category	Change category	Change category	Change Category	Change category	Change category	Change category	Change category	Category changes	Change the category	Change Category	More variable category
+	Change Category	Change category	Change category	Change Category	Change category	Change category	Change category	Back to category	Category changes	Change the category	Change Category	More variable category
 	Load Color	Load color	Load color	Upload a Color	Load Color	Load color	Load Color	Download color	Read color	Carrying color	Loaded color	Loaded color
 	Save Color	Color register	Save color	Save Color	Add Color	Save color	Save the Colour	Save color	Color preservation	Save color	Save color	Save color
 	Saved Color	Colors recorded	Saved color	Color Saved	Color saved	Saved color	Filed Color	Saved color	Color that you saved	Color saved		Saved color
 	Load Preset	Load preset                                                                                 	Load default	Upload Settings	Load preset	Load preset	Load Appearance	Contaminants. preset	Load preset	Load Preset	Read Default	Read Default
 	Save Preset	Save the preset	Save Preset	Save Settings	Save Preset	Save Preset	Save Appearance	Save. preset	Save Preset	Save Preset	Save Preset	Save Preset
-	Light On	With light	Light on	Light On	Light on	The light is on	Light	Incl. Backlight	Light-ON	Switch light	Turn lights	Open light
-	Light Off	Without light	Light from	Lights off	Light off	Light off	Put	Off. Backlight	Light-off	Turn off the light	Turn off the lights	Close illumination
+	Light On	With light	Light on	Light On	Light on	The light is on	Turn on the Light	Incl. Backlight	Light-ON	Switch light	Turn lights	Open light
+	Light Off	Without light	Light from	Lights off	Light off	Light off	Turn off the light	Off. Backlight	Light-off	Turn off the light	Turn off the lights	Close illumination
 	Exported head	Head exported	Head was exported	Head Exported	Head exported	Exported head	Exported head	Exported head	The head output	Exported Head		Exported head 
 	Export Head	Export head	Export head	Export Head	Export head	Export head	Export Head	Export head	Output of the head	Export head		Export head
 	Rotate	Rotate	Turn	Wheel	Rotate	Rotate	Turn	 Rotate	Rotation	Rotate		Rotation
@@ -387,9 +387,9 @@ Total % Completion	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72
 	Loaded preset from slot {}	Loaded settings from the location {}	Loaded template from position {}	Upload setting the slot {}	Presets loaded {}	Preset from the slot {}	Loaded appearance of the slot {}	Download preset from the slot {}	Load a preset from the slot	Default charged space		Read record {} 
 	Failed to load preset from slot {}	Failed to load settings from the location {}	Failed to load template from position {}	Failed loading the slot {}	Failed to load the presets {}	Preset from the slot {} failed	Failed to load the appearance of the slot {}	Failed to load a preset from the slot {}	Failed to load presets from the slot	Failed to load default space		Failed to read from the record {} 
 	Colors	Colors	Colors	Colors	Colors	Colours	Colors					
-	Presets		Requirements		Presets							
-	Mods		Mods		Mods							
-	Head Parts		Head components		Head Parts							
+	Presets		Requirements		Presets	Preferences	Appearances					
+	Mods		Mods		Mods	Modyfikace	Modifications					
+	Head Parts		Head components		Head Parts	Parts of the head	Parts of the Head					
 	Height	Size	Size	Height	Height	Height	Height	Height	Height	Height	Height	Height
 	Head	Head	Head	Head	Head	Head	Head	Head	Head	Head	Head	Head
 	Left Breast	Left chest	Left breast	Left Breast	Left chest	The left breast	Left Chest	Left chest	Left chest	Left chest	Chest	Chest
@@ -634,36 +634,36 @@ Total % Completion	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72%	82.72
 	Nose Tilt	Tilting the nose	Nose slope	Tilt nose	Angle of the nose	Tilting the nose	The slope of the nose	The slope of the nose			Nose	
 	Mouth Width 2	Width of the mouth	Mouth width	Wide mouth	Throat Width	The width of the mouth	Width paragraph	Width of mouth			Lip width	
 	Mouth Smile	Smile	Smile	Smile	Smile	Smile	Smile	Smile			Mouth height	
-	Blink Left	Blink left	Links wink	Winks his left eye			Squint Left	Winks his left eye				
-	Blink Right	Blink right	Right Wink	Winks right eye			Squint Law	Wink right eye				
-	Dialogue Anger	Anger dialogue	Displeased dialogue	Dialogue angry			Dialog Anger	Rage (dialogue)	Anger			
-	Dialogue Happy	Happy Dialogue	Dialogue Happy	Dialogue happy			Dialog Happy	Joy (dialogue)	Joy			
-	Dialogue Sad	Sad dialogue	Dialogue Sad	Dialogue sad			Dialog Sad	Sadness (dialogue)	Sadness			
-	Dialogue Surprise	Surprise Dialogue	Surprised dialogue	Dialogue surprised			Dialog Surprised	Surprise (dialogue)	Surprise			
-	Dialogue Disgusted	Disgusted dialogue	Dialogue Disgusted	Dialogue disgusted			Disgusted dialogue	Aversion (dialogue)	Tired face			
-	Dialogue Fear	Dialogue fear	Dialogue Afraid	Dialogue scared			Dialog Fear	Fear (dialogue)	Fear			
-	Dialogue Puzzled	Perplexing dialogue	Dialogue Surprised	Dialogue perplexed			Dialog Confused	Confusion (dialogue)	Turmoil			
-	Brow Down Left	Left eyebrow down	Brow Down Left	Eyebrows left down			Bottom Left Eyebrows	Lower the left eyebrow				
-	Brow Down Right	Right eyebrow down	Brow Down Right	Eyebrows right down			Bottom Right Eyebrows	Lower right eyebrow				
+	Blink Left	Blink left	Links wink	Winks his left eye		Wink left eye	Squint Left	Winks his left eye				
+	Blink Right	Blink right	Right Wink	Winks right eye		A wink with the right eye	Squint Law	Wink right eye				
+	Dialogue Anger	Anger dialogue	Displeased dialogue	Dialogue angry		The expression of anger (dialog)	Dialog Anger	Rage (dialogue)	Anger			
+	Dialogue Happy	Happy Dialogue	Dialogue Happy	Dialogue happy		Expression of joy (dialog)	Dialog Happy	Joy (dialogue)	Joy			
+	Dialogue Sad	Sad dialogue	Dialogue Sad	Dialogue sad		The expression of sadness (dialog)	Dialog Sad	Sadness (dialogue)	Sadness			
+	Dialogue Surprise	Surprise Dialogue	Surprised dialogue	Dialogue surprised		The expression of surprise (dialog)	Dialog Surprised	Surprise (dialogue)	Surprise			
+	Dialogue Disgusted	Disgusted dialogue	Dialogue Disgusted	Dialogue disgusted		The expression of disgust (dialog)	Disgusted dialogue	Aversion (dialogue)	Tired face			
+	Dialogue Fear	Dialogue fear	Dialogue Afraid	Dialogue scared		The expression of fear (dialog)	Dialog Fear	Fear (dialogue)	Fear			
+	Dialogue Puzzled	Perplexing dialogue	Dialogue Surprised	Dialogue perplexed		The term confusion (dialog)	Dialog Confused	Confusion (dialogue)	Turmoil			
+	Brow Down Left	Left eyebrow down	Brow Down Left	Eyebrows left down		Eyebrows down, left	Bottom Left Eyebrows	Lower the left eyebrow				
+	Brow Down Right	Right eyebrow down	Brow Down Right	Eyebrows right down		Eyebrows down, right	Bottom Right Eyebrows	Lower right eyebrow				
 	Brow In Left	Left eyebrow	Eyebrow Inside Links				Eyebrows left	Bring the left eyebrow				
 	Brow In Right	Right eyebrow	Eyebrow Inside Right				Eyebrows right	Bring the right eyebrow				
 	Brow Up Left	Left eyebrow up	High brow Links				The upper left Eyebrows	Raise the left eyebrow				
 	Brow Up Right	Eyebrow straight up	Brew up right				The upper right Eyebrows	Lift the right eyebrow				
-	Look Down	Look down on	Down Look				Look down	Look down				
-	Look Left	Look left	After links Look				Look to the left	View to the left				
-	Look Right	Look Right	Look to the right				Look to the right	View to the right				
-	Look Up	Look up	After Looking Up				Look down	Look up				
-	Mood Anger	Angry mood	Angry mood				Angry Mood	Rage				
-	Mood Disgusted	Disgusted mood	Disgusted mood				Disgusted Mood	Aversion				
-	Mood Fear	Mood fear	Anxious mood				Scary Mood	Fear				
-	Mood Happy	Happy mood	Happy mood				Happy Mood	Joy				
-	Mood Puzzled	Perplexed mood	Mood Surprised				Embarrassed Mood	Confusion				
-	Mood Sad	Sad mood	Sad mood				Sad Mood	Sadness				
-	Mood Surprise	Mood surprise	Surprised mood				Surprised Mood	Surprised				
-	Squint Left	Squint left	Links Blink				Left Strabismus	Squint left				
-	Squint Right	Squint right	Right Blink				Right Strabismus	Iskoza look right				
-	Combat Anger	Combat anger	Displeased fight				Wrath Battle	Fighting Fury				
-	Combat Shout	Battle cry	Battle Cry				Cry of Battle	Battle Shout				
-	Aah	Aah	Aah				Aah	Aah				
-	Big Aah	Grand Aah	Large Aah				Big Aah	Large aah				
-	BMP	BMP	BMP				BMP	BMP				
+	Look Down	Look down on	Down Look			Looking Down	Look down	Look down				
+	Look Left	Look left	After links Look			The view on the left	Look to the left	View to the left				
+	Look Right	Look Right	Look to the right			The view to the right	Look to the right	View to the right				
+	Look Up	Look up	After Looking Up			Look Up	Look down	Look up				
+	Mood Anger	Angry mood	Angry mood			Anger	Angry Mood	Rage				
+	Mood Disgusted	Disgusted mood	Disgusted mood			Disgust	Disgusted Mood	Aversion				
+	Mood Fear	Mood fear	Anxious mood			Fear	Scary Mood	Fear				
+	Mood Happy	Happy mood	Happy mood			Joy	Happy Mood	Joy				
+	Mood Puzzled	Perplexed mood	Mood Surprised			Confusion	Embarrassed Mood	Confusion				
+	Mood Sad	Sad mood	Sad mood			Sadness	Sad Mood	Sadness				
+	Mood Surprise	Mood surprise	Surprised mood			Surprise	Surprised Mood	Surprised				
+	Squint Left	Squint left	Links Blink			Squint left	Left Strabismus	Squint left				
+	Squint Right	Squint right	Right Blink			Squint right	Right Strabismus	Iskoza look right				
+	Combat Anger	Combat anger	Displeased fight			Battle cry	Wrath Battle	Fighting Fury				
+	Combat Shout	Battle cry	Battle Cry			The battle cry	Cry of Battle	Battle Shout				
+	Aah	Aah	Aah			Aah	Aah	Aah				
+	Big Aah	Grand Aah	Large Aah			Great Aah	Big Aah	Large aah				
+	BMP	BMP	BMP			BMP	BMP	BMP				

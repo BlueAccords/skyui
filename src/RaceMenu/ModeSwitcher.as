@@ -33,8 +33,7 @@ class ModeSwitcher extends MovieClip
 	{
 		tabContainer = this.createEmptyMovieClip("tabContainer", this.getNextHighestDepth());
 		
-		buttonGroup = new ButtonGroup("tabs", this);
-		
+		buttonGroup = new ButtonGroup("tabs", tabContainer);
 		var button0 = addMode("$Sliders");
 		var button1 = addMode("$Overlays");
 		var button2 = addMode("$Presets");
@@ -52,26 +51,35 @@ class ModeSwitcher extends MovieClip
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{			
-		var bHandledInput: Boolean = false;
 		if (GlobalFunc.IsKeyPressed(details)) {
 			if (details.navEquivalent == NavigationCode.GAMEPAD_R2) {
-				var i: Number = buttonGroup.indexOf(buttonGroup.selectedButton);
-				i += 1;
-				if(i >= buttonGroup.length)
-					i = 0;
-				buttonGroup.setSelectedButton(buttonGroup.getButtonAt(i));
-				bHandledInput = true;
+				nextCategory();
+				return true;
 			} else if (details.navEquivalent == NavigationCode.GAMEPAD_L2) {
-				var i: Number = buttonGroup.indexOf(buttonGroup.selectedButton);
-				i -= 1;
-				if(i < 0)
-					i = buttonGroup.length - 1;
-				buttonGroup.setSelectedButton(buttonGroup.getButtonAt(i));
-				bHandledInput = true;
+				previousCategory();
+				return true;
 			}
 		}
 
-		return bHandledInput;
+		return false;
+	}
+	
+	public function nextCategory()
+	{
+		var i: Number = buttonGroup.indexOf(buttonGroup.selectedButton);
+		i += 1;
+		if(i >= buttonGroup.length)
+			i = 0;
+		buttonGroup.setSelectedButton(buttonGroup.getButtonAt(i));
+	}
+	
+	public function previousCategory()
+	{
+		var i: Number = buttonGroup.indexOf(buttonGroup.selectedButton);
+		i -= 1;
+		if(i < 0)
+			i = buttonGroup.length - 1;
+		buttonGroup.setSelectedButton(buttonGroup.getButtonAt(i));
 	}
 	
 	public function setMode(index: Number): Void

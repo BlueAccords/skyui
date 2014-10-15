@@ -1,7 +1,7 @@
 Scriptname NiOverride Hidden
 
 int Function GetScriptVersion() global
-	return 2
+	return 3
 EndFunction
 
 ; Valid keys
@@ -334,7 +334,13 @@ Function UpdateAllReferenceTransforms(ObjectReference akRef) native global
 ; Removes all transforms for a particular reference
 Function RemoveAllReferenceTransforms(ObjectReference akRef) native global
 
+; Removes all transforms from all references
+Function RemoveAllTransforms() native global
+
 ; Updates and computes a particular node's transformation override
 ; Use this after changing a particular override
 Function UpdateNodeTransform(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName) native global
+
+; Moves a node from one the current parent to another, there can only be ONE of these overrides, call UpdateNodeTransform
+Function MoveNode(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string destination) native global
 ; --------------------------------------------------------------------

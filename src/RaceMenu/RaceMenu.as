@@ -469,14 +469,20 @@ class RaceMenu extends MovieClip
 		} else if(vertexEditor.enabled) {
 			if(vertexEditor.handleInput(details, pathToFocus))
 				return true;
+			else
+				return modeSelect.handleInput(details, pathToFocus);
 		} else if(cameraEditor.enabled) {
 			if(cameraEditor.handleInput(details, pathToFocus))
 				return true;
+			else
+				return modeSelect.handleInput(details, pathToFocus);
 		} else if(presetEditor.enabled) {
 			if(presetEditor.handleInput(details, pathToFocus))
 				return true;
+			else
+				return modeSelect.handleInput(details, pathToFocus);
 		}
-			
+		
 		if (GlobalFunc.IsKeyPressed(details)) {
 			if (IsBoundKeyPressed(details, _searchControl, _platform) && _platform == 0) {
 				onSearchClicked();

@@ -1,5 +1,7 @@
 ﻿import gfx.events.EventDispatcher;
 import gfx.ui.InputDetails;
+import gfx.ui.NavigationCode;
+import Shared.GlobalFunc;
 
 import skyui.components.ButtonPanel;
 import skyui.util.GlobalFunctions;
@@ -126,6 +128,14 @@ class VertexEditor extends MovieClip
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
+		// Consume Left/Right input
+		if (GlobalFunc.IsKeyPressed(details)) {
+			if (details.navEquivalent == NavigationCode.RIGHT) {
+				return true;
+			} else if (details.navEquivalent == NavigationCode.LEFT) {
+				return true;
+			}
+		}
 		return false;
 	}
 	

@@ -87,7 +87,6 @@ class PresetEditor extends MovieClip
 		
 		onReadPreset();
 		FocusHandler.instance.setFocus(itemList, 0);
-		itemList.selectDefaultIndex(true);
 		//itemList.requestInvalidate();
 	}
 	
@@ -180,6 +179,15 @@ class PresetEditor extends MovieClip
 		
 		if(itemList.handleInput(details, pathToFocus)) {
 			return true;
+		}
+		
+		// Consume Left/Right input
+		if (GlobalFunc.IsKeyPressed(details)) {
+			if (details.navEquivalent == NavigationCode.RIGHT) {
+				return true;
+			} else if (details.navEquivalent == NavigationCode.LEFT) {
+				return true;
+			}
 		}
 		
 		return false;
