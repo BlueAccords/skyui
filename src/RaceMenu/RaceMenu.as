@@ -1352,7 +1352,21 @@ class RaceMenu extends MovieClip
 			} else {
 				itemDescriptor.toggle(false);
 			}
-		} else {
+		} else if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE) {
+			var raceForm: Object = _raceList[selectedEntry.raceID];
+			if(raceForm != undefined) {
+				var formName: String = raceForm.editorId;
+				var formId: Number = raceForm.formId;
+				itemDescriptor._y = itemList.getClipGlobalCoordinate().y - 10;
+				var modName: String = _global.skse.plugins.CharGen.GetModName(formId >>> 24);
+				itemDescriptor.setText(modName + " (" + formName + ")");
+				itemDescriptor.toggle(true);
+				itemDescriptor.fadeOut();
+			} else {
+				itemDescriptor.toggle(false);
+			}
+		}
+		else {
 			itemDescriptor.toggle(false);
 		}
 	}
@@ -1496,6 +1510,7 @@ class RaceMenu extends MovieClip
 			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\" + dateStr;
 			setDisplayText("$Exported head");
 			_global.skse.plugins.CharGen.ExportHead(filePath);
+			//_global.skse.plugins.CharGen.ImportHead("meshes\\CharGen\\Exported\\Agatha");
 			_exportInterval = setInterval(this, "UnlockExportHead", 2500);
 		}
 	}

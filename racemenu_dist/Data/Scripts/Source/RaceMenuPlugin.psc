@@ -56,31 +56,32 @@ Event OnStartup()
 	Endif
 EndEvent
 
-Event OnResetMenu(Actor target, ActorBase targetBase)
-	bool isFemale = targetBase.GetSex() as bool
-	If _versionValid ; Delete all the previous scales
-		RemoveNodeTransforms(target, isFemale, NINODE_NPC)
-		RemoveNodeTransforms(target, isFemale, NINODE_HEAD)
-		RemoveNodeTransforms(target, isFemale, NINODE_LEFT_BREAST)
-		RemoveNodeTransforms(target, isFemale, NINODE_RIGHT_BREAST)
-		RemoveNodeTransforms(target, isFemale, NINODE_LEFT_BREAST_FORWARD)
-		RemoveNodeTransforms(target, isFemale, NINODE_RIGHT_BREAST_FORWARD)
-		RemoveNodeTransforms(target, isFemale, NINODE_LEFT_BUTT)
-		RemoveNodeTransforms(target, isFemale, NINODE_RIGHT_BUTT)
-		RemoveNodeTransforms(target, isFemale, NINODE_LEFT_BICEP)
-		RemoveNodeTransforms(target, isFemale, NINODE_RIGHT_BICEP)
-		RemoveNodeTransforms(target, isFemale, NINODE_LEFT_BICEP_2)
-		RemoveNodeTransforms(target, isFemale, NINODE_RIGHT_BICEP_2)
-		RemoveNodeTransforms(target, isFemale, NINODE_QUIVER)
-		RemoveNodeTransforms(target, isFemale, NINODE_BOW)
-		RemoveNodeTransforms(target, isFemale, NINODE_AXE)
-		RemoveNodeTransforms(target, isFemale, NINODE_SWORD)
-		RemoveNodeTransforms(target, isFemale, NINODE_MACE)
-		RemoveNodeTransforms(target, isFemale, NINODE_SHIELD)
-		RemoveNodeTransforms(target, isFemale, NINODE_WEAPON_BACK)
-		RemoveNodeTransforms(target, isFemale, NINODE_WEAPON)
-	Endif
-EndEvent
+; Don't use this event to reset things, loading a preset also triggers this
+; Event OnResetMenu(Actor target, ActorBase targetBase)
+; 	bool isFemale = targetBase.GetSex() as bool
+; 	If _versionValid ; Delete all the previous scales
+; 		RemoveNodeTransforms(target, isFemale, NINODE_NPC)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_HEAD)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_LEFT_BREAST)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_RIGHT_BREAST)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_LEFT_BREAST_FORWARD)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_RIGHT_BREAST_FORWARD)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_LEFT_BUTT)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_RIGHT_BUTT)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_LEFT_BICEP)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_RIGHT_BICEP)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_LEFT_BICEP_2)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_RIGHT_BICEP_2)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_QUIVER)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_BOW)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_AXE)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_SWORD)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_MACE)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_SHIELD)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_WEAPON_BACK)
+; 		RemoveNodeTransforms(target, isFemale, NINODE_WEAPON)
+; 	Endif
+; EndEvent
 
 ; Add Custom sliders here
 Event OnSliderRequest(Actor target, ActorBase targetBase, Race actorRace, bool isFemale)

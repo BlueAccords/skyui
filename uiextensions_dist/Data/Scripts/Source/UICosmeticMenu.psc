@@ -48,17 +48,24 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 
 	((self as Quest) as CosmeticMenu)._targetMenu = ROOT_MENU
 	((self as Quest) as CosmeticMenu)._targetRoot = MENU_ROOT
-	((self as Quest) as CosmeticMenu).SetTargetActor(targetActor)
 
 	SendModEvent("RSMDT_SendMenuName", ROOT_MENU)
 	SendModEvent("RSMDT_SendRootName", MENU_ROOT)
+	SendModEvent("RSMDT_SendPrefix", "TTM")
+
+	int handle = ModEvent.Create("RSMDT_SendTargetActor")
+	ModEvent.PushForm(handle, targetActor)
+	ModEvent.Send(handle)
 
 	UI.InvokeString(ROOT_MENU, MENU_ROOT + "SetNameText", targetBase.GetName())
 	UI.InvokeString(ROOT_MENU, MENU_ROOT + "SetRaceText", targetRace.GetName())
 
 	UI.InvokeInt(ROOT_MENU, THIS_ROOT + "TTM_ShowCategories", _categories)
 
-	SendModEvent("RSMDT_SendPaintRequest", "", _categories as float)
+	; Wait some time for all the events to propagate
+	Utility.WaitMenuMode(0.5)
+
+	SendModEvent("RSMDT_SendDataRequest", "", _categories as float)
 EndEvent
 
 Event OnFailedLoadMenu(string eventName, string strArg, float numArg, Form formArg)
@@ -72,4 +79,5 @@ Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
 	UnregisterForModEvent("UICosmeticMenu_CloseMenu")
 
 	SendModEvent("RSMDT_SendRestore")
+	SendModEvent("RSMDT_SendPrefix", "RSM")
 EndEvent

@@ -5,6 +5,7 @@ string Property 	MENU_ROOT		= "_root.listMenu." autoReadonly
 
 float _resultFloat = -1.0
 int _resultInt = -1
+string _resultString = ""
 
 string[] _entryName = None
 int[] _entryId = None
@@ -12,6 +13,7 @@ int[] _entryParent = None
 int[] _entryCallback = None
 bool[] _entryChildren = None
 int _entryBuffer = 0
+bool _sortEnabled = false
 
 string[] _premadeEntries = None
 int _premadeBuffer = 0
@@ -24,16 +26,32 @@ float Function GetResultFloat()
 	return _resultFloat
 EndFunction
 
+string Function GetResultString()
+	return _resultString
+EndFunction
+
+Function SetPropertyInt(string propertyName, int value)
+	If propertyName == "totalEntries"
+		_entryBuffer = value
+	Endif
+EndFunction
+
+Function SetPropertyBool(string propertyName, bool value)
+	If propertyName == "sort"
+		_sortEnabled = value
+	EndIf
+EndFunction
+
 Function SetPropertyStringA(string propertyName, string[] value)
 	if propertyName == "appendEntries"
 		int i = 0
-		If _premadeBuffer > 127
+		If _premadeBuffer >= _premadeEntries.length
 			return ; Can't add anymore premade entries
 		Endif
 		While i < value.length
 			_premadeEntries[_premadeBuffer] = value[i]
 			_premadeBuffer += 1
-			If _premadeBuffer > 127 ; End the buffer
+			If _premadeBuffer >= _premadeEntries.length ; End the buffer
 				i = value.length
 			Endif
 			i += 1
@@ -115,6 +133,7 @@ EndFunction
 int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 	_resultFloat = -1.0
 	_resultInt = -1
+	_resultString = ""
 
 	If !BlockUntilClosed() || !WaitForReset()
 		return 0
@@ -122,6 +141,7 @@ int Function OpenMenu(Form aForm = None, Form aReceiver = None)
 
 	RegisterForModEvent("UIListMenu_LoadMenu", "OnLoadMenu")
 	RegisterForModEvent("UIListMenu_CloseMenu", "OnUnloadMenu")
+	RegisterForModEvent("UIListMenu_SelectItemText", "OnSelectText")
 	RegisterForModEvent("UIListMenu_SelectItem", "OnSelect")
 
 	Lock()
@@ -145,6 +165,11 @@ Event OnSelect(string eventName, string strArg, float numArg, Form formArg)
 	Unlock()
 EndEvent
 
+Event OnSelectText(string eventName, string strArg, float numArg, Form formArg)
+	_resultString = strArg
+	; Do not unlock on this event, it's part of OnSelect sequence
+EndEvent
+
 Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	string[] entries = new string[128]
 	int i = 0
@@ -159,7 +184,7 @@ Event OnLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 		UI.InvokeStringA(ROOT_MENU, MENU_ROOT + "LM_AddTreeEntries", _premadeEntries)
 	Endif
 
-	UI.InvokeBool(ROOT_MENU, MENU_ROOT + "LM_SetSortingEnabled", entries)
+	UI.InvokeBool(ROOT_MENU, MENU_ROOT + "LM_SetSortingEnabled", _sortEnabled)
 EndEvent
 
 Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)

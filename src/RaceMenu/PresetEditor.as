@@ -103,8 +103,8 @@ class PresetEditor extends MovieClip
 			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Quickload", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
 			_cancelControl = Input.Cancel;
-			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		}
 		
 		_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
@@ -196,10 +196,16 @@ class PresetEditor extends MovieClip
 	public function onReadPreset(): Void
 	{
 		itemList.entryList.splice(1, itemList.entryList.length - 1);
-		var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
+		var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".jslot";
 		var preset: Object = new Object;
-		if(_global.skse.plugins.CharGen.ReadPreset(filePath, preset) == false) {
-			
+		
+		var loadError: Boolean = _global.skse.plugins.CharGen.ReadPreset(filePath, preset, true);
+		if(loadError) {
+			filePath = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
+			loadError = _global.skse.plugins.CharGen.ReadPreset(filePath, preset, false);
+		}
+					
+		if(!loadError) {			
 			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER, text: "$Mods", filterFlag: 1, enabled: true});
 			
 			for(var i = 0; i < preset.mods.length; i++) {
@@ -275,8 +281,8 @@ class PresetEditor extends MovieClip
 			_parent.setDisplayText("$Saved preset to clipboard");
 		} else {
 			_parent.setDisplayText("$Saved preset to slot {" + _global.presetSlot + "}");
-			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
-			_global.skse.plugins.CharGen.SavePreset(filePath);
+			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".jslot";
+			_global.skse.plugins.CharGen.SavePreset(filePath, true);
 			onReadPreset();
 		}
 	}
@@ -286,10 +292,17 @@ class PresetEditor extends MovieClip
 		if(!_global.skse.plugins.CharGen) {
 			skse.SendModEvent(_global.eventPrefix + "RequestLoadClipboard");
 		} else {
-			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
+			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".jslot";
 			var dataObject: Object = new Object();
 			_parent.loadingIcon._visible = true;
-			if(_global.skse.plugins.CharGen.LoadPreset(filePath, dataObject) == false) {
+			
+			var loadError: Boolean = _global.skse.plugins.CharGen.LoadPreset(filePath, dataObject, true);
+			if(loadError) {
+				filePath = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
+				loadError = _global.skse.plugins.CharGen.LoadPreset(filePath, dataObject, false);
+			}
+					
+			if(!loadError) {
 				skse.SendModEvent(_global.eventPrefix + "RequestTintSave");
 				_parent.requestSliderUpdate(dataObject);
 			} else {

@@ -21,6 +21,7 @@
 	private var _meterXOffset: Number = 0;
 	private var _meterYOffset: Number = 0;
 	private var _meterVisible: Boolean = true;
+	private var _flags: Number = 0;
 		
 	private var _nameSize: Number = 72;
 	private var _nameColorHostile: Number = 0xFFFFFF;
@@ -78,8 +79,9 @@
 	private function onConfigLoad(event: Object): Void
 	{
 		setConfig(event.config);
+		skse.plugins.HudExtension.SetHUDFlags(_flags);
 	}
-	
+		
 	public function setConfig(a_config: Object): Void
 	{
 		_config = a_config;
@@ -115,6 +117,9 @@
 		_healthXOffset = texts.health.x;
 		_healthYOffset = texts.health.y;
 		_healthVisible = texts.health.visible;
+		
+		var behavior = a_config["Behavior"];
+		_flags = behavior.flags;
 	}
 
 	public function loadWidget(a_meterId: Number, a_flags: Number, a_current: Number, a_maximum: Number, a_primaryColor: Number, a_secondaryColor: Number, a_flashColor: Number, a_primaryFriendlyColor: Number, a_secondaryFriendlyColor: Number, a_flashFriendlyColor: Number, a_fillDirection: Number): MovieClip

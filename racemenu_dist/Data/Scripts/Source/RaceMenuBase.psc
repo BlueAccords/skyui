@@ -133,9 +133,11 @@ Function RegisterEvents()
 	RegisterForModEvent("RSM_LoadPlugins", "OnMenuLoadPlugins")
 
 	; RaceSexMenu Data Transfer
+	RegisterForModEvent("RSMDT_SendTargetActor", "OnReceiveTargetActor")
 	RegisterForModEvent("RSMDT_SendMenuName", "OnReceiveMenuName")
 	RegisterForModEvent("RSMDT_SendRootName", "OnReceiveRootName")
-	RegisterForModEvent("RSMDT_SendPaintRequest", "OnReceivePaintRequest")
+	RegisterForModEvent("RSMDT_SendPrefix", "OnReceivePrefix")
+	RegisterForModEvent("RSMDT_SendDataRequest", "OnReceiveDataRequest")
 	RegisterForModEvent("RSMDT_SendRestore", "OnReceiveRestore")
 EndFunction
 
@@ -145,13 +147,25 @@ Event OnStartup()
 	_targetMenu = RACESEX_MENU
 	_targetRoot = MENU_ROOT
 	
-	SetTargetActor(_playerActor)
+	OnReceiveTargetActor(_playerActor)
 EndEvent
 
-Function SetTargetActor(Actor target)
-	_targetActor = target
+Function OnReceiveTargetActor(Form target)
+	_targetActor = target as Actor
 	_targetActorBase = _targetActor.GetActorBase()
 EndFunction
+
+Event OnReceivePrefix(string eventName, string strArg, float numArg, Form formArg)
+	UnregisterForModEvent("RSM_Initialized")
+	UnregisterForModEvent("RSM_Reinitialized")
+	UnregisterForModEvent("RSM_SliderChange")
+	UnregisterForModEvent("RSM_LoadPlugins")
+
+	RegisterForModEvent(strArg + "_Initialized", "OnMenuInitialized")
+	RegisterForModEvent(strArg + "_Reinitialized", "OnMenuReinitialized")
+	RegisterForModEvent(strArg + "_SliderChange", "OnMenuSliderChange") ; Event sent when a slider's value is changed
+	RegisterForModEvent(strArg + "_LoadPlugins", "OnMenuLoadPlugins")
+EndEvent
 
 Event OnReceiveMenuName(string eventName, string strArg, float numArg, Form formArg)
 	_targetMenu = strArg
@@ -165,16 +179,17 @@ Event OnReceiveRestore(string eventName, string strArg, float numArg, Form formA
 	_targetMenu = RACESEX_MENU
 	_targetRoot = MENU_ROOT
 
-	SetTargetActor(_playerActor)
+	OnReceiveTargetActor(_playerActor)
 EndEvent
 
-Event OnReceivePaintRequest(string eventName, string strArg, float numArg, Form formArg)
+Event OnReceiveDataRequest(string eventName, string strArg, float numArg, Form formArg)
 	int requestFlag = numArg as int
 	bool sendWarPaint = Math.LogicalAnd(requestFlag, 0x01) == 0x01
 	bool sendBodyPaint = Math.LogicalAnd(requestFlag, 0x02) == 0x02
 	bool sendHandPaint = Math.LogicalAnd(requestFlag, 0x04) == 0x04
 	bool sendFeetPaint = Math.LogicalAnd(requestFlag, 0x08) == 0x08
 	bool sendFacePaint = Math.LogicalAnd(requestFlag, 0x10) == 0x10
+	bool sendSliders = Math.LogicalAnd(requestFlag, 0x20) == 0x20
 	If sendWarPaint
 		OnWarpaintRequest()
 	Endif
@@ -205,8 +220,16 @@ Event OnReceivePaintRequest(string eventName, string strArg, float numArg, Form 
 	If sendFacePaint
 		AddFacePaints(_textures_face)
 	Endif
+	If sendSliders
+		OnSliderRequest(_targetActor, _targetActorBase, _targetActorBase.GetRace(), _targetActorBase.GetSex() as bool)
+		AddSliders(_sliders)
+	Endif
 	If sendWarPaint || sendBodyPaint || sendHandPaint || sendFeetPaint || sendFacePaint
-		FlushBuffer(0)
+		int flushType = 0
+		If sendSliders
+			flushType = 2
+		Endif
+		FlushBuffer(flushType)
 	Endif
 EndEvent
 

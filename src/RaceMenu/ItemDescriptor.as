@@ -24,7 +24,7 @@ class ItemDescriptor extends MovieClip
 	
 	public function fadeOut(): Void
 	{
-		TweenLite.to(this, 1.0, {delay: 1.5, autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		TweenLite.to(this, 1.0, {delay: 0.5, autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 	}
 	
 	public function toggle(a_toggle: Boolean): Void

@@ -13,6 +13,7 @@ class CosmeticMenu extends MovieClip
 	static var COSMETIC_CATEGORY_HANDPAINT: Number = 4;
 	static var COSMETIC_CATEGORY_FEETPAINT: Number = 8;
 	static var COSMETIC_CATEGORY_FACEPAINT: Number = 16;
+	static var COSMETIC_CATEGORY_SLIDERS: Number = 32;
 	
 	private var _platform: Number = 0;
 	private var _ps3Switch: Boolean = false;
@@ -181,6 +182,11 @@ class CosmeticMenu extends MovieClip
 		if(a_categories > 0) {
 			RaceMenuInstance.categoryList.iconArt.splice(0, RaceMenuInstance.categoryList.iconArt.length);
 			RaceMenuInstance.categoryList.entryList.splice(0, RaceMenuInstance.categoryList.entryList.length);
+		}
+		
+		if((a_categories & COSMETIC_CATEGORY_SLIDERS) == COSMETIC_CATEGORY_SLIDERS) {
+			RaceMenuInstance.categoryList.iconArt.push("skyrim");
+			RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$ALL", flag: 508, enabled: true});
 		}
 				
 		if((a_categories & COSMETIC_CATEGORY_WARPAINT) == COSMETIC_CATEGORY_WARPAINT) {

@@ -11,9 +11,11 @@ Function RegisterEvents()
 	RegisterForModEvent("TTM_ShadersInvalidated", "OnShadersInvalidated") ; Event sent when a tint changes
 
 	; RaceSexMenu Data Transfer
+	RegisterForModEvent("RSMDT_SendTargetActor", "OnReceiveTargetActor")
 	RegisterForModEvent("RSMDT_SendMenuName", "OnReceiveMenuName")
 	RegisterForModEvent("RSMDT_SendRootName", "OnReceiveRootName")
-	RegisterForModEvent("RSMDT_SendPaintRequest", "OnReceivePaintRequest")
+	RegisterForModEvent("RSMDT_SendPrefix", "OnReceivePrefix")
+	RegisterForModEvent("RSMDT_SendDataRequest", "OnReceiveDataRequest")
 	RegisterForModEvent("RSMDT_SendRestore", "OnReceiveRestore")
 	; --------------------------------------------
 EndFunction
@@ -22,12 +24,12 @@ Function OnStartup()
 
 EndFunction
 
-Event OnReceivePaintRequest(string eventName, string strArg, float numArg, Form formArg)
+Event OnReceiveDataRequest(string eventName, string strArg, float numArg, Form formArg)
 	LoadDefaults()
 	SaveTints()
 	UpdateColors()
 	UpdateOverlays()
-	parent.OnReceivePaintRequest(eventName, strArg, numArg, formArg)
+	parent.OnReceiveDataRequest(eventName, strArg, numArg, formArg)
 EndEvent
 
 Event OnGameReload()

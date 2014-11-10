@@ -41,10 +41,10 @@ $Saved preset to clipboard	Saved preset to clipboard	Sauvegarder les réglages d
 $Saved preset to slot {}	Saved preset to slot {}	Réglages sauvegardés dans l'emplacement {}	Vorlage in Position {} gespeichert	Impostazione salvata nello slot {}	Ajustes predefinidos guardados {}	Předvolba uložena do slotu {}	Zapisano wygląd do gniazda {}	Сохранить предустановку в слот {}	スロットにプリセットをセーブ	Predefinição salva no espaço		读取到记录{} 
 $Loaded preset from slot {}	Loaded preset from slot {}	Réglages chargés depuis l'emplacement {}	Vorlage aus Position {} geladen	Carica impostazione dallo slot {}	Ajustes predefinidos cargados {}	Načtena předvolba ze slotu {}	Wczytano wygląd z gniazda {}	Загрузить предустановку из слота {}	スロットからプリセットをロード	Predefinição carregada do espaço		读取记录{} 
 $Failed to load preset from slot {}	Failed to load preset from slot {}	Echec du chargement des réglages depuis l'emplacement {}	Fehler beim Laden der Vorlage aus Position {}	Fallito caricamento dell'impostazione dallo slot {}	Fallo al cargar los ajustes predefinidos {}	Načtení předvolby ze slotu {} selhalo	Nie powiodło się wczytanie wyglądu z gniazda {}	Не удалось загрузить предустановку из слота {}	スロットからのプリセットのロードに失敗	Falha ao carregar predefinição do espaço		从记录{}读取失败 
-$Colors	Colors	Couleurs	Farben	Colori	Colores	Barvy	Kolory					
-$Presets	Presets		Vorgaben		Presets	Předvolby	Wyglądy					
-$Mods	Mods		Mods		Mods	Modyfikace	Modyfikacje					
-$Head Parts	Head Parts		Kopf Bauteile		Partes de la cabeza	Části hlavy	Części Głowy					
+$Colors	Colors	Couleurs	Farben	Colori	Colores	Barvy	Kolory	Цвет	色			
+$Presets	Presets		Vorgaben		Presets	Předvolby	Wyglądy	Пресеты	プリセット			
+$Mods	Mods		Mods		Mods	Modyfikace	Modyfikacje	Моды				
+$Head Parts	Head Parts		Kopf Bauteile		Partes de la cabeza	Části hlavy	Części Głowy	Части головы	頭部のパーツ			
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
 $Head	Head	Tête	Kopf	Testa	Cabeza	Hlava	Głowa	Голова	頭部	Cabeça	頭部	头部
 $Left Breast	Left Breast	Poitrine gauche	Linke Brust	Seno Sinistro	Pecho izquierdo	Levé ňadro	Lewa Pierś	Левая грудь	左胸	Peito esquerdo	左胸	左胸
@@ -341,8 +341,8 @@ $EXPR_W	W	W	W			W	W	W
 												
 												
 												
-% Completion	100.00%	99.12%	100.00%	88.79%	86.43%	98.82%	100.00%	98.82%	79.94%	62.83%	28.61%	64.60%
-Total % Completion	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%
+% Completion	100.00%	99.12%	100.00%	88.79%	86.43%	98.82%	100.00%	100.00%	80.83%	62.83%	28.61%	64.60%
+Total % Completion	84.17%	84.17%	84.17%	84.17%	84.17%	84.17%	84.17%	84.17%	84.17%	84.17%	84.17%	84.17%
 												
 	Google Translate	fr	de	it	es	cs	pl	ru	ja	pt	zh-TW	zh-CN
 	ALL	ALL	ALL	All	ALL	ALL	ALL	ALL	All	Everything	All	All
@@ -386,10 +386,10 @@ Total % Completion	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00%	84.00
 	Saved preset to slot {}	Saved in the location settings {}	Template stored in position {}	Setting Saved in slot {}	Presets saved {}	Memorized in the slot {}	Filed look into the slot {}	Save preset slot {}	And save a preset in the slot	Saved preset in space		Read into the record {} 
 	Loaded preset from slot {}	Loaded settings from the location {}	Loaded template from position {}	Upload setting the slot {}	Presets loaded {}	Preset from the slot {}	Loaded appearance of the slot {}	Download preset from the slot {}	Load a preset from the slot	Default charged space		Read record {} 
 	Failed to load preset from slot {}	Failed to load settings from the location {}	Failed to load template from position {}	Failed loading the slot {}	Failed to load the presets {}	Preset from the slot {} failed	Failed to load the appearance of the slot {}	Failed to load a preset from the slot {}	Failed to load presets from the slot	Failed to load default space		Failed to read from the record {} 
-	Colors	Colors	Colors	Colors	Colors	Colours	Colors					
-	Presets		Requirements		Presets	Preferences	Appearances					
-	Mods		Mods		Mods	Modyfikace	Modifications					
-	Head Parts		Head components		Head Parts	Parts of the head	Parts of the Head					
+	Colors	Colors	Colors	Colors	Colors	Colours	Colors	Color	Color			
+	Presets		Requirements		Presets	Preferences	Appearances	Presets	Preset			
+	Mods		Mods		Mods	Modyfikace	Modifications	Fashion				
+	Head Parts		Head components		Head Parts	Parts of the head	Parts of the Head	Of the head	Parts of the head			
 	Height	Size	Size	Height	Height	Height	Height	Height	Height	Height	Height	Height
 	Head	Head	Head	Head	Head	Head	Head	Head	Head	Head	Head	Head
 	Left Breast	Left chest	Left breast	Left Breast	Left chest	The left breast	Left Chest	Left chest	Left chest	Left chest	Chest	Chest

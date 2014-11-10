@@ -176,6 +176,7 @@ class ListMenu extends MovieClip
 			if(pressedEntry.children.length > 0) {
 				openChildView(pressedEntry, pressedEntry.children);
 			} else {
+				skse.SendModEvent("UIListMenu_SelectItemText", pressedEntry.text, pressedEntry.callback);
 				skse.SendModEvent("UIListMenu_SelectItem", Number(pressedEntry.id).toString(), pressedEntry.callback);
 				closeMenu();
 			}
@@ -201,6 +202,7 @@ class ListMenu extends MovieClip
 	{
 		var lastChild: Object = _childView[_childView.length - 1];
 		if(lastChild == itemView) {
+			skse.SendModEvent("UIListMenu_SelectItemText", "", -1);
 			skse.SendModEvent("UIListMenu_SelectItem", Number(-1).toString(), -1);
 			closeMenu();
 			//skse.SendModEvent("UIListMenu_SelectItem", Number(-1).toString(), -1);
@@ -269,6 +271,14 @@ class ListMenu extends MovieClip
 		if(rootAdded) {
 			itemList.InvalidateData();
 			_visible = true;
+		}
+	}
+	
+	public function LM_SetSortingEnabled(a_sort: Boolean)
+	{
+		for(var i = 0; i < _childView.length; i++)
+		{
+			_childView[i].sortEnabled = a_sort;
 		}
 	}
 }

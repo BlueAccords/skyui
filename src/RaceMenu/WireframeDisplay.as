@@ -99,7 +99,6 @@ class WireframeDisplay extends gfx.core.UIComponent
 			var x: Number = Math.max(0, Math.min(_xmouse, width));
 			var y: Number = Math.max(0, Math.min(_ymouse, height));
 			
-			trace("Rotate: X: " + x + " Y: " + y);
 			_global.skse.plugins.CharGen.DoRotateMesh(x, y);
 		}
 		foreground["endRotateMesh"] = function(mouseIdx:Number, keyboardOrMouse:Number, buttonIdx:Number)

@@ -341,6 +341,18 @@ Function RemoveAllTransforms() native global
 ; Use this after changing a particular override
 Function UpdateNodeTransform(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName) native global
 
+; These function parts move a node to be a child of the destination node
 ; Moves a node from one the current parent to another, there can only be ONE of these overrides, call UpdateNodeTransform
-Function MoveNode(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string destination) native global
+Function SetNodeDestination(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string destination) native global
+
+; Returns the node destination of the particular parameters
+string Function GetNodeDestination(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName) native global
+
+; These functions can be used to walk all of the current nodes if necessary
+; Returns an array of all the altered nodes for the particular reference, skeleton, and gender
+string[] Function GetNodeTransformNames(ObjectReference akRef, bool firstPerson, bool isFemale) native global
+
+; Returns an array of all the existing key'd transforms to the particular node
+; NodeDestination is a special key
+string[] Function GetNodeTransformKeys(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName) native global
 ; --------------------------------------------------------------------

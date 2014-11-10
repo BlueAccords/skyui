@@ -41,11 +41,11 @@ class RaceMenuList extends skyui.components.list.ScrollingList
 			return true;
 
 		if (GlobalFunc.IsKeyPressed(details)) {
-			if (details.navEquivalent == NavigationCode.UP || details.navEquivalent == NavigationCode.PAGE_UP) {
-				moveSelectionUp(details.navEquivalent == NavigationCode.PAGE_UP);
+			if (details.navEquivalent == NavigationCode.UP || details.navEquivalent == NavigationCode.PAGE_UP || details.navEquivalent == NavigationCode.GAMEPAD_L3) {
+				moveSelectionUp(details.navEquivalent == NavigationCode.PAGE_UP || details.navEquivalent == NavigationCode.GAMEPAD_L3);
 				return true;
-			} else if (details.navEquivalent == NavigationCode.DOWN || details.navEquivalent == NavigationCode.PAGE_DOWN) {
-				moveSelectionDown(details.navEquivalent == NavigationCode.PAGE_DOWN);
+			} else if (details.navEquivalent == NavigationCode.DOWN || details.navEquivalent == NavigationCode.PAGE_DOWN || details.navEquivalent == NavigationCode.GAMEPAD_R3) {
+				moveSelectionDown(details.navEquivalent == NavigationCode.PAGE_DOWN || details.navEquivalent == NavigationCode.GAMEPAD_R3);
 				return true;
 			} else if (!disableSelection && (details.navEquivalent == NavigationCode.ENTER || details.skseKeycode == GlobalFunctions.getMappedKey("Activate", Input.CONTEXT_GAMEPLAY, _platform != 0))) {
 				onItemPress();
