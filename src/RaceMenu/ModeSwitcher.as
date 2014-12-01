@@ -46,6 +46,12 @@ class ModeSwitcher extends MovieClip
 		buttonGroup.addButton(button4);
 		buttonGroup.setSelectedButton(button0);
 		
+		button0.addEventListener("rollOver", this, "onItemRollOver");
+		button1.addEventListener("rollOver", this, "onItemRollOver");
+		button2.addEventListener("rollOver", this, "onItemRollOver");
+		button3.addEventListener("rollOver", this, "onItemRollOver");
+		button4.addEventListener("rollOver", this, "onItemRollOver");
+		
 		buttonGroup.addEventListener("change", this, "onItemChanged");		
 	}
 	
@@ -92,6 +98,11 @@ class ModeSwitcher extends MovieClip
 		tabContainer._x = -tabContainer._width - _offset;
 	}
 	
+	public function getMode(): Number
+	{
+		return _modes.indexOf(buttonGroup.selectedButton)
+	}
+	
 	public function addMode(a_text: String): MovieClip
 	{
 		var modeTab: MovieClip = tabContainer.attachMovie("ModeTab", "tab" + _modes, tabContainer.getNextHighestDepth());
@@ -105,6 +116,11 @@ class ModeSwitcher extends MovieClip
 		_modes.push(modeTab);
 		updateAlignment();
 		return modeTab;
+	}
+	
+	public function onItemRollOver(event): Void
+	{
+		dispatchEvent({type: "tabRollOver", index: _modes.indexOf(event.target), item: event.target});
 	}
 	
 	public function onItemChanged(event): Void

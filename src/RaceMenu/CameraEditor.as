@@ -22,7 +22,7 @@ class CameraEditor extends MovieClip
 	private var _currentRotation: Number = 0;
 	private var _secondary: Boolean = false;
 	
-	public var movementRate: Number = 0.5;
+	public var movementRate: Number = 5.0;
 	
 	public var Lock: Function;
 		

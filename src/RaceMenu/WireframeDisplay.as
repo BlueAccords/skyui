@@ -6,6 +6,7 @@ class WireframeDisplay extends gfx.core.UIComponent
 	public var background: MovieClip;
 	public var wireframe: MovieClip;
 	
+	public var editorData: Object;
 	public var buttonCount: Number = 0;
 	public var paddingTop: Number = 25;
 	public var paddingBottom: Number = 25;
@@ -46,32 +47,35 @@ class WireframeDisplay extends gfx.core.UIComponent
 		}
 	}
 	
-	public function loadAssets()
+	public function loadAssets(): Boolean
 	{
 		if(bLoadedAssets) // Don't load if it already occured
-			return;
+			return false;
 		
 		if(_global.skse.plugins.CharGen.CreateMorphEditor) {
-			_global.skse.plugins.CharGen.CreateMorphEditor();
+			editorData = _global.skse.plugins.CharGen.CreateMorphEditor();
 			
 			wireframe = foreground.createEmptyMovieClip("wireframe", foreground.getNextHighestDepth());
 			_imageLoader.loadClip("img://headMesh", wireframe);
+			return true;
 		}
 		
 		/*wireframe = foreground.createEmptyMovieClip("wireframe", foreground.getNextHighestDepth());
 		_imageLoader.loadClip("femalehead.dds", wireframe);*/
+		return false;
 	}
 		
-	public function unloadAssets()
+	public function unloadAssets(): Boolean
 	{
 		if(!bLoadedAssets) // Don't unload if there's nothing to unload
-			return;
+			return false;
 		
 		if(_global.skse.plugins.CharGen.ReleaseMorphEditor)
 			_global.skse.plugins.CharGen.ReleaseMorphEditor();
 
 		wireframe.removeMovieClip();
 		bLoadedAssets = false;
+		return true;
 	}
 	
 	private function calculateBackground()
@@ -86,11 +90,11 @@ class WireframeDisplay extends gfx.core.UIComponent
 	{
 		EventDispatcher.initialize(a_clip);
 		
-		a_clip._width = 1024;
-		a_clip._height = 1024;
+		a_clip._width = editorData.width;
+		a_clip._height = editorData.height;
 		
-		foreground.fixedWidth = 1024;
-		foreground.fixedHeight = 1024;
+		foreground.fixedWidth = editorData.width;
+		foreground.fixedHeight = editorData.height;
 				
 		foreground["doRotateMesh"] = function()
 		{

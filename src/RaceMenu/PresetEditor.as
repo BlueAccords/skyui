@@ -205,7 +205,7 @@ class PresetEditor extends MovieClip
 			loadError = _global.skse.plugins.CharGen.ReadPreset(filePath, preset, false);
 		}
 					
-		if(!loadError) {			
+		if(loadError == false) {			
 			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER, text: "$Mods", filterFlag: 1, enabled: true});
 			
 			for(var i = 0; i < preset.mods.length; i++) {

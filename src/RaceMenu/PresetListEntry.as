@@ -113,7 +113,7 @@ class PresetListEntry extends BasicListEntry
 	
 	public function onSliderLoad(event: Object)
 	{
-		setSlider(event.object, proxyObject);
+		setSlider(event.target, proxyObject);
 	}
 
 	public function setEntry(a_entryObject: Object, a_state: ListState): Void

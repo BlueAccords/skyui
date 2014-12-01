@@ -104,6 +104,7 @@ class RaceMenu extends MovieClip
 	
 	public var makeupPanel: MakeupPanel;
 	public var itemDescriptor: MovieClip;
+	public var statusText: String = "";
 	
 	public var modeSelect: ModeSwitcher;
 	
@@ -228,6 +229,7 @@ class RaceMenu extends MovieClip
 		
 		makeupPanel.addEventListener("changeTexture", this, "onChangeTexture");
 		modeSelect.addEventListener("changeMode", this, "onChangeMode");
+		modeSelect.addEventListener("tabRollOver", this, "onTabRollOver");
 		
 		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair"];
 		categoryList.listState.iconSource = "racemenu/racesex_icons.swf";
@@ -383,7 +385,7 @@ class RaceMenu extends MovieClip
 		presetEditor.InitExtensions();
 		
 		_panelX = racePanel._x;
-		itemDescriptor._x = _panelX + racePanel._width;
+		//itemDescriptor._x = _panelX + racePanel._width;
 
 		//raceDescription._x = racePanel._x + raceDescription._width / 2 + racePanel._width + 15;
 		//raceDescription._y = bottomBar._y - raceDescription._height / 2 - 15;
@@ -636,14 +638,14 @@ class RaceMenu extends MovieClip
 			itemList.disableSelection = itemList.disableInput = false;
 			searchWidget.isDisabled = false;
 			TweenLite.to(racePanel, 0.5, {autoAlpha: 100, _x: _panelX, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
-			TweenLite.to(itemDescriptor, 0.5, {_alpha: 100, _x: (_panelX + racePanel._width), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			//TweenLite.to(itemDescriptor, 0.5, {_alpha: 100, _x: (_panelX + racePanel._width), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 			TweenLite.to(raceDescription, 0.5, {_alpha: 100, _x: _panelX, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
 			categoryList.disableSelection = categoryList.disableInput = true;
 			itemList.disableSelection = itemList.disableInput = true;
 			searchWidget.isDisabled = true;
 			TweenLite.to(racePanel, 0.5, {autoAlpha: 0, _x: ITEMLIST_HIDDEN_X, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
-			TweenLite.to(itemDescriptor, 0.5, {_alpha: 0, _x: (ITEMLIST_HIDDEN_X + racePanel._width), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+			//TweenLite.to(itemDescriptor, 0.5, {_alpha: 0, _x: (ITEMLIST_HIDDEN_X + racePanel._width), overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 			TweenLite.to(raceDescription, 0.5, {_alpha: 0, _x: ITEMLIST_HIDDEN_X, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
@@ -1078,6 +1080,27 @@ class RaceMenu extends MovieClip
 		}
 	}
 	
+	public function onTabRollOver(event: Object): Void
+	{
+		switch(event.index) {
+			case 0:
+			case 1:
+			case 2:
+			{
+				if(modeSelect.getMode() == 4)
+					setStatusText("$Sculpt history will be lost.", 3.0);
+			}
+			break;
+			case 3:
+			case 4:
+			{
+				if(modeSelect.getMode() == 4)
+					setStatusText("__CLEAR__", 3.0);
+			}
+			break;
+		}
+	}
+	
 	public function onChangeColor(event: Object): Void
 	{
 		if(event.color != undefined)
@@ -1336,37 +1359,48 @@ class RaceMenu extends MovieClip
 		updateBottomBar();
 	}
 	
-	private function updateItemDescriptor(): Void
+	private function updateItemDescriptor(a_fadeDelay: Number): Void
 	{
 		var selectedEntry = itemList.listState.selectedEntry;
-		if(selectedEntry.extraData) {
+		if(selectedEntry.extraData && itemList.disableInput == false) {
 			var formName = selectedEntry.extraData.partName;
 			var formId = selectedEntry.extraData.formId;
 			if(formName != undefined && formId != undefined) {
 				//itemDescriptor._x = itemList.disableSelection ? (ITEMLIST_HIDDEN_X + racePanel._width) : (_panelX + racePanel._width);
-				itemDescriptor._y = itemList.getClipGlobalCoordinate().y - 10;
+				//itemDescriptor._y = itemList.getClipGlobalCoordinate().y - 10;
 				var modName: String = _global.skse.plugins.CharGen.GetModName(formId >>> 24);
-				itemDescriptor.setText(modName + " (" + formName + ")");
+				itemDescriptor.setText(modName + " (" + formName + ")", a_fadeDelay);
+				itemDescriptor._x = Stage.visibleRect.x + Stage.visibleRect.width - itemDescriptor._width;
 				itemDescriptor.toggle(true);
 				itemDescriptor.fadeOut();
 			} else {
 				itemDescriptor.toggle(false);
 			}
-		} else if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE) {
+		} else if(selectedEntry.filterFlag & RaceMenuDefines.CATEGORY_RACE && itemList.disableInput == false) {
 			var raceForm: Object = _raceList[selectedEntry.raceID];
 			if(raceForm != undefined) {
 				var formName: String = raceForm.editorId;
 				var formId: Number = raceForm.formId;
-				itemDescriptor._y = itemList.getClipGlobalCoordinate().y - 10;
+				//itemDescriptor._y = itemList.getClipGlobalCoordinate().y - 10;
 				var modName: String = _global.skse.plugins.CharGen.GetModName(formId >>> 24);
-				itemDescriptor.setText(modName + " (" + formName + ")");
+				itemDescriptor.setText(modName + " (" + formName + ")", a_fadeDelay);
+				itemDescriptor._x = Stage.visibleRect.x + Stage.visibleRect.width - itemDescriptor._width;
 				itemDescriptor.toggle(true);
 				itemDescriptor.fadeOut();
 			} else {
 				itemDescriptor.toggle(false);
 			}
-		}
-		else {
+		} else if(statusText != "") {
+			if(statusText != "__CLEAR__") {
+				itemDescriptor.setText(statusText, a_fadeDelay);
+				itemDescriptor._x = Stage.visibleRect.x + Stage.visibleRect.width - itemDescriptor._width;
+				itemDescriptor.toggle(true);
+				itemDescriptor.fadeOut();
+			} else {
+				statusText = "";
+				itemDescriptor.toggle(false);
+			}
+		} else {
 			itemDescriptor.toggle(false);
 		}
 	}
@@ -1404,6 +1438,13 @@ class RaceMenu extends MovieClip
 		else
 			textDisplay.textColor = 0xFFFFFF;
 		TweenLite.to(textDisplay, 2.5, {autoAlpha: 0, easing: Linear.easeNone});
+	}
+	
+	private function setStatusText(a_text: String, a_fadeDelay: Number): Void
+	{
+		statusText = skyui.util.Translator.translateNested(a_text);
+		updateItemDescriptor(a_fadeDelay);
+		statusText = "";
 	}
 	
 	private function onDoneClicked(): Void

@@ -70,8 +70,14 @@ EndEvent
 
 Event OnFailedLoadMenu(string eventName, string strArg, float numArg, Form formArg)
 	Debug.Notification("RaceMenu version incompatible with cosmetic menu.")
+	
 	UnregisterForModEvent("UICosmeticMenu_LoadMenu")
 	UnregisterForModEvent("UICosmeticMenu_CloseMenu")
+
+	SendModEvent("RSMDT_SendRestore")
+	SendModEvent("RSMDT_SendPrefix", "RSM")
+
+	((self as Quest) as CosmeticMenu).UnregisterEvents()
 EndEvent
 
 Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
@@ -80,4 +86,6 @@ Event OnUnloadMenu(string eventName, string strArg, float numArg, Form formArg)
 
 	SendModEvent("RSMDT_SendRestore")
 	SendModEvent("RSMDT_SendPrefix", "RSM")
+
+	((self as Quest) as CosmeticMenu).UnregisterEvents()
 EndEvent

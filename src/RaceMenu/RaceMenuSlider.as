@@ -11,7 +11,7 @@ class RaceMenuSlider extends gfx.controls.Slider
 	function onLoad()
 	{
 		super.onLoad();
-		dispatchEvent({type: "onWidgetLoad", object: this});
+		dispatchEvent({type: "onWidgetLoad"});
 	}
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
@@ -77,6 +77,11 @@ class RaceMenuSlider extends gfx.controls.Slider
 			return false;
 		}
 		return true;
+	}
+	
+	function scrollWheel(delta)
+	{
+		// Do nothing
 	}
 
 	function updateThumb()
