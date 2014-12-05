@@ -3,42 +3,36 @@ import gfx.io.GameDelegate;
 import skyui.components.list.BasicEnumeration;
 import skyui.components.list.ScrollingList;
 
-class HistoryWindow extends gfx.core.UIComponent
+class HistoryWindow extends MovableWindow
 {
 	public var historyList: HistoryList;
-	public var background: MovieClip;
-		
-	private var _dragOffset: Object;
-				
-	// GFx Functions
-	public var dispatchEvent: Function;
-	public var addEventListener: Function;
+			
+	static var UNDO_TYPE_NONE: Number = 0;
+	static var UNDO_TYPE_STROKE: Number = 1;
+	static var UNDO_TYPE_RESETMASK: Number = 2;
+	static var UNDO_TYPE_RESETSCULPT: Number = 3;
+	
+	static var STROKE_TYPE_NONE: Number = 0;
+	static var STROKE_TYPE_MASK_ADD: Number = 1;
+	static var STROKE_TYPE_MASK_SUB: Number = 2;
+	static var STROKE_TYPE_INFLATE: Number = 3;
+	static var STROKE_TYPE_DEFLATE: Number = 4;
+	static var STROKE_TYPE_MOVE: Number = 5;
+	static var STROKE_TYPE_SMOOTH: Number = 6;
 	
 	function HistoryWindow()
 	{
 		super();
-		Mouse.addListener(this);
-		EventDispatcher.initialize(this);
 	}
 	
 	function onLoad()
 	{
 		super.onLoad();		
-		EventDispatcher.initialize(background);
-		background.addEventListener("press", this, "beginDrag");
-		background.onPress = function(controllerIdx, keyboardOrMouse, button)
-		{
-			if (this.disabled) 
-				return undefined;
-		
-			dispatchEvent({type: "press", controllerIdx: controllerIdx, button: button});
-		}
 		
 		historyList.listEnumeration = new BasicEnumeration(historyList.entryList);
-		
+		historyList["historyIndex"] = -1;
 		historyList.addEventListener("itemPress", this, "onItemPress");
 		historyList.addEventListener("selectionChange", this, "onSelectionChange");
-		
 		historyList.requestInvalidate();
 	}
 	
@@ -56,42 +50,101 @@ class HistoryWindow extends gfx.core.UIComponent
 		_parent._parent.setStatusText(selectedEntry.part);
 	}
 	
+	private function onItemPress(event: Object): Void
+	{
+		if(event.index >= 0) {			
+			var lastHistory: Number = historyList["historyIndex"];
+			var currentHistory: Number = _global.skse.plugins.CharGen.GoToAction(event.index);
+			
+			// Special case for first entry
+			if(lastHistory == currentHistory && currentHistory == 0)
+				currentHistory = _global.skse.plugins.CharGen.GoToAction(-1);
+			
+			// Change the history index to the current index
+			historyList["historyIndex"] = currentHistory;
+			historyList.requestUpdate();
+		}
+	}
+	
 	public function onAddAction(action: Object): Void
 	{
+		// Erase newly added entries
+		if(historyList["historyIndex"] < (historyList.entryList.length - 1))
+			historyList.entryList.splice(historyList["historyIndex"] + 1, historyList.entryList.length - historyList["historyIndex"]);
+		
+		// Erase old entries
+		if(historyList.entryList.length == _global.skse.plugins.CharGen.GetActionLimit())
+			historyList.entryList.splice(0, 1);
+		
+		action.text = createActionName(action);
 		historyList.entryList.push(action);
-		historyList.InvalidateData();
-		historyList.lastEntry();
+				
+		// Set the history index to the end
+		historyList["historyIndex"] = historyList.entryList.length - 1;
+		
+		historyList.requestInvalidate();
+		historyList.onInvalidate = function()
+		{
+			this.lastEntry();
+			delete this.onInvalidate;
+		}
+	}
+	
+	public function createActionName(action: Object): String
+	{
+		var text: String = "";
+		var info: String = "";
+		if(action.vertices > 0)
+			info = " (" + action.vertices + ")";
+		
+		if(action.mirror == true)
+			info += " (M)";
+		
+		switch(action.type) {
+			case UNDO_TYPE_STROKE:
+			{
+				switch(action.stroke) {
+					case STROKE_TYPE_MASK_ADD:
+					text = "$Mask Add";
+					break;
+					case STROKE_TYPE_MASK_SUB:
+					text = "$Mask Subtract";
+					break;
+					case STROKE_TYPE_INFLATE:
+					text = "$Inflate";
+					break;
+					case STROKE_TYPE_DEFLATE:
+					text = "$Deflate";
+					break;
+					case STROKE_TYPE_MOVE:
+					text = "$Move";
+					break;
+					case STROKE_TYPE_SMOOTH:
+					text = "$Smooth";
+					break;
+					default:
+					text = "Unknown Stroke";
+					break;
+				}
+			}
+			break;
+			case UNDO_TYPE_RESETMASK:
+			text = "$Clear Mask";
+			break;
+			case UNDO_TYPE_RESETSCULPT:
+			text = "$Clear Sculpt";
+			break;
+			default:
+			text = "Unknown Action";
+			break;
+		}
+		
+		return skyui.util.Translator.translateNested(text) + info;
 	}
 	
 	public function unloadAssets()
 	{
 		historyList.entryList.splice(0, historyList.entryList.length);
 		historyList.requestInvalidate();
-	}
-	
-	// Move background
-	private function beginDrag(event)
-	{
-		onMouseMove = doDrag;
-		onMouseUp = endDrag;
-		
-		_dragOffset = {x: _xmouse, y: _ymouse};
-		
-		dispatchEvent({type: event.type, controllerIdx: event.controllerIdx, button: event.button});
-	}
-
-	private function doDrag()
-	{
-		var diffX = _xmouse - _dragOffset.x;
-		var diffY = _ymouse - _dragOffset.y;
-		
-		_x += diffX;
-		_y += diffY;
-	}
-
-	private function endDrag()
-	{
-		delete onMouseUp;
-		delete onMouseMove;
 	}
 }

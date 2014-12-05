@@ -2,12 +2,9 @@
 import skyui.components.list.BasicEnumeration;
 import skyui.components.list.ScrollingList;
 
-class MeshWindow extends gfx.core.UIComponent
+class MeshWindow extends MovableWindow
 {
 	public var meshList: MeshList;
-	public var background: MovieClip;
-		
-	private var _dragOffset: Object;
 		
 	static var colors: Array = [
 		0xffffff, 0xff0000, 0x0000ff, 0x00ff00, 
@@ -19,31 +16,16 @@ class MeshWindow extends gfx.core.UIComponent
 		0x663342, 0x59332d, 0x4c000b, 0x40103b, 
 		0x33240d, 0x20330d, 0x0d1633, 0x1a332f
 	];
-		
-	// GFx Functions
-	public var dispatchEvent: Function;
-	public var addEventListener: Function;
 	
 	function MeshWindow()
 	{
 		super();
-		Mouse.addListener(this);
-		EventDispatcher.initialize(this);
 		meshList.disableSelection = meshList.disableInput = true;
 	}
 	
 	function onLoad()
 	{
 		super.onLoad();		
-		EventDispatcher.initialize(background);
-		background.addEventListener("press", this, "beginDrag");
-		background.onPress = function(controllerIdx, keyboardOrMouse, button)
-		{
-			if (this.disabled) 
-				return undefined;
-		
-			dispatchEvent({type: "press", controllerIdx: controllerIdx, button: button});
-		}
 		
 		meshList.listEnumeration = new BasicEnumeration(meshList.entryList);
 		
@@ -184,31 +166,5 @@ class MeshWindow extends gfx.core.UIComponent
 			_parent._parent.setStatusText("$Cycle Wireframe Color");
 			break;
 		}
-	}
-	
-	// Move background
-	private function beginDrag(event)
-	{
-		onMouseMove = doDrag;
-		onMouseUp = endDrag;
-		
-		_dragOffset = {x: _xmouse, y: _ymouse};
-		
-		dispatchEvent({type: event.type, controllerIdx: event.controllerIdx, button: event.button});
-	}
-
-	private function doDrag()
-	{
-		var diffX = _xmouse - _dragOffset.x;
-		var diffY = _ymouse - _dragOffset.y;
-		
-		_x += diffX;
-		_y += diffY;
-	}
-
-	private function endDrag()
-	{
-		delete onMouseUp;
-		delete onMouseMove;
 	}
 }

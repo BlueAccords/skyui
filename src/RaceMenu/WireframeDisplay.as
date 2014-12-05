@@ -172,22 +172,29 @@ class WireframeDisplay extends gfx.core.UIComponent
 				return undefined;
 			if(this.onMouseMove) // Don't interrupt existing action
 				return undefined;
-			
-			this.painting = true;
-			this.onMouseMove = this.doPaintMesh;
-			this.onRelease = this.endPaintMesh;
-			this.onReleaseOutside = this.onRelease;
-			
+				
 			var width: Number = this.fixedWidth;
 			var height: Number = this.fixedHeight;
 			var x: Number = Math.max(0, Math.min(_xmouse, width));
 			var y: Number = Math.max(0, Math.min(_ymouse, height));
 			
-			_global.skse.plugins.CharGen.BeginPaintMesh(x, y);
+			if(_global.skse.plugins.CharGen.BeginPaintMesh(x, y)) {
+				this.painting = true;
+				this.onMouseMove = this.doPaintMesh;
+				this.onRelease = this.endPaintMesh;
+				this.onReleaseOutside = this.onRelease;
+			} else {
+				_parent.background.onPress(mouseIdx, keyboardOrMouse, buttonIdx);
+			}			
 		}
 		foreground["onPress"] = foreground["beginPaintMesh"];
 		calculateBackground();
 		bLoadedAssets = true;
+	}
+	
+	public function isDraggingMesh(): Boolean
+	{
+		return foreground.painting == true || foreground.rotating == true;
 	}
 	
 	// @GFx	
@@ -199,15 +206,17 @@ class WireframeDisplay extends gfx.core.UIComponent
 		for (var target = Mouse.getTopMostEntity(); target && target != undefined; target = target._parent) {
 			if (target == this) {
 				if (a_delta < 0) {
-					foreground._xscale += 10;
-					foreground._yscale += 10;
+					//foreground._xscale += 10;
+					//foreground._yscale += 10;
+					_global.skse.plugins.CharGen.SetMeshCameraRadius(_global.skse.plugins.CharGen.GetMeshCameraRadius() + 1);
 				} else if (a_delta > 0) {
-					foreground._xscale -= 10;
+					/*foreground._xscale -= 10;
 					foreground._yscale -= 10;
 					if(foreground._xscale < 10)
 						foreground._xscale = 10;
 					if(foreground._yscale < 10)
-						foreground._yscale = 10;
+						foreground._yscale = 10;*/
+					_global.skse.plugins.CharGen.SetMeshCameraRadius(_global.skse.plugins.CharGen.GetMeshCameraRadius() - 1);
 				}
 				
 				calculateBackground();

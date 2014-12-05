@@ -45,16 +45,16 @@ $Colors	Colors	Couleurs	Farben	Colori	Colores	Barvy	Kolory	Цвет	色
 $Presets	Presets	Réglages	Vorgaben		Presets	Předvolby	Wyglądy	Пресеты	プリセット			
 $Mods	Mods	Mods	Mods		Mods	Modyfikace	Modyfikacje	Моды				
 $Head Parts	Head Parts	Parties de la tête	Kopf Bauteile		Partes de la cabeza	Části hlavy	Części Głowy	Части головы	頭部のパーツ			
-$Brush	Brush											
-$Mask Add	Mask Add											
-$Mask Subtract	Mask Subtract											
+$Brush	Brush						Szczotkować					
+$Mask Add	Mask Add						Dodaj Maskę					
+$Mask Subtract	Mask Subtract						Odejmij Maskę					
 $Inflate	Inflate											
 $Deflate	Deflate											
-$Smooth	Smooth											
-$Move	Move											
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+$Smooth	Smooth						Gładzić					
+$Move	Move						Przenieść					
+$Clear Mask	Clear Mask						Historia					
+$Clear Sculpt	Clear Sculpt											
+$History	History											
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
@@ -312,15 +312,15 @@ $EXPR_BlinkLeft	Blink Left	Cligner gauche	Links Zwinkern	Strizza occhio sinistro
 $EXPR_BlinkRight	Blink Right	Cligner droite	Rechts Zwinkern	Strizza occhio destro		Mrknutí pravým okem	Mrużyć Prawo	Подмигивание правым глазом				
 $EXPR_DialogueAnger	Dialogue Anger	Dialogue colère	Dialog Verärgert	Dialogo arrabbiato		Výraz hněvu (dialog)	Dialog Gniew	Злость (диалог)	怒り			
 $EXPR_DialogueHappy	Dialogue Happy	Dialogue content	Dialog Glücklich	Dialogo felice		Výraz radosti (dialog)	Dialog Radosny	Радость (диалог)	喜び			
-$EXPR_DialogueSad	Dialogue Sad	Dialogue triste	Dialog Traurig	Dialogo triste		Výraz smutku (dialog)	Dialog Smutny	Грусть (диалог)	悲しみ			
-$EXPR_DialogueSurprise	Dialogue Surprise	Dialogue surprise	Dialog Überrascht	Dialogo sorpreso		Výraz překvapení (dialog)	Dialog Zaskoczony	Удивление (диалог)	驚き			
-$EXPR_DialogueDisgusted	Dialogue Disgusted	Dialogue dégouté	Dialog Angewidert	Dialogo disgustato		Výraz znechucení (dialog)	Dialog Zdegustowany	Отвращение (диалог)	うんざり顔			
-$EXPR_DialogueFear	Dialogue Fear	Dialogue peur	Dialog Ängstlich	Dialogo spaventato		Výraz strachu (dialog)	Dialog Strach	Страх (диалог)	恐れ			
-$EXPR_DialoguePuzzled	Dialogue Puzzled	Dialogue perplexe	Dialog Verwundert	Dialogo perplesso		Výraz zmatení (dialog)	Dialog Zakłopotany	Замешательство (диалог)	混乱			
-$EXPR_BrowDownLeft	Brow Down Left	Sourcil gauche en bas	Braue Runter Links	Sopracciglia sinistra giù		Obočí dolů, levé	Dolne Lewe Brwi	Опустить левую бровь				
-$EXPR_BrowDownRight	Brow Down Right	Sourcil droit en bas	Braue Runter Rechts	Sopracciglia destra giù		Obočí dolů, pravé	Dolne Prawe Brwi	Опустить правую бровь				
-$EXPR_BrowInLeft	Brow In Left	Sourcil à gauche	Braue Nach Innen Links			Nakrčit levé obočí	Brwi w lewo	Приблизить левую бровь				
-$EXPR_BrowInRight	Brow In Right	Sourcil à droite	Braue Nach Innen Rechts			Nakrčit pravé obočí	Brwi w prawo	Приблизить правую бровь				
+$EXPR_DialogueSad	Dialogue Sad	Dialogue triste	Dialog Traurig	Dialogo triste			Dialog Smutny	Грусть (диалог)	悲しみ			
+$EXPR_DialogueSurprise	Dialogue Surprise	Dialogue surprise	Dialog Überrascht	Dialogo sorpreso			Dialog Zaskoczony	Удивление (диалог)	驚き			
+$EXPR_DialogueDisgusted	Dialogue Disgusted	Dialogue dégouté	Dialog Angewidert	Dialogo disgustato		Výraz smutku (dialog)	Dialog Zdegustowany	Отвращение (диалог)	うんざり顔			
+$EXPR_DialogueFear	Dialogue Fear	Dialogue peur	Dialog Ängstlich	Dialogo spaventato		Výraz překvapení (dialog)	Dialog Strach	Страх (диалог)	恐れ			
+$EXPR_DialoguePuzzled	Dialogue Puzzled	Dialogue perplexe	Dialog Verwundert	Dialogo perplesso		Výraz znechucení (dialog)	Dialog Zakłopotany	Замешательство (диалог)	混乱			
+$EXPR_BrowDownLeft	Brow Down Left	Sourcil gauche en bas	Braue Runter Links	Sopracciglia sinistra giù		Výraz strachu (dialog)	Dolne Lewe Brwi	Опустить левую бровь				
+$EXPR_BrowDownRight	Brow Down Right	Sourcil droit en bas	Braue Runter Rechts	Sopracciglia destra giù		Výraz zmatení (dialog)	Dolne Prawe Brwi	Опустить правую бровь				
+$EXPR_BrowInLeft	Brow In Left	Sourcil à gauche	Braue Nach Innen Links			Obočí dolů, levé	Brwi w lewo	Приблизить левую бровь				
+$EXPR_BrowInRight	Brow In Right	Sourcil à droite	Braue Nach Innen Rechts			Obočí dolů, pravé	Brwi w prawo	Приблизить правую бровь				
 $EXPR_BrowUpLeft	Brow Up Left	Sourcil gauche en haut	Braue Hoch Links			Pozvednout levé obočí	Górne Lewe Brwi	Приподнять левую бровь				
 $EXPR_BrowUpRight	Brow Up Right	Sourcil droit en haut	Braue Hoch Rechts			Pozvednout pravé obočí	Górne Prawe Brwi	Приподнять правую бровь				
 $EXPR_LookDown	Look Down	Regarder en bas	Nach Unten Schauen			Pohled dolů	Spójrz w dół	Посмотреть вниз				
@@ -357,5 +357,5 @@ $EXPR_W	W	W	W			W	W	W
 												
 												
 												
-% Completion	100.00%	98.03%	98.03%	87.32%	85.07%	98.03%	98.03%	98.03%	79.72%	62.54%	29.86%	64.23%
-Total % Completion	83.24%	83.24%	83.24%	83.24%	83.24%	83.24%	83.24%	83.24%	83.24%	83.24%	83.24%	83.24%
+% Completion	100.00%	97.18%	97.18%	86.48%	84.23%	96.62%	98.87%	97.18%	78.87%	61.69%	29.01%	63.38%
+Total % Completion	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%

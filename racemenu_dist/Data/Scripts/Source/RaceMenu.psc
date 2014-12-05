@@ -18,11 +18,11 @@ int Property SKSE_BETA_VERSION = 1 AutoReadOnly
 int Property SKSE_RELEASE_VERSION = 46 AutoReadOnly
 
 ; Minimum RaceMenuBase version
-int Property RACEMENUBASE_SCRIPT_VERSION = 5 AutoReadOnly
+int Property RACEMENUBASE_SCRIPT_VERSION = 6 AutoReadOnly
 
 ; CharGen version data
-int Property CHARGEN_VERSION = 3 AutoReadOnly
-int Property CHARGEN_SCRIPT_VERSION = 1 AutoReadOnly
+int Property CHARGEN_VERSION = 4 AutoReadOnly
+int Property CHARGEN_SCRIPT_VERSION = 2 AutoReadOnly
 
 ; NiOverride version data
 int Property NIOVERRIDE_VERSION = 3 AutoReadOnly
@@ -46,7 +46,6 @@ bool hasInitialized = false
 
 
 Event OnInitialized()
-	Debug.Trace("" + Self as string + "::OnInitialized()")
 	parent.OnInitialized()
 
 	_hairColor = Game.GetFormFromFile(0x801, "RaceMenu.esp") as ColorForm
@@ -61,7 +60,6 @@ EndEvent
 
 
 Function RegisterEvents()
-	Debug.Trace("" + Self as string + "::RegisterEvents()")
 	RegisterForModEvent("RSM_Initialized", "OnMenuInitialized") ; Event sent when the menu initializes enough to load data
 	RegisterForModEvent("RSM_Reinitialized", "OnMenuReinitialized") ; Event sent when sliders have re-initialized
 	RegisterForModEvent("RSM_HairColorChange", "OnHairColorChange") ; Event sent when hair color changes
@@ -98,7 +96,6 @@ EndFunction
 
 
 Function OnStartup()
-	Debug.Trace("" + Self as string + "::OnStartup()")
 	RegisterForMenu(RACESEX_MENU)
 
 	RegisterEvents()
@@ -187,7 +184,6 @@ EndFunction
 
 
 Function Reinitialize()
-	Debug.Trace("" + Self as string + "::Reinitialize()")
 	If !_hairColor
 		_hairColor = Game.GetFormFromFile(0x801, "RaceMenu.esp") as ColorForm
 	Endif
@@ -214,7 +210,6 @@ EndFunction
 
 
 Event OnGameReload()
-	Debug.Trace("" + Self as string + "::OnGameReload()")
 	OnStartup()
 
 	LoadDefaults()
@@ -228,7 +223,6 @@ EndEvent
 
 
 Function UpdateTints()
-	Debug.Trace("" + Self as string + "::UpdateTints()")
 	If _playerActor.IsOnMount()
 		Game.UpdateHairColor()
 		Game.UpdateTintMaskColors()
@@ -240,7 +234,6 @@ EndFunction
 
 
 Event OnNiNodeUpdate(ObjectReference akRef)
-	Debug.Trace("" + Self as string + "::OnNiNodeUpdate(ObjectReference akRef)")
 	If akRef == _targetActor
 		InvalidateShaders()
 	Endif
@@ -248,7 +241,6 @@ EndEvent
 
 
 Event On3DLoaded(ObjectReference akRef)
-	Debug.Trace("" + Self as string + "::On3DLoaded(ObjectReference akRef)")
 	If !UI.IsMenuOpen(RACESEX_MENU)
 		LoadHair()
 		LoadTints()
@@ -258,7 +250,6 @@ EndEvent
 
 
 Event OnMenuOpen(string menuName)
-	Debug.Trace("" + Self as string + "::OnMenuOpen(string menuName)")
 	If menuName == RACESEX_MENU
 		_targetMenu = RACESEX_MENU
 		_targetRoot = MENU_ROOT
@@ -274,7 +265,6 @@ EndEvent
 
 
 Event OnMenuClose(string menuName)
-	Debug.Trace("" + Self as string + "::OnMenuClose(string menuName)")
 	If menuName == RACESEX_MENU
 		_light.Delete()
 		_light = None
@@ -285,7 +275,6 @@ EndEvent
 
 
 Event OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnMenuInitialized(string eventName, string strArg, float numArg, Form formArg)")
 	LoadDefaults()
 	UpdateColors()
 	UpdateOverlays()
@@ -297,7 +286,6 @@ EndEvent
 
 
 Event OnMenuReinitialized(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnMenuReinitialized(string eventName, string strArg, float numArg, Form formArg)")
 	SaveHair()
 	SaveTints()
 	UpdateColors()
@@ -306,7 +294,6 @@ EndEvent
 
 
 Event OnMenuSliderChange(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnMenuSliderChange(string eventName, string strArg, float numArg, Form formArg)")
 	If strArg == "ChangeTintingMask" || strArg == "ChangeMaskColor"
 		SaveTints()
 		UpdateColors()
@@ -318,7 +305,6 @@ EndEvent
 
 
 Function LoadHair()
-	Debug.Trace("" + Self as string + "::LoadHair()")
 	If _customHair
 		_hairColor.SetColor(_color)
 		_playerActorBase.SetHairColor(_hairColor)
@@ -327,7 +313,6 @@ EndFunction
 
 
 Function SaveHair()
-	Debug.Trace("" + Self as string + "::SaveHair()")
 	ColorForm hairColor = _playerActorBase.GetHairColor()
 	If hairColor == _hairColor
 		_color = hairColor.GetColor() + 0xFF000000
@@ -343,7 +328,6 @@ EndFunction
 
 
 Function LoadTints()
-	Debug.Trace("" + Self as string + "::LoadTints()")
 	int i = 0
 	int totalTints = Game.GetNumTintMasks()
 	While i < totalTints
@@ -361,7 +345,6 @@ EndFunction
 
 
 Function SaveTints()
-	Debug.Trace("" + Self as string + "::SaveTints()")
 	int totalTints = Game.GetNumTintMasks()
 	int i = 0
 	While i < totalTints
@@ -382,7 +365,6 @@ EndFunction
 
 
 Function LoadPresets()
-	Debug.Trace("" + Self as string + "::LoadPresets()")
 	int totalPresets = MAX_PRESETS
 	int i = 0
 	While i < totalPresets
@@ -393,7 +375,6 @@ EndFunction
 
 
 Function SavePresets()
-	Debug.Trace("" + Self as string + "::SavePresets()")
 	int totalPresets = MAX_PRESETS
 	int i = 0
 	While i < totalPresets
@@ -404,7 +385,6 @@ EndFunction
 
 
 Function LoadMorphs()
-	Debug.Trace("" + Self as string + "::LoadMorphs()")
 	int totalMorphs = MAX_MORPHS
 	int i = 0
 	While i < totalMorphs
@@ -415,7 +395,6 @@ EndFunction
 
 
 Function SaveMorphs()
-	Debug.Trace("" + Self as string + "::SaveMorphs()")
 	int totalMorphs = MAX_MORPHS
 	int i = 0
 	While i < totalMorphs
@@ -426,7 +405,6 @@ EndFunction
 
 
 Function ClearTints()
-	Debug.Trace("" + Self as string + "::ClearTints()")
 	int i = 0
 	int totalTints = _tintTypes.length
 	While i < totalTints
@@ -439,7 +417,6 @@ EndFunction
 
 
 Event OnHairColorChange(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnHairColorChange(string eventName, string strArg, float numArg, Form formArg)")
 	_color = strArg as int
  	_hairColor.SetColor(_color)
 	_playerActorBase.SetHairColor(_hairColor)
@@ -448,7 +425,6 @@ EndEvent
 
 
 Event OnTintColorChange(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnTintColorChange(string eventName, string strArg, float numArg, Form formArg)")
 	int color = strArg as int
 	int arg = numArg as int
 	int type = arg / 1000
@@ -460,7 +436,6 @@ EndEvent
 
 
 Event OnTintTextureChange(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnTintTextureChange(string eventName, string strArg, float numArg, Form formArg)")
 	string texture = strArg
 	int arg = numArg as int
 	int type = arg / 1000
@@ -472,7 +447,6 @@ EndEvent
 
 
 Event OnOverlayGlowColorChange(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnOverlayGlowColorChange(string eventName, string strArg, float numArg, Form formArg)")
 	int color = strArg as int
 	int arg = numArg as int
 	int type = arg / 1000
@@ -501,7 +475,6 @@ EndEvent
 
 
 Event OnOverlayColorChange(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnOverlayColorChange(string eventName, string strArg, float numArg, Form formArg)")
 	int color = strArg as int
 	int arg = numArg as int
 	int type = arg / 1000
@@ -530,7 +503,6 @@ EndEvent
 
 
 Event OnOverlayTextureChange(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnOverlayTextureChange(string eventName, string strArg, float numArg, Form formArg)")
 	string texture = strArg
 	int arg = numArg as int
 	int type = arg / 1000
@@ -581,7 +553,6 @@ EndEvent
 
 
 Function InvalidateShaders()
-	Debug.Trace("" + Self as string + "::InvalidateShaders()")
 	If SKSE.GetPluginVersion("NiOverride") >= 1
 		NiOverride.ApplyOverrides(_targetActor)
 		NiOverride.ApplyNodeOverrides(_targetActor)
@@ -590,13 +561,11 @@ EndFunction
 
 
 Event OnShadersInvalidated(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnShadersInvalidated(string eventName, string strArg, float numArg, Form formArg)")
 	InvalidateShaders()
 EndEvent
 
 
 Event OnToggleLight(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnToggleLight(string eventName, string strArg, float numArg, Form formArg)")
 	bool lightOn = numArg as bool
 	If _light
 		if lightOn
@@ -609,14 +578,12 @@ EndEvent
 
 
 Event OnTintSave(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnTintSave(string eventName, string strArg, float numArg, Form formArg)")
 	SaveHair()
 	SaveTints()
 EndEvent
 
 
 Event OnTintLoad(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnTintLoad(string eventName, string strArg, float numArg, Form formArg)")
 	LoadTints()
 	UpdateColors()
 	UpdateOverlays()
@@ -627,14 +594,12 @@ EndEvent
 ; ------------------------------- Clipboard Events -----------------------------------
 
 Event OnLoadClipboard(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnLoadClipboard(string eventName, string strArg, float numArg, Form formArg)")
 	UI.InvokeBool(_targetMenu, _targetRoot + "RSM_ToggleLoader", true)
 	UI.Invoke(_targetMenu, _targetRoot + "RSM_LoadClipboard")
 EndEvent
 
 
 Event OnSaveClipboard(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnSaveClipboard(string eventName, string strArg, float numArg, Form formArg)")
 	SavePresets()
 	SaveMorphs()
 	float[] args = new float[23]
@@ -654,7 +619,6 @@ EndEvent
 
 
 Event OnClipboardData(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnClipboardData(string eventName, string strArg, float numArg, Form formArg)")
 	int index = strArg as int
 	If index < 4
 		_presets[index] = numArg as int
@@ -666,7 +630,6 @@ EndEvent
 
 
 Event OnClipboardFinished(string eventName, string strArg, float numArg, Form formArg)
-	Debug.Trace("" + Self as string + "::OnClipboardFinished(string eventName, string strArg, float numArg, Form formArg)")
 	LoadPresets()
 	LoadMorphs()
 	_playerActor.QueueNiNodeUpdate()
@@ -754,7 +717,6 @@ EndEvent
 
 
 Function OnWarpaintRequest()
-	Debug.Trace("" + Self as string + "::OnWarpaintRequest()")
 	AddWarpaint("$Male Warpaint 01", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_01.dds")
 	AddWarpaint("$Male Warpaint 02", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_02.dds")
 	AddWarpaint("$Male Warpaint 03", "Actors\\Character\\Character Assets\\TintMasks\\MaleHeadWarPaint_03.dds")
@@ -879,31 +841,26 @@ EndFunction
 
 
 Event OnBodyPaintRequest()
-	Debug.Trace("" + Self as string + "::OnBodyPaintRequest()")
 	AddBodyPaint("Default", DEFAULT_OVERLAY)
 EndEvent
 
 
 Event OnHandPaintRequest()
-	Debug.Trace("" + Self as string + "::OnHandPaintRequest()")
 	AddHandPaint("Default", DEFAULT_OVERLAY)
 EndEvent
 
 
 Event OnFeetPaintRequest()
-	Debug.Trace("" + Self as string + "::OnFeetPaintRequest()")
 	AddFeetPaint("Default", DEFAULT_OVERLAY)
 EndEvent
 
 
 Event OnFacePaintRequest()
-	Debug.Trace("" + Self as string + "::OnFacePaintRequest()")
 	AddFacePaint("Default", DEFAULT_OVERLAY)
 EndEvent
 
 
 Function LoadDefaults()
-	Debug.Trace("" + Self as string + "::LoadDefaults()")
 	If _tintTypes[0] == 0
 		SaveHair()
 		SaveTints()
@@ -916,7 +873,6 @@ EndFunction
 
 
 Function LoadDefaultTypes(int[] loadedTypes)
-	Debug.Trace("" + Self as string + "::LoadDefaultTypes(int[] loadedTypes)")
 	loadedTypes[0] = 6;;-4744047;;Actors\Character\Character Assets\TintMasks\SkinTone.dds
 	loadedTypes[1] = 4;;16777215;;Actors\Character\Character Assets\TintMasks\MaleUpperEyeSocket.dds
 	loadedTypes[2] = 5;;16777215;;Actors\Character\Character Assets\TintMasks\MaleLowerEyeSocket.dds
@@ -956,7 +912,6 @@ EndFunction
 ; Updates tint colors
 
 Function UpdateColors()
-	Debug.Trace("" + Self as string + "::UpdateColors()")
 	int i = 0
 	string[] tints = new string[128]
 	int totalTints = _tintTypes.length - 1
@@ -971,7 +926,6 @@ EndFunction
 ; Indexes the races for extended bonus descriptions
 
 Function UpdateRaces()
-	Debug.Trace("" + Self as string + "::UpdateRaces()")
 	int totalRaces = Race.GetNumPlayableRaces()
 	int i = 0
 	While i < totalRaces
@@ -984,7 +938,6 @@ EndFunction
 ; Update the color and selection listing of overlays
 
 Function UpdateOverlays()
-	Debug.Trace("" + Self as string + "::UpdateOverlays()")
 	If SKSE.GetPluginVersion("NiOverride") >= 1 ; Checks to make sure the NiOverride plugin exists
 		UpdateOverlay(TINT_TYPE_BODYPAINT, "Body [Ovl", NiOverride.GetNumBodyOverlays(), "RSM_AddBodyTints")
 		UpdateOverlay(TINT_TYPE_HANDPAINT, "Hands [Ovl", NiOverride.GetNumHandOverlays(), "RSM_AddHandTints")
@@ -995,7 +948,6 @@ EndFunction
 
 
 Function UpdateOverlay(int tintType, string tintTemplate, int tintCount, string tintEvent)
-	Debug.Trace("" + Self as string + "::UpdateOverlay(int tintType, string tintTemplate, int tintCount, string tintEvent)")
 	int i = 0
 	ActorBase targetBase = _targetActor.GetActorBase()
 	string[] tints = new string[128]

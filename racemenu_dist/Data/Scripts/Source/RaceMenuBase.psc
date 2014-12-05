@@ -45,7 +45,7 @@ string[] _sliders = None
 int _sliderBuffer = 0
 
 int Function GetScriptVersionRelease() global
-	return 5
+	return 6
 EndFunction
 
 Event OnInit()

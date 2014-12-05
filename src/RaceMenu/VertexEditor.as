@@ -264,7 +264,7 @@ class VertexEditor extends MovieClip
 		
 	public function cycleBrush(a_forward: Boolean)
 	{
-		if(currentBrush >= 0) {
+		if(currentBrush >= 0 && !wireframeDisplay.isDraggingMesh()) {
 			if(a_forward) {
 				currentBrush++;
 				if(currentBrush == brushes.length)
