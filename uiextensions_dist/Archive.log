@@ -61,15 +61,15 @@ Offset       7635: Wrote compressed file scripts\source\uimenubase.psc
 Offset       8345: Wrote compressed file scripts\source\uimenuload.psc
 Offset       8469: Wrote compressed file scripts\source\uiextensions.psc
 Offset       9346: Wrote compressed file scripts\uitextentrymenu.pex
-Offset      10370: Wrote compressed file scripts\uicosmeticmenu.pex
-Offset      12088: Wrote compressed file scripts\cosmeticmenu.pex
-Offset      13232: Wrote compressed file scripts\uiwheelmenu.pex
-Offset      15763: Wrote compressed file scripts\uidyemenu.pex
-Offset      17137: Wrote compressed file scripts\uiselectionmenu.pex
-Offset      18426: Wrote compressed file scripts\uimagicmenu.pex
-Offset      20231: Wrote compressed file scripts\uistatsmenu.pex
-Offset      21040: Wrote compressed file scripts\uilistmenu.pex
-Offset      23357: Wrote compressed file scripts\uimenubase.pex
+Offset      10366: Wrote compressed file scripts\uicosmeticmenu.pex
+Offset      12095: Wrote compressed file scripts\cosmeticmenu.pex
+Offset      13239: Wrote compressed file scripts\uiwheelmenu.pex
+Offset      15756: Wrote compressed file scripts\uidyemenu.pex
+Offset      17122: Wrote compressed file scripts\uiselectionmenu.pex
+Offset      18425: Wrote compressed file scripts\uimagicmenu.pex
+Offset      20234: Wrote compressed file scripts\uistatsmenu.pex
+Offset      21038: Wrote compressed file scripts\uilistmenu.pex
+Offset      23356: Wrote compressed file scripts\uimenubase.pex
 Offset      24647: Wrote compressed file scripts\uimenuload.pex
 Offset      25053: Wrote compressed file scripts\uiextensions.pex
 Offset      27070: Wrote compressed file interface\translations\uiextensions_english.txt
@@ -81,11 +81,11 @@ Offset     103219: Wrote compressed file interface\selectionmenu.swf
 Offset     119632: Wrote compressed file interface\magicmenuext.swf
 Offset     176271: Wrote compressed file interface\textentrymenu.swf
 Offset     195975: Wrote compressed file interface\cosmeticmenu.swf
-Offset     204195: Wrote compressed file interface\listmenu.swf
-Offset     236447: Wrote compressed file interface\dyemenu.swf
-Offset     293831: Wrote compressed file interface\statssheetmenu.swf
-Offset     328497: Wrote compressed file interface\wheelmenu.swf
-Offset     366049: END OF FILE
+Offset     204198: Wrote compressed file interface\listmenu.swf
+Offset     236450: Wrote compressed file interface\dyemenu.swf
+Offset     293834: Wrote compressed file interface\statssheetmenu.swf
+Offset     328500: Wrote compressed file interface\wheelmenu.swf
+Offset     366052: END OF FILE
 
 Finished writing files
 

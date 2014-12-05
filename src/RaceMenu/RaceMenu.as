@@ -671,12 +671,6 @@ class RaceMenu extends MovieClip
 	public function onNameChange(event: Object): Void
 	{
 		if (event.nameChanged == true) {
-			/* ECE Compatibility Start */
-			if(_global.skse.plugins.ExCharGen) {
-				if(_global.skse.plugins.ExCharGen.SaveSliderData != undefined)
-					_global.skse.plugins.ExCharGen.SaveSliderData();
-			}
-			/* ECE Compatibility End */
 			GameDelegate.call("ChangeName", [textEntry.TextInputInstance.text]);
 			ShowTextEntry(false);
 			ShowRacePanel(false);
@@ -736,12 +730,7 @@ class RaceMenu extends MovieClip
 		
 		categoryList.iconArt.push("palette");
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$COLORS", flag: RaceMenuDefines.CATEGORY_COLOR, enabled: true});
-		
-		if(_global.skse.plugins.ExCharGen) {
-			categoryList.iconArt.push("skyrim");
-			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$ENHANCED", flag: RaceMenuDefines.CATEGORY_ECE, enabled: true});
-		}
-		
+				
 		categoryList.dividerIndex = categoryList.entryList.length;
 		
 		_artPrimary = new Array();
@@ -855,19 +844,6 @@ class RaceMenu extends MovieClip
 					_root.RaceSexMenuBaseInstance.RaceSexPanelsInstance.updateItemDescriptor();
 				}
 			}
-			
-			/* ECE Compatibility Start */
-			if(_global.skse.plugins.ExCharGen && (entryObject.callbackName == "ChangeDoubleMorph" || entryObject.callbackName == "ChangePreset")) {
-				if(_global.skse.plugins.ExCharGen.UpdateMorphs != undefined) {
-					entryObject.proxyCallback = entryObject.internalCallback;
-					entryObject.internalCallback = function()
-					{
-						_global.skse.plugins.ExCharGen.UpdateMorphs();
-						entryObject.proxyCallback();
-					}
-				}
-			}
-			/* ECE Compatibility End */
 			
 			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }		
 			
