@@ -28,6 +28,8 @@ string Property NINODE_WEAPON = "WEAPON" AutoReadOnly
 ; If you are making your own scaling mod, use your own key name
 string Property MOD_OVERRIDE_KEY = "RSMPlugin" AutoReadOnly
 
+string Property CATEGORY_KEY = "rsm_body_scale" AutoReadOnly
+
 ; NiOverride version data
 int Property NIOVERRIDE_VERSION = 3 AutoReadOnly
 int Property NIOVERRIDE_SCRIPT_VERSION = 2 AutoReadOnly
@@ -40,6 +42,10 @@ Event OnWarpaintRequest()
 	AddWarpaint("$Beauty Mark 02", "Actors\\Character\\Character Assets\\TintMasks\\BeautyMark_02.dds")
 	AddWarpaint("$Beauty Mark 03", "Actors\\Character\\Character Assets\\TintMasks\\BeautyMark_03.dds")
 	AddWarpaint("$Dragon Tattoo 01", "Actors\\Character\\Character Assets\\TintMasks\\DragonTattoo_01.dds")
+EndEvent
+
+Event OnCategoryRequest()
+	AddCategory(CATEGORY_KEY, "$BODY SCALES")
 EndEvent
 
 Event OnStartup()
@@ -86,64 +92,64 @@ EndEvent
 ; Add Custom sliders here
 Event OnSliderRequest(Actor target, ActorBase targetBase, Race actorRace, bool isFemale)
 	If HEIGHT_ENABLED
-		AddSlider("$Height", CATEGORY_BODY, "ChangeHeight", 0.25, 2.00, 0.01, GetNodeScale(target, isFemale, NINODE_NPC))
+		AddSliderEx("$Height", CATEGORY_KEY, "ChangeHeight", 0.25, 2.00, 0.01, GetNodeScale(target, isFemale, NINODE_NPC))
 	Endif
 
 	If NetImmerse.HasNode(target, NINODE_HEAD, false)
-		AddSlider("$Head", CATEGORY_BODY, "ChangeHeadSize", 0.01, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_HEAD))
+		AddSliderEx("$Head", CATEGORY_KEY, "ChangeHeadSize", 0.01, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_HEAD))
 	Endif
 
 	If isFemale == true		
 		If NetImmerse.HasNode(target, NINODE_LEFT_BREAST, false)
-			AddSlider("$Left Breast", CATEGORY_BODY, "ChangeLeftBreast", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_LEFT_BREAST))
+			AddSliderEx("$Left Breast", CATEGORY_KEY, "ChangeLeftBreast", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_LEFT_BREAST))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_RIGHT_BREAST, false)
-			AddSlider("$Right Breast", CATEGORY_BODY, "ChangeRightBreast", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_RIGHT_BREAST))
+			AddSliderEx("$Right Breast", CATEGORY_KEY, "ChangeRightBreast", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_RIGHT_BREAST))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_LEFT_BREAST_FORWARD, false)
-			AddSlider("$Left Breast Curve", CATEGORY_BODY, "ChangeLeftBreastCurve", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_LEFT_BREAST_FORWARD))
+			AddSliderEx("$Left Breast Curve", CATEGORY_KEY, "ChangeLeftBreastCurve", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_LEFT_BREAST_FORWARD))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_RIGHT_BREAST_FORWARD, false)
-			AddSlider("$Right Breast Curve", CATEGORY_BODY, "ChangeRightBreastCurve", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_RIGHT_BREAST_FORWARD))
+			AddSliderEx("$Right Breast Curve", CATEGORY_KEY, "ChangeRightBreastCurve", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_RIGHT_BREAST_FORWARD))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_LEFT_BUTT, false)
-			AddSlider("$Left Glute", CATEGORY_BODY, "ChangeLeftButt", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_LEFT_BUTT))
+			AddSliderEx("$Left Glute", CATEGORY_KEY, "ChangeLeftButt", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_LEFT_BUTT))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_RIGHT_BUTT, false)
-			AddSlider("$Right Glute", CATEGORY_BODY, "ChangeRightButt", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_RIGHT_BUTT))
+			AddSliderEx("$Right Glute", CATEGORY_KEY, "ChangeRightButt", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_RIGHT_BUTT))
 		Endif
 	Endif
 
-	AddSlider("$Left Biceps", CATEGORY_BODY, "ChangeLeftBiceps", 0.1, 2.00, 0.01, GetNodeScale(target, isFemale, NINODE_LEFT_BICEP))
-	AddSlider("$Right Biceps", CATEGORY_BODY, "ChangeRightBiceps", 0.1, 2.00, 0.01, GetNodeScale(target, isFemale, NINODE_RIGHT_BICEP))
+	AddSliderEx("$Left Biceps", CATEGORY_KEY, "ChangeLeftBiceps", 0.1, 2.00, 0.01, GetNodeScale(target, isFemale, NINODE_LEFT_BICEP))
+	AddSliderEx("$Right Biceps", CATEGORY_KEY, "ChangeRightBiceps", 0.1, 2.00, 0.01, GetNodeScale(target, isFemale, NINODE_RIGHT_BICEP))
 
-	AddSlider("$Left Biceps 2", CATEGORY_BODY, "ChangeLeftBiceps2", 0.1, 2.00, 0.01, GetNodeScale(target, isFemale, NINODE_LEFT_BICEP_2))
-	AddSlider("$Right Biceps 2", CATEGORY_BODY, "ChangeRightBiceps2", 0.1, 2.00, 0.01, GetNodeScale(target, isFemale, NINODE_RIGHT_BICEP_2))
+	AddSliderEx("$Left Biceps 2", CATEGORY_KEY, "ChangeLeftBiceps2", 0.1, 2.00, 0.01, GetNodeScale(target, isFemale, NINODE_LEFT_BICEP_2))
+	AddSliderEx("$Right Biceps 2", CATEGORY_KEY, "ChangeRightBiceps2", 0.1, 2.00, 0.01, GetNodeScale(target, isFemale, NINODE_RIGHT_BICEP_2))
 
 	If WEAPONS_ENABLED
 		If NetImmerse.HasNode(target, NINODE_QUIVER, false)
-			AddSlider("$Quiver Scale", CATEGORY_BODY, "ChangeQuiverScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_QUIVER))
+			AddSliderEx("$Quiver Scale", CATEGORY_KEY, "ChangeQuiverScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_QUIVER))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_BOW, false)
-			AddSlider("$Bow Scale", CATEGORY_BODY, "ChangeBowScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_BOW))
+			AddSliderEx("$Bow Scale", CATEGORY_KEY, "ChangeBowScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_BOW))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_AXE, false)
-			AddSlider("$Axe Scale", CATEGORY_BODY, "ChangeAxeScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_AXE))
+			AddSliderEx("$Axe Scale", CATEGORY_KEY, "ChangeAxeScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_AXE))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_SWORD, false)
-			AddSlider("$Sword Scale", CATEGORY_BODY, "ChangeSwordScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_SWORD))
+			AddSliderEx("$Sword Scale", CATEGORY_KEY, "ChangeSwordScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_SWORD))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_MACE, false)
-			AddSlider("$Mace Scale", CATEGORY_BODY, "ChangeMaceScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_MACE))
+			AddSliderEx("$Mace Scale", CATEGORY_KEY, "ChangeMaceScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_MACE))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_SHIELD, false)
-			AddSlider("$Shield Scale", CATEGORY_BODY, "ChangeShieldScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_SHIELD))
+			AddSliderEx("$Shield Scale", CATEGORY_KEY, "ChangeShieldScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_SHIELD))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_WEAPON_BACK, false)
-			AddSlider("$Weapon Back Scale", CATEGORY_BODY, "ChangeWeaponBackScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_WEAPON_BACK))
+			AddSliderEx("$Weapon Back Scale", CATEGORY_KEY, "ChangeWeaponBackScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_WEAPON_BACK))
 		Endif
 		If NetImmerse.HasNode(target, NINODE_WEAPON, false)
-			AddSlider("$Weapon Scale", CATEGORY_BODY, "ChangeWeaponScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_WEAPON))
+			AddSliderEx("$Weapon Scale", CATEGORY_KEY, "ChangeWeaponScale", 0.1, 3.00, 0.01, GetNodeScale(target, isFemale, NINODE_WEAPON))
 		Endif
 	Endif
 EndEvent

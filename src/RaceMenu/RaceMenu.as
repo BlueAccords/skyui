@@ -17,7 +17,7 @@ import skyui.components.list.BasicEnumeration;
 import skyui.components.list.ScrollingList;
 import skyui.components.ButtonPanel;
 
-import skyui.filter.ItemTypeFilter;
+import CategoryFilter;
 import skyui.filter.NameFilter;
 import skyui.filter.SortFilter;
 import skyui.util.GlobalFunctions;
@@ -35,7 +35,7 @@ class RaceMenu extends MovieClip
 	
 	/* PRIVATE VARIABLES */
 	private var _platform: Number;
-	private var _typeFilter: ItemTypeFilter;
+	private var _typeFilter: CategoryFilter;
 	private var _nameFilter: NameFilter;
 	private var _sortFilter: SortFilter;
 	private var _panelX: Number;
@@ -83,8 +83,8 @@ class RaceMenu extends MovieClip
 	/* STAGE ELEMENTS */
 	public var racePanel: MovieClip;
 	public var itemList: RaceMenuList;
-	public var categoryList: CategoryList;
-	public var categoryLabel: TextField;
+	public var categoryList: TextCategoryList;
+	public var categoryButtons: TextCategoryButtons;
 	public var searchWidget: SearchWidget;
 	public var vertexEditor: VertexEditor;
 	public var cameraEditor: CameraEditor;
@@ -129,8 +129,8 @@ class RaceMenu extends MovieClip
 		_global.presetSlot = 0;
 		
 		itemList = racePanel.itemList;
-		categoryList = racePanel.categoryList;
-		categoryLabel = racePanel.categoryLabel;
+		categoryList = racePanel.slidingCategoryList.categoryList;
+		categoryButtons = racePanel.categoryButtons;
 		searchWidget = racePanel.searchWidget;
 		navPanel = bottomBar.buttonPanel;
 		bonusList = raceDescription.bonusList;
@@ -161,7 +161,7 @@ class RaceMenu extends MovieClip
 		
 		EventDispatcher.initialize(this);
 		
-		_typeFilter = new ItemTypeFilter();
+		_typeFilter = new CategoryFilter();
 		_nameFilter = new NameFilter();
 		_sortFilter = new SortFilter();
 		
@@ -194,13 +194,6 @@ class RaceMenu extends MovieClip
 		bonusList.listEnumeration = bonusEnumeration;
 		
 		categoryList.listEnumeration = new BasicEnumeration(categoryList.entryList);
-		categoryList["reinitClips"] = function()
-		{
-			for (var i = 0; i < this["_segmentLength"]; i++) {
-				var entryClip = this["getClipByIndex"](i);
-				entryClip.initialize(i, this.listState);
-			}
-		}
 		
 		var listEnumeration = new FilteredEnumeration(itemList.entryList);
 		listEnumeration.addFilter(_typeFilter);
@@ -218,6 +211,9 @@ class RaceMenu extends MovieClip
 		categoryList.addEventListener("itemPress", this, "onCategoryPress");
 		categoryList.addEventListener("selectionChange", this, "onCategoryChange");
 		
+		categoryButtons.addEventListener("pressLeft", categoryList, "gotoStart");
+		categoryButtons.addEventListener("pressRight", categoryList, "gotoEnd");
+		
 		searchWidget.addEventListener("inputStart", this, "onSearchInputStart");
 		searchWidget.addEventListener("inputEnd", this, "onSearchInputEnd");
 		searchWidget.addEventListener("inputChange", this, "onSearchInputChange");
@@ -231,17 +227,17 @@ class RaceMenu extends MovieClip
 		modeSelect.addEventListener("changeMode", this, "onChangeMode");
 		modeSelect.addEventListener("tabRollOver", this, "onTabRollOver");
 		
-		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair"];
-		categoryList.listState.iconSource = "racemenu/racesex_icons.swf";
+		//categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair"];
+		//categoryList.listState.iconSource = "racemenu/racesex_icons.swf";
 		
 		_sortFilter.setSortBy(["text"], [0]);
 		
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 1, text: "$ALL", flag: 2044, savedItemIndex: -1, enabled: true});
 		
 		// Test Code
-		/*categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
-		_artPrimary = categoryList.iconArt;
-		_artSecondary = ["face"];
+		/*//categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair", "palette", "face", "skyrim"];
+		//_artPrimary = categoryList.iconArt;
+		//_artSecondary = ["face"];
 		
 		_raceList.push({skillBonuses: [{skill: 10, bonus: 255},
 									   {skill: 11, bonus: 176},
@@ -262,21 +258,21 @@ class RaceMenu extends MovieClip
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "MOUTH", flag: RaceMenuDefines.CATEGORY_MOUTH, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "HAIR", flag: RaceMenuDefines.CATEGORY_HAIR, savedItemIndex: -1, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$COLORS", flag: RaceMenuDefines.CATEGORY_COLOR, savedItemIndex: -1, enabled: true});
-		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 0, flag: 0}); // Divider
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_WARPAINT, savedItemIndex: -1, enabled: true});
-		
-		_artSecondary.push("body");
-		_artSecondary.push("hand");
-		_artSecondary.push("feet");
-		_artSecondary.push("face");
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, enabled: true});
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, enabled: true});
 		
+		
+		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$DUMMY", flag: 0, textFilter: "my_category", enabled: true});
+		
+		itemList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: "Dummy", textFilters:["my_category"], filterFlag: 0, callbackName: "ChangeTintingMask", sliderMin: 0, sliderMax: 7, sliderID: 45, position: 0, interval: 1, enabled: true, isColorEnabled: isEnabled, hasColor: isEnabled, tintType: RaceMenuDefines.TINT_MAP[colorIndex++]});
+		
+		
 		SetMakeup([RaceMenuDefines.TINT_TYPE_FACEPAINT,RaceMenuDefines.TINT_TYPE_FACEPAINT,RaceMenuDefines.TINT_TYPE_FACEPAINT], [0,0,0], ["FacePaint1.dds","FacePaint2.dds","FacePaint3.dds"], [0,0,0], RaceMenuDefines.TINT_TYPE_FACEPAINT, RaceMenuDefines.CATEGORY_FACEPAINT, RaceMenuDefines.PAINT_FACE, RaceMenuDefines.ENTRY_TYPE_FACEPAINT);
 		
-		categoryList.dividerIndex = 10;
+		//categoryList.dividerIndex = 10;
 		categoryList.requestInvalidate();
 		categoryList.onItemPress(0, 0);
 		
@@ -707,7 +703,7 @@ class RaceMenu extends MovieClip
 	private function SetCategoriesList(): Void
 	{
 		// Remove all categories except for All
-		categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair"];
+		//categoryList.iconArt = ["skyrim", "race", "body", "head", "face", "eyes", "brow", "mouth", "hair"];
 		categoryList.entryList.splice(1, categoryList.entryList.length - 1);
 		
 		var categoryCount: Number = 1;
@@ -721,42 +717,44 @@ class RaceMenu extends MovieClip
 		}
 		
 		// Add the new categories
-		if(categoryCount > categoryList.iconArt.length) {
+		/*if(categoryCount > categoryList.iconArt.length) {
 			var remainingCategories: Number = categoryCount - categoryList.iconArt.length;
 			for(var i = 0; i < remainingCategories; i++) {
 				categoryList.iconArt.push("skyrim");
 			}
-		}
+		}*/
 		
-		categoryList.iconArt.push("palette");
+		//categoryList.iconArt.push("palette");
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$COLORS", flag: RaceMenuDefines.CATEGORY_COLOR, enabled: true});
 				
-		categoryList.dividerIndex = categoryList.entryList.length;
+		//categoryList.dividerIndex = categoryList.entryList.length;
 		
-		_artPrimary = new Array();
+		/*_artPrimary = new Array();
 		for(var i = 0; i < categoryList.iconArt.length; i++)
 			_artPrimary.push(categoryList.iconArt[i]);
 		
-		_artSecondary = new Array();
+		_artSecondary = new Array();*/
 		
-		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 0, flag: 0}); // Divider
+		//categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: true, filterFlag: 0, flag: 0}); // Divider
 		
-		_artSecondary.push("face");
+		//_artSecondary.push("face");
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true});
 		
 		
 		if(_global.skse.plugins.NiOverride) {
-			_artSecondary.push("body");
+			/*_artSecondary.push("body");
 			_artSecondary.push("hand");
 			_artSecondary.push("feet");
-			_artSecondary.push("face");
+			_artSecondary.push("face");*/
 			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, enabled: true});
 			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, enabled: true});
 			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, enabled: true});
 			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, enabled: true});
 			//categoryList.iconSize = 32;
 		}
-						
+		
+		skse.SendModEvent(_global.eventPrefix + "CategoriesInitialized");
+		
 		categoryList.requestInvalidate();
 	}
 
@@ -864,7 +862,7 @@ class RaceMenu extends MovieClip
 			skse.SendModEvent(_global.eventPrefix + "Reinitialized");
 		}
 		
-		EnhancedCharacterEdit.init(this);
+		//EnhancedCharacterEdit.init(this);
 		
 		itemList.requestInvalidate();
 		clearInterval(_updateInterval);
@@ -966,8 +964,7 @@ class RaceMenu extends MovieClip
 	public function onCategoryPress(a_event: Object): Void
 	{
 		if (categoryList.selectedEntry != undefined) {
-			_typeFilter.changeFilterFlag(categoryList.selectedEntry.flag);
-			categoryLabel.textField.text = categoryList.selectedEntry.text;
+			_typeFilter.changeFilterData(categoryList.selectedEntry.flag, categoryList.selectedEntry.textFilter);
 		}
 	}
 	
@@ -1001,17 +998,17 @@ class RaceMenu extends MovieClip
 			GameDelegate.call("PlaySound", ["UIMenuBladeCloseSD"]);
 		}
 	}
-	
+	/*
 	private function ShowOverlays(abShow: Boolean): Void
 	{		
-		categoryList.activeSegment = abShow ? CategoryList.RIGHT_SEGMENT : CategoryList.LEFT_SEGMENT;
-		categoryList.iconArt = abShow ? _artSecondary : _artPrimary;
-		categoryList["reinitClips"]();
+		//categoryList.activeSegment = abShow ? CategoryList.RIGHT_SEGMENT : CategoryList.LEFT_SEGMENT;
+		//categoryList.iconArt = abShow ? _artSecondary : _artPrimary;
+		//categoryList["reinitClips"]();
 		categoryList.InvalidateData();
 		onCategoryPress();
 		itemList.requestUpdate();
 	}
-	
+	*/
 	public function onChangeMode(event: Object): Void
 	{
 		switch(event.index) {
@@ -1021,31 +1018,23 @@ class RaceMenu extends MovieClip
 			vertexEditor.ShowAll(false, false, true);
 			cameraEditor.ShowAll(false);
 			presetEditor.ShowAll(false);
-			ShowOverlays(false);
+			//ShowOverlays(false);
 			break;
 			case 1:
-			ShowRacePanel(true);
-			ShowBottomBar(true);
-			vertexEditor.ShowAll(false, false, true);
-			cameraEditor.ShowAll(false);
-			presetEditor.ShowAll(false);
-			ShowOverlays(true);
-			break;
-			case 2:
 			ShowRacePanel(false);
 			ShowBottomBar(false);
 			vertexEditor.ShowAll(false, false, true);
 			cameraEditor.ShowAll(false);
 			presetEditor.ShowAll(true);
 			break;
-			case 3:
+			case 2:
 			ShowRacePanel(false);
 			ShowBottomBar(false);
 			cameraEditor.ShowAll(true);
 			vertexEditor.ShowAll(false, false, false);
 			presetEditor.ShowAll(false);
 			break;
-			case 4:
+			case 3:
 			ShowRacePanel(true);
 			ShowRacePanel(false);
 			ShowBottomBar(false);
@@ -1061,14 +1050,13 @@ class RaceMenu extends MovieClip
 		switch(event.index) {
 			case 0:
 			case 1:
-			case 2:
 			{
 				if(modeSelect.getMode() == 4)
 					setStatusText("$Sculpt history will be lost.", 3.0);
 			}
 			break;
+			case 2:
 			case 3:
-			case 4:
 			{
 				if(modeSelect.getMode() == 4)
 					setStatusText("__CLEAR__", 3.0);

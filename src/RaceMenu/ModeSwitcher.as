@@ -35,22 +35,19 @@ class ModeSwitcher extends MovieClip
 		
 		buttonGroup = new ButtonGroup("tabs", tabContainer);
 		var button0 = addMode("$Sliders");
-		var button1 = addMode("$Overlays");
-		var button2 = addMode("$Presets");
-		var button3 = addMode("$Camera");
-		var button4 = addMode("$Sculpt");
+		var button1 = addMode("$Presets");
+		var button2 = addMode("$Camera");
+		var button3 = addMode("$Sculpt");
 		buttonGroup.addButton(button0);
 		buttonGroup.addButton(button1);
 		buttonGroup.addButton(button2);
 		buttonGroup.addButton(button3);
-		buttonGroup.addButton(button4);
 		buttonGroup.setSelectedButton(button0);
 		
 		button0.addEventListener("rollOver", this, "onItemRollOver");
 		button1.addEventListener("rollOver", this, "onItemRollOver");
 		button2.addEventListener("rollOver", this, "onItemRollOver");
 		button3.addEventListener("rollOver", this, "onItemRollOver");
-		button4.addEventListener("rollOver", this, "onItemRollOver");
 		
 		buttonGroup.addEventListener("change", this, "onItemChanged");		
 	}

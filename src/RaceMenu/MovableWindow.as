@@ -15,12 +15,13 @@ class MovableWindow extends gfx.core.UIComponent
 		super();
 		Mouse.addListener(this);
 		EventDispatcher.initialize(this);
+		EventDispatcher.initialize(background);
 	}
 	
 	function onLoad()
 	{
-		super.onLoad();		
-		EventDispatcher.initialize(background);
+		super.onLoad();
+		
 		background.addEventListener("press", this, "beginDrag");
 		background.onPress = function(controllerIdx, keyboardOrMouse, button)
 		{

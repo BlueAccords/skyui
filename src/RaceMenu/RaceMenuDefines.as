@@ -48,8 +48,7 @@
 	static var CATEGORY_BODYPAINT: Number = 32768;
 	static var CATEGORY_HANDPAINT: Number = 65536;
 	static var CATEGORY_FEETPAINT: Number = 131072;
-	static var CATEGORY_FACEPAINT: Number = 262144;
-	static var CATEGORY_ECE: Number = 524288;
+	static var CATEGORY_FACEPAINT: Number = 262144;									  
 	
 	static var HEADPART_MISC: Number = 0;
 	static var HEADPART_FACE: Number = 1;

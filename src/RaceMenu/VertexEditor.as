@@ -17,6 +17,7 @@ class VertexEditor extends MovieClip
 	public var wireframeDisplay: WireframeDisplay;
 	public var meshWindow: MeshWindow;
 	public var historyWindow: HistoryWindow;
+	public var brushWindow: BrushWindow;
 	
 	public var bottomBar: BottomBar;
 	public var navPanel: ButtonPanel;
@@ -27,24 +28,25 @@ class VertexEditor extends MovieClip
 	public var Lock: Function;
 	
 	public var tempText: TextField;
-	
-	public var brushes: Array;
-	public var currentBrush: Number = -1;
-	
+		
 	/* CONTROLS */
 	private var _acceptControl: Object;
 
+	private var _upControl: Object;
+	private var _downControl: Object;
 	private var _leftControl: Object;
 	private var _rightControl: Object;
+	private var _udControl: Array;
 	private var _lrControl: Array;
 	
 	private var _platform;
 	
+	public var dispatchEvent: Function;
+	public var addEventListener: Function;
+	
 	function VertexEditor()
 	{
 		super();
-
-		Mouse.addListener(this);
 		EventDispatcher.initialize(this);
 		
 		navPanel = bottomBar.buttonPanel;
@@ -67,6 +69,15 @@ class VertexEditor extends MovieClip
 	function onLoad()
 	{
 		super.onLoad();
+		
+		wireframeDisplay.addEventListener("beginPainting", this, "onBeginActivity");
+		wireframeDisplay.addEventListener("endPainting", this, "onEndActivity");
+		
+		wireframeDisplay.addEventListener("beginRotating", this, "onBeginActivity");
+		wireframeDisplay.addEventListener("endRotating", this, "onEndActivity");
+		
+		brushWindow.addEventListener("changeBrush", this, "onChangeBrush");
+		
 		bottomBar.playerInfo.RaceLabel.enabled = bottomBar.playerInfo.RaceLabel._visible = false;
 		bottomBar.playerInfo.PlayerRace.enabled = bottomBar.playerInfo.PlayerRace._visible = false;
 		bottomBar.playerInfo.NameLabel.text = "$Brush";
@@ -89,8 +100,11 @@ class VertexEditor extends MovieClip
 			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		}		
 		
+		_upControl = {keyCode: GlobalFunctions.getMappedKey("Up", Input.CONTEXT_MENUMODE, a_platform != 0)};
+		_downControl = {keyCode: GlobalFunctions.getMappedKey("Down", Input.CONTEXT_MENUMODE, a_platform != 0)};
 		_leftControl = {keyCode: GlobalFunctions.getMappedKey("Left", Input.CONTEXT_MENUMODE, a_platform != 0)};
 		_rightControl = {keyCode: GlobalFunctions.getMappedKey("Right", Input.CONTEXT_MENUMODE, a_platform != 0)};
+		_udControl = [_upControl, _downControl];
 		_lrControl = [_leftControl, _rightControl];
 		
 		var leftEdge = Stage.visibleRect.x + Stage.safeRect.x;
@@ -104,7 +118,8 @@ class VertexEditor extends MovieClip
 	{
 		navPanel.clearButtons();
 		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", this._parent, "onDoneClicked");
-		navPanel.addButton({text: "$Brush", controls: _lrControl});		
+		navPanel.addButton({text: "$Brush", controls: _udControl});
+		navPanel.addButton({text: "$Property", controls: _lrControl});
 		navPanel.updateButtons(true);		
 	}
 	
@@ -120,11 +135,7 @@ class VertexEditor extends MovieClip
 		if(bShowAll) {
 			if(bRequestLoad) {
 				if(wireframeDisplay.loadAssets()) {
-					brushes = _global.skse.plugins.CharGen.GetBrushes();
-					
-					var brushId: Number = _global.skse.plugins.CharGen.GetCurrentBrush();
-					currentBrush = getBrushIndex(brushId);
-					changeBrush(currentBrush, false);
+					brushWindow.loadAssets();
 				}
 				
 				meshWindow.loadAssets();
@@ -139,8 +150,7 @@ class VertexEditor extends MovieClip
 				meshWindow.unloadAssets();
 				historyWindow.unloadAssets();
 				if(wireframeDisplay.unloadAssets()) {
-					brushes = null;
-					currentBrush = -1;
+					brushWindow.unloadassets();
 				}
 			}
 			
@@ -190,94 +200,29 @@ class VertexEditor extends MovieClip
 	}
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
-	{
-		// Consume Left/Right input
-		if (GlobalFunc.IsKeyPressed(details)) {
-			if (details.navEquivalent == NavigationCode.RIGHT) {
-				cycleBrush(true);
-				return true;
-			} else if (details.navEquivalent == NavigationCode.LEFT) {
-				cycleBrush(false);
-				return true;
-			}
-		}
-				
-		return false;
+	{				
+		return brushWindow.handleInput(details, pathToFocus);
 	}
 	
 	public function Finalize(): Void
 	{
 		if(wireframeDisplay.unloadAssets()) {
-			brushes = null;
-			currentBrush = -1;
+			brushWindow.unloadAssets();
 		}
 	}
 	
-	public function getBrushIndex(a_brushId: Number): Number
+	public function onBeginActivity(event: Object)
 	{
-		for(var i = 0; i < brushes.length; i++)
-		{
-			if(brushes[i].type == a_brushId)
-				return i;
-		}
-		
-		return -1;
+		brushWindow.bAllowBrushChange = false;
 	}
 	
-	public function setBrushName(a_brushId: Number)
+	public function onEndActivity(event: Object)
 	{
-		switch(a_brushId) {
-			case 1:
-			bottomBar.playerInfo.PlayerName.text = "$Mask Add";
-			break;
-			case 2:
-			bottomBar.playerInfo.PlayerName.text = "$Mask Subtract";
-			break;
-			case 3:
-			bottomBar.playerInfo.PlayerName.text = "$Inflate";
-			break;
-			case 4:
-			bottomBar.playerInfo.PlayerName.text = "$Deflate";
-			break;
-			case 5:
-			bottomBar.playerInfo.PlayerName.text = "$Move";
-			break;
-			case 6:
-			bottomBar.playerInfo.PlayerName.text = "$Smooth";
-			break;
-			default:
-			bottomBar.playerInfo.PlayerName.text = "$Invalid";
-			break;
-		}
+		brushWindow.bAllowBrushChange = true;
 	}
 	
-	public function changeBrush(a_brushIndex: Number, a_update: Boolean)
+	public function onChangeBrush(event: Object)
 	{
-		var brush: Object = brushes[a_brushIndex];
-		if(brush) {
-			setBrushName(brush.type);
-			updateBottomBar();
-			if(a_update)
-				_global.skse.plugins.CharGen.SetCurrentBrush(brush.type);
-		}
-	}
-		
-	public function cycleBrush(a_forward: Boolean)
-	{
-		if(currentBrush >= 0 && !wireframeDisplay.isDraggingMesh()) {
-			if(a_forward) {
-				currentBrush++;
-				if(currentBrush == brushes.length)
-					currentBrush = 0;
-					
-				changeBrush(currentBrush, true);
-			} else {
-				currentBrush--;
-				if(currentBrush < 0)
-					currentBrush = brushes.length - 1;
-				
-				changeBrush(currentBrush, true);
-			}
-		}
+		bottomBar.playerInfo.PlayerName.text = event.brushName;
 	}
 }

@@ -43,7 +43,7 @@ $Loaded preset from slot {}	Loaded preset from slot {}	Réglages chargés depuis
 $Failed to load preset from slot {}	Failed to load preset from slot {}	Echec du chargement des réglages depuis l'emplacement {}	Fehler beim Laden der Vorlage aus Position {}	Fallito caricamento dell'impostazione dallo slot {}	Fallo al cargar los ajustes predefinidos {}	Načtení předvolby ze slotu {} selhalo	Nie powiodło się wczytanie wyglądu z gniazda {}	Не удалось загрузить предустановку из слота {}	スロットからのプリセットのロードに失敗	Falha ao carregar predefinição do espaço		从记录{}读取失败 
 $Colors	Colors	Couleurs	Farben	Colori	Colores	Barvy	Kolory	Цвет	色			
 $Presets	Presets	Réglages	Vorgaben		Presets	Předvolby	Wyglądy	Пресеты	プリセット			
-$Mods	Mods	Mods	Mods		Mods	Modyfikace	Modyfikacje	Моды				
+$Mods	Mods	Mods	Mods		Mods	Modyfikace	Modyfikacje	Моды	Mod			
 $Head Parts	Head Parts	Parties de la tête	Kopf Bauteile		Partes de la cabeza	Části hlavy	Części Głowy	Части головы	頭部のパーツ			
 $Brush	Brush						Szczotkować					
 $Mask Add	Mask Add						Dodaj Maskę					
@@ -52,11 +52,11 @@ $Inflate	Inflate
 $Deflate	Deflate											
 $Smooth	Smooth						Gładzić					
 $Move	Move						Przenieść					
-$Clear Mask	Clear Mask						Historia					
-$Clear Sculpt	Clear Sculpt											
-$History	History											
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+$Clear Mask	Clear Mask						Wyczyść Maskę					
+$Clear Sculpt	Clear Sculpt						Wyczyść Rzeźbienie					
+$History	History						Historia					
+$Strength	Strength											
+$Radius	Radius											
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
@@ -357,5 +357,5 @@ $EXPR_W	W	W	W			W	W	W
 												
 												
 												
-% Completion	100.00%	97.18%	97.18%	86.48%	84.23%	96.62%	98.87%	97.18%	78.87%	61.69%	29.01%	63.38%
-Total % Completion	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%	82.56%
+% Completion	100.00%	96.62%	96.62%	85.92%	83.66%	96.06%	98.87%	96.62%	78.59%	61.13%	28.45%	62.82%
+Total % Completion	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%

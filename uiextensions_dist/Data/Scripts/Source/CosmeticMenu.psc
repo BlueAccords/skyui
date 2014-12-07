@@ -16,6 +16,7 @@ EndFunction
 Function RegisterDynamicEvents(string type)
 	RegisterForModEvent(type + "_Initialized", "OnMenuInitialized")
 	RegisterForModEvent(type + "_Reinitialized", "OnMenuReinitialized")
+	RegisterForModEvent(type + "_CategoriesInitialized", "OnCategoriesInitialized")
 	RegisterForModEvent(type + "_SliderChange", "OnMenuSliderChange") ; Event sent when a slider's value is changed
 	RegisterForModEvent(type + "_LoadPlugins", "OnMenuLoadPlugins")
 

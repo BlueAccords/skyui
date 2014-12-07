@@ -13,6 +13,10 @@ int Property CATEGORY_MOUTH = 128 AutoReadOnly
 int Property CATEGORY_HAIR = 256 AutoReadOnly
 int Property CATEGORY_EXTRA = 512 AutoReadOnly
 
+int Property BUFFER_TEXTURES = 1 AutoReadOnly
+int Property BUFFER_CATEGORIES = 2 AutoReadOnly
+int Property BUFFER_SLIDERS = 4 AutoReadOnly
+
 Actor Property _playerActor Auto
 ActorBase Property _playerActorBase Auto
 
@@ -21,6 +25,9 @@ string Property _targetRoot = "" Auto
 
 Actor Property _targetActor = None Auto
 ActorBase Property _targetActorBase = None Auto
+
+string[] _categories = None
+int _categoryBuffer = 0
 
 string[] _textures = None
 int _textureBuffer = 0
@@ -64,6 +71,9 @@ Event OnInitialized()
 	_sliders = new string[128]
 	_sliderBuffer = 0
 
+	_categories = new string[128]
+	_categoryBuffer = 0
+
 	; Body Paint
 	_textures_body = new string[128]
 	_textureBuffer_body = 0
@@ -90,6 +100,10 @@ Function Reinitialize()
 	If !_sliders
 		_sliders = new string[128]
 		_sliderBuffer = 0
+	Endif
+	If !_categories
+		_categories = new string[128]
+		_categoryBuffer = 0
 	Endif
 	If !_textures_body
 		_textures_body = new string[128]
@@ -131,6 +145,7 @@ Function RegisterEvents()
 	RegisterForModEvent("RSM_Reinitialized", "OnMenuReinitialized")
 	RegisterForModEvent("RSM_SliderChange", "OnMenuSliderChange") ; Event sent when a slider's value is changed
 	RegisterForModEvent("RSM_LoadPlugins", "OnMenuLoadPlugins")
+	RegisterForModEvent("RSM_CategoriesInitialized", "OnMenuCategoriesInitialized")
 
 	; RaceSexMenu Data Transfer
 	RegisterForModEvent("RSMDT_SendTargetActor", "OnReceiveTargetActor")
@@ -158,11 +173,13 @@ EndFunction
 Event OnReceivePrefix(string eventName, string strArg, float numArg, Form formArg)
 	UnregisterForModEvent("RSM_Initialized")
 	UnregisterForModEvent("RSM_Reinitialized")
+	UnregisterForModEvent("RSM_CategoriesInitialized")
 	UnregisterForModEvent("RSM_SliderChange")
 	UnregisterForModEvent("RSM_LoadPlugins")
 
 	RegisterForModEvent(strArg + "_Initialized", "OnMenuInitialized")
 	RegisterForModEvent(strArg + "_Reinitialized", "OnMenuReinitialized")
+	RegisterForModEvent(strArg + "_CategoriesInitialized", "OnMenuCategoriesInitialized")
 	RegisterForModEvent(strArg + "_SliderChange", "OnMenuSliderChange") ; Event sent when a slider's value is changed
 	RegisterForModEvent(strArg + "_LoadPlugins", "OnMenuLoadPlugins")
 EndEvent
@@ -190,6 +207,10 @@ Event OnReceiveDataRequest(string eventName, string strArg, float numArg, Form f
 	bool sendFeetPaint = Math.LogicalAnd(requestFlag, 0x08) == 0x08
 	bool sendFacePaint = Math.LogicalAnd(requestFlag, 0x10) == 0x10
 	bool sendSliders = Math.LogicalAnd(requestFlag, 0x20) == 0x20
+	bool sendCategories = Math.LogicalAnd(requestFlag, 0x40) == 0x40
+	If sendCategories
+		OnCategoryRequest()
+	Endif
 	If sendWarPaint
 		OnWarpaintRequest()
 	Endif
@@ -224,10 +245,16 @@ Event OnReceiveDataRequest(string eventName, string strArg, float numArg, Form f
 		OnSliderRequest(_targetActor, _targetActorBase, _targetActorBase.GetRace(), _targetActorBase.GetSex() as bool)
 		AddSliders(_sliders)
 	Endif
-	If sendWarPaint || sendBodyPaint || sendHandPaint || sendFeetPaint || sendFacePaint
-		int flushType = 0
+	If sendCategories
+		AddCategories(_categories)
+	Endif
+	If sendWarPaint || sendBodyPaint || sendHandPaint || sendFeetPaint || sendFacePaint || sendCategories
+		int flushType = BUFFER_TEXTURES
 		If sendSliders
-			flushType = 2
+			flushType += BUFFER_SLIDERS
+		Endif
+		If sendCategories
+			flushType += BUFFER_CATEGORIES
 		Endif
 		FlushBuffer(flushType)
 	Endif
@@ -247,14 +274,20 @@ Event OnMenuInitialized(string eventName, string strArg, float numArg, Form form
 	OnInitializeMenu(_targetActor, _targetActorBase)
 	OnSliderRequest(_targetActor, _targetActorBase, _targetActorBase.GetRace(), _targetActorBase.GetSex() as bool)
 	AddSliders(_sliders)
-	FlushBuffer(2)
+	FlushBuffer(BUFFER_TEXTURES + BUFFER_SLIDERS)
 EndEvent
 
 Event OnMenuReinitialized(string eventName, string strArg, float numArg, Form formArg)
 	OnResetMenu(_targetActor, _targetActorBase)
 	OnSliderRequest(_targetActor, _targetActorBase, _targetActorBase.GetRace(), _targetActorBase.GetSex() as bool)
 	AddSliders(_sliders)
-	FlushBuffer(1)
+	FlushBuffer(BUFFER_SLIDERS)
+EndEvent
+
+Event OnMenuCategoriesInitialized(string eventName, string strArg, float numArg, Form formArg)
+	OnCategoryRequest()
+	AddCategories(_categories)
+	FlushBuffer(BUFFER_CATEGORIES)
 EndEvent
 
 Event OnMenuSliderChange(string eventName, string strArg, float numArg, Form formArg)
@@ -298,6 +331,10 @@ Event OnResetMenu(Actor player, ActorBase playerBase)
 EndEvent
 
 Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool isFemale)
+	; Do nothing
+EndEvent
+
+Event OnCategoryRequest()
 	; Do nothing
 EndEvent
 
@@ -355,6 +392,16 @@ Function AddSlider(string name, int section, string callback, float min, float m
 	_sliderBuffer += 1
 EndFunction
 
+Function AddSliderEx(string name, string category_key, string callback, float min, float max, float interval, float position, int section = 0, int priority = 0)
+	_sliders[_sliderBuffer] = name + ";;" + section + ";;" + callback + ";;" + min + ";;" + max + ";;" + interval + ";;" + position + ";;" + category_key
+	_sliderBuffer += 1
+EndFunction
+
+Function AddCategory(string keyName, string name)
+	_categories[_categoryBuffer] = keyName + ";;" + name
+	_categoryBuffer += 1
+EndFunction
+
 Function AddWarpaints(string[] textures)
 	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddWarpaints", textures)
 EndFunction
@@ -379,6 +426,10 @@ Function AddSliders(string[] sliders)
 	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddSliders", sliders)
 EndFunction
 
+Function AddCategories(string[] categories)
+	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_AddCategories", categories)
+EndFunction
+
 Function SetSliderParameters(string callback, float min, float max, float interval, float position)
 	string[] params = new string[5]
 	params[0] = callback
@@ -389,13 +440,16 @@ Function SetSliderParameters(string callback, float min, float max, float interv
 	UI.InvokeStringA(_targetMenu, _targetRoot + "RSM_SetSliderParameters", params)
 EndFunction
 
-; 0 - Texture Buffers
-; 1 - Slider Buffers
-; 2 - Both Buffers
+; 1 - Texture Buffers
+; 2 - Slider Buffers
+; 4 - Category Buffer
+
+; 3 - Both Buffers
+; 5
 Function FlushBuffer(int bufferType)
 	int i = 0
 	While i < 128
-		if bufferType == 0 || bufferType == 2
+		if Math.LogicalAnd(bufferType, BUFFER_TEXTURES) == BUFFER_TEXTURES
 			_textures[i] = ""
 
 			If _textures_body
@@ -411,20 +465,26 @@ Function FlushBuffer(int bufferType)
 				_textures_face[i] = ""
 			Endif
 		Endif
-		If bufferType == 1 || bufferType == 2
+		if Math.LogicalAnd(bufferType, BUFFER_SLIDERS) == BUFFER_SLIDERS
 			_sliders[i] = ""
+		Endif
+		if Math.LogicalAnd(bufferType, BUFFER_CATEGORIES) == BUFFER_CATEGORIES
+			_categories[i] = ""
 		Endif
 		i += 1
 	EndWhile
 
-	if bufferType == 0 || bufferType == 2
+	if Math.LogicalAnd(bufferType, BUFFER_TEXTURES) == BUFFER_TEXTURES
 		_textureBuffer = 0
 		_textureBuffer_body = 0
 		_textureBuffer_hand = 0
 		_textureBuffer_feet = 0
 		_textureBuffer_face = 0
 	Endif
-	If bufferType == 1 || bufferType == 2
+	if Math.LogicalAnd(bufferType, BUFFER_SLIDERS) == BUFFER_SLIDERS
 		_sliderBuffer = 0
+	Endif
+	if Math.LogicalAnd(bufferType, BUFFER_CATEGORIES) == BUFFER_CATEGORIES
+		_categoryBuffer = 0
 	Endif
 EndFunction

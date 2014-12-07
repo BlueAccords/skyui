@@ -118,6 +118,8 @@ class WireframeDisplay extends gfx.core.UIComponent
 			this.onReleaseAux = null;
 			this.onReleaseOutsideAux = null;
 			
+			_parent.dispatchEvent({type: "endRotating"});
+			
 			_global.skse.plugins.CharGen.EndRotateMesh();
 		}
 		foreground["endRotateMeshAux"] = function(keyboardOrMouse:Number, buttonIdx:Number)
@@ -135,6 +137,8 @@ class WireframeDisplay extends gfx.core.UIComponent
 			this.onMouseMove = this.doRotateMesh;
 			this.onReleaseAux = this.endRotateMesh;
 			this.onReleaseOutsideAux = this.endRotateMeshAux;
+			
+			_parent.dispatchEvent({type: "beginRotating"});
 			
 			var width: Number = this.fixedWidth;
 			var height: Number = this.fixedHeight;
@@ -163,6 +167,7 @@ class WireframeDisplay extends gfx.core.UIComponent
 			this.onMouseMove = null;
 			this.onRelease = null;
 			this.onReleaseOutside = null;
+			_parent.dispatchEvent({type: "endPainting"});
 			
 			_global.skse.plugins.CharGen.EndPaintMesh();
 		}
@@ -183,6 +188,7 @@ class WireframeDisplay extends gfx.core.UIComponent
 				this.onMouseMove = this.doPaintMesh;
 				this.onRelease = this.endPaintMesh;
 				this.onReleaseOutside = this.onRelease;
+				_parent.dispatchEvent({type: "beginPainting"});
 			} else {
 				_parent.background.onPress(mouseIdx, keyboardOrMouse, buttonIdx);
 			}			
@@ -191,12 +197,7 @@ class WireframeDisplay extends gfx.core.UIComponent
 		calculateBackground();
 		bLoadedAssets = true;
 	}
-	
-	public function isDraggingMesh(): Boolean
-	{
-		return foreground.painting == true || foreground.rotating == true;
-	}
-	
+		
 	// @GFx	
 	private function onMouseWheel(a_delta: Number): Void
 	{
