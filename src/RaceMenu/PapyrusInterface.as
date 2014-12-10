@@ -44,10 +44,13 @@ class PapyrusInterface
 				var newSliderID = this["customSliders"].length + RaceMenuDefines.CUSTOM_SLIDER_OFFSET;
 				
 				var textFilters = undefined;
+				var priority = undefined;
 				if(sliderParams.length >= 8)
 					textFilters = sliderParams[7].split("|");
+				if(sliderParams.length >= 9)
+					priority = Number(sliderParams[8]);
 				
-				var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: sliderParams[0], filterFlag: Number(sliderParams[1]), textFilters: textFilters, callbackName: sliderParams[2], sliderMin: Number(sliderParams[3]), sliderMax: Number(sliderParams[4]), sliderID: newSliderID, position: Number(sliderParams[6]), interval: Number(sliderParams[5]), enabled: true};
+				var sliderObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_SLIDER, text: sliderParams[0], filterFlag: Number(sliderParams[1]), textFilters: textFilters, callbackName: sliderParams[2], sliderMin: Number(sliderParams[3]), sliderMax: Number(sliderParams[4]), sliderID: newSliderID, position: Number(sliderParams[6]), interval: Number(sliderParams[5]), priority: priority, enabled: true};
 				this["customSliders"].push(sliderObject);
 				this["itemList"].entryList.push(sliderObject);
 				this["itemList"].requestInvalidate();
@@ -61,7 +64,7 @@ class PapyrusInterface
 		{
 			var categoryParams: Array = arguments[i].split(";;");
 			if(categoryParams[0] != "") {
-				var categoryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: categoryParams[1], flag: 0, textFilter: categoryParams[0], enabled: true};
+				var categoryObject: Object = {type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: categoryParams[1], flag: 0, textFilter: categoryParams[0], priority: Number(categoryParams[2]), enabled: true};
 				
 				// Check if the category filter already exists
 				var exists: Boolean = false;

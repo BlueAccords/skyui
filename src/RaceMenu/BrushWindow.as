@@ -27,6 +27,8 @@ class BrushWindow extends MovableWindow
 	
 	public var _allowBrushChange: Boolean = true;
 	
+	public var bLoadedAssets: Boolean = false;
+	
 	function BrushWindow()
 	{
 		super();
@@ -65,6 +67,8 @@ class BrushWindow extends MovableWindow
 	
 	public function loadAssets()
 	{
+		if(bLoadedAssets)
+			return true;
 		/*brushes = [{type: 1, radius: 1.0, strength: 0.01},
 				   {type: 2, radius: 1.5, strength: 0.02},
 				   {type: 3, radius: 2.0, strength: 0.03},
@@ -88,38 +92,59 @@ class BrushWindow extends MovableWindow
 			}
 			brushList.entryList.push(radius);
 			
-			if(brushes[b].strength == 0)
-				continue;
+			if(brushes[b].strength != 0) {
+				var strength: Object = {text: "$Strength", sliderMin: 0.01, sliderMax: 5, filterFlag: 0, textFilters: [filter], interval: 0.01, position: brushes[b].strength, brush: brushes[b], enabled: true};
+				strength.internalCallback = function()
+				{
+					var brush: Object = this.entryObject.brush;
+					brush.strength = this.entryObject.position;
+					
+					if(_global.skse.plugins.CharGen.SetBrushData)
+						_global.skse.plugins.CharGen.SetBrushData(brush.type, brush);
+				}
+				brushList.entryList.push(strength);
+			}
 			
-			var strength: Object = {text: "$Strength", sliderMin: 0.01, sliderMax: 5, filterFlag: 0, textFilters: [filter], interval: 0.01, position: brushes[b].strength, brush: brushes[b], enabled: true};
-			strength.internalCallback = function()
+			var mirror: Object = {text: "$Mirror", sliderMin: 0, sliderMax: 1, filterFlag: 0, textFilters: [filter], interval: 1, position: brushes[b].mirror, brush: brushes[b], enabled: true};
+			mirror.internalCallback = function()
 			{
 				var brush: Object = this.entryObject.brush;
-				brush.strength = this.entryObject.position;
+				brush.mirror = this.entryObject.position;
 				
 				if(_global.skse.plugins.CharGen.SetBrushData)
 					_global.skse.plugins.CharGen.SetBrushData(brush.type, brush);
 			}
-
-			brushList.entryList.push(strength);
-			
+			brushList.entryList.push(mirror);
 		}
 		
 		var brushId: Number = _global.skse.plugins.CharGen.GetCurrentBrush();
 		currentBrush = getBrushIndex(brushId);
-		categoryList.requestInvalidate();
+		categoryList.InvalidateData();
 		categoryList.onItemPress(currentBrush, 0);
 
 		brushList.requestInvalidate();
+		bLoadedAssets = true;
+		return true;
 	}
 	
 	public function unloadAssets()
 	{
-		categoryList.entryList.splice(0, categoryList.entryList.length - 1);
-		categoryList.requestInvalidate();
+		if(!bLoadedAssets)
+			return false;
+			
+		categoryList.entryList.splice(0, categoryList.entryList.length);		
+		brushList.entryList.splice(0, brushList.entryList.length);
 		
+		categoryList.requestInvalidate();
+		brushList.requestInvalidate();
+		
+		brushes.splice(0, brushes.length);
 		brushes = null;
+		
 		currentBrush = -1;
+		
+		bLoadedAssets = false;
+		return true;
 	}
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean

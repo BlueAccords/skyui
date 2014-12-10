@@ -15,10 +15,10 @@ class WireframeDisplay extends gfx.core.UIComponent
 	
 	private var _dragOffset: Object;
 	
-	public var disableInput: Boolean = false;
-	
 	public var bLoadedAssets: Boolean = false;
-		
+	
+	public var disableInput: Boolean = false;
+			
 	// GFx Functions
 	public var dispatchEvent: Function;
 	public var addEventListener: Function;
@@ -49,33 +49,38 @@ class WireframeDisplay extends gfx.core.UIComponent
 	
 	public function loadAssets(): Boolean
 	{
-		if(bLoadedAssets) // Don't load if it already occured
-			return false;
+		if(bLoadedAssets) // Already loaded
+			return true;
 		
 		if(_global.skse.plugins.CharGen.CreateMorphEditor) {
 			editorData = _global.skse.plugins.CharGen.CreateMorphEditor();
 			
 			wireframe = foreground.createEmptyMovieClip("wireframe", foreground.getNextHighestDepth());
 			_imageLoader.loadClip("img://headMesh", wireframe);
+			bLoadedAssets = true;
 			return true;
 		}
 		
-		/*wireframe = foreground.createEmptyMovieClip("wireframe", foreground.getNextHighestDepth());
-		_imageLoader.loadClip("femalehead.dds", wireframe);*/
 		return false;
 	}
 		
 	public function unloadAssets(): Boolean
 	{
-		if(!bLoadedAssets) // Don't unload if there's nothing to unload
+		if(!bLoadedAssets) // Nothing to unload
 			return false;
+			
+		if(wireframe) {
+			wireframe.removeMovieClip();
+			wireframe = null;
+		}
 		
-		if(_global.skse.plugins.CharGen.ReleaseMorphEditor)
+		if(_global.skse.plugins.CharGen.ReleaseMorphEditor) {
 			_global.skse.plugins.CharGen.ReleaseMorphEditor();
-
-		wireframe.removeMovieClip();
-		bLoadedAssets = false;
-		return true;
+			bLoadedAssets = false;
+			return true;
+		}
+		
+		return false;
 	}
 	
 	private function calculateBackground()
@@ -195,7 +200,6 @@ class WireframeDisplay extends gfx.core.UIComponent
 		}
 		foreground["onPress"] = foreground["beginPaintMesh"];
 		calculateBackground();
-		bLoadedAssets = true;
 	}
 		
 	// @GFx	
@@ -207,16 +211,8 @@ class WireframeDisplay extends gfx.core.UIComponent
 		for (var target = Mouse.getTopMostEntity(); target && target != undefined; target = target._parent) {
 			if (target == this) {
 				if (a_delta < 0) {
-					//foreground._xscale += 10;
-					//foreground._yscale += 10;
 					_global.skse.plugins.CharGen.SetMeshCameraRadius(_global.skse.plugins.CharGen.GetMeshCameraRadius() + 1);
 				} else if (a_delta > 0) {
-					/*foreground._xscale -= 10;
-					foreground._yscale -= 10;
-					if(foreground._xscale < 10)
-						foreground._xscale = 10;
-					if(foreground._yscale < 10)
-						foreground._yscale = 10;*/
 					_global.skse.plugins.CharGen.SetMeshCameraRadius(_global.skse.plugins.CharGen.GetMeshCameraRadius() - 1);
 				}
 				

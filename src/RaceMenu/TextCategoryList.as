@@ -7,6 +7,7 @@ import skyui.components.list.EntryClipManager;
 import skyui.components.list.BasicEnumeration;
 import skyui.components.list.AlphaEntryFormatter;
 import skyui.components.list.BasicList;
+import skyui.components.list.ScrollingList;
 
 
 class TextCategoryList extends BasicList
@@ -18,7 +19,9 @@ class TextCategoryList extends BasicList
 	
 	
   /* PRIVATE VARIABLES */
+	private var _listIndex: Number = 0;
 	
+	private var _curClipIndex: Number = -1;
 
   /* PROPERTIES */
 	
@@ -51,12 +54,25 @@ class TextCategoryList extends BasicList
 			return;
 		}
 		
+		for (var i = 0; i < _entryList.length; i++) {
+			_entryList[i].itemIndex = i;
+			_entryList[i].clipIndex = undefined;
+		}
+		
 		listEnumeration.invalidate();
 		
 		if (_selectedIndex >= listEnumeration.size())
 			_selectedIndex = listEnumeration.size() - 1;
 
 		UpdateList();
+		
+		if (_curClipIndex != undefined && _curClipIndex != -1 && _listIndex > 0) {
+			if (_curClipIndex >= _listIndex)
+				_curClipIndex = _listIndex - 1;
+				
+			var entryClip = getClipByIndex(_curClipIndex);
+			doSetSelectedIndex(entryClip.itemIndex, SELECT_MOUSE);
+		}
 		
 		if (onInvalidate)
 			onInvalidate();
@@ -71,23 +87,29 @@ class TextCategoryList extends BasicList
 		}
 		
 		setClipCount(_entryList.length);
+		
+		for (var i = 0; i < getListEnumSize(); i++)
+			getListEnumEntry(i).clipIndex = undefined;
+
+		_listIndex = 0;
 
 		for (var i = 0; i < _entryList.length; i++) {
-			var entryClip = getClipByIndex(i);
+			var entryClip = getClipByIndex(_listIndex);
+			var entryItem = getListEnumEntry(i);
 
-			entryClip.setEntry(listEnumeration.at(i), listState);
+			entryClip.setEntry(entryItem, listState);
 
-			listEnumeration.at(i).clipIndex = i;
-			entryClip.itemIndex = i;
+			entryClip.itemIndex = entryItem.itemIndex;
+			entryItem.clipIndex = _listIndex;
+			
+			++_listIndex;
 		}
 
 		var xPos = 0;
 		for (var i = 0; i < _entryList.length; i++) {
 			var entryClip = getClipByIndex(i);
 			entryClip._x = xPos;
-
 			xPos += entryClip.background._width + _clipSpacing;
-			
 			entryClip._visible = true;
 		}
 	}
@@ -98,7 +120,8 @@ class TextCategoryList extends BasicList
 			return;
 			
 		var curIndex = _entryList.length - 1;
-		var startIndex = _selectedIndex;
+		var startIndex = _curClipIndex;
+		var curClip;
 			
 		do {
 			if (curIndex < _entryList.length - 1) {
@@ -106,9 +129,10 @@ class TextCategoryList extends BasicList
 			} else {
 				curIndex = 0;
 			}
-		} while (curIndex != startIndex && listEnumeration.at(curIndex).filterFlag == 0 && !listEnumeration.at(curIndex).bDontHide);
+			curClip = getClipByIndex(curIndex);
+		} while (curIndex != startIndex && curClip.filterFlag == 0 && !curClip.bDontHide);
 			
-		onItemPress(curIndex, 0);
+		onItemPress(curClip.itemIndex, 0);
 	}
 	
 	public function gotoEnd(): Void
@@ -117,7 +141,8 @@ class TextCategoryList extends BasicList
 			return;
 
 		var curIndex = 0;
-		var startIndex = _selectedIndex;
+		var startIndex = _curClipIndex;
+		var curClip;
 		
 		do {
 			if (curIndex > 0) {
@@ -125,9 +150,10 @@ class TextCategoryList extends BasicList
 			} else {
 				curIndex = _entryList.length - 1;					
 			}
-		} while (curIndex != startIndex && listEnumeration.at(curIndex).filterFlag == 0 && !listEnumeration.at(curIndex).bDontHide);
+			curClip = getClipByIndex(curIndex);
+		} while (curIndex != startIndex && curClip.filterFlag == 0 && !curClip.bDontHide);
 			
-		onItemPress(curIndex, 0);
+		onItemPress(curClip.itemIndex, 0);
 	}
 	
 	// Moves the selection left to the next element. Wraps around.
@@ -136,8 +162,9 @@ class TextCategoryList extends BasicList
 		if (disableSelection)
 			return;
 
-		var curIndex = _selectedIndex;
-		var startIndex = _selectedIndex;
+		var curIndex = _curClipIndex;
+		var startIndex = _curClipIndex;
+		var curClip;
 			
 		do {
 			if (curIndex > 0) {
@@ -145,9 +172,10 @@ class TextCategoryList extends BasicList
 			} else if (a_wrap) {
 				curIndex = _entryList.length - 1;					
 			}
-		} while (curIndex != startIndex && listEnumeration.at(curIndex).filterFlag == 0 && !listEnumeration.at(curIndex).bDontHide);
+			curClip = getClipByIndex(curIndex);
+		} while (curIndex != startIndex && curClip.filterFlag == 0 && !curClip.bDontHide);
 			
-		onItemPress(curIndex, 0);
+		onItemPress(curClip.itemIndex, 0);
 	}
 
 	// Moves the selection right to the next element. Wraps around.
@@ -155,9 +183,10 @@ class TextCategoryList extends BasicList
 	{
 		if (disableSelection)
 			return;
-			
-		var curIndex = _selectedIndex;
-		var startIndex = _selectedIndex;
+		
+		var curIndex = _curClipIndex;
+		var startIndex = _curClipIndex;
+		var curClip;
 			
 		do {
 			if (curIndex < _entryList.length - 1) {
@@ -165,15 +194,15 @@ class TextCategoryList extends BasicList
 			} else if (a_wrap) {
 				curIndex = 0;
 			}
-		} while (curIndex != startIndex && listEnumeration.at(curIndex).filterFlag == 0 && !listEnumeration.at(curIndex).bDontHide);
+			curClip = getClipByIndex(curIndex);
+		} while (curIndex != startIndex && curClip.filterFlag == 0 && !curClip.bDontHide);
 			
-		onItemPress(curIndex, 0);
+		onItemPress(curClip.itemIndex, 0);
 	}
 	
 	public function getClipData()
 	{
-		var entryClip = getClipByIndex(_selectedIndex);
-		return [entryClip._x, entryClip.background._width];
+		return [selectedClip._x, selectedClip.background._width];
 	}
 	
 	// @GFx
@@ -192,6 +221,36 @@ class TextCategoryList extends BasicList
 			}
 		}
 		return false;
+	}
+	
+	private function doSetSelectedIndex(a_newIndex: Number, a_keyboardOrMouse: Number): Void
+	{
+		if (disableSelection || a_newIndex == _selectedIndex)
+			return;
+			
+		if (a_newIndex != -1 && getListEnumIndex(a_newIndex) == undefined)
+			return;
+			
+		var oldIndex = _selectedIndex;
+		_selectedIndex = a_newIndex;
+
+		if (oldIndex != -1) {
+			var clip = _entryClipManager.getClip(_entryList[oldIndex].clipIndex);
+			clip.setEntry(_entryList[oldIndex], listState);
+		}
+
+		if (_selectedIndex != -1) {
+			var clip = _entryClipManager.getClip(_entryList[_selectedIndex].clipIndex);
+			clip.setEntry(_entryList[_selectedIndex], listState);
+		}
+		
+		if (_selectedIndex != -1) {
+			_curClipIndex = _entryList[_selectedIndex].clipIndex;
+		} else {
+			_curClipIndex = -1;
+		}
+
+		dispatchEvent({type: "selectionChange", index: _selectedIndex, keyboardOrMouse: a_keyboardOrMouse});
 	}
 		
 	// @override BasicList
@@ -225,7 +284,7 @@ class TextCategoryList extends BasicList
 		if (a_index == _selectedIndex)
 			return;
 			
-		var entryClip = getClipByIndex(a_index);
+		var entryClip = getClipByIndex(_entryList[a_index].clipIndex);
 		entryClip._alpha = 75;
 	}
 
@@ -240,7 +299,7 @@ class TextCategoryList extends BasicList
 		if (a_index == _selectedIndex)
 			return;
 			
-		var entryClip = getClipByIndex(a_index);
+		var entryClip = getClipByIndex(_entryList[a_index].clipIndex);
 		entryClip._alpha = 50;
 	}
 }

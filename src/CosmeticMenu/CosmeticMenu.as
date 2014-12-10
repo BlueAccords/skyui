@@ -184,33 +184,28 @@ class CosmeticMenu extends MovieClip
 			RaceMenuInstance.categoryList.entryList.splice(0, RaceMenuInstance.categoryList.entryList.length);
 		}
 		
+		var priority: RaceMenuDefines.CATEGORY_PRIORITY_START;
 		if((a_categories & COSMETIC_CATEGORY_SLIDERS) == COSMETIC_CATEGORY_SLIDERS) {
-			RaceMenuInstance.categoryList.iconArt.push("skyrim");
-			RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$ALL", flag: 508, enabled: true});
+			RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$ALL", flag: 508, priority: priority, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 		}
 				
 		if((a_categories & COSMETIC_CATEGORY_WARPAINT) == COSMETIC_CATEGORY_WARPAINT) {
-			RaceMenuInstance.categoryList.iconArt.push("face");
-			RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: (_global.skse != undefined), text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true});
+			RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: (_global.skse != undefined), text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_WARPAINT, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 			RaceMenuInstance.racePanel.tintCount._visible = true;
 		}
 		
 		if(_global.skse.plugins.NiOverride) {
 			if((a_categories & COSMETIC_CATEGORY_BODYPAINT) == COSMETIC_CATEGORY_BODYPAINT) {
-				RaceMenuInstance.categoryList.iconArt.push("body");
-				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, enabled: true});
+				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 			}
 			if((a_categories & COSMETIC_CATEGORY_HANDPAINT) == COSMETIC_CATEGORY_HANDPAINT) {
-				RaceMenuInstance.categoryList.iconArt.push("hand");
-				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, enabled: true});
+				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 			}
 			if((a_categories & COSMETIC_CATEGORY_FEETPAINT) == COSMETIC_CATEGORY_FEETPAINT) {
-				RaceMenuInstance.categoryList.iconArt.push("feet");
-				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, enabled: true});
+				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 			}
 			if((a_categories & COSMETIC_CATEGORY_FACEPAINT) == COSMETIC_CATEGORY_FACEPAINT) {
-				RaceMenuInstance.categoryList.iconArt.push("face");
-				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, enabled: true});
+				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 			}
 		}
 		

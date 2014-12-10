@@ -393,12 +393,12 @@ Function AddSlider(string name, int section, string callback, float min, float m
 EndFunction
 
 Function AddSliderEx(string name, string category_key, string callback, float min, float max, float interval, float position, int section = 0, int priority = 0)
-	_sliders[_sliderBuffer] = name + ";;" + section + ";;" + callback + ";;" + min + ";;" + max + ";;" + interval + ";;" + position + ";;" + category_key
+	_sliders[_sliderBuffer] = name + ";;" + section + ";;" + callback + ";;" + min + ";;" + max + ";;" + interval + ";;" + position + ";;" + category_key + ";;" + priority
 	_sliderBuffer += 1
 EndFunction
 
-Function AddCategory(string keyName, string name)
-	_categories[_categoryBuffer] = keyName + ";;" + name
+Function AddCategory(string keyName, string name, int priority = 0)
+	_categories[_categoryBuffer] = keyName + ";;" + name + ";;" + priority
 	_categoryBuffer += 1
 EndFunction
 

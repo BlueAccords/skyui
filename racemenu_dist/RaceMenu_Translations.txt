@@ -37,26 +37,50 @@ $Rate ({})	Rate ({})	Vitesse ({})	Schrittweite ({})	Velocità ({})	Índice ({})	
 $Primary	Primary	Primaire	Primär	Primario	Primario	Primární	Pierwszorzędny	Основной	プライマリー	Primário	主要	主要
 $Secondary	Secondary	Secondaire	Sekundär	Secondario	Secundario	Sekundární	Drugorzędny	Дополнительный	セカンダリー	Secundário	次要	次要
 $Preset Slot	Preset Slot	Emplacement de réglages	Vorlageposition	Slot impostazione	Ajustes predefinidos	Slot předvolby	Gniazdo Wyglądu	Слот предустановки	プリセットスロット	Espaço de predefinição		当前设置
-$Saved preset to clipboard	Saved preset to clipboard	Sauvegarder les réglages dans le presse-papier	Vorlage in Zwischenablage gespeichert	Impostazione salvata sugli appunti	Ajustes predefinidos guardados en el portapapeles	Předvolba uložena do schránky	Zapisano wygląd do schowka	Предустановка сохранена в буфер	クリップボードにプリセットをセーブ	Predefinição salva para a área de transferencia		保存当前设置到剪贴板 
-$Saved preset to slot {}	Saved preset to slot {}	Réglages sauvegardés dans l'emplacement {}	Vorlage in Position {} gespeichert	Impostazione salvata nello slot {}	Ajustes predefinidos guardados {}	Předvolba uložena do slotu {}	Zapisano wygląd do gniazda {}	Сохранить предустановку в слот {}	スロットにプリセットをセーブ	Predefinição salva no espaço		读取到记录{} 
-$Loaded preset from slot {}	Loaded preset from slot {}	Réglages chargés depuis l'emplacement {}	Vorlage aus Position {} geladen	Carica impostazione dallo slot {}	Ajustes predefinidos cargados {}	Načtena předvolba ze slotu {}	Wczytano wygląd z gniazda {}	Загрузить предустановку из слота {}	スロットからプリセットをロード	Predefinição carregada do espaço		读取记录{} 
-$Failed to load preset from slot {}	Failed to load preset from slot {}	Echec du chargement des réglages depuis l'emplacement {}	Fehler beim Laden der Vorlage aus Position {}	Fallito caricamento dell'impostazione dallo slot {}	Fallo al cargar los ajustes predefinidos {}	Načtení předvolby ze slotu {} selhalo	Nie powiodło się wczytanie wyglądu z gniazda {}	Не удалось загрузить предустановку из слота {}	スロットからのプリセットのロードに失敗	Falha ao carregar predefinição do espaço		从记录{}读取失败 
+$Failed to save preset to {}	Failed to save preset to {}											
+$Saved preset to {}	Saved preset to {}											
+$Loaded preset from {}	Loaded preset from {}											
+$Failed to load preset from {}	Failed to load preset from {}											
 $Colors	Colors	Couleurs	Farben	Colori	Colores	Barvy	Kolory	Цвет	色			
 $Presets	Presets	Réglages	Vorgaben		Presets	Předvolby	Wyglądy	Пресеты	プリセット			
 $Mods	Mods	Mods	Mods		Mods	Modyfikace	Modyfikacje	Моды	Mod			
 $Head Parts	Head Parts	Parties de la tête	Kopf Bauteile		Partes de la cabeza	Části hlavy	Części Głowy	Части головы	頭部のパーツ			
-$Brush	Brush						Szczotkować					
+$Brush	Brush						Pędzlować					
 $Mask Add	Mask Add						Dodaj Maskę					
 $Mask Subtract	Mask Subtract						Odejmij Maskę					
-$Inflate	Inflate											
-$Deflate	Deflate											
+$Inflate	Inflate						Nadmuchać					
+$Deflate	Deflate						Wypuszczać					
 $Smooth	Smooth						Gładzić					
 $Move	Move						Przenieść					
 $Clear Mask	Clear Mask						Wyczyść Maskę					
 $Clear Sculpt	Clear Sculpt						Wyczyść Rzeźbienie					
 $History	History						Historia					
-$Strength	Strength											
-$Radius	Radius											
+$Strength	Strength						Siła					
+$Radius	Radius						Promień					
+$Property	Property						Właściwość					
+$Mirror	Mirror						Odzwierciedlić					
+$Sculpt history will be lost	Sculpt history will be lost						Historia rzeźbienia będą utracone					
+$Loading a preset will erase sculpt history	Loading a preset will erase sculpt history						Wczytywanie wyglądu wymaże historię rzeźbienia					
+$Name	Name											
+$Date modified	Date modified											
+$Size	Size											
+$Save preset file	Save preset file											
+$Select preset file	Select preset file											
+$Edit	Edit											
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
@@ -357,5 +381,5 @@ $EXPR_W	W	W	W			W	W	W
 												
 												
 												
-% Completion	100.00%	96.62%	96.62%	85.92%	83.66%	96.06%	98.87%	96.62%	78.59%	61.13%	28.45%	62.82%
-Total % Completion	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%	82.11%
+% Completion	100.00%	93.14%	93.14%	83.11%	81.00%	92.61%	97.36%	93.14%	76.25%	59.89%	30.34%	61.48%
+Total % Completion	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%

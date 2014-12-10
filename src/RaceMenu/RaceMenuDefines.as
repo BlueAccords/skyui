@@ -33,7 +33,10 @@
 	static var SLIDER_INTERVAL: Number = 6;
 	static var SLIDER_ID: Number = 7;
 	static var SLIDER_STRIDE: Number = 8;
-
+	
+	static var CATEGORY_PRIORITY_START: Number = -1000;
+	static var CATEGORY_PRIORITY_STEP: Number = 25;
+	
 	static var CATEGORY_RACE: Number = 2;
 	static var CATEGORY_BODY: Number = 4;
 	static var CATEGORY_HEAD: Number = 8;

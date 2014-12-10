@@ -5,6 +5,7 @@ import skyui.components.list.ScrollingList;
 class MeshWindow extends MovableWindow
 {
 	public var meshList: MeshList;
+	public var bLoadedAssets: Boolean = false;
 		
 	static var colors: Array = [
 		0xffffff, 0xff0000, 0x0000ff, 0x00ff00, 
@@ -55,6 +56,9 @@ class MeshWindow extends MovableWindow
 	
 	public function loadAssets()
 	{
+		if(bLoadedAssets)
+			return true;
+			
 		var meshes: Array = undefined;
 		meshList.disableSelection = meshList.disableInput = false;
 		if(_global.skse.plugins.CharGen.GetMeshes)
@@ -64,13 +68,20 @@ class MeshWindow extends MovableWindow
 			meshList.entryList.push(meshes[i]);
 			
 		meshList.requestInvalidate();
+		bLoadedAssets = true;
+		return true;
 	}
 	
 	public function unloadAssets()
 	{
+		if(!bLoadedAssets)
+			return false;
+			
 		meshList.disableSelection = meshList.disableInput = true;
 		meshList.entryList.splice(0, meshList.entryList.length);
 		meshList.requestInvalidate();
+		bLoadedAssets = false;
+		return true;
 	}
 	
 	private function onItemPressVisibility(event: Object): Void
@@ -104,8 +115,8 @@ class MeshWindow extends MovableWindow
 		var pressedEntry: Object = meshList.entryList[event.index];
 		if(pressedEntry) {
 			pressedEntry.locked = !pressedEntry.locked;
-			if(pressedEntry.locked == false)
-				forceInverseLock(pressedEntry.meshIndex);
+			//if(pressedEntry.locked == false)
+				//forceInverseLock(pressedEntry.meshIndex);
 			
 			if(_global.skse.plugins.CharGen.SetMeshData)
 				_global.skse.plugins.CharGen.SetMeshData(pressedEntry.meshIndex, pressedEntry);

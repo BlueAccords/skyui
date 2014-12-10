@@ -38,6 +38,7 @@ class VertexEditor extends MovieClip
 	private var _rightControl: Object;
 	private var _udControl: Array;
 	private var _lrControl: Array;
+	private var _savePresetControl: Object;
 	
 	private var _platform;
 	
@@ -59,6 +60,9 @@ class VertexEditor extends MovieClip
 		
 		historyWindow._visible = historyWindow.enabled = false;
 		historyWindow._alpha = 0;
+		
+		brushWindow._visible = brushWindow.enabled = false;
+		brushWindow._alpha = 0;
 		
 		tempText._visible = tempText.enabled = false;
 		tempText._alpha = 0;
@@ -96,8 +100,10 @@ class VertexEditor extends MovieClip
 		
 		if(a_platform == 0) {
 			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Quicksave", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
 			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		}		
 		
 		_upControl = {keyCode: GlobalFunctions.getMappedKey("Up", Input.CONTEXT_MENUMODE, a_platform != 0)};
@@ -120,6 +126,7 @@ class VertexEditor extends MovieClip
 		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", this._parent, "onDoneClicked");
 		navPanel.addButton({text: "$Brush", controls: _udControl});
 		navPanel.addButton({text: "$Property", controls: _lrControl});
+		navPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", _parent.presetEditor, "onSavePresetClicked");
 		navPanel.updateButtons(true);		
 	}
 	
@@ -134,29 +141,28 @@ class VertexEditor extends MovieClip
 		
 		if(bShowAll) {
 			if(bRequestLoad) {
-				if(wireframeDisplay.loadAssets()) {
-					brushWindow.loadAssets();
-				}
-				
+				wireframeDisplay.loadAssets();
+				brushWindow.loadAssets();
 				meshWindow.loadAssets();
 			}
 			
 			ShowMeshWindow(true);
 			ShowWireframe(true);
 			ShowHistoryWindow(true);
+			ShowBrushWindow(true);
 			TweenLite.to(tempText, 0.5, {autoAlpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		} else {
 			if(bRequestUnload) {
 				meshWindow.unloadAssets();
 				historyWindow.unloadAssets();
-				if(wireframeDisplay.unloadAssets()) {
-					brushWindow.unloadassets();
-				}
+				brushWindow.unloadAssets();
+				wireframeDisplay.unloadAssets();
 			}
 			
 			ShowMeshWindow(false);
 			ShowWireframe(false);
 			ShowHistoryWindow(false);
+			ShowBrushWindow(false);
 			TweenLite.to(tempText, 0.5, {autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 		
@@ -180,6 +186,15 @@ class VertexEditor extends MovieClip
 			TweenLite.to(historyWindow, 0.5, {autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
 		}
 	}
+	
+	public function ShowBrushWindow(bShowWindow: Boolean): Void
+	{
+		if(bShowWindow) {
+			TweenLite.to(brushWindow, 0.5, {autoAlpha: 100, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		} else {
+			TweenLite.to(brushWindow, 0.5, {autoAlpha: 0, overwrite: OverwriteManager.NONE, easing: Linear.easeNone});
+		}
+	}
 		
 	public function ShowWireframe(bShowWireframe: Boolean): Void
 	{
@@ -199,16 +214,34 @@ class VertexEditor extends MovieClip
 		}
 	}
 	
+	public function IsBoundKeyPressed(details: InputDetails, boundKey: Object, platform: Number): Boolean
+	{
+		return ((details.control && details.control == boundKey.name) || (details.skseKeycode && boundKey.name && boundKey.context && details.skseKeycode == GlobalFunctions.getMappedKey(boundKey.name, Number(boundKey.context), platform != 0)) || (details.skseKeycode && details.skseKeycode == boundKey.keyCode));
+	}
+	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
-	{				
+	{
+		if (GlobalFunc.IsKeyPressed(details)) {
+			if(IsBoundKeyPressed(details, _savePresetControl, _platform)) {
+				_parent.presetEditor.onSavePresetClicked();
+				return true;
+			}
+		}
+		
 		return brushWindow.handleInput(details, pathToFocus);
 	}
 	
-	public function Finalize(): Void
+	public function hasAssets(): Boolean
 	{
-		if(wireframeDisplay.unloadAssets()) {
-			brushWindow.unloadAssets();
-		}
+		return wireframeDisplay.bLoadedAssets;
+	}
+	
+	public function unloadAssets(): Void
+	{
+		meshWindow.unloadAssets();
+		historyWindow.unloadAssets();
+		brushWindow.unloadAssets();
+		wireframeDisplay.unloadAssets();
 	}
 	
 	public function onBeginActivity(event: Object)

@@ -33,12 +33,15 @@ class PresetEditor extends MovieClip
 		
 	/* CONTROLS */
 	private var _platform: Number;
+	private var _bPS3Switch: Boolean;
 	private var _acceptControl: Object;
 	private var _activateControl: Object;
 	private var _cancelControl: Object;
 	private var _loadPresetControl: Object;
 	private var _savePresetControl: Object;
-		
+	
+	public var dispatchEvent: Function;
+	public var addEventListener: Function;
 	
 	function PresetEditor()
 	{
@@ -67,32 +70,19 @@ class PresetEditor extends MovieClip
 		presetPanel._x = ITEMLIST_HIDDEN_X;
 		
 		itemList.listEnumeration = new BasicEnumeration(itemList.entryList);
-		if(_global.skse.plugins.CharGen) {
-			var entryObject: Object = {presetEditor: this, type: RaceMenuDefines.PRESET_ENTRY_TYPE_SLIDER, text: "$Preset Slot", filterFlag: 1, callbackName: "ChangePresetSlot", sliderMin: 0, sliderMax: _global.skse.plugins.CharGen.iNumPresets, sliderID: -1, position: _global.presetSlot, interval: 1, enabled: true};
-			entryObject.internalCallback = function()
-			{
-				_global.presetSlot = this.position;
-				this.entryObject.presetEditor.onReadPreset();
-			}
-			entryObject.sliderEnabled = true;
-			entryObject.isColorEnabled = function(): Boolean { return false; }
-			entryObject.hasColor = function(): Boolean { return false; }
-			entryObject.hasGlow = function(): Boolean { return false; }
-			entryObject.GetTextureList = function(raceMenu: Object): Array { return null; }
-			itemList.entryList.push(entryObject);
-		} else {
+		if(!_global.skse.plugins.CharGen) {
 			var entryObject: Object = {type: RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT, text: "CharGen Presets Unavailable", filterFlag: 1, enabled: true};
 			itemList.entryList.push(entryObject);
 		}
 		
-		onReadPreset();
 		FocusHandler.instance.setFocus(itemList, 0);
-		//itemList.requestInvalidate();
+		itemList.requestInvalidate();
 	}
 	
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
 		_platform = a_platform;
+		_bPS3Switch = a_bPS3Switch;
 		bottomBar.setPlatform(a_platform, a_bPS3Switch);
 		
 		_activateControl = Input.Accept;
@@ -103,8 +93,8 @@ class PresetEditor extends MovieClip
 			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Quickload", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
 			_cancelControl = Input.Cancel;
-			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		}
 		
 		_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
@@ -122,8 +112,8 @@ class PresetEditor extends MovieClip
 	{
 		navPanel.clearButtons();
 		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", _parent, "onDoneClicked");
-		navPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", this, "onSavePresetClicked");
 		navPanel.addButton({text: "$Load Preset", controls: _loadPresetControl}).addEventListener("click", this, "onLoadPresetClicked");
+		navPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", this, "onSavePresetClicked");
 		navPanel.updateButtons(true);		
 	}
 	
@@ -193,39 +183,26 @@ class PresetEditor extends MovieClip
 		return false;
 	}
 	
-	public function onReadPreset(): Void
+	private function readPreset(a_path: String, a_json: Boolean): Void
 	{
-		itemList.entryList.splice(1, itemList.entryList.length - 1);
-		var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".jslot";
 		var preset: Object = new Object;
-		
-		var loadError: Boolean = _global.skse.plugins.CharGen.ReadPreset(filePath, preset, true);
-		if(loadError) {
-			filePath = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
-			loadError = _global.skse.plugins.CharGen.ReadPreset(filePath, preset, false);
-		}
-					
+		var loadError: Boolean = _global.skse.plugins.CharGen.ReadPreset(a_path, preset, a_json);
 		if(loadError == false) {			
 			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER, text: "$Mods", filterFlag: 1, enabled: true});
-			
 			for(var i = 0; i < preset.mods.length; i++) {
 				var mod = preset.mods[i];
 				var textColor: Number = 0x189515;
-				if(mod.loadedIndex == 255) {
-					textColor = 0xFF0000;
-				}
-				
+				if(mod.loadedIndex == 255)
+					textColor = 0xFF0000;				
 				itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT, text: mod.name, filterFlag: 1, textFieldColor: textColor, enabled: true});
 			}
 			
 			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER, text: "$Head Parts", filterFlag: 1, enabled: true});
 			
-			for(var i = 0; i < preset.headParts.length; i++) {
+			for(var i = 0; i < preset.headParts.length; i++)
 				itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT, text: preset.headParts[i], filterFlag: 1, enabled: true});
-			}
 			
 			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER, text: "$Colors", filterFlag: 1, enabled: true});
-			
 			var hairColor: Object = {type: RaceMenuDefines.PRESET_ENTRY_TYPE_COLOR, text: preset.hair.name, fillColor: (0xFF000000 | preset.hair.value), filterFlag: 1, enabled: true};
 			hairColor.isColorEnabled = function(): Boolean { return true; }
 			hairColor.hasColor = function(): Boolean { return true; }
@@ -244,7 +221,6 @@ class PresetEditor extends MovieClip
 			}
 			
 			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_HEADER, text: "$Sliders", filterFlag: 1, enabled: true});
-			
 			itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT_VALUE, text: preset.weight.name, position: preset.weight.value, filterFlag: 1, enabled: true});
 			
 			for(var i = 0; i < preset.morphs.length; i++) {
@@ -253,8 +229,6 @@ class PresetEditor extends MovieClip
 					itemList.entryList.push({type: RaceMenuDefines.PRESET_ENTRY_TYPE_TEXT_VALUE, text: morph.name, position: morph.value, filterFlag: 1, enabled: true});
 			}
 		}
-		
-		itemList.InvalidateData();
 	}
 	
 	private function stripTexturePath(a_texture: String): String
@@ -276,39 +250,64 @@ class PresetEditor extends MovieClip
 	
 	private function onSavePresetClicked(): Void
 	{
-		if(!_global.skse.plugins.CharGen) {
-			skse.SendModEvent(_global.eventPrefix + "RequestSaveClipboard");
-			_parent.setDisplayText("$Saved preset to clipboard");
-		} else {
-			_parent.setDisplayText("$Saved preset to slot {" + _global.presetSlot + "}");
-			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".jslot";
-			_global.skse.plugins.CharGen.SavePreset(filePath, true);
-			onReadPreset();
-		}
+		var now: Date = new Date();
+		var dateStr: String = "Preset_" + (now.getMonth()+1) + "-" + now.getDate() + "-" + now.getFullYear() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds() + ".jslot";
+		delete now;
+		
+		var dialog = DialogTweenManager.open(_root, "FileViewerDialog", {_platform: _platform, _bPS3Switch: _bPS3Switch, titleText: "$Save preset file", defaultText: dateStr, path: "Data\\SKSE\\Plugins\\CharGen\\Presets\\", patterns: ["*.jslot", "*.slot"], disableInput: false});
+		dialog.addEventListener("accept", this, "onSaveFile");
 	}
 	
 	private function onLoadPresetClicked(): Void
 	{
-		if(!_global.skse.plugins.CharGen) {
-			skse.SendModEvent(_global.eventPrefix + "RequestLoadClipboard");
-		} else {
-			var filePath: String = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".jslot";
+		var dialog = DialogTweenManager.open(_root, "FileViewerDialog", {_platform: _platform, _bPS3Switch: _bPS3Switch, titleText: "$Select preset file", defaultText: "", path: "Data\\SKSE\\Plugins\\CharGen\\Presets\\", patterns: ["*.jslot", "*.slot"], disableInput: true});
+		dialog.addEventListener("selectionChanged", this, "onSelectFile");
+		dialog.addEventListener("accept", this, "onLoadFile");
+	}
+	
+	private function onSelectFile(event: Object)
+	{
+		itemList.entryList.splice(0, itemList.entryList.length);
+		if(!event.directory) {
+			var filePath = event.directoryPath + "\\" + event.input;			
+			var extension = filePath.substring(filePath.lastIndexOf("."), filePath.length);
+			var json: Boolean = (extension == ".jslot") ? true : false;
+		
+			readPreset(filePath, json);
+		}
+			
+		itemList.requestInvalidate();
+	}
+	
+	private function onSaveFile(event): Void
+	{
+		var filePath = event.directoryPath + "\\" + event.input;
+		if(filePath.lastIndexOf(".") == -1)
+				filePath += ".jslot";
+		
+		var saveError: Boolean = _global.skse.plugins.CharGen.SavePreset(filePath, true);
+		
+		dispatchEvent({type: "savedPreset", name: event.input, success: !saveError});
+		
+		if(!saveError) {
+			itemList.entryList.splice(0, itemList.entryList.length);
+			readPreset(filePath, true);
+			itemList.requestInvalidate();
+		}
+	}
+	
+	private function onLoadFile(event: Object)
+	{
+		var filePath = event.directoryPath + "\\" + event.input;
+		if(filePath) {
+			var extension = filePath.substring(filePath.lastIndexOf("."), filePath.length);
+			var json: Boolean = (extension == ".jslot") ? true : false;
+			
 			var dataObject: Object = new Object();
 			_parent.loadingIcon._visible = true;
-			
-			var loadError: Boolean = _global.skse.plugins.CharGen.LoadPreset(filePath, dataObject, true);
-			if(loadError) {
-				filePath = "Data\\SKSE\\Plugins\\CharGen\\Presets\\" + _global.presetSlot + ".slot";
-				loadError = _global.skse.plugins.CharGen.LoadPreset(filePath, dataObject, false);
-			}
-					
-			if(!loadError) {
-				skse.SendModEvent(_global.eventPrefix + "RequestTintSave");
-				_parent.requestSliderUpdate(dataObject);
-			} else {
-				_parent.setDisplayText("$Failed to load preset from slot {" + _global.presetSlot + "}");
-				_parent.loadingIcon._visible = false;
-			}
+			var loadError: Boolean = _global.skse.plugins.CharGen.LoadPreset(filePath, dataObject, json);
+			_parent.loadingIcon._visible = false;
+			dispatchEvent({type: "loadedPreset", name: event.input, success: !loadError, data: dataObject});
 		}
 	}
 }
