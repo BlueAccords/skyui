@@ -45,6 +45,11 @@ Event OnFeetPaintRequest()
 	;AddFeetPaint("My Feetpaint", "Actors\\Character\\Character Assets\\Overlays\\MyWarpaint.dds")
 EndEvent
 
+; Use this event to add custom categories
+Event OnCategoryRequest()
+	;AddCategory("my_category_key", "$BODY SCALES")
+EndEvent
+
 ; Use this event to reset your values to defaults as well as Add your sliders
 ; AddSlider(string name, int section, string callback, float min, float max, float interval, float position)
 Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool isFemale)
@@ -57,6 +62,7 @@ Event OnSliderRequest(Actor player, ActorBase playerBase, Race actorRace, bool i
 	; changed, you may also receive other mod callbacks
 
 	; AddSlider("MyValue", CATEGORY_BODY, "ChangeMYMODValue", 0.0, 100.0, 1, _myValue)
+	; AddSliderEx("MyValue", "my_category_key", "ChangeMYMODValue", 0.0, 100.0, 1, _myValue)
 EndEvent
 
 Event OnSliderChanged(string callback, float value)

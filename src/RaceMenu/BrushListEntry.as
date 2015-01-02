@@ -97,7 +97,7 @@ class BrushListEntry extends BasicListEntry
 		if (valueField != undefined) {
 			valueField._x = textField._x + textField._width / 2 + textField.textWidth / 2 + 5;
 			valueField.autoSize = "left";
-			valueField.SetText("(" + ((a_entryObject.position * 1000)|0)/1000 + ")");
+			valueField.SetText("(" + ((a_entryObject.position * 100000)|0)/100000 + ")");
 		}
 	
 		textField.textColor = defaultTextColor;

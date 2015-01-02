@@ -7,6 +7,16 @@
 		super();
 	}
 	
+	public function set entryList(a_list: Array): Void
+	{
+		_entryList = a_list;
+	}
+	
+	public function get entryList(): Array
+	{
+		return _entryList;
+	}
+	
 	public function onItemPressVisibility(a_index: Number)
 	{
 		if (disableInput || disableSelection || _selectedIndex == -1)

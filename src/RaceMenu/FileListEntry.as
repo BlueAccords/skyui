@@ -8,8 +8,6 @@ import gfx.io.GameDelegate;
 class FileListEntry extends BasicListEntry
 {	
 	/* PROPERTIES */
-	public static var defaultTextColor: Number = 0xffffff;
-	public static var disabledTextColor: Number = 0x4c4c4c;
   	
 	/* STAGE ELMENTS */
 	public var selectIndicator: MovieClip;
@@ -23,6 +21,7 @@ class FileListEntry extends BasicListEntry
 	public function FileListEntry()
 	{
 		super();
+		textField.textAutoSize = "shrink";
 		delete this.onRollOver;
 		delete this.onRollOut;
 		delete this.onPress;

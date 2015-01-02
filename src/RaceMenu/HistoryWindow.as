@@ -11,6 +11,7 @@ class HistoryWindow extends MovableWindow
 	static var UNDO_TYPE_STROKE: Number = 1;
 	static var UNDO_TYPE_RESETMASK: Number = 2;
 	static var UNDO_TYPE_RESETSCULPT: Number = 3;
+	static var UNDO_TYPE_IMPORTGEOMETRY: Number = 4;
 	
 	static var STROKE_TYPE_NONE: Number = 0;
 	static var STROKE_TYPE_MASK_ADD: Number = 1;
@@ -133,6 +134,9 @@ class HistoryWindow extends MovableWindow
 			break;
 			case UNDO_TYPE_RESETSCULPT:
 			text = "$Clear Sculpt";
+			break;
+			case UNDO_TYPE_IMPORTGEOMETRY:
+			text = "$Import Geometry";
 			break;
 			default:
 			text = "Unknown Action";

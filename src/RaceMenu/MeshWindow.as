@@ -59,14 +59,9 @@ class MeshWindow extends MovableWindow
 		if(bLoadedAssets)
 			return true;
 			
-		var meshes: Array = undefined;
 		meshList.disableSelection = meshList.disableInput = false;
-		if(_global.skse.plugins.CharGen.GetMeshes)
-			meshes = _global.skse.plugins.CharGen.GetMeshes();
-			
-		for(var i = 0; i < meshes.length; i++)
-			meshList.entryList.push(meshes[i]);
-			
+		meshList.entryList = _global.skse.plugins.CharGen.GetMeshes();
+		meshList.listEnumeration = new BasicEnumeration(meshList.entryList);
 		meshList.requestInvalidate();
 		bLoadedAssets = true;
 		return true;
@@ -82,6 +77,11 @@ class MeshWindow extends MovableWindow
 		meshList.requestInvalidate();
 		bLoadedAssets = false;
 		return true;
+	}
+	
+	public function GetInternalMeshes(): Array
+	{
+		return meshList.entryList;
 	}
 	
 	private function onItemPressVisibility(event: Object): Void

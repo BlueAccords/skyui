@@ -38,9 +38,16 @@ class VertexEditor extends MovieClip
 	private var _rightControl: Object;
 	private var _udControl: Array;
 	private var _lrControl: Array;
-	private var _savePresetControl: Object;
-	
-	private var _platform;
+	private var _exportHeadControl: Object;
+	private var _importHeadControl: Object;
+	private var _clearSculptControl: Object;
+
+	private var _platform: Number;
+	private var _bPS3Switch: Boolean;
+
+	private var _importName: String;
+	private var _importPath: String;
+	private var _importData: Array;
 	
 	public var dispatchEvent: Function;
 	public var addEventListener: Function;
@@ -95,15 +102,18 @@ class VertexEditor extends MovieClip
 	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
 	{
 		_platform = a_platform;
+		_bPS3Switch = a_bPS3Switch;
 		
 		bottomBar.setPlatform(a_platform, a_bPS3Switch);
 		
 		if(a_platform == 0) {
 			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Quicksave", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_exportHeadControl = {keyCode: GlobalFunctions.getMappedKey("Quicksave", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_importHeadControl = {keyCode: GlobalFunctions.getMappedKey("Quickload", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
 			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-			_savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_exportHeadControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_importHeadControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		}		
 		
 		_upControl = {keyCode: GlobalFunctions.getMappedKey("Up", Input.CONTEXT_MENUMODE, a_platform != 0)};
@@ -112,6 +122,7 @@ class VertexEditor extends MovieClip
 		_rightControl = {keyCode: GlobalFunctions.getMappedKey("Right", Input.CONTEXT_MENUMODE, a_platform != 0)};
 		_udControl = [_upControl, _downControl];
 		_lrControl = [_leftControl, _rightControl];
+		_clearSculptControl = {keyCode: GlobalFunctions.getMappedKey("Shout", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		
 		var leftEdge = Stage.visibleRect.x + Stage.safeRect.x;
 		var rightEdge = Stage.visibleRect.x + Stage.visibleRect.width - Stage.safeRect.x;
@@ -126,7 +137,17 @@ class VertexEditor extends MovieClip
 		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", this._parent, "onDoneClicked");
 		navPanel.addButton({text: "$Brush", controls: _udControl});
 		navPanel.addButton({text: "$Property", controls: _lrControl});
-		navPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", _parent.presetEditor, "onSavePresetClicked");
+		
+		if(_platform == 0) {			
+			navPanel.addButton({text: "$Export Head", controls: _exportHeadControl}).addEventListener("click", this, "onExportHeadClicked");
+			navPanel.addButton({text: "$Import Head", controls: _importHeadControl}).addEventListener("click", this, "onImportHeadClicked");
+		} else {
+			navPanel.addButton({text: "$Import Head", controls: _importHeadControl}).addEventListener("click", this, "onImportHeadClicked");
+			navPanel.addButton({text: "$Export Head", controls: _exportHeadControl}).addEventListener("click", this, "onExportHeadClicked");
+		}
+		
+		navPanel.addButton({text: "$Clear Sculpt", controls: _clearSculptControl}).addEventListener("click", this, "onClearSculptClicked");
+		
 		navPanel.updateButtons(true);		
 	}
 	
@@ -221,9 +242,17 @@ class VertexEditor extends MovieClip
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
-		if (GlobalFunc.IsKeyPressed(details)) {
-			if(IsBoundKeyPressed(details, _savePresetControl, _platform)) {
-				_parent.presetEditor.onSavePresetClicked();
+		if (GlobalFunc.IsKeyPressed(details)) {			
+			 if(IsBoundKeyPressed(details, _exportHeadControl, _platform)) {
+				onExportHeadClicked();
+				return true;
+			}
+			if(IsBoundKeyPressed(details, _importHeadControl, _platform)) {
+				onImportHeadClicked();
+				return true;
+			}
+			if(IsBoundKeyPressed(details, _clearSculptControl, _platform)) {
+				onClearSculptClicked();
 				return true;
 			}
 		}
@@ -257,5 +286,68 @@ class VertexEditor extends MovieClip
 	public function onChangeBrush(event: Object)
 	{
 		bottomBar.playerInfo.PlayerName.text = event.brushName;
+	}
+	
+	private function onExportHeadClicked(): Void
+	{		
+		var now: Date = new Date();
+		var dateStr: String = "Head_" + (now.getMonth()+1) + "-" + now.getDate() + "-" + now.getFullYear() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds();
+		delete now;
+		
+		var dialog = DialogTweenManager.open(_root, "FileViewerDialog", {_platform: _platform, _bPS3Switch: _bPS3Switch, titleText: "$Export Head", defaultText: dateStr, path: "Data\\SKSE\\Plugins\\CharGen\\", patterns: ["*.nif"], disableInput: false});
+		dialog.addEventListener("accept", this, "onExportFile");
+	}
+	
+	private function onImportHeadClicked(): Void
+	{
+		var dialog = DialogTweenManager.open(_root, "FileViewerDialog", {_platform: _platform, _bPS3Switch: _bPS3Switch, titleText: "$Import Head", defaultText: "", path: "Data\\SKSE\\Plugins\\CharGen\\", patterns: ["*.nif"], disableInput: true});
+		dialog.addEventListener("accept", this, "onImportFile");
+		dialog.addEventListener("dialogClosed", this, "onImportDialogClosed");
+		
+		/*var dialog = DialogTweenManager.open(_root, "ImportDialog", {_platform: _platform, _bPS3Switch: _bPS3Switch, titleText: "$Import Part Matcher", importPath: _importPath, source: _importData, destination: meshWindow.GetInternalMeshes()});
+		dialog.addEventListener("accept", this, "onImportHead");*/
+	}
+	
+	public function onExportFile(event: Object): Void
+	{
+		var filePath = event.directoryPath + "\\" + event.input;
+		_global.skse.plugins.CharGen.ExportHead(filePath);
+	}
+	
+	public function onImportFile(event): Void
+	{
+		_importPath = event.directoryPath + "\\" + event.input;
+		_importName = event.input;
+		_importData = _global.skse.plugins.CharGen.ImportHead(_importPath);
+	}
+	
+	public function onImportDialogClosed(event): Void
+	{
+		if(_importData.length > 0) {
+			var dialog = DialogTweenManager.open(_root, "ImportDialog", {_platform: _platform, _bPS3Switch: _bPS3Switch, titleText: "$Import Part Matcher", importPath: _importPath, source: _importData, destination: meshWindow.GetInternalMeshes()});
+			dialog.addEventListener("accept", this, "onImportHead");
+		}
+		
+		dispatchEvent({type: "importedFile", success: (_importData.length > 0), name: _importName});
+	}
+	
+	public function onImportHead(event): Void
+	{
+		_global.skse.plugins.CharGen.LoadImportedHead(event.matches);
+	}
+	
+	public function onClearSculptClicked(): Void
+	{
+		var meshes: Array = meshWindow.GetInternalMeshes();
+		var activeList: Array = new Array();
+		for(var i = 0; i < meshes.length; i++) {
+			if(meshes[i].locked == false) {
+				activeList.push(meshes[i].meshIndex);
+			}
+		}
+		
+		_global.skse.plugins.CharGen.ClearSculptData(activeList);
+		
+		delete activeList;
 	}
 }

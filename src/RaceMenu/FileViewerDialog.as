@@ -33,10 +33,10 @@ class FileViewerDialog extends BasicTweenDialog
 	public var defaultText: String;
 	
 	public var disableInput: Boolean;
-	public var closeOnPress: Boolean;
 	
 	public var path: String;
 	public var patterns: Array;
+	public var alpha: Number = 30;
 	
 	private var _rootPath: String;
 	private var _platform: Number;
@@ -49,6 +49,9 @@ class FileViewerDialog extends BasicTweenDialog
 	{
 		super();
 		background.onRollOver = background.onRollOut = background.onPress = background.onRelease = function() {};
+		background._alpha = alpha;
+		
+		_sortFilter = new SortFilter();
 	}
 	
 	function onLoad()
@@ -64,7 +67,6 @@ class FileViewerDialog extends BasicTweenDialog
 		
 		SetPlatform(_platform, _bPS3Switch);
 		
-		_sortFilter = new SortFilter();
 		_sortFilter.setSortBy(["directory", "name"], [Array.DESCENDING | Array.NUMERIC, Array.NUMERIC]);
 		
 		_rootPath = path;
@@ -99,7 +101,7 @@ class FileViewerDialog extends BasicTweenDialog
 	public function handleInput(details, pathToFocus): Boolean
 	{
 		if(bTextEntryMode) {
-			if (GlobalFunc.IsKeyPressed(details, false)) {
+			if (GlobalFunc.IsKeyPressed(details)) {
 				if(details.navEquivalent == NavigationCode.ENTER || details.navEquivalent == NavigationCode.TAB) {
 					fileInput.endInput();
 					return true;
@@ -112,10 +114,10 @@ class FileViewerDialog extends BasicTweenDialog
 			return true;
 		}
 		
-		if(fileList.handleInput(details, pathToFocus))
+		if(fileList.handleInput(details, pathToFocus) && fileList.selectedEntry)
 			return true;
 		
-		if (GlobalFunc.IsKeyPressed(details, false)) {
+		if (GlobalFunc.IsKeyPressed(details)) {
 			if(details.navEquivalent == NavigationCode.ENTER || details.skseKeycode == GlobalFunctions.getMappedKey("Activate", Input.CONTEXT_GAMEPLAY, _platform != 0)) {
 				onAcceptPress();
 				return true;
@@ -161,41 +163,34 @@ class FileViewerDialog extends BasicTweenDialog
 	
 	private function onItemPress(event): Void
 	{
-		var selectedEntry = fileList.entryList[event.index];
+		var selectedEntry = fileList.entryList[event.index];		
 		if(selectedEntry.directory) {
 			currentLevel = {path: selectedEntry.path, parent: currentLevel};
 			loadPath(currentLevel.path);
 			updatePathText();
 			updateButtons();
 		} else {
-			if(fileInput.isDisabled) {
+			if(selectedEntry)
 				fileInput.text = selectedEntry.name;
-				onAcceptPress();
-			} else {
-				onAcceptPress();
-			}
+			onAcceptPress();
 		}
 	}
 	
 	private function onSelectionChange(event): Void
 	{
 		var selectedEntry = fileList.entryList[event.index];
-		fileList.listState.selectedEntry = selectedEntry;
 		if(selectedEntry) {
 			if(fileInput.isDisabled)
 				fileInput.text = selectedEntry.name;
 			
-			dispatchEvent({type: "selectionChanged", name: selectedEntry.name, path: selectedEntry.path, directoryPath: currentLevel.path, input: fileInput.text, directory: selectedEntry.directory});
+			dispatchEvent({type: "selectionChanged", directoryPath: currentLevel.path, input: fileInput.text, directory: selectedEntry.directory});
 		}
 	}
 	
 	private function onAcceptPress(): Void
 	{
-		var selectedEntry = fileList.listState.selectedEntry;
-		if(selectedEntry && !selectedEntry.directory) {
-			dispatchEvent({type: "accept", name: selectedEntry.name, path: selectedEntry.path, directoryPath: currentLevel.path, input: fileInput.text});
-			DialogTweenManager.close();
-		}
+		dispatchEvent({type: "accept", directoryPath: currentLevel.path, input: fileInput.text});
+		DialogTweenManager.close();
 	}
 		
 	private function onCancelPress(): Void

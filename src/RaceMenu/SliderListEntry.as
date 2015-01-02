@@ -149,7 +149,8 @@ class SliderListEntry extends BasicListEntry
 					var colorOverlay: Color = new Color(colorSquare.fill);
 					colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);
 					colorSquare.fill._alpha = ((a_entryObject.fillColor >>> 24) / 0xFF) * 100;
-					colorSquare.enabled = colorSquare._visible = (_global.skse != undefined);
+					colorSquare._visible = (_global.skse != undefined);
+					colorSquare.enabled = (colorSquare._visible && a_entryObject.enabled);
 				} else {
 					colorSquare.enabled = colorSquare._visible = false;
 				}
@@ -172,10 +173,13 @@ class SliderListEntry extends BasicListEntry
 				valueField._visible = valueField.enabled = false;
 				SliderInstance._visible = SliderInstance.enabled = false;
 				
-				colorSquare._visible = colorSquare.enabled = a_entryObject.hasColor();
-				glowSquare._visible = glowSquare.enabled = a_entryObject.hasGlow();
+				colorSquare._visible = a_entryObject.hasColor();
+				glowSquare._visible = a_entryObject.hasGlow();
 				
 				a_entryObject.enabled = a_entryObject.isColorEnabled();
+				
+				colorSquare.enabled = (colorSquare._visible && a_entryObject.enabled);
+				glowSquare.enabled = (glowSquare._visible && a_entryObject.enabled);
 				
 				var colorOverlay: Color = new Color(colorSquare.fill);
 				colorOverlay.setRGB(a_entryObject.fillColor & 0x00FFFFFF);

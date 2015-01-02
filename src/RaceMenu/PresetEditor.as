@@ -112,8 +112,13 @@ class PresetEditor extends MovieClip
 	{
 		navPanel.clearButtons();
 		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", _parent, "onDoneClicked");
-		navPanel.addButton({text: "$Load Preset", controls: _loadPresetControl}).addEventListener("click", this, "onLoadPresetClicked");
-		navPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", this, "onSavePresetClicked");
+		if(_platform == 0) {			
+			navPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", this, "onSavePresetClicked");
+			navPanel.addButton({text: "$Load Preset", controls: _loadPresetControl}).addEventListener("click", this, "onLoadPresetClicked");
+		} else {
+			navPanel.addButton({text: "$Load Preset", controls: _loadPresetControl}).addEventListener("click", this, "onLoadPresetClicked");
+			navPanel.addButton({text: "$Save Preset", controls: _savePresetControl}).addEventListener("click", this, "onSavePresetClicked");
+		}
 		navPanel.updateButtons(true);		
 	}
 	
@@ -251,7 +256,7 @@ class PresetEditor extends MovieClip
 	private function onSavePresetClicked(): Void
 	{
 		var now: Date = new Date();
-		var dateStr: String = "Preset_" + (now.getMonth()+1) + "-" + now.getDate() + "-" + now.getFullYear() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds() + ".jslot";
+		var dateStr: String = "Preset_" + (now.getMonth()+1) + "-" + now.getDate() + "-" + now.getFullYear() + "_" + now.getHours() + "-" + now.getMinutes() + "-" + now.getSeconds();
 		delete now;
 		
 		var dialog = DialogTweenManager.open(_root, "FileViewerDialog", {_platform: _platform, _bPS3Switch: _bPS3Switch, titleText: "$Save preset file", defaultText: dateStr, path: "Data\\SKSE\\Plugins\\CharGen\\Presets\\", patterns: ["*.jslot", "*.slot"], disableInput: false});
@@ -269,7 +274,7 @@ class PresetEditor extends MovieClip
 	{
 		itemList.entryList.splice(0, itemList.entryList.length);
 		if(!event.directory) {
-			var filePath = event.directoryPath + "\\" + event.input;			
+			var filePath = event.directoryPath + "\\" + event.input;
 			var extension = filePath.substring(filePath.lastIndexOf("."), filePath.length);
 			var json: Boolean = (extension == ".jslot") ? true : false;
 		
@@ -283,7 +288,7 @@ class PresetEditor extends MovieClip
 	{
 		var filePath = event.directoryPath + "\\" + event.input;
 		if(filePath.lastIndexOf(".") == -1)
-				filePath += ".jslot";
+			filePath += ".jslot";
 		
 		var saveError: Boolean = _global.skse.plugins.CharGen.SavePreset(filePath, true);
 		

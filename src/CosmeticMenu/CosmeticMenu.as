@@ -95,23 +95,24 @@ class CosmeticMenu extends MovieClip
 				this.bottomBar.setPlatform(a_platform, a_bPS3Switch);
 				this.colorField.setPlatform(a_platform, a_bPS3Switch);
 				this.makeupPanel.setPlatform(a_platform, a_bPS3Switch);
+				this.itemList.setPlatform(a_platform, a_bPS3Switch);
 				
 				if(this._platform == 0) {
 					this._activateControl = Input.Activate;
 					this._acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 					this._lightControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 					this._zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-					this._searchControl = Input.Jump;
-					this._textureControl = Input.Wait;
+					this._searchControl = {keyCode: GlobalFunctions.getMappedKey("Jump", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+					this._textureControl = {keyCode: GlobalFunctions.getMappedKey("Wait", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 					this._savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Quicksave", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 					this._loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Quickload", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 					this._exportHeadControl =  {keyCode: GlobalFunctions.getMappedKey("Shout", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 				} else {
 					this._activateControl = Input.Activate;
 					this._acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-					this._lightControl = Input.Wait;
+					this._lightControl = {keyCode: GlobalFunctions.getMappedKey("Wait", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 					this._zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-					this._textureControl = Input.YButton;
+					this._textureControl = {keyCode: GlobalFunctions.getMappedKey("Jump", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 					this._searchControl = null;
 					this._savePresetControl = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 					this._loadPresetControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
@@ -184,7 +185,7 @@ class CosmeticMenu extends MovieClip
 			RaceMenuInstance.categoryList.entryList.splice(0, RaceMenuInstance.categoryList.entryList.length);
 		}
 		
-		var priority: RaceMenuDefines.CATEGORY_PRIORITY_START;
+		var priority: Number = RaceMenuDefines.CATEGORY_PRIORITY_START;
 		if((a_categories & COSMETIC_CATEGORY_SLIDERS) == COSMETIC_CATEGORY_SLIDERS) {
 			RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$ALL", flag: 508, priority: priority, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 		}

@@ -6,83 +6,83 @@ $FILTER	FILTER	FILTRE	FILTER	FILTRO	FILTRO	FILTR	FILTR	ФИЛЬТР	フィルタ
 $EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	DODATEK	DODATEK	ДОПОЛНИТЕЛЬНО	その他	Extra	額外	额外
 $EXPRESSIONS	EXPRESSIONS	EXPRESSIONS	GESICHTSAUSDRUCK	ESPRESSIONI	EXPRESIONES	VÝRAZY	EKSPRESJA	ВЫРАЖЕНИЕ ЛИЦА	表現	Expressões	表情	表情
 $BODY PAINT	BODY PAINT	PEINTURE SUR LE CORPS	KÖRPERBEMALUNG	TINTURA CORPO	PINTURA CORPORAL	BARVA NA TĚLE	BARWA CIAŁA	ТАТУИРОВКА ТЕЛА	体の刺青	Pintura corporal	紋身	纹身 
-$HAND PAINT	HAND PAINT	PEINTURE SUR LES MAINS	HANDBEMALUNG	TINTURA MANO	PINTURA DE MANOS	BARVA RUKOU	BARWA RĘKI	ТАТУИРОВКА РУК	手の刺青	Pintura da mão		
+$HAND PAINT	HAND PAINT	PEINTURE SUR LES MAINS	HANDBEMALUNG	TINTURA MANO	PINTURA DE MANOS	BARVA RUKOU	BARWA RĄK	ТАТУИРОВКА РУК	手の刺青	Pintura da mão		
 $FOOT PAINT	FOOT PAINT	PEINTURE SUR LES PIEDS	FUßBEMALUNG	TINTURA PIEDI	PINTURA DE PIES	BARVA NOHOU	BARWA STÓP	ТАТУИРОВКА НОГ	足の刺青	Pintura do pé		
 $FACE PAINT	FACE PAINT	PEINTURE SUR LA TETE	GESICHTSBEMALUNG	PITTURA FACCIALE	PINTURA FACIAL	BARVA NA TVÁŘ	BARWA TWARZY	ТАТУИРОВКА ЛИЦА	顔の刺青	Pintura do rosto		
 $Sliders	Sliders	Curseurs	Regler	Cursori	Controles	Posuvníky	Suwaki	Ползунки	スライダー	Sliders		
-$Overlays	Overlays	Superposition	Überlagerungen	Sovrapposizioni	Superposición	Vrstvy	Pokrycie	Верхний слой	オーバーレイ	Sobreposições		
+$Overlays	Overlays	Superposition	Overlays	Sovrapposizioni	Superposición	Vrstvy	Pokrycie	Верхний слой	オーバーレイ	Sobreposições		
 $Camera	Camera	Caméra	Kamera	Camera	Cámara	Kamera	Kamera	Камера	カメラ	Camera		
 $Sculpt	Sculpt	Sculpter	Formen	Scolpisci	Escultor	Sculpt	Rzeźbić	Резать	カット	Esculpir		
-$Zoom In	Zoom In	Zoom avant	Vergrößern	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
-$Zoom Out	Zoom Out	Zoom arrière	Verkleinern	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
+$Zoom In	Zoom In	Zoom avant	Heranzoomen	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
+$Zoom Out	Zoom Out	Zoom arrière	Wegzoomen	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
 $Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить Расу	種族の変更	Mudar a raça	變更種族	更变种族
 $Choose Color	Choose Color	Choix de couleur	Farbe wählen	Scegli Colore	Elegir color	Vybrat Barvu	Wybierz Kolor	Выбор цвета	色の選択	Escolher a cor	選擇色彩	选择颜色
 $Choose Texture	Choose Texture	Choix de texture	Textur wählen	Scegli Texture	Elegir textura	Vybrat Texturu	Wybierz Teksturę	Выбор текстуры	テクスチャーの選択	Escolher a textura	選擇材質	选择材质
 $Glow	Glow	Lueur	Leuchten	Bagliore	Brillo	Záře	Blask	Свечение	煌き	Brilho		
-$Tint	Tint	Teinte	Tönung	Tinta	Tinte	Odstín	Odcień	Оттенок	色合い	Tom/Matiz		
+$Tint	Tint	Teinte	Farbe	Tinta	Tinte	Odstín	Odcień	Оттенок	色合い	Tom/Matiz		
 $Search	Search	Recherche	Suchen	Cerca	Buscar	Hledat	Szukaj	Найти	検索	Procurar	搜尋	搜索
 $Change Category	Change Category	Changer de catégorie	Kategorie ändern	Cambia Categoria	Cambiar categoría	Změnit kategorii	Zmień Kategorię	Сменить категорию	カテゴリーの変更	Mudar a categoria	變更類別	更变类别
 $Load Color	Load Color	Charger couleur	Farbe laden	Carica Colore	Cargar color	Načíst barvu	Wczytaj Kolor	Загрузить цвет	色の読み込み	Carregar cor	載入顏色	载入颜色
 $Save Color	Save Color	Enregistrer couleur	Farbe speichern	Salva Colore	Guardar color	Uložit barvu	Zapisz Kolor	Сохранить цвет	色の保存	Salvar cor	保存顏色	保存颜色
 $Saved Color	Saved Color	Couleurs enregistrées	Gespeicherte Farbe	Colore Salvato	Color guardado	Uložená barva	Zapisano Kolor	Сохранённый цвет	保存した色	Cor salva		已保存颜色
-$Load Preset	Load Preset	Charger le préréglage                                                                                 	Voreinstellung laden	Carica Impostazioni	Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード	Carregar predefinição	讀取預設	读取预设
-$Save Preset	Save Preset	Sauver le préréglage	Voreinstellung speichern	Salva Impostazioni	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存	Salvar predefinição	保存預設	保存预设
+$Load Preset	Load Preset	Charger le préréglage                                                                                 	Preset laden	Carica Impostazioni	Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード	Carregar predefinição	讀取預設	读取预设
+$Save Preset	Save Preset	Sauver le préréglage	Preset speichern	Salva Impostazioni	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存	Salvar predefinição	保存預設	保存预设
 $Light On	Light On	Avec lumière	Licht an	Luce Accesa	Luz encendida	Světlo zapnuté	Włącz Światło	Вкл. Подсветку	ライトオン	Ligar a luz	開啟燈光	开启光照
 $Light Off	Light Off	Sans lumière	Licht aus	Luce Spenta	Luz apagada	Světlo vypnuté	Wyłącz Światło	Выкл. Подстветку	ライトオフ	Desligar a luz	關閉燈光	关闭光照
-$Exported head	Exported head	Tête exportée	Kopf wurde exportiert	Testa Esportata	Cabeza exportada	Exportovaná hlava	Eksportowano głowę	Экспортированная голова	出力された頭部	Cabeça exportada		已导出的头部 
+$Exported head	Exported head	Tête exportée	Kopf exportiert	Testa Esportata	Cabeza exportada	Exportovaná hlava	Eksportowano głowę	Экспортированная голова	出力された頭部	Cabeça exportada		已导出的头部 
 $Export Head	Export Head	Exporter tête	Kopf exportieren	Esporta Testa	Exportar cabeza	Exportovat hlavu	Eksportuj Głowę	Экспортировать голову	頭部の出力	Exportar cabeça		导出头部
 $Rotate	Rotate	Pivoter	Drehen	Ruota	Rotar	Otočit	Obróć	 Поворот	回転	Girar		旋转
 $Move Camera	Move Camera	Déplacer la caméra	Kamera bewegen	Muovi camera	Mover cámara	Posunout Kameru	Poruszaj Kamerą	Движение камеры	カメラの移動	Mover camera		移动镜头
-$Rate ({})	Rate ({})	Vitesse ({})	Schrittweite ({})	Velocità ({})	Índice ({})	Stupeň ({})	Ocena ({})	Оценка ({})	レート	Taxa		
+$Rate ({})	Rate ({})	Vitesse ({})	Geschwindigkeit ({})	Velocità ({})	Índice ({})	Stupeň ({})	Ocena ({})	Оценка ({})	レート	Taxa		
 $Primary	Primary	Primaire	Primär	Primario	Primario	Primární	Pierwszorzędny	Основной	プライマリー	Primário	主要	主要
 $Secondary	Secondary	Secondaire	Sekundär	Secondario	Secundario	Sekundární	Drugorzędny	Дополнительный	セカンダリー	Secundário	次要	次要
-$Preset Slot	Preset Slot	Emplacement de réglages	Vorlageposition	Slot impostazione	Ajustes predefinidos	Slot předvolby	Gniazdo Wyglądu	Слот предустановки	プリセットスロット	Espaço de predefinição		当前设置
-$Failed to save preset to {}	Failed to save preset to {}											
-$Saved preset to {}	Saved preset to {}											
-$Loaded preset from {}	Loaded preset from {}											
-$Failed to load preset from {}	Failed to load preset from {}											
+$Preset Slot	Preset Slot	Emplacement de réglages	Preset Slot	Slot impostazione	Ajustes predefinidos	Slot předvolby	Gniazdo Wyglądu	Слот предустановки	プリセットスロット	Espaço de predefinição		当前设置
+$Failed to save preset to {}	Failed to save preset to {}		Konnte Preset nicht nach {} speichern				Nie powiodło się zapisanie wyglądu do {}					
+$Saved preset to {}	Saved preset to {}		Preset nach {} gespeichert				Zapisano wygląd do {}					
+$Loaded preset from {}	Loaded preset from {}		Preset von {} geladen				Wczytano wygląd z {}					
+$Failed to load preset from {}	Failed to load preset from {}		Konnte Preset nicht von {} laden				Nie powiodło się wczytanie wyglądu z {}					
+$Imported data from {}	Imported data from {}		Daten von {} importiert				Zaimportowano dane od {}					
+$Failed to import data from {}	Failed to import data from {}		Konnte Daten nicht von {} importieren				Nie powiodło się zaimportować dane od {}					
 $Colors	Colors	Couleurs	Farben	Colori	Colores	Barvy	Kolory	Цвет	色			
-$Presets	Presets	Réglages	Vorgaben		Presets	Předvolby	Wyglądy	Пресеты	プリセット			
+$Presets	Presets	Réglages	Presets		Presets	Předvolby	Wyglądy	Пресеты	プリセット			
 $Mods	Mods	Mods	Mods		Mods	Modyfikace	Modyfikacje	Моды	Mod			
-$Head Parts	Head Parts	Parties de la tête	Kopf Bauteile		Partes de la cabeza	Části hlavy	Części Głowy	Части головы	頭部のパーツ			
-$Brush	Brush						Pędzlować					
-$Mask Add	Mask Add						Dodaj Maskę					
-$Mask Subtract	Mask Subtract						Odejmij Maskę					
-$Inflate	Inflate						Nadmuchać					
-$Deflate	Deflate						Wypuszczać					
-$Smooth	Smooth						Gładzić					
-$Move	Move						Przenieść					
-$Clear Mask	Clear Mask						Wyczyść Maskę					
-$Clear Sculpt	Clear Sculpt						Wyczyść Rzeźbienie					
-$History	History						Historia					
-$Strength	Strength						Siła					
-$Radius	Radius						Promień					
-$Property	Property						Właściwość					
-$Mirror	Mirror						Odzwierciedlić					
-$Sculpt history will be lost	Sculpt history will be lost						Historia rzeźbienia będą utracone					
-$Loading a preset will erase sculpt history	Loading a preset will erase sculpt history						Wczytywanie wyglądu wymaże historię rzeźbienia					
-$Name	Name											
-$Date modified	Date modified											
-$Size	Size											
-$Save preset file	Save preset file											
-$Select preset file	Select preset file											
-$Edit	Edit											
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+$Head Parts	Head Parts	Parties de la tête	Kopfteile		Partes de la cabeza	Části hlavy	Części Głowy	Части головы	頭部のパーツ			
+$Brush	Brush		Pinsel			Štětec	Pędzel					
+$Mask Add	Mask Add		Maske erweitern				Dodaj Maskę					
+$Mask Subtract	Mask Subtract		Maske verringern				Odejmij Maskę					
+$Inflate	Inflate		Aufblähen				Nadmuchać					
+$Deflate	Deflate		Reduzieren				Wypuszczać					
+$Smooth	Smooth		Glätten			Jemně	Wygładź					
+$Move	Move		Bewegen			Posunout	Przenieś					
+$Clear Mask	Clear Mask		Maske löschen				Wyczyść Maskę					
+$Clear Sculpt	Clear Sculpt		Form zurücksetzen				Wyczyść Rzeźbienie					
+$Import Geometry	Import Geometry		Geometrie importieren				Importuj Geometrię					
+$History	History		Verlauf			Historie	Historia					
+$Strength	Strength		Stärke			Síla	Siła					
+$Radius	Radius		Radius				Promień					
+$Property	Property		Eigenschaft				Właściwość					
+$Mirror	Mirror		Spiegeln			Zrcadlit	Odzwierciedlić					
+$Sculpt history will be lost	Sculpt history will be lost		Formenverlauf geht verloren				Historia rzeźbienia będą utracone					
+$Loading a preset will erase sculpt history	Loading a preset will erase sculpt history		Laden eines Presets löscht den Formenverlauf				Wczytywanie wyglądu wymaże historię rzeźbienia					
+$Name	Name		Name			Jméno	Nazwa					
+$Date modified	Date modified		Änderungsdatum			Datum změny	Data modyfikacji					
+$Size	Size		Größe			Velikost	Rozmiar					
+$Save preset file	Save preset file		Preset-Datei speichern				Zapisz plik wyglądu					
+$Select preset file	Select preset file		Preset-Datei auswählen				Wybierz plik wyglądu					
+$Edit	Edit		Bearbeiten			Upravit	Edycja					
+$Deselect	Deselect		Abwählen				Odznacz					
+$Select	Select		Auswähen			Vybrat	Zaznacz					
+$Toggle	Toggle		Umschalten				Przełącz					
+$Import Head	Import Head		Kopf importieren				Importuj Głowę					
+$Import Part Matcher	Import Part Matcher		Import passender Teile				Importuj Pasująca Część					
+$Internal Destination	Internal Destination		Interner Zielort				Wewnętrzny Docelowy					
+$External Source	External Source		Externe Quelle			Vnější zdroj	Zewnętrzne Źródło					
+$Toggle Visibility	Toggle Visibility		Sichtbarkeit umschalten				Przełącz Widoczność					
+$Toggle Wireframe	Toggle Wireframe		Wireframe umschalten				Przełącz Kontury					
+$Toggle Editability	Toggle Editability		Editierbarkeit umschalten				Przełącz Edytowalność					
+$Cycle Wireframe Color	Cycle Wireframe Color		Wireframe-Farbe wechseln				Cykl Kolor Kontur					
+$BODY SCALES	BODY SCALES											
+$Undefined	Undefined											
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
 RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
@@ -103,7 +103,7 @@ $Axe Scale	Axe Scale	Taille de la hache	Axtgröße	Dimensioni Ascia	Escala del h
 $Sword Scale	Sword Scale	Taille de l'épée	Schwertgröße	Dimensioni Spada	Escala de la espada	Měřítko meče	Skala Mieczu	Шкала меча	剣の大きさ	Tamanho da espada		
 $Mace Scale	Mace Scale	Taille de la masse	Streitkolbengröße	Dimensioni Mazza	Escala de la maza	Měřítko palice	Skala Buławy	Шкала булавы	メイスの大きさ	Tamanho da maça		
 $Shield Scale	Shield Scale	Taille du bouclier	Schildgröße	Dimensioni Scudo	Escala del escudo	Měřítko štítu	Skala Tarczy	Шкала щита	盾の大きさ	Tamanho do escudo		
-$Weapon Back Scale	Weapon Back Scale	Taille de l'arme dans le dos	Waffengröße hinten	Dimensioni Arma su schiena	Escala del arma envainada en la espalda	Měřítko zbraně na zádech	Skala Tylnej Broni	Шкала оружия за спиной	大剣の鞘の大きさ	Tamanho da parte de trás da arma		
+$Weapon Back Scale	Weapon Back Scale	Taille de l'arme dans le dos	Waffengröße hinten	Dimensioni Arma su schiena	Escala del arma envainada en la espalda	Měřítko zbraně na zádech	Skala Broni na plecach	Шкала оружия за спиной	大剣の鞘の大きさ	Tamanho da parte de trás da arma		
 $Weapon Scale	Weapon Scale	Taille de l'arme	Waffengröße	Dimensioni Arma	Escala del arma desenvainada	Měřítko zbraně	Skala Broni	Шкала оружия	武器の大きさ	Tamanho da arma		
 $Alteration	Alteration	Altération	Veränderung	Alterazione	Alteración	Proměny	Przemiana	Изменение	変性	Alteração		变化
 $Conjuration	Conjuration	Conjuration	Beschwörung	Evocazione	Conjuración	Vyvolávání	Przywoływanie	Колдовство	召喚	Conjuração		召唤
@@ -112,7 +112,7 @@ $Illusion	Illusion	Illusion	Illusion	Illusione	Ilusión	Iluze	Iluzja	Иллюз�
 $Restoration	Restoration	Guérison 	Wiederherstellung	Recupero	Restauración	Obnova	Przywracanie	Восстановление	回復	Restauração	回復	回复
 $One Handed	One Handed	Une main	Einhändig	Una Mano	A una mano	Jednoruční boj	Broń Jednoręczna	Одноручное	片手武器	Uma mão	單手武器	单手
 $Two Handed	Two Handed	Deux mains	Zweihändig	Due Mani	A dos manos	Obouruční boj	Broń Oburęczna	Двуручное	両手武器	Duas mãos	雙手武器	双手
-$Archery	Archery	Archerie	Bogenschießen	Arceria	Arquería	Lukostřelba	Łucznictwo	Стрельба из лука	弓術	Arquearia		箭术
+$Archery	Archery	Archerie	Schießkunst	Arceria	Arquería	Lukostřelba	Łucznictwo	Стрельба из лука	弓術	Arquearia		箭术
 $Block	Block	Parade	Blocken	Parare	Bloqueo	Krytí	Blok	Блокирование	防御	Bloqueio		档格
 $Heavy Armor	Heavy Armor	Armure lourde	Schwere Rüstung	Armatura Pesante	Armadura pesada	Těžká zbroj	Ciężki Pancerz	Тяжелые доспехи	重装	Armadura pesada		重甲
 $Light Armor	Light Armor	Armure légère	Leichte Rüstung	Armatura Leggera	Armadura ligera	Lehké brnění	Lekki Pancerz	Легкие доспехи	軽装	Armadura leve		轻甲
@@ -123,7 +123,7 @@ $Smithing	Smithing	Forgeage	Schmiedekunst	Forgiatura	Herrería	Kovářství	Kowa
 $Lockpicking	Lockpicking	Crochetage	Schlossknacken	Scassinare	Abrir cerraduras	Páčení zámků	Otwieranie zamków	Взлом	開錠	Quebra de cadeado		开锁
 $Pickpocket	Pickpocket	Vol à la tire	Taschendiebstahl	Borseggiare	Robo	Kapsářství	Kradzież	Карманные кражи	スリ	Roubo		行窃
 $Speechcraft	Speechcraft	Éloquence	Überredungskunst	Oratoria	Elocuencia	Přesvědčování	Retoryka	Красноречие	話術	Oratoria		口才
-$Texture List	Texture List	Liste de texture	Texturen-Liste	Lista delle Texture	Lista de texturas	Seznam Textur	Lista Tekstur	Список текстур	テクスチャーの一覧	Lista de texturas	材質一覽	材质列表
+$Texture List	Texture List	Liste de texture	Texturenliste	Lista delle Texture	Lista de texturas	Seznam Textur	Lista Tekstur	Список текстур	テクスチャーの一覧	Lista de texturas	材質一覽	材质列表
 $Male Warpaint 01	Male Warpaint 01	Peinture de guerre homme 01 	Männliche Kriegsbemalung 01	Pittura di guerra Maschile 01	Pintura de guerra para hombre 01	Mužské válečné malování 01	Męska Barwa wojenna 01	Муж. боевая раскраска 01	男性の戦化粧 01	Pintura de guerra masculina 01	男性戰紋 01	男性战纹 01
 $Male Warpaint 02	Male Warpaint 02	Peinture de guerre homme 02	Männliche Kriegsbemalung 02	Pittura di guerra Maschile 02	Pintura de guerra para hombre 02	Mužské válečné malování 02	Męska Barwa wojenna 02	Муж. боевая раскраска 02	男性の戦化粧 02	Pintura de guerra masculina 02	男性戰紋 02	男性战纹 02
 $Male Warpaint 03	Male Warpaint 03	Peinture de guerre homme 03	Männliche Kriegsbemalung 03	Pittura di guerra Maschile 03	Pintura de guerra para hombre 03	Mužské válečné malování 03	Męska Barwa wojenna 03	Муж. боевая раскраска 03	男性の戦化粧 03	Pintura de guerra masculina 03	男性戰紋 03	男性战纹 03
@@ -257,24 +257,24 @@ $CME_CheeksBlow	Cheekfront Width	Largeur des joues (avant)	Wangenbreite (vorne)	
 $CME_JawWidth	Jaw Width 2	Largeur de la mâchoire	Kieferbreite 2	Larghezza mascella	Anchura de la mandíbula	Šířka čelisti	Szerokość szczęki	Ширина челюсти	顎の幅 2	Largura do maxilar	下顎闊度	下顎闊度
 $CME_JawUpDown	Jaw Height 2	Hauteur de la mâchoire	Kieferhöhe 2	Mascella su/giù	Altura de la mandíbula	Výška čelisti	Wysokość szczęki	Высота челюсти	顎の高さ 2	Altura do maxilar	下顎高度	下顎高度
 $CME_JawBackForward	Jaw Depth	Avancée de la mâchoire	Kiefertiefe	Mascella indietro/avanti	Profundidad de la mandíbula	Hloubka čelisti	Głębokość szczęki	Глубина челюсти	顎の深さ	Maxilar para frente ou para trás	下顎深度	下顎深度
-$CME_ChinWidth	Chin Width 2	Largeur du menton	Kinnbreite 2	Larghezza mento	Anchura de la barbilla	Šířka brady	Szerokość podbródki	Ширина подбородка	下顎の幅		下巴闊度	下巴闊度
-$CME_ChinUpDown	Chin Length 2	Longueur du menton 	Kinnlänge 2	Mento su/giù	Longitud de la barbilla	Délka brady	Wysokość podbródki	Длина подбородка	下顎の高さ		下巴長度	下巴长度 
-$CME_ChinBackForward	Chin Depth	Avancée du menton	Kinntiefe	Mento avanti/indietro	Profundidad de la barbilla	Hloubka brady	Głębokość podbródki	Глубина подбородка	下顎の深さ		下巴深度	下巴深度
-$ECE_ChinBackForward	Chin Jut Depth	Taille de la fossette du menton	Kinnüberbisstiefe	Mento avanti/indietro	Profundidad del mentón	Vysunutí brady	Głębokość sterczenia podbródki	Глубина подбородка	下顎の深さ		下頜深度	下颌深度
-$CME_UnderChinSlope	Chin Angle Height	Hauteur de l'angle du  menton	Kinnwinkelhöhe	Pendenza sottomento	Altura del ángulo de la barbilla	Výška a úhel podbradku	Kąt wyskości podbródki	Высота и угол поворота подбородка	下顎の角度		下巴角度	下巴角度
+$CME_ChinWidth	Chin Width 2	Largeur du menton	Kinnbreite 2	Larghezza mento	Anchura de la barbilla	Šířka brady	Szerokość podbródka	Ширина подбородка	下顎の幅		下巴闊度	下巴闊度
+$CME_ChinUpDown	Chin Length 2	Longueur du menton 	Kinnlänge 2	Mento su/giù	Longitud de la barbilla	Délka brady	Wysokość podbródka	Длина подбородка	下顎の高さ		下巴長度	下巴长度 
+$CME_ChinBackForward	Chin Depth	Avancée du menton	Kinntiefe	Mento avanti/indietro	Profundidad de la barbilla	Hloubka brady	Głębokość podbródka	Глубина подбородка	下顎の深さ		下巴深度	下巴深度
+$ECE_ChinBackForward	Chin Jut Depth	Taille de la fossette du menton	Kinnüberbisstiefe	Mento avanti/indietro	Profundidad del mentón	Vysunutí brady	Głębokość sterczenia podbródka	Глубина подбородка	下顎の深さ		下頜深度	下颌深度
+$CME_UnderChinSlope	Chin Angle Height	Hauteur de l'angle du  menton	Kinnwinkelhöhe	Pendenza sottomento	Altura del ángulo de la barbilla	Výška a úhel podbradku	Kąt wyskości podbródka	Высота и угол поворота подбородка	下顎の角度		下巴角度	下巴角度
 $CME_EyesType	Eye Type	Style des yeux	Augentyp	Tipo di occhi	Tipo de ojos	Typ očí	Typ oczu	Тип глаз	眼の種類		眼睛類型	眼睛类型 
 $CME_EyesSize	Eye Size	Taille des yeux	Augengröße	Grandezza occhi	Tamaño de los ojos	Velikost očí	Rozmiar oczu	Размер глаз	眼の大きさ		眼睛尺寸	眼睛尺寸
 $CME_EyesHeight	Eyelid Height	Ouverture des paupières	Augenlidhöhe	Altezza occhi	Altura de los párpados	Výška očního víčka	Wysokość powieki	Высота век	眼の高さ			眼睛高度
 $CME_UpperEyesHeight	Upper Eyelid Height	Hauteur de la paupière supérieure	Augenlidhöhe (oben)	Altezza palbebra superiore	Altura del párpado superior	Výška horního víčka	Górna wysokość powieki	Высота верхнего века	眼の上の高さ			上眼高度 
 $CME_LowerEyesHeight	Lower Eyelid Height	Hauteur de la paupière inférieure	Augenlidhöhe (unten)	Altezza palbebra inferiore	Altura del párpado inferior	Výška spodního víčka	Dolna wysokość powieki	Высота нижнего века	眼の下の高さ			下眼高度
-$CME_EyesSlope	Eye Tilt	Inclinaison des yeux	Augenneigung	Inclinazione degli occhi	Inclinación de los ojos	Naklonění očí	Nachylenie oczów	Наклон глаз	眼の傾き			
+$CME_EyesSlope	Eye Tilt	Inclinaison des yeux	Augenneigung	Inclinazione degli occhi	Inclinación de los ojos	Naklonění očí	Nachylenie oczu	Наклон глаз	眼の傾き			
 $CME_EyeballSize	Iris Size	Taille de l'iris	Irisgröße	Grandezza bulbo oculare	Tamaño del iris	Velikost duhovky	Rozmiar tęczówki	Размер радужки	眼球の大きさ			眼球大小
 $CME_EyeballInOut	Iris Spread	Extension de l'iris	Irisversetzung	Bulbo oculare dentro/fuori	Expansión del iris	Rozšíření duhovky	Rozpiętość tęczówki	Глубина глазных яблок	眼球の奥行き			
 $CME_EyeballUpDown	Iris Height	Hauteur de l'iris	Irishöhe	Bulbo oculare su/giù	Altura del iris	Výška duhovky	Wysokość tęczówki	Высота глазных яблок	眼球の高さ			眼球高度
 $CME_EyelashLength	Eyelash Length	Longueur des cils	Wimpernlänge	Lunghezza ciglia	Longitud de las pestañas	Délka řas	Długość rzęs	Длина ресниц	まつ毛の長さ			
-$CME_EyesUpDown	Eye Height 2	Hauteur des yeux	Augenhöhe 2	Occhi su/giù	Altura de los ojos	Výška očí	Wysokość oczów 2	Высота глаз	眼の上下位置			
-$CME_EyesInOut	Eye Spread	Écartement des yeux	Augenabstand	Occhi dentro/fuori	Distancia entre los ojos	Vzdálennost očí	Rozpiętość oczów	Расстояние между глаз	眼の凹凸			
-$CME_EyesBackForward	Eye Depth 2	Profondeur des yeux	Augentiefe 2	Occhi indietro/avanti	Profundidad de los ojos	Hloubka očí	Głębokość oczów 2	Глубина глазниц	眼の深さ			
+$CME_EyesUpDown	Eye Height 2	Hauteur des yeux	Augenhöhe 2	Occhi su/giù	Altura de los ojos	Výška očí	Wysokość oczu 2	Высота глаз	眼の上下位置			
+$CME_EyesInOut	Eye Spread	Écartement des yeux	Augenabstand	Occhi dentro/fuori	Distancia entre los ojos	Vzdálennost očí	Rozpiętość oczu	Расстояние между глаз	眼の凹凸			
+$CME_EyesBackForward	Eye Depth 2	Profondeur des yeux	Augentiefe 2	Occhi indietro/avanti	Profundidad de los ojos	Hloubka očí	Głębokość oczu 2	Глубина глазниц	眼の深さ			
 $CME_BrowSlope	Brow Slope	Angle des sourcils	Brauenneigung	Angolo sopracciglia	Inclinación de las cejas	Sklon obočí	Nachylenie brwi	Угол наклона бровей	眉の傾き			
 $CME_BrowArch	Brow Arch	Courbe des sourcils	Brauenwölbung	Arco sopracciglia	Arco de las cejas	Oblouk obočí	Łuk briowy	Изгиб бровей				
 $CME_BrowUpDown	Brow Height 2	Hauteur des sourcils	Brauenhöhe 2	Sopracciglia su/giù	Altura de las cejas	Výška obočí	Wysokość brwi 2	Высота бровей				
@@ -300,16 +300,16 @@ $CME_NoseLength	Nose Length 2	Longueur du nez	Nasenlänge 2	Lunghezza naso	Longi
 $CME_NoseBackForward	Nose Depth	Profondeur du nez	Nasentiefe	Naso indietro/avanti	Profundidad de la nariz	Hloubka nosu	Głębokość nosa	Глубина носа	鼻の前後			
 $ECE_NoseBridgeWidth	Nose Bridge Width	Largeur de l'arête du nez	Nasenbrückenbreite	Larghezza ponte nasale	Ancho de puente de nariz	Tloušťka nosního můstku	Szerokość mostka nosa	Ширина переносицы	鼻梁の幅			
 $ECE_NoseTipWidth	Nose Tip Width	Largeur de la pointe du nez	Nasenspitzenbreite	Larghezza punta del naso	Anchura de la punta de la nariz	Šířka špičky nosu	Szerokość czubka nosa	Ширина кончика носа				
-$CME_NoseHoleSlope	Nose Tip Slope	Élevation de la pointe du nez	Nasenspitze Neigung	Inclinazione punta del naso	Altura de la punta de la nariz	Sklon špičky nosu	Nachylanie czubka nosa	Угол наклона кончика носа				
-$CME_NoseSellionBackForward	Nose Sellion Depth	Profondeur de la racine du nez	Nasenübergang Tiefe	Radice del naso indietro/avanti	Profundidad del tabique nasal	Hloubka kořene nosu	Głębokość podstawy nosa	Глубина переносицы				
-$CME_NoseSellionUpDown	Nose Sellion Height	Hauteur de la racine du nez	Nasenübergang Höhe	Radice del naso su/giù	Altura del tabique nasal	Výška kořene nosu	Wysokość podstawy nosa	Высота переносицы				
-$CME_NoseSellionWidth	Nose Sellion Width	Largeur de la racine du nez	Nasenübergang Breite	Ampiezza radice del naso	Anchura del tabique nasal	Síla kořene nosu	Szerokość podstawy nosa	Ширина переносицы				
+$CME_NoseHoleSlope	Nose Tip Slope	Élevation de la pointe du nez	Nasenspitzenneigung	Inclinazione punta del naso	Altura de la punta de la nariz	Sklon špičky nosu	Nachylanie czubka nosa	Угол наклона кончика носа				
+$CME_NoseSellionBackForward	Nose Sellion Depth	Profondeur de la racine du nez	Nasenübergangstiefe	Radice del naso indietro/avanti	Profundidad del tabique nasal	Hloubka kořene nosu	Głębokość podstawy nosa	Глубина переносицы				
+$CME_NoseSellionUpDown	Nose Sellion Height	Hauteur de la racine du nez	Nasenübergangshöhe	Radice del naso su/giù	Altura del tabique nasal	Výška kořene nosu	Wysokość podstawy nosa	Высота переносицы				
+$CME_NoseSellionWidth	Nose Sellion Width	Largeur de la racine du nez	Nasenübergangsbreite	Ampiezza radice del naso	Anchura del tabique nasal	Síla kořene nosu	Szerokość podstawy nosa	Ширина переносицы				
 $RANs_NoseRidgeShape	Nose Bridge Depth	Profondeur de l'arête du nez	Nasenbrückentiefe	Forma del setto nasale	Profundidad del puente de la nariz	Hloubka nosního můstku	Głębokość mostka nosa	Форма переносицы				
-$CME_AroundNoseBackForward	Nose Area Depth	Profondeur de la zone du nez	Nasenumgebung Tiefe	Zona intorno al naso indietro/avanti	Profundidad del área de la nariz	Hloubka oblasti nosu	Głębokość obszaru nosa	Глубина области носа				
+$CME_AroundNoseBackForward	Nose Area Depth	Profondeur de la zone du nez	Nasenumgebungstiefe	Zona intorno al naso indietro/avanti	Profundidad del área de la nariz	Hloubka oblasti nosu	Głębokość obszaru nosa	Глубина области носа				
 $ECE_EarShape	Ear Shape	Forme des oreilles	Ohrenform	Forma orecchie	Forma de las orejas	Tvar uší	Kształt ucha	Форма ушей	耳の形			耳朵形状
 $ECE_EarSize	Ear Size	Taille des oreilles	Ohrengröße	Grandezza orecchie	Tamaño de las orejas	Velikost uší	Rozmiar ucha	Размер ушей	耳の大きさ			耳朵大小 
 $CME_EarUpDown	Ear Height	Hauteur des oreilles	Ohrenhöhe	Orecchie su/giù	Altura de las orejas	Výška uší	Wysokość ucha	Уровень ушей	耳の上下			
-$CME_ElfEar	Elf Ear Tip	Oreilles d'elfe	Elfenohren Spitze	Orecchie da elfo	Puntas de orejas de Elfo	Špička elfích uší	Czubek elfiego ucha	Тип эльф. ушей	エルフ耳			
+$CME_ElfEar	Elf Ear Tip	Oreilles d'elfe	Elfenohren-Spitze	Orecchie da elfo	Puntas de orejas de Elfo	Špička elfích uší	Czubek elfiego ucha	Тип эльф. ушей	エルフ耳			
 $CME_Nord	Nord	Nordique	Nord	Nord	Nórdico	Seveřan	Nord	Норд	ノルド耳			
 $CME_Breton	Breton	Bréton	Breton	Bretone	Bretón	Bretonec	Breton	Бретонец	ブレトン耳			
 $CME_Imperial	Imperial	Impérial	Kaiserlich	Imperiale	Imperial	Císařský	Cesarski	Имперец	インペリアル耳			
@@ -381,5 +381,5 @@ $EXPR_W	W	W	W			W	W	W
 												
 												
 												
-% Completion	100.00%	93.14%	93.14%	83.11%	81.00%	92.61%	97.36%	93.14%	76.25%	59.89%	30.34%	61.48%
-Total % Completion	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%	80.12%
+% Completion	100.00%	88.92%	99.47%	78.89%	76.78%	91.56%	99.47%	88.92%	72.03%	55.67%	26.12%	57.26%
+Total % Completion	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%

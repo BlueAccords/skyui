@@ -87,7 +87,9 @@ class ModeSwitcher extends MovieClip
 	
 	public function setMode(index: Number): Void
 	{
-		buttonGroup.setSelectedButton(buttonGroup.getButtonAt(index));
+		var button = buttonGroup.getButtonAt(index);
+		if(button.enabled)
+			buttonGroup.setSelectedButton(button);
 	}
 	
 	public function updateAlignment()

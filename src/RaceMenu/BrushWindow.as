@@ -17,13 +17,13 @@ class BrushWindow extends MovableWindow
 	public var brushes: Array;
 	public var currentBrush: Number = -1;
 	
-	static var BRUSH_TYPE_NONE: Number = 0;
-	static var BRUSH_TYPE_MASK_ADD: Number = 1;
-	static var BRUSH_TYPE_MASK_SUB: Number = 2;
-	static var BRUSH_TYPE_INFLATE: Number = 3;
-	static var BRUSH_TYPE_DEFLATE: Number = 4;
-	static var BRUSH_TYPE_MOVE: Number = 5;
-	static var BRUSH_TYPE_SMOOTH: Number = 6;
+	static var BRUSH_TYPE_NONE: Number = -1;
+	static var BRUSH_TYPE_MASK_ADD: Number = 0;
+	static var BRUSH_TYPE_MASK_SUB: Number = 1;
+	static var BRUSH_TYPE_INFLATE: Number = 2;
+	static var BRUSH_TYPE_DEFLATE: Number = 3;
+	static var BRUSH_TYPE_MOVE: Number = 4;
+	static var BRUSH_TYPE_SMOOTH: Number = 5;
 	
 	public var _allowBrushChange: Boolean = true;
 	
@@ -81,7 +81,7 @@ class BrushWindow extends MovableWindow
 			
 			categoryList.entryList.push({text: getBrushName(brushes[b].type), flag: 0, textFilter: filter, bDontHide: true, filterFlag: 1, enabled: true});
 			
-			var radius: Object = {text: "$Radius", sliderMin: 0.01, sliderMax: 5, filterFlag: 0, textFilters: [filter], interval: 0.01, position: brushes[b].radius, brush: brushes[b], enabled: true};
+			var radius: Object = {text: "$Radius", sliderMin: brushes[b].radiusMin, sliderMax: brushes[b].radiusMax, filterFlag: 0, textFilters: [filter], interval: brushes[b].radiusInterval, position: brushes[b].radius, brush: brushes[b], enabled: true};
 			radius.internalCallback = function()
 			{
 				var brush: Object = this.entryObject.brush;
@@ -93,7 +93,7 @@ class BrushWindow extends MovableWindow
 			brushList.entryList.push(radius);
 			
 			if(brushes[b].strength != 0) {
-				var strength: Object = {text: "$Strength", sliderMin: 0.01, sliderMax: 5, filterFlag: 0, textFilters: [filter], interval: 0.01, position: brushes[b].strength, brush: brushes[b], enabled: true};
+				var strength: Object = {text: "$Strength", sliderMin: brushes[b].strengthMin, sliderMax: brushes[b].strengthMax, filterFlag: 0, textFilters: [filter], interval: brushes[b].strengthInterval, position: brushes[b].strength, brush: brushes[b], enabled: true};
 				strength.internalCallback = function()
 				{
 					var brush: Object = this.entryObject.brush;

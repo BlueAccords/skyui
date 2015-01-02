@@ -132,9 +132,9 @@ class MeshListEntry extends BasicListEntry
 		colorOverlay.setRGB(a_entryObject.wfColor & 0x00FFFFFF);
 		wireColor.fill._alpha = ((a_entryObject.wfColor >>> 24) / 0xFF) * 100;
 		
-		if (textField != undefined) {			
+		if (textField != undefined) {
 			textField.autoSize = a_entryObject.align ? a_entryObject.align : "left";
-			textField.SetText(a_entryObject.text ? a_entryObject.text : " ");
+			textField.SetText(a_entryObject.name ? a_entryObject.name : " ");
 		}
 		
 		if(!a_entryObject.morphable) {

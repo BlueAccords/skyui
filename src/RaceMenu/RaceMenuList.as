@@ -14,6 +14,9 @@ class RaceMenuList extends skyui.components.list.ScrollingList
 {
 	public var entryHeight: Number = 25;
 	
+	private var _textureControl: Object;
+	private var _platform: Number;
+	
 	public function RaceMenuList()
 	{
 		super();
@@ -27,6 +30,23 @@ class RaceMenuList extends skyui.components.list.ScrollingList
 			scrollbar.height = _listHeight;
 			
 		_maxListIndex = Math.floor(_listHeight / entryHeight);
+	}
+	
+	public function setPlatform(a_platform: Number, a_bPS3Switch: Boolean): Void
+	{
+		super.setPlatform(a_platform,a_bPS3Switch);
+		
+		_platform = a_platform;
+		if(_platform == 0) {
+			_textureControl = {keyCode: GlobalFunctions.getMappedKey("Wait", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+		} else {
+			_textureControl = {keyCode: GlobalFunctions.getMappedKey("Jump", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+		}
+	}
+	
+	public function IsBoundKeyPressed(details: InputDetails, boundKey: Object, platform: Number): Boolean
+	{
+		return ((details.control && details.control == boundKey.name) || (details.skseKeycode && boundKey.name && boundKey.context && details.skseKeycode == GlobalFunctions.getMappedKey(boundKey.name, Number(boundKey.context), platform != 0)) || (details.skseKeycode && details.skseKeycode == boundKey.keyCode));
 	}
 	
 	// @GFx
@@ -50,10 +70,7 @@ class RaceMenuList extends skyui.components.list.ScrollingList
 			} else if (!disableSelection && (details.navEquivalent == NavigationCode.ENTER || details.skseKeycode == GlobalFunctions.getMappedKey("Activate", Input.CONTEXT_GAMEPLAY, _platform != 0))) {
 				onItemPress();
 				return true;
-			} else if (!disableSelection && (details.control == "YButton" || 
-											 details.control == "Wait" || 
-											 details.skseKeycode == GlobalFunctions.getMappedKey("YButton", Input.CONTEXT_GAMEPLAY, _platform != 0) || 
-											 details.skseKeycode == GlobalFunctions.getMappedKey("Wait", Input.CONTEXT_GAMEPLAY, _platform != 0))) {
+			} else if (!disableSelection && IsBoundKeyPressed(details, _textureControl, _platform)) {
 				dispatchEvent({type: "itemPressSecondary", index: _selectedIndex, entry: selectedEntry, clip: selectedClip});
 				return true;
 			}
