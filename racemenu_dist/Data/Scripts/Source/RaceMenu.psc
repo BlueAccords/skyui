@@ -14,11 +14,11 @@ int Property MAX_MORPHS = 19 AutoReadOnly
 ; Minimum SKSE version statistics
 int Property SKSE_MAJOR_VERSION = 1 AutoReadOnly
 int Property SKSE_MINOR_VERSION = 7 AutoReadOnly
-int Property SKSE_BETA_VERSION = 1 AutoReadOnly
-int Property SKSE_RELEASE_VERSION = 46 AutoReadOnly
+int Property SKSE_BETA_VERSION = 2 AutoReadOnly
+int Property SKSE_RELEASE_VERSION = 47 AutoReadOnly
 
 ; Minimum RaceMenuBase version
-int Property RACEMENUBASE_SCRIPT_VERSION = 6 AutoReadOnly
+int Property RACEMENUBASE_SCRIPT_VERSION = 7 AutoReadOnly
 
 ; CharGen version data
 int Property CHARGEN_VERSION = 4 AutoReadOnly

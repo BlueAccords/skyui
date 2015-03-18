@@ -231,6 +231,9 @@ Function ClearMorphs(ObjectReference ref) native global
 ; only to be used on actors who have morph values set
 Function UpdateModelWeight(ObjectReference ref) native global
 
+; Returns all Body Morph keys applied to the reference
+string[] Function GetMorphKeys(ObjectReference ref) native global
+
 ; Call this function prior to frequent changes in dyes to prevent massive lag
 Function EnableTintTextureCache() native global
 ; Call this when finished frequent dye edits

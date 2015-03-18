@@ -113,7 +113,7 @@ class MakeupPanel extends MovieClip
 	
 	private function onFilterChange(): Void
 	{
-		makeupList.requestInvalidate();
+		makeupList.InvalidateData();
 	}
 	
 	public function clearFilter(): Void
@@ -124,7 +124,7 @@ class MakeupPanel extends MovieClip
 	
 	public function InvalidateList(): Void
 	{
-		makeupList.requestInvalidate();
+		makeupList.InvalidateData();
 	}
 	
 	public function setMakeupList(list: Array): Void
@@ -140,7 +140,7 @@ class MakeupPanel extends MovieClip
 			listEnumeration.addFilter(_sortFilter);
 			listEnumeration.addFilter(_nameFilter);
 			makeupList.listEnumeration = listEnumeration;
-			makeupList.requestInvalidate();
+			makeupList.InvalidateData();
 		}
 	}
 		

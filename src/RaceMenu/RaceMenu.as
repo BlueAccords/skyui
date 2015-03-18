@@ -424,18 +424,16 @@ class RaceMenu extends MovieClip
 		cameraEditor.setPlatform(a_platform, a_bPS3Switch);
 		presetEditor.setPlatform(a_platform, a_bPS3Switch);
 		
+		_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+		_zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+		_activateControl = Input.Activate;
+		
 		if(_platform == 0) {
-			_activateControl = Input.Activate;
-			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_lightControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-			_zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_searchControl = {keyCode: GlobalFunctions.getMappedKey("Jump", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_textureControl = {keyCode: GlobalFunctions.getMappedKey("Wait", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
-			_activateControl = Input.Activate;
-			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_lightControl = {keyCode: GlobalFunctions.getMappedKey("Wait", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-			_zoomControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_textureControl = {keyCode: GlobalFunctions.getMappedKey("Jump", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_searchControl = null;
 		}

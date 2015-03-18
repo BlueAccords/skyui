@@ -28,10 +28,13 @@ class VertexEditor extends MovieClip
 	public var Lock: Function;
 	
 	public var tempText: TextField;
+	
+	private var _secondary: Boolean = false;
 		
 	/* CONTROLS */
 	private var _acceptControl: Object;
 
+	private var _modifierControl: Object;
 	private var _upControl: Object;
 	private var _downControl: Object;
 	private var _leftControl: Object;
@@ -87,11 +90,18 @@ class VertexEditor extends MovieClip
 		wireframeDisplay.addEventListener("beginRotating", this, "onBeginActivity");
 		wireframeDisplay.addEventListener("endRotating", this, "onEndActivity");
 		
+		wireframeDisplay.addEventListener("beginPanning", this, "onBeginActivity");
+		wireframeDisplay.addEventListener("endPanning", this, "onEndActivity");
+		
 		brushWindow.addEventListener("changeBrush", this, "onChangeBrush");
 		
 		bottomBar.playerInfo.RaceLabel.enabled = bottomBar.playerInfo.RaceLabel._visible = false;
 		bottomBar.playerInfo.PlayerRace.enabled = bottomBar.playerInfo.PlayerRace._visible = false;
 		bottomBar.playerInfo.NameLabel.text = "$Brush";
+		
+		var sPanel = bottomBar.attachMovie("ButtonPanel", "staticPanel", bottomBar.getNextHighestDepth(), {buttonRenderer: "MappedButton", maxButtons: 6, buttonInitializer: {disableConstraints: false, disabled: false, disableFocus: true, hiddenBackground: true}});
+		sPanel._y = navPanel._y + 28;
+		sPanel._x = navPanel._x;
 	}
 	
 	function InitExtensions()
@@ -107,15 +117,15 @@ class VertexEditor extends MovieClip
 		bottomBar.setPlatform(a_platform, a_bPS3Switch);
 		
 		if(a_platform == 0) {
-			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_exportHeadControl = {keyCode: GlobalFunctions.getMappedKey("Quicksave", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 			_importHeadControl = {keyCode: GlobalFunctions.getMappedKey("Quickload", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		} else {
-			_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-			_exportHeadControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-			_importHeadControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
-		}		
+			_importHeadControl = {keyCode: GlobalFunctions.getMappedKey("Sneak", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+			_exportHeadControl = {keyCode: GlobalFunctions.getMappedKey("Toggle POV", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+		}
 		
+		_acceptControl = {keyCode: GlobalFunctions.getMappedKey("Ready Weapon", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
+		_modifierControl = {keyCode: GlobalFunctions.getMappedKey("Sprint", Input.CONTEXT_GAMEPLAY, a_platform != 0)};
 		_upControl = {keyCode: GlobalFunctions.getMappedKey("Up", Input.CONTEXT_MENUMODE, a_platform != 0)};
 		_downControl = {keyCode: GlobalFunctions.getMappedKey("Down", Input.CONTEXT_MENUMODE, a_platform != 0)};
 		_leftControl = {keyCode: GlobalFunctions.getMappedKey("Left", Input.CONTEXT_MENUMODE, a_platform != 0)};
@@ -128,6 +138,27 @@ class VertexEditor extends MovieClip
 		var rightEdge = Stage.visibleRect.x + Stage.visibleRect.width - Stage.safeRect.x;
 		bottomBar.positionElements(leftEdge, rightEdge);
 		
+		var staticPanel = bottomBar["staticPanel"];
+		if(staticPanel) {
+			staticPanel.setPlatform(a_platform, a_bPS3Switch);
+			staticPanel._x = navPanel._x;
+			staticPanel._y = navPanel._y + 28;
+			
+			staticPanel.clearButtons();
+			if(_global.skse.plugins.CharGen) {
+				if(_platform == 0) {			
+					staticPanel.addButton({text: "$Export Head", controls: _exportHeadControl}).addEventListener("click", this, "onExportHeadClicked");
+					staticPanel.addButton({text: "$Import Head", controls: _importHeadControl}).addEventListener("click", this, "onImportHeadClicked");
+				} else {
+					staticPanel.addButton({text: "$Import Head", controls: _importHeadControl}).addEventListener("click", this, "onImportHeadClicked");
+					staticPanel.addButton({text: "$Export Head", controls: _exportHeadControl}).addEventListener("click", this, "onExportHeadClicked");
+				}
+				
+				staticPanel.addButton({text: "$Clear Sculpt", controls: _clearSculptControl}).addEventListener("click", this, "onClearSculptClicked");
+			}
+			staticPanel.updateButtons(true);
+		}
+		
 		updateBottomBar();
 	}
 	
@@ -135,18 +166,14 @@ class VertexEditor extends MovieClip
 	{
 		navPanel.clearButtons();
 		navPanel.addButton({text: "$Done", controls: _acceptControl}).addEventListener("click", this._parent, "onDoneClicked");
+		
+		if(!_secondary)
+			navPanel.addButton({text: "$Secondary", controls: _modifierControl});
+		else
+			navPanel.addButton({text: "$Primary", controls: _modifierControl});
+		
 		navPanel.addButton({text: "$Brush", controls: _udControl});
-		navPanel.addButton({text: "$Property", controls: _lrControl});
-		
-		if(_platform == 0) {			
-			navPanel.addButton({text: "$Export Head", controls: _exportHeadControl}).addEventListener("click", this, "onExportHeadClicked");
-			navPanel.addButton({text: "$Import Head", controls: _importHeadControl}).addEventListener("click", this, "onImportHeadClicked");
-		} else {
-			navPanel.addButton({text: "$Import Head", controls: _importHeadControl}).addEventListener("click", this, "onImportHeadClicked");
-			navPanel.addButton({text: "$Export Head", controls: _exportHeadControl}).addEventListener("click", this, "onExportHeadClicked");
-		}
-		
-		navPanel.addButton({text: "$Clear Sculpt", controls: _clearSculptControl}).addEventListener("click", this, "onClearSculptClicked");
+		navPanel.addButton({text: "$Property", controls: _lrControl});		
 		
 		navPanel.updateButtons(true);		
 	}
@@ -242,6 +269,12 @@ class VertexEditor extends MovieClip
 	
 	public function handleInput(details: InputDetails, pathToFocus: Array): Boolean
 	{
+		if (details.skseKeycode == _modifierControl.keyCode) {
+			_secondary = (details.value == "keyDown" || details.value == "keyHold");
+			wireframeDisplay.secondary = _secondary;
+			updateBottomBar(true);
+			return true;
+		}
 		if (GlobalFunc.IsKeyPressed(details)) {			
 			 if(IsBoundKeyPressed(details, _exportHeadControl, _platform)) {
 				onExportHeadClicked();

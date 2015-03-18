@@ -14,6 +14,7 @@ class WireframeDisplay extends gfx.core.UIComponent
 	public var paddingRight: Number = 25;
 	
 	private var _dragOffset: Object;
+	private var _secondary: Boolean = false;
 	
 	public var bLoadedAssets: Boolean = false;
 	
@@ -114,7 +115,6 @@ class WireframeDisplay extends gfx.core.UIComponent
 		{
 			if(this.painting) // Don't interrupt existing action
 				return undefined;
-			
 			if(buttonIdx != 1) // Right mouse only
 				return undefined;
 			
@@ -131,6 +131,35 @@ class WireframeDisplay extends gfx.core.UIComponent
 		{
 			return this.endRotateMesh(0, keyboardOrMouse, buttonIdx);
 		}
+		foreground["doPanMesh"] = function()
+		{
+			var width: Number = this.fixedWidth;
+			var height: Number = this.fixedHeight;
+			var x: Number = Math.max(0, Math.min(_xmouse, width));
+			var y: Number = Math.max(0, Math.min(_ymouse, height));
+			
+			_global.skse.plugins.CharGen.DoPanMesh(x, y);
+		}
+		foreground["endPanMesh"] = function(mouseIdx:Number, keyboardOrMouse:Number, buttonIdx:Number)
+		{
+			if(this.painting) // Don't interrupt existing action
+				return undefined;
+			if(buttonIdx != 1) // Right mouse only
+				return undefined;
+			
+			this.panning = false;
+			this.onMouseMove = null;
+			this.onReleaseAux = null;
+			this.onReleaseOutsideAux = null;
+			
+			_parent.dispatchEvent({type: "endPanning"});
+			
+			_global.skse.plugins.CharGen.EndPanMesh();
+		}
+		foreground["endPanMeshAux"] = function(keyboardOrMouse:Number, buttonIdx:Number)
+		{
+			return this.endPanMesh(0, keyboardOrMouse, buttonIdx);
+		}
 		foreground["beginRotateMesh"] = function(mouseIdx:Number, keyboardOrMouse:Number, buttonIdx:Number)
 		{
 			if(this.painting) // Don't interrupt existing action
@@ -138,19 +167,36 @@ class WireframeDisplay extends gfx.core.UIComponent
 			if(buttonIdx != 1) // Right mouse only
 				return undefined;
 			
-			this.rotating = true;
-			this.onMouseMove = this.doRotateMesh;
-			this.onReleaseAux = this.endRotateMesh;
-			this.onReleaseOutsideAux = this.endRotateMeshAux;
+			if(!_parent.secondary) {
+				this.rotating = true;
+				this.onMouseMove = this.doRotateMesh;
+				this.onReleaseAux = this.endRotateMesh;
+				this.onReleaseOutsideAux = this.endRotateMeshAux;
+				
+				_parent.dispatchEvent({type: "beginRotating"});
+				
+				var width: Number = this.fixedWidth;
+				var height: Number = this.fixedHeight;
+				var x: Number = Math.max(0, Math.min(_xmouse, width));
+				var y: Number = Math.max(0, Math.min(_ymouse, height));
+				
+				_global.skse.plugins.CharGen.BeginRotateMesh(x, y);
+			} else {
+				this.panning = true;
+				this.onMouseMove = this.doPanMesh;
+				this.onReleaseAux = this.endPanMesh;
+				this.onReleaseOutsideAux = this.endPanMeshAux;
+				
+				_parent.dispatchEvent({type: "beginPanning"});
+				
+				var width: Number = this.fixedWidth;
+				var height: Number = this.fixedHeight;
+				var x: Number = Math.max(0, Math.min(_xmouse, width));
+				var y: Number = Math.max(0, Math.min(_ymouse, height));
+				
+				_global.skse.plugins.CharGen.BeginPanMesh(x, y);
+			}
 			
-			_parent.dispatchEvent({type: "beginRotating"});
-			
-			var width: Number = this.fixedWidth;
-			var height: Number = this.fixedHeight;
-			var x: Number = Math.max(0, Math.min(_xmouse, width));
-			var y: Number = Math.max(0, Math.min(_ymouse, height));
-			
-			_global.skse.plugins.CharGen.BeginRotateMesh(x, y);
 		}
 		foreground["onPressAux"] = foreground["beginRotateMesh"];
 		
@@ -165,7 +211,7 @@ class WireframeDisplay extends gfx.core.UIComponent
 		}
 		foreground["endPaintMesh"] = function(mouseIdx:Number, keyboardOrMouse:Number, buttonIdx:Number)
 		{
-			if(this.rotating) // Don't interrupt existing action
+			if(this.rotating || this.panning) // Don't interrupt existing action
 				return undefined;
 				
 			this.painting = false;
@@ -178,7 +224,7 @@ class WireframeDisplay extends gfx.core.UIComponent
 		}
 		foreground["beginPaintMesh"] = function(mouseIdx:Number, keyboardOrMouse:Number, buttonIdx:Number)
 		{
-			if(this.rotating) // Don't interrupt existing action
+			if(this.rotating || this.panning) // Don't interrupt existing action
 				return undefined;
 			if(this.onMouseMove) // Don't interrupt existing action
 				return undefined;
@@ -196,7 +242,7 @@ class WireframeDisplay extends gfx.core.UIComponent
 				_parent.dispatchEvent({type: "beginPainting"});
 			} else {
 				_parent.background.onPress(mouseIdx, keyboardOrMouse, buttonIdx);
-			}			
+			}
 		}
 		foreground["onPress"] = foreground["beginPaintMesh"];
 		calculateBackground();
@@ -219,6 +265,16 @@ class WireframeDisplay extends gfx.core.UIComponent
 				calculateBackground();
 			}
 		}
+	}
+	
+	public function set secondary(a_secondary: Boolean)
+	{
+		_secondary = a_secondary;
+	}
+	
+	public function get secondary(): Boolean
+	{
+		return _secondary;
 	}
 			
 	// Move background

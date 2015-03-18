@@ -1,128 +1,128 @@
 Language	English	French	German	Italian	Spanish	Czech	Polish	Russian	Japanese	Portuguese	ChineseTraditional	ChineseSimplified
 $ALL	ALL	TOUT	ALLES	TUTTO	TODOS	VŠE	WSZYSTKIE	ВСЕ	全て	Tudo	全部	全部
-$COLORS	COLORS	COULEURS	FARBEN	COLORI	COLORES	BARVY	KOLORY	ЦВЕТА	色	Cores	色彩	颜色
-$MAKEUP	MAKEUP	MAQUILLAGE	MAKEUP	TRUCCO	MAQUILLAJE	MAKEUP	MAKIJAŻ	МАКИЯЖ	化粧	Maquiagem	化粧	化妆
+$COLORS	COLORS	COULEURS	FARBEN	COLORI	COLORES	BARVY	KOLORY	ЦВЕТА	色	Cores	顏色	颜色
+$MAKEUP	MAKEUP	MAQUILLAGE	MAKEUP	TRUCCO	MAQUILLAJE	MAKEUP	MAKIJAŻ	МАКИЯЖ	化粧	Maquiagem	化妝	化妆
 $FILTER	FILTER	FILTRE	FILTER	FILTRO	FILTRO	FILTR	FILTR	ФИЛЬТР	フィルタ	Filtro	篩選	筛选
 $EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	EXTRA	DODATEK	DODATEK	ДОПОЛНИТЕЛЬНО	その他	Extra	額外	额外
 $EXPRESSIONS	EXPRESSIONS	EXPRESSIONS	GESICHTSAUSDRUCK	ESPRESSIONI	EXPRESIONES	VÝRAZY	EKSPRESJA	ВЫРАЖЕНИЕ ЛИЦА	表現	Expressões	表情	表情
-$BODY PAINT	BODY PAINT	PEINTURE SUR LE CORPS	KÖRPERBEMALUNG	TINTURA CORPO	PINTURA CORPORAL	BARVA NA TĚLE	BARWA CIAŁA	ТАТУИРОВКА ТЕЛА	体の刺青	Pintura corporal	紋身	纹身 
-$HAND PAINT	HAND PAINT	PEINTURE SUR LES MAINS	HANDBEMALUNG	TINTURA MANO	PINTURA DE MANOS	BARVA RUKOU	BARWA RĄK	ТАТУИРОВКА РУК	手の刺青	Pintura da mão		
-$FOOT PAINT	FOOT PAINT	PEINTURE SUR LES PIEDS	FUßBEMALUNG	TINTURA PIEDI	PINTURA DE PIES	BARVA NOHOU	BARWA STÓP	ТАТУИРОВКА НОГ	足の刺青	Pintura do pé		
-$FACE PAINT	FACE PAINT	PEINTURE SUR LA TETE	GESICHTSBEMALUNG	PITTURA FACCIALE	PINTURA FACIAL	BARVA NA TVÁŘ	BARWA TWARZY	ТАТУИРОВКА ЛИЦА	顔の刺青	Pintura do rosto		
-$Sliders	Sliders	Curseurs	Regler	Cursori	Controles	Posuvníky	Suwaki	Ползунки	スライダー	Sliders		
-$Overlays	Overlays	Superposition	Overlays	Sovrapposizioni	Superposición	Vrstvy	Pokrycie	Верхний слой	オーバーレイ	Sobreposições		
-$Camera	Camera	Caméra	Kamera	Camera	Cámara	Kamera	Kamera	Камера	カメラ	Camera		
-$Sculpt	Sculpt	Sculpter	Formen	Scolpisci	Escultor	Sculpt	Rzeźbić	Резать	カット	Esculpir		
+$BODY PAINT	BODY PAINT	PEINTURE DU CORPS	KÖRPERBEMALUNG	TINTURA CORPO	PINTURA CORPORAL	BARVA NA TĚLE	BARWA CIAŁA	ТАТУИРОВКА ТЕЛА	体の刺青	Pintura corporal	身體紋身	身体纹身 
+$HAND PAINT	HAND PAINT	PEINTURE DES MAINS	HANDBEMALUNG	TINTURA MANO	PINTURA DE MANOS	BARVA RUKOU	BARWA RĄK	ТАТУИРОВКА РУК	手の刺青	Pintura da mão	手部紋身	手部纹身
+$FOOT PAINT	FOOT PAINT	PEINTURE DES PIEDS	FUßBEMALUNG	TINTURA PIEDI	PINTURA DE PIES	BARVA NOHOU	BARWA STÓP	ТАТУИРОВКА НОГ	足の刺青	Pintura do pé	腿部紋身	腿部纹身
+$FACE PAINT	FACE PAINT	PEINTURE DE VISAGE	GESICHTSBEMALUNG	PITTURA FACCIALE	PINTURA FACIAL	BARVA NA TVÁŘ	BARWA TWARZY	ТАТУИРОВКА ЛИЦА	顔の刺青	Pintura do rosto	臉部紋身	脸部纹身
+$Sliders	Sliders	Curseurs	Regler	Cursori	Controles	Posuvníky	Suwaki	Ползунки	スライダー	Sliders	滑塊	滑块
+$Overlays	Overlays	Superposition	Overlays	Sovrapposizioni	Superposición	Vrstvy	Pokrycie	Наложения	オーバーレイ	Sobreposições	覆蓋	覆盖
+$Camera	Camera	Caméra	Kamera	Camera	Cámara	Kamera	Kamera	Камера	カメラ	Camera	鏡頭	镜头
+$Sculpt	Sculpt	Sculpter	Formen	Scolpisci	Escultor	Sculpt	Rzeźbić	Скульптор	カット	Esculpir	塑形	塑形
 $Zoom In	Zoom In	Zoom avant	Heranzoomen	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
 $Zoom Out	Zoom Out	Zoom arrière	Wegzoomen	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
-$Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить Расу	種族の変更	Mudar a raça	變更種族	更变种族
+$Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить расу	種族の変更	Mudar a raça	變更種族	变更种族
 $Choose Color	Choose Color	Choix de couleur	Farbe wählen	Scegli Colore	Elegir color	Vybrat Barvu	Wybierz Kolor	Выбор цвета	色の選択	Escolher a cor	選擇色彩	选择颜色
 $Choose Texture	Choose Texture	Choix de texture	Textur wählen	Scegli Texture	Elegir textura	Vybrat Texturu	Wybierz Teksturę	Выбор текстуры	テクスチャーの選択	Escolher a textura	選擇材質	选择材质
-$Glow	Glow	Lueur	Leuchten	Bagliore	Brillo	Záře	Blask	Свечение	煌き	Brilho		
-$Tint	Tint	Teinte	Farbe	Tinta	Tinte	Odstín	Odcień	Оттенок	色合い	Tom/Matiz		
-$Search	Search	Recherche	Suchen	Cerca	Buscar	Hledat	Szukaj	Найти	検索	Procurar	搜尋	搜索
-$Change Category	Change Category	Changer de catégorie	Kategorie ändern	Cambia Categoria	Cambiar categoría	Změnit kategorii	Zmień Kategorię	Сменить категорию	カテゴリーの変更	Mudar a categoria	變更類別	更变类别
-$Load Color	Load Color	Charger couleur	Farbe laden	Carica Colore	Cargar color	Načíst barvu	Wczytaj Kolor	Загрузить цвет	色の読み込み	Carregar cor	載入顏色	载入颜色
-$Save Color	Save Color	Enregistrer couleur	Farbe speichern	Salva Colore	Guardar color	Uložit barvu	Zapisz Kolor	Сохранить цвет	色の保存	Salvar cor	保存顏色	保存颜色
-$Saved Color	Saved Color	Couleurs enregistrées	Gespeicherte Farbe	Colore Salvato	Color guardado	Uložená barva	Zapisano Kolor	Сохранённый цвет	保存した色	Cor salva		已保存颜色
+$Glow	Glow	Lueur	Leuchten	Bagliore	Brillo	Záře	Blask	Свечение	煌き	Brilho	發光	发光
+$Tint	Tint	Teinte	Farbe	Tinta	Tinte	Odstín	Odcień	Оттенок	色合い	Tom/Matiz	染色	染色
+$Search	Search	Recherche	Suchen	Cerca	Buscar	Hledat	Szukaj	Поиск	検索	Procurar	搜尋	搜索
+$Change Category	Change Category	Changer de catégorie	Kategorie ändern	Cambia Categoria	Cambiar categoría	Změnit kategorii	Zmień Kategorię	Сменить категорию	カテゴリーの変更	Mudar a categoria	變更類別	变更类别
+$Load Color	Load Color	Charger couleur	Farbe laden	Carica Colore	Cargar color	Načíst barvu	Wczytaj Kolor	Загрузить цвет	色の読み込み	Carregar cor	讀取顏色	读取颜色
+$Save Color	Save Color	Enregistrer couleur	Farbe speichern	Salva Colore	Guardar color	Uložit barvu	Zapisz Kolor	Сохранить цвет	色の保存	Salvar cor	儲存顏色	保存颜色
+$Saved Color	Saved Color	Couleurs enregistrées	Gespeicherte Farbe	Colore Salvato	Color guardado	Uložená barva	Zapisano Kolor	Сохранённый цвет	保存した色	Cor salva	已儲存的顏色	已保存的颜色
 $Load Preset	Load Preset	Charger le préréglage                                                                                 	Preset laden	Carica Impostazioni	Cargar preestablecido	Načíst předvolbu	Wczytaj Wygląd	Загр. предустановку	プリセットのロード	Carregar predefinição	讀取預設	读取预设
-$Save Preset	Save Preset	Sauver le préréglage	Preset speichern	Salva Impostazioni	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存	Salvar predefinição	保存預設	保存预设
-$Light On	Light On	Avec lumière	Licht an	Luce Accesa	Luz encendida	Světlo zapnuté	Włącz Światło	Вкл. Подсветку	ライトオン	Ligar a luz	開啟燈光	开启光照
-$Light Off	Light Off	Sans lumière	Licht aus	Luce Spenta	Luz apagada	Světlo vypnuté	Wyłącz Światło	Выкл. Подстветку	ライトオフ	Desligar a luz	關閉燈光	关闭光照
-$Exported head	Exported head	Tête exportée	Kopf exportiert	Testa Esportata	Cabeza exportada	Exportovaná hlava	Eksportowano głowę	Экспортированная голова	出力された頭部	Cabeça exportada		已导出的头部 
-$Export Head	Export Head	Exporter tête	Kopf exportieren	Esporta Testa	Exportar cabeza	Exportovat hlavu	Eksportuj Głowę	Экспортировать голову	頭部の出力	Exportar cabeça		导出头部
-$Rotate	Rotate	Pivoter	Drehen	Ruota	Rotar	Otočit	Obróć	 Поворот	回転	Girar		旋转
-$Move Camera	Move Camera	Déplacer la caméra	Kamera bewegen	Muovi camera	Mover cámara	Posunout Kameru	Poruszaj Kamerą	Движение камеры	カメラの移動	Mover camera		移动镜头
-$Rate ({})	Rate ({})	Vitesse ({})	Geschwindigkeit ({})	Velocità ({})	Índice ({})	Stupeň ({})	Ocena ({})	Оценка ({})	レート	Taxa		
+$Save Preset	Save Preset	Sauver le préréglage	Preset speichern	Salva Impostazioni	Guardar preestablecido	Uložit předvolbu	Zapisz Wygląd	Сохр. предустановку	プリセットの保存	Salvar predefinição	儲存預設	保存预设
+$Light On	Light On	Avec lumière	Licht an	Luce Accesa	Luz encendida	Světlo zapnuté	Włącz Światło	Вкл. подсветку	ライトオン	Ligar a luz	開啟燈光	开启光照
+$Light Off	Light Off	Sans lumière	Licht aus	Luce Spenta	Luz apagada	Světlo vypnuté	Wyłącz Światło	Выкл. подсветку	ライトオフ	Desligar a luz	關閉燈光	关闭光照
+$Exported head	Exported head	Tête exportée	Kopf exportiert	Testa Esportata	Cabeza exportada	Exportovaná hlava	Eksportowano głowę	Экспортированная голова	出力された頭部	Cabeça exportada	已導出的頭部	已导出的头部 
+$Export Head	Export Head	Exporter tête	Kopf exportieren	Esporta Testa	Exportar cabeza	Exportovat hlavu	Eksportuj Głowę	Экспортировать голову	頭部の出力	Exportar cabeça	導出頭部	导出头部
+$Rotate	Rotate	Pivoter	Drehen	Ruota	Rotar	Otočit	Obróć	 Поворот	回転	Girar	旋轉	旋转
+$Move Camera	Move Camera	Déplacer la caméra	Kamera bewegen	Muovi camera	Mover cámara	Posunout Kameru	Poruszaj Kamerą	Движение камеры	カメラの移動	Mover camera	移動鏡頭	移动镜头
+$Rate ({})	Rate ({})	Vitesse ({})	Geschwindigkeit ({})	Velocità ({})	Índice ({})	Stupeň ({})	Ocena ({})	Коэффициент ({})	レート	Taxa	速度	速度
 $Primary	Primary	Primaire	Primär	Primario	Primario	Primární	Pierwszorzędny	Основной	プライマリー	Primário	主要	主要
 $Secondary	Secondary	Secondaire	Sekundär	Secondario	Secundario	Sekundární	Drugorzędny	Дополнительный	セカンダリー	Secundário	次要	次要
-$Preset Slot	Preset Slot	Emplacement de réglages	Preset Slot	Slot impostazione	Ajustes predefinidos	Slot předvolby	Gniazdo Wyglądu	Слот предустановки	プリセットスロット	Espaço de predefinição		当前设置
-$Failed to save preset to {}	Failed to save preset to {}		Konnte Preset nicht nach {} speichern				Nie powiodło się zapisanie wyglądu do {}					
-$Saved preset to {}	Saved preset to {}		Preset nach {} gespeichert				Zapisano wygląd do {}					
-$Loaded preset from {}	Loaded preset from {}		Preset von {} geladen				Wczytano wygląd z {}					
-$Failed to load preset from {}	Failed to load preset from {}		Konnte Preset nicht von {} laden				Nie powiodło się wczytanie wyglądu z {}					
-$Imported data from {}	Imported data from {}		Daten von {} importiert				Zaimportowano dane od {}					
-$Failed to import data from {}	Failed to import data from {}		Konnte Daten nicht von {} importieren				Nie powiodło się zaimportować dane od {}					
-$Colors	Colors	Couleurs	Farben	Colori	Colores	Barvy	Kolory	Цвет	色			
-$Presets	Presets	Réglages	Presets		Presets	Předvolby	Wyglądy	Пресеты	プリセット			
-$Mods	Mods	Mods	Mods		Mods	Modyfikace	Modyfikacje	Моды	Mod			
-$Head Parts	Head Parts	Parties de la tête	Kopfteile		Partes de la cabeza	Části hlavy	Części Głowy	Части головы	頭部のパーツ			
-$Brush	Brush		Pinsel			Štětec	Pędzel					
-$Mask Add	Mask Add		Maske erweitern				Dodaj Maskę					
-$Mask Subtract	Mask Subtract		Maske verringern				Odejmij Maskę					
-$Inflate	Inflate		Aufblähen				Nadmuchać					
-$Deflate	Deflate		Reduzieren				Wypuszczać					
-$Smooth	Smooth		Glätten			Jemně	Wygładź					
-$Move	Move		Bewegen			Posunout	Przenieś					
-$Clear Mask	Clear Mask		Maske löschen				Wyczyść Maskę					
-$Clear Sculpt	Clear Sculpt		Form zurücksetzen				Wyczyść Rzeźbienie					
-$Import Geometry	Import Geometry		Geometrie importieren				Importuj Geometrię					
-$History	History		Verlauf			Historie	Historia					
-$Strength	Strength		Stärke			Síla	Siła					
-$Radius	Radius		Radius				Promień					
-$Property	Property		Eigenschaft				Właściwość					
-$Mirror	Mirror		Spiegeln			Zrcadlit	Odzwierciedlić					
-$Sculpt history will be lost	Sculpt history will be lost		Formenverlauf geht verloren				Historia rzeźbienia będą utracone					
-$Loading a preset will erase sculpt history	Loading a preset will erase sculpt history		Laden eines Presets löscht den Formenverlauf				Wczytywanie wyglądu wymaże historię rzeźbienia					
-$Name	Name		Name			Jméno	Nazwa					
-$Date modified	Date modified		Änderungsdatum			Datum změny	Data modyfikacji					
-$Size	Size		Größe			Velikost	Rozmiar					
-$Save preset file	Save preset file		Preset-Datei speichern				Zapisz plik wyglądu					
-$Select preset file	Select preset file		Preset-Datei auswählen				Wybierz plik wyglądu					
-$Edit	Edit		Bearbeiten			Upravit	Edycja					
-$Deselect	Deselect		Abwählen				Odznacz					
-$Select	Select		Auswähen			Vybrat	Zaznacz					
-$Toggle	Toggle		Umschalten				Przełącz					
-$Import Head	Import Head		Kopf importieren				Importuj Głowę					
-$Import Part Matcher	Import Part Matcher		Import passender Teile				Importuj Pasująca Część					
-$Internal Destination	Internal Destination		Interner Zielort				Wewnętrzny Docelowy					
-$External Source	External Source		Externe Quelle			Vnější zdroj	Zewnętrzne Źródło					
-$Toggle Visibility	Toggle Visibility		Sichtbarkeit umschalten				Przełącz Widoczność					
-$Toggle Wireframe	Toggle Wireframe		Wireframe umschalten				Przełącz Kontury					
-$Toggle Editability	Toggle Editability		Editierbarkeit umschalten				Przełącz Edytowalność					
-$Cycle Wireframe Color	Cycle Wireframe Color		Wireframe-Farbe wechseln				Cykl Kolor Kontur					
-$BODY SCALES	BODY SCALES											
-$Undefined	Undefined											
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
-RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED	RESERVED
+$Preset Slot	Preset Slot	Emplacement de réglages	Preset Slot	Slot impostazione	Ajustes predefinidos	Slot předvolby	Gniazdo Wyglądu	Слот предустановки	プリセットスロット	Espaço de predefinição	預設欄位	预设栏位
+$Failed to save preset to {}	Failed to save preset to {}	Impossible de sauvegarder le preset dans {}	Konnte Preset nicht nach {} speichern		Fallo al guardar preajustes a {}		Nie powiodło się zapisanie wyglądu do {}	Не удалось сохранить предустановку в {}	{}にプリセットを保存出来ませんでした		無法儲存至{}	无法保存至{}
+$Saved preset to {}	Saved preset to {}	Preset sauvegardé dans {}	Preset nach {} gespeichert		Preajustes guardados en {}		Zapisano wygląd do {}	Предустановка сохранена в {}	{}に保存したプリセット		儲存至{}	保存至{}
+$Loaded preset from {}	Loaded preset from {}	Preset chargé à partir de {}	Preset von {} geladen		Cargar preajustes desde {}		Wczytano wygląd z {}	Предустановка загружена из {}	{}からロードされたプリセット		從{}讀取預設	从{}读取预设
+$Failed to load preset from {}	Failed to load preset from {}	Impossible de charger le preset à partir de {}	Konnte Preset nicht von {} laden		Fallo al cargar preajustes desde {}		Nie powiodło się wczytanie wyglądu z {}	Не удалось загрузить предустановку из {}	{}からのプリセットのロードに失敗しました		無法從{}讀取預設	无法从{}读取预设
+$Imported data from {}	Imported data from {}	Données importées à partir de {}	Daten von {} importiert		Datos importados desde {}		Zaimportowano dane od {}	Данные импортированы из {}	{}からインポートされたデータ		從{}導入數據	从{}导入数据
+$Failed to import data from {}	Failed to import data from {}	Impossible d'importer les données à partir de {}	Konnte Daten nicht von {} importieren		Fallo al importar datos desde {}		Nie powiodło się zaimportować dane od {}	Не удалось импортировать данные из {}	{}からデータをインポート出来ませんでした		無法從{}導入數據	无法从{}导入数据
+$Colors	Colors	Couleurs	Farben	Colori	Colores	Barvy	Kolory	Цвета	色		顏色	颜色
+$Presets	Presets	Réglages	Presets		Presets	Předvolby	Wyglądy	Предустановки	プリセット		預設組合	预设组合
+$Mods	Mods	Mods	Mods		Mods	Modyfikace	Modyfikacje	Моды	Mod		模組	模组
+$Head Parts	Head Parts	Parties de la tête	Kopfteile		Partes de la cabeza	Části hlavy	Części Głowy	Части головы	頭部のパーツ		頭部	头部
+$Brush	Brush	Brosse	Pinsel		Pincel	Štětec	Pędzel	Кисть	ブラシ		筆刷	笔刷
+$Mask Add	Mask Add	Ajouter masque	Maske erweitern		Máscara Adición		Dodaj Maskę	Добавить маску	マスクの追加		添加遮罩	添加蒙板
+$Mask Subtract	Mask Subtract	Retirer masque	Maske verringern		Máscara Substracción		Odejmij Maskę	Убрать маску	マスクの減算		減少遮罩	减少蒙板
+$Inflate	Inflate	Gonfler	Aufblähen		Inflar		Nadmuchać	Увеличить	膨張		膨脹	膨胀
+$Deflate	Deflate	Dégonfler	Reduzieren		Desinflar		Wypuszczać	Уменьшить	縮小		縮小	缩小
+$Smooth	Smooth	Adoucir	Glätten		Suavizar	Jemně	Wygładź	Сгладить	スムーズ		平滑	平滑
+$Move	Move	Déplacer	Bewegen		Mover	Posunout	Przenieś	Переместить	移動		移動	移动
+$Clear Mask	Clear Mask	Annuler masque	Maske löschen		Limpiar máscara		Wyczyść Maskę	Очистить маску	マスクのクリア		清除遮罩	清除蒙板
+$Clear Sculpt	Clear Sculpt	Annuler sculpture	Form zurücksetzen		Limpiar esculpido		Wyczyść Rzeźbienie	Очистить скульптор	スカルプトのクリア		清除塑形	清除塑形
+$Import Geometry	Import Geometry	Importer géométrie	Geometrie importieren		Importar Geometría		Importuj Geometrię	Импортировать геометрию	形状のインポート		導入形狀	导入形状
+$History	History	Historique	Verlauf		Historia	Historie	Historia	История	ヒストリー		歷史記錄	历史记录
+$Strength	Strength	Intensité	Stärke		Fuerza	Síla	Siła	Сила	強度		強度	强度
+$Radius	Radius	Rayon	Radius		Radio		Promień	Радиус	半径		半徑	半径
+$Property	Property	Propriété	Eigenschaft		Prepiedad		Właściwość	Свойство	プロパティ		屬性	属性
+$Mirror	Mirror	Miroir	Spiegeln		Espejo	Zrcadlit	Odzwierciedlić	Отражение	ミラー		鏡像	镜像
+$Sculpt history will be lost	Sculpt history will be lost	L'historique de sculpture sera perdu	Formenverlauf geht verloren		Historial de esculpido será perdida		Historia rzeźbienia będą utracone	История скульптора будет потеряна	スカルプトの履歴を削除		塑形記錄將會丟失	塑形记录将会丢失
+$Loading a preset will erase sculpt history	Loading a preset will erase sculpt history	Charger un preset effacera l'historique de sculpture	Laden eines Presets löscht den Formenverlauf		Cargar preajustes borrará el historial del esculpido		Wczytywanie wyglądu wymaże historię rzeźbienia	Загрузка предустановки сотрет историю скульптора	プリセットをロードするとスカルプトの履歴が失われます		載入預設將會清除塑形記錄	载入预设将会清除塑形记录
+$Name	Name	Nom	Name		Nombre	Jméno	Nazwa	Имя	名前		名字	名字
+$Date modified	Date modified	Date de modification	Änderungsdatum		Fecha Modificación	Datum změny	Data modyfikacji	Дата изменения	変更日		修改日期	修改日期
+$Size	Size	Taille	Größe		Tamaño	Velikost	Rozmiar	Размер	サイズ		尺寸	尺寸
+$Save preset file	Save preset file	Sauver le fichier de pré-réglage	Preset-Datei speichern		Guardar archivo de preajuste		Zapisz plik wyglądu	Сохранить файл предустановки	プリセットファイルを保存		儲存預設檔案	保存预设文件
+$Select preset file	Select preset file	Sélectionner un fichier de pré-réglage	Preset-Datei auswählen		Selecionar archivo de preajuste		Wybierz plik wyglądu	Выбрать файл предустановки	プリセットファイルを選択		選擇預設檔案	选择预设文件
+$Edit	Edit	Editer	Bearbeiten		Editar	Upravit	Edycja	Редактировать	編集		編輯	编辑
+$Deselect	Deselect	Déselectionner	Abwählen		Deseleccionar		Odznacz	Снять выделение	選択の解除		取消	取消
+$Select	Select	Sélectionner	Auswähen		Seleccionar	Vybrat	Zaznacz	Выбрать	選択		選擇	选择
+$Toggle	Toggle	Activer	Umschalten		Activar		Przełącz	Переключить	トグル		切換	切换
+$Import Head	Import Head	Importer tête	Kopf importieren		Importar Cabeza		Importuj Głowę	Импортировать голову	ヘッドのインポート		導入頭部	导入头部
+$Import Part Matcher	Import Part Matcher	Apparier les parties importées	Import passender Teile		Importar Parte		Importuj Pasująca Część	Импорт совпадающих частей	分割部位のインポート		導入部位匹配	导入部位匹配
+$Internal Destination	Internal Destination	Destination interne	Interner Zielort		Destino interno		Wewnętrzny Docelowy	Внутреннее расположение	内部目標		內部目標	内部目标
+$External Source	External Source	Source externe	Externe Quelle		Fuente externa	Vnější zdroj	Zewnętrzne Źródło	Внешний источник	外部のソース		外部資源	外部资源
+$Toggle Visibility	Toggle Visibility	Activer visibilité	Sichtbarkeit umschalten		Cambiar visibilidad		Przełącz Widoczność	Влючить видимость	トグルの可視		切換可見性	切换可见性
+$Toggle Wireframe	Toggle Wireframe	Activer fil de fer	Wireframe umschalten		Cambiar Alambrado		Przełącz Kontury	Включить сетку	トグルのワイヤーフレーム		切換網格模型	切换网格模型
+$Toggle Editability	Toggle Editability	Activer édition	Editierbarkeit umschalten		Cambiar Editable		Przełącz Edytowalność	Включить редактирование	トグルを編集可能		切換可編輯性	切换可编辑性
+$Cycle Wireframe Color	Cycle Wireframe Color	Changer couleur de fil de fer	Wireframe-Farbe wechseln				Cykl Kolor Kontur	Сменить цвет сетки	サイクルワイヤーフレームの色		循環網格顏色	循环网格颜色
+$BODY SCALES	BODY SCALES	ECHELLES CORPS	Körpergewicht		Tamaños del cuerpo		SKALE CIAŁA	МАСШТАБЫ ТЕЛА	ボディースケール		身體比例	身体比例
+$Undefined	Undefined	Indéfini	Undefiniert		Indefinido		Niezdefiniowany	Неопределено	未定義		未定義	未定义
+$RM_FacePart	Face Part											
+$RM_MouthPart	Mouth Part											
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
 $Head	Head	Tête	Kopf	Testa	Cabeza	Hlava	Głowa	Голова	頭部	Cabeça	頭部	头部
 $Left Breast	Left Breast	Poitrine gauche	Linke Brust	Seno Sinistro	Pecho izquierdo	Levé ňadro	Lewa Pierś	Левая грудь	左胸	Peito esquerdo	左胸	左胸
 $Right Breast	Right Breast	Poitrine droite	Rechte Brust	Seno Destro	Pecho derecho	Pravé ňadro	Prawa Pierś	Правая грудь	右胸	Peito direito	右胸	右胸
 $Left Glute	Left Glute	Fessier gauche	Linke Pobacke	Gluteo Sinistro	Nalga izquierda	Levá půlka	Lewy Pośladek	Левая ягодица	左尻	Glúteo esquerdo	左臀	左臀
 $Right Glute	Right Glute	Fessier droit	Rechte Pobacke	Gluteo Destro	Nalga derecha	Pravá půlka	Prawy Pośladek	Правая ягодица	右尻	Glúteo direito	右臀	右臀
-$Left Breast Curve	Left Breast Curve	Courbe poitrine gauche	Linke Brustkurve	Curva Seno Sinistro	Curvatura del pecho izquierdo	Křivka levého ňadra	Krągłość Lewej Piersi	Изгиб левой груди	左胸のカーブ	Curva do peito esquerdo		左胸曲线
-$Right Breast Curve	Right Breast Curve	Courbe poitrine droite	Rechte Brustkurve	Curva Seno Destro	Curvatura del pecho derecho	Křivka pravého ňadra	Krągłość Prawej Piersi	Изгиб правой груди	右胸のカーブ	Curva do peito direito		右胸曲线
-$Left Biceps	Left Biceps	Biceps gauche	Linker Bizeps	Bicipite Sinistro	Bíceps izquierdo	Levý biceps	Lewy Biceps	Левый бицепс	左腕の力こぶ	Bíceps esquerdo	右臂二頭肌	左肱二头肌
-$Right Biceps	Right Biceps	Biceps droit	Rechter Bizeps	Bicipite Destro	Bíceps derecho	Pravý biceps	Prawy Biceps	Правый бицепс	右腕の力こぶ	Bíceps direito	左臂二頭肌	右肱二头肌
-$Left Biceps 2	Left Biceps 2	Biceps gauche 2	Linker Bizeps 2	Bicipite Sinistro 2	Bíceps izquierdo 2	Levý biceps 2	Lewy Biceps 2	Левый бицепс 2	左腕の力こぶ 2	Bíceps esquerdo 2	右臂二頭肌 2	左肱二头肌 2
-$Right Biceps 2	Right Biceps 2	Biceps droit 2	Rechter Bizeps 2	Bicipite Destro 2	Bíceps derecho 2	Pravý biceps 2	Prawy Biceps 2	Правый бицепс 2	右腕の力こぶ 2	Bíceps direito 2	左臂二頭肌 2	右肱二头肌 2
-$Quiver Scale	Quiver Scale	Taille du carquois	Köchergröße	Dimensioni Faretra	Escala del carcaj	Měřítko toulce	Skala Kołczanu	Шкала колчана	矢筒の大きさ	Tamanho da aljava		
-$Bow Scale	Bow Scale	Taille de l'arc	Bogengröße	Dimensioni Arco	Escala del arco	Měřítko luku	Skala Łuku	Шкала лука	弓の大きさ	Tamanho do arco		
-$Axe Scale	Axe Scale	Taille de la hache	Axtgröße	Dimensioni Ascia	Escala del hacha	Měřítko sekery	Skala Toporu	Шкала топора	斧の大きさ	Tamanho do machado de duas mãos		
-$Sword Scale	Sword Scale	Taille de l'épée	Schwertgröße	Dimensioni Spada	Escala de la espada	Měřítko meče	Skala Mieczu	Шкала меча	剣の大きさ	Tamanho da espada		
-$Mace Scale	Mace Scale	Taille de la masse	Streitkolbengröße	Dimensioni Mazza	Escala de la maza	Měřítko palice	Skala Buławy	Шкала булавы	メイスの大きさ	Tamanho da maça		
-$Shield Scale	Shield Scale	Taille du bouclier	Schildgröße	Dimensioni Scudo	Escala del escudo	Měřítko štítu	Skala Tarczy	Шкала щита	盾の大きさ	Tamanho do escudo		
-$Weapon Back Scale	Weapon Back Scale	Taille de l'arme dans le dos	Waffengröße hinten	Dimensioni Arma su schiena	Escala del arma envainada en la espalda	Měřítko zbraně na zádech	Skala Broni na plecach	Шкала оружия за спиной	大剣の鞘の大きさ	Tamanho da parte de trás da arma		
-$Weapon Scale	Weapon Scale	Taille de l'arme	Waffengröße	Dimensioni Arma	Escala del arma desenvainada	Měřítko zbraně	Skala Broni	Шкала оружия	武器の大きさ	Tamanho da arma		
-$Alteration	Alteration	Altération	Veränderung	Alterazione	Alteración	Proměny	Przemiana	Изменение	変性	Alteração		变化
-$Conjuration	Conjuration	Conjuration	Beschwörung	Evocazione	Conjuración	Vyvolávání	Przywoływanie	Колдовство	召喚	Conjuração		召唤
-$Destruction	Destruction	Destruction	Zerstörung	Distruzione	Destrucción	Ničení	Zniszczenie	Разрушение	破壊	Destruição		毁灭
+$Left Breast Curve	Left Breast Curve	Courbe poitrine gauche	Linke Brustkurve	Curva Seno Sinistro	Curvatura del pecho izquierdo	Křivka levého ňadra	Krągłość Lewej Piersi	Изгиб левой груди	左胸のカーブ	Curva do peito esquerdo	左胸曲線	左胸曲线
+$Right Breast Curve	Right Breast Curve	Courbe poitrine droite	Rechte Brustkurve	Curva Seno Destro	Curvatura del pecho derecho	Křivka pravého ňadra	Krągłość Prawej Piersi	Изгиб правой груди	右胸のカーブ	Curva do peito direito	右胸曲線	右胸曲线
+$Left Biceps	Left Biceps	Biceps gauche	Linker Bizeps	Bicipite Sinistro	Bíceps izquierdo	Levý biceps	Lewy Biceps	Левый бицепс	左腕の力こぶ	Bíceps esquerdo	左肱二頭肌	左肱二头肌
+$Right Biceps	Right Biceps	Biceps droit	Rechter Bizeps	Bicipite Destro	Bíceps derecho	Pravý biceps	Prawy Biceps	Правый бицепс	右腕の力こぶ	Bíceps direito	右肱二頭肌	右肱二头肌
+$Left Biceps 2	Left Biceps 2	Biceps gauche 2	Linker Bizeps 2	Bicipite Sinistro 2	Bíceps izquierdo 2	Levý biceps 2	Lewy Biceps 2	Левый бицепс 2	左腕の力こぶ 2	Bíceps esquerdo 2	左肱二頭肌 2	左肱二头肌 2
+$Right Biceps 2	Right Biceps 2	Biceps droit 2	Rechter Bizeps 2	Bicipite Destro 2	Bíceps derecho 2	Pravý biceps 2	Prawy Biceps 2	Правый бицепс 2	右腕の力こぶ 2	Bíceps direito 2	右肱二頭肌 2	右肱二头肌 2
+$Quiver Scale	Quiver Scale	Taille du carquois	Köchergröße	Dimensioni Faretra	Escala del carcaj	Měřítko toulce	Skala Kołczanu	Шкала колчана	矢筒の大きさ	Tamanho da aljava	箭袋大小	箭袋大小
+$Bow Scale	Bow Scale	Taille de l'arc	Bogengröße	Dimensioni Arco	Escala del arco	Měřítko luku	Skala Łuku	Шкала лука	弓の大きさ	Tamanho do arco	弓的大小	弓的大小
+$Axe Scale	Axe Scale	Taille de la hache	Axtgröße	Dimensioni Ascia	Escala del hacha	Měřítko sekery	Skala Toporu	Шкала топора	斧の大きさ	Tamanho do machado de duas mãos	斧的大小	斧的大小
+$Sword Scale	Sword Scale	Taille de l'épée	Schwertgröße	Dimensioni Spada	Escala de la espada	Měřítko meče	Skala Mieczu	Шкала меча	剣の大きさ	Tamanho da espada	劍的大小	剑的大小
+$Mace Scale	Mace Scale	Taille de la masse	Streitkolbengröße	Dimensioni Mazza	Escala de la maza	Měřítko palice	Skala Buławy	Шкала булавы	メイスの大きさ	Tamanho da maça	錘的大小	锤的大小
+$Shield Scale	Shield Scale	Taille du bouclier	Schildgröße	Dimensioni Scudo	Escala del escudo	Měřítko štítu	Skala Tarczy	Шкала щита	盾の大きさ	Tamanho do escudo	盾的大小	盾的大小
+$Weapon Back Scale	Weapon Back Scale	Taille de l'arme dans le dos	Waffengröße hinten	Dimensioni Arma su schiena	Escala del arma envainada en la espalda	Měřítko zbraně na zádech	Skala Broni na Plecach	Шкала оружия за спиной	大剣の鞘の大きさ	Tamanho da parte de trás da arma	背後武器大小	背後武器大小
+$Weapon Scale	Weapon Scale	Taille de l'arme	Waffengröße	Dimensioni Arma	Escala del arma desenvainada	Měřítko zbraně	Skala Broni	Шкала оружия	武器の大きさ	Tamanho da arma	武器大小	武器大小
+$Alteration	Alteration	Altération	Veränderung	Alterazione	Alteración	Proměny	Przemiana	Изменение	変性	Alteração	變化	变化
+$Conjuration	Conjuration	Conjuration	Beschwörung	Evocazione	Conjuración	Vyvolávání	Przywoływanie	Колдовство	召喚	Conjuração	召喚	召唤
+$Destruction	Destruction	Destruction	Zerstörung	Distruzione	Destrucción	Ničení	Zniszczenie	Разрушение	破壊	Destruição	毀滅	毁灭
 $Illusion	Illusion	Illusion	Illusion	Illusione	Ilusión	Iluze	Iluzja	Иллюзия	幻惑	Ilusão	幻術	幻术
 $Restoration	Restoration	Guérison 	Wiederherstellung	Recupero	Restauración	Obnova	Przywracanie	Восстановление	回復	Restauração	回復	回复
-$One Handed	One Handed	Une main	Einhändig	Una Mano	A una mano	Jednoruční boj	Broń Jednoręczna	Одноручное	片手武器	Uma mão	單手武器	单手
-$Two Handed	Two Handed	Deux mains	Zweihändig	Due Mani	A dos manos	Obouruční boj	Broń Oburęczna	Двуручное	両手武器	Duas mãos	雙手武器	双手
-$Archery	Archery	Archerie	Schießkunst	Arceria	Arquería	Lukostřelba	Łucznictwo	Стрельба из лука	弓術	Arquearia		箭术
-$Block	Block	Parade	Blocken	Parare	Bloqueo	Krytí	Blok	Блокирование	防御	Bloqueio		档格
-$Heavy Armor	Heavy Armor	Armure lourde	Schwere Rüstung	Armatura Pesante	Armadura pesada	Těžká zbroj	Ciężki Pancerz	Тяжелые доспехи	重装	Armadura pesada		重甲
-$Light Armor	Light Armor	Armure légère	Leichte Rüstung	Armatura Leggera	Armadura ligera	Lehké brnění	Lekki Pancerz	Легкие доспехи	軽装	Armadura leve		轻甲
-$Sneak	Sneak	Furtivité	Schleichen	Furtività	Sigilo	Plížení	Skradanie	Скрытность	隠密	Furto		潜行
-$Alchemy	Alchemy	Alchimie	Alchemie	Alchimia	Alquimia	Alchymie	Alchemia	Алхимия	錬金術	Alquimia		炼金
-$Enchanting	Enchanting	Enchantement	Verzauberung	Incantamento	Encantamiento	Očarování	Zaklinanie	Зачарование	付呪	Encantamento		附魔
-$Smithing	Smithing	Forgeage	Schmiedekunst	Forgiatura	Herrería	Kovářství	Kowalstwo	Кузнечное дело	鍛冶	Ferraria		锻造
-$Lockpicking	Lockpicking	Crochetage	Schlossknacken	Scassinare	Abrir cerraduras	Páčení zámků	Otwieranie zamków	Взлом	開錠	Quebra de cadeado		开锁
-$Pickpocket	Pickpocket	Vol à la tire	Taschendiebstahl	Borseggiare	Robo	Kapsářství	Kradzież	Карманные кражи	スリ	Roubo		行窃
-$Speechcraft	Speechcraft	Éloquence	Überredungskunst	Oratoria	Elocuencia	Přesvědčování	Retoryka	Красноречие	話術	Oratoria		口才
+$One Handed	One Handed	Une main	Einhändig	Una Mano	A una mano	Jednoruční boj	Broń Jednoręczna	Одноручное	片手武器	Uma mão	單手武器	单手武器
+$Two Handed	Two Handed	Deux mains	Zweihändig	Due Mani	A dos manos	Obouruční boj	Broń Oburęczna	Двуручное	両手武器	Duas mãos	雙手武器	双手武器
+$Archery	Archery	Archerie	Schießkunst	Arceria	Arquería	Lukostřelba	Łucznictwo	Стрельба из лука	弓術	Arquearia	箭術	箭术
+$Block	Block	Parade	Blocken	Parare	Bloqueo	Krytí	Blok	Блокирование	防御	Bloqueio	格擋	格挡
+$Heavy Armor	Heavy Armor	Armure lourde	Schwere Rüstung	Armatura Pesante	Armadura pesada	Těžká zbroj	Ciężki Pancerz	Тяжелые доспехи	重装	Armadura pesada	重甲	重甲
+$Light Armor	Light Armor	Armure légère	Leichte Rüstung	Armatura Leggera	Armadura ligera	Lehké brnění	Lekki Pancerz	Легкие доспехи	軽装	Armadura leve	輕甲	轻甲
+$Sneak	Sneak	Furtivité	Schleichen	Furtività	Sigilo	Plížení	Skradanie	Скрытность	隠密	Furto	潛行	潜行
+$Alchemy	Alchemy	Alchimie	Alchemie	Alchimia	Alquimia	Alchymie	Alchemia	Алхимия	錬金術	Alquimia	煉金	炼金
+$Enchanting	Enchanting	Enchantement	Verzauberung	Incantamento	Encantamiento	Očarování	Zaklinanie	Зачарование	付呪	Encantamento	附魔	附魔
+$Smithing	Smithing	Forgeage	Schmiedekunst	Forgiatura	Herrería	Kovářství	Kowalstwo	Кузнечное дело	鍛冶	Ferraria	鍛造	锻造
+$Lockpicking	Lockpicking	Crochetage	Schlossknacken	Scassinare	Abrir cerraduras	Páčení zámků	Otwieranie zamków	Взлом	開錠	Quebra de cadeado	開鎖	开锁
+$Pickpocket	Pickpocket	Vol à la tire	Taschendiebstahl	Borseggiare	Robo	Kapsářství	Kradzież	Карманные кражи	スリ	Roubo	竊盜	窃盗
+$Speechcraft	Speechcraft	Éloquence	Überredungskunst	Oratoria	Elocuencia	Přesvědčování	Retoryka	Красноречие	話術	Oratoria	口才	口才
 $Texture List	Texture List	Liste de texture	Texturenliste	Lista delle Texture	Lista de texturas	Seznam Textur	Lista Tekstur	Список текстур	テクスチャーの一覧	Lista de texturas	材質一覽	材质列表
 $Male Warpaint 01	Male Warpaint 01	Peinture de guerre homme 01 	Männliche Kriegsbemalung 01	Pittura di guerra Maschile 01	Pintura de guerra para hombre 01	Mužské válečné malování 01	Męska Barwa wojenna 01	Муж. боевая раскраска 01	男性の戦化粧 01	Pintura de guerra masculina 01	男性戰紋 01	男性战纹 01
 $Male Warpaint 02	Male Warpaint 02	Peinture de guerre homme 02	Männliche Kriegsbemalung 02	Pittura di guerra Maschile 02	Pintura de guerra para hombre 02	Mužské válečné malování 02	Męska Barwa wojenna 02	Муж. боевая раскраска 02	男性の戦化粧 02	Pintura de guerra masculina 02	男性戰紋 02	男性战纹 02
@@ -154,102 +154,102 @@ $Female Nord Warpaint 02	Female Nord Warpaint 02	Peinture de guerre nordique fem
 $Female Nord Warpaint 03	Female Nord Warpaint 03	Peinture de guerre nordique femme 03	Weibliche Nord Kriegsbemalung 03	Pittura di guerra Femminile Nord 03	Pintura de guerra para mujer Nórdica 03	Válečné malování Nordské ženy 03	Żeński Nord Barwa wojenna 03	Жен. Нордская боевая раскраска 03	女性ノルドの戦化粧 03	Pintura de guerra feminina nórdica 03	女諾德人戰紋 03	女诺德人战纹 03
 $Female Nord Warpaint 04	Female Nord Warpaint 04	Peinture de guerre nordique femme 04	Weibliche Nord Kriegsbemalung 04	Pittura di guerra Femminile Nord 04	Pintura de guerra para mujer Nórdica 04	Válečné malování Nordské ženy 04	Żeński Nord Barwa wojenna 04	Жен. Нордская боевая раскраска 04	女性ノルドの戦化粧 04	Pintura de guerra feminina nórdica 04	女諾德人戰紋 04	女诺德人战纹 04
 $Female Nord Warpaint 05	Female Nord Warpaint 05	Peinture de guerre nordique femme 05	Weibliche Nord Kriegsbemalung 05	Pittura di guerra Femminile Nord 05	Pintura de guerra para mujer Nórdica 05	Válečné malování Nordské ženy 05	Żeński Nord Barwa wojenna 05	Жен. Нордская боевая раскраска 05	女性ノルドの戦化粧 05	Pintura de guerra feminina nórdica 05	女諾德人戰紋 05	女诺德人战纹 05
-$Argonian Stripes 01	Argonian Stripes 01	Rayures argoniennes 01	Argonier Streifen 01	Strisce Argoniane 01	Rayas Argonianas 01	Argonianské pruhy 01	Argonianin Paski 01	Аргонианские полосы 01	アルゴニアンの模様 01	Listras agonianas 01		蜥蜴人条纹 01
-$Argonian Stripes 02	Argonian Stripes 02	Rayures argoniennes 02	Argonier Streifen 02	Strisce Argoniane 02	Rayas Argonianas 02	Argonianské pruhy 02	Argonianin Paski 02	Аргонианские полосы 02	アルゴニアンの模様 02	Listras agonianas 02		蜥蜴人条纹 02
-$Argonian Stripes 03	Argonian Stripes 03	Rayures argoniennes 03	Argonier Streifen 03	Strisce Argoniane 03	Rayas Argonianas 03	Argonianské pruhy 03	Argonianin Paski 03	Аргонианские полосы 03	アルゴニアンの模様 03	Listras agonianas 03		蜥蜴人条纹 03
-$Argonian Stripes 04	Argonian Stripes 04	Rayures argoniennes 04	Argonier Streifen 04	Strisce Argoniane 04	Rayas Argonianas 04	Argonianské pruhy 04	Argonianin Paski 04	Аргонианские полосы 04	アルゴニアンの模様 04	Listras agonianas 04		蜥蜴人条纹 04
-$Argonian Stripes 05	Argonian Stripes 05	Rayures argoniennes 05	Argonier Streifen 05	Strisce Argoniane 05	Rayas Argonianas 05	Argonianské pruhy 05	Argonianin Paski 05	Аргонианские полосы 05	アルゴニアンの模様 05	Listras agonianas 05		蜥蜴人条纹 05
-$Argonian Stripes 06	Argonian Stripes 06	Rayures argoniennes 06	Argonier Streifen 06	Strisce Argoniane 06	Rayas Argonianas 06	Argonianské pruhy 06	Argonianin Paski 06	Аргонианские полосы 06	アルゴニアンの模様 06	Listras agonianas 06		蜥蜴人条纹 06
-$Female High Elf Warpaint 01	Female High Elf Warpaint 01	Peinture de guerre haut elfe femme 01	Weibliche Hochelfen Kriegsbemalung 01	Pittura di guerra Femminile Elfo Alto 01	Pintura de guerra para mujer Alta Elfa 01	Válečné malování Altmerské ženy 01	Żeński Wysoki Elf Barwa wojenna 01	Жен. Альтмерская боевая раскраска 01	女性ハイエルフの戦化粧 01	Pintura de guerra feminina para Alto Elfo 01		女高精灵战纹 01
-$Female High Elf Warpaint 02	Female High Elf Warpaint 02	Peinture de guerre haut elfe femme 02	Weibliche Hochelfen Kriegsbemalung 02	Pittura di guerra Femminile Elfo Alto 02	Pintura de guerra para mujer Alta Elfa 02	Válečné malování Altmerské ženy 02	Żeński Wysoki Elf Barwa wojenna 02	Жен. Альтмерская боевая раскраска 02	女性ハイエルフの戦化粧 02	Pintura de guerra feminina para Alto Elfo 02		女高精灵战纹 02
-$Female High Elf Warpaint 03	Female High Elf Warpaint 03	Peinture de guerre haut elfe femme 03	Weibliche Hochelfen Kriegsbemalung 03	Pittura di guerra Femminile Elfo Alto 03	Pintura de guerra para mujer Alta Elfa 03	Válečné malování Altmerské ženy 03	Żeński Wysoki Elf Barwa wojenna 03	Жен. Альтмерская боевая раскраска 03	女性ハイエルフの戦化粧 03	Pintura de guerra feminina para Alto Elfo 03		女高精灵战纹 03
-$Female High Elf Warpaint 04	Female High Elf Warpaint 04	Peinture de guerre haut elfe femme 04	Weibliche Hochelfen Kriegsbemalung 04	Pittura di guerra Femminile Elfo Alto 04	Pintura de guerra para mujer Alta Elfa 04	Válečné malování Altmerské ženy 04	Żeński Wysoki Elf Barwa wojenna 04	Жен. Альтмерская боевая раскраска 04	女性ハイエルフの戦化粧 04	Pintura de guerra feminina para Alto Elfo 04		女高精灵战纹 04
-$Male Dark Elf Warpaint 01	Male Dark Elf Warpaint 01	Peinture de guerre elfe noir 01	Männliche Dunkelelfen Kriegsbemalung 01	Pittura di guerra Maschile Elfo Oscuro 01	Pintura de guerra para hombre Elfo Oscuro 01	Válečné malování Dunmerského muže 01 	Męski Mroczny Elf Barwa wojenna 01	Муж. Данмерская боевая раскраска 01	男性ダークエルフの戦化粧 01	Pintura de guerra masculina para Elfo Negro 01		男暗精灵战纹 01
-$Male Dark Elf Warpaint 02	Male Dark Elf Warpaint 02	Peinture de guerre elfe noir 02	Männliche Dunkelelfen Kriegsbemalung 02	Pittura di guerra Maschile Elfo Oscuro 02	Pintura de guerra para hombre Elfo Oscuro 02	Válečné malování Dunmerského muže 02	Męski Mroczny Elf Barwa wojenna 02	Муж. Данмерская боевая раскраска 02	男性ダークエルフの戦化粧 02	Pintura de guerra masculina para Elfo Negro 02		男暗精灵战纹 02
-$Male Dark Elf Warpaint 03	Male Dark Elf Warpaint 03	Peinture de guerre elfe noir 03	Männliche Dunkelelfen Kriegsbemalung 03	Pittura di guerra Maschile Elfo Oscuro 03	Pintura de guerra para hombre Elfo Oscuro 03	Válečné malování Dunmerského muže 03	Męski Mroczny Elf Barwa wojenna 03	Муж. Данмерская боевая раскраска 03	男性ダークエルフの戦化粧 03	Pintura de guerra masculina para Elfo Negro 03		男暗精灵战纹 03
-$Male Dark Elf Warpaint 04	Male Dark Elf Warpaint 04	Peinture de guerre elfe noir 04	Männliche Dunkelelfen Kriegsbemalung 04	Pittura di guerra Maschile Elfo Oscuro 04	Pintura de guerra para hombre Elfo Oscuro 04	Válečné malování Dunmerského muže 04	Męski Mroczny Elf Barwa wojenna 04	Муж. Данмерская боевая раскраска 04	男性ダークエルフの戦化粧 04	Pintura de guerra masculina para Elfo Negro 04		男暗精灵战纹 04
-$Male Dark Elf Warpaint 05	Male Dark Elf Warpaint 05	Peinture de guerre elfe noir 05	Männliche Dunkelelfen Kriegsbemalung 05	Pittura di guerra Maschile Elfo Oscuro 05	Pintura de guerra para hombre Elfo Oscuro 05	Válečné malování Dunmerského muže 05	Męski Mroczny Elf Barwa wojenna 05	Муж. Данмерская боевая раскраска 05	男性ダークエルフの戦化粧 05	Pintura de guerra masculina para Elfo Negro 05		男暗精灵战纹 05
-$Male Dark Elf Warpaint 06	Male Dark Elf Warpaint 06	Peinture de guerre elfe noir 06	Männliche Dunkelelfen Kriegsbemalung 06	Pittura di guerra Maschile Elfo Oscuro 06	Pintura de guerra para hombre Elfo Oscuro 06	Válečné malování Dunmerského muže 06	Męski Mroczny Elf Barwa wojenna 06	Муж. Данмерская боевая раскраска 06	男性ダークエルフの戦化粧 06	Pintura de guerra masculina para Elfo Negro 06		男暗精灵战纹 06
-$Female Dark Elf Warpaint 01	Female Dark Elf Warpaint 01	Peinture de guerre elfe noir femme 01	Weibliche Dunkelelfen Kriegsbemalung 01	Pittura di guerra Femminile Elfo Oscuro 01	Pintura de guerra para mujer Elfa Oscura 01	Válečné malování Dunmerské ženy 01	Żeński Mroczny Elf Barwa wojenna 01	Жен. Данмерская боевая раскраска 01	女性ダークエルフの戦化粧 01	Pintura de guerra feminina para Elfo Negro 01		女暗精灵战纹 01
-$Female Dark Elf Warpaint 02	Female Dark Elf Warpaint 02	Peinture de guerre elfe noir femme 02	Weibliche Dunkelelfen Kriegsbemalung 02	Pittura di guerra Femminile Elfo Oscuro 02	Pintura de guerra para mujer Elfa Oscura 02	Válečné malování Dunmerské ženy 02	Żeński Mroczny Elf Barwa wojenna 02	Жен. Данмерская боевая раскраска 02	女性ダークエルフの戦化粧 02	Pintura de guerra feminina para Elfo Negro 02		女暗精灵战纹 02
-$Female Dark Elf Warpaint 03	Female Dark Elf Warpaint 03	Peinture de guerre elfe noir femme 03	Weibliche Dunkelelfen Kriegsbemalung 03	Pittura di guerra Femminile Elfo Oscuro 03	Pintura de guerra para mujer Elfa Oscura 03	Válečné malování Dunmerské ženy 03	Żeński Mroczny Elf Barwa wojenna 03	Жен. Данмерская боевая раскраска 03	女性ダークエルフの戦化粧 03	Pintura de guerra feminina para Elfo Negro 03		女暗精灵战纹 03
-$Female Dark Elf Warpaint 04	Female Dark Elf Warpaint 04	Peinture de guerre elfe noir femme 04	Weibliche Dunkelelfen Kriegsbemalung 04	Pittura di guerra Femminile Elfo Oscuro 01	Pintura de guerra para mujer Elfa Oscura 04	Válečné malování Dunmerské ženy 04	Żeński Mroczny Elf Barwa wojenna 04	Жен. Данмерская боевая раскраска 04	女性ダークエルフの戦化粧 04	Pintura de guerra feminina para Elfo Negro 04		女暗精灵战纹 04
-$Female Dark Elf Warpaint 05	Female Dark Elf Warpaint 05	Peinture de guerre elfe noir femme 05	Weibliche Dunkelelfen Kriegsbemalung 05	Pittura di guerra Femminile Elfo Oscuro 05	Pintura de guerra para mujer Elfa Oscura 05	Válečné malování Dunmerské ženy 05	Żeński Mroczny Elf Barwa wojenna 05	Жен. Данмерская боевая раскраска 05	女性ダークエルフの戦化粧 05	Pintura de guerra feminina para Elfo Negro 05		女暗精灵战纹 05
-$Female Dark Elf Warpaint 06	Female Dark Elf Warpaint 06	Peinture de guerre elfe noir femme 06	Weibliche Dunkelelfen Kriegsbemalung 06	Pittura di guerra Femminile Elfo Oscuro 06	Pintura de guerra para mujer Elfa Oscura 06	Válečné malování Dunmerské ženy 06	Żeński Mroczny Elf Barwa wojenna 06	Жен. Данмерская боевая раскраска 06	女性ダークエルフの戦化粧 06	Pintura de guerra feminina para Elfo Negro 05		女暗精灵战纹 06
-$Male Imperial Warpaint 01	Male Imperial Warpaint 01	Peinture de guerre impérial homme 01	Männliche Kaiserlichen Kriegsbemalung 01	Pittura di guerra Maschile Imperiale 01	Pintura de guerra para hombre Imperial 01	Válečné malování Císařského muže 01	Męski Cesarski Barwa wojenna 01	Муж. Имперская боевая раскраска 01	男性インペリアルの戦化粧 01	Pintura de guerra masculina imperial 01		男帝国人战纹 01
-$Male Imperial Warpaint 02	Male Imperial Warpaint 02	Peinture de guerre impérial homme 02	Männliche Kaiserlichen Kriegsbemalung 02	Pittura di guerra Maschile Imperiale 02	Pintura de guerra para hombre Imperial 02	Válečné malování Císařského muže 02	Męski Cesarski Barwa wojenna 02	Муж. Имперская боевая раскраска 02	男性インペリアルの戦化粧 02	Pintura de guerra masculina imperial 02		男帝国人战纹 02
-$Male Imperial Warpaint 03	Male Imperial Warpaint 03	Peinture de guerre impérial homme 03	Männliche Kaiserlichen Kriegsbemalung 03	Pittura di guerra Maschile Imperiale 03	Pintura de guerra para hombre Imperial 03	Válečné malování Císařského muže 03	Męski Cesarski Barwa wojenna 03	Муж. Имперская боевая раскраска 03	男性インペリアルの戦化粧 03	Pintura de guerra masculina imperial 03		男帝国人战纹 03
-$Male Imperial Warpaint 04	Male Imperial Warpaint 04	Peinture de guerre impérial homme 04	Männliche Kaiserlichen Kriegsbemalung 04	Pittura di guerra Maschile Imperiale 04	Pintura de guerra para hombre Imperial 04	Válečné malování Císařského muže 04	Męski Cesarski Barwa wojenna 04	Муж. Имперская боевая раскраска 04	男性インペリアルの戦化粧 04	Pintura de guerra masculina imperial 04		男帝国人战纹 04
-$Male Imperial Warpaint 05	Male Imperial Warpaint 05	Peinture de guerre impérial homme 05	Männliche Kaiserlichen Kriegsbemalung 05	Pittura di guerra Maschile Imperiale 05	Pintura de guerra para hombre Imperial 05	Válečné malování Císařského muže 05	Męski Cesarski Barwa wojenna 05	Муж. Имперская боевая раскраска 05	男性インペリアルの戦化粧 05	Pintura de guerra masculina imperial 05		男帝国人战纹 05
-$Female Imperial Warpaint 01	Female Imperial Warpaint 01	Peinture de guerre impérial femme 01	Weibliche Kaiserlichen Kriegsbemalung 01	Pittura di guerra Femminile Imperiale 01	Pintura de guerra para mujer Imperial 01	Válečné malování Císařské ženy 01	Żeński Cesarski Barwa wojenna 01	Жен. Имперская боевая раскраска 01	女性インペリアルの戦化粧 01	Pintura de guerra feminina imperial 01		女帝国人战纹 01
-$Female Imperial Warpaint 02	Female Imperial Warpaint 02	Peinture de guerre impérial femme 02	Männliche Kaiserlichen Kriegsbemalung 02	Pittura di guerra Femminile Imperiale 02	Pintura de guerra para mujer Imperial 02	Válečné malování Císařské ženy 02	Żeński Cesarski Barwa wojenna 02	Жен. Имперская боевая раскраска 02	女性インペリアルの戦化粧 02	Pintura de guerra feminina imperial 02		女帝国人战纹 02
-$Female Imperial Warpaint 03	Female Imperial Warpaint 03	Peinture de guerre impérial femme 03	Männliche Kaiserlichen Kriegsbemalung 03	Pittura di guerra Femminile Imperiale 03	Pintura de guerra para mujer Imperial 03	Válečné malování Císařské ženy 03	Żeński Cesarski Barwa wojenna 03	Жен. Имперская боевая раскраска 03	女性インペリアルの戦化粧 03	Pintura de guerra feminina imperial 03		女帝国人战纹 03
-$Female Imperial Warpaint 04	Female Imperial Warpaint 04	Peinture de guerre impérial femme 04	Männliche Kaiserlichen Kriegsbemalung 04	Pittura di guerra Femminile Imperiale 04	Pintura de guerra para mujer Imperial 04	Válečné malování Císařské ženy 04	Żeński Cesarski Barwa wojenna 04	Жен. Имперская боевая раскраска 04	女性インペリアルの戦化粧 04	Pintura de guerra feminina imperial 04		女帝国人战纹 04
-$Female Imperial Warpaint 05	Female Imperial Warpaint 05	Peinture de guerre impérial femme 05	Männliche Kaiserlichen Kriegsbemalung 05	Pittura di guerra Femminile Imperiale 05	Pintura de guerra para mujer Imperial 05	Válečné malování Císařské ženy 05	Żeński Cesarski Barwa wojenna 05	Жен. Имперская боевая раскраска 05	女性インペリアルの戦化粧 05	Pintura de guerra feminina imperial 05		女帝国人战纹 05
-$Khajiit Stripes 01	Khajiit Stripes 01	Rayures Khajiit 01	Khajiit Streifen 01	Strisce Khajiiti 01	Rayas Khajiita 01	Khajiitské pruhy 01	Khajiit Paski 01	Каджитские полосы 01	カジートの模様 01	Listras Khajit 01		猫人条纹 01
-$Khajiit Stripes 02	Khajiit Stripes 02	Rayures Khajiit 02	Khajiit Streifen 02	Strisce Khajiiti 02	Rayas Khajiita 02	Khajiitské pruhy 02	Khajiit Paski 02	Каджитские полосы 02	カジートの模様 02	Listras Khajit 02		猫人条纹 02
-$Khajiit Stripes 03	Khajiit Stripes 03	Rayures Khajiit 03	Khajiit Streifen 03	Strisce Khajiiti 03	Rayas Khajiita 03	Khajiitské pruhy 03	Khajiit Paski 03	Каджитские полосы 03	カジートの模様 03	Listras Khajit 03		猫人条纹 03
-$Khajiit Stripes 04	Khajiit Stripes 04	Rayures Khajiit 04	Khajiit Streifen 04	Strisce Khajiiti 04	Rayas Khajiita 04	Khajiitské pruhy 04	Khajiit Paski 04	Каджитские полосы 04	カジートの模様 04	Listras Khajit 04		猫人条纹 04
-$Khajiit Paint 01	Khajiit Paint 01	Peinture Khajiit 01	Khajiit Bemalung 01	Pittura Khajiiti 01	Pintura Khajiita 01	Khajiitská barva 01	Khajiit Barwa 01	Каджитский рисунок 01	カジートの戦化粧 01	Pintura khajiit 01		猫人涂装 01
-$Khajiit Paint 02	Khajiit Paint 02	Peinture Khajiit 02	Khajiit Bemalung 02	Pittura Khajiiti 02	Pintura Khajiita 02	Khajiitská barva 02	Khajiit Barwa 02	Каджитский рисунок 02	カジートの戦化粧 02	Pintura khajiit 02		猫人涂装 02
-$Khajiit Paint 03	Khajiit Paint 03	Peinture Khajiit 03	Khajiit Bemalung 03	Pittura Khajiiti 03	Pintura Khajiita 03	Khajiitská barva 03	Khajiit Barwa 03	Каджитский рисунок 03	カジートの戦化粧 03	Pintura khajiit 03		猫人涂装 03
-$Khajiit Paint 04	Khajiit Paint 04	Peinture Khajiit 04	Khajiit Bemalung 04	Pittura Khajiiti 04	Pintura Khajiita 04	Khajiitská barva 04	Khajiit Barwa 04	Каджитский рисунок 04	カジートの戦化粧 04	Pintura khajiit 04		猫人涂装 04
-$Male Orc Warpaint 01	Male Orc Warpaint 01	Peinture de guerre orc homme 01	Männliche Ork Kriegsbemalung 01	Pittura di guerra Maschile Orco 01	Pintura de guerra para hombre Orco 01	Válečné malování Orkského muže 01	Męski Ork Barwa wojenna 01	Муж. Орочья боевая раскраска 01	男性オークの戦化粧 01	Pintura de guerra masculina para Orc 01		男兽人战纹 01
-$Male Orc Warpaint 02	Male Orc Warpaint 02	Peinture de guerre orc homme 02	Männliche Ork Kriegsbemalung 02	Pittura di guerra Maschile Orco 02	Pintura de guerra para hombre Orco 02	Válečné malování Orkského muže 02	Męski Ork Barwa wojenna 02	Муж. Орочья боевая раскраска 02	男性オークの戦化粧 02	Pintura de guerra masculina para Orc 02		男兽人战纹 02
-$Male Orc Warpaint 03	Male Orc Warpaint 03	Peinture de guerre orc homme 03	Männliche Ork Kriegsbemalung 03	Pittura di guerra Maschile Orco 03	Pintura de guerra para hombre Orco 03	Válečné malování Orkského muže 03	Męski Ork Barwa wojenna 03	Муж. Орочья боевая раскраска 03	男性オークの戦化粧 03	Pintura de guerra masculina para Orc 03		男兽人战纹 03
-$Male Orc Warpaint 04	Male Orc Warpaint 04	Peinture de guerre orc homme 04	Männliche Ork Kriegsbemalung 04	Pittura di guerra Maschile Orco 04	Pintura de guerra para hombre Orco 04	Válečné malování Orkského muže 04	Męski Ork Barwa wojenna 04	Муж. Орочья боевая раскраска 04	男性オークの戦化粧 04	Pintura de guerra masculina para Orc 04		男兽人战纹 04
-$Male Orc Warpaint 05	Male Orc Warpaint 05	Peinture de guerre orc homme 05	Männliche Ork Kriegsbemalung 05	Pittura di guerra Maschile Orco 05	Pintura de guerra para hombre Orco 05	Válečné malování Orkského muže 05	Męski Ork Barwa wojenna 05	Муж. Орочья боевая раскраска 05	男性オークの戦化粧 05	Pintura de guerra masculina para Orc 05		男兽人战纹 05
-$Female Orc Warpaint 01	Female Orc Warpaint 01	Peinture de guerre orc femme 01	Weibliche Ork Kriegsbemalung 01	Pittura di guerra da Femminile Orco 01	Pintura de guerra para mujer Orca 01	Válečné malování Orkské ženy 01	Żeński Ork Barwa wojenna 01	Жен. Орочья боевая раскраска 01	女性オークの戦化粧 01	Pintura de guerra feminina para Orc 01		女兽人战纹 01
-$Female Orc Warpaint 02	Female Orc Warpaint 02	Peinture de guerre orc femme 02	Weibliche Ork Kriegsbemalung 02	Pittura di guerra da Femminile Orco 02	Pintura de guerra para mujer Orca 02	Válečné malování Orkské ženy 02	Żeński Ork Barwa wojenna 02	Жен. Орочья боевая раскраска 02	女性オークの戦化粧 02	Pintura de guerra feminina para Orc 02		女兽人战纹 02
-$Female Orc Warpaint 03	Female Orc Warpaint 03	Peinture de guerre orc femme 03	Weibliche Ork Kriegsbemalung 03	Pittura di guerra da Femminile Orco 03	Pintura de guerra para mujer Orca 03	Válečné malování Orkské ženy 03	Żeński Ork Barwa wojenna 03	Жен. Орочья боевая раскраска 03	女性オークの戦化粧 03	Pintura de guerra feminina para Orc 03		女兽人战纹 03
-$Female Orc Warpaint 04	Female Orc Warpaint 04	Peinture de guerre orc femme 04	Weibliche Ork Kriegsbemalung 04	Pittura di guerra da Femminile Orco 04	Pintura de guerra para mujer Orca 04	Válečné malování Orkské ženy 04	Żeński Ork Barwa wojenna 04	Жен. Орочья боевая раскраска 04	女性オークの戦化粧 04	Pintura de guerra feminina para Orc 04		女兽人战纹 04
-$Female Orc Warpaint 05	Female Orc Warpaint 05	Peinture de guerre orc femme 05	Weibliche Ork Kriegsbemalung 05	Pittura di guerra da Femminile Orco 05	Pintura de guerra para mujer Orca 05	Válečné malování Orkské ženy 05	Żeński Ork Barwa wojenna 05	Жен. Орочья боевая раскраска 05	女性オークの戦化粧 05	Pintura de guerra feminina para Orc 05		女兽人战纹 05
-$Male Redguard Warpaint 01	Male Redguard Warpaint 01	Peinture de guerre rougegarde homme 01	Männliche Rothwardonen Kriegsbemalung 01	Pittura di guerra Maschile Guardia Rossa 01	Pintura de guerra para hombre Guardia Rojo 01	Válečné malování Redguardského muže 01	Męski Redguard Barwa wojenna 01	Муж. Редгардская боевая раскраска 01	男性レッドガードの戦化粧 01	Pintura de guerra masculina para guarda vermelha 01		男雷伽德人战纹 01
-$Male Redguard Warpaint 02	Male Redguard Warpaint 02	Peinture de guerre rougegarde homme 02	Männliche Rothwardonen Kriegsbemalung 02	Pittura di guerra Maschile Guardia Rossa 02	Pintura de guerra para hombre Guardia Rojo 02	Válečné malování Redguardského muže 02	Męski Redguard Barwa wojenna 02	Муж. Редгардская боевая раскраска 02	男性レッドガードの戦化粧 02	Pintura de guerra masculina para guarda vermelha 02		男雷伽德人战纹 02
-$Male Redguard Warpaint 03	Male Redguard Warpaint 03	Peinture de guerre rougegarde homme 03	Männliche Rothwardonen Kriegsbemalung 03	Pittura di guerra Maschile Guardia Rossa 03	Pintura de guerra para hombre Guardia Rojo 03	Válečné malování Redguardského muže 03	Męski Redguard Barwa wojenna 03	Муж. Редгардская боевая раскраска 03	男性レッドガードの戦化粧 03	Pintura de guerra masculina para guarda vermelha 03		男雷伽德人战纹 03
-$Male Redguard Warpaint 04	Male Redguard Warpaint 04	Peinture de guerre rougegarde homme 04	Männliche Rothwardonen Kriegsbemalung 04	Pittura di guerra Maschile Guardia Rossa 04	Pintura de guerra para hombre Guardia Rojo 04	Válečné malování Redguardského muže 04	Męski Redguard Barwa wojenna 04	Муж. Редгардская боевая раскраска 04	男性レッドガードの戦化粧 04	Pintura de guerra masculina para guarda vermelha 04		男雷伽德人战纹 04
-$Male Redguard Warpaint 05	Male Redguard Warpaint 05	Peinture de guerre rougegarde homme 05	Männliche Rothwardonen Kriegsbemalung 05	Pittura di guerra Maschile Guardia Rossa 05	Pintura de guerra para hombre Guardia Rojo 05	Válečné malování Redguardského muže 05	Męski Redguard Barwa wojenna 05	Муж. Редгардская боевая раскраска 05	男性レッドガードの戦化粧 05	Pintura de guerra masculina para guarda vermelha 05		男雷伽德人战纹 05
-$Female Redguard Warpaint 01	Female Redguard Warpaint 01	Peinture de guerre rougegarde femme 01	Weibliche Rothwardonen Kriegsbemalung 01	Pittura di guerra Femminile Guardia Rossa 01	Pintura de guerra para mujer Guardia Roja 01	Válečné malování Redguardské ženy 01	Żeński Redguard Barwa wojenna 01	Жен. Редгардская боевая раскраска 01	女性レッドガードの戦化粧 01	Pintura de guerra feminina para guarda vermelha 01		女雷伽德人战纹 01
-$Female Redguard Warpaint 02	Female Redguard Warpaint 02	Peinture de guerre rougegarde femme 02	Männliche Rothwardonen Kriegsbemalung 02	Pittura di guerra Femminile Guardia Rossa 02	Pintura de guerra para mujer Guardia Roja 02	Válečné malování Redguardské ženy 02	Żeński Redguard Barwa wojenna 02	Жен. Редгардская боевая раскраска 02	女性レッドガードの戦化粧 02	Pintura de guerra feminina para guarda vermelha 02		女雷伽德人战纹 02
-$Female Redguard Warpaint 03	Female Redguard Warpaint 03	Peinture de guerre rougegarde femme 03	Männliche Rothwardonen Kriegsbemalung 03	Pittura di guerra Femminile Guardia Rossa 03	Pintura de guerra para mujer Guardia Roja 03	Válečné malování Redguardské ženy 03	Żeński Redguard Barwa wojenna 03	Жен. Редгардская боевая раскраска 03	女性レッドガードの戦化粧 03	Pintura de guerra feminina para guarda vermelha 03		女雷伽德人战纹 03
-$Female Redguard Warpaint 04	Female Redguard Warpaint 04	Peinture de guerre rougegarde femme 04	Männliche Rothwardonen Kriegsbemalung 04	Pittura di guerra Femminile Guardia Rossa 04	Pintura de guerra para mujer Guardia Roja 04	Válečné malování Redguardské ženy 04	Żeński Redguard Barwa wojenna 04	Жен. Редгардская боевая раскраска 04	女性レッドガードの戦化粧 04	Pintura de guerra feminina para guarda vermelha 04		女雷伽德人战纹 04
-$Female Redguard Warpaint 05	Female Redguard Warpaint 05	Peinture de guerre rougegarde femme 05	Männliche Rothwardonen Kriegsbemalung 05	Pittura di guerra Femminile Guardia Rossa 05	Pintura de guerra para mujer Guardia Roja 05	Válečné malování Redguardské ženy 05	Żeński Redguard Barwa wojenna 05	Жен. Редгардская боевая раскраска 05	女性レッドガードの戦化粧 05	Pintura de guerra feminina para guarda vermelha 05		女雷伽德人战纹 05
-$Male Wood Elf Warpaint 01	Male Wood Elf Warpaint 01	Peinture de guerre elfe des bois homme 01	Männliche Waldelfen Kriegsbemalung 01	Pittura di guerra Maschile Elfo dei Boschi 01	Pintura de guerra para hombre Elfo del Bosque 01	Válečné malování Bosmerského muže 01	Męski Leśny Elf Barwa wojenna 01	Муж. Босмерская боевая раскраска 01	男性ウッドエルフの戦化粧 01	Pintura de guerra masculina para Elfos da floresta 01		男木精灵战纹 01
-$Male Wood Elf Warpaint 02	Male Wood Elf Warpaint 02	Peinture de guerre elfe des bois homme 02	Männliche Waldelfen Kriegsbemalung 02	Pittura di guerra Maschile Elfo dei Boschi 02	Pintura de guerra para hombre Elfo del Bosque 02	Válečné malování Bosmerského muže 02	Męski Leśny Elf Barwa wojenna 02	Муж. Босмерская боевая раскраска 02	男性ウッドエルフの戦化粧 02	Pintura de guerra masculina para Elfos da floresta 02		男木精灵战纹 02
-$Male Wood Elf Warpaint 03	Male Wood Elf Warpaint 03	Peinture de guerre elfe des bois homme 03	Männliche Waldelfen Kriegsbemalung 03	Pittura di guerra Maschile Elfo dei Boschi 03	Pintura de guerra para hombre Elfo del Bosque 03	Válečné malování Bosmerského muže 03	Męski Leśny Elf Barwa wojenna 03	Муж. Босмерская боевая раскраска 03	男性ウッドエルフの戦化粧 03	Pintura de guerra masculina para Elfos da floresta 03		男木精灵战纹 03
-$Male Wood Elf Warpaint 04	Male Wood Elf Warpaint 04	Peinture de guerre elfe des bois homme 04	Männliche Waldelfen Kriegsbemalung 04	Pittura di guerra Maschile Elfo dei Boschi 04	Pintura de guerra para hombre Elfo del Bosque 04	Válečné malování Bosmerského muže 04	Męski Leśny Elf Barwa wojenna 04	Муж. Босмерская боевая раскраска 04	男性ウッドエルフの戦化粧 04	Pintura de guerra masculina para Elfos da floresta 04		男木精灵战纹 04
-$Male Wood Elf Warpaint 05	Male Wood Elf Warpaint 05	Peinture de guerre elfe des bois homme 05	Männliche Waldelfen Kriegsbemalung 05	Pittura di guerra Maschile Elfo dei Boschi 05	Pintura de guerra para hombre Elfo del Bosque 05	Válečné malování Bosmerského muže 05	Męski Leśny Elf Barwa wojenna 05	Муж. Босмерская боевая раскраска 05	男性ウッドエルフの戦化粧 05	Pintura de guerra masculina para Elfos da floresta 05		男木精灵战纹 05
-$Female Wood Elf Warpaint 01	Female Wood Elf Warpaint 01	Peinture de guerre elfe des bois femme 01	Weibliche Waldelfen Kriegsbemalung 01	Pittura di guerra Femminile Elfo dei Boschi 01	Pintura de guerra para mujer Elfa del Bosque 01	Válečné malování Bosmerské ženy 01	Żeński Leśny Elf Barwa wojenna 01	Жен. Босмерская боевая раскраска 01	女性ウッドエルフの戦化粧 01	Pintura de guerra feminina para Elfos da floresta 01		女木精灵战纹 01
-$Female Wood Elf Warpaint 02	Female Wood Elf Warpaint 02	Peinture de guerre elfe des bois femme 02	Weibliche Waldelfen Kriegsbemalung 02	Pittura di guerra Femminile Elfo dei Boschi 02	Pintura de guerra para mujer Elfa del Bosque 02	Válečné malování Bosmerské ženy 02	Żeński Leśny Elf Barwa wojenna 02	Жен. Босмерская боевая раскраска 02	女性ウッドエルフの戦化粧 02	Pintura de guerra feminina para Elfos da floresta 02		女木精灵战纹 02
-$Female Wood Elf Warpaint 03	Female Wood Elf Warpaint 03	Peinture de guerre elfe des bois femme 03	Weibliche Waldelfen Kriegsbemalung 03	Pittura di guerra Femminile Elfo dei Boschi 03	Pintura de guerra para mujer Elfa del Bosque 03	Válečné malování Bosmerské ženy 03	Żeński Leśny Elf Barwa wojenna 03	Жен. Босмерская боевая раскраска 03	女性ウッドエルフの戦化粧 03	Pintura de guerra feminina para Elfos da floresta 03		女木精灵战纹 03
-$Female Wood Elf Warpaint 04	Female Wood Elf Warpaint 04	Peinture de guerre elfe des bois femme 04	Weibliche Waldelfen Kriegsbemalung 04	Pittura di guerra Femminile Elfo dei Boschi 04	Pintura de guerra para mujer Elfa del Bosque 04	Válečné malování Bosmerské ženy 04	Żeński Leśny Elf Barwa wojenna 04	Жен. Босмерская боевая раскраска 04	女性ウッドエルフの戦化粧 04	Pintura de guerra feminina para Elfos da floresta 04		女木精灵战纹 04
-$Female Wood Elf Warpaint 05	Female Wood Elf Warpaint 05	Peinture de guerre elfe des bois femme 05	Weibliche Waldelfen Kriegsbemalung 05	Pittura di guerra Femminile Elfo dei Boschi 05	Pintura de guerra para mujer Elfa del Bosque 05	Válečné malování Bosmerské ženy 05	Żeński Leśny Elf Barwa wojenna 05	Жен. Босмерская боевая раскраска 05	女性ウッドエルフの戦化粧 05	Pintura de guerra feminina para Elfos da floresta 05		女木精灵战纹 05
-$Male Breton Warpaint 01	Male Breton Warpaint 01	Peinture de guerre breton homme 01	Männliche Bretonen Kriegsbemalung 01	Pittura di guerra Maschile Bretone 01	Pintura de guerra para hombre Bretón 01	Válečné malování Bretonského muže 01	Męski Breton Barwa wojenna 01	Муж. Бретонская боевая раскраска 01	男性ブレトンの戦化粧 01	Tatuagem masculina para Breton 01		男布雷顿人战纹 01
-$Male Breton Warpaint 02	Male Breton Warpaint 02	Peinture de guerre breton homme 02	Männliche Bretonen Kriegsbemalung 02	Pittura di guerra Maschile Bretone 02	Pintura de guerra para hombre Bretón 02	Válečné malování Bretonského muže 02	Męski Breton Barwa wojenna 02	Муж. Бретонская боевая раскраска 02	男性ブレトンの戦化粧 02	Tatuagem masculina para Breton 02		男布雷顿人战纹 02
-$Male Breton Warpaint 03	Male Breton Warpaint 03	Peinture de guerre breton homme 03	Männliche Bretonen Kriegsbemalung 03	Pittura di guerra Maschile Bretone 03	Pintura de guerra para hombre Bretón 03	Válečné malování Bretonského muže 03	Męski Breton Barwa wojenna 03	Муж. Бретонская боевая раскраска 03	男性ブレトンの戦化粧 03	Tatuagem masculina para Breton 03		男布雷顿人战纹 03
-$Male Breton Warpaint 04	Male Breton Warpaint 04	Peinture de guerre breton homme 04	Männliche Bretonen Kriegsbemalung 04	Pittura di guerra Maschile Bretone 04	Pintura de guerra para hombre Bretón 04	Válečné malování Bretonského muže 04	Męski Breton Barwa wojenna 04	Муж. Бретонская боевая раскраска 04	男性ブレトンの戦化粧 04	Tatuagem masculina para Breton 04		男布雷顿人战纹 04
-$Male Breton Warpaint 05	Male Breton Warpaint 05	Peinture de guerre breton homme 05	Männliche Bretonen Kriegsbemalung 05	Pittura di guerra Maschile Bretone 05	Pintura de guerra para hombre Bretón 05	Válečné malování Bretonského muže 05	Męski Breton Barwa wojenna 05	Муж. Бретонская боевая раскраска 05	男性ブレトンの戦化粧 05	Tatuagem masculina para Breton 05		男布雷顿人战纹 05
-$Female Breton Warpaint 01	Female Breton Warpaint 01	Peinture de guerre breton femme 01	Weibliche Bretonen Kriegsbemalung 01	Pittura di guerra Femminile Bretone 01	Pintura de guerra para mujer Bretona 01	Válečné malování Bretonské ženy 01	Żeński Breton Barwa wojenna 01	Жен. Бретонская боевая раскраска 01	女性ブレトンの戦化粧 01	Tatuagem feminina para Breton 01		女布雷顿人战纹 01
-$Female Breton Warpaint 02	Female Breton Warpaint 02	Peinture de guerre breton femme 02	Weibliche Bretonen Kriegsbemalung 02	Pittura di guerra Femminile Bretone 02	Pintura de guerra para mujer Bretona 02	Válečné malování Bretonské ženy 02	Żeński Breton Barwa wojenna 02	Жен. Бретонская боевая раскраска 02	女性ブレトンの戦化粧 02	Tatuagem feminina para Breton 02		女布雷顿人战纹 02
-$Female Breton Warpaint 03	Female Breton Warpaint 03	Peinture de guerre breton femme 03	Weibliche Bretonen Kriegsbemalung 03	Pittura di guerra Femminile Bretone 03	Pintura de guerra para mujer Bretona 03	Válečné malování Bretonské ženy 03	Żeński Breton Barwa wojenna 03	Жен. Бретонская боевая раскраска 03	女性ブレトンの戦化粧 03	Tatuagem feminina para Breton 03		女布雷顿人战纹 03
-$Female Breton Warpaint 04	Female Breton Warpaint 04	Peinture de guerre breton femme 04	Weibliche Bretonen Kriegsbemalung 04	Pittura di guerra Femminile Bretone 04	Pintura de guerra para mujer Bretona 04	Válečné malování Bretonské ženy 04	Żeński Breton Barwa wojenna 04	Жен. Бретонская боевая раскраска 04	女性ブレトンの戦化粧 04	Tatuagem feminina para Breton 04		女布雷顿人战纹 04
-$Female Breton Warpaint 05	Female Breton Warpaint 05	Peinture de guerre breton femme 05	Weibliche Bretonen Kriegsbemalung 05	Pittura di guerra Femminile Bretone 05	Pintura de guerra para mujer Bretona 05	Válečné malování Bretonské ženy 05	Żeński Breton Barwa wojenna 05	Жен. Бретонская боевая раскраска 05	女性ブレトンの戦化粧 05	Tatuagem feminina para Breton 05		女布雷顿人战纹 05
-$Male Forsworn Tattoo 01	Male Forsworn Tattoo 01	Tatouage parjure homme 01	Männliches Abgeschworenen Tattoo 01	Tatuaggio Maschile Rinnegato 01	Tatuaje para hombre Renegado 01	Tetování Zapřisáhlého muže 01	Męski Renegat Tatuaż 01	Муж. Татуировка Изгоев 01	男性フォースウォーンのタトゥー 01	Tatuagem renegada masculina 01		男弃誓者纹身 01
-$Male Forsworn Tattoo 02	Male Forsworn Tattoo 02	Tatouage parjure homme 02	Männliches Abgeschworenen Tattoo 02	Tatuaggio Maschile Rinnegato 02	Tatuaje para hombre Renegado 02	Tetování Zapřisáhlého muže 02	Męski Renegat Tatuaż 02	Муж. Татуировка Изгоев 02	男性フォースウォーンのタトゥー 02	Tatuagem renegada masculina 02		男弃誓者纹身 02
-$Male Forsworn Tattoo 03	Male Forsworn Tattoo 03	Tatouage parjure homme 03	Männliches Abgeschworenen Tattoo 03	Tatuaggio Maschile Rinnegato 03	Tatuaje para hombre Renegado 03	Tetování Zapřisáhlého muže 03	Męski Renegat Tatuaż 03	Муж. Татуировка Изгоев 03	男性フォースウォーンのタトゥー 03	Tatuagem renegada masculina 03		男弃誓者纹身 03
-$Male Forsworn Tattoo 04	Male Forsworn Tattoo 04	Tatouage parjure homme 04	Männliches Abgeschworenen Tattoo 04	Tatuaggio Maschile Rinnegato 04	Tatuaje para hombre Renegado 04	Tetování Zapřisáhlého muže 04	Męski Renegat Tatuaż 04	Муж. Татуировка Изгоев 04	男性フォースウォーンのタトゥー 04	Tatuagem renegada masculina 04		男弃誓者纹身 04
-$Female Forsworn Tattoo 01	Female Forsworn Tattoo 01	Tatouage parjure femme 01	Weibliches Abgeschworenen Tattoo 01	Tatuaggio Femminile Rinnegato 01	Tatuaje para mujer Renegada 01	Tetování Zapřisáhlé ženy 01	Żeński Renegat Tatuaż 01	Жен. Татуировка Изгоев 01	女性フォースウォーンのタトゥー 01	Tatuagem renegada feminina 01		女弃誓者纹身 01
-$Female Forsworn Tattoo 02	Female Forsworn Tattoo 02	Tatouage parjure femme 02	Weibliches Abgeschworenen Tattoo 02	Tatuaggio Femminile Rinnegato 02	Tatuaje para mujer Renegada 02	Tetování Zapřisáhlé ženy 02	Żeński Renegat Tatuaż 02	Жен. Татуировка Изгоев 02	女性フォースウォーンのタトゥー 02	Tatuagem renegada feminina 02		女弃誓者纹身 02
-$Female Forsworn Tattoo 03	Female Forsworn Tattoo 03	Tatouage parjure femme 03	Weibliches Abgeschworenen Tattoo 03	Tatuaggio Femminile Rinnegato 03	Tatuaje para mujer Renegada 03	Tetování Zapřisáhlé ženy 03	Żeński Renegat Tatuaż 03	Жен. Татуировка Изгоев 03	女性フォースウォーンのタトゥー 03	Tatuagem renegada feminina 03		女弃誓者纹身 03
-$Female Forsworn Tattoo 04	Female Forsworn Tattoo 04	Tatouage parjure femme 04	Weibliches Abgeschworenen Tattoo 04	Tatuaggio Femminile Rinnegato 04	Tatuaje para mujer Renegada 04	Tetování Zapřisáhlé ženy 04	Żeński Renegat Tatuaż 04	Жен. Татуировка Изгоев 04	女性フォースウォーンのタトゥー 04	Tatuagem renegada feminina 04		女弃誓者纹身 04
-$Male Black Blood Tattoo 01	Male Black Blood Tattoo 01	Tatouage sang noir homme 01	Männliches Schwarzblut Tattoo 01	Tatuaggio Maschile Blackblood 01	Tatuaje para hombre Sangre Negra 01	Tetování Gangu Blackblood 01	Męski Tatuaż Czarnej Krwii 01	Муж. Тату черной крови 01	男性ブラック・ブラッドのタトゥー 01	Tatuagem de sangue negro masculino 01		男黑血纹身 01
-$Male Black Blood Tattoo 02	Male Black Blood Tattoo 02	Tatouage sang noir homme 02	Männliches Schwarzblut Tattoo 02	Tatuaggio Maschile Blackblood 02	Tatuaje para hombre Sangre Negra 02	Tetování Gangu Blackblood 02	Męski Tatuaż Czarnej Krwii 02	Муж. Тату черной крови 02	男性ブラック・ブラッドのタトゥー 02	Tatuagem de sangue negro masculino 02		男黑血纹身 02
-$RANs_Age	Age	Age	Alter	Età	Edad	Věk	Wiek	Возраст	年齢	Idade		年龄
-$RANs_Weight	Face Weight	Poids de la tête	Gesichtsfülle/-rundung	Peso	Peso	Váha v obličeji	Waga twarzy	Вес	体重	Peso		体重
-$RANs_HeadShape	Head Shape	Forme de la tête	Kopfform	Forma della testa	Forma de la cabeza	Tvar hlavy	Kształt głowy	Форма головы	頭の形	Formato da Cabeca		头部形状
+$Argonian Stripes 01	Argonian Stripes 01	Rayures argoniennes 01	Argonier Streifen 01	Strisce Argoniane 01	Rayas Argonianas 01	Argonianské pruhy 01	Argonianin Paski 01	Аргонианские полосы 01	アルゴニアンの模様 01	Listras agonianas 01	亞龍人條紋 01	亚龙人条纹 01
+$Argonian Stripes 02	Argonian Stripes 02	Rayures argoniennes 02	Argonier Streifen 02	Strisce Argoniane 02	Rayas Argonianas 02	Argonianské pruhy 02	Argonianin Paski 02	Аргонианские полосы 02	アルゴニアンの模様 02	Listras agonianas 02	亞龍人條紋 02	亚龙人条纹 02
+$Argonian Stripes 03	Argonian Stripes 03	Rayures argoniennes 03	Argonier Streifen 03	Strisce Argoniane 03	Rayas Argonianas 03	Argonianské pruhy 03	Argonianin Paski 03	Аргонианские полосы 03	アルゴニアンの模様 03	Listras agonianas 03	亞龍人條紋 03	亚龙人条纹 03
+$Argonian Stripes 04	Argonian Stripes 04	Rayures argoniennes 04	Argonier Streifen 04	Strisce Argoniane 04	Rayas Argonianas 04	Argonianské pruhy 04	Argonianin Paski 04	Аргонианские полосы 04	アルゴニアンの模様 04	Listras agonianas 04	亞龍人條紋 04	亚龙人条纹 04
+$Argonian Stripes 05	Argonian Stripes 05	Rayures argoniennes 05	Argonier Streifen 05	Strisce Argoniane 05	Rayas Argonianas 05	Argonianské pruhy 05	Argonianin Paski 05	Аргонианские полосы 05	アルゴニアンの模様 05	Listras agonianas 05	亞龍人條紋 05	亚龙人条纹 05
+$Argonian Stripes 06	Argonian Stripes 06	Rayures argoniennes 06	Argonier Streifen 06	Strisce Argoniane 06	Rayas Argonianas 06	Argonianské pruhy 06	Argonianin Paski 06	Аргонианские полосы 06	アルゴニアンの模様 06	Listras agonianas 06	亞龍人條紋 06	亚龙人条纹 06
+$Female High Elf Warpaint 01	Female High Elf Warpaint 01	Peinture de guerre haut elfe femme 01	Weibliche Hochelfen Kriegsbemalung 01	Pittura di guerra Femminile Elfo Alto 01	Pintura de guerra para mujer Alta Elfa 01	Válečné malování Altmerské ženy 01	Żeński Wysoki Elf Barwa wojenna 01	Жен. Альтмерская боевая раскраска 01	女性ハイエルフの戦化粧 01	Pintura de guerra feminina para Alto Elfo 01	女高精靈戰紋 01	女高精灵战纹 01
+$Female High Elf Warpaint 02	Female High Elf Warpaint 02	Peinture de guerre haut elfe femme 02	Weibliche Hochelfen Kriegsbemalung 02	Pittura di guerra Femminile Elfo Alto 02	Pintura de guerra para mujer Alta Elfa 02	Válečné malování Altmerské ženy 02	Żeński Wysoki Elf Barwa wojenna 02	Жен. Альтмерская боевая раскраска 02	女性ハイエルフの戦化粧 02	Pintura de guerra feminina para Alto Elfo 02	女高精靈戰紋 02	女高精灵战纹 02
+$Female High Elf Warpaint 03	Female High Elf Warpaint 03	Peinture de guerre haut elfe femme 03	Weibliche Hochelfen Kriegsbemalung 03	Pittura di guerra Femminile Elfo Alto 03	Pintura de guerra para mujer Alta Elfa 03	Válečné malování Altmerské ženy 03	Żeński Wysoki Elf Barwa wojenna 03	Жен. Альтмерская боевая раскраска 03	女性ハイエルフの戦化粧 03	Pintura de guerra feminina para Alto Elfo 03	女高精靈戰紋 03	女高精灵战纹 03
+$Female High Elf Warpaint 04	Female High Elf Warpaint 04	Peinture de guerre haut elfe femme 04	Weibliche Hochelfen Kriegsbemalung 04	Pittura di guerra Femminile Elfo Alto 04	Pintura de guerra para mujer Alta Elfa 04	Válečné malování Altmerské ženy 04	Żeński Wysoki Elf Barwa wojenna 04	Жен. Альтмерская боевая раскраска 04	女性ハイエルフの戦化粧 04	Pintura de guerra feminina para Alto Elfo 04	女高精靈戰紋 04	女高精灵战纹 04
+$Male Dark Elf Warpaint 01	Male Dark Elf Warpaint 01	Peinture de guerre elfe noir 01	Männliche Dunkelelfen Kriegsbemalung 01	Pittura di guerra Maschile Elfo Oscuro 01	Pintura de guerra para hombre Elfo Oscuro 01	Válečné malování Dunmerského muže 01 	Męski Mroczny Elf Barwa wojenna 01	Муж. Данмерская боевая раскраска 01	男性ダークエルフの戦化粧 01	Pintura de guerra masculina para Elfo Negro 01	男暗精靈戰紋 01	男暗精灵战纹 01
+$Male Dark Elf Warpaint 02	Male Dark Elf Warpaint 02	Peinture de guerre elfe noir 02	Männliche Dunkelelfen Kriegsbemalung 02	Pittura di guerra Maschile Elfo Oscuro 02	Pintura de guerra para hombre Elfo Oscuro 02	Válečné malování Dunmerského muže 02	Męski Mroczny Elf Barwa wojenna 02	Муж. Данмерская боевая раскраска 02	男性ダークエルフの戦化粧 02	Pintura de guerra masculina para Elfo Negro 02	男暗精靈戰紋 02	男暗精灵战纹 02
+$Male Dark Elf Warpaint 03	Male Dark Elf Warpaint 03	Peinture de guerre elfe noir 03	Männliche Dunkelelfen Kriegsbemalung 03	Pittura di guerra Maschile Elfo Oscuro 03	Pintura de guerra para hombre Elfo Oscuro 03	Válečné malování Dunmerského muže 03	Męski Mroczny Elf Barwa wojenna 03	Муж. Данмерская боевая раскраска 03	男性ダークエルフの戦化粧 03	Pintura de guerra masculina para Elfo Negro 03	男暗精靈戰紋 03	男暗精灵战纹 03
+$Male Dark Elf Warpaint 04	Male Dark Elf Warpaint 04	Peinture de guerre elfe noir 04	Männliche Dunkelelfen Kriegsbemalung 04	Pittura di guerra Maschile Elfo Oscuro 04	Pintura de guerra para hombre Elfo Oscuro 04	Válečné malování Dunmerského muže 04	Męski Mroczny Elf Barwa wojenna 04	Муж. Данмерская боевая раскраска 04	男性ダークエルフの戦化粧 04	Pintura de guerra masculina para Elfo Negro 04	男暗精靈戰紋 04	男暗精灵战纹 04
+$Male Dark Elf Warpaint 05	Male Dark Elf Warpaint 05	Peinture de guerre elfe noir 05	Männliche Dunkelelfen Kriegsbemalung 05	Pittura di guerra Maschile Elfo Oscuro 05	Pintura de guerra para hombre Elfo Oscuro 05	Válečné malování Dunmerského muže 05	Męski Mroczny Elf Barwa wojenna 05	Муж. Данмерская боевая раскраска 05	男性ダークエルフの戦化粧 05	Pintura de guerra masculina para Elfo Negro 05	男暗精靈戰紋 05	男暗精灵战纹 05
+$Male Dark Elf Warpaint 06	Male Dark Elf Warpaint 06	Peinture de guerre elfe noir 06	Männliche Dunkelelfen Kriegsbemalung 06	Pittura di guerra Maschile Elfo Oscuro 06	Pintura de guerra para hombre Elfo Oscuro 06	Válečné malování Dunmerského muže 06	Męski Mroczny Elf Barwa wojenna 06	Муж. Данмерская боевая раскраска 06	男性ダークエルフの戦化粧 06	Pintura de guerra masculina para Elfo Negro 06	男暗精靈戰紋 06	男暗精灵战纹 06
+$Female Dark Elf Warpaint 01	Female Dark Elf Warpaint 01	Peinture de guerre elfe noir femme 01	Weibliche Dunkelelfen Kriegsbemalung 01	Pittura di guerra Femminile Elfo Oscuro 01	Pintura de guerra para mujer Elfa Oscura 01	Válečné malování Dunmerské ženy 01	Żeński Mroczny Elf Barwa wojenna 01	Жен. Данмерская боевая раскраска 01	女性ダークエルフの戦化粧 01	Pintura de guerra feminina para Elfo Negro 01	女暗精靈戰紋 01	女暗精灵战纹 01
+$Female Dark Elf Warpaint 02	Female Dark Elf Warpaint 02	Peinture de guerre elfe noir femme 02	Weibliche Dunkelelfen Kriegsbemalung 02	Pittura di guerra Femminile Elfo Oscuro 02	Pintura de guerra para mujer Elfa Oscura 02	Válečné malování Dunmerské ženy 02	Żeński Mroczny Elf Barwa wojenna 02	Жен. Данмерская боевая раскраска 02	女性ダークエルフの戦化粧 02	Pintura de guerra feminina para Elfo Negro 02	女暗精靈戰紋 02	女暗精灵战纹 02
+$Female Dark Elf Warpaint 03	Female Dark Elf Warpaint 03	Peinture de guerre elfe noir femme 03	Weibliche Dunkelelfen Kriegsbemalung 03	Pittura di guerra Femminile Elfo Oscuro 03	Pintura de guerra para mujer Elfa Oscura 03	Válečné malování Dunmerské ženy 03	Żeński Mroczny Elf Barwa wojenna 03	Жен. Данмерская боевая раскраска 03	女性ダークエルフの戦化粧 03	Pintura de guerra feminina para Elfo Negro 03	女暗精靈戰紋 03	女暗精灵战纹 03
+$Female Dark Elf Warpaint 04	Female Dark Elf Warpaint 04	Peinture de guerre elfe noir femme 04	Weibliche Dunkelelfen Kriegsbemalung 04	Pittura di guerra Femminile Elfo Oscuro 01	Pintura de guerra para mujer Elfa Oscura 04	Válečné malování Dunmerské ženy 04	Żeński Mroczny Elf Barwa wojenna 04	Жен. Данмерская боевая раскраска 04	女性ダークエルフの戦化粧 04	Pintura de guerra feminina para Elfo Negro 04	女暗精靈戰紋 04	女暗精灵战纹 04
+$Female Dark Elf Warpaint 05	Female Dark Elf Warpaint 05	Peinture de guerre elfe noir femme 05	Weibliche Dunkelelfen Kriegsbemalung 05	Pittura di guerra Femminile Elfo Oscuro 05	Pintura de guerra para mujer Elfa Oscura 05	Válečné malování Dunmerské ženy 05	Żeński Mroczny Elf Barwa wojenna 05	Жен. Данмерская боевая раскраска 05	女性ダークエルフの戦化粧 05	Pintura de guerra feminina para Elfo Negro 05	女暗精靈戰紋 05	女暗精灵战纹 05
+$Female Dark Elf Warpaint 06	Female Dark Elf Warpaint 06	Peinture de guerre elfe noir femme 06	Weibliche Dunkelelfen Kriegsbemalung 06	Pittura di guerra Femminile Elfo Oscuro 06	Pintura de guerra para mujer Elfa Oscura 06	Válečné malování Dunmerské ženy 06	Żeński Mroczny Elf Barwa wojenna 06	Жен. Данмерская боевая раскраска 06	女性ダークエルフの戦化粧 06	Pintura de guerra feminina para Elfo Negro 05	女暗精靈戰紋 06	女暗精灵战纹 06
+$Male Imperial Warpaint 01	Male Imperial Warpaint 01	Peinture de guerre impérial homme 01	Männliche Kaiserlichen Kriegsbemalung 01	Pittura di guerra Maschile Imperiale 01	Pintura de guerra para hombre Imperial 01	Válečné malování Císařského muže 01	Męski Cesarski Barwa wojenna 01	Муж. Имперская боевая раскраска 01	男性インペリアルの戦化粧 01	Pintura de guerra masculina imperial 01	男帝國人戰紋 01	男帝国人战纹 01
+$Male Imperial Warpaint 02	Male Imperial Warpaint 02	Peinture de guerre impérial homme 02	Männliche Kaiserlichen Kriegsbemalung 02	Pittura di guerra Maschile Imperiale 02	Pintura de guerra para hombre Imperial 02	Válečné malování Císařského muže 02	Męski Cesarski Barwa wojenna 02	Муж. Имперская боевая раскраска 02	男性インペリアルの戦化粧 02	Pintura de guerra masculina imperial 02	男帝國人戰紋 02	男帝国人战纹 02
+$Male Imperial Warpaint 03	Male Imperial Warpaint 03	Peinture de guerre impérial homme 03	Männliche Kaiserlichen Kriegsbemalung 03	Pittura di guerra Maschile Imperiale 03	Pintura de guerra para hombre Imperial 03	Válečné malování Císařského muže 03	Męski Cesarski Barwa wojenna 03	Муж. Имперская боевая раскраска 03	男性インペリアルの戦化粧 03	Pintura de guerra masculina imperial 03	男帝國人戰紋 03	男帝国人战纹 03
+$Male Imperial Warpaint 04	Male Imperial Warpaint 04	Peinture de guerre impérial homme 04	Männliche Kaiserlichen Kriegsbemalung 04	Pittura di guerra Maschile Imperiale 04	Pintura de guerra para hombre Imperial 04	Válečné malování Císařského muže 04	Męski Cesarski Barwa wojenna 04	Муж. Имперская боевая раскраска 04	男性インペリアルの戦化粧 04	Pintura de guerra masculina imperial 04	男帝國人戰紋 04	男帝国人战纹 04
+$Male Imperial Warpaint 05	Male Imperial Warpaint 05	Peinture de guerre impérial homme 05	Männliche Kaiserlichen Kriegsbemalung 05	Pittura di guerra Maschile Imperiale 05	Pintura de guerra para hombre Imperial 05	Válečné malování Císařského muže 05	Męski Cesarski Barwa wojenna 05	Муж. Имперская боевая раскраска 05	男性インペリアルの戦化粧 05	Pintura de guerra masculina imperial 05	男帝國人戰紋 05	男帝国人战纹 05
+$Female Imperial Warpaint 01	Female Imperial Warpaint 01	Peinture de guerre impérial femme 01	Weibliche Kaiserlichen Kriegsbemalung 01	Pittura di guerra Femminile Imperiale 01	Pintura de guerra para mujer Imperial 01	Válečné malování Císařské ženy 01	Żeński Cesarski Barwa wojenna 01	Жен. Имперская боевая раскраска 01	女性インペリアルの戦化粧 01	Pintura de guerra feminina imperial 01	女帝國人戰紋 01	女帝国人战纹 01
+$Female Imperial Warpaint 02	Female Imperial Warpaint 02	Peinture de guerre impérial femme 02	Männliche Kaiserlichen Kriegsbemalung 02	Pittura di guerra Femminile Imperiale 02	Pintura de guerra para mujer Imperial 02	Válečné malování Císařské ženy 02	Żeński Cesarski Barwa wojenna 02	Жен. Имперская боевая раскраска 02	女性インペリアルの戦化粧 02	Pintura de guerra feminina imperial 02	女帝國人戰紋 02	女帝国人战纹 02
+$Female Imperial Warpaint 03	Female Imperial Warpaint 03	Peinture de guerre impérial femme 03	Männliche Kaiserlichen Kriegsbemalung 03	Pittura di guerra Femminile Imperiale 03	Pintura de guerra para mujer Imperial 03	Válečné malování Císařské ženy 03	Żeński Cesarski Barwa wojenna 03	Жен. Имперская боевая раскраска 03	女性インペリアルの戦化粧 03	Pintura de guerra feminina imperial 03	女帝國人戰紋 03	女帝国人战纹 03
+$Female Imperial Warpaint 04	Female Imperial Warpaint 04	Peinture de guerre impérial femme 04	Männliche Kaiserlichen Kriegsbemalung 04	Pittura di guerra Femminile Imperiale 04	Pintura de guerra para mujer Imperial 04	Válečné malování Císařské ženy 04	Żeński Cesarski Barwa wojenna 04	Жен. Имперская боевая раскраска 04	女性インペリアルの戦化粧 04	Pintura de guerra feminina imperial 04	女帝國人戰紋 04	女帝国人战纹 04
+$Female Imperial Warpaint 05	Female Imperial Warpaint 05	Peinture de guerre impérial femme 05	Männliche Kaiserlichen Kriegsbemalung 05	Pittura di guerra Femminile Imperiale 05	Pintura de guerra para mujer Imperial 05	Válečné malování Císařské ženy 05	Żeński Cesarski Barwa wojenna 05	Жен. Имперская боевая раскраска 05	女性インペリアルの戦化粧 05	Pintura de guerra feminina imperial 05	女帝國人戰紋 05	女帝国人战纹 05
+$Khajiit Stripes 01	Khajiit Stripes 01	Rayures Khajiit 01	Khajiit Streifen 01	Strisce Khajiiti 01	Rayas Khajiita 01	Khajiitské pruhy 01	Khajiit Paski 01	Каджитские полосы 01	カジートの模様 01	Listras Khajit 01	虎人條紋 01	虎人条纹 01
+$Khajiit Stripes 02	Khajiit Stripes 02	Rayures Khajiit 02	Khajiit Streifen 02	Strisce Khajiiti 02	Rayas Khajiita 02	Khajiitské pruhy 02	Khajiit Paski 02	Каджитские полосы 02	カジートの模様 02	Listras Khajit 02	虎人條紋 02	虎人条纹 02
+$Khajiit Stripes 03	Khajiit Stripes 03	Rayures Khajiit 03	Khajiit Streifen 03	Strisce Khajiiti 03	Rayas Khajiita 03	Khajiitské pruhy 03	Khajiit Paski 03	Каджитские полосы 03	カジートの模様 03	Listras Khajit 03	虎人條紋 03	虎人条纹 03
+$Khajiit Stripes 04	Khajiit Stripes 04	Rayures Khajiit 04	Khajiit Streifen 04	Strisce Khajiiti 04	Rayas Khajiita 04	Khajiitské pruhy 04	Khajiit Paski 04	Каджитские полосы 04	カジートの模様 04	Listras Khajit 04	虎人條紋 04	虎人条纹 04
+$Khajiit Paint 01	Khajiit Paint 01	Peinture Khajiit 01	Khajiit Bemalung 01	Pittura Khajiiti 01	Pintura Khajiita 01	Khajiitská barva 01	Khajiit Barwa 01	Каджитский рисунок 01	カジートの戦化粧 01	Pintura khajiit 01	虎人塗裝 01	虎人涂装 01
+$Khajiit Paint 02	Khajiit Paint 02	Peinture Khajiit 02	Khajiit Bemalung 02	Pittura Khajiiti 02	Pintura Khajiita 02	Khajiitská barva 02	Khajiit Barwa 02	Каджитский рисунок 02	カジートの戦化粧 02	Pintura khajiit 02	虎人塗裝 02	虎人涂装 02
+$Khajiit Paint 03	Khajiit Paint 03	Peinture Khajiit 03	Khajiit Bemalung 03	Pittura Khajiiti 03	Pintura Khajiita 03	Khajiitská barva 03	Khajiit Barwa 03	Каджитский рисунок 03	カジートの戦化粧 03	Pintura khajiit 03	虎人塗裝 03	虎人涂装 03
+$Khajiit Paint 04	Khajiit Paint 04	Peinture Khajiit 04	Khajiit Bemalung 04	Pittura Khajiiti 04	Pintura Khajiita 04	Khajiitská barva 04	Khajiit Barwa 04	Каджитский рисунок 04	カジートの戦化粧 04	Pintura khajiit 04	虎人塗裝 04	虎人涂装 04
+$Male Orc Warpaint 01	Male Orc Warpaint 01	Peinture de guerre orc homme 01	Männliche Ork Kriegsbemalung 01	Pittura di guerra Maschile Orco 01	Pintura de guerra para hombre Orco 01	Válečné malování Orkského muže 01	Męski Ork Barwa wojenna 01	Муж. Орочья боевая раскраска 01	男性オークの戦化粧 01	Pintura de guerra masculina para Orc 01	男獸人戰紋 01	男兽人战纹 01
+$Male Orc Warpaint 02	Male Orc Warpaint 02	Peinture de guerre orc homme 02	Männliche Ork Kriegsbemalung 02	Pittura di guerra Maschile Orco 02	Pintura de guerra para hombre Orco 02	Válečné malování Orkského muže 02	Męski Ork Barwa wojenna 02	Муж. Орочья боевая раскраска 02	男性オークの戦化粧 02	Pintura de guerra masculina para Orc 02	男獸人戰紋 02	男兽人战纹 02
+$Male Orc Warpaint 03	Male Orc Warpaint 03	Peinture de guerre orc homme 03	Männliche Ork Kriegsbemalung 03	Pittura di guerra Maschile Orco 03	Pintura de guerra para hombre Orco 03	Válečné malování Orkského muže 03	Męski Ork Barwa wojenna 03	Муж. Орочья боевая раскраска 03	男性オークの戦化粧 03	Pintura de guerra masculina para Orc 03	男獸人戰紋 03	男兽人战纹 03
+$Male Orc Warpaint 04	Male Orc Warpaint 04	Peinture de guerre orc homme 04	Männliche Ork Kriegsbemalung 04	Pittura di guerra Maschile Orco 04	Pintura de guerra para hombre Orco 04	Válečné malování Orkského muže 04	Męski Ork Barwa wojenna 04	Муж. Орочья боевая раскраска 04	男性オークの戦化粧 04	Pintura de guerra masculina para Orc 04	男獸人戰紋 04	男兽人战纹 04
+$Male Orc Warpaint 05	Male Orc Warpaint 05	Peinture de guerre orc homme 05	Männliche Ork Kriegsbemalung 05	Pittura di guerra Maschile Orco 05	Pintura de guerra para hombre Orco 05	Válečné malování Orkského muže 05	Męski Ork Barwa wojenna 05	Муж. Орочья боевая раскраска 05	男性オークの戦化粧 05	Pintura de guerra masculina para Orc 05	男獸人戰紋 05	男兽人战纹 05
+$Female Orc Warpaint 01	Female Orc Warpaint 01	Peinture de guerre orc femme 01	Weibliche Ork Kriegsbemalung 01	Pittura di guerra da Femminile Orco 01	Pintura de guerra para mujer Orca 01	Válečné malování Orkské ženy 01	Żeński Ork Barwa wojenna 01	Жен. Орочья боевая раскраска 01	女性オークの戦化粧 01	Pintura de guerra feminina para Orc 01	女獸人戰紋 01	女兽人战纹 01
+$Female Orc Warpaint 02	Female Orc Warpaint 02	Peinture de guerre orc femme 02	Weibliche Ork Kriegsbemalung 02	Pittura di guerra da Femminile Orco 02	Pintura de guerra para mujer Orca 02	Válečné malování Orkské ženy 02	Żeński Ork Barwa wojenna 02	Жен. Орочья боевая раскраска 02	女性オークの戦化粧 02	Pintura de guerra feminina para Orc 02	女獸人戰紋 02	女兽人战纹 02
+$Female Orc Warpaint 03	Female Orc Warpaint 03	Peinture de guerre orc femme 03	Weibliche Ork Kriegsbemalung 03	Pittura di guerra da Femminile Orco 03	Pintura de guerra para mujer Orca 03	Válečné malování Orkské ženy 03	Żeński Ork Barwa wojenna 03	Жен. Орочья боевая раскраска 03	女性オークの戦化粧 03	Pintura de guerra feminina para Orc 03	女獸人戰紋 03	女兽人战纹 03
+$Female Orc Warpaint 04	Female Orc Warpaint 04	Peinture de guerre orc femme 04	Weibliche Ork Kriegsbemalung 04	Pittura di guerra da Femminile Orco 04	Pintura de guerra para mujer Orca 04	Válečné malování Orkské ženy 04	Żeński Ork Barwa wojenna 04	Жен. Орочья боевая раскраска 04	女性オークの戦化粧 04	Pintura de guerra feminina para Orc 04	女獸人戰紋 04	女兽人战纹 04
+$Female Orc Warpaint 05	Female Orc Warpaint 05	Peinture de guerre orc femme 05	Weibliche Ork Kriegsbemalung 05	Pittura di guerra da Femminile Orco 05	Pintura de guerra para mujer Orca 05	Válečné malování Orkské ženy 05	Żeński Ork Barwa wojenna 05	Жен. Орочья боевая раскраска 05	女性オークの戦化粧 05	Pintura de guerra feminina para Orc 05	女獸人戰紋 05	女兽人战纹 05
+$Male Redguard Warpaint 01	Male Redguard Warpaint 01	Peinture de guerre rougegarde homme 01	Männliche Rothwardonen Kriegsbemalung 01	Pittura di guerra Maschile Guardia Rossa 01	Pintura de guerra para hombre Guardia Rojo 01	Válečné malování Redguardského muže 01	Męski Redguard Barwa wojenna 01	Муж. Редгардская боевая раскраска 01	男性レッドガードの戦化粧 01	Pintura de guerra masculina para guarda vermelha 01	男紅衛人戰紋 01	男红卫人战纹 01
+$Male Redguard Warpaint 02	Male Redguard Warpaint 02	Peinture de guerre rougegarde homme 02	Männliche Rothwardonen Kriegsbemalung 02	Pittura di guerra Maschile Guardia Rossa 02	Pintura de guerra para hombre Guardia Rojo 02	Válečné malování Redguardského muže 02	Męski Redguard Barwa wojenna 02	Муж. Редгардская боевая раскраска 02	男性レッドガードの戦化粧 02	Pintura de guerra masculina para guarda vermelha 02	男紅衛人戰紋 02	男红卫人战纹 02
+$Male Redguard Warpaint 03	Male Redguard Warpaint 03	Peinture de guerre rougegarde homme 03	Männliche Rothwardonen Kriegsbemalung 03	Pittura di guerra Maschile Guardia Rossa 03	Pintura de guerra para hombre Guardia Rojo 03	Válečné malování Redguardského muže 03	Męski Redguard Barwa wojenna 03	Муж. Редгардская боевая раскраска 03	男性レッドガードの戦化粧 03	Pintura de guerra masculina para guarda vermelha 03	男紅衛人戰紋 03	男红卫人战纹 03
+$Male Redguard Warpaint 04	Male Redguard Warpaint 04	Peinture de guerre rougegarde homme 04	Männliche Rothwardonen Kriegsbemalung 04	Pittura di guerra Maschile Guardia Rossa 04	Pintura de guerra para hombre Guardia Rojo 04	Válečné malování Redguardského muže 04	Męski Redguard Barwa wojenna 04	Муж. Редгардская боевая раскраска 04	男性レッドガードの戦化粧 04	Pintura de guerra masculina para guarda vermelha 04	男紅衛人戰紋 04	男红卫人战纹 04
+$Male Redguard Warpaint 05	Male Redguard Warpaint 05	Peinture de guerre rougegarde homme 05	Männliche Rothwardonen Kriegsbemalung 05	Pittura di guerra Maschile Guardia Rossa 05	Pintura de guerra para hombre Guardia Rojo 05	Válečné malování Redguardského muže 05	Męski Redguard Barwa wojenna 05	Муж. Редгардская боевая раскраска 05	男性レッドガードの戦化粧 05	Pintura de guerra masculina para guarda vermelha 05	男紅衛人戰紋 05	男红卫人战纹 05
+$Female Redguard Warpaint 01	Female Redguard Warpaint 01	Peinture de guerre rougegarde femme 01	Weibliche Rothwardonen Kriegsbemalung 01	Pittura di guerra Femminile Guardia Rossa 01	Pintura de guerra para mujer Guardia Roja 01	Válečné malování Redguardské ženy 01	Żeński Redguard Barwa wojenna 01	Жен. Редгардская боевая раскраска 01	女性レッドガードの戦化粧 01	Pintura de guerra feminina para guarda vermelha 01	女紅衛人戰紋 01	女红卫人战纹 01
+$Female Redguard Warpaint 02	Female Redguard Warpaint 02	Peinture de guerre rougegarde femme 02	Männliche Rothwardonen Kriegsbemalung 02	Pittura di guerra Femminile Guardia Rossa 02	Pintura de guerra para mujer Guardia Roja 02	Válečné malování Redguardské ženy 02	Żeński Redguard Barwa wojenna 02	Жен. Редгардская боевая раскраска 02	女性レッドガードの戦化粧 02	Pintura de guerra feminina para guarda vermelha 02	女紅衛人戰紋 02	女红卫人战纹 02
+$Female Redguard Warpaint 03	Female Redguard Warpaint 03	Peinture de guerre rougegarde femme 03	Männliche Rothwardonen Kriegsbemalung 03	Pittura di guerra Femminile Guardia Rossa 03	Pintura de guerra para mujer Guardia Roja 03	Válečné malování Redguardské ženy 03	Żeński Redguard Barwa wojenna 03	Жен. Редгардская боевая раскраска 03	女性レッドガードの戦化粧 03	Pintura de guerra feminina para guarda vermelha 03	女紅衛人戰紋 03	女红卫人战纹 03
+$Female Redguard Warpaint 04	Female Redguard Warpaint 04	Peinture de guerre rougegarde femme 04	Männliche Rothwardonen Kriegsbemalung 04	Pittura di guerra Femminile Guardia Rossa 04	Pintura de guerra para mujer Guardia Roja 04	Válečné malování Redguardské ženy 04	Żeński Redguard Barwa wojenna 04	Жен. Редгардская боевая раскраска 04	女性レッドガードの戦化粧 04	Pintura de guerra feminina para guarda vermelha 04	女紅衛人戰紋 04	女红卫人战纹 04
+$Female Redguard Warpaint 05	Female Redguard Warpaint 05	Peinture de guerre rougegarde femme 05	Männliche Rothwardonen Kriegsbemalung 05	Pittura di guerra Femminile Guardia Rossa 05	Pintura de guerra para mujer Guardia Roja 05	Válečné malování Redguardské ženy 05	Żeński Redguard Barwa wojenna 05	Жен. Редгардская боевая раскраска 05	女性レッドガードの戦化粧 05	Pintura de guerra feminina para guarda vermelha 05	女紅衛人戰紋 05	女红卫人战纹 05
+$Male Wood Elf Warpaint 01	Male Wood Elf Warpaint 01	Peinture de guerre elfe des bois homme 01	Männliche Waldelfen Kriegsbemalung 01	Pittura di guerra Maschile Elfo dei Boschi 01	Pintura de guerra para hombre Elfo del Bosque 01	Válečné malování Bosmerského muže 01	Męski Leśny Elf Barwa wojenna 01	Муж. Босмерская боевая раскраска 01	男性ウッドエルフの戦化粧 01	Pintura de guerra masculina para Elfos da floresta 01	男木精靈戰紋 01	男木精灵战纹 01
+$Male Wood Elf Warpaint 02	Male Wood Elf Warpaint 02	Peinture de guerre elfe des bois homme 02	Männliche Waldelfen Kriegsbemalung 02	Pittura di guerra Maschile Elfo dei Boschi 02	Pintura de guerra para hombre Elfo del Bosque 02	Válečné malování Bosmerského muže 02	Męski Leśny Elf Barwa wojenna 02	Муж. Босмерская боевая раскраска 02	男性ウッドエルフの戦化粧 02	Pintura de guerra masculina para Elfos da floresta 02	男木精靈戰紋 02	男木精灵战纹 02
+$Male Wood Elf Warpaint 03	Male Wood Elf Warpaint 03	Peinture de guerre elfe des bois homme 03	Männliche Waldelfen Kriegsbemalung 03	Pittura di guerra Maschile Elfo dei Boschi 03	Pintura de guerra para hombre Elfo del Bosque 03	Válečné malování Bosmerského muže 03	Męski Leśny Elf Barwa wojenna 03	Муж. Босмерская боевая раскраска 03	男性ウッドエルフの戦化粧 03	Pintura de guerra masculina para Elfos da floresta 03	男木精靈戰紋 03	男木精灵战纹 03
+$Male Wood Elf Warpaint 04	Male Wood Elf Warpaint 04	Peinture de guerre elfe des bois homme 04	Männliche Waldelfen Kriegsbemalung 04	Pittura di guerra Maschile Elfo dei Boschi 04	Pintura de guerra para hombre Elfo del Bosque 04	Válečné malování Bosmerského muže 04	Męski Leśny Elf Barwa wojenna 04	Муж. Босмерская боевая раскраска 04	男性ウッドエルフの戦化粧 04	Pintura de guerra masculina para Elfos da floresta 04	男木精靈戰紋 04	男木精灵战纹 04
+$Male Wood Elf Warpaint 05	Male Wood Elf Warpaint 05	Peinture de guerre elfe des bois homme 05	Männliche Waldelfen Kriegsbemalung 05	Pittura di guerra Maschile Elfo dei Boschi 05	Pintura de guerra para hombre Elfo del Bosque 05	Válečné malování Bosmerského muže 05	Męski Leśny Elf Barwa wojenna 05	Муж. Босмерская боевая раскраска 05	男性ウッドエルフの戦化粧 05	Pintura de guerra masculina para Elfos da floresta 05	男木精靈戰紋 05	男木精灵战纹 05
+$Female Wood Elf Warpaint 01	Female Wood Elf Warpaint 01	Peinture de guerre elfe des bois femme 01	Weibliche Waldelfen Kriegsbemalung 01	Pittura di guerra Femminile Elfo dei Boschi 01	Pintura de guerra para mujer Elfa del Bosque 01	Válečné malování Bosmerské ženy 01	Żeński Leśny Elf Barwa wojenna 01	Жен. Босмерская боевая раскраска 01	女性ウッドエルフの戦化粧 01	Pintura de guerra feminina para Elfos da floresta 01	女木精靈戰紋 01	女木精灵战纹 01
+$Female Wood Elf Warpaint 02	Female Wood Elf Warpaint 02	Peinture de guerre elfe des bois femme 02	Weibliche Waldelfen Kriegsbemalung 02	Pittura di guerra Femminile Elfo dei Boschi 02	Pintura de guerra para mujer Elfa del Bosque 02	Válečné malování Bosmerské ženy 02	Żeński Leśny Elf Barwa wojenna 02	Жен. Босмерская боевая раскраска 02	女性ウッドエルフの戦化粧 02	Pintura de guerra feminina para Elfos da floresta 02	女木精靈戰紋 02	女木精灵战纹 02
+$Female Wood Elf Warpaint 03	Female Wood Elf Warpaint 03	Peinture de guerre elfe des bois femme 03	Weibliche Waldelfen Kriegsbemalung 03	Pittura di guerra Femminile Elfo dei Boschi 03	Pintura de guerra para mujer Elfa del Bosque 03	Válečné malování Bosmerské ženy 03	Żeński Leśny Elf Barwa wojenna 03	Жен. Босмерская боевая раскраска 03	女性ウッドエルフの戦化粧 03	Pintura de guerra feminina para Elfos da floresta 03	女木精靈戰紋 03	女木精灵战纹 03
+$Female Wood Elf Warpaint 04	Female Wood Elf Warpaint 04	Peinture de guerre elfe des bois femme 04	Weibliche Waldelfen Kriegsbemalung 04	Pittura di guerra Femminile Elfo dei Boschi 04	Pintura de guerra para mujer Elfa del Bosque 04	Válečné malování Bosmerské ženy 04	Żeński Leśny Elf Barwa wojenna 04	Жен. Босмерская боевая раскраска 04	女性ウッドエルフの戦化粧 04	Pintura de guerra feminina para Elfos da floresta 04	女木精靈戰紋 04	女木精灵战纹 04
+$Female Wood Elf Warpaint 05	Female Wood Elf Warpaint 05	Peinture de guerre elfe des bois femme 05	Weibliche Waldelfen Kriegsbemalung 05	Pittura di guerra Femminile Elfo dei Boschi 05	Pintura de guerra para mujer Elfa del Bosque 05	Válečné malování Bosmerské ženy 05	Żeński Leśny Elf Barwa wojenna 05	Жен. Босмерская боевая раскраска 05	女性ウッドエルフの戦化粧 05	Pintura de guerra feminina para Elfos da floresta 05	女木精靈戰紋 05	女木精灵战纹 05
+$Male Breton Warpaint 01	Male Breton Warpaint 01	Peinture de guerre breton homme 01	Männliche Bretonen Kriegsbemalung 01	Pittura di guerra Maschile Bretone 01	Pintura de guerra para hombre Bretón 01	Válečné malování Bretonského muže 01	Męski Breton Barwa wojenna 01	Муж. Бретонская боевая раскраска 01	男性ブレトンの戦化粧 01	Tatuagem masculina para Breton 01	男布萊頓人戰紋 01	男布莱顿人战纹 01
+$Male Breton Warpaint 02	Male Breton Warpaint 02	Peinture de guerre breton homme 02	Männliche Bretonen Kriegsbemalung 02	Pittura di guerra Maschile Bretone 02	Pintura de guerra para hombre Bretón 02	Válečné malování Bretonského muže 02	Męski Breton Barwa wojenna 02	Муж. Бретонская боевая раскраска 02	男性ブレトンの戦化粧 02	Tatuagem masculina para Breton 02	男布萊頓人戰紋 02	男布莱顿人战纹 02
+$Male Breton Warpaint 03	Male Breton Warpaint 03	Peinture de guerre breton homme 03	Männliche Bretonen Kriegsbemalung 03	Pittura di guerra Maschile Bretone 03	Pintura de guerra para hombre Bretón 03	Válečné malování Bretonského muže 03	Męski Breton Barwa wojenna 03	Муж. Бретонская боевая раскраска 03	男性ブレトンの戦化粧 03	Tatuagem masculina para Breton 03	男布萊頓人戰紋 03	男布莱顿人战纹 03
+$Male Breton Warpaint 04	Male Breton Warpaint 04	Peinture de guerre breton homme 04	Männliche Bretonen Kriegsbemalung 04	Pittura di guerra Maschile Bretone 04	Pintura de guerra para hombre Bretón 04	Válečné malování Bretonského muže 04	Męski Breton Barwa wojenna 04	Муж. Бретонская боевая раскраска 04	男性ブレトンの戦化粧 04	Tatuagem masculina para Breton 04	男布萊頓人戰紋 04	男布莱顿人战纹 04
+$Male Breton Warpaint 05	Male Breton Warpaint 05	Peinture de guerre breton homme 05	Männliche Bretonen Kriegsbemalung 05	Pittura di guerra Maschile Bretone 05	Pintura de guerra para hombre Bretón 05	Válečné malování Bretonského muže 05	Męski Breton Barwa wojenna 05	Муж. Бретонская боевая раскраска 05	男性ブレトンの戦化粧 05	Tatuagem masculina para Breton 05	男布萊頓人戰紋 05	男布莱顿人战纹 05
+$Female Breton Warpaint 01	Female Breton Warpaint 01	Peinture de guerre breton femme 01	Weibliche Bretonen Kriegsbemalung 01	Pittura di guerra Femminile Bretone 01	Pintura de guerra para mujer Bretona 01	Válečné malování Bretonské ženy 01	Żeński Breton Barwa wojenna 01	Жен. Бретонская боевая раскраска 01	女性ブレトンの戦化粧 01	Tatuagem feminina para Breton 01	女布萊頓人戰紋 01	女布莱顿人战纹 01
+$Female Breton Warpaint 02	Female Breton Warpaint 02	Peinture de guerre breton femme 02	Weibliche Bretonen Kriegsbemalung 02	Pittura di guerra Femminile Bretone 02	Pintura de guerra para mujer Bretona 02	Válečné malování Bretonské ženy 02	Żeński Breton Barwa wojenna 02	Жен. Бретонская боевая раскраска 02	女性ブレトンの戦化粧 02	Tatuagem feminina para Breton 02	女布萊頓人戰紋 02	女布莱顿人战纹 02
+$Female Breton Warpaint 03	Female Breton Warpaint 03	Peinture de guerre breton femme 03	Weibliche Bretonen Kriegsbemalung 03	Pittura di guerra Femminile Bretone 03	Pintura de guerra para mujer Bretona 03	Válečné malování Bretonské ženy 03	Żeński Breton Barwa wojenna 03	Жен. Бретонская боевая раскраска 03	女性ブレトンの戦化粧 03	Tatuagem feminina para Breton 03	女布萊頓人戰紋 03	女布莱顿人战纹 03
+$Female Breton Warpaint 04	Female Breton Warpaint 04	Peinture de guerre breton femme 04	Weibliche Bretonen Kriegsbemalung 04	Pittura di guerra Femminile Bretone 04	Pintura de guerra para mujer Bretona 04	Válečné malování Bretonské ženy 04	Żeński Breton Barwa wojenna 04	Жен. Бретонская боевая раскраска 04	女性ブレトンの戦化粧 04	Tatuagem feminina para Breton 04	女布萊頓人戰紋 04	女布莱顿人战纹 04
+$Female Breton Warpaint 05	Female Breton Warpaint 05	Peinture de guerre breton femme 05	Weibliche Bretonen Kriegsbemalung 05	Pittura di guerra Femminile Bretone 05	Pintura de guerra para mujer Bretona 05	Válečné malování Bretonské ženy 05	Żeński Breton Barwa wojenna 05	Жен. Бретонская боевая раскраска 05	女性ブレトンの戦化粧 05	Tatuagem feminina para Breton 05	女布萊頓人戰紋 05	女布莱顿人战纹 05
+$Male Forsworn Tattoo 01	Male Forsworn Tattoo 01	Tatouage parjure homme 01	Männliches Abgeschworenen Tattoo 01	Tatuaggio Maschile Rinnegato 01	Tatuaje para hombre Renegado 01	Tetování Zapřisáhlého muže 01	Męski Renegat Tatuaż 01	Муж. Татуировка Изгоев 01	男性フォースウォーンのタトゥー 01	Tatuagem renegada masculina 01	男棄誓者紋身 01	男弃誓者纹身 01
+$Male Forsworn Tattoo 02	Male Forsworn Tattoo 02	Tatouage parjure homme 02	Männliches Abgeschworenen Tattoo 02	Tatuaggio Maschile Rinnegato 02	Tatuaje para hombre Renegado 02	Tetování Zapřisáhlého muže 02	Męski Renegat Tatuaż 02	Муж. Татуировка Изгоев 02	男性フォースウォーンのタトゥー 02	Tatuagem renegada masculina 02	男棄誓者紋身 02	男弃誓者纹身 02
+$Male Forsworn Tattoo 03	Male Forsworn Tattoo 03	Tatouage parjure homme 03	Männliches Abgeschworenen Tattoo 03	Tatuaggio Maschile Rinnegato 03	Tatuaje para hombre Renegado 03	Tetování Zapřisáhlého muže 03	Męski Renegat Tatuaż 03	Муж. Татуировка Изгоев 03	男性フォースウォーンのタトゥー 03	Tatuagem renegada masculina 03	男棄誓者紋身 03	男弃誓者纹身 03
+$Male Forsworn Tattoo 04	Male Forsworn Tattoo 04	Tatouage parjure homme 04	Männliches Abgeschworenen Tattoo 04	Tatuaggio Maschile Rinnegato 04	Tatuaje para hombre Renegado 04	Tetování Zapřisáhlého muže 04	Męski Renegat Tatuaż 04	Муж. Татуировка Изгоев 04	男性フォースウォーンのタトゥー 04	Tatuagem renegada masculina 04	男棄誓者紋身 04	男弃誓者纹身 04
+$Female Forsworn Tattoo 01	Female Forsworn Tattoo 01	Tatouage parjure femme 01	Weibliches Abgeschworenen Tattoo 01	Tatuaggio Femminile Rinnegato 01	Tatuaje para mujer Renegada 01	Tetování Zapřisáhlé ženy 01	Żeński Renegat Tatuaż 01	Жен. Татуировка Изгоев 01	女性フォースウォーンのタトゥー 01	Tatuagem renegada feminina 01	男棄誓者紋身 01	女弃誓者纹身 01
+$Female Forsworn Tattoo 02	Female Forsworn Tattoo 02	Tatouage parjure femme 02	Weibliches Abgeschworenen Tattoo 02	Tatuaggio Femminile Rinnegato 02	Tatuaje para mujer Renegada 02	Tetování Zapřisáhlé ženy 02	Żeński Renegat Tatuaż 02	Жен. Татуировка Изгоев 02	女性フォースウォーンのタトゥー 02	Tatuagem renegada feminina 02	女棄誓者紋身 02	女弃誓者纹身 02
+$Female Forsworn Tattoo 03	Female Forsworn Tattoo 03	Tatouage parjure femme 03	Weibliches Abgeschworenen Tattoo 03	Tatuaggio Femminile Rinnegato 03	Tatuaje para mujer Renegada 03	Tetování Zapřisáhlé ženy 03	Żeński Renegat Tatuaż 03	Жен. Татуировка Изгоев 03	女性フォースウォーンのタトゥー 03	Tatuagem renegada feminina 03	女棄誓者紋身 03	女弃誓者纹身 03
+$Female Forsworn Tattoo 04	Female Forsworn Tattoo 04	Tatouage parjure femme 04	Weibliches Abgeschworenen Tattoo 04	Tatuaggio Femminile Rinnegato 04	Tatuaje para mujer Renegada 04	Tetování Zapřisáhlé ženy 04	Żeński Renegat Tatuaż 04	Жен. Татуировка Изгоев 04	女性フォースウォーンのタトゥー 04	Tatuagem renegada feminina 04	女棄誓者紋身 04	女弃誓者纹身 04
+$Male Black Blood Tattoo 01	Male Black Blood Tattoo 01	Tatouage sang noir homme 01	Männliches Schwarzblut Tattoo 01	Tatuaggio Maschile Blackblood 01	Tatuaje para hombre Sangre Negra 01	Tetování Gangu Blackblood 01	Męski Tatuaż Czarnej Krwii 01	Муж. Тату черной крови 01	男性ブラック・ブラッドのタトゥー 01	Tatuagem de sangue negro masculino 01	男性黑血掠奪者紋身 01	男性黑血掠夺者纹身 01
+$Male Black Blood Tattoo 02	Male Black Blood Tattoo 02	Tatouage sang noir homme 02	Männliches Schwarzblut Tattoo 02	Tatuaggio Maschile Blackblood 02	Tatuaje para hombre Sangre Negra 02	Tetování Gangu Blackblood 02	Męski Tatuaż Czarnej Krwii 02	Муж. Тату черной крови 02	男性ブラック・ブラッドのタトゥー 02	Tatuagem de sangue negro masculino 02	男性黑血掠奪者紋身 02	男性黑血掠夺者纹身 02
+$RANs_Age	Age	Age	Alter	Età	Edad	Věk	Wiek	Возраст	年齢	Idade	年齡	年龄
+$RANs_Weight	Face Weight	Poids de la tête	Gesichtsfülle/-rundung	Peso	Peso	Váha v obličeji	Waga twarzy	Вес	体重	Peso	體重	体重
+$RANs_HeadShape	Head Shape	Forme de la tête	Kopfform	Forma della testa	Forma de la cabeza	Tvar hlavy	Kształt głowy	Форма головы	頭の形	Formato da Cabeca	頭部形狀	头部形状
 $CME_FaceUpDown	Face Height	Hauteur du visage	Gesichtshöhe	Testa su/giù	Altura del rostro	Výška obličeje	Wysokość twarzy	Высота лица	顔の高さ	Altura da Cabeca	臉部高度	脸部高度
-$CME_ForeheadFix	Forehead Fix	Front	Stirn Fix	Fix per la fronte	Arreglo de la frente	Fix čela	Czoło	Исправление лба	額の修正	Correção da testa		额头修正
-$CME_NeckSize	Neck Size	Taille du cou	Halsgröße	Spessore collo	Tamaño del cuello	Tloušťka krku	Rozmiar szyi	Толщина шеи	首のサイズ	Tamanho do pescoço		颈部大小
+$CME_ForeheadFix	Forehead Fix	Correction du Front	Stirn Fix	Fix per la fronte	Arreglo de la frente	Fix čela	Czoło	Исправление лба	額の修正	Correção da testa	額頭修正	额头修正
+$CME_NeckSize	Neck Size	Taille du cou	Halsgröße	Spessore collo	Tamaño del cuello	Tloušťka krku	Rozmiar szyi	Толщина шеи	首のサイズ	Tamanho do pescoço	頸部大小	颈部大小
 $CME_CheeksUpDown	Cheekbone Height 2	Hauteur des pommettes	Wangenknochenhöhe 2	Guance su/giù	Altura de pómulo	Výška lícních kostí	Wysokość kości policzkowej 2	Высота скул	頬骨の高さ 2	Altura das bochechas	頰骨高度	颊骨高度
 $CME_CheeksBoneInOut	Cheekbone Width 2	Largeur des pommettes	Wangenknochenbreite 2	Zigomi su/giù	Ancho de pómulo	Předsunutí lícních kostí	Szerokość kości policzkowej 2	Скулы вперед	頬骨の幅 2	Grossura da maçã do rosto	頰骨闊度	颊骨阔度
 $CME_CheeksWidth	Cheekback Width	Largeur des joues (arriére)	Wangenbreite (hinten)	Ampiezza guance	Anchura del pómulo (detrás)	Šířka lícních kostí	Szerokość kości policzkowej (Tył)	Ширина щек (сзади)	頬骨の広さ	Largura das bochechas	臉頰後方闊度	脸颊後方阔度
@@ -264,122 +264,122 @@ $ECE_ChinBackForward	Chin Jut Depth	Taille de la fossette du menton	Kinnüberbis
 $CME_UnderChinSlope	Chin Angle Height	Hauteur de l'angle du  menton	Kinnwinkelhöhe	Pendenza sottomento	Altura del ángulo de la barbilla	Výška a úhel podbradku	Kąt wyskości podbródka	Высота и угол поворота подбородка	下顎の角度		下巴角度	下巴角度
 $CME_EyesType	Eye Type	Style des yeux	Augentyp	Tipo di occhi	Tipo de ojos	Typ očí	Typ oczu	Тип глаз	眼の種類		眼睛類型	眼睛类型 
 $CME_EyesSize	Eye Size	Taille des yeux	Augengröße	Grandezza occhi	Tamaño de los ojos	Velikost očí	Rozmiar oczu	Размер глаз	眼の大きさ		眼睛尺寸	眼睛尺寸
-$CME_EyesHeight	Eyelid Height	Ouverture des paupières	Augenlidhöhe	Altezza occhi	Altura de los párpados	Výška očního víčka	Wysokość powieki	Высота век	眼の高さ			眼睛高度
-$CME_UpperEyesHeight	Upper Eyelid Height	Hauteur de la paupière supérieure	Augenlidhöhe (oben)	Altezza palbebra superiore	Altura del párpado superior	Výška horního víčka	Górna wysokość powieki	Высота верхнего века	眼の上の高さ			上眼高度 
-$CME_LowerEyesHeight	Lower Eyelid Height	Hauteur de la paupière inférieure	Augenlidhöhe (unten)	Altezza palbebra inferiore	Altura del párpado inferior	Výška spodního víčka	Dolna wysokość powieki	Высота нижнего века	眼の下の高さ			下眼高度
-$CME_EyesSlope	Eye Tilt	Inclinaison des yeux	Augenneigung	Inclinazione degli occhi	Inclinación de los ojos	Naklonění očí	Nachylenie oczu	Наклон глаз	眼の傾き			
-$CME_EyeballSize	Iris Size	Taille de l'iris	Irisgröße	Grandezza bulbo oculare	Tamaño del iris	Velikost duhovky	Rozmiar tęczówki	Размер радужки	眼球の大きさ			眼球大小
-$CME_EyeballInOut	Iris Spread	Extension de l'iris	Irisversetzung	Bulbo oculare dentro/fuori	Expansión del iris	Rozšíření duhovky	Rozpiętość tęczówki	Глубина глазных яблок	眼球の奥行き			
-$CME_EyeballUpDown	Iris Height	Hauteur de l'iris	Irishöhe	Bulbo oculare su/giù	Altura del iris	Výška duhovky	Wysokość tęczówki	Высота глазных яблок	眼球の高さ			眼球高度
-$CME_EyelashLength	Eyelash Length	Longueur des cils	Wimpernlänge	Lunghezza ciglia	Longitud de las pestañas	Délka řas	Długość rzęs	Длина ресниц	まつ毛の長さ			
-$CME_EyesUpDown	Eye Height 2	Hauteur des yeux	Augenhöhe 2	Occhi su/giù	Altura de los ojos	Výška očí	Wysokość oczu 2	Высота глаз	眼の上下位置			
-$CME_EyesInOut	Eye Spread	Écartement des yeux	Augenabstand	Occhi dentro/fuori	Distancia entre los ojos	Vzdálennost očí	Rozpiętość oczu	Расстояние между глаз	眼の凹凸			
-$CME_EyesBackForward	Eye Depth 2	Profondeur des yeux	Augentiefe 2	Occhi indietro/avanti	Profundidad de los ojos	Hloubka očí	Głębokość oczu 2	Глубина глазниц	眼の深さ			
-$CME_BrowSlope	Brow Slope	Angle des sourcils	Brauenneigung	Angolo sopracciglia	Inclinación de las cejas	Sklon obočí	Nachylenie brwi	Угол наклона бровей	眉の傾き			
-$CME_BrowArch	Brow Arch	Courbe des sourcils	Brauenwölbung	Arco sopracciglia	Arco de las cejas	Oblouk obočí	Łuk briowy	Изгиб бровей				
-$CME_BrowUpDown	Brow Height 2	Hauteur des sourcils	Brauenhöhe 2	Sopracciglia su/giù	Altura de las cejas	Výška obočí	Wysokość brwi 2	Высота бровей				
-$CME_BrowInOut	Brow Width	Largeur des sourcils	Brauenbreite	Sopracciglia dentro/fuori	Anchura de las cejas	Šířka obočí	Szerokość brwi	Ширина бровей				
-$CME_BrowBackForward	Brow Depth	Avancée des sourcils	Brauentiefe	Sopracciglia indietro/avanti	Profundidad de las cejas	Hloubka obočí	Głębokość brwi	Глубина бровей				
-$RANs_ForeheadBackForward	Forehead Depth	Avancée du front	Stirntiefe	Fronte indietro/avanti	Profundidad de la frente	Hloubka čela	Głębokość czoła	Лоб вперед	額の奥行き			
-$CME_LipType	Mouth Type 2	Forme de la bouche	Mundtyp 2	Tipo di labbra	Tipo de boca	Typ úst	Typ ust	Тип губ	口の種類			
-$CME_OrcLipType	Orc Mouth Type	Type de bouche orque	Ork Mundtyp	Tipo di labbra (Orco)	Tipo de boca (Orco)	Typ úst (ork)	Orkowy typ ust	Тип орочьих губ	オーク口の種類			
-$CME_ElfEyesType	Elf Eyes Type	Type d'oeil elfe	Elf Augentyp	Tipo di occhi (Elfo)	Tipo de boca (Elfo)	Typ očí (elf)	Elfi typ oczu	Тип эльфийских ушей	エルフ口の種類			
-$CME_OrcNoseType	Orc Nose Type	Type de nez orque	Ork Nasentyp	Tipo di naso (Orco)	Tipo de nariz (Orco)	Typ nosu (ork)	Orkowy typ nosa	Тип орочьего носа	オーク鼻の種類			
-$RANs_LipDuckly	Lip Pout	Volume des  lèvres	Lippen Schmollen	Labbra pronunciate	Mueca	Stisknutí rtů	Grymas wargi	Пухлые губы	アヒル口			
-$CME_MouthWidth	Mouth Width	Largeur de la bouche	Mundbreite	Larghezza booca	Anchura de la boca	Śířka úst	Szerokość ust	Ширина рта	口の幅			
-$CME_MouthHeight	Lip Height	Hauteur des lèvres	Lippenhöhe	Altezza bocca	Altura de los labios	Výška rtů	Wysokość wargi	Высота рта	口の高さ			
-$CME_UpperLipHeight	Upper Lip Height	Hauteur de la lèvre supérieure	Lippenhöhe (oben)	Altezza labbro superiore	Altura del labio superior	Výška horního rtu	Wysokość górnej wargi	Высота верхней губы	上唇の高さ			
-$CME_LowerLipHeight	Lower Lip Height	Hauteur de la lèvre inférieure	Lippenhöhe (unten)	Altezza labbro inferiore	Altura del labio inferior	Výška spodního rtu	Wysokość dolnej wargi	Высота нижней губы	下唇の高さ			
-$CME_MouthCornerUpDown	Mouth Corner Height	Hauteur des coins de la bouche	Mundwinkelhöhe	Angolo bocca su/giù	Altura de la comisura	Výška koutku úst	Wysokość kącika ust	Высота уголков рта	口角の上下			
-$CME_MouthCornerBackForward	Mouth Corner Depth	Avancée des coins de la bouche	Mundwinkeltiefe	Angolo bocca indietro/avanti	Profundidad de la comisura	Hloubka koutku úst	Głębokość kącika ust	Глубина уголков рта	口角の前後			
-$CME_MouthUpDown	Mouth Height 2	Hauteur de la bouche	Mundhöhe 2	Bocca su/giù	Altura de la boca	Výška úst	Wysokość ust 2	Высота рта 2	唇の上下			
-$CME_MouthBackForward	Mouth Depth	Avancée de la bouche	Mundtiefe	Bocca indietro/avanti	Profundidad de la boca	Hloubka úst	Głebokość ust	Глубина рта	唇の前後			
-$CME_NoseType	Nose Type 2	Type de nez	Nasentyp 2	Tipo di naso	Tipo de nariz	Typ nosu	Typ nosa	Тип носа	鼻の種類			
-$CME_NoseUpDown	Nose Height 2	Hauteur du nez	Nasenhöhe 2	Naso su/giù	Altura de la nariz	Výška nosu	Wysokość nosa	Высота носа	鼻の上下			
-$CME_NoseLength	Nose Length 2	Longueur du nez	Nasenlänge 2	Lunghezza naso	Longitud de la nariz	Délka nosu	Długość nosa	Длина носа	鼻の長さ			
-$CME_NoseBackForward	Nose Depth	Profondeur du nez	Nasentiefe	Naso indietro/avanti	Profundidad de la nariz	Hloubka nosu	Głębokość nosa	Глубина носа	鼻の前後			
-$ECE_NoseBridgeWidth	Nose Bridge Width	Largeur de l'arête du nez	Nasenbrückenbreite	Larghezza ponte nasale	Ancho de puente de nariz	Tloušťka nosního můstku	Szerokość mostka nosa	Ширина переносицы	鼻梁の幅			
-$ECE_NoseTipWidth	Nose Tip Width	Largeur de la pointe du nez	Nasenspitzenbreite	Larghezza punta del naso	Anchura de la punta de la nariz	Šířka špičky nosu	Szerokość czubka nosa	Ширина кончика носа				
-$CME_NoseHoleSlope	Nose Tip Slope	Élevation de la pointe du nez	Nasenspitzenneigung	Inclinazione punta del naso	Altura de la punta de la nariz	Sklon špičky nosu	Nachylanie czubka nosa	Угол наклона кончика носа				
-$CME_NoseSellionBackForward	Nose Sellion Depth	Profondeur de la racine du nez	Nasenübergangstiefe	Radice del naso indietro/avanti	Profundidad del tabique nasal	Hloubka kořene nosu	Głębokość podstawy nosa	Глубина переносицы				
-$CME_NoseSellionUpDown	Nose Sellion Height	Hauteur de la racine du nez	Nasenübergangshöhe	Radice del naso su/giù	Altura del tabique nasal	Výška kořene nosu	Wysokość podstawy nosa	Высота переносицы				
-$CME_NoseSellionWidth	Nose Sellion Width	Largeur de la racine du nez	Nasenübergangsbreite	Ampiezza radice del naso	Anchura del tabique nasal	Síla kořene nosu	Szerokość podstawy nosa	Ширина переносицы				
-$RANs_NoseRidgeShape	Nose Bridge Depth	Profondeur de l'arête du nez	Nasenbrückentiefe	Forma del setto nasale	Profundidad del puente de la nariz	Hloubka nosního můstku	Głębokość mostka nosa	Форма переносицы				
-$CME_AroundNoseBackForward	Nose Area Depth	Profondeur de la zone du nez	Nasenumgebungstiefe	Zona intorno al naso indietro/avanti	Profundidad del área de la nariz	Hloubka oblasti nosu	Głębokość obszaru nosa	Глубина области носа				
-$ECE_EarShape	Ear Shape	Forme des oreilles	Ohrenform	Forma orecchie	Forma de las orejas	Tvar uší	Kształt ucha	Форма ушей	耳の形			耳朵形状
-$ECE_EarSize	Ear Size	Taille des oreilles	Ohrengröße	Grandezza orecchie	Tamaño de las orejas	Velikost uší	Rozmiar ucha	Размер ушей	耳の大きさ			耳朵大小 
-$CME_EarUpDown	Ear Height	Hauteur des oreilles	Ohrenhöhe	Orecchie su/giù	Altura de las orejas	Výška uší	Wysokość ucha	Уровень ушей	耳の上下			
-$CME_ElfEar	Elf Ear Tip	Oreilles d'elfe	Elfenohren-Spitze	Orecchie da elfo	Puntas de orejas de Elfo	Špička elfích uší	Czubek elfiego ucha	Тип эльф. ушей	エルフ耳			
-$CME_Nord	Nord	Nordique	Nord	Nord	Nórdico	Seveřan	Nord	Норд	ノルド耳			
-$CME_Breton	Breton	Bréton	Breton	Bretone	Bretón	Bretonec	Breton	Бретонец	ブレトン耳			
-$CME_Imperial	Imperial	Impérial	Kaiserlich	Imperiale	Imperial	Císařský	Cesarski	Имперец	インペリアル耳			
-$CME_Redguard	Redguard	Rougegarde	Rothwardon	Redguard	Guardia Roja	Redguard	Redguard	Редгард	レッドガード耳			
-$CME_WoodElf	Wood Elf	Elfe des Bois	Waldelf	Elfo dei boschi	Elfo del Bosque	Lesní elf	Leśny Elf	Лесной Эльф 	ウッドエルフ耳			
-$CME_DarkElf	Dark Elf	Elfe Noir	Dunkelelf	Elfo scuro	Elfo Oscuro	Temný elf	Mroczny Elf	Темный Эльф	ダークエルフ耳			
-$CME_HighElf	High Elf	Haut-Elfe	Hochelf	Elfo alto	Alto Elfo	Vysoký elf	Wysoki Elf	Высший Эльф	ハイエルフ耳			
+$CME_EyesHeight	Eyelid Height	Hauteur des yeux	Augenlidhöhe	Altezza occhi	Altura de los párpados	Výška očního víčka	Wysokość powieki	Высота век	眼の高さ		眼睛高度	眼睛高度
+$CME_UpperEyesHeight	Upper Eyelid Height	Hauteur de la paupière supérieure	Augenlidhöhe (oben)	Altezza palbebra superiore	Altura del párpado superior	Výška horního víčka	Górna wysokość powieki	Высота верхнего века	眼の上の高さ		上眼瞼高度	上眼瞼高度 
+$CME_LowerEyesHeight	Lower Eyelid Height	Hauteur de la paupière inférieure	Augenlidhöhe (unten)	Altezza palbebra inferiore	Altura del párpado inferior	Výška spodního víčka	Dolna wysokość powieki	Высота нижнего века	眼の下の高さ		下眼瞼高度	下眼瞼高度
+$CME_EyesSlope	Eye Tilt	Inclinaison des yeux	Augenneigung	Inclinazione degli occhi	Inclinación de los ojos	Naklonění očí	Nachylenie oczu	Наклон глаз	眼の傾き		眼睛傾斜度	眼睛倾斜度
+$CME_EyeballSize	Iris Size	Taille de l'iris	Irisgröße	Grandezza bulbo oculare	Tamaño del iris	Velikost duhovky	Rozmiar tęczówki	Размер радужки	眼球の大きさ		瞳孔大小	瞳孔大小
+$CME_EyeballInOut	Iris Spread	Extension de l'iris	Irisversetzung	Bulbo oculare dentro/fuori	Expansión del iris	Rozšíření duhovky	Rozpiętość tęczówki	Глубина глазных яблок	眼球の奥行き		瞳孔深度	瞳孔深度
+$CME_EyeballUpDown	Iris Height	Hauteur de l'iris	Irishöhe	Bulbo oculare su/giù	Altura del iris	Výška duhovky	Wysokość tęczówki	Высота глазных яблок	眼球の高さ		瞳孔高度	瞳孔高度
+$CME_EyelashLength	Eyelash Length	Longueur des cils	Wimpernlänge	Lunghezza ciglia	Longitud de las pestañas	Délka řas	Długość rzęs	Длина ресниц	まつ毛の長さ		睫毛長度	睫毛长度
+$CME_EyesUpDown	Eye Height 2	Hauteur des yeux	Augenhöhe 2	Occhi su/giù	Altura de los ojos	Výška očí	Wysokość oczu 2	Высота глаз	眼の上下位置		眼睛高度	眼睛高度
+$CME_EyesInOut	Eye Spread	Écartement des yeux	Augenabstand	Occhi dentro/fuori	Distancia entre los ojos	Vzdálennost očí	Rozpiętość oczu	Расстояние между глаз	眼の凹凸		眼睛凹凸	眼睛凹凸
+$CME_EyesBackForward	Eye Depth 2	Profondeur des yeux	Augentiefe 2	Occhi indietro/avanti	Profundidad de los ojos	Hloubka očí	Głębokość oczu 2	Глубина глазниц	眼の深さ		眼睛深度	眼睛深度
+$CME_BrowSlope	Brow Slope	Angle des sourcils	Brauenneigung	Angolo sopracciglia	Inclinación de las cejas	Sklon obočí	Nachylenie brwi	Угол наклона бровей	眉の傾き		眉毛傾斜度	眉毛倾斜度
+$CME_BrowArch	Brow Arch	Courbe des sourcils	Brauenwölbung	Arco sopracciglia	Arco de las cejas	Oblouk obočí	Łuk briowy	Изгиб бровей	眉のアーチ		眉毛彎曲度	眉毛弯曲度
+$CME_BrowUpDown	Brow Height 2	Hauteur des sourcils	Brauenhöhe 2	Sopracciglia su/giù	Altura de las cejas	Výška obočí	Wysokość brwi 2	Высота бровей	眉の高さ		眉毛高度	眉毛高度
+$CME_BrowInOut	Brow Width	Largeur des sourcils	Brauenbreite	Sopracciglia dentro/fuori	Anchura de las cejas	Šířka obočí	Szerokość brwi	Ширина бровей	眉の幅		眉毛寬度	眉毛宽度
+$CME_BrowBackForward	Brow Depth	Avancée des sourcils	Brauentiefe	Sopracciglia indietro/avanti	Profundidad de las cejas	Hloubka obočí	Głębokość brwi	Глубина бровей	眉の深さ		眉毛深度	眉毛深度
+$RANs_ForeheadBackForward	Forehead Depth	Avancée du front	Stirntiefe	Fronte indietro/avanti	Profundidad de la frente	Hloubka čela	Głębokość czoła	Лоб вперед	額の奥行き		額頭突出度	额头突出度
+$CME_LipType	Mouth Type 2	Forme de la bouche	Mundtyp 2	Tipo di labbra	Tipo de boca	Typ úst	Typ ust	Тип губ	口の種類		嘴唇形狀	嘴唇形状
+$CME_OrcLipType	Orc Mouth Type	Type de bouche orque	Ork Mundtyp	Tipo di labbra (Orco)	Tipo de boca (Orco)	Typ úst (ork)	Orkowy typ ust	Тип орочьих губ	オーク口の種類		獸人嘴型	兽人嘴型
+$CME_ElfEyesType	Elf Eyes Type	Type d'oeil elfe	Elf Augentyp	Tipo di occhi (Elfo)	Tipo de boca (Elfo)	Typ očí (elf)	Elfi typ oczu	Тип эльфийских ушей	エルフ口の種類		精靈眼型	精灵眼型
+$CME_OrcNoseType	Orc Nose Type	Type de nez orque	Ork Nasentyp	Tipo di naso (Orco)	Tipo de nariz (Orco)	Typ nosu (ork)	Orkowy typ nosa	Тип орочьего носа	オーク鼻の種類		獸人鼻型	兽人鼻型
+$RANs_LipDuckly	Lip Pout	Volume des  lèvres	Lippen Schmollen	Labbra pronunciate	Mueca	Stisknutí rtů	Grymas wargi	Пухлые губы	アヒル口		噘嘴程度	噘嘴程度
+$CME_MouthWidth	Mouth Width	Largeur de la bouche	Mundbreite	Larghezza booca	Anchura de la boca	Śířka úst	Szerokość ust	Ширина рта	口の幅		嘴唇寬度	嘴唇宽度
+$CME_MouthHeight	Lip Height	Hauteur des lèvres	Lippenhöhe	Altezza bocca	Altura de los labios	Výška rtů	Wysokość wargi	Высота рта	口の高さ		嘴唇厚度	嘴唇厚度
+$CME_UpperLipHeight	Upper Lip Height	Hauteur de la lèvre supérieure	Lippenhöhe (oben)	Altezza labbro superiore	Altura del labio superior	Výška horního rtu	Wysokość górnej wargi	Высота верхней губы	上唇の高さ		上唇厚度	上唇厚度
+$CME_LowerLipHeight	Lower Lip Height	Hauteur de la lèvre inférieure	Lippenhöhe (unten)	Altezza labbro inferiore	Altura del labio inferior	Výška spodního rtu	Wysokość dolnej wargi	Высота нижней губы	下唇の高さ		下唇厚度	下唇厚度
+$CME_MouthCornerUpDown	Mouth Corner Height	Hauteur des coins de la bouche	Mundwinkelhöhe	Angolo bocca su/giù	Altura de la comisura	Výška koutku úst	Wysokość kącika ust	Высота уголков рта	口角の上下		嘴角長度	嘴角長度
+$CME_MouthCornerBackForward	Mouth Corner Depth	Avancée des coins de la bouche	Mundwinkeltiefe	Angolo bocca indietro/avanti	Profundidad de la comisura	Hloubka koutku úst	Głębokość kącika ust	Глубина уголков рта	口角の前後		嘴角深度	嘴角深度
+$CME_MouthUpDown	Mouth Height 2	Hauteur de la bouche	Mundhöhe 2	Bocca su/giù	Altura de la boca	Výška úst	Wysokość ust 2	Высота рта 2	唇の上下		嘴唇高度	嘴唇高度
+$CME_MouthBackForward	Mouth Depth	Avancée de la bouche	Mundtiefe	Bocca indietro/avanti	Profundidad de la boca	Hloubka úst	Głebokość ust	Глубина рта	唇の前後		嘴唇向前度	嘴唇向前度
+$CME_NoseType	Nose Type 2	Type de nez	Nasentyp 2	Tipo di naso	Tipo de nariz	Typ nosu	Typ nosa	Тип носа	鼻の種類		鼻子類型	鼻子類型
+$CME_NoseUpDown	Nose Height 2	Hauteur du nez	Nasenhöhe 2	Naso su/giù	Altura de la nariz	Výška nosu	Wysokość nosa	Высота носа	鼻の上下		鼻子高度	鼻子高度
+$CME_NoseLength	Nose Length 2	Longueur du nez	Nasenlänge 2	Lunghezza naso	Longitud de la nariz	Délka nosu	Długość nosa	Длина носа	鼻の長さ		鼻子長度	鼻子长度
+$CME_NoseBackForward	Nose Depth	Profondeur du nez	Nasentiefe	Naso indietro/avanti	Profundidad de la nariz	Hloubka nosu	Głębokość nosa	Глубина носа	鼻の前後		鼻子突出度	鼻子突出度
+$ECE_NoseBridgeWidth	Nose Bridge Width	Largeur de l'arête du nez	Nasenbrückenbreite	Larghezza ponte nasale	Ancho de puente de nariz	Tloušťka nosního můstku	Szerokość mostka nosa	Ширина переносицы	鼻梁の幅		鼻梁寬度	鼻梁宽度
+$ECE_NoseTipWidth	Nose Tip Width	Largeur de la pointe du nez	Nasenspitzenbreite	Larghezza punta del naso	Anchura de la punta de la nariz	Šířka špičky nosu	Szerokość czubka nosa	Ширина кончика носа	鼻先の幅		鼻尖寬度	鼻尖宽度
+$CME_NoseHoleSlope	Nose Tip Slope	Élevation de la pointe du nez	Nasenspitzenneigung	Inclinazione punta del naso	Altura de la punta de la nariz	Sklon špičky nosu	Nachylanie czubka nosa	Угол наклона кончика носа	鼻先の傾斜		鼻尖傾斜度	鼻尖傾斜度
+$CME_NoseSellionBackForward	Nose Sellion Depth	Profondeur de la racine du nez	Nasenübergangstiefe	Radice del naso indietro/avanti	Profundidad del tabique nasal	Hloubka kořene nosu	Głębokość podstawy nosa	Глубина переносицы	鼻根の深さ		鼻根深度	鼻根深度
+$CME_NoseSellionUpDown	Nose Sellion Height	Hauteur de la racine du nez	Nasenübergangshöhe	Radice del naso su/giù	Altura del tabique nasal	Výška kořene nosu	Wysokość podstawy nosa	Высота переносицы	鼻根の高さ		鼻根高度	鼻根高度
+$CME_NoseSellionWidth	Nose Sellion Width	Largeur de la racine du nez	Nasenübergangsbreite	Ampiezza radice del naso	Anchura del tabique nasal	Síla kořene nosu	Szerokość podstawy nosa	Ширина переносицы	鼻根の幅		鼻根寬度	鼻根宽度
+$RANs_NoseRidgeShape	Nose Bridge Depth	Profondeur de l'arête du nez	Nasenbrückentiefe	Forma del setto nasale	Profundidad del puente de la nariz	Hloubka nosního můstku	Głębokość mostka nosa	Форма переносицы	鼻梁の深さ		鼻梁突出度	鼻梁突出度
+$CME_AroundNoseBackForward	Nose Area Depth	Profondeur de la zone du nez	Nasenumgebungstiefe	Zona intorno al naso indietro/avanti	Profundidad del área de la nariz	Hloubka oblasti nosu	Głębokość obszaru nosa	Глубина области носа	鼻の周りの深さ		鼻周圍突出度	鼻周围突出度
+$ECE_EarShape	Ear Shape	Forme des oreilles	Ohrenform	Forma orecchie	Forma de las orejas	Tvar uší	Kształt ucha	Форма ушей	耳の形		耳朵形狀	耳朵形状
+$ECE_EarSize	Ear Size	Taille des oreilles	Ohrengröße	Grandezza orecchie	Tamaño de las orejas	Velikost uší	Rozmiar ucha	Размер ушей	耳の大きさ		耳朵大小 	耳朵大小 
+$CME_EarUpDown	Ear Height	Hauteur des oreilles	Ohrenhöhe	Orecchie su/giù	Altura de las orejas	Výška uší	Wysokość ucha	Уровень ушей	耳の上下		耳朵高度	耳朵高度
+$CME_ElfEar	Elf Ear Tip	Oreilles d'elfe	Elfenohren-Spitze	Orecchie da elfo	Puntas de orejas de Elfo	Špička elfích uší	Czubek elfiego ucha	Тип эльф. ушей	エルフ耳		精靈耳尖	精灵耳尖
+$CME_Nord	Nord	Nordique	Nord	Nord	Nórdico	Seveřan	Nord	Норд	ノルド耳		諾德人	诺德人
+$CME_Breton	Breton	Bréton	Breton	Bretone	Bretón	Bretonec	Breton	Бретонец	ブレトン耳		布萊頓人	布莱顿人
+$CME_Imperial	Imperial	Impérial	Kaiserlich	Imperiale	Imperial	Císařský	Cesarski	Имперец	インペリアル耳		帝國人	帝国人
+$CME_Redguard	Redguard	Rougegarde	Rothwardon	Redguard	Guardia Roja	Redguard	Redguard	Редгард	レッドガード耳		紅衛人	红卫人
+$CME_WoodElf	Wood Elf	Elfe des Bois	Waldelf	Elfo dei boschi	Elfo del Bosque	Lesní elf	Leśny Elf	Лесной Эльф 	ウッドエルフ耳		木精靈	木精灵
+$CME_DarkElf	Dark Elf	Elfe Noir	Dunkelelf	Elfo scuro	Elfo Oscuro	Temný elf	Mroczny Elf	Темный Эльф	ダークエルフ耳		暗精靈	暗精灵 
+$CME_HighElf	High Elf	Haut-Elfe	Hochelf	Elfo alto	Alto Elfo	Vysoký elf	Wysoki Elf	Высший Эльф	ハイエルフ耳		高精靈	高精灵
 $NSK_NoseWidth	Nose Width	Largeur du nez	Nasenbreite	Larghezza naso	Anchura de la nariz	Šířka nosu	Szerokość nosa	Ширина носа	鼻の幅		鼻寛	鼻宽 
-$NSK_NoseBridge	Nose Bridge	Arête du nez	Nasenbrücke	Ponte nasale	Puente de la nariz	Nosní můstek	Szerokość kości nosowej	Переносица			鼻樑	鼻梁
-$NSK_LipThickness	Lip Thickness	Épaisseur des lèvres	Lippenfülle	Spessore labbra	Grosor de los labios	Plnost rtů	Grubość wargi	Толщина губ			嘴唇厚度	嘴唇厚度
-$NSK_ElfEar	Elf Ear	Oreilles d'elfe	Elfenohren	Orecchie da elfo	Orejas de elfo	Elfí uši	Elfie uszy	Эльфийские уши			耳尖長度	耳朵长度
-$NSK_EyeSize	Eye Size 2	Taille des yeux	Augengröße	Grandezza occhi	Tamaño de los ojos	Velikost očí	Rozmiar oczu	Размер глаз			眼睛大小	眼睛大小
-$NSK_EyeAngle	Eye Angle	Inclinaison des yeux	Augenwinkel	Angolo occhi	Ángulo de los ojos	Úhel očí	Kąt oczu	Угол наклона глаз			眼睛角度	眼睛角度
-$NSK_EyelidOpen	Eyelid Open	Ouverture des paupières	Augenlid-Öffnung	Palpebre aperte	Apertura de los párpados	Otevření očních víček	Otwarte powieki	Раскрыть веки			眼瞼開合	眼睑开合 
-$NSK_JawShape	Jaw Shape	Forme de la mâchoire	Kieferform	Forma della mascella	Forma de la mandíbula	Tvar čelisti	Kształt szczęki	Форма челюсти			下顎形狀	下颚形状
-$NSK_CheekShape	Cheek Shape	Forme des joues	Backenform	Forma delle guance	Forma de la mejilla	Tvar líce	Kształt policzka	Форма щёк			臉頰形狀	脸颊形状
-$NSK_BrowAngle	Brow Angle	Inclinaison des sourcils	Brauenwinkel	Inclinazione ciglia	Ángulo de las cejas	Úhel obočí	Kąt brwi	Угол бровей			眼眉角度	
-$NSK_LipsOpen	Lips Open	Ouverture des lèvres	Lippen-Öffnung	Labbra aperte	Labios abiertos	Otevření rtů	Otwarte usta	Раскрыть губы			嘴唇開合	
-$NSK_NoseSellionWidth	Nose Sellion Width	Largeur des narines	Nasenübergangsbreite	Ampiezza radice nasale	Anchura nasal	Šířka kořene nosu	Szerokość nozdrzy	Ширина переносицы			印堂闊度	
-$NSK_NoseTilt	Nose Tilt	Inclinaison du nez	Nasenneigung	Inclinazione naso	Ángulo de la nariz	Naklonění nosu	Nachylenie nosa	Наклон носа			鼻尖	
-$NSK_MouthWidth	Mouth Width 2	Largeur de la bouche	Mundbreite	Larghezza bocca	Anchura de la boca	Śířka úst	Szerokość ust	Ширина рта			嘴唇闊度	
-$NSK_MouthSmile	Mouth Smile	Sourire	Lächeln	Sorriso	Sonrisa	Úsměv	Uśmiech	Улыбка			嘴角高度	
-$EXPR_BlinkLeft	Blink Left	Cligner gauche	Links Zwinkern	Strizza occhio sinistro		Mrknutí levým okem	Mrużyć Lewo	Подмигивание левым глазом				
-$EXPR_BlinkRight	Blink Right	Cligner droite	Rechts Zwinkern	Strizza occhio destro		Mrknutí pravým okem	Mrużyć Prawo	Подмигивание правым глазом				
-$EXPR_DialogueAnger	Dialogue Anger	Dialogue colère	Dialog Verärgert	Dialogo arrabbiato		Výraz hněvu (dialog)	Dialog Gniew	Злость (диалог)	怒り			
-$EXPR_DialogueHappy	Dialogue Happy	Dialogue content	Dialog Glücklich	Dialogo felice		Výraz radosti (dialog)	Dialog Radosny	Радость (диалог)	喜び			
-$EXPR_DialogueSad	Dialogue Sad	Dialogue triste	Dialog Traurig	Dialogo triste			Dialog Smutny	Грусть (диалог)	悲しみ			
-$EXPR_DialogueSurprise	Dialogue Surprise	Dialogue surprise	Dialog Überrascht	Dialogo sorpreso			Dialog Zaskoczony	Удивление (диалог)	驚き			
-$EXPR_DialogueDisgusted	Dialogue Disgusted	Dialogue dégouté	Dialog Angewidert	Dialogo disgustato		Výraz smutku (dialog)	Dialog Zdegustowany	Отвращение (диалог)	うんざり顔			
-$EXPR_DialogueFear	Dialogue Fear	Dialogue peur	Dialog Ängstlich	Dialogo spaventato		Výraz překvapení (dialog)	Dialog Strach	Страх (диалог)	恐れ			
-$EXPR_DialoguePuzzled	Dialogue Puzzled	Dialogue perplexe	Dialog Verwundert	Dialogo perplesso		Výraz znechucení (dialog)	Dialog Zakłopotany	Замешательство (диалог)	混乱			
-$EXPR_BrowDownLeft	Brow Down Left	Sourcil gauche en bas	Braue Runter Links	Sopracciglia sinistra giù		Výraz strachu (dialog)	Dolne Lewe Brwi	Опустить левую бровь				
-$EXPR_BrowDownRight	Brow Down Right	Sourcil droit en bas	Braue Runter Rechts	Sopracciglia destra giù		Výraz zmatení (dialog)	Dolne Prawe Brwi	Опустить правую бровь				
-$EXPR_BrowInLeft	Brow In Left	Sourcil à gauche	Braue Nach Innen Links			Obočí dolů, levé	Brwi w lewo	Приблизить левую бровь				
-$EXPR_BrowInRight	Brow In Right	Sourcil à droite	Braue Nach Innen Rechts			Obočí dolů, pravé	Brwi w prawo	Приблизить правую бровь				
-$EXPR_BrowUpLeft	Brow Up Left	Sourcil gauche en haut	Braue Hoch Links			Pozvednout levé obočí	Górne Lewe Brwi	Приподнять левую бровь				
-$EXPR_BrowUpRight	Brow Up Right	Sourcil droit en haut	Braue Hoch Rechts			Pozvednout pravé obočí	Górne Prawe Brwi	Приподнять правую бровь				
-$EXPR_LookDown	Look Down	Regarder en bas	Nach Unten Schauen			Pohled dolů	Spójrz w dół	Посмотреть вниз				
-$EXPR_LookLeft	Look Left	Regarder à gauche	Nach Links Schauen			Pohled vlevo	Spójrz w lewo	Посмотреть влево				
-$EXPR_LookRight	Look Right	Regarder à droite	Nach Rechts Schauen			Pohled vpravo	Spójrz w prawo	Посмотреть вправо				
-$EXPR_LookUp	Look Up	Regarder en haut	Nach Oben Schauen			Pohled nahoru	Spójrz w dół	Посмотреть вверх				
-$EXPR_MoodAnger	Mood Anger	Humeur colère	Laune Verärgert			Hněv	Gniewny Nastrój	Злость				
-$EXPR_MoodDisgusted	Mood Disgusted	Humeur dégouté	Laune Angewidert			Znechucení	Zdegustowany Nastrój	Отвращение				
-$EXPR_MoodFear	Mood Fear	Humeur peur	Laune Ängstlich			Strach	Straszny Nastrój	Страх				
-$EXPR_MoodHappy	Mood Happy	Humeur content	Laune Glücklich			Radost	Szczęśliwy Nastrój	Радость				
-$EXPR_MoodPuzzled	Mood Puzzled	Humeur perplexe	Laune Verwundert			Zmatení	Zakłopotany Nastrój	Замешательство				
-$EXPR_MoodSad	Mood Sad	Humeur triste	Laune Traurig			Smutek	Smutny Nastrój	Грусть				
-$EXPR_MoodSurprise	Mood Surprise	Humeur surprise	Laune Überrascht			Překvapení	Zaskoczony Nastrój	Удивление				
-$EXPR_SquintLeft	Squint Left	Loucher gauche	Links Blinzeln			Přimhouřit levé oko	Lewy Zez	Взгляд искоса налево				
-$EXPR_SquintRight	Squint Right	Loucher droite	Rechts Blinzeln			Přimhouřit pravé oko	Prawy Zez	Взгляд искоза направо				
-$EXPR_CombatAnger	Combat Anger	Combat colère	Kampf Verärgert			Bojový pokřík	Gniew Bojowy	Боевая ярость				
-$EXPR_CombatShout	Combat Shout	Combat cri	Kampf Schrei			Bojový křík	Krzyk Bojowy	Боевой крик				
-$EXPR_Aah	Aah	Aah	Aah			Aah	Aah	Аах				
-$EXPR_BigAah	Big Aah	Grand Aah	Großes Aah			Velké Aah	Wielkie Aah	Большой аах				
-$EXPR_BMP	BMP	BMP	BMP			BMP	BMP	BMP				
-$EXPR_ChJSh	ChJSh	ChJSh	ChJSh			ChJsh	ChJSh	ChJSh				
-$EXPR_DST	DST	DST	DST			DST	DST	DST				
-$EXPR_Eee	Eee	Eee	Eee			Eee	Eee	Eee				
-$EXPR_Eh	Eh	Eh	Eh			Eh	Eh	Eh				
-$EXPR_FV	FV	FV	FV			FV	FV	FV				
-$EXPR_I	I	I	I			I	I	I				
-$EXPR_K	K	K	K			K	K	K				
-$EXPR_N	N	N	N			N	N	N				
-$EXPR_Oh	Oh	Oh	Oh			Oh	Oh	Oh				
-$EXPR_OohQ	OohQ	OohQ	OohQ			OohQ	OohQ	OohQ				
-$EXPR_R	R	R	R			R	R	R				
-$EXPR_Th	Th	Th	Th			TH	Th	Th				
-$EXPR_W	W	W	W			W	W	W				
+$NSK_NoseBridge	Nose Bridge	Arête du nez	Nasenbrücke	Ponte nasale	Puente de la nariz	Nosní můstek	Szerokość kości nosowej	Переносица	鼻梁		鼻樑	鼻梁
+$NSK_LipThickness	Lip Thickness	Épaisseur des lèvres	Lippenfülle	Spessore labbra	Grosor de los labios	Plnost rtů	Grubość wargi	Толщина губ	唇の厚さ		嘴唇厚度	嘴唇厚度
+$NSK_ElfEar	Elf Ear	Oreilles d'elfe	Elfenohren	Orecchie da elfo	Orejas de elfo	Elfí uši	Elfie uszy	Эльфийские уши	エルフの耳		精靈耳朵	精灵耳朵
+$NSK_EyeSize	Eye Size 2	Taille des yeux	Augengröße	Grandezza occhi	Tamaño de los ojos	Velikost očí	Rozmiar oczu	Размер глаз	目の大きさ2		眼睛大小	眼睛大小
+$NSK_EyeAngle	Eye Angle	Inclinaison des yeux	Augenwinkel	Angolo occhi	Ángulo de los ojos	Úhel očí	Kąt oczu	Угол наклона глаз	眼の角度		眼睛角度	眼睛角度
+$NSK_EyelidOpen	Eyelid Open	Ouverture des paupières	Augenlid-Öffnung	Palpebre aperte	Apertura de los párpados	Otevření očních víček	Otwarte powieki	Раскрыть веки	瞼の開け幅		眼瞼開合	眼睑开合 
+$NSK_JawShape	Jaw Shape	Forme de la mâchoire	Kieferform	Forma della mascella	Forma de la mandíbula	Tvar čelisti	Kształt szczęki	Форма челюсти	顎の形		下顎形狀	下颚形状
+$NSK_CheekShape	Cheek Shape	Forme des joues	Backenform	Forma delle guance	Forma de la mejilla	Tvar líce	Kształt policzka	Форма щёк	頬の形		臉頰形狀	脸颊形状
+$NSK_BrowAngle	Brow Angle	Inclinaison des sourcils	Brauenwinkel	Inclinazione ciglia	Ángulo de las cejas	Úhel obočí	Kąt brwi	Угол бровей	眉の角度		眉毛角度	眉毛角度
+$NSK_LipsOpen	Lips Open	Ouverture des lèvres	Lippen-Öffnung	Labbra aperte	Labios abiertos	Otevření rtů	Otwarte usta	Раскрыть губы	唇の開け幅		嘴唇開合	嘴唇开合
+$NSK_NoseSellionWidth	Nose Sellion Width	Largeur des narines	Nasenübergangsbreite	Ampiezza radice nasale	Anchura nasal	Šířka kořene nosu	Szerokość nozdrzy	Ширина переносицы	鼻根の幅		印堂闊度	印堂阔度
+$NSK_NoseTilt	Nose Tilt	Déviation du nez	Nasenneigung	Inclinazione naso	Ángulo de la nariz	Naklonění nosu	Nachylenie nosa	Наклон носа	鼻の傾き		鼻尖	鼻尖
+$NSK_MouthWidth	Mouth Width 2	Largeur de la bouche	Mundbreite	Larghezza bocca	Anchura de la boca	Śířka úst	Szerokość ust	Ширина рта	口の幅2		嘴唇闊度	嘴唇阔度
+$NSK_MouthSmile	Mouth Smile	Sourire	Lächeln	Sorriso	Sonrisa	Úsměv	Uśmiech	Улыбка	口角		嘴角高度	嘴角高度
+$EXPR_BlinkLeft	Blink Left	Cligner gauche	Links Zwinkern	Strizza occhio sinistro	Guiño Izquierdo	Mrknutí levým okem	Mrużyć Lewo	Подмигивание левым глазом	瞬き左		眨左眼	眨左眼
+$EXPR_BlinkRight	Blink Right	Cligner droite	Rechts Zwinkern	Strizza occhio destro	Guiño Derecho	Mrknutí pravým okem	Mrużyć Prawo	Подмигивание правым глазом	瞬き右		眨右眼	眨右眼
+$EXPR_DialogueAnger	Dialogue Anger	Dialogue colère	Dialog Verärgert	Dialogo arrabbiato	Diálogo Enojo	Výraz hněvu (dialog)	Dialog Gniew	Злость (диалог)	怒り		憤怒的對話	愤怒的对话
+$EXPR_DialogueHappy	Dialogue Happy	Dialogue content	Dialog Glücklich	Dialogo felice	Diálogo Feliz	Výraz radosti (dialog)	Dialog Radosny	Радость (диалог)	喜び		高興的對話	高兴的对话
+$EXPR_DialogueSad	Dialogue Sad	Dialogue triste	Dialog Traurig	Dialogo triste	Diálogo Triste		Dialog Smutny	Грусть (диалог)	悲しみ		傷心的對話	伤心的对话
+$EXPR_DialogueSurprise	Dialogue Surprise	Dialogue surprise	Dialog Überrascht	Dialogo sorpreso	Diálogo sorpresa		Dialog Zaskoczony	Удивление (диалог)	驚き		驚訝的對話	惊讶的对话
+$EXPR_DialogueDisgusted	Dialogue Disgusted	Dialogue dégouté	Dialog Angewidert	Dialogo disgustato	Diálogo Disgusto	Výraz smutku (dialog)	Dialog Zdegustowany	Отвращение (диалог)	うんざり顔		厭惡的對話	厌恶的对话
+$EXPR_DialogueFear	Dialogue Fear	Dialogue peur	Dialog Ängstlich	Dialogo spaventato	Diálogo Miedo	Výraz překvapení (dialog)	Dialog Strach	Страх (диалог)	恐れ		恐懼的對話	恐惧的对话
+$EXPR_DialoguePuzzled	Dialogue Puzzled	Dialogue perplexe	Dialog Verwundert	Dialogo perplesso	Diálogo Pensativo	Výraz znechucení (dialog)	Dialog Zakłopotany	Замешательство (диалог)	混乱		困惑的對話	困惑的对话
+$EXPR_BrowDownLeft	Brow Down Left	Sourcil gauche en bas	Braue Runter Links	Sopracciglia sinistra giù		Výraz strachu (dialog)	Dolne Lewe Brwi	Опустить левую бровь	左の眉を下げる		左眉向下	左眉向下
+$EXPR_BrowDownRight	Brow Down Right	Sourcil droit en bas	Braue Runter Rechts	Sopracciglia destra giù		Výraz zmatení (dialog)	Dolne Prawe Brwi	Опустить правую бровь	右の眉を下げる		右眉向下	右眉向下
+$EXPR_BrowInLeft	Brow In Left	Sourcil à gauche	Braue Nach Innen Links			Obočí dolů, levé	Brwi w lewo	Приблизить левую бровь	眉を左に		左眉向内	左眉向内
+$EXPR_BrowInRight	Brow In Right	Sourcil à droite	Braue Nach Innen Rechts			Obočí dolů, pravé	Brwi w prawo	Приблизить правую бровь	眉を右に		右眉向内	右眉向内
+$EXPR_BrowUpLeft	Brow Up Left	Sourcil gauche en haut	Braue Hoch Links			Pozvednout levé obočí	Górne Lewe Brwi	Приподнять левую бровь	左眉を上に		左眉向上	左眉向上
+$EXPR_BrowUpRight	Brow Up Right	Sourcil droit en haut	Braue Hoch Rechts			Pozvednout pravé obočí	Górne Prawe Brwi	Приподнять правую бровь	右眉を上に		右眉向上	右眉向上
+$EXPR_LookDown	Look Down	Regarder en bas	Nach Unten Schauen		Mirada abajo	Pohled dolů	Spójrz w dół	Посмотреть вниз	視線を下に		向下看	向下看
+$EXPR_LookLeft	Look Left	Regarder à gauche	Nach Links Schauen		Mirada Izquierda	Pohled vlevo	Spójrz w lewo	Посмотреть влево	視線を左に		向左看	向左看
+$EXPR_LookRight	Look Right	Regarder à droite	Nach Rechts Schauen		Mirada Derecha	Pohled vpravo	Spójrz w prawo	Посмотреть вправо	視線を右に		向右看	向右看
+$EXPR_LookUp	Look Up	Regarder en haut	Nach Oben Schauen		Mirada Arriba	Pohled nahoru	Spójrz w dół	Посмотреть вверх	視線を上に		向上看	向上看
+$EXPR_MoodAnger	Mood Anger	Humeur colère	Laune Verärgert		Humor Enojo	Hněv	Gniewny Nastrój	Злость	ムード・怒り		憤怒的情緒	愤怒的情绪
+$EXPR_MoodDisgusted	Mood Disgusted	Humeur dégouté	Laune Angewidert		Humor Disgusto	Znechucení	Zdegustowany Nastrój	Отвращение	ムード・うんざり		厭惡的情緒	厌恶的情绪
+$EXPR_MoodFear	Mood Fear	Humeur peur	Laune Ängstlich		Humor Miedo	Strach	Straszny Nastrój	Страх	ムード・恐れ		恐懼的情緒	恐惧的情绪
+$EXPR_MoodHappy	Mood Happy	Humeur content	Laune Glücklich		Humor Feliz	Radost	Szczęśliwy Nastrój	Радость	ムード・喜び		高興的情緒	高兴的情绪
+$EXPR_MoodPuzzled	Mood Puzzled	Humeur perplexe	Laune Verwundert		Humor Pensativo	Zmatení	Zakłopotany Nastrój	Замешательство	ムード・混乱		困擾的情緒	困扰的情绪
+$EXPR_MoodSad	Mood Sad	Humeur triste	Laune Traurig		Humor Triste	Smutek	Smutny Nastrój	Грусть	ムード・悲しみ		傷心的情緒	伤心的情绪
+$EXPR_MoodSurprise	Mood Surprise	Humeur surprise	Laune Überrascht		Humor Sorpresa	Překvapení	Zaskoczony Nastrój	Удивление	ムード・驚き		驚訝的情緒	惊讶的情绪
+$EXPR_SquintLeft	Squint Left	Loucher gauche	Links Blinzeln			Přimhouřit levé oko	Lewy Zez	Взгляд искоса налево	左斜視		瞇左眼	眯左眼
+$EXPR_SquintRight	Squint Right	Loucher droite	Rechts Blinzeln			Přimhouřit pravé oko	Prawy Zez	Взгляд искоза направо	右斜視		瞇右眼	眯右眼
+$EXPR_CombatAnger	Combat Anger	Combat colère	Kampf Verärgert		Combate Enojo	Bojový pokřík	Gniew Bojowy	Боевая ярость	戦闘・怒り		戰鬥的憤怒	战斗的愤怒
+$EXPR_CombatShout	Combat Shout	Combat cri	Kampf Schrei		Combate Grito	Bojový křík	Krzyk Bojowy	Боевой крик	戦闘・シャウト		戰鬥的吶喊	战斗的呐喊
+$EXPR_Aah	Aah	Aah	Aah		Aah	Aah	Aah	Аах	Aah		Aah	Aah
+$EXPR_BigAah	Big Aah	Grand Aah	Großes Aah		Gran Aah	Velké Aah	Wielkie Aah	Большой аах	Big Aah		Big Aah	Big Aah
+$EXPR_BMP	BMP	BMP	BMP		BMP	BMP	BMP	BMP	BMP		BMP	BMP
+$EXPR_ChJSh	ChJSh	ChJSh	ChJSh		ChJSh	ChJsh	ChJSh	ChJSh	ChJSh		ChJSh	ChJSh
+$EXPR_DST	DST	DST	DST		DST	DST	DST	DST	DST		DST	DST
+$EXPR_Eee	Eee	Eee	Eee		Eee	Eee	Eee	Eee	Eee		Eee	Eee
+$EXPR_Eh	Eh	Eh	Eh		Eh	Eh	Eh	Eh	Eh		Eh	Eh
+$EXPR_FV	FV	FV	FV		FV	FV	FV	FV	FV		FV	FV
+$EXPR_I	I	I	I		I	I	I	I	I		I	I
+$EXPR_K	K	K	K		K	K	K	K	K		K	K
+$EXPR_N	N	N	N		N	N	N	N	N		N	N
+$EXPR_Oh	Oh	Oh	Oh		Oh	Oh	Oh	Oh	Oh		Oh	Oh
+$EXPR_OohQ	OohQ	OohQ	OohQ		OohQ	OohQ	OohQ	OohQ	OohQ		OohQ	OohQ
+$EXPR_R	R	R	R		R	R	R	R	R		R	R
+$EXPR_Th	Th	Th	Th		Th	TH	Th	Th	Th		Th	Th
+$EXPR_W	W	W	W		W	W	W	W	W		W	W
 												
 												
 												
-% Completion	100.00%	88.92%	99.47%	78.89%	76.78%	91.56%	99.47%	88.92%	72.03%	55.67%	26.12%	57.26%
-Total % Completion	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%	77.92%
+% Completion	100.00%	99.47%	99.47%	78.36%	97.10%	91.03%	99.47%	99.47%	99.47%	55.15%	99.47%	99.47%
+Total % Completion	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%
