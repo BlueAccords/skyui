@@ -12,7 +12,7 @@ $FACE PAINT	FACE PAINT	PEINTURE DE VISAGE	GESICHTSBEMALUNG	PITTURA FACCIALE	PINT
 $Sliders	Sliders	Curseurs	Regler	Cursori	Controles	Posuvníky	Suwaki	Ползунки	スライダー	Sliders	滑塊	滑块
 $Overlays	Overlays	Superposition	Overlays	Sovrapposizioni	Superposición	Vrstvy	Pokrycie	Наложения	オーバーレイ	Sobreposições	覆蓋	覆盖
 $Camera	Camera	Caméra	Kamera	Camera	Cámara	Kamera	Kamera	Камера	カメラ	Camera	鏡頭	镜头
-$Sculpt	Sculpt	Sculpter	Formen	Scolpisci	Escultor	Sculpt	Rzeźbić	Скульптор	カット	Esculpir	塑形	塑形
+$Sculpt	Sculpt	Sculpter	Sculpt	Scolpisci	Escultor	Sculpt	Rzeźbić	Скульптор	カット	Esculpir	塑形	塑形
 $Zoom In	Zoom In	Zoom avant	Heranzoomen	Ingrandisci	Acercarse	Přiblížit	Przybliż	Приблизить	ズームイン	Mais Zoom	拉近	放大
 $Zoom Out	Zoom Out	Zoom arrière	Wegzoomen	Riduci	Alejarse	Oddálit	Oddal	Отдалить	ズームアウト	Menos Zoom	拉遠	缩小
 $Change Race	Change Race	Changer de race	Rasse ändern	Scegli Razza	Cambiar raza	Změnit Rasu	Zmień Rasę	Сменить расу	種族の変更	Mudar a raça	變更種族	变更种族
@@ -55,15 +55,15 @@ $Deflate	Deflate	Dégonfler	Reduzieren		Desinflar		Wypuszczać	Уменьшит�
 $Smooth	Smooth	Adoucir	Glätten		Suavizar	Jemně	Wygładź	Сгладить	スムーズ		平滑	平滑
 $Move	Move	Déplacer	Bewegen		Mover	Posunout	Przenieś	Переместить	移動		移動	移动
 $Clear Mask	Clear Mask	Annuler masque	Maske löschen		Limpiar máscara		Wyczyść Maskę	Очистить маску	マスクのクリア		清除遮罩	清除蒙板
-$Clear Sculpt	Clear Sculpt	Annuler sculpture	Form zurücksetzen		Limpiar esculpido		Wyczyść Rzeźbienie	Очистить скульптор	スカルプトのクリア		清除塑形	清除塑形
+$Clear Sculpt	Clear Sculpt	Annuler sculpture	Sculpt zurücksetzen		Limpiar esculpido		Wyczyść Rzeźbienie	Очистить скульптор	スカルプトのクリア		清除塑形	清除塑形
 $Import Geometry	Import Geometry	Importer géométrie	Geometrie importieren		Importar Geometría		Importuj Geometrię	Импортировать геометрию	形状のインポート		導入形狀	导入形状
 $History	History	Historique	Verlauf		Historia	Historie	Historia	История	ヒストリー		歷史記錄	历史记录
 $Strength	Strength	Intensité	Stärke		Fuerza	Síla	Siła	Сила	強度		強度	强度
 $Radius	Radius	Rayon	Radius		Radio		Promień	Радиус	半径		半徑	半径
 $Property	Property	Propriété	Eigenschaft		Prepiedad		Właściwość	Свойство	プロパティ		屬性	属性
 $Mirror	Mirror	Miroir	Spiegeln		Espejo	Zrcadlit	Odzwierciedlić	Отражение	ミラー		鏡像	镜像
-$Sculpt history will be lost	Sculpt history will be lost	L'historique de sculpture sera perdu	Formenverlauf geht verloren		Historial de esculpido será perdida		Historia rzeźbienia będą utracone	История скульптора будет потеряна	スカルプトの履歴を削除		塑形記錄將會丟失	塑形记录将会丢失
-$Loading a preset will erase sculpt history	Loading a preset will erase sculpt history	Charger un preset effacera l'historique de sculpture	Laden eines Presets löscht den Formenverlauf		Cargar preajustes borrará el historial del esculpido		Wczytywanie wyglądu wymaże historię rzeźbienia	Загрузка предустановки сотрет историю скульптора	プリセットをロードするとスカルプトの履歴が失われます		載入預設將會清除塑形記錄	载入预设将会清除塑形记录
+$Sculpt history will be lost	Sculpt history will be lost	L'historique de sculpture sera perdu	Sculptverlauf geht verloren		Historial de esculpido será perdida		Historia rzeźbienia będą utracone	История скульптора будет потеряна	スカルプトの履歴を削除		塑形記錄將會丟失	塑形记录将会丢失
+$Loading a preset will erase sculpt history	Loading a preset will erase sculpt history	Charger un preset effacera l'historique de sculpture	Laden eines Presets löscht den Sculptverlauf		Cargar preajustes borrará el historial del esculpido		Wczytywanie wyglądu wymaże historię rzeźbienia	Загрузка предустановки сотрет историю скульптора	プリセットをロードするとスカルプトの履歴が失われます		載入預設將會清除塑形記錄	载入预设将会清除塑形记录
 $Name	Name	Nom	Name		Nombre	Jméno	Nazwa	Имя	名前		名字	名字
 $Date modified	Date modified	Date de modification	Änderungsdatum		Fecha Modificación	Datum změny	Data modyfikacji	Дата изменения	変更日		修改日期	修改日期
 $Size	Size	Taille	Größe		Tamaño	Velikost	Rozmiar	Размер	サイズ		尺寸	尺寸
@@ -81,10 +81,10 @@ $Toggle Visibility	Toggle Visibility	Activer visibilité	Sichtbarkeit umschalten
 $Toggle Wireframe	Toggle Wireframe	Activer fil de fer	Wireframe umschalten		Cambiar Alambrado		Przełącz Kontury	Включить сетку	トグルのワイヤーフレーム		切換網格模型	切换网格模型
 $Toggle Editability	Toggle Editability	Activer édition	Editierbarkeit umschalten		Cambiar Editable		Przełącz Edytowalność	Включить редактирование	トグルを編集可能		切換可編輯性	切换可编辑性
 $Cycle Wireframe Color	Cycle Wireframe Color	Changer couleur de fil de fer	Wireframe-Farbe wechseln				Cykl Kolor Kontur	Сменить цвет сетки	サイクルワイヤーフレームの色		循環網格顏色	循环网格颜色
-$BODY SCALES	BODY SCALES	ECHELLES CORPS	Körpergewicht		Tamaños del cuerpo		SKALE CIAŁA	МАСШТАБЫ ТЕЛА	ボディースケール		身體比例	身体比例
+$BODY SCALES	BODY SCALES	ECHELLES CORPS	KÖRPERFORM		Tamaños del cuerpo		SKALE CIAŁA	МАСШТАБЫ ТЕЛА	ボディースケール		身體比例	身体比例
 $Undefined	Undefined	Indéfini	Undefiniert		Indefinido		Niezdefiniowany	Неопределено	未定義		未定義	未定义
-$RM_FacePart	Face Part											
-$RM_MouthPart	Mouth Part											
+$RM_FacePart	Face Part		Gesicht				Część Twarzy					
+$RM_MouthPart	Mouth Part		Mund				Część Ust					
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
 $Head	Head	Tête	Kopf	Testa	Cabeza	Hlava	Głowa	Голова	頭部	Cabeça	頭部	头部
 $Left Breast	Left Breast	Poitrine gauche	Linke Brust	Seno Sinistro	Pecho izquierdo	Levé ňadro	Lewa Pierś	Левая грудь	左胸	Peito esquerdo	左胸	左胸
@@ -358,8 +358,8 @@ $EXPR_MoodHappy	Mood Happy	Humeur content	Laune Glücklich		Humor Feliz	Radost	S
 $EXPR_MoodPuzzled	Mood Puzzled	Humeur perplexe	Laune Verwundert		Humor Pensativo	Zmatení	Zakłopotany Nastrój	Замешательство	ムード・混乱		困擾的情緒	困扰的情绪
 $EXPR_MoodSad	Mood Sad	Humeur triste	Laune Traurig		Humor Triste	Smutek	Smutny Nastrój	Грусть	ムード・悲しみ		傷心的情緒	伤心的情绪
 $EXPR_MoodSurprise	Mood Surprise	Humeur surprise	Laune Überrascht		Humor Sorpresa	Překvapení	Zaskoczony Nastrój	Удивление	ムード・驚き		驚訝的情緒	惊讶的情绪
-$EXPR_SquintLeft	Squint Left	Loucher gauche	Links Blinzeln			Přimhouřit levé oko	Lewy Zez	Взгляд искоса налево	左斜視		瞇左眼	眯左眼
-$EXPR_SquintRight	Squint Right	Loucher droite	Rechts Blinzeln			Přimhouřit pravé oko	Prawy Zez	Взгляд искоза направо	右斜視		瞇右眼	眯右眼
+$EXPR_SquintLeft	Squint Left	Loucher gauche	Links Zukneifen			Přimhouřit levé oko	Lewy Zez	Взгляд искоса налево	左斜視		瞇左眼	眯左眼
+$EXPR_SquintRight	Squint Right	Loucher droite	Rechts Zukneifen			Přimhouřit pravé oko	Prawy Zez	Взгляд искоза направо	右斜視		瞇右眼	眯右眼
 $EXPR_CombatAnger	Combat Anger	Combat colère	Kampf Verärgert		Combate Enojo	Bojový pokřík	Gniew Bojowy	Боевая ярость	戦闘・怒り		戰鬥的憤怒	战斗的愤怒
 $EXPR_CombatShout	Combat Shout	Combat cri	Kampf Schrei		Combate Grito	Bojový křík	Krzyk Bojowy	Боевой крик	戦闘・シャウト		戰鬥的吶喊	战斗的呐喊
 $EXPR_Aah	Aah	Aah	Aah		Aah	Aah	Aah	Аах	Aah		Aah	Aah
@@ -381,5 +381,5 @@ $EXPR_W	W	W	W		W	W	W	W	W		W	W
 												
 												
 												
-% Completion	100.00%	99.47%	99.47%	78.36%	97.10%	91.03%	99.47%	99.47%	99.47%	55.15%	99.47%	99.47%
-Total % Completion	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%	93.16%
+% Completion	100.00%	99.47%	100.00%	78.36%	97.10%	91.03%	100.00%	99.47%	99.47%	55.15%	99.47%	99.47%
+Total % Completion	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%

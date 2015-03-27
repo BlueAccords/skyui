@@ -52,7 +52,7 @@ string[] _sliders = None
 int _sliderBuffer = 0
 
 int Function GetScriptVersionRelease() global
-	return 6
+	return 7
 EndFunction
 
 Event OnInit()
@@ -345,61 +345,216 @@ EndEvent
 Function AddWarpaint(string name, string texturePath)
 	_textures[_textureBuffer] = name + ";;" + texturePath
 	_textureBuffer += 1
+	if _textureBuffer == _textures.length
+		string[] textures = Utility.CreateStringArray(_textures.length + _textures.length / 2)
+		if textures.length > 0
+			int i = 0
+			While i < _textures.length
+				textures[i] = _textures[i]
+				i += 1
+			EndWhile
+
+			_textures = textures
+		Endif
+	Endif
 EndFunction
 
 Function AddBodyPaint(string name, string texturePath)
 	_textures_body[_textureBuffer_body] = name + ";;" + texturePath
 	_textureBuffer_body += 1
+
+	if _textureBuffer_body == _textures_body.length
+		string[] textures = Utility.CreateStringArray(_textures_body.length + _textures_body.length / 2)
+		if textures.length > 0
+			int i = 0
+			While i < _textures_body.length
+				textures[i] = _textures_body[i]
+				i += 1
+			EndWhile
+
+			_textures_body = textures
+		Endif
+	Endif
 EndFunction
 
 Function AddBodyPaintEx(string name, string texture0, string texture1 = "ignore", string texture2 = "ignore", string texture3 = "ignore", string texture4 = "ignore", string texture5 = "ignore", string texture6 = "ignore", string texture7 = "ignore")
 	_textures_body[_textureBuffer_body] = name + ";;" + texture0 + "|" + texture1 + "|" + texture2 + "|" + texture3 + "|" + texture4 + "|" + texture5 + "|" + texture6 + "|" + texture7
 	_textureBuffer_body += 1
+
+	if _textureBuffer_body == _textures_body.length
+		string[] textures = Utility.CreateStringArray(_textures_body.length + _textures_body.length / 2)
+		if textures.length > 0
+			int i = 0
+			While i < _textures_body.length
+				textures[i] = _textures_body[i]
+				i += 1
+			EndWhile
+
+			_textures_body = textures
+		Endif
+	Endif
 EndFunction
 
 Function AddHandPaint(string name, string texturePath)
 	_textures_hand[_textureBuffer_hand] = name + ";;" + texturePath
 	_textureBuffer_hand += 1
+
+	if _textureBuffer_hand == _textures_hand.length
+		string[] textures = Utility.CreateStringArray(_textures_hand.length + _textures_hand.length / 2)
+		if textures.length > 0
+			int i = 0
+			While i < _textures_hand.length
+				textures[i] = _textures_hand[i]
+				i += 1
+			EndWhile
+
+			_textures_hand = textures
+		Endif
+	Endif
 EndFunction
 
 Function AddHandPaintEx(string name, string texture0, string texture1 = "ignore", string texture2 = "ignore", string texture3 = "ignore", string texture4 = "ignore", string texture5 = "ignore", string texture6 = "ignore", string texture7 = "ignore")
 	_textures_hand[_textureBuffer_hand] = name + ";;" + texture0 + "|" + texture1 + "|" + texture2 + "|" + texture3 + "|" + texture4 + "|" + texture5 + "|" + texture6 + "|" + texture7
 	_textureBuffer_hand += 1
+
+	if _textureBuffer_hand == _textures_hand.length
+		string[] textures = Utility.CreateStringArray(_textures_hand.length + _textures_hand.length / 2)
+		if textures.length > 0
+			int i = 0
+			While i < _textures_hand.length
+				textures[i] = _textures_hand[i]
+				i += 1
+			EndWhile
+
+			_textures_hand = textures
+		Endif
+	Endif
 EndFunction
 
 Function AddFeetPaint(string name, string texturePath)
 	_textures_feet[_textureBuffer_feet] = name + ";;" + texturePath
 	_textureBuffer_feet += 1
+
+	if _textureBuffer_feet == _textures_feet.length
+		string[] textures = Utility.CreateStringArray(_textures_feet.length + _textures_feet.length / 2)
+		if textures.length > 0
+			int i = 0
+			While i < _textures_feet.length
+				textures[i] = _textures_feet[i]
+				i += 1
+			EndWhile
+
+			_textures_feet = textures
+		Endif
+	Endif
 EndFunction
 
 Function AddFeetPaintEx(string name, string texture0, string texture1 = "ignore", string texture2 = "ignore", string texture3 = "ignore", string texture4 = "ignore", string texture5 = "ignore", string texture6 = "ignore", string texture7 = "ignore")
 	_textures_feet[_textureBuffer_feet] = name + ";;" + texture0 + "|" + texture1 + "|" + texture2 + "|" + texture3 + "|" + texture4 + "|" + texture5 + "|" + texture6 + "|" + texture7
 	_textureBuffer_feet += 1
+
+	if _textureBuffer_feet == _textures_feet.length
+		string[] textures = Utility.CreateStringArray(_textures_feet.length + _textures_feet.length / 2)
+		if textures.length > 0
+			int i = 0
+			While i < _textures_feet.length
+				textures[i] = _textures_feet[i]
+				i += 1
+			EndWhile
+
+			_textures_feet = textures
+		Endif
+	Endif
 EndFunction
 
 Function AddFacePaint(string name, string texturePath)
 	_textures_face[_textureBuffer_face] = name + ";;" + texturePath
 	_textureBuffer_face += 1
+
+	if _textureBuffer_face == _textures_face.length
+		string[] textures = Utility.CreateStringArray(_textures_face.length + _textures_face.length / 2)
+		if textures.length > 0
+			int i = 0
+			While i < _textures_face.length
+				textures[i] = _textures_face[i]
+				i += 1
+			EndWhile
+
+			_textures_face = textures
+		Endif
+	Endif
 EndFunction
 
 Function AddFacePaintEx(string name, string texture0, string texture1 = "ignore", string texture2 = "ignore", string texture3 = "ignore", string texture4 = "ignore", string texture5 = "ignore", string texture6 = "ignore", string texture7 = "ignore")
 	_textures_face[_textureBuffer_face] = name + ";;" + texture0 + "|" + texture1 + "|" + texture2 + "|" + texture3 + "|" + texture4 + "|" + texture5 + "|" + texture6 + "|" + texture7
 	_textureBuffer_face += 1
+
+	if _textureBuffer_face == _textures_face.length
+		string[] textures = Utility.CreateStringArray(_textures_face.length + _textures_face.length / 2)
+		if textures.length > 0
+			int i = 0
+			While i < _textures_face.length
+				textures[i] = _textures_face[i]
+				i += 1
+			EndWhile
+
+			_textures_face = textures
+		Endif
+	Endif
 EndFunction
 
 Function AddSlider(string name, int section, string callback, float min, float max, float interval, float position)
 	_sliders[_sliderBuffer] = name + ";;" + section + ";;" + callback + ";;" + min + ";;" + max + ";;" + interval + ";;" + position
 	_sliderBuffer += 1
+
+	if _sliderBuffer == _sliders.length
+		string[] sliders = Utility.CreateStringArray(_sliders.length + _sliders.length / 2)
+		if sliders.length > 0
+			int i = 0
+			While i < _sliders.length
+				sliders[i] = _sliders[i]
+				i += 1
+			EndWhile
+
+			_sliders = sliders
+		Endif
+	Endif
 EndFunction
 
 Function AddSliderEx(string name, string category_key, string callback, float min, float max, float interval, float position, int section = 0, int priority = 0)
 	_sliders[_sliderBuffer] = name + ";;" + section + ";;" + callback + ";;" + min + ";;" + max + ";;" + interval + ";;" + position + ";;" + category_key + ";;" + priority
 	_sliderBuffer += 1
+
+	if _sliderBuffer == _sliders.length
+		string[] sliders = Utility.CreateStringArray(_sliders.length + _sliders.length / 2)
+		if sliders.length > 0
+			int i = 0
+			While i < _sliders.length
+				sliders[i] = _sliders[i]
+				i += 1
+			EndWhile
+
+			_sliders = sliders
+		Endif
+	Endif
 EndFunction
 
 Function AddCategory(string keyName, string name, int priority = 0)
 	_categories[_categoryBuffer] = keyName + ";;" + name + ";;" + priority
 	_categoryBuffer += 1
+
+	if _categoryBuffer == _categories.length
+		string[] categories = Utility.CreateStringArray(_categories.length + _categories.length / 2)
+		if categories.length > 0
+			int i = 0
+			While i < _categories.length
+				categories[i] = _categories[i]
+				i += 1
+			EndWhile
+
+			_categories = categories
+		Endif
+	Endif
 EndFunction
 
 Function AddWarpaints(string[] textures)
@@ -448,43 +603,35 @@ EndFunction
 ; 5
 Function FlushBuffer(int bufferType)
 	int i = 0
-	While i < 128
-		if Math.LogicalAnd(bufferType, BUFFER_TEXTURES) == BUFFER_TEXTURES
-			_textures[i] = ""
 
-			If _textures_body
-				_textures_body[i] = ""
-			Endif
-			If _textures_hand
-				_textures_hand[i] = ""
-			Endif
-			If _textures_feet
-				_textures_feet[i] = ""
-			Endif
-			If _textures_face
-				_textures_face[i] = ""
-			Endif
-		Endif
-		if Math.LogicalAnd(bufferType, BUFFER_SLIDERS) == BUFFER_SLIDERS
-			_sliders[i] = ""
-		Endif
-		if Math.LogicalAnd(bufferType, BUFFER_CATEGORIES) == BUFFER_CATEGORIES
-			_categories[i] = ""
-		Endif
-		i += 1
-	EndWhile
-
+	; Overwriting the entire buffers will be faster than iterating and assigning
 	if Math.LogicalAnd(bufferType, BUFFER_TEXTURES) == BUFFER_TEXTURES
+		_textures = Utility.CreateStringArray(_textures.length)
 		_textureBuffer = 0
+
+		_textures_body = Utility.CreateStringArray(_textures_body.length)
 		_textureBuffer_body = 0
+
+		_textures_hand = Utility.CreateStringArray(_textures_hand.length)
 		_textureBuffer_hand = 0
+
+		_textures_feet = Utility.CreateStringArray(_textures_feet.length)
 		_textureBuffer_feet = 0
+
+		_textures_face = Utility.CreateStringArray(_textures_face.length)
 		_textureBuffer_face = 0
 	Endif
+
 	if Math.LogicalAnd(bufferType, BUFFER_SLIDERS) == BUFFER_SLIDERS
+		_sliders = Utility.CreateStringArray(_sliders.length)
 		_sliderBuffer = 0
 	Endif
+
 	if Math.LogicalAnd(bufferType, BUFFER_CATEGORIES) == BUFFER_CATEGORIES
+		_categories = Utility.CreateStringArray(_categories.length)
 		_categoryBuffer = 0
 	Endif
+
+	; Reinit incase we're still using an older SKSE version that would kill the buffers
+	Reinitialize()
 EndFunction

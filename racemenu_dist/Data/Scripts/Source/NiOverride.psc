@@ -1,7 +1,7 @@
 Scriptname NiOverride Hidden
 
 int Function GetScriptVersion() global
-	return 3
+	return 4
 EndFunction
 
 ; Valid keys
@@ -239,11 +239,31 @@ Function EnableTintTextureCache() native global
 ; Call this when finished frequent dye edits
 Function ReleaseTintTextureCache() native global
 
-; Dye functions
+; -------------- Unique Item functions -----------------
+; When a UID is added to an item, that particular item will keep that UID
+; until that item is deleted, you can use this UID to map additional
+; data if you choose, you can tell when a UID has been deleted via the
+; NiOverride_Internal_EraseUID Mod Event
+; e.g.
+; RegisterForModEvent("NiOverride_Internal_EraseUID", "OnEraseUID")
+; Event OnEraseUID(string eventName, string strArg, float UID, Form formId)
+; The UID functions are no longer valid when the UID event is received
 
 ; Returns a number for a unique item, if the item is not unique it will be made unique, returns 0 when invalid
 int Function GetItemUniqueID(ObjectReference akActor, int weaponSlot, int slotMask, bool makeUnique = true) native global
 
+; Returns a number for a unique item in the world, when it's placed in inventory it will maintain this ID
+int Function GetObjectUniqueID(ObjectReference akObject, bool makeUnique = true) native global
+
+; Returns the base form associated with this uniqueId
+Form Function GetFormFromUniqueID(int uniqueId) native global
+
+; Returns the reference that is holding the item described by this uniqueId
+; If the item is in the world, it will return the world reference of itself
+; If the item is inside of an inventory, it will return the reference of the inventory
+Form Function GetOwnerOfUniqueID(int uniqueId) native global
+
+; Dye Functions
 ; Uses the uniqueId acquired from GetItemUniqueID
 Function SetItemDyeColor(int uniqueId, int maskIndex, int color) native global
 int Function GetItemDyeColor(int uniqueId, int maskIndex) native global

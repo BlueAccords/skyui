@@ -25,8 +25,8 @@ int Property CHARGEN_VERSION = 4 AutoReadOnly
 int Property CHARGEN_SCRIPT_VERSION = 2 AutoReadOnly
 
 ; NiOverride version data
-int Property NIOVERRIDE_VERSION = 3 AutoReadOnly
-int Property NIOVERRIDE_SCRIPT_VERSION = 3 AutoReadOnly
+int Property NIOVERRIDE_VERSION = 4 AutoReadOnly
+int Property NIOVERRIDE_SCRIPT_VERSION = 4 AutoReadOnly
 
 string Property DEFAULT_OVERLAY = "Actors\\Character\\Overlays\\Default.dds" AutoReadOnly
 ; -------------------------------------------------
