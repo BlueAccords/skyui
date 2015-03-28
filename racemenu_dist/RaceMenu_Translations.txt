@@ -60,6 +60,7 @@ $Import Geometry	Import Geometry	Importer géométrie	Geometrie importieren		Imp
 $History	History	Historique	Verlauf		Historia	Historie	Historia	История	ヒストリー		歷史記錄	历史记录
 $Strength	Strength	Intensité	Stärke		Fuerza	Síla	Siła	Сила	強度		強度	强度
 $Radius	Radius	Rayon	Radius		Radio		Promień	Радиус	半径		半徑	半径
+$Falloff	Falloff											
 $Property	Property	Propriété	Eigenschaft		Prepiedad		Właściwość	Свойство	プロパティ		屬性	属性
 $Mirror	Mirror	Miroir	Spiegeln		Espejo	Zrcadlit	Odzwierciedlić	Отражение	ミラー		鏡像	镜像
 $Sculpt history will be lost	Sculpt history will be lost	L'historique de sculpture sera perdu	Sculptverlauf geht verloren		Historial de esculpido será perdida		Historia rzeźbienia będą utracone	История скульптора будет потеряна	スカルプトの履歴を削除		塑形記錄將會丟失	塑形记录将会丢失
@@ -83,8 +84,8 @@ $Toggle Editability	Toggle Editability	Activer édition	Editierbarkeit umschalte
 $Cycle Wireframe Color	Cycle Wireframe Color	Changer couleur de fil de fer	Wireframe-Farbe wechseln				Cykl Kolor Kontur	Сменить цвет сетки	サイクルワイヤーフレームの色		循環網格顏色	循环网格颜色
 $BODY SCALES	BODY SCALES	ECHELLES CORPS	KÖRPERFORM		Tamaños del cuerpo		SKALE CIAŁA	МАСШТАБЫ ТЕЛА	ボディースケール		身體比例	身体比例
 $Undefined	Undefined	Indéfini	Undefiniert		Indefinido		Niezdefiniowany	Неопределено	未定義		未定義	未定义
-$RM_FacePart	Face Part		Gesicht				Część Twarzy					
-$RM_MouthPart	Mouth Part		Mund				Część Ust					
+$RM_FacePart	Face Part		Gesicht				Część Twarzy				臉部	脸部
+$RM_MouthPart	Mouth Part		Mund				Część Ust				嘴部	嘴部
 $Height	Height	Taille	Größe	Altezza	Altura	Výška	Wysokość	Рост	身長	Altura	身高	高度
 $Head	Head	Tête	Kopf	Testa	Cabeza	Hlava	Głowa	Голова	頭部	Cabeça	頭部	头部
 $Left Breast	Left Breast	Poitrine gauche	Linke Brust	Seno Sinistro	Pecho izquierdo	Levé ňadro	Lewa Pierś	Левая грудь	左胸	Peito esquerdo	左胸	左胸
@@ -360,8 +361,8 @@ $EXPR_MoodSad	Mood Sad	Humeur triste	Laune Traurig		Humor Triste	Smutek	Smutny N
 $EXPR_MoodSurprise	Mood Surprise	Humeur surprise	Laune Überrascht		Humor Sorpresa	Překvapení	Zaskoczony Nastrój	Удивление	ムード・驚き		驚訝的情緒	惊讶的情绪
 $EXPR_SquintLeft	Squint Left	Loucher gauche	Links Zukneifen			Přimhouřit levé oko	Lewy Zez	Взгляд искоса налево	左斜視		瞇左眼	眯左眼
 $EXPR_SquintRight	Squint Right	Loucher droite	Rechts Zukneifen			Přimhouřit pravé oko	Prawy Zez	Взгляд искоза направо	右斜視		瞇右眼	眯右眼
-$EXPR_CombatAnger	Combat Anger	Combat colère	Kampf Verärgert		Combate Enojo	Bojový pokřík	Gniew Bojowy	Боевая ярость	戦闘・怒り		戰鬥的憤怒	战斗的愤怒
-$EXPR_CombatShout	Combat Shout	Combat cri	Kampf Schrei		Combate Grito	Bojový křík	Krzyk Bojowy	Боевой крик	戦闘・シャウト		戰鬥的吶喊	战斗的呐喊
+$EXPR_CombatAnger	Combat Anger	Combat colère	Kampfwut		Combate Enojo	Bojový pokřík	Gniew Bojowy	Боевая ярость	戦闘・怒り		戰鬥的憤怒	战斗的愤怒
+$EXPR_CombatShout	Combat Shout	Combat cri	Kampfschrei		Combate Grito	Bojový křík	Krzyk Bojowy	Боевой крик	戦闘・シャウト		戰鬥的吶喊	战斗的呐喊
 $EXPR_Aah	Aah	Aah	Aah		Aah	Aah	Aah	Аах	Aah		Aah	Aah
 $EXPR_BigAah	Big Aah	Grand Aah	Großes Aah		Gran Aah	Velké Aah	Wielkie Aah	Большой аах	Big Aah		Big Aah	Big Aah
 $EXPR_BMP	BMP	BMP	BMP		BMP	BMP	BMP	BMP	BMP		BMP	BMP
@@ -381,5 +382,5 @@ $EXPR_W	W	W	W		W	W	W	W	W		W	W
 												
 												
 												
-% Completion	100.00%	99.47%	100.00%	78.36%	97.10%	91.03%	100.00%	99.47%	99.47%	55.15%	99.47%	99.47%
-Total % Completion	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%	93.25%
+% Completion	100.00%	99.21%	99.74%	78.16%	96.84%	90.79%	99.74%	99.21%	99.21%	55.00%	99.74%	99.74%
+Total % Completion	93.11%	93.11%	93.11%	93.11%	93.11%	93.11%	93.11%	93.11%	93.11%	93.11%	93.11%	93.11%

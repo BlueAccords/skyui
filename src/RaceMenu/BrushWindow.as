@@ -105,6 +105,19 @@ class BrushWindow extends MovableWindow
 				brushList.entryList.push(strength);
 			}
 			
+			if(brushes[b].falloff != 0) {
+				var falloff: Object = {text: "$Falloff", sliderMin: brushes[b].falloffMin, sliderMax: brushes[b].falloffMax, filterFlag: 0, textFilters: [filter], interval: brushes[b].falloffInterval, position: brushes[b].falloff, brush: brushes[b], enabled: true};
+				falloff.internalCallback = function()
+				{
+					var brush: Object = this.entryObject.brush;
+					brush.falloff = this.entryObject.position;
+					
+					if(_global.skse.plugins.CharGen.SetBrushData)
+						_global.skse.plugins.CharGen.SetBrushData(brush.type, brush);
+				}
+				brushList.entryList.push(falloff);
+			}
+			
 			var mirror: Object = {text: "$Mirror", sliderMin: 0, sliderMax: 1, filterFlag: 0, textFilters: [filter], interval: 1, position: brushes[b].mirror, brush: brushes[b], enabled: true};
 			mirror.internalCallback = function()
 			{
