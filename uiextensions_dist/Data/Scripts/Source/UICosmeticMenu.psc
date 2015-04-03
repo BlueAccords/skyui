@@ -9,6 +9,8 @@ string Property 	COSMETIC_CATEGORY_BODYPAINT = 2 autoReadonly
 string Property 	COSMETIC_CATEGORY_HANDPAINT = 4 autoReadonly
 string Property 	COSMETIC_CATEGORY_FEETPAINT = 8 autoReadonly
 string Property 	COSMETIC_CATEGORY_FACEPAINT = 16 autoReadonly
+string Property 	COSMETIC_CATEGORY_SLIDERS = 32 autoReadonly
+string Property 	COSMETIC_CATEGORY_CATEGORIES = 64 autoReadonly
 
 Form _form = None
 int _categories = 0
