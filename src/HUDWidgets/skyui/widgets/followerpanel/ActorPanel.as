@@ -274,18 +274,24 @@ class skyui.widgets.followerpanel.ActorPanel extends WidgetBase
 	
 	public function addSingleActor(a_form: Object)
 	{
-		// We're about to add our first actor, start polling
-		if(_actorList.length == 0) {
-			clearInterval(_intervalId);
-			_intervalId = setInterval(this, "onUpdateInterval", updateInterval);
-		}
-		if(a_form.formId == undefined) {
+		if(a_form == undefined || a_form.formId == undefined || a_form.formId == 0) {
 			skse.Log("Error, undefined formId");
 			return;
 		}
 		
 		skse.ExtendForm(a_form.formId >>> 0, a_form, true, false);
+		if(a_form.actorBase == undefined || a_form.actorBase.formId == undefined  || a_form.actorBase.formId == 0) {
+			skse.Log("Error, bad actor");
+			return;
+		}
+		
 		skse.ExtendForm(a_form.actorBase.formId >>> 0, a_form.actorBase, true, false);
+		
+		// We're about to add our first actor, start polling
+		if(_actorList.length == 0) {
+			clearInterval(_intervalId);
+			_intervalId = setInterval(this, "onUpdateInterval", updateInterval);
+		}
 		
 		_actorList.push(a_form);
 	}

@@ -379,3 +379,16 @@ string[] Function GetNodeTransformNames(ObjectReference akRef, bool firstPerson,
 ; NodeDestination is a special key
 string[] Function GetNodeTransformKeys(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName) native global
 ; --------------------------------------------------------------------
+
+
+; NiExtraData Acquisition
+bool Function GetBooleanExtraData(ObjectReference akRef, bool firstPerson, string nodeName, string dataName) native global
+
+float Function GetFloatExtraData(ObjectReference akRef, bool firstPerson, string nodeName, string dataName) native global
+float[] Function GetFloatsExtraData(ObjectReference akRef, bool firstPerson, string nodeName, string dataName) native global
+
+int Function GetIntegerExtraData(ObjectReference akRef, bool firstPerson, string nodeName, string dataName) native global
+int[] Function GetIntegersExtraData(ObjectReference akRef, bool firstPerson, string nodeName, string dataName) native global
+
+string Function GetStringExtraData(ObjectReference akRef, bool firstPerson, string nodeName, string dataName) native global
+string[] Function GetStringsExtraData(ObjectReference akRef, bool firstPerson, string nodeName, string dataName) native global
