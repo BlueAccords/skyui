@@ -12,49 +12,49 @@ class skyui.components.list.BasicListEntry extends MovieClip
   /* PROPERTIES */
 	
 	public var itemIndex: Number;
-	public var onPressAux: Function;
+	public var isEnabled: Boolean = true;
 	
 	
   /* PUBLIC FUNCTIONS */
 	
-	public function BasicListEntry()
+	// @override MovieClip
+	public function onRollOver(): Void
 	{
-		super();
-		this.onRollOver = function()
-		{
-			var list = this._parent;
-			
-			if (itemIndex != undefined && enabled)
-				list.onItemRollOver(itemIndex);
-		}
+		var list = this._parent;
 		
-		this.onRollOut = function()
-		{
-			var list = this._parent;
-			
-			if (itemIndex != undefined && enabled)
-				list.onItemRollOut(itemIndex);
-		}
+		if (itemIndex != undefined && (isEnabled || list.canSelectDisabled))
+			list.onItemRollOver(itemIndex);
+	}
 		
-		this.onPress = function(a_mouseIndex: Number, a_keyboardOrMouse: Number)
-		{
-			var list = this._parent;
-				
-			if (itemIndex != undefined && enabled)
-				list.onItemPress(itemIndex, a_keyboardOrMouse);
-		}
-
-		this.onPressAux = function(a_mouseIndex: Number, a_keyboardOrMouse: Number, a_buttonIndex: Number)
-		{
-			var list = this._parent;
-				
-			if (itemIndex != undefined && enabled)
-				list.onItemPressAux(itemIndex, a_keyboardOrMouse, a_buttonIndex);
-		}
+	// @override MovieClip
+	public function onRollOut(): Void
+	{
+		var list = this._parent;
+		
+		if (itemIndex != undefined && (isEnabled || list.canSelectDisabled))
+			list.onItemRollOut(itemIndex);
+	}
+		
+	// @override MovieClip
+	public function onPress(a_mouseIndex: Number, a_keyboardOrMouse: Number): Void
+	{
+		var list = this._parent;
+			
+		if (itemIndex != undefined && (isEnabled || list.canSelectDisabled))
+			list.onItemPress(itemIndex, a_keyboardOrMouse);
+	}
+		
+	// @override MovieClip
+	public function onPressAux(a_mouseIndex: Number, a_keyboardOrMouse: Number, a_buttonIndex: Number): Void
+	{
+		var list = this._parent;
+			
+		if (itemIndex != undefined && (isEnabled || list.canSelectDisabled))
+			list.onItemPressAux(itemIndex, a_keyboardOrMouse, a_buttonIndex);
 	}
 	
 	// This is called after the object is added to the stage since the constructor does not accept any parameters.
-	public function initialize(a_index: Number, a_state: ListState): Void
+	public function initialize(a_index: Number, a_list: BasicList): Void
 	{
 		// Do nothing.
 	}
