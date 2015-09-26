@@ -207,6 +207,39 @@ class SaveLoadListPanel extends MovieClip
 		aTargetClip._width = ScreenshotHolder.sizer._width;
 		aTargetClip._height = ScreenshotHolder.sizer._height;
 	}
+	
+	function stringToDate(strToCheck):Date {
+		var year:String;
+		var month:String;
+		var day:String;
+		var newDate:Date;
+		
+		month = strToCheck;
+		month = month.substr(0, month.indexOf("/"));
+
+		var DDYYYYTIME: String = strToCheck.substr(month.length + 1, strToCheck.length);
+
+		day = DDYYYYTIME;
+		day = day.substr(0, day.indexOf("/"));
+
+		var YYYYTIME: String = DDYYYYTIME.substr(day.length + 1, DDYYYYTIME.length);
+
+		year = YYYYTIME;
+		year = year.substr(0, year.indexOf(","));
+
+		var time: String = YYYYTIME.substr(year.length + 2, YYYYTIME.length);
+		var hour: String = time.substr(0, time.indexOf(":"));
+		var minute: String = time.substr(time.indexOf(":")+1, time.length-5);
+		var AMPM: String = time.substr(time.length-2, time.length);
+		
+		var hourNumber = Number(hour);
+		if(AMPM == "PM") {
+			hourNumber += 12;
+		}
+		newDate = new Date(Number(year),Number(month)-1,Number(day), hourNumber, Number(minute));
+	 
+		return(newDate);
+	}
 
 	function onSaveLoadBatchComplete(abDoInitialUpdate: Boolean): Void
 	{
@@ -224,14 +257,25 @@ class SaveLoadListPanel extends MovieClip
 			listEntry.filterFlag = 0;
 			listEntry.levelText = PlayerInfoText.LevelText.text + " " + listEntry.level;
 			listEntry.textFilters = [listEntry.name];
-			characterMap[listEntry.name] = true;
+			if(!characterMap[listEntry.name]) {
+				characterMap[listEntry.name] = stringToDate(listEntry.dateString).valueOf();
+			}
 		}
+		
+		// Sort the character list by last played
+		var sortedList: Array = new Array();
+		for (var t: String in characterMap) {
+			sortedList.push({name: t, date: characterMap[t]});
+		}
+		
+		sortedList.sortOn("date", Array.DESCENDING | Array.NUMERIC);
+		
 		
 		// Build character list
 		characterList.entryList.splice(0, characterList.entryList.length);
 		characterList.entryList.push({text: "$All", flag: 0, filterFlag: 1, textFilter: "all", bDontHide: true, enabled: true});
-		for (var t: String in characterMap) {
-			characterList.entryList.push({text: t, flag: 0, filterFlag: 1, textFilter: t, bDontHide: true, enabled: true});
+		for (var i = 0; i < sortedList.length; i++) {
+			characterList.entryList.push({text: sortedList[i].name, flag: 0, filterFlag: 1, textFilter: sortedList[i].name, bDontHide: true, enabled: true});
 		}
 				
 		if (abDoInitialUpdate) {

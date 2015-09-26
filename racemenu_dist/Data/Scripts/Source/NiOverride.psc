@@ -1,7 +1,7 @@
 Scriptname NiOverride Hidden
 
 int Function GetScriptVersion() global
-	return 4
+	return 6
 EndFunction
 
 ; Valid keys
@@ -216,13 +216,43 @@ Function RevertHeadOverlays(ObjectReference ref) native global
 Function RevertHeadOverlay(ObjectReference ref, string nodeName, int partType, int shaderType) native global
 
 ; Sets a body morph value on an actor
-Function SetMorphValue(ObjectReference ref, string morphName, float value) native global
+Function SetMorphValue(ObjectReference ref, string morphName, float value) global
+	SetBodyMorph(ref, morphName, "RSMLegacy", value)
+EndFunction
 
 ; Gets a body morph value on an actor
-float Function GetMorphValue(ObjectReference ref, string morphName) native global
+float Function GetMorphValue(ObjectReference ref, string morphName) global
+	return GetBodyMorph(ref, morphName, "RSMLegacy")
+EndFunction
 
 ; Clears a body morph value on an actor
-Function ClearMorphValue(ObjectReference ref, string morphName) native global
+Function ClearMorphValue(ObjectReference ref, string morphName) global
+	return ClearBodyMorph(ref, morphName, "RSMLegacy")
+EndFunction
+
+; Returns true if there are any body morphs with this key and name
+bool Function HasBodyMorph(ObjectReference ref, string morphName, string keyName) native global
+
+; Sets a body morph value on an actor
+Function SetBodyMorph(ObjectReference ref, string morphName, string keyName, float value) native global
+
+; Gets a body morph value on an actor
+float Function GetBodyMorph(ObjectReference ref, string morphName, string keyName) native global
+
+; Clears a body morph value on an actor
+Function ClearBodyMorph(ObjectReference ref, string morphName, string keyName) native global
+
+; Returns true if there are any body morphs with this key
+bool Function HasBodyMorphKey(ObjectReference ref, string keyName) native global
+
+; Clears all body morphs with this key
+Function ClearBodyMorphKeys(ObjectReference ref, string keyName) native global
+
+; Returns true if there are any body morphs with this name
+bool Function HasBodyMorphName(ObjectReference ref, string keyName) native global
+
+; Clears all body morphs with this name
+Function ClearBodyMorphNames(ObjectReference ref, string morphName) native global
 
 ; Clears all body morphs for an actor
 Function ClearMorphs(ObjectReference ref) native global
@@ -231,8 +261,11 @@ Function ClearMorphs(ObjectReference ref) native global
 ; only to be used on actors who have morph values set
 Function UpdateModelWeight(ObjectReference ref) native global
 
-; Returns all Body Morph keys applied to the reference
-string[] Function GetMorphKeys(ObjectReference ref) native global
+; Returns all Body Morph names applied to the reference
+string[] Function GetMorphNames(ObjectReference ref) native global
+
+; Returns all Body Morph keys applied for the morph name
+string[] Function GetMorphKeys(ObjectReference ref, string morphName) native global
 
 ; Call this function prior to frequent changes in dyes to prevent massive lag
 Function EnableTintTextureCache() native global
@@ -304,6 +337,9 @@ Function UnregisterFormDyeColor(Form akForm) native global
 ; root node. The TargetNode will be the parent to Source
 ; ------------------------------------------------------------
 
+; As of script version 6 all keys ending with .esp or .esm will check if the mod is active
+; and erase the key at load time if the mod is not active
+
 ; Checks whether there is a positon override for the particular parameters
 bool Function HasNodeTransformPosition(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName, string key) native global
 
@@ -370,6 +406,9 @@ Function SetNodeDestination(ObjectReference akRef, bool firstPerson, bool isFema
 
 ; Returns the node destination of the particular parameters
 string Function GetNodeDestination(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName) native global
+
+; Removes a node destination for a particular node, does not revert the physical mesh, only removes the key
+bool Function RemoveNodeDestination(ObjectReference akRef, bool firstPerson, bool isFemale, string nodeName) native global
 
 ; These functions can be used to walk all of the current nodes if necessary
 ; Returns an array of all the altered nodes for the particular reference, skeleton, and gender

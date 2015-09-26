@@ -21,12 +21,12 @@ int Property SKSE_RELEASE_VERSION = 47 AutoReadOnly
 int Property RACEMENUBASE_SCRIPT_VERSION = 7 AutoReadOnly
 
 ; CharGen version data
-int Property CHARGEN_VERSION = 4 AutoReadOnly
-int Property CHARGEN_SCRIPT_VERSION = 2 AutoReadOnly
+int Property CHARGEN_VERSION = 5 AutoReadOnly
+int Property CHARGEN_SCRIPT_VERSION = 3 AutoReadOnly
 
 ; NiOverride version data
-int Property NIOVERRIDE_VERSION = 4 AutoReadOnly
-int Property NIOVERRIDE_SCRIPT_VERSION = 4 AutoReadOnly
+int Property NIOVERRIDE_VERSION = 6 AutoReadOnly
+int Property NIOVERRIDE_SCRIPT_VERSION = 6 AutoReadOnly
 
 string Property DEFAULT_OVERLAY = "Actors\\Character\\Overlays\\Default.dds" AutoReadOnly
 ; -------------------------------------------------
