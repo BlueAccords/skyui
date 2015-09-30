@@ -1,14 +1,18 @@
 Scriptname CharGen Hidden
 
 int Function GetScriptVersion() global
-	return 3
+	return 4
 EndFunction
 
 ; Saves a character's appearances to a preset file as well as a tint mask DDS
 Function SaveCharacter(string characterName) native global
 
+bool Function LoadCharacter(Actor akDestination, Race akRace, string characterName) global
+	return LoadCharacterEx(akDestination, akRace, characterName, 0)
+EndFunction
+
 ; Loads a character's appearance preset file onto an Actor
-bool Function LoadCharacter(Actor akDestination, Race akRace, string characterName) native global
+bool Function LoadCharacterEx(Actor akDestination, Race akRace, string characterName, int flags = 0) native global
 
 ; Deletes the slot,dds,nif
 Function DeleteCharacter(string characterName) native global
@@ -26,8 +30,12 @@ Function ClearPresets() native global
 ; Saves the characters slot, nif, and dds
 Function SaveExternalCharacter(string characterName) native global
 
+bool Function LoadExternalCharacter(Actor akDestination, Race akRace, string characterName) global
+	return LoadExternalCharacterEx(akDestination, akRace, characterName, 0)
+EndFunction
+
 ; Same as LoadCharacter, except it does not internally map the preset, meant to be paired with S.E.C
-bool Function LoadExternalCharacter(Actor akDestination, Race akRace, string characterName) native global
+bool Function LoadExternalCharacterEx(Actor akDestination, Race akRace, string characterName, int flags = 0) native global
 
 ; Determines whether loading external heads is enabled in the ini setting
 bool Function IsExternalEnabled() native global
@@ -65,7 +73,11 @@ EndFunction
 ; Hair Color form that is provided is modified
 ; Not recommended to call this function directly
 ; Loads actor preset from SKSE\Plugins\CharGen\Presets\%characterName%.jslot
-bool Function LoadCharacterPreset(Actor akDestination, string characterName, ColorForm hairColor) native global
+bool Function LoadCharacterPreset(Actor akDestination, string characterName, ColorForm hairColor) global
+	return LoadCharacterPresetEx(akDestination, characterName, hairColor, 0xFFFFFFFF)
+EndFunction
+
+bool Function LoadCharacterPresetEx(Actor akDestination, string characterName, ColorForm hairColor, int flags = 0xFFFFFFFF) native global
 
 ; Saves a preset from the NPC (Only works on player currently)
 ; Actor parameter is reserved for future use

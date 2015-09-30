@@ -22,7 +22,7 @@ int Property RACEMENUBASE_SCRIPT_VERSION = 7 AutoReadOnly
 
 ; CharGen version data
 int Property CHARGEN_VERSION = 5 AutoReadOnly
-int Property CHARGEN_SCRIPT_VERSION = 3 AutoReadOnly
+int Property CHARGEN_SCRIPT_VERSION = 4 AutoReadOnly
 
 ; NiOverride version data
 int Property NIOVERRIDE_VERSION = 6 AutoReadOnly

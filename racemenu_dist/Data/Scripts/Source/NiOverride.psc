@@ -126,6 +126,39 @@ Function ApplyWeaponOverrides(ObjectReference ref) native global
 ; ----------------------------------------------------
 
 
+
+
+; Version 6 (Skin Overrides)
+;-------------------------------------------------------
+; ObjectReference must be an Actor
+;
+bool Function HasSkinOverride(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index) native global
+
+Function AddSkinOverrideFloat(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index, float value, bool persist) native global
+Function AddSkinOverrideInt(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index, int value, bool persist) native global
+Function AddSkinOverrideBool(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index, bool value, bool persist) native global
+Function AddSkinOverrideString(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index, string value, bool persist) native global
+Function AddSkinOverrideTextureSet(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index, TextureSet value, bool persist) native global
+
+; Gets the saved override value
+float Function GetSkinOverrideFloat(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index) native global
+int Function GetSkinOverrideInt(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index) native global
+bool Function GetSkinOverrideBool(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index) native global
+string Function GetSkinOverrideString(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index) native global
+TextureSet Function GetSkinOverrideTextureSet(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index) native global
+
+; Gets the property straight from the node (Handy if you need the current value if an override D.N.E yet)
+float Function GetSkinPropertyFloat(ObjectReference ref, bool firstPerson, int slotMask, int key, int index) native global
+int Function GetSkinPropertyInt(ObjectReference ref, bool firstPerson, int slotMask, int key, int index) native global
+bool Function GetSkinPropertyBool(ObjectReference ref, bool firstPerson, int slotMask, int key, int index) native global
+string Function GetSkinPropertyString(ObjectReference ref, bool firstPerson, int slotMask, int key, int index) native global
+;TextureSet is not stored on the node, individual textures are, however.
+
+; Applies all skin properties visually to the actor, this shouldn't be necessary under normal circumstances
+Function ApplySkinOverrides(ObjectReference ref) native global
+; ----------------------------------------------------
+
+
 ; Remove functions do not revert the modified state, only remove it from the save
 
 ; Removes ALL Armor based overrides from ALL actors (Global purge)
@@ -173,6 +206,19 @@ Function RemoveAllWeaponNodeOverrides(ObjectReference ref, bool isFemale, bool f
 
 ; Removes a particular weapon override
 Function RemoveWeaponOverride(ObjectReference ref, bool isFemale, bool firstPerson, Weapon weap, string node, int key, int index) native global
+
+
+; Removes ALL skin based overrides from ALL actors (Global purge)
+Function RemoveAllSkinBasedOverrides() native global
+
+; Removes all skin based overrides for a particular actor
+Function RemoveAllReferenceSkinOverrides(ObjectReference ref) native global
+
+; Removes all skin overrides for a particular actor, gender, view, and weapon
+Function RemoveAllSkinOverrides(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask) native global
+
+; Removes a particular skin override
+Function RemoveSkinOverride(ObjectReference ref, bool isFemale, bool firstPerson, int slotMask, int key, int index) native global
 
 
 ; Overlay Data
