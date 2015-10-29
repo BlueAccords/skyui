@@ -21,7 +21,7 @@ int Property SKSE_RELEASE_VERSION = 47 AutoReadOnly
 int Property RACEMENUBASE_SCRIPT_VERSION = 7 AutoReadOnly
 
 ; CharGen version data
-int Property CHARGEN_VERSION = 5 AutoReadOnly
+int Property CHARGEN_VERSION = 6 AutoReadOnly
 int Property CHARGEN_SCRIPT_VERSION = 4 AutoReadOnly
 
 ; NiOverride version data
@@ -556,6 +556,9 @@ Function InvalidateShaders()
 	If SKSE.GetPluginVersion("NiOverride") >= 1
 		NiOverride.ApplyOverrides(_targetActor)
 		NiOverride.ApplyNodeOverrides(_targetActor)
+		If SKSE.GetPluginVersion("NiOverride") >= 6
+			NiOverride.ApplySkinOverrides(_targetActor)
+		Endif
 	Endif
 EndFunction
 

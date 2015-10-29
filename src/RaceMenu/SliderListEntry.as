@@ -9,7 +9,7 @@ import gfx.controls.Slider;
 
 import RaceMenuDefines;
 
-class SliderListEntry extends BasicListEntry
+class SliderListEntry extends MovieClip
 {	
 	/* PROPERTIES */
   	public static var defaultTextColor: Number = 0xffffff;
@@ -19,6 +19,8 @@ class SliderListEntry extends BasicListEntry
 	private var proxyObject: Object;
 	
 	/* STAGE ELMENTS */
+	public var itemIndex: Number;
+	public var background: MovieClip;
 	public var activeIndicator: MovieClip;
 	public var selectIndicator: MovieClip;
 	public var focusIndicator: MovieClip;
@@ -34,10 +36,10 @@ class SliderListEntry extends BasicListEntry
 	public function SliderListEntry()
 	{
 		super();
-		delete this.onRollOver;
+		/*delete this.onRollOver;
 		delete this.onRollOut;
 		delete this.onPress;
-		delete this.onPressAux;
+		delete this.onPressAux;*/
 		
 		trigger.onRollOver = function()
 		{

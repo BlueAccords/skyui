@@ -6,7 +6,7 @@ import gfx.ui.InputDetails;
 
 import gfx.io.GameDelegate;
 
-class BrushListEntry extends BasicListEntry
+class BrushListEntry extends MovieClip
 {	
 	/* PROPERTIES */
 	public static var defaultTextColor: Number = 0xffffff;
@@ -15,6 +15,8 @@ class BrushListEntry extends BasicListEntry
 	private var proxyObject: Object;
   	
 	/* STAGE ELMENTS */
+	public var itemIndex: Number;
+	public var background: MovieClip;
 	public var selectIndicator: MovieClip;
 	public var textField: TextField;
 	public var valueField: TextField;
@@ -26,10 +28,6 @@ class BrushListEntry extends BasicListEntry
 	public function BrushListEntry()
 	{
 		super();
-		delete this.onRollOver;
-		delete this.onRollOut;
-		delete this.onPress;
-		delete this.onPressAux;
 		
 		trigger.onRollOver = function()
 		{

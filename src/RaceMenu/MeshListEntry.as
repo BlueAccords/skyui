@@ -5,11 +5,12 @@ import skyui.components.list.ListState;
 
 import gfx.io.GameDelegate;
 
-class MeshListEntry extends BasicListEntry
+class MeshListEntry extends MovieClip
 {	
 	/* PROPERTIES */
   	
 	/* STAGE ELMENTS */
+	public var itemIndex: Number;
 	public var selectIndicator: MovieClip;
 	public var textField: TextField;
 	public var visibleToggle: MovieClip;
@@ -23,10 +24,6 @@ class MeshListEntry extends BasicListEntry
 	public function MeshListEntry()
 	{
 		super();
-		delete this.onRollOver;
-		delete this.onRollOut;
-		delete this.onPress;
-		delete this.onPressAux;
 		
 		trigger.onRollOver = function()
 		{

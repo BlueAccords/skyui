@@ -718,10 +718,27 @@ class RaceMenu extends MovieClip
 		categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$MAKEUP", flag: RaceMenuDefines.CATEGORY_WARPAINT, priority: priority, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 		
 		if(_global.skse.plugins.NiOverride) {
-			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, priority: priority, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
-			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, priority: priority, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
-			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, priority: priority, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
-			categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, priority: priority, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
+			var bodyOverlays: Object = _global.skse.plugins.NiOverride.body;
+			var handOverlays: Object = _global.skse.plugins.NiOverride.hand;
+			var feetOverlays: Object = _global.skse.plugins.NiOverride.feet;
+			var faceOverlays: Object = _global.skse.plugins.NiOverride.face;
+			
+			if(bodyOverlays.iNumOverlays + bodyOverlays.iSpellOverlays > 0) {
+				categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, priority: priority, enabled: true});
+			}
+			priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
+			if(handOverlays.iNumOverlays + handOverlays.iSpellOverlays > 0) {
+				categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, priority: priority, enabled: true});
+			}
+			priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
+			if(feetOverlays.iNumOverlays + feetOverlays.iSpellOverlays > 0) {
+				categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, priority: priority, enabled: true});
+			}
+			priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
+			if(faceOverlays.iNumOverlays + faceOverlays.iSpellOverlays > 0) {
+				categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, priority: priority, enabled: true});
+			}
+			priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 		}
 		
 		skse.SendModEvent(_global.eventPrefix + "CategoriesInitialized");

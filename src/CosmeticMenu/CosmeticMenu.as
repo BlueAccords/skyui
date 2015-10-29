@@ -196,17 +196,34 @@ class CosmeticMenu extends MovieClip
 		}
 		
 		if(_global.skse.plugins.NiOverride) {
+			var bodyOverlays: Object = _global.skse.plugins.NiOverride.body;
+			var handOverlays: Object = _global.skse.plugins.NiOverride.hand;
+			var feetOverlays: Object = _global.skse.plugins.NiOverride.feet;
+			var faceOverlays: Object = _global.skse.plugins.NiOverride.face;
+			
 			if((a_categories & COSMETIC_CATEGORY_BODYPAINT) == COSMETIC_CATEGORY_BODYPAINT) {
-				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
+				if(bodyOverlays.iNumOverlays + bodyOverlays.iSpellOverlays > 0) {
+					RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$BODY PAINT", flag: RaceMenuDefines.CATEGORY_BODYPAINT, enabled: true});
+				}
+				priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 			}
 			if((a_categories & COSMETIC_CATEGORY_HANDPAINT) == COSMETIC_CATEGORY_HANDPAINT) {
-				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
+				if(handOverlays.iNumOverlays + handOverlays.iSpellOverlays > 0) {
+					RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$HAND PAINT", flag: RaceMenuDefines.CATEGORY_HANDPAINT, enabled: true});
+				}
+				priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 			}
 			if((a_categories & COSMETIC_CATEGORY_FEETPAINT) == COSMETIC_CATEGORY_FEETPAINT) {
-				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
+				if(feetOverlays.iNumOverlays + feetOverlays.iSpellOverlays > 0) {
+					RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FOOT PAINT", flag: RaceMenuDefines.CATEGORY_FEETPAINT, enabled: true});
+				}
+				priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 			}
 			if((a_categories & COSMETIC_CATEGORY_FACEPAINT) == COSMETIC_CATEGORY_FACEPAINT) {
-				RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, enabled: true}); priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
+				if(faceOverlays.iNumOverlays + faceOverlays.iSpellOverlays > 0) {
+					RaceMenuInstance.categoryList.entryList.push({type: RaceMenuDefines.ENTRY_TYPE_CAT, bDontHide: false, filterFlag: 1, text: "$FACE PAINT", flag: RaceMenuDefines.CATEGORY_FACEPAINT, enabled: true});
+				}
+				priority += RaceMenuDefines.CATEGORY_PRIORITY_STEP;
 			}
 		}
 		

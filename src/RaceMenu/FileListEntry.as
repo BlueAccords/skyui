@@ -5,11 +5,12 @@ import skyui.components.list.ListState;
 
 import gfx.io.GameDelegate;
 
-class FileListEntry extends BasicListEntry
+class FileListEntry extends MovieClip
 {	
 	/* PROPERTIES */
   	
 	/* STAGE ELMENTS */
+	public var itemIndex: Number;
 	public var selectIndicator: MovieClip;
 	public var textField: TextField;
 	public var trigger: MovieClip;
@@ -22,10 +23,6 @@ class FileListEntry extends BasicListEntry
 	{
 		super();
 		textField.textAutoSize = "shrink";
-		delete this.onRollOver;
-		delete this.onRollOut;
-		delete this.onPress;
-		delete this.onPressAux;
 		
 		trigger.onRollOver = function()
 		{

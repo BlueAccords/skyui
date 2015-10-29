@@ -9,7 +9,7 @@ import gfx.controls.Slider;
 
 import RaceMenuDefines;
 
-class PresetListEntry extends BasicListEntry
+class PresetListEntry extends MovieClip
 {	
 	/* PROPERTIES */
   	public static var defaultTextColor: Number = 0xffffff;
@@ -19,6 +19,8 @@ class PresetListEntry extends BasicListEntry
 	private var proxyObject: Object;
 	
 	/* STAGE ELMENTS */
+	public var itemIndex: Number;
+	public var background: MovieClip;
 	public var activeIndicator: MovieClip;
 	public var selectIndicator: MovieClip;
 	public var focusIndicator: MovieClip;
@@ -35,11 +37,7 @@ class PresetListEntry extends BasicListEntry
 	public function PresetListEntry()
 	{
 		super();
-		delete this.onRollOver;
-		delete this.onRollOut;
-		delete this.onPress;
-		delete this.onPressAux;
-		
+
 		trigger.onRollOver = function()
 		{
 			var list = this._parent._parent;

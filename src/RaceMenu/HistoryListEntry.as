@@ -5,13 +5,14 @@ import skyui.components.list.ListState;
 
 import gfx.io.GameDelegate;
 
-class HistoryListEntry extends BasicListEntry
+class HistoryListEntry extends MovieClip
 {	
 	/* PROPERTIES */
 	public static var defaultTextColor: Number = 0xffffff;
 	public static var disabledTextColor: Number = 0x4c4c4c;
   	
 	/* STAGE ELMENTS */
+	public var itemIndex: Number;
 	public var selectIndicator: MovieClip;
 	public var textField: TextField;
 	public var trigger: MovieClip;
@@ -21,10 +22,6 @@ class HistoryListEntry extends BasicListEntry
 	public function HistoryListEntry()
 	{
 		super();
-		delete this.onRollOver;
-		delete this.onRollOut;
-		delete this.onPress;
-		delete this.onPressAux;
 		
 		trigger.onRollOver = function()
 		{
