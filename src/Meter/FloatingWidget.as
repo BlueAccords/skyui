@@ -15,6 +15,12 @@ class FloatingWidget extends MovieClip
 		updateTextFields();
 	}
 	
+	// _visible:
+	// http://help.adobe.com/en_US/AS2LCR/Flash_10.0/help.html?content=00001369.html
+	// _root: references the main timeline.
+	// http://help.adobe.com/en_US/AS2LCR/Flash_10.0/help.html?content=00000627.html
+	// hudExtension references the floatingWidgets.as file and the strings in the brackets
+	// represent properties of the floatingWidgets.as
 	public function updateVisibility()
 	{
 		var hudExtension = _root.hudExtension.floatingWidgets;

@@ -4,7 +4,8 @@ import gfx.events.EventDispatcher;
 import skyui.components.list.ListLayout;
 import skyui.util.GlobalFunctions;
 
-
+// This file parses shit into classname/value pairs and
+// the FloatingWidgets.as file actually categorizes and stores it.
 class HudConfig
 {
   /* CONSTANTS */

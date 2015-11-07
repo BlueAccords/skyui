@@ -1,0 +1,41 @@
+[Healthbar]
+color.hostile.primary = 0xFF0000
+color.hostile.secondary = -1
+color.hostile.flash = -1
+color.friendly.primary = 0x00FF00
+color.friendly.secondary = -1
+color.friendly.flash = -1
+fillDirection = both
+dimensions.width = 432.9
+dimensions.height = 36.0
+visible = true
+x = 0
+y = 0
+
+[Texts]
+name.color.hostile = 0xFF0000
+name.color.friendly = 0x00FF00
+name.size = 72
+name.x = 0
+name.y = -60
+name.alignment = center
+name.autoSize = center
+name.visible = true
+health.color.hostile = 0xFFFFFF
+health.color.friendly = 0xFFFFFF
+health.size = 40
+health.x = 0
+health.y = -8
+health.alignment = center
+health.autoSize = center
+health.visible = true
+
+[Behavior]
+; Add flags together for desired results
+; 1 - Hide Enemies
+; 2 - Hide Ally
+; 4 - Hide Friend
+; 8 - Hide Non Hostile (Less than Ally and Friend)
+; 16 - Hide At Full
+; 32 - Hide Name (Overrides Texts, doesnt even assign name at all, more performance friendly)
+flags = 12
