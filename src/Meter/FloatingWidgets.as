@@ -163,20 +163,56 @@
 	public function setConfig(a_config: Object): Void
 	{
 		_config = a_config;
+		// health
 		var healthbar = a_config["Healthbar"];
-		_primaryColorDefault = healthbar.color.hostile.primary;
-		_secondaryColorDefault = healthbar.color.hostile.secondary;
-		_flashColorDefault = healthbar.color.hostile.flash;
-		_primaryFriendlyColorDefault = healthbar.color.friendly.primary;
-		_secondaryFriendlyColorDefault = healthbar.color.friendly.secondary;
-		_flashFriendlyColorDefault = healthbar.color.friendly.flash;
-		_fillDirectionDefault = healthbar.fillDirection;
+		_primaryHealthColorDefault = healthbar.color.hostile.primary;
+		_secondaryHealthColorDefault = healthbar.color.hostile.secondary;
+		_flashHealthColorDefault = healthbar.color.hostile.flash;
+		_primaryHealthFriendlyColorDefault = healthbar.color.friendly.primary;
+		_secondaryHealthFriendlyColorDefault = healthbar.color.friendly.secondary;
+		_flashHealthFriendlyColorDefault = healthbar.color.friendly.flash;
+		_fillHealthDirectionDefault = healthbar.fillDirection;
 		
-		_meterWidth = healthbar.dimensions.width;
-		_meterHeight = healthbar.dimensions.height;
-		_meterVisible = healthbar.visible;
-		_meterXOffset = healthbar.x;
-		_meterYOffset = healthbar.y;
+		// magicka
+		var magickabar = a_config["Magickabar"];
+		_primaryMagickaColorDefault = magickabar.color.hostile.primary;
+		_secondaryMagickaColorDefault = magickabar.color.hostile.secondary;
+		_flashMagickaColorDefault = magickabar.color.hostile.flash;
+		_primaryMagickaFriendlyColorDefault = magickabar.color.friendly.primary;
+		_secondaryMagickaFriendlyColorDefault = magickabar.color.friendly.secondary;
+		_flashMagickaFriendlyColorDefault = magickabar.color.friendly.flash;
+		_fillMagickaDirectionDefault = magickabar.magickabarfillDirection;
+
+		// stamina
+		var staminabar = a_config["Staminabar"];
+		_primaryStaminaColorDefault = staminabar.color.hostile.primary;
+		_secondaryStaminaColorDefault = staminabar.color.hostile.secondary;
+		_flashStaminaColorDefault = staminabar.color.hostile.flash;
+		_primaryStaminaFriendlyColorDefault = staminabar.color.friendly.primary;
+		_secondaryStaminaFriendlyColorDefault = staminabar.color.friendly.secondary;
+		_flashStaminaFriendlyColorDefault = staminabar.color.friendly.flash;
+		_fillStaminaDirectionDefault = staminabar.fillDirection;
+
+		//health
+		_meterHealthWidth = healthbar.dimensions.width;
+		_meterHealthHeight = healthbar.dimensions.height;
+		_meterHealthVisible = healthbar.visible;
+		_meterHealthXOffset = healthbar.x;
+		_meterHealthYOffset = healthbar.y;
+
+		//magicka
+		_meterMagickaWidth = magickabar.dimensions.width;
+		_meterMagickaHeight = magickabar.dimensions.height;
+		_meterMagickaVisible = magickabar.visible;
+		_meterMagickaXOffset = magickabar.x;
+		_meterMagickaYOffset = magickabar.y;
+
+		//stamina
+		_meterStaminaWidth = staminabar.dimensions.width;
+		_meterStaminaHeight = staminabar.dimensions.height;
+		_meterStaminaVisible = staminabar.visible;
+		_meterStaminaXOffset = staminabar.x;
+		_meterStaminaYOffset = staminabar.y;
 		
 		var texts = a_config["Texts"];
 		_nameColorHostile = texts.name.color.hostile;
@@ -187,6 +223,7 @@
 		_nameXOffset = texts.name.x;
 		_nameYOffset = texts.name.y;
 		_nameVisible = texts.name.visible;
+
 		// health
 		_healthColorHostile = texts.health.color.hostile;
 		_healthColorFriendly = texts.health.color.friendly;
@@ -196,30 +233,34 @@
 		_healthXOffset = texts.health.x;
 		_healthYOffset = texts.health.y;
 		_healthVisible = texts.health.visible;
+
 		// magicka
-		_magickaColorHostile = texts.health.color.hostile;
-		_magickaColorFriendly = texts.health.color.friendly;
-		_magickaSize = texts.health.size;
-		_magickaAlignment = texts.health.alignment;
-		_magickaAutoSize = texts.health.autoSize;
-		_magickaXOffset = texts.health.x;
-		_magickaYOffset = texts.health.y;
-		_magickaVisible = texts.health.visible;
+		_magickaColorHostile = texts.magicka.color.hostile;
+		_magickaColorFriendly = texts.magicka.color.friendly;
+		_magickaSize = texts.magicka.size;
+		_magickaAlignment = texts.magicka.alignment;
+		_magickaAutoSize = texts.magicka.autoSize;
+		_magickaXOffset = texts.magicka.x;
+		_magickaYOffset = texts.magicka.y;
+		_magickaVisible = texts.magicka.visible;
+
 		// stamina
-		_staminaColorHostile = texts.health.color.hostile;
-		_staminaColorFriendly = texts.health.color.friendly;
-		_staminaSize = texts.health.size;
-		_staminaAlignment = texts.health.alignment;
-		_staminaAutoSize = texts.health.autoSize;
-		_staminaXOffset = texts.health.x;
-		_staminaYOffset = texts.health.y;
-		_staminaVisible = texts.health.visible;
+		_staminaColorHostile = texts.stamina.color.hostile;
+		_staminaColorFriendly = texts.stamina.color.friendly;
+		_staminaSize = texts.stamina.size;
+		_staminaAlignment = texts.stamina.alignment;
+		_staminaAutoSize = texts.stamina.autoSize;
+		_staminaXOffset = texts.stamina.x;
+		_staminaYOffset = texts.stamina.y;
+		_staminaVisible = texts.stamina.visible;
 
 		var behavior = a_config["Behavior"];
 		_flags = behavior.flags;
 	}
 
-	public function loadWidget(a_meterId: Number, a_flags: Number, a_current: Number, a_maximum: Number, a_primaryColor: Number, a_secondaryColor: Number, a_flashColor: Number, a_primaryFriendlyColor: Number, a_secondaryFriendlyColor: Number, a_flashFriendlyColor: Number, a_fillDirection: Number): MovieClip
+	public function loadWidget(a_meterId: Number, a_flags: Number, a_current: Number, a_maximum: Number, 
+		a_primaryColor: Number, a_secondaryColor: Number, a_flashColor: Number, a_primaryFriendlyColor: Number, 
+		a_secondaryFriendlyColor: Number, a_flashFriendlyColor: Number, a_fillDirection: Number): MovieClip
 	{
 		/*var flags: Number = (a_flags != null) ? a_flags : 0;
 		var percent: Number = (a_percent != null) ? a_percent : 0.5;
