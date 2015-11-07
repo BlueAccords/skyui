@@ -7,6 +7,9 @@
 	private var _config;
 	// Color Defaults for Enemy colors. 
 
+	// FloatingWidgets.as is the class that holds ALL widgets, dont ever change that class 
+
+
 	// Health Colors
 	private var _primaryHealthColorDefault: Number = 0xFF0000;
 	private var _secondaryHealthColorDefault: Number = -1;
@@ -211,7 +214,7 @@
 		_staminaXOffset = texts.health.x;
 		_staminaYOffset = texts.health.y;
 		_staminaVisible = texts.health.visible;
-		
+
 		var behavior = a_config["Behavior"];
 		_flags = behavior.flags;
 	}
