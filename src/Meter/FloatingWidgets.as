@@ -214,6 +214,7 @@
 		_meterStaminaXOffset = staminabar.x;
 		_meterStaminaYOffset = staminabar.y;
 		
+		// texts(no change needed?)
 		var texts = a_config["Texts"];
 		_nameColorHostile = texts.name.color.hostile;
 		_nameColorFriendly = texts.name.color.friendly;

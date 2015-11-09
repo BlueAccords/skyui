@@ -2,10 +2,23 @@
 
 class FloatingWidget extends MovieClip
 {	
-	public var Meter: skyui.components.Meter;
-	public var nameField: TextField;
+	//dupe all 3 of the following variables to health/stam/magicka
+
+	//health
+	public var HealthMeter: skyui.components.Meter;
+	public var healthNameField: TextField;
 	public var healthField: TextField;
 	
+	//magicka
+	public var MagickaMeter: skyui.components.Meter;
+	public var MagickaNameField: TextField;
+	public var MagickaField: TextField;
+
+	//stamina
+	public var StaminaMeter: skyui.components.Meter;
+	public var StaminaNameField: TextField;
+	public var StaminaField: TextField;	
+
 	public var flags: Number;
 		
 	public function onLoad()
