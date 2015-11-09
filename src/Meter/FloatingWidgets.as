@@ -75,16 +75,39 @@
 	private var _meterStaminaYOffset: Number = 0;
 	private var _meterStaminaVisible: Boolean = true;
 	
-	// Name stats(probably only need one set)	
-	private var _nameSize: Number = 72;
-	private var _nameColorHostile: Number = 0xFFFFFF;
-	private var _nameColorFriendly: Number = 0xFFFFFF;	
-	private var _nameAlignment: String = "center";
-	private var _nameAutoSize: String = "center";
-	private var _nameXOffset: Number = 0;
-	private var _nameYOffset: Number = -60;
-	private var _nameVisible: Boolean = true;
+	// Name stats(probably only need one set)
+	// nvm need to adjust this as well.	
+
+	//health
+	private var _nameHealthSize: Number = 72;
+	private var _nameHealthColorHostile: Number = 0xFFFFFF;
+	private var _nameHealthColorFriendly: Number = 0xFFFFFF;	
+	private var _nameHealthAlignment: String = "center";
+	private var _nameHealthAutoSize: String = "center";
+	private var _nameHealthXOffset: Number = 0;
+	private var _nameHealthYOffset: Number = -60;
+	private var _nameHealthVisible: Boolean = true;
 	
+	//magicka
+	private var _nameMagickaSize: Number = 72;
+	private var _nameMagickaColorHostile: Number = 0xFFFFFF;
+	private var _nameMagickaColorFriendly: Number = 0xFFFFFF;	
+	private var _nameMagickaAlignment: String = "center";
+	private var _nameMagickaAutoSize: String = "center";
+	private var _nameMagickaXOffset: Number = 0;
+	private var _nameMagickaYOffset: Number = -60;
+	private var _nameMagickaVisible: Boolean = true;
+
+	//stamina
+	private var _nameStaminaSize: Number = 72;
+	private var _nameStaminaColorfHostile: Number = 0xFFFFFF;
+	private var _nameStaminaColorFriendly: Number = 0xFFFFFF;	
+	private var _nameStaminaAlignment: String = "center";
+	private var _nameStaminaAutoSize: String = "center";
+	private var _nameStaminaXOffset: Number = 0;
+	private var _nameStaminaYOffset: Number = -60;
+	private var _nameStaminaVisible: Boolean = true;
+
 	// May need to change these stats
 	// "health" stats
 
@@ -216,16 +239,40 @@
 		
 		// texts(no change needed?)
 		var texts = a_config["Texts"];
-		_nameColorHostile = texts.name.color.hostile;
-		_nameColorFriendly = texts.name.color.friendly;
-		_nameSize = texts.name.size;
-		_nameAlignment = texts.name.alignment;
-		_nameAutoSize = texts.name.autoSize;
-		_nameXOffset = texts.name.x;
-		_nameYOffset = texts.name.y;
-		_nameVisible = texts.name.visible;
 
 		// health
+		_nameHealthColorHostile = texts.health.name.color.hostile;
+		_nameHealthColorFriendly = texts.health.name.color.friendly;
+		_nameHealthSize = texts.health.name.size;
+		_nameHealthAlignment = texts.health.name.alignment;
+		_nameHealthAutoSize = texts.health.name.autoSize;
+		_nameHealthXOffset = texts.health.name.x;
+		_nameHealthYOffset = texts.health.name.y;
+		_nameHealthVisible = texts.health.name.visible;
+
+		// magicka
+		_nameMagickaColorHostile = texts.magicka.name.color.hostile;
+		_nameMagickaColorFriendly = texts.magicka.name.color.friendly;
+		_nameMagickaSize = texts.magicka.name.size;
+		_nameMagickaAlignment = texts.magicka.name.alignment;
+		_nameMagickaAutoSize = texts.magicka.name.autoSize;
+		_nameMagickaXOffset = texts.magicka.name.x;
+		_nameMagickaYOffset = texts.magicka.name.y;
+		_nameMagickaVisible = texts.magicka.name.visible;
+
+		// stamina
+		_nameStaminaColorHostile = texts.stamina.name.color.hostile;
+		_nameStaminaColorFriendly = texts.stamina.name.color.friendly;
+		_nameStaminaSize = texts.stamina.name.size;
+		_nameStaminaAlignment = texts.stamina.name.alignment;
+		_nameStaminaAutoSize = texts.stamina.name.autoSize;
+		_nameStaminaXOffset = texts.stamina.name.x;
+		_nameStaminaYOffset = texts.stamina.name.y;
+		_nameStaminaVisible = texts.stamina.name.visible;
+
+		// texts.attribute section
+
+		//health
 		_healthColorHostile = texts.health.color.hostile;
 		_healthColorFriendly = texts.health.color.friendly;
 		_healthSize = texts.health.size;
@@ -235,7 +282,7 @@
 		_healthYOffset = texts.health.y;
 		_healthVisible = texts.health.visible;
 
-		// magicka
+		//magicka
 		_magickaColorHostile = texts.magicka.color.hostile;
 		_magickaColorFriendly = texts.magicka.color.friendly;
 		_magickaSize = texts.magicka.size;
@@ -245,7 +292,7 @@
 		_magickaYOffset = texts.magicka.y;
 		_magickaVisible = texts.magicka.visible;
 
-		// stamina
+		//stamina
 		_staminaColorHostile = texts.stamina.color.hostile;
 		_staminaColorFriendly = texts.stamina.color.friendly;
 		_staminaSize = texts.stamina.size;

@@ -11,13 +11,13 @@ class FloatingWidget extends MovieClip
 	
 	//magicka
 	public var MagickaMeter: skyui.components.Meter;
-	public var MagickaNameField: TextField;
-	public var MagickaField: TextField;
+	public var magickaNameField: TextField;
+	public var magickaField: TextField;
 
 	//stamina
 	public var StaminaMeter: skyui.components.Meter;
-	public var StaminaNameField: TextField;
-	public var StaminaField: TextField;	
+	public var staminaNameField: TextField;
+	public var staminaField: TextField;	
 
 	public var flags: Number;
 		
@@ -37,33 +37,96 @@ class FloatingWidget extends MovieClip
 	public function updateVisibility()
 	{
 		var hudExtension = _root.hudExtension.floatingWidgets;
-		Meter._visible = hudExtension["_meterVisible"];
-		nameField._visible = hudExtension["_nameVisible"];
+		//health
+		HealthMeter._visible = hudExtension["_meterHealthVisible"];
+		healthNameField._visible = hudExtension["_nameHealthVisible"];
 		healthField._visible = hudExtension["_healthVisible"];
+
+		//magicka
+		MagickaMeter._visible = hudExtension["_meterMagickaVisible"];
+		magickaNameField._visible = hudExtension["_nameMagickaVisible"];
+		magickaField._visible = hudExtension["_magickaVisible"];
+
+		//stamina
+		StaminaMeter._visible = hudExtension["_meterStaminaVisible"];
+		staminaNameField._visible = hudExtension["_nameStaminaVisible"];
+		staminaField._visible = hudExtension["_staminaVisible"];
 	}
 	
 	public function updateDimensions()
 	{
 		var hudExtension = _root.hudExtension.floatingWidgets;
-		Meter.setSize(hudExtension["_meterWidth"], hudExtension["_meterHeight"]);
-		nameField.autoSize = hudExtension["_nameAutoSize"];
-		nameField._x += hudExtension["_nameXOffset"];
-		nameField._y += hudExtension["_nameYOffset"];
+
+		//name fields
+		//health
+		HealthMeter.setSize(hudExtension["_meterHealthWidth"], hudExtension["_meterHealthHeight"]);
+		healthNameField.autoSize = hudExtension["_nameHealthAutoSize"];
+		healthNameField._x += hudExtension["_nameHealthXOffset"];
+		healthNameField._y += hudExtension["_nameHealthYOffset"];
 		
+		//magicka
+		MagickaMeter.setSize(hudExtension["_meterMagickaWidth"], hudExtension["_meterMagickaHeight"]);
+		magickaNameField.autoSize = hudExtension["_nameMagickaAutoSize"];
+		magickaNameField._x += hudExtension["_nameMagickaXOffset"];
+		magickaNameField._y += hudExtension["_nameMagickaYOffset"];
+
+		//stamina
+		StaminaMeter.setSize(hudExtension["_meterStaminaWidth"], hudExtension["_meterStaminaHeight"]);
+		staminaNameField.autoSize = hudExtension["_nameStaminaAutoSize"];
+		staminaNameField._x += hudExtension["_nameStaminaXOffset"];
+		staminaNameField._y += hudExtension["_nameStaminaYOffset"];
+
+		// autosize, XY offsets, meter offsets
+
+		//health
 		healthField.autoSize = hudExtension["_healthAutoSize"];
 		healthField._x += hudExtension["_healthXOffset"];
 		healthField._y += hudExtension["_healthYOffset"];
 		
-		Meter._x += hudExtension["_meterXOffset"];
-		Meter._y += hudExtension["_meterYOffset"];
+		HealthMeter._x += hudExtension["_meterHealthXOffset"];
+		HealthMeter._y += hudExtension["_meterHealthYOffset"];
 		
-		Meter.swapDepths(healthField);
+		HealthMeter.swapDepths(healthField);
+
+		//magicka
+		magickaField.autoSize = hudExtension["_magickaAutoSize"];
+		magickaField._x += hudExtension["_magickaXOffset"];
+		magickaField._y += hudExtension["_magickaYOffset"];
+		
+		MagickaMeter._x += hudExtension["_meterMagickaXOffset"];
+		MagickaMeter._y += hudExtension["_meterMagickaYOffset"];
+		
+		MagickaMeter.swapDepths(magickaField);
+
+		//stamina
+		staminaField.autoSize = hudExtension["_staminaAutoSize"];
+		staminaField._x += hudExtension["_staminaXOffset"];
+		staminaField._y += hudExtension["_staminaYOffset"];
+		
+		StaminaMeter._x += hudExtension["_meterStaminaXOffset"];
+		StaminaMeter._y += hudExtension["_meterStaminaYOffset"];
+		
+		StaminaMeter.swapDepths(staminaField);
 	}
 	
-	public function setValues(a_current: Number, a_maximum: Number)
+	// this function is called from HudExtension.cpp > UpdateValues
+	// where it originally passed a size 2 array.
+	public function setValues(a_health_current: Number, a_health_maximum: Number, a_magicka_current: Number, a_magicka_maximum: Number, 
+								a_stamina_current: Number, a_stamina_maximum: Number)
 	{
-		healthField.SetText(Math.max(Math.round(a_current)) + " / " + Math.round(a_maximum));
-		Meter.percent = a_current / a_maximum;
+		// meter percentage
+
+		//health
+		healthField.SetText(Math.max(Math.round(a_health_current)) + " / " + Math.round(a_health_maximum));
+		HealthMeter.percent = a_health_current / a_health_maximum;
+
+		//magicka
+		magickaField.SetText(Math.max(Math.round(a_magicka_current)) + " / " + Math.round(a_magicka_maximum));
+		MagickaMeter.percent = a_magicka_current / a_magicka_maximum;
+
+		//stamina
+		staminaField.SetText(Math.max(Math.round(a_stamina_current)) + " / " + Math.round(a_stamina_maximum));
+		StaminaMeter.percent = a_stamina_current / a_stamina_maximum;
 	}
 	
 	public function isFriendly(): Boolean
@@ -71,25 +134,71 @@ class FloatingWidget extends MovieClip
 		return (this.flags & 128) == 128;
 	}
 	
-	public function setColors(a_primaryColor: Number, a_secondaryColor: Number, a_flashColor: Number)
+	public function setColors(a_healthPrimaryColor: Number, a_healthSecondaryColor: Number, a_healthFlashColor: Number,
+							  a_magickaPrimaryColor: Number, a_magickaSecondaryColor: Number, a_magickaFlashColor: Number,
+							  a_staminaPrimaryColor: Number, a_staminaSecondaryColor: Number, a_staminaFlashColor: Number)
 	{
 		var hudExtension = _root.hudExtension.floatingWidgets;
 			
-		var primaryColor: Number = hudExtension["_primaryColorDefault"];
-		var secondaryColor: Number = hudExtension["_secondaryColorDefault"];
-		var flashColor: Number = hudExtension["_flashColorDefault"];
+		// primary, secondary, flash Colors
+		
+		//health	
+		var primaryHealthColor: Number = hudExtension["_primaryHealthColorDefault"];
+		var secondaryHealthColor: Number = hudExtension["_secondaryHealthColorDefault"];
+		var flashHealthColor: Number = hudExtension["_flashHealthColorDefault"];
+
+		//magicka
+		var primaryMagickaColor: Number = hudExtension["_primaryMagickaColorDefault"];
+		var secondaryMagickaColor: Number = hudExtension["_secondaryMagickaColorDefault"];
+		var flashMagickaColor: Number = hudExtension["_flashMagickaColorDefault"];
+
+		//stamina
+		var primaryStaminaColor: Number = hudExtension["_primaryStaminaColorDefault"];
+		var secondaryStaminaColor: Number = hudExtension["_secondaryStaminaColorDefault"];
+		var flashStaminaColor: Number = hudExtension["_flashStaminaColorDefault"];
+
 			
 		if(isFriendly()) {
-			primaryColor = hudExtension["_primaryFriendlyColorDefault"];
-			secondaryColor = hudExtension["_secondaryFriendlyColorDefault"];
-			flashColor = hudExtension["_flashFriendlyColorDefault"];
+			// primary, secondary, flash colors if friendly
+
+			//health
+			primaryHealthColor = hudExtension["_primaryFriendlyColorDefault"];
+			secondaryHealthColor = hudExtension["_secondaryFriendlyColorDefault"];
+			flashHealthColor = hudExtension["_flashFriendlyColorDefault"];
+
+			//magicka
+			primaryMagickaColor = hudExtension["_primaryMagickaFriendlyColorDefault"];
+			secondaryMagickaColor = hudExtension["_secondaryMagickaFriendlyColorDefault"];
+			flashMagickaColor = hudExtension["_flashMagickaFriendlyColorDefault"];
+
+			//stamina
+			primaryStaminaColor = hudExtension["_primaryStaminaFriendlyColorDefault"];
+			secondaryStaminaColor = hudExtension["_secondaryStaminaFriendlyColorDefault"];
+			flashStaminaColor = hudExtension["_flashStaminaFriendlyColorDefault"];
 		}
-			
-		var colors: Array = [(a_primaryColor != null) ? a_primaryColor : primaryColor,
-							(a_secondaryColor != null) ? a_secondaryColor : secondaryColor,
-							(a_flashColor != null) ? a_flashColor : flashColor];
 		
-		Meter.setColors(colors[0], colors[1], colors[2]);
+		// Set up backup colors?
+
+		//health
+		var colorsHealth: Array = [(a_healthPrimaryColor != null) ? a_healthPrimaryColor : primaryHealthColor,
+							(a_healthSecondaryColor != null) ? a_healthSecondaryColor : secondaryHealthColor,
+							(a_healthFlashColor != null) ? a_healthFlashColor : flashHealthColor];
+		
+		HealthMeter.setColors(colorsHealth[0], colorsHealth[1], colorsHealth[2]);
+
+		//magicka
+		var colorsMagicka: Array = [(a_magickaPrimaryColor != null) ? a_magickaPrimaryColor : primaryMagickaColor,
+							(a_magickaSecondaryColor != null) ? a_magickaSecondaryColor : secondaryMagickaColor,
+							(a_magickaFlashColor != null) ? a_magickaFlashColor : flashMagickaColor];
+		
+		MagickaMeter.setColors(colorsMagicka[0], colorsMagicka[1], colorsMagicka[2]);
+
+		//stamina
+		var colorsStamina: Array = [(a_staminaPrimaryColor != null) ? a_staminaPrimaryColor : primaryStaminaColor,
+							(a_staminaSecondaryColor != null) ? a_staminaSecondaryColor : secondaryStaminaColor,
+							(a_staminaFlashColor != null) ? a_staminaFlashColor : flashStaminaColor];
+		
+		StaminaMeter.setColors(colorsStamina[0], colorsStamina[1], colorsStamina[2]);
 		updateTextFields();
 	}
 	
