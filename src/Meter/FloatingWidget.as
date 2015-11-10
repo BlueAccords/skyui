@@ -57,7 +57,7 @@ class FloatingWidget extends MovieClip
 	{
 		var hudExtension = _root.hudExtension.floatingWidgets;
 
-		//name fields
+		//name fields ====================================================================================================================
 		//health
 		HealthMeter.setSize(hudExtension["_meterHealthWidth"], hudExtension["_meterHealthHeight"]);
 		healthNameField.autoSize = hudExtension["_nameHealthAutoSize"];
@@ -76,7 +76,7 @@ class FloatingWidget extends MovieClip
 		staminaNameField._x += hudExtension["_nameStaminaXOffset"];
 		staminaNameField._y += hudExtension["_nameStaminaYOffset"];
 
-		// autosize, XY offsets, meter offsets
+		// autosize, XY offsets, meter offsets ====================================================================================================================
 
 		//health
 		healthField.autoSize = hudExtension["_healthAutoSize"];
@@ -114,7 +114,7 @@ class FloatingWidget extends MovieClip
 	public function setValues(a_health_current: Number, a_health_maximum: Number, a_magicka_current: Number, a_magicka_maximum: Number, 
 								a_stamina_current: Number, a_stamina_maximum: Number)
 	{
-		// meter percentage
+		// meter percentage ====================================================================================================================
 
 		//health
 		healthField.SetText(Math.max(Math.round(a_health_current)) + " / " + Math.round(a_health_maximum));
@@ -140,7 +140,7 @@ class FloatingWidget extends MovieClip
 	{
 		var hudExtension = _root.hudExtension.floatingWidgets;
 			
-		// primary, secondary, flash Colors
+		// primary, secondary, flash Colors ====================================================================================================================
 		
 		//health	
 		var primaryHealthColor: Number = hudExtension["_primaryHealthColorDefault"];
@@ -159,7 +159,7 @@ class FloatingWidget extends MovieClip
 
 			
 		if(isFriendly()) {
-			// primary, secondary, flash colors if friendly
+			// primary, secondary, flash colors if friendly ====================================================================================================================
 
 			//health
 			primaryHealthColor = hudExtension["_primaryFriendlyColorDefault"];
@@ -177,7 +177,7 @@ class FloatingWidget extends MovieClip
 			flashStaminaColor = hudExtension["_flashStaminaFriendlyColorDefault"];
 		}
 		
-		// Set up backup colors?
+		// Set up backup colors? ====================================================================================================================
 
 		//health
 		var colorsHealth: Array = [(a_healthPrimaryColor != null) ? a_healthPrimaryColor : primaryHealthColor,
@@ -199,6 +199,7 @@ class FloatingWidget extends MovieClip
 							(a_staminaFlashColor != null) ? a_staminaFlashColor : flashStaminaColor];
 		
 		StaminaMeter.setColors(colorsStamina[0], colorsStamina[1], colorsStamina[2]);
+		
 		updateTextFields();
 	}
 	
@@ -206,16 +207,45 @@ class FloatingWidget extends MovieClip
 	{
 		var hudExtension = _root.hudExtension.floatingWidgets;
 		
-		var nameFormat = new TextFormat();
-		nameFormat.size = hudExtension["_nameSize"];
+
+		// Name xxxNameField ====================================================================================================================
+
+		//health
+		var nameHealthFormat = new TextFormat();
+		nameHealthFormat.size = hudExtension["_nameHealthSize"];
 		if(isFriendly())
-			nameFormat.color = hudExtension["_nameColorFriendly"];
+			nameHealthFormat.color = hudExtension["_nameHealthColorFriendly"];
 		else
-			nameFormat.color = hudExtension["_nameColorHostile"];
+			nameHealthFormat.color = hudExtension["_nameHealthColorHostile"];
 		
-		nameFormat.alignment = hudExtension["_nameAlignment"];
-		nameField.setTextFormat(nameFormat);
+		nameHealthFormat.alignment = hudExtension["_nameHealthAlignment"];
+		healthNameField.setTextFormat(nameHealthFormat);
+
+		//magicka
+		var nameMagickaFormat = new TextFormat();
+		nameMagickaFormat.size = hudExtension["_nameMagickaSize"];
+		if(isFriendly())
+			nameMagickaFormat.color = hudExtension["_nameMagickaColorFriendly"];
+		else
+			nameMagickaFormat.color = hudExtension["_nameMagickaColorHostile"];
 		
+		nameMagickaFormat.alignment = hudExtension["_nameMagickaAlignment"];
+		magickaNameField.setTextFormat(nameMagickaFormat);
+
+		//stamina
+		var nameStaminaFormat = new TextFormat();
+		nameStaminaFormat.size = hudExtension["_nameStaminaSize"];
+		if(isFriendly())
+			nameStaminaFormat.color = hudExtension["_nameStaminaColorFriendly"];
+		else
+			nameStaminaFormat.color = hudExtension["_nameStaminaColorHostile"];
+		
+		nameStaminaFormat.alignment = hudExtension["_nameStaminaAlignment"];
+		staminaNameField.setTextFormat(nameStaminaFormat);
+		
+		// xFormat ====================================================================================================================
+
+		//health
 		var healthFormat = new TextFormat();
 		healthFormat.size = hudExtension["_healthSize"];
 		
@@ -226,6 +256,30 @@ class FloatingWidget extends MovieClip
 
 		healthFormat.alignment = hudExtension["_healthAlignment"];
 		healthField.setTextFormat(healthFormat);
+
+		//magicka
+		var magickaFormat = new TextFormat();
+		magickaFormat.size = hudExtension["_magickaSize"];
+		
+		if(isFriendly())
+			magickaFormat.color = hudExtension["_magickaColorFriendly"];
+		else
+			magickaFormat.color = hudExtension["_magickaColorHostile"];
+
+		magickaFormat.alignment = hudExtension["_magickaAlignment"];
+		magickaField.setTextFormat(magickaFormat);
+
+		//stamina
+		var staminaFormat = new TextFormat();
+		staminaFormat.size = hudExtension["_staminaSize"];
+		
+		if(isFriendly())
+			staminaFormat.color = hudExtension["_staminaColorFriendly"];
+		else
+			staminaFormat.color = hudExtension["_staminaColorHostile"];
+
+		staminaFormat.alignment = hudExtension["_staminaAlignment"];
+		staminaField.setTextFormat(staminaFormat);
 	}
 	
 	public function setFillDirection(a_fill: String)
